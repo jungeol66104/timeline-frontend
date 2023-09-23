@@ -4,7 +4,7 @@ const TimelinePage = () => {
     return (
         <>
             <TimelineContents />
-            <Timeline />
+            {/*<Timeline />*/}
         </>
     )
 }

@@ -7,11 +7,11 @@ const Layout = ({ children } : {children: ReactNode}) => {
     const [title, setTitle] = useState('Timeline')
 
     return (
-        <>
+        <div className={'layout'}>
             <Navbar title={title}/>
             <main>{children}</main>
             <Footer />
-        </>
+        </div>
     )
 }
 
