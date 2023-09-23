@@ -1,9 +1,18 @@
-import React, {useEffect, useState, useRef, RefObject} from "react";
-import events, { Event } from '../public/events'
+import React, {RefObject, useEffect, useRef, useState} from "react";
+import events, {Event} from '../public/events'
 
 const Timeline = () => {
     const timelineRef: RefObject<HTMLDivElement> = useRef(null)
-    const numOfEvents: number = events.length
+    const [currentDepth, setCurrentDepth] = useState(0)
+    const [currentEvents, setCurrentEvents] = useState(events.filter((event) => event.depth = 0))
+    const numOfEvents: number = currentEvents.length
+    console.log(currentEvents)
+    console.log(events)
+    const filterEvents = (depth: number, events: Event[]) => {
+        return events.filter((event) => {
+            return event.depth <= depth
+        })
+    }
 
     // swipe event handling (touch, touchpad&wheel)
     useEffect(() => {
@@ -54,7 +63,7 @@ const Timeline = () => {
     return (
         <div ref={timelineRef} className='ml-5 mr-5'>
             <BodyLine numOfEvents={numOfEvents} />
-            {events.map((event, i) => {
+            {currentEvents.map((event) => {
                 return <EventBox key={event.id} event={event}/>
             })}
         </div>
