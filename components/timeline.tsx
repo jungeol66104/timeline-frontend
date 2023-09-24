@@ -1,5 +1,6 @@
 import React, {RefObject, useEffect, useRef, useState} from "react";
 import events, {Event} from '../public/events'
+import gsap from 'gsap'
 
 const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) => {
 
@@ -15,6 +16,15 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
 
     // vars
     const numOfEvents: number = currentEvents.length
+    const eventsWithDistance = currentEvents.map(event => {
+        if (prevEvents?.includes(event)) {
+            const prevOrder = prevEvents?.findIndex(pEvent => pEvent.id === event.id) - prevEvents?.findIndex(pEvent => pEvent.id === swipedEventId)
+            const currentOrder = currentEvents?.findIndex(cEvent => cEvent.id === event.id) - currentEvents?.findIndex(cEvent => cEvent.id === swipedEventId)
+            const distance = (currentOrder - prevOrder) * 122
+            return {...event, distance: distance}
+        }
+        return event
+    })
 
     // scrollTop setup after zoom
     useEffect(() => {
@@ -104,7 +114,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
     return (
         <div ref={timelineRef} className='ml-5 mr-5 max-w-lg'>
             <BodyLine numOfEvents={numOfEvents} />
-            {currentEvents.map((event) => {
+            {eventsWithDistance.map((event: Event) => {
                 return <EventBox key={event.id} event={event} />
             })}
         </div>
@@ -123,10 +133,33 @@ const BodyLine = ({numOfEvents}: {numOfEvents:number}) => {
 }
 
 const EventBox = ( {event} : {event: Event} ) => {
-    let animation = 'animate-fadeIn'
+    const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
+    let animation =  event.distance ? '' : 'animate-fadeIn'
+
+    // transition effect for remained events
+    useEffect(() => {
+        const eventBox = eventBoxRef.current
+        if (!eventBox) return
+        const tl = gsap.timeline()
+        tl.fromTo(eventBox,
+            {
+                y: event.distance ? -event.distance : '0',
+            },
+            {
+                y: '0',
+                duration: 1,
+                ease: 'ease-in-out',
+            }
+        )
+        tl.play()
+
+        return ()=> {
+            tl.kill()
+        }
+    }, );
 
     return (
-        <div className={`flex pt-[5px] pb-[5px] ${animation}`}>
+        <div ref={eventBoxRef} className={`flex pt-[5px] pb-[5px] ${animation}`}>
             <EventNode />
             <EventContent event={event}/>
         </div>
