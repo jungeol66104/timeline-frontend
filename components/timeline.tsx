@@ -1,28 +1,35 @@
 import React, {RefObject, useEffect, useRef, useState} from "react";
 import events, {Event} from '../public/events'
 
-const Timeline = ({ scrollWrapper }: {scrollWrapper: HTMLDivElement | null}) => {
-    
+const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) => {
+
     // refs
     const timelineRef: RefObject<HTMLDivElement> = useRef(null)
 
     // states
     const [currentDepth, setCurrentDepth] = useState(0)
     const [currentEvents, setCurrentEvents] = useState(events.filter((event) => event.depth === 0))
-    const [prevEvents, setPrevEvents] = useState(null)
+    const [prevEvents, setPrevEvents] = useState<Event[] | null >(null)
     const [swipedEventId, setSwipedEventId] = useState<number | null>(null)
+    const [scrollTop, setScrollTop] = useState(0)
+
     // vars
     const numOfEvents: number = currentEvents.length
 
-    
-    const filterEvents = (depth: number, events: Event[]) => {
-        return events.filter((event) => {
-            return event.depth <= depth
-        })
-    }
+    // scrollTop setup after zoom
+    useEffect(() => {
+        const scrollWrapper = scrollRef.current
+        if (scrollWrapper) {
+            scrollWrapper.scrollTop = scrollTop
+        }
+    },[scrollTop])
 
     // swipe event handling (touch, touchpad&wheel)
     useEffect(() => {
+        // define ref nodes after rendering
+        const scrollWrapper = scrollRef.current
+        const timeline = timelineRef.current
+        let isScrolling = false
 
     //     let touchStartX: number | null = null;// To store the swiped child element
     //     const handleTouchStart = (e: TouchEvent) => {
@@ -43,22 +50,41 @@ const Timeline = ({ scrollWrapper }: {scrollWrapper: HTMLDivElement | null}) => 
     //         }
 
         const handleWheel = (e: WheelEvent) => {
-            if (e.deltaX !== 0) {
+            if (!isScrolling && e.deltaX !== 0) {
                 e.preventDefault()
                 e.stopPropagation()
 
-                if (e.deltaX < -75) { //must work on
-                    // let ClientYInTimeline = htmlRef.scrollTop + e.clientY - 60
-                    // let eventOrder = Math.floor((ClientYInTimeline - 20) / 122)
-                    // let eventId = currentEvents[eventOrder].id
+                if (e.deltaX < -75) {
+                    //no more additional scrolling
+                    isScrolling = true
 
-                    // setSwipedEventId(eventId)
-                    setCurrentEvents(filterEvents(currentDepth + 1, events))
+                    // get event id
+                    if (!scrollWrapper) return
+                    let ClientYInTimeline = scrollWrapper.scrollTop + e.clientY
+                    let eventOrder = Math.floor((ClientYInTimeline - 70) / 122)
+                    let eventId = currentEvents[eventOrder].id
+
+                    // get new scrollTop
+                    let eventTop = 70 + eventOrder * 122
+                    const filterEvents = (depth: number, events: Event[]) => {
+                        if (currentDepth === 1) return // last zoom check
+                        return events.filter(event => event.depth <= depth)
+                    }
+                    let newEvents = filterEvents(currentDepth + 1, events)
+                    if (!newEvents) return //no more zoom im possible
+                    let newEventOrder = newEvents.findIndex(event => event.id === eventId)
+                    let newClientYInTimeline = 70 + 122 * newEventOrder
+                    let newScrollTop = newClientYInTimeline - eventTop
+
+                    setScrollTop(newScrollTop)
                     setCurrentDepth(prev => prev + 1)
+                    setCurrentEvents(newEvents)
+                    setPrevEvents(currentEvents)
+                    setSwipedEventId(eventId)
+
                 }
             }
         }
-        const timeline = timelineRef.current
 
         if(timeline) {
             // timeline.addEventListener('touchstart', handleTouchStart);
@@ -89,7 +115,7 @@ export default Timeline
 
 const BodyLine = ({numOfEvents}: {numOfEvents:number}) => {
     return (
-        <div className={`w-3 h-5 relative`}>
+        <div className={`w-3 h-2.5 relative animate-fadeIn`}>
             <div className={`absolute w-0.5 bg-gray-400 left-1/2`} style={{height: `${numOfEvents * 122 + 30}px`, transform:'translate(-50%,-0)'}}></div>
             <div className={`absolute w-0.5 bg-gray-600 left-1/2 top-5`} style={{height: `${numOfEvents * 122 - 10}px`, transform:'translate(-50%,-0)'}}></div>
         </div>
@@ -98,7 +124,7 @@ const BodyLine = ({numOfEvents}: {numOfEvents:number}) => {
 
 const EventBox = ( {event} : {event: Event} ) => {
     return (
-        <div className='flex pb-2.5'>
+        <div className='flex pt-[5px] pb-[5px] animate-fadeIn' >
             <EventNode />
             <EventContent event={event}/>
         </div>
