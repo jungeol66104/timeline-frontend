@@ -115,5 +115,6 @@ export interface Event {
     title: string
     content: string
     depth: number
+    distance?: number
 }
 

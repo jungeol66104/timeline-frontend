@@ -50,11 +50,10 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
     //         }
 
         const handleWheel = (e: WheelEvent) => {
-            if (!isScrolling && e.deltaX !== 0) {
+            if (e.deltaX !== 0) {
                 e.preventDefault()
                 e.stopPropagation()
-
-                if (e.deltaX < -75) {
+                if (!isScrolling && e.deltaX < -75) {
                     //no more additional scrolling
                     isScrolling = true
 
@@ -65,7 +64,9 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                     let eventId = currentEvents[eventOrder].id
 
                     // get new scrollTop
-                    let eventTop = 70 + eventOrder * 122
+                    let eventTop = 70 + eventOrder * 122 - scrollWrapper.scrollTop //not right
+
+                    // (temporary function) for filtering events that match currentDepth
                     const filterEvents = (depth: number, events: Event[]) => {
                         if (currentDepth === 1) return // last zoom check
                         return events.filter(event => event.depth <= depth)
@@ -81,7 +82,6 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                     setCurrentEvents(newEvents)
                     setPrevEvents(currentEvents)
                     setSwipedEventId(eventId)
-
                 }
             }
         }
@@ -105,7 +105,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
         <div ref={timelineRef} className='ml-5 mr-5 max-w-lg'>
             <BodyLine numOfEvents={numOfEvents} />
             {currentEvents.map((event) => {
-                return <EventBox key={event.id} event={event}/>
+                return <EventBox key={event.id} event={event} />
             })}
         </div>
     )
@@ -116,15 +116,17 @@ export default Timeline
 const BodyLine = ({numOfEvents}: {numOfEvents:number}) => {
     return (
         <div className={`w-3 h-2.5 relative animate-fadeIn`}>
-            <div className={`absolute w-0.5 bg-gray-400 left-1/2`} style={{height: `${numOfEvents * 122 + 30}px`, transform:'translate(-50%,-0)'}}></div>
-            <div className={`absolute w-0.5 bg-gray-600 left-1/2 top-5`} style={{height: `${numOfEvents * 122 - 10}px`, transform:'translate(-50%,-0)'}}></div>
+            <div className={`absolute w-0.5 bg-gray-400 left-1/2`} style={{height: `${numOfEvents * 122 + 20}px`, transform:'translate(-50%,-0)'}}></div>
+            <div className={`absolute w-0.5 bg-gray-600 left-1/2 top-[15px]`} style={{height: `${numOfEvents * 122 - 10}px`, transform:'translate(-50%,-0)'}}></div>
         </div>
     )
 }
 
 const EventBox = ( {event} : {event: Event} ) => {
+    let animation = 'animate-fadeIn'
+
     return (
-        <div className='flex pt-[5px] pb-[5px] animate-fadeIn' >
+        <div className={`flex pt-[5px] pb-[5px] ${animation}`}>
             <EventNode />
             <EventContent event={event}/>
         </div>

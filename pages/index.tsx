@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
       // scroll happening in this layer
-    <div ref={scrollRef} className={'index pt-[60px] h-screen overflow-scroll'}>
+    <div ref={scrollRef} className={'index pt-[60px] h-screen overflow-scroll flex justify-center'}>
         <Timeline scrollRef={scrollRef} />
     </div>
   )
