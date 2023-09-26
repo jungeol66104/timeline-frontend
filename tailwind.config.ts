@@ -14,13 +14,22 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       animation: {
-        'fadeIn' : 'fadeInKeyframe 1.5s ease-in-out both'
+        'fadeIn' : 'fadeInKeyframe 1.5s ease-in-out both',
+        'fadeInForSearch' : 'fadeInForSearchKeyframe 1.5s ease-in-out both'
       },
       keyframes: {
         fadeInKeyframe: {
           '0%' :{ opacity: '0' },
           '100%' :{ opacity: '1' }
         },
+        fadeInForSearchKeyframe: {
+          '0%' :{ opacity: '0' },
+          '100%' :{ opacity: '0.5' }
+        },
+        bottomUpSlideKeyframe: {
+          '0%' : {translateY: '-97vh'},
+          '100%': {translateY: '0'}
+        }
       }
     },
   },

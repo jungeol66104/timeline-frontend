@@ -11,8 +11,16 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
     const [currentDepth, setCurrentDepth] = useState(0)
     const [currentEvents, setCurrentEvents] = useState(events.filter((event) => event.depth === 0))
     const [prevEvents, setPrevEvents] = useState<Event[] | null >(null)
-    const [swipedEventId, setSwipedEventId] = useState<number | null>(null)
+    const [swipedEventId, setSwipedEventId] = useState(0)
     const [scrollTop, setScrollTop] = useState(0)
+
+    // redux
+
+
+    // prevents additional zoom
+    const [waiting, setWaiting] = useState(0)
+    let isScrolling = true
+    setTimeout(() => {isScrolling = false}, 500)
 
     // vars
     const numOfEvents: number = currentEvents.length
@@ -25,94 +33,108 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
         }
         return event
     })
+    const aboveTimelineHeight = 70
+    const eventBoxHeight = 122
 
-    // scrollTop setup after zoom
+    // scroll setup
     useEffect(() => {
         const scrollWrapper = scrollRef.current
-        if (scrollWrapper) {
-            scrollWrapper.scrollTop = scrollTop
-        }
+
+        if (!scrollWrapper) return
+        scrollWrapper.scrollTop = scrollTop
     },[scrollTop])
 
-    // swipe event handling (touch, touchpad&wheel)
+    // swipe event handling
     useEffect(() => {
-        // define ref nodes after rendering
+        // ref elements & null check
         const scrollWrapper = scrollRef.current
         const timeline = timelineRef.current
-        let isScrolling = false
+        if (!scrollWrapper || !timeline) return
 
-    //     let touchStartX: number | null = null;// To store the swiped child element
-    //     const handleTouchStart = (e: TouchEvent) => {
-    //         touchStartX = e.touches[0].clientX;
-    //     };
-    //
-    //     const handleTouchEnd = (e: TouchEvent) => {
-    //         if (touchStartX === null) return; // No touchstart recorded
-    //
-    //         const touchEndX = e.changedTouches[0].clientX;
-    //         const deltaX = touchEndX - touchStartX;
-    //
-    //         if (deltaX > 50) {
-    //             // A right-to-left swipe (adjust the threshold as needed)
-    //             e.preventDefault(); // Prevent the default browser back navigation behavior
-    //             }
-    //         touchStartX = null; // Reset touch start
-    //         }
+        // vars
+
+        // functions
+        // fetch event
+
+
+        // getReferEvent (scrollWrapper, JSevent, event type) =>  event with id, order, top
+        const getReferEvent = (scrollContainer: HTMLDivElement, e: WheelEvent, eType: string ) => {
+            if (eType === 'wheel') {
+                let clientYInContainer = scrollContainer.scrollTop + e.clientY
+                let eventOrder = Math.floor((clientYInContainer - aboveTimelineHeight) / eventBoxHeight)
+                let event: Event = currentEvents[eventOrder]
+                let top = aboveTimelineHeight + eventOrder * eventBoxHeight - scrollContainer.scrollTop
+                event.order = eventOrder
+                event.top = top
+                return event
+            }
+        }
+
+        const filterEvents = (depth: number, events: Event[]) => {
+            if (currentDepth === 2) return // last zoom check
+            return events.filter(event => event.depth <= depth)
+        }
+
+        // getEvents (depth, referEvent) => new events with distance or not, prev event
+        const getEvents = (depth: number, referEvent: Event, ) => {
+            if (currentDepth === 2) return
+            let newEvents = events.filter(event => event.depth <= depth)
+
+        }
+
+        // getScrollTop (newEvent, referEvent) => scrollTop
+        const getScrollTop = () => {
+
+        }
 
         const handleWheel = (e: WheelEvent) => {
             if (e.deltaX !== 0) {
                 e.preventDefault()
                 e.stopPropagation()
-                if (!isScrolling && e.deltaX < -75) {
-                    //no more additional scrolling
-                    isScrolling = true
 
+                // RTK used codes sit here
+
+
+                // left-right swipe, zoom in
+                if (!isScrolling && e.deltaX < -90) {
                     // get event id
-                    if (!scrollWrapper) return
                     let ClientYInTimeline = scrollWrapper.scrollTop + e.clientY
+                    if (ClientYInTimeline <= 70) return // if swipe happened in non-timeline area
                     let eventOrder = Math.floor((ClientYInTimeline - 70) / 122)
                     let eventId = currentEvents[eventOrder].id
 
-                    // get new scrollTop
-                    let eventTop = 70 + eventOrder * 122 - scrollWrapper.scrollTop //not right
+                    // get scrollTop
+                    let eventTop = 70 + eventOrder * 122 - scrollWrapper.scrollTop
 
-                    // (temporary function) for filtering events that match currentDepth
-                    const filterEvents = (depth: number, events: Event[]) => {
-                        if (currentDepth === 1) return // last zoom check
-                        return events.filter(event => event.depth <= depth)
-                    }
                     let newEvents = filterEvents(currentDepth + 1, events)
-                    if (!newEvents) return //no more zoom im possible
+                    if (!newEvents) return //no more zoom is possible
                     let newEventOrder = newEvents.findIndex(event => event.id === eventId)
                     let newClientYInTimeline = 70 + 122 * newEventOrder
                     let newScrollTop = newClientYInTimeline - eventTop
 
-                    setScrollTop(newScrollTop)
                     setCurrentDepth(prev => prev + 1)
                     setCurrentEvents(newEvents)
                     setPrevEvents(currentEvents)
                     setSwipedEventId(eventId)
+                    setScrollTop(newScrollTop)
+                    setWaiting(500)
                 }
             }
         }
 
         if(timeline) {
-            // timeline.addEventListener('touchstart', handleTouchStart);
-            // timeline.addEventListener('touchend', handleTouchEnd);
             timeline.addEventListener('wheel' , handleWheel);
         }
 
         return () => {
             if(timeline) {
-                // timeline.removeEventListener('touchstart', handleTouchStart);
-                // timeline.removeEventListener('touchend', handleTouchEnd);
                 timeline.removeEventListener('wheel', handleWheel);
             }
         };
-    }, []);
+    });
 
     return (
-        <div ref={timelineRef} className='ml-5 mr-5 max-w-lg'>
+        <div ref={timelineRef} className='ml-5 mr-5 mb-2.5 h-max max-w-lg'>
             <BodyLine numOfEvents={numOfEvents} />
             {eventsWithDistance.map((event: Event) => {
                 return <EventBox key={event.id} event={event} />
@@ -132,7 +154,7 @@ const BodyLine = ({numOfEvents}: {numOfEvents:number}) => {
     )
 }
 
-const EventBox = ( {event} : {event: Event} ) => {
+const EventBox = ({event} : {event: Event}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
     let animation =  event.distance ? '' : 'animate-fadeIn'
 
@@ -152,7 +174,6 @@ const EventBox = ( {event} : {event: Event} ) => {
             }
         )
         tl.play()
-
         return ()=> {
             tl.kill()
         }
@@ -174,11 +195,11 @@ const EventNode = () => {
     )
 }
 
-const EventContent = ( {event} : {event: Event}) => {
+const EventContent = ({event} : {event: Event}) => {
     return (
         <div className="w-full h-28 bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5">
             <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
-            <h6 className={'mt-0.5 font-black'}>{event.title}</h6>
+            <div className={'mt-0.5 font-black'}>{event.title}</div>
             <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'}>{event.content}</div>
         </div>
     )
