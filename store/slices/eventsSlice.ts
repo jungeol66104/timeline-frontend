@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import events, { Event }from '../../public/events'
+import events, { TimelineEvent }from '../../public/events'
 
 const eventsSlice = createSlice({
     name: 'events',
@@ -9,7 +9,11 @@ const eventsSlice = createSlice({
         currentEvents: events.filter(event => {
             return event.depth === 0
         }),
-        scrollTop: 0
+        currentEventsWithDistance: events.filter(event => {
+            return event.depth === 0
+        }),
+        scrollTop: 0,
+        lastAction: 'render'
     },
     reducers: {
         incrementDepth: state => {
@@ -19,13 +23,19 @@ const eventsSlice = createSlice({
             state.currentDepth -= 1
         },
         updateEvents: (state, action) => {
-            //update fetched events to currentEvents
+            state.currentEvents = action.payload
+        },
+        updateEventsWithDistance: (state, action) => {
+            state.currentEventsWithDistance = action.payload
         },
         updateScrollTop: (state, action) => {
-            //update calculated scrollTop
+            state.scrollTop = action.payload
+        },
+        updateLastAction: (state, action) => {
+            state.lastAction = action.payload
         }
     },
 });
 
-export const { incrementDepth, decrementDepth, updateEvents, updateScrollTop} = eventsSlice.actions;
+export const { incrementDepth, decrementDepth, updateEvents, updateEventsWithDistance, updateScrollTop, updateLastAction} = eventsSlice.actions;
 export default eventsSlice.reducer;
