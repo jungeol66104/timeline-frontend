@@ -70,33 +70,17 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                 if (currentEvents?.includes(fEvent)) {
                     let currentOrder = currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) - swipedEvent.order
                     let newOrder = i - fetchedEvents.findIndex(fEvent2 => fEvent2.id === referEvent.id)
-                    console.log('distance: ' , newOrder, currentOrder)
                     return {...fEvent, distance: (newOrder - currentOrder) * eventBoxHeight}
                 }
                 return fEvent
             })
         }
-
-        // const getEventsWithDistance = (swipedEvent: EventWithOrderTop, fetchedEvents: TimelineEvent[]) => {
-        //    return fetchedEvents.map(event => {
-        //        if (currentEvents?.includes(event)) {
-        //            const currentOrder = currentEvents.findIndex(cEvent => cEvent.id === event.id) - currentEvents.findIndex(cEvent => cEvent.id === swipedEvent.id)
-        //            const newOrder = fetchedEvents.findIndex(fEvent => fEvent.id === event.id) - fetchedEvents.findIndex(fEvent => fEvent.id === swipedEvent.id)
-        //            let distance = (newOrder - currentOrder) * 122
-        //            console.log('distance: ', newOrder, currentOrder)
-        //            return {...event, distance: distance}
-        //        {}
-        //        console.log('fEvent not included in currentEvents')
-        //        return event
-        //    })
-        // }
-        const getScrollTop = (referEvent: EventWithOrderTop, newEvents: TimelineEvent[]) => {
-            if (!referEvent.top) return 0
-            let eventOrder = newEvents.findIndex(event => event.id === referEvent.id)
+        const getScrollTopTest = (swipedEvent: EventWithOrderTop, referEvent: EventWithOrderTop, fetchedEvents: TimelineEvent[]) => {
+            if (!swipedEvent.top) return 0
+            let eventOrder = fetchedEvents.findIndex(event => event.id === referEvent.id)
             let TopInContainer = aboveTimelineHeight + eventOrder * eventBoxHeight
-            return TopInContainer - referEvent.top
+            return TopInContainer - swipedEvent.top
         }
-
         const handleWheel = (e: WheelEvent) => {
             if (e.deltaX !== 0) {
                 e.preventDefault()
@@ -108,7 +92,8 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                     let fetchedEvents = fetchEvents(currentDepth + 1, events)
                     if (fetchedEvents === currentEvents) return // last zoom
                     let eventsWithDistance = getEventsWithDistance(swipedEvent, referEvent, fetchedEvents)
-                    let newScrollTop = getScrollTop(swipedEvent, eventsWithDistance)
+                    // let newScrollTop = getScrollTop(swipedEvent, eventsWithDistance)
+                    let newScrollTop = getScrollTopTest(swipedEvent, referEvent, fetchedEvents)
 
                     dispatch(incrementDepth())
                     dispatch(updateEvents(fetchedEvents))
@@ -125,7 +110,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                         referEvent = getReferEvent(swipedEvent, fetchedEvents)
                     }
                     let eventsWithDistance = getEventsWithDistance(swipedEvent, referEvent, fetchedEvents)
-                    let newScrollTop = getScrollTop(swipedEvent, eventsWithDistance)
+                    let newScrollTop = getScrollTopTest(swipedEvent, referEvent, fetchedEvents)
 
                     dispatch(decrementDepth())
                     dispatch(updateEvents(fetchedEvents))
