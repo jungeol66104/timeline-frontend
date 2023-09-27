@@ -38,6 +38,10 @@ export interface TimelineEvent {
     depth: number
     distance?: number
     order?: number
-    top?: number
+    top?: number | null
 }
 
+export interface EventWithOrderTop extends TimelineEvent {
+    order: number
+    top: number | null
+}
