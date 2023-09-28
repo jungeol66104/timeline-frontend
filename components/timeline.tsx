@@ -60,6 +60,11 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
             if (depth === 3 || depth === -1) return currentEvents
             return events.filter(event => event.depth <= depth)
         }
+
+        const fetchEventsTest = (swipedEvent: EventWithOrderTop, depth: number, events: TimelineEvent[]) => {
+            
+        }
+
         const getReferEvent = (swipedEvent: EventWithOrderTop, fetchedEvents: TimelineEvent[]) => {
             let differences = fetchedEvents.map(fEvent => Math.abs(currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) - swipedEvent.order))
             let order = differences.findLastIndex(diff => diff === Math.min(...differences))
@@ -120,6 +125,11 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                 }
             }
         }
+
+        const handleScroll = (e: MouseEvent) => {
+
+        }
+
         if(timeline) {
             timeline.addEventListener('wheel' , handleWheel);
         }
