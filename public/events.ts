@@ -1,21 +1,12 @@
-// Function to generate a random integer within a range
 function getRandomInt(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-// Create an array of 71 objects
 const arrayOfObjects = Array(71).fill({});
-
-// Define the distribution
 const distribution = Array(7).fill(0).concat(Array(16).fill(1).concat(Array(48).fill(2)))
-
-// Shuffle the distribution array to randomize the depths
 for (let i = distribution.length - 1; i > 0; i--) {
     const j = getRandomInt(0, i);
     [distribution[i], distribution[j]] = [distribution[j], distribution[i]];
 }
-
-// Assign the random depths to the objects
 const events = arrayOfObjects.map((event, i) => {
     return (
         {
@@ -38,10 +29,10 @@ export interface TimelineEvent {
     depth: number
     distance?: number
     order?: number
-    top?: number | null
+    top?: number
 }
 
 export interface EventWithOrderTop extends TimelineEvent {
     order: number
-    top: number | null
+    top: number
 }
