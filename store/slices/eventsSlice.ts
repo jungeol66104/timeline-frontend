@@ -9,7 +9,10 @@ const eventsSlice = createSlice({
         currentEvents: events.filter(event => {
             return event.depth === 0
         }),
-        currentEventsWithDistance: events.filter(event => {
+        currentEventsWithEffect: events.filter(event => {
+            return event.depth === 0
+        }),
+        prevEventsWithEffect: events.filter(event => {
             return event.depth === 0
         }),
         scrollTop: 0,
@@ -22,11 +25,14 @@ const eventsSlice = createSlice({
         decrementDepth: state => {
             state.currentDepth -= 1
         },
-        updateEvents: (state, action) => {
+        updateCurrentEvents: (state, action) => {
             state.currentEvents = action.payload
         },
-        updateEventsWithDistance: (state, action) => {
-            state.currentEventsWithDistance = action.payload
+        updateCurrentEventsWithEffect: (state, action) => {
+            state.currentEventsWithEffect = action.payload
+        },
+        updatePrevEventsWithEffect: (state, action) => {
+            state.prevEventsWithEffect = action.payload
         },
         updateScrollTop: (state, action) => {
             state.scrollTop = action.payload
@@ -37,5 +43,5 @@ const eventsSlice = createSlice({
     },
 });
 
-export const { incrementDepth, decrementDepth, updateEvents, updateEventsWithDistance, updateScrollTop, updateLastAction} = eventsSlice.actions;
+export const { incrementDepth, decrementDepth, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect, updateScrollTop, updateLastAction} = eventsSlice.actions;
 export default eventsSlice.reducer;
