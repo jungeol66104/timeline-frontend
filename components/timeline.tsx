@@ -1,14 +1,7 @@
 import React, {RefObject, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store/store";
-import {
-    decrementDepth,
-    incrementDepth,
-    updateCurrentEvents,
-    updateCurrentEventsWithEffect,
-    updateLastAction,
-    updateScrollTop
-} from "@/store/slices/eventsSlice";
+import {decrementDepth, incrementDepth, updateCurrentEvents, updateCurrentEventsWithEffect, updateLastAction, updatePrevEventsWithEffect, updateScrollTop} from "@/store/slices/eventsSlice";
 import gsap from 'gsap'
 import events, {EventWithOrderTop, TimelineEvent} from '@/public/events'
 
@@ -20,6 +13,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
     const currentDepth = useSelector((state: RootState) => state.reducer.events.currentDepth)
     const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
     const currentEventsWithEffect = useSelector((state: RootState) => state.reducer.events.currentEventsWithEffect)
+    const prevEventsWithEffect = useSelector((state: RootState) => state.reducer.events.prevEventsWithEffect)
     const scrollTop = useSelector((state: RootState) => state.reducer.events.scrollTop)
     const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
     // vars
@@ -90,20 +84,44 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                     if (fetchedEvents.length === 41) break
                 }
             }
+
+            return {fetchedEvents, referEvent}
+        }
+        const fetchEventsForScroll = (scrollEvent: EventWithOrderTop, events: TimelineEvent[]) => {
+            // initial setup
+            let referEvent = scrollEvent
+            let targetOrderInEvents = events.findIndex(event => event.id === referEvent.id)
+            let addedEvents: TimelineEvent[] = []
+            let fetchedEvents = [...currentEvents]
+            if (scrollEvent.order === 0) {
+                let eventsAboveTargetWithDepth = events.slice(0, targetOrderInEvents).filter(event => event.depth === currentDepth)
+                for(let i = eventsAboveTargetWithDepth.length-1; i>=0; i--) {
+                    addedEvents.unshift(eventsAboveTargetWithDepth[i])
+                    if (addedEvents.length === 21) break
+                }
+                fetchedEvents.unshift(...addedEvents)
+                fetchedEvents = fetchedEvents.slice(0, fetchedEvents.length - addedEvents.length + 1)
+            }
+            if (scrollEvent.order === currentEvents.length-1) {
+                let eventsBelowTargetWithDepth = events.slice(targetOrderInEvents + 1,).filter(event => event.depth === currentDepth)
+                for (let i = 0; i < eventsBelowTargetWithDepth.length; i++) {
+                    addedEvents.push(eventsBelowTargetWithDepth[i])
+                    if (addedEvents.length === 21) break
+                }
+                fetchedEvents.push(...addedEvents)
+                fetchedEvents = fetchedEvents.slice(addedEvents.length, )
+            }
             // disable scroll if current and fetched are the same
             if (fetchedEvents.length === currentEvents.length) {
                 let fetchedIds = fetchedEvents.map(fEvent => fEvent.id)
-                let currentIds = currentEvents.map(fEvent => fEvent.id)
+                let currentIds = currentEvents.map(cEvent => cEvent.id)
                 let isSame = !fetchedIds.some(fIds => !currentIds.includes(fIds))
                 if (isSame) {
                     let fetchedEvents = currentEvents
-                    return {fetchedEvents, swipedEvent} as unknown as {fetchedEvents: TimelineEvent[], referEvent: EventWithOrderTop}
+                    return {fetchedEvents, scrollEvent} as unknown as {fetchedEvents: TimelineEvent[], referEvent: EventWithOrderTop}
                 }
             }
             return {fetchedEvents, referEvent}
-        }
-        const fetchEventsForScroll = () => {
-
         }
         const getEventsWithEffect = (depth: number, swipedEvent: EventWithOrderTop, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[]) => {
             const fetchedEventsWithEffect = fetchedEvents.map((fEvent, i) => {
@@ -118,7 +136,14 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                 } else return fEvent
             })
             const currentEventsWithEffect = currentEvents.map(cEvent => {
-
+                if (!fetchedEvents.find(fEvent => fEvent.id === cEvent.id)) {
+                    if (depth > currentDepth) {
+                        referEvent.order = fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)
+                        let currentGap = currentEvents.findIndex(cEvent2 => cEvent2.id === cEvent.id) - swipedEvent.order
+                        let newGap = currentEvents.findIndex(cEvent2 => cEvent2.id === referEvent.id) > currentEvents.findIndex(cEvent2 => cEvent2.id === cEvent.id) ? -1 - referEvent.order : fetchedEvents.length - referEvent.order
+                        return {...cEvent, distance: (currentGap - newGap) * eventBoxHeight}
+                    } else return {...cEvent, fadeout: true}
+                } else return cEvent
             })
             return {fetchedEventsWithEffect, currentEventsWithEffect}
         }
@@ -143,6 +168,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                     dispatch(incrementDepth())
                     dispatch(updateCurrentEvents(fetchedEvents))
                     dispatch(updateCurrentEventsWithEffect(fetchedEventsWithEffect))
+                    dispatch(updatePrevEventsWithEffect(currentEventsWithEffect))
                     dispatch(updateScrollTop(newScrollTop))
                     dispatch(updateLastAction('zoomIn'))
                 } else if (!isScrolling && e.deltaX > 90) {
@@ -155,6 +181,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                     dispatch(decrementDepth())
                     dispatch(updateCurrentEvents(fetchedEvents))
                     dispatch(updateCurrentEventsWithEffect(fetchedEventsWithEffect))
+                    dispatch(updatePrevEventsWithEffect(currentEventsWithEffect))
                     dispatch(updateScrollTop(newScrollTop))
                     dispatch(updateLastAction('zoomOut'))
                 }
@@ -168,7 +195,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                 let order = 0
                 let top = aboveTimelineHeight + order * eventBoxHeight - scrollWrapper.scrollTop
                 const scrollEvent = {...currentEvents[order], order: order, top: top }
-                let { fetchedEvents, referEvent } = fetchEventsForZoom(currentDepth, scrollEvent, events)
+                let { fetchedEvents, referEvent } = fetchEventsForScroll(scrollEvent, events)
                 if (fetchedEvents === currentEvents) return
                 let newScrollTop = getScrollTop(scrollEvent, referEvent, fetchedEvents)
                 dispatch(updateCurrentEvents(fetchedEvents))
@@ -180,7 +207,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                 let order = currentEvents.length - 1
                 let top = aboveTimelineHeight + order * eventBoxHeight - scrollWrapper.scrollTop
                 const scrollEvent = {...currentEvents[order], order: order, top: top }
-                let { fetchedEvents, referEvent } = fetchEventsForZoom(currentDepth, scrollEvent, events)
+                let { fetchedEvents, referEvent } = fetchEventsForScroll(scrollEvent, events)
                 if (fetchedEvents === currentEvents) return
                 let newScrollTop = getScrollTop(scrollEvent, referEvent, fetchedEvents)
                 dispatch(updateCurrentEvents(fetchedEvents))

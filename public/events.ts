@@ -30,6 +30,7 @@ export interface TimelineEvent {
     distance?: number
     order?: number
     top?: number
+    fadeout?: boolean
 }
 
 export interface EventWithOrderTop extends TimelineEvent {
