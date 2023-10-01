@@ -26,7 +26,7 @@ export default Layout
 
 const Navbar = ({title, handleIsSearch} : {title: string, handleIsSearch: () => void}) => {
     return (
-        <div className={'fixed top-0 left-0 h-[60px] w-full bg-white pr-5 pl-5 shadow-md flex items-center justify-between z-20'}>
+        <div className={'fixed top-0 left-0 h-[60px] w-full bg-white pr-5 pl-5 shadow-md flex items-center justify-between z-30'}>
             <div className={'font-black text-2xl'}>{title}</div>
             <div className={'flex items-center gap-2.5'}>
                 <button><Image src={SearchSVG} alt={'search'} width={24} height={24} onClick={handleIsSearch} /></button>

@@ -15,12 +15,17 @@ const config: Config = {
       },
       animation: {
         'fadeIn' : 'fadeInKeyframe 1.5s ease-in-out both',
+        'fadeOut' : 'fadeOutKeyframe 0.6s ease-in-out both',
         'fadeInForSearch' : 'fadeInForSearchKeyframe 1.5s ease-in-out both'
       },
       keyframes: {
         fadeInKeyframe: {
           '0%' :{ opacity: '0' },
           '100%' :{ opacity: '1' }
+        },
+        fadeOutKeyframe: {
+          '0%' :{ opacity: '1' },
+          '100%' :{ opacity: '0' }
         },
         fadeInForSearchKeyframe: {
           '0%' :{ opacity: '0' },
@@ -33,8 +38,6 @@ const config: Config = {
       }
     },
   },
-  plugins: [
-
-  ],
+  plugins: []
 }
 export default config

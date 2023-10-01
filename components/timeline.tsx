@@ -13,7 +13,6 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
     const currentDepth = useSelector((state: RootState) => state.reducer.events.currentDepth)
     const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
     const currentEventsWithEffect = useSelector((state: RootState) => state.reducer.events.currentEventsWithEffect)
-    const prevEventsWithEffect = useSelector((state: RootState) => state.reducer.events.prevEventsWithEffect)
     const scrollTop = useSelector((state: RootState) => state.reducer.events.scrollTop)
     const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
     // vars
@@ -93,6 +92,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
             let targetOrderInEvents = events.findIndex(event => event.id === referEvent.id)
             let addedEvents: TimelineEvent[] = []
             let fetchedEvents = [...currentEvents]
+            // generates one more events when operates(error)
             if (scrollEvent.order === 0) {
                 let eventsAboveTargetWithDepth = events.slice(0, targetOrderInEvents).filter(event => event.depth === currentDepth)
                 for(let i = eventsAboveTargetWithDepth.length-1; i>=0; i--) {
@@ -135,17 +135,26 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                     return {...fEvent, distance: (currentGap - newGap) * eventBoxHeight}
                 } else return fEvent
             })
-            const currentEventsWithEffect = currentEvents.map(cEvent => {
+            let currentEventsWithAfterEffect = currentEvents.map(cEvent => {
                 if (!fetchedEvents.find(fEvent => fEvent.id === cEvent.id)) {
                     if (depth > currentDepth) {
                         referEvent.order = fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)
                         let currentGap = currentEvents.findIndex(cEvent2 => cEvent2.id === cEvent.id) - swipedEvent.order
                         let newGap = currentEvents.findIndex(cEvent2 => cEvent2.id === referEvent.id) > currentEvents.findIndex(cEvent2 => cEvent2.id === cEvent.id) ? -1 - referEvent.order : fetchedEvents.length - referEvent.order
-                        return {...cEvent, distance: (currentGap - newGap) * eventBoxHeight}
+                        return {...cEvent, distance: (newGap - currentGap) * eventBoxHeight}
                     } else return {...cEvent, fadeout: true}
                 } else return cEvent
             })
-            return {fetchedEventsWithEffect, currentEventsWithEffect}
+            currentEventsWithAfterEffect = fetchedEvents.map((fEvent, i) => {
+                let newGap = i - fetchedEvents.findIndex(fEvent2 => fEvent2.id === referEvent.id)
+                let orderInCurrent = currentEventsWithAfterEffect.findIndex(cEvent => cEvent.id === swipedEvent.id) + newGap
+                let eventInCurrent: TimelineEvent = currentEventsWithAfterEffect[orderInCurrent]
+                if(eventInCurrent && (eventInCurrent.fadeout || eventInCurrent.distance)) {
+                    return eventInCurrent
+                }
+                return fEvent
+            })
+            return {fetchedEventsWithEffect, fetchedEventsWithAfterEffect: currentEventsWithAfterEffect}
         }
         const getScrollTop = (swipedEvent: EventWithOrderTop, referEvent: EventWithOrderTop, fetchedEvents: TimelineEvent[]) => {
             if (!swipedEvent.top) return 0
@@ -162,13 +171,13 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                     let swipedEvent: EventWithOrderTop = getSwipedEvent(scrollWrapper, e)
                     let { fetchedEvents, referEvent} = fetchEventsForZoom(currentDepth + 1, swipedEvent, events)
                     if (fetchedEvents === currentEvents) return // last zoom
-                    let { fetchedEventsWithEffect, currentEventsWithEffect } = getEventsWithEffect(currentDepth + 1, swipedEvent, referEvent, fetchedEvents)
+                    let { fetchedEventsWithEffect, fetchedEventsWithAfterEffect } = getEventsWithEffect(currentDepth + 1, swipedEvent, referEvent, fetchedEvents)
                     let newScrollTop = getScrollTop(swipedEvent, referEvent, fetchedEvents)
 
                     dispatch(incrementDepth())
                     dispatch(updateCurrentEvents(fetchedEvents))
                     dispatch(updateCurrentEventsWithEffect(fetchedEventsWithEffect))
-                    dispatch(updatePrevEventsWithEffect(currentEventsWithEffect))
+                    dispatch(updatePrevEventsWithEffect(fetchedEventsWithAfterEffect))
                     dispatch(updateScrollTop(newScrollTop))
                     dispatch(updateLastAction('zoomIn'))
                 } else if (!isScrolling && e.deltaX > 90) {
@@ -176,12 +185,12 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
                     let swipedEvent: EventWithOrderTop = getSwipedEvent(scrollWrapper, e)
                     let { fetchedEvents, referEvent} = fetchEventsForZoom(currentDepth - 1, swipedEvent, events)
                     if (fetchedEvents === currentEvents) return // last zoom
-                    let { fetchedEventsWithEffect, currentEventsWithEffect } = getEventsWithEffect(currentDepth - 1, swipedEvent, referEvent, fetchedEvents)
+                    let { fetchedEventsWithEffect, fetchedEventsWithAfterEffect } = getEventsWithEffect(currentDepth - 1, swipedEvent, referEvent, fetchedEvents)
                     let newScrollTop = getScrollTop(swipedEvent, referEvent, fetchedEvents)
                     dispatch(decrementDepth())
                     dispatch(updateCurrentEvents(fetchedEvents))
                     dispatch(updateCurrentEventsWithEffect(fetchedEventsWithEffect))
-                    dispatch(updatePrevEventsWithEffect(currentEventsWithEffect))
+                    dispatch(updatePrevEventsWithEffect(fetchedEventsWithAfterEffect))
                     dispatch(updateScrollTop(newScrollTop))
                     dispatch(updateLastAction('zoomOut'))
                 }
@@ -224,11 +233,12 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
         };
     });
     return (
-        <div ref={timelineRef} className='ml-5 mr-5 mb-2.5 h-max max-w-lg'>
+        <div ref={timelineRef} className='ml-5 mr-5 mb-2.5 h-max max-w-lg relative'>
             <BodyLine />
             {currentEventsWithEffect.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event} />
             })}
+            {(lastAction === 'zoomIn' || lastAction === 'zoomOut') && <AfterEffect />}
         </div>
     )
 }
@@ -239,14 +249,16 @@ const BodyLine = () => {
 
     return (
         <div className={`w-3 h-2.5 relative animate-fadeIn`}>
-            <div className={`absolute w-0.5 bg-gray-400 left-1/2`} style={{height: `${currentEvents.length * 122 + 20}px`, transform:'translate(-50%,-0)'}}></div>
-            <div className={`absolute w-0.5 bg-gray-600 left-1/2 top-[15px]`} style={{height: `${currentEvents.length * 122 - 10}px`, transform:'translate(-50%,-0)'}}></div>
+            {/*<div className={`absolute w-0.5 bg-gray-400 left-1/2`} style={{height: `${currentEvents.length * 122 + 20}px`, transform:'translate(-50%,-0)'}}></div>*/}
+            <div className={`absolute w-0.5 bg-gray-600 left-1/2`} style={{height: `${currentEvents.length * 122 + 20}px`, transform:'translate(-50%,-0)'}}></div>
         </div>
     )
 }
+
 const EventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
-    let animation =  event.distance !== undefined ? '' : 'animate-fadeIn'
+    let animation = event.fadeout ? 'animate-fadeOut' : 'animate-fadeIn'
+    let zIndex = event.fadeout ? '' : 'z-20'
 
     // transition effect for remained events
     useEffect(() => {
@@ -258,12 +270,13 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
         return ()=> {tl.kill()}
     });
     return (
-        <div ref={eventBoxRef} className={`flex pt-[5px] pb-[5px] ${animation}`}>
+        <div ref={eventBoxRef} className={`relative flex pt-[5px] pb-[5px] ${animation} ${zIndex}`}>
             <EventNode />
             <EventContent event={event}/>
         </div>
     )
 }
+
 const EventNode = () => {
     return (
         <div className='w-3 mr-2.5 z-10'>
@@ -279,4 +292,22 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
             <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'}>{event.content}</div>
         </div>
     )
+}
+
+const AfterEffect = () => {
+    const prevEventsWithEffect = useSelector((state: RootState) => state.reducer.events.prevEventsWithEffect)
+
+    return (
+        <div className={'absolute top-2.5 left-0'}>
+            {prevEventsWithEffect.map((event: TimelineEvent) => {
+                if (event.fadeout || event.distance) {
+                    return <EventBox key={event.id} event={event} />
+                } return <BlankBox key={event.id} />
+            })}
+        </div>
+    )
+}
+
+const BlankBox = () => {
+    return  <div className={`pt-[5px] pb-[5px]`} style={{transform:'translate(0,-0)'}}><div className={'h-28'}></div></div>
 }
