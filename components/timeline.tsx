@@ -210,7 +210,7 @@ const BodyLine = () => {
 }
 const EventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
-    let animation = event.fadeout ? 'animate-fadeOut' : event.distance ? '' :'animate-fadeIn'
+    let animation = event.fadeout ? 'animate-fadeOut' : event.distance !== undefined ? '' :'animate-fadeIn'
     let zIndex = event.fadeout || animation === 'animate-fadeIn' ? '' : 'z-20'
     useEffect(() => {
         const eventBox = eventBoxRef.current
