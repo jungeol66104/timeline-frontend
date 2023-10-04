@@ -1,6 +1,6 @@
 import Image from "next/image";
 import CloseSVG from "../public/svg/close.svg"
-import SearchSVG from "@/public/svg/searchWhite.svg";
+import SearchInBarSVG from "@/public/svg/searchInBar.svg";
 import {RefObject, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store/store";
@@ -44,7 +44,7 @@ const SearchHeader = () => {
                  <button><Image src={CloseSVG} alt={'close'} width={22} height={22} onClick={() => dispatch(updateIsSearch())} /></button>
              </div>
             <div className={'flex gap-2.5 ml-4 mr-4 pt-2.5 pb-2.5 border-b-[1px]'}>
-                <div className={'flex-shrink-0 w-7 h-7 bg-gray-500 rounded-full flex align-middle justify-center'}><Image src={SearchSVG} alt={'search'} width={18} height={18} /></div>
+                <div className={'flex-shrink-0 w-7 h-7 bg-gray-500 rounded-full flex align-middle justify-center'}><Image src={SearchInBarSVG} alt={'searchInBar'} width={16} height={16} /></div>
                 <input ref={searchBarInputRef} className={'w-full focus:outline-0'}></input>
             </div>
          </>

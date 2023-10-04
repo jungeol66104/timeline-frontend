@@ -8,7 +8,7 @@ const TimelinePage = () => {
     const scrollRef: RefObject<HTMLDivElement> = useRef(null)
 
     return (
-        <div ref={scrollRef} className={'page flex-col justify-center'}>
+        <div ref={scrollRef} className={'page'}>
             <TimelineContents scrollRef={scrollRef} />
             <Timeline scrollRef={scrollRef}/>
         </div>
@@ -20,14 +20,17 @@ export default TimelinePage
 const TimelineContents = ({scrollRef}: {scrollRef: RefObject<HTMLDivElement>}) => {
     const router = useRouter()
     const dispatch = useDispatch()
-    dispatch(updateTitle(router.query.timeline))
+
+    useEffect(() => {
+        dispatch(updateTitle(router.query.timeline))
+    }, [router.query]);
 
     useEffect(() => {
         const scrollWrapper = scrollRef.current
         if (!scrollWrapper) return
 
         const handleScroll = () => {
-            if (scrollWrapper.scrollTop > 52) dispatch(updateShowTitle(true))
+            if (scrollWrapper.scrollTop > 52) {dispatch(updateShowTitle(true))}
             else dispatch(updateShowTitle(false))
         }
 

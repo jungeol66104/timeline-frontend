@@ -80,11 +80,10 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
             return {fetchedEvents, referEvent}
         }
         const fetchEventsForScroll = (scrollEvent: EventWithOrderTop, events: TimelineEvent[]) => {
-            // initial setup
             let referEvent = scrollEvent
             let targetOrderInEvents = events.findIndex(event => event.id === referEvent.id)
             let addedEvents: TimelineEvent[] = []
-            let fetchedEvents = [...currentEvents]
+            let fetchedEvents = [...currentEventsWithEffect]
             if (scrollEvent.order === 0) {
                 let eventsAboveTargetWithDepth = events.slice(0, targetOrderInEvents).filter(event => event.depth === currentDepth)
                 for(let i = eventsAboveTargetWithDepth.length - 1 ; i >= 0 ; i--) {
@@ -157,7 +156,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
             dispatch(updateScrollTop(newScrollTop))
             e.deltaX > 0 ? dispatch(updateLastAction('zoomOut')) : dispatch(updateLastAction('zoomIn'))
         }
-        const operateScroll = (scrollUp: boolean, scrollDown: boolean) => {
+        const operateScroll = (scrollUp: boolean) => {
             let order =  scrollUp ? 0 : currentEvents.length - 1
             let top = aboveTimelineHeight + order * eventBoxHeight - scrollWrapper.scrollTop
             const scrollEvent = {...currentEvents[order], order: order, top: top }
@@ -181,7 +180,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
             let viewportHeight = typeof window !== 'undefined' ? window.innerHeight : undefined
             let scrollUp = scrollWrapper.scrollTop < aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.1
             let scrollDown = scrollWrapper.scrollTop > aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.9 - (viewportHeight as number)
-            if (scrollUp || scrollDown) {operateScroll(scrollUp, scrollDown)}
+            if (scrollUp || scrollDown) {operateScroll(scrollUp)}
         }
 
         timeline.addEventListener('wheel' , handleWheel);
@@ -210,9 +209,12 @@ const BodyLine = () => {
 }
 const EventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
+
+    const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
     let animation = event.fadeout ? 'animate-fadeOut' : event.distance !== undefined ? '' :'animate-fadeIn'
     let zIndex = event.fadeout || animation === 'animate-fadeIn' ? '' : 'z-20'
     useEffect(() => {
+        if (lastAction === 'scroll') return
         const eventBox = eventBoxRef.current
         if (!eventBox) return
         const tl = gsap.timeline()
@@ -244,12 +246,11 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
 }
 const AfterEffect = () => {
     const prevEventsWithEffect = useSelector((state: RootState) => state.reducer.events.prevEventsWithEffect)
-
     return (
         <div className={'absolute top-2.5 left-0'}>
             {prevEventsWithEffect.map((event: TimelineEvent) => {
                 if (event.fadeout || event.distance) {
-                    return <EventBox key={event.id} event={event} />
+                    return <AfterEventBox key={event.id} event={event} />
                 } return <BlankBox key={event.id} />
             })}
         </div>
@@ -257,4 +258,22 @@ const AfterEffect = () => {
 }
 const BlankBox = () => {
     return <div className={`pt-[5px] pb-[5px]`} style={{transform:'translate(0,-0)'}}><div className={'h-28'}></div></div>
+}
+const AfterEventBox = ({event} : {event: TimelineEvent}) => {
+    const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
+    let zIndex = event.fadeout ? '' : 'z-20'
+    useEffect(() => {
+        const eventBox = eventBoxRef.current
+        if (!eventBox) return
+        const tl = gsap.timeline()
+        tl.fromTo(eventBox, {y: event.distance ? event.distance : '0'}, {y: '0', duration: 1, ease: 'ease-in-out'})
+        tl.play()
+        return ()=> {tl.kill()}
+    })
+    return (
+        <div ref={eventBoxRef} className={`relative flex pt-[5px] pb-[5px] animate-fadeOut ${zIndex}`}>
+            <EventNode />
+            <EventContent event={event}/>
+        </div>
+    )
 }

@@ -2,7 +2,6 @@ import {useRouter} from 'next/router'
 
 const eventPage = () => {
     const router = useRouter()
-
     // should fetch info from db by sending query
     return (
         <div className={'page'}>
