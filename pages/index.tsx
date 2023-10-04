@@ -1,15 +1,10 @@
-// import { Inter } from 'next/font/google'
-// const inter = Inter({ subsets: ['latin'] })
-import Timeline from '../components/timeline'
-import {useRef} from "react";
+import Link from "next/link";
 
 export default function Home() {
-    const scrollRef = useRef(null)
-
-  return (
-      // scroll happening in this layer
-    <div ref={scrollRef} className={'index pt-[60px] h-screen overflow-scroll flex justify-center'}>
-        <Timeline scrollRef={scrollRef} />
-    </div>
-  )
+    return (
+        <div className={'flex flex-col'}>
+            <Link href={"/timelines/전쟁"}>Timeline Page</Link>
+            <Link href={"/events/북한의 남침"}>Event Page</Link>
+        </div>
+    )
 }

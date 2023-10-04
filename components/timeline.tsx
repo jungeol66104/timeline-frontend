@@ -16,7 +16,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
     const scrollTop = useSelector((state: RootState) => state.reducer.events.scrollTop)
     const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
     // vars
-    const aboveTimelineHeight = 70
+    const aboveTimelineHeight = 82
     const eventBoxHeight = 122
     // prevents additional zoom
     let isScrolling = true
@@ -192,7 +192,7 @@ const Timeline = ({ scrollRef }: {scrollRef: React.RefObject<HTMLDivElement>}) =
         };
     });
     return (
-        <div ref={timelineRef} className='ml-5 mr-5 mb-2.5 h-max max-w-lg relative'>
+        <div ref={timelineRef} className='mb-2.5 h-max max-w-lg relative'>
             <BodyLine />
             {currentEventsWithEffect.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event} />
@@ -232,8 +232,11 @@ const EventNode = () => {
 }
 const EventContent = ({event} : {event: TimelineEvent}) => {
     return (
-        <div className="w-full h-28 bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5">
-            <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
+        <div className="relative w-full h-28 bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5">
+            <div className={'flex gap-2.5'}>
+                <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
+                <div className={'text-[12px] text-gray-500'}>#전쟁</div>
+            </div>
             <div className={'mt-0.5 font-black'}>{event.title}</div>
             <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'}>{event.content}</div>
         </div>
