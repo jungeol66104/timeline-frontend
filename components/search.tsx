@@ -50,7 +50,6 @@ const SearchHeader = () => {
          </>
      )
 }
-
 const SearchBodyBefore = () => {
     return (
         <>
