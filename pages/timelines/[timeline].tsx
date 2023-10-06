@@ -9,7 +9,7 @@ const TimelinePage = () => {
 
     return (
         <div ref={scrollRef} className={'page'}>
-            <TimelineContents scrollRef={scrollRef} />
+            {/*<TimelineContents scrollRef={scrollRef} />*/}
             <Timeline scrollRef={scrollRef}/>
         </div>
     )
