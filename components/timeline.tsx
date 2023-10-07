@@ -8,7 +8,8 @@ import {
     updateCurrentEventsWithEffect,
     updateLastAction,
     updatePrevEventsWithEffect,
-    updateScrollTop
+    updateScrollTop,
+    updateAfterEffectTop
 } from "@/store/slices/eventsSlice";
 import gsap from 'gsap'
 import events, {EventWithOrderTop, TimelineEvent} from '@/public/events'
@@ -57,7 +58,6 @@ const Timeline = ({ scrollRef }: {scrollRef: RefObject<HTMLDivElement>}) => {
             let top = aboveTimelineHeight + order * eventBoxHeight - scrollWrapper.scrollTop
             return {...currentEvents[order], order: order, top: top}
         }
-
         const getSwipedEventTest = (scrollWrapper: HTMLDivElement, e: WheelEvent) : EventWithOrderTop => {
             let clientYInContainer = scrollWrapper.scrollTop + e.clientY
             let arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + cEvent.overlap * 5)
@@ -364,6 +364,9 @@ export default Timeline
 const BodyLine = () => {
     const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
     const eventBoxHeight = 122
+    let arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + cEvent.overlap * 5)
+    let totalHeight = 0
+    arrayOfHeight.forEach(height => totalHeight += height)
     return <div className={`w-3 h-2.5 relative animate-fadeIn`}><div className={`absolute w-0.5 bg-gray-600 left-1/2`} style={{height: `${currentEvents.length * eventBoxHeight + 20}px`, transform:'translate(-50%,-0)'}}></div></div>
 }
 const EventBox = ({event} : {event: TimelineEvent}) => {
