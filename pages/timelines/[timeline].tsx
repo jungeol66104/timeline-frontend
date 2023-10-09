@@ -5,10 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateShowTitle, updateTitle} from "@/store/slices/layoutSlice";
 import {GetServerSideProps} from "next";
 import events, {initialEvents, TimelineEvent} from "@/public/events";
-import gsap from 'gsap'
-import {ScrollToPlugin} from 'gsap/dist/ScrollToPlugin'
-import {updateLastAction} from "@/store/slices/eventsSlice";
-import {RootState} from "@/store/store";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     try {

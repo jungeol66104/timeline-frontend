@@ -9,7 +9,7 @@ const eventsSlice = createSlice({
         currentEvents: dummyEvents,
         currentEventsWithEffect: dummyEvents,
         prevEventsWithEffect: dummyEvents,
-        scrollTop: 2000,
+        scrollTop: 0,
         afterEffectTop: 0,
         lastAction: 'render'
     },

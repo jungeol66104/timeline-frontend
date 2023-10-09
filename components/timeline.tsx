@@ -23,6 +23,8 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
     // vars
     const aboveTimelineHeight = 70
     const eventBoxHeight = 122
+    const arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + cEvent.overlap * 5)
+    const totalHeight = sum(arrayOfHeight)
     // prevents additional zoom
     let isScrolling = true
     if (lastAction === 'zoomIn' || lastAction === 'zoomOut') {setTimeout(() => {isScrolling = false}, 500)}
@@ -232,7 +234,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
         };
     });
     return (
-        <div ref={timelineRef} className='h-max max-w-lg relative'>
+        <div ref={timelineRef} className='flex flex-col max-w-lg relative overflow-hidden' style={{height: `${totalHeight + 20}px`}}>
             <BodyLine />
             {currentEventsWithEffect.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event} />
@@ -267,13 +269,11 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
         return ()=> {tl.kill()}
     })
     return (
-        <div ref={eventBoxRef} className={`eventBox relative flex pt-[5px] ${paddingBottom} ${animation} ${zIndex}`}>
+        <div ref={eventBoxRef} className={`relative flex pt-[5px] flex-shrink-0 ${paddingBottom} ${animation} ${zIndex}`}>
             <EventNode />
-            <div>
-                <EventContent event={event}/>
-                <OverlapContent1 event={event}/>
-                <OverlapContent2 event={event}/>
-            </div>
+            <EventContent event={event}/>
+            <OverlapContent1 event={event}/>
+            <OverlapContent2 event={event}/>
         </div>
     )
 }
@@ -325,7 +325,7 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
         <div className={"w-full h-28 bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5"}>
             <div className={'flex gap-2.5'}>
                 <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
-                <div className={'text-[12px] text-gray-500'}>#전쟁</div>
+                <div className={'text-[12px] text-gray-500 line-clamp-1 overflow-hidden'}>#전쟁</div>
             </div>
             <div className={'mt-0.5 font-black'}>{event.title}</div>
             <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'}>{event.content}</div>
@@ -341,7 +341,7 @@ const OverlapContent1 = ({event} : {event: TimelineEvent}) => {
 const OverlapContent2 = ({event} : {event: TimelineEvent}) => {
     const display = event.overlap === 2 ? '' : 'hidden'
     return (
-        <div className={`${display} absolute top-[25px] left-[32px] h-[102px] bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md -z-20`} style={{width: `calc(100% - 42px)`}}></div>
+        <div className={`${display} flex-shrink-0 absolute top-[25px] left-[32px] h-[102px] bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md -z-20`} style={{width: `calc(100% - 42px)`}}></div>
     )
 }
 
