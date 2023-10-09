@@ -1,29 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import events, { TimelineEvent }from '../../public/events'
-
-const julianDateToEvent = (julianDate: number, events: TimelineEvent[]): TimelineEvent => {
-    let julianDateEvents = events.filter(event => event.julianDate === julianDate)
-    let overlap = julianDateEvents.length - 1
-    if (overlap > 2) overlap = 2
-    let lowestDepth = Math.min(...julianDateEvents.map(jEvent => jEvent.depth))
-    return {...julianDateEvents.find(jEvent => jEvent.depth === lowestDepth), overlap: overlap} as TimelineEvent
-}
-const getInitialEvents = (events: TimelineEvent[])=> {
-    let initialEvents = events.filter(event => event.depth === 0)
-    let initialJulianDates = initialEvents.map(iEvent => iEvent.julianDate)
-    initialEvents = initialJulianDates.map(jDate => julianDateToEvent(jDate, events))
-    return initialEvents
-}
+import {dummyEvents} from "@/public/events";
 
 const eventsSlice = createSlice({
     name: 'events',
     initialState: {
         currentDepth: 0,
         // use fetched result later, this state is temporary
-        currentEvents: getInitialEvents(events),
-        currentEventsWithEffect: getInitialEvents(events),
-        prevEventsWithEffect: getInitialEvents(events),
-        scrollTop: 0,
+        currentEvents: dummyEvents,
+        currentEventsWithEffect: dummyEvents,
+        prevEventsWithEffect: dummyEvents,
+        scrollTop: 2000,
         afterEffectTop: 0,
         lastAction: 'render'
     },

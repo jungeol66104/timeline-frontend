@@ -1,16 +1,33 @@
 import Timeline from "@/components/timeline";
 import {RefObject, useEffect, useRef} from "react";
 import {useRouter} from "next/router";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateShowTitle, updateTitle} from "@/store/slices/layoutSlice";
+import {GetServerSideProps} from "next";
+import events, {initialEvents, TimelineEvent} from "@/public/events";
+import gsap from 'gsap'
+import {ScrollToPlugin} from 'gsap/dist/ScrollToPlugin'
+import {updateLastAction} from "@/store/slices/eventsSlice";
+import {RootState} from "@/store/store";
 
-const TimelinePage = () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    try {
+        const initialData = initialEvents
+        const data = events
+        return {props: {data, initialData}}
+    } catch (error) {
+        console.error('Error fetching initial data during SSR:', error);
+        return {props: {data:[], initialData: []}}
+    }
+}
+
+const TimelinePage = ({data, initialData}:{data:TimelineEvent[], initialData: TimelineEvent[]}) => {
     const scrollRef: RefObject<HTMLDivElement> = useRef(null)
 
     return (
         <div ref={scrollRef} className={'page'}>
             {/*<TimelineContents scrollRef={scrollRef} />*/}
-            <Timeline scrollRef={scrollRef}/>
+            <Timeline data={data} initialData={initialData} scrollRef={scrollRef}/>
         </div>
     )
 }

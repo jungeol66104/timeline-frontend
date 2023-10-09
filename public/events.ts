@@ -1,4 +1,4 @@
-function getRandomInt(min: number, max: number) {
+const getRandomInt = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 const arrayOfObjects = Array(71).fill({});
@@ -12,7 +12,7 @@ const events = arrayOfObjects.map((event, i) => {
         {
             id: i,
             date: '0000. 00. 00.',
-            julianDate: getRandomInt(0, 50),
+            julianDate: getRandomInt(0, 60),
             importance: getRandomInt(1, 1000),
             depth: distribution[i],
             title: distribution[i] === 0 ? '메이저' : distribution[i] === 1 ? '마이너' : '라스트',
@@ -24,6 +24,101 @@ const events = arrayOfObjects.map((event, i) => {
 }).sort((eventA, eventB) => eventA.julianDate - eventB.julianDate)
 
 export default events
+
+const julianDateToEvent = (julianDate: number, events: TimelineEvent[]): TimelineEvent => {
+    let julianDateEvents = events.filter(event => event.julianDate === julianDate)
+    let overlap = julianDateEvents.length - 1
+    if (overlap > 2) overlap = 2
+    let lowestDepth = Math.min(...julianDateEvents.map(jEvent => jEvent.depth))
+    return {...julianDateEvents.find(jEvent => jEvent.depth === lowestDepth), overlap: overlap} as TimelineEvent
+}
+const getInitialEvents = (events: TimelineEvent[])=> {
+    let initialEvents = events.filter(event => event.depth === 0)
+    let initialJulianDates = Array.from(new Set(initialEvents.map(iEvent => iEvent.julianDate)))
+    initialEvents = initialJulianDates.map(jDate => julianDateToEvent(jDate, events))
+    return initialEvents
+}
+export const initialEvents = getInitialEvents(events)
+
+export const dummyEvents = [
+    {
+        id: 0,
+        date: '0000. 00. 00.',
+        julianDate: 0,
+        importance: 0,
+        depth: 0,
+        title: "0000",
+        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
+        tag: '#전쟁',
+        overlap: 0
+    },
+    {
+        id: 1,
+        date: '0000. 00. 00.',
+        julianDate: 0,
+        importance: 0,
+        depth: 0,
+        title: "0000",
+        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
+        tag: '#전쟁',
+        overlap: 0
+    },
+    {
+        id: 2,
+        date: '0000. 00. 00.',
+        julianDate: 0,
+        importance: 0,
+        depth: 0,
+        title: "0000",
+        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
+        tag: '#전쟁',
+        overlap: 0
+    },
+    {
+        id: 3,
+        date: '0000. 00. 00.',
+        julianDate: 0,
+        importance: 0,
+        depth: 0,
+        title: "0000",
+        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
+        tag: '#전쟁',
+        overlap: 0
+    },
+    {
+        id: 4,
+        date: '0000. 00. 00.',
+        julianDate: 0,
+        importance: 0,
+        depth: 0,
+        title: "0000",
+        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
+        tag: '#전쟁',
+        overlap: 0
+    },
+    {
+        id: 5,
+        date: '0000. 00. 00.',
+        julianDate: 0,
+        importance: 0,
+        depth: 0,
+        title: "0000",
+        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
+        tag: '#전쟁',
+        overlap: 0
+    },
+    {
+        id: 6,
+        date: '0000. 00. 00.',
+        julianDate: 0,
+        importance: 0,
+        depth: 0,
+        title: "0000",
+        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
+        tag: '#전쟁',
+        overlap: 0
+    }
+]
 
 export interface TimelineEvent {
     id: number
