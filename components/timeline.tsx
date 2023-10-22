@@ -22,8 +22,9 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
     const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
     // vars
     const aboveTimelineHeight = 70
-    const eventBoxHeight = 122
-    const arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + cEvent.overlap * 5)
+    const eventBoxHeight = 124
+    const overlapBottom = 6
+    const arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + cEvent.overlap * overlapBottom)
     const totalHeight = sum(arrayOfHeight)
     // prevents additional zoom
     let isScrolling = true
@@ -56,7 +57,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
         }
         const getSwipedEventTest = (scrollWrapper: HTMLDivElement, e: WheelEvent) : EventWithOrderTop => {
             let clientYInContainer = scrollWrapper.scrollTop + e.clientY
-            let arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + cEvent.overlap * 5)
+            let arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + cEvent.overlap * overlapBottom)
             let arrayOfTop = arrayOfHeight.map((height, i) => sum(arrayOfHeight.slice(0,i)))
             let order = arrayOfTop.findLastIndex(top => top < clientYInContainer - aboveTimelineHeight)
             let top = arrayOfTop[order] + aboveTimelineHeight - scrollWrapper.scrollTop
@@ -135,21 +136,21 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
                     if (depth > currentDepth) {
                         let initialOrder = order + (currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) - swipedEvent.order)
                         let finalOrder = i
-                        if (initialOrder >= finalOrder) {for (let o = initialOrder; o > finalOrder ; o--) {distance += eventBoxHeight + fetchedEvents[o].overlap * 5}}
-                        else {for (let o = initialOrder; o < finalOrder ; o++) {distance -= eventBoxHeight + fetchedEvents[o].overlap * 5}}
+                        if (initialOrder >= finalOrder) {for (let o = initialOrder; o > finalOrder ; o--) {distance += eventBoxHeight + fetchedEvents[o].overlap * overlapBottom}}
+                        else {for (let o = initialOrder; o < finalOrder ; o++) {distance -= eventBoxHeight + fetchedEvents[o].overlap * overlapBottom}}
                     } else {
                         let initialOrder = currentEvents.findIndex(cEvent => cEvent.id === fEvent.id)
                         let finalOrder = swipedEvent.order + (i - order)
-                        if (initialOrder <= finalOrder) {for (let o = finalOrder; o > initialOrder ; o--) {distance -= eventBoxHeight + currentEvents[o].overlap * 5}}
-                        else {for (let o = finalOrder; o < initialOrder ; o++) {distance += eventBoxHeight + currentEvents[o].overlap * 5}}
+                        if (initialOrder <= finalOrder) {for (let o = finalOrder; o > initialOrder ; o--) {distance -= eventBoxHeight + currentEvents[o].overlap * overlapBottom}}
+                        else {for (let o = finalOrder; o < initialOrder ; o++) {distance += eventBoxHeight + currentEvents[o].overlap * overlapBottom}}
                     }
                 } else {
                     if (depth > currentDepth) return fEvent
                     else {
                         let initialOrder = i < order ? -1 : currentEvents.length
                         let finalOrder = swipedEvent.order + (i - order)
-                        if (initialOrder <= finalOrder) {for (let o = finalOrder; o > initialOrder ; o--) {distance -= eventBoxHeight + currentEvents[o].overlap * 5}}
-                        else {for (let o = finalOrder; o < initialOrder ; o++) {distance += eventBoxHeight + currentEvents[o].overlap * 5}}
+                        if (initialOrder <= finalOrder) {for (let o = finalOrder; o > initialOrder ; o--) {distance -= eventBoxHeight + currentEvents[o].overlap * overlapBottom}}
+                        else {for (let o = finalOrder; o < initialOrder ; o++) {distance += eventBoxHeight + currentEvents[o].overlap * overlapBottom}}
                     }
                 }
                 return {...fEvent, distance: distance}
@@ -160,16 +161,16 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
                     if (depth > currentDepth) {
                         let initialOrder = order + (i - swipedEvent.order)
                         let finalOrder = i < swipedEvent.order ? -1 : fetchedEvents.length
-                        if (initialOrder >= finalOrder) {for (let o = initialOrder ; o > finalOrder ; o--) {distance -= eventBoxHeight + fetchedEvents[o].overlap * 5}}
-                        else {for (let o = initialOrder; o < finalOrder; o++) {distance += eventBoxHeight + fetchedEvents[o].overlap * 5}}
+                        if (initialOrder >= finalOrder) {for (let o = initialOrder ; o > finalOrder ; o--) {distance -= eventBoxHeight + fetchedEvents[o].overlap * overlapBottom}}
+                        else {for (let o = initialOrder; o < finalOrder; o++) {distance += eventBoxHeight + fetchedEvents[o].overlap * overlapBottom}}
                     } else return {...cEvent, fadeout: true}
                 } else return cEvent
                 return {...cEvent, distance: distance}
             })
             let referTop = 0
             let swipedTop = 0
-            let fetchedEventsHeight = fetchedEvents.map(fEvent => eventBoxHeight + fEvent.overlap * 5).slice(0, order)
-            let currentEventsHeight = currentEvents.map(cEvent => eventBoxHeight + cEvent.overlap * 5).slice(0, swipedEvent.order)
+            let fetchedEventsHeight = fetchedEvents.map(fEvent => eventBoxHeight + fEvent.overlap * overlapBottom).slice(0, order)
+            let currentEventsHeight = currentEvents.map(cEvent => eventBoxHeight + cEvent.overlap * overlapBottom).slice(0, swipedEvent.order)
             fetchedEventsHeight.forEach(height => referTop += height)
             currentEventsHeight.forEach(height => swipedTop += height)
             const afterEffectTop = referTop - swipedTop
@@ -178,7 +179,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
         const getScrollTopTest = (swipedEvent: EventWithOrderTop, referEvent: EventWithOrderTop, fetchedEvents: TimelineEvent[]) => {
             if (!swipedEvent.top) return 0
             let referTop = 0
-            let fetchedEventsHeight = fetchedEvents.map(fEvent => eventBoxHeight + fEvent.overlap * 5).slice(0, fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id))
+            let fetchedEventsHeight = fetchedEvents.map(fEvent => eventBoxHeight + fEvent.overlap * overlapBottom).slice(0, fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id))
             fetchedEventsHeight.forEach(height => referTop += height)
             let topInContainer = aboveTimelineHeight + referTop
             return topInContainer - swipedEvent.top
@@ -201,7 +202,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
         const operateScrollTest = (scrollUp: boolean) => {
             let order =  scrollUp ? 0 : currentEvents.length - 1
             //this code below can be generalized in the future
-            let arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + cEvent.overlap * 5)
+            let arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + cEvent.overlap * overlapBottom)
             let arrayOfTop = arrayOfHeight.map((height, i) => sum(arrayOfHeight.slice(0,i)))
             let top = aboveTimelineHeight + arrayOfTop[order] - scrollWrapper.scrollTop
             const scrollEvent = {...currentEvents[order], order: order, top: top }
@@ -247,8 +248,9 @@ export default Timeline
 
 const BodyLine = () => {
     const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
-    const eventBoxHeight = 122
-    const arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + cEvent.overlap * 5)
+    const eventBoxHeight = 124
+    const overlapBottom = 6
+    const arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + cEvent.overlap * overlapBottom)
     const totalHeight = sum(arrayOfHeight)
 
     return <div className={`w-3 h-[10px] relative animate-fadeIn`}><div className={`absolute w-0.5 bg-gray-600 left-1/2`} style={{height: `${totalHeight + 20}px`, transform:'translate(-50%,-0)'}}></div></div>
@@ -256,9 +258,11 @@ const BodyLine = () => {
 const EventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
     const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
+
     let animation = event.fadeout ? 'animate-fadeOut' : event.distance !== undefined ? '' :'animate-fadeIn'
     let zIndex = event.fadeout || animation === 'animate-fadeIn' ? '' : 'z-20'
-    let paddingBottom = event.overlap === 0 ? 'pb-[5px]' : event.overlap === 1 ? 'pb-[10px]' : 'pb-[15px]'
+    let paddingBottom = event.overlap === 0 ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
+
     useEffect(() => {
         if (lastAction === 'scroll') return
         const eventBox = eventBoxRef.current
@@ -268,13 +272,44 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
         tl.play()
         return ()=> {tl.kill()}
     })
+
     return (
-        <div ref={eventBoxRef} className={`relative flex pt-[5px] flex-shrink-0 ${paddingBottom} ${animation} ${zIndex}`}>
+        <div ref={eventBoxRef} className={`relative flex pt-[6px] flex-shrink-0 ${paddingBottom} ${animation} ${zIndex}`}>
             <EventNode />
             <EventContent event={event}/>
             <OverlapContent1 event={event}/>
             <OverlapContent2 event={event}/>
         </div>
+    )
+}
+const EventNode = () => {
+    return <div className='w-3 mr-2.5 z-10'><div className='w-3 h-3 bg-white mr-2.5 border-2 rounded-full border-gray-600'></div></div>
+}
+
+
+
+const EventContent = ({event} : {event: TimelineEvent}) => {
+    return (
+        <div className={"cursor-pointer w-full h-28 bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5"}>
+            <div className={'flex gap-2.5'}>
+                <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
+                <div className={'text-[12px] text-gray-500 line-clamp-1 overflow-hidden'}>#전쟁</div>
+            </div>
+            <div className={'mt-0.5 font-black'}>{event.title}</div>
+            <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'}>{event.content}</div>
+        </div>
+    )
+}
+const OverlapContent1 = ({event} : {event: TimelineEvent}) => {
+    const display = event.overlap !== 0 ? '' : 'hidden'
+    return (
+        <div className={`${display} absolute top-[24px] left-[28px] h-[100px] bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md -z-10`} style={{width: `calc(100% - 34px)`}}></div>
+    )
+}
+const OverlapContent2 = ({event} : {event: TimelineEvent}) => {
+    const display = event.overlap === 2 ? '' : 'hidden'
+    return (
+        <div className={`${display} flex-shrink-0 absolute top-[42px] left-[34px] h-[88px] bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md -z-20`} style={{width: `calc(100% - 46px)`}}></div>
     )
 }
 
@@ -295,7 +330,7 @@ const AfterEffect = () => {
 const AfterEventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
     let zIndex = event.fadeout ? '' : 'z-20'
-    let paddingBottom = event.overlap === 0 ? 'pb-[5px]' : event.overlap === 1 ? 'pb-[10px]' : 'pb-[15px]'
+    let paddingBottom = event.overlap === 0 ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
     useEffect(() => {
         const eventBox = eventBoxRef.current
         if (!eventBox) return
@@ -305,7 +340,7 @@ const AfterEventBox = ({event} : {event: TimelineEvent}) => {
         return ()=> {tl.kill()}
     })
     return (
-        <div ref={eventBoxRef} className={`relative flex pt-[5px] ${paddingBottom} animate-fadeOut ${zIndex}`}>
+        <div ref={eventBoxRef} className={`relative flex pt-[6px] ${paddingBottom} animate-fadeOut ${zIndex}`}>
             <EventNode />
             <EventContent event={event}/>
             <OverlapContent1 event={event}/>
@@ -314,34 +349,6 @@ const AfterEventBox = ({event} : {event: TimelineEvent}) => {
     )
 }
 const BlankBox = ({event}:{event:TimelineEvent}) => {
-    let paddingBottom = event.overlap === 0 ? 'pb-[5px]' : event.overlap === 1 ? 'pb-[10px]' : 'pb-[15px]'
-    return <div className={`pt-[5px] ${paddingBottom}`} style={{transform:'translate(0,-0)'}}><div className={'h-28'}></div></div>
+    let paddingBottom = event.overlap === 0 ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
+    return <div className={`pt-[6px] ${paddingBottom}`} style={{transform:'translate(0,-0)'}}><div className={'h-28'}></div></div>
 }
-const EventNode = () => {
-    return <div className='w-3 mr-2.5 z-10'><div className='w-3 h-3 bg-white mr-2.5 border-2 rounded-full border-gray-600'></div></div>
-}
-const EventContent = ({event} : {event: TimelineEvent}) => {
-    return (
-        <div className={"w-full h-28 bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5"}>
-            <div className={'flex gap-2.5'}>
-                <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
-                <div className={'text-[12px] text-gray-500 line-clamp-1 overflow-hidden'}>#전쟁</div>
-            </div>
-            <div className={'mt-0.5 font-black'}>{event.title}</div>
-            <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'}>{event.content}</div>
-        </div>
-    )
-}
-const OverlapContent1 = ({event} : {event: TimelineEvent}) => {
-    const display = event.overlap !== 0 ? '' : 'hidden'
-    return (
-        <div className={`${display} absolute top-[10px] left-[27px] h-[112px] bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md -z-10`} style={{width: `calc(100% - 32px)`}}></div>
-    )
-}
-const OverlapContent2 = ({event} : {event: TimelineEvent}) => {
-    const display = event.overlap === 2 ? '' : 'hidden'
-    return (
-        <div className={`${display} flex-shrink-0 absolute top-[25px] left-[32px] h-[102px] bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md -z-20`} style={{width: `calc(100% - 42px)`}}></div>
-    )
-}
-
