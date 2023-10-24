@@ -11,7 +11,8 @@ const eventsSlice = createSlice({
         prevEventsWithEffect: dummyEvents,
         scrollTop: 0,
         afterEffectTop: 0,
-        lastAction: 'render'
+        lastAction: 'render',
+        data: []
     },
     reducers: {
         incrementDepth: state => {
@@ -37,9 +38,18 @@ const eventsSlice = createSlice({
         },
         updateLastAction: (state, action) => {
             state.lastAction = action.payload
+        },
+        updateData: (state, action) => {
+            state.data = action.payload
+        },
+        updateIsToggle: (state, action) => {
+            state.currentEvents[action.payload].isToggle =  !state.currentEvents[action.payload].isToggle
+        },
+        updateToggleEvents: (state, action) => {
+            state.currentEvents[action.payload.order].ToggleEvents = action.payload.toggleEvents
         }
     },
 });
 
-export const { incrementDepth, decrementDepth, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect, updateScrollTop, updateAfterEffectTop, updateLastAction} = eventsSlice.actions;
+export const { incrementDepth, decrementDepth, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect, updateScrollTop, updateAfterEffectTop, updateLastAction, updateData, updateIsToggle, updateToggleEvents} = eventsSlice.actions;
 export default eventsSlice.reducer;

@@ -1,4 +1,4 @@
-import Timeline from "@/components/timeline";
+import Timeline from "@/components/timeline/timeline";
 import {RefObject, useEffect, useRef} from "react";
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
