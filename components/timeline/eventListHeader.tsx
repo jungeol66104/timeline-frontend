@@ -1,7 +1,7 @@
 import {TimelineEvent} from "@/public/events";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store/store";
-import {updateIsToggle, updateLastAction} from "@/store/slices/eventsSlice";
+import {updateIsToggle, updateLastAction, updateTotalHeight} from "@/store/slices/eventsSlice";
 import Image from "next/image";
 import ExpandLessSVG from "@/public/svg/expandLess.svg";
 import React from "react";
@@ -10,11 +10,15 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
     const dispatch = useDispatch()
 
     const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
+    const totalHeight = useSelector((state: RootState) => state.reducer.events.totalHeight)
     const eventOrder = currentEvents.findIndex(cEvent => cEvent.id === event.id)
+    const toggleEvents = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrder].ToggleEvents)
 
     const handleClick = () => {
+        const newTotalHeight = totalHeight + (124 + event.overlap * 6) - (38 + (toggleEvents.length + 1) * 124)
         dispatch(updateIsToggle(eventOrder))
         dispatch(updateLastAction('toggle'))
+        dispatch(updateTotalHeight(newTotalHeight))
     }
 
     return (

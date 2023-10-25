@@ -3,15 +3,12 @@ import React, {RefObject, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store/store";
 import {updateTotalHeight, updateData ,decrementDepth, incrementDepth, updateCurrentEvents, updateCurrentEventsWithEffect, updateLastAction, updatePrevEventsWithEffect, updateScrollTop, updateAfterEffectTop} from "@/store/slices/eventsSlice";
-import {EventWithOrderTop, TimelineEvent} from '@/public/events'
+import {EventWithOrderTop, initialEvents, TimelineEvent} from '@/public/events'
 import {sum, julianDateToEvent} from '@/utils/global'
 // components
 import TimelineFrame from "@/components/timeline/timelineFrame";
 import TimelineEvents from "@/components/timeline/timelineEvents";
 import AfterEffect from "@/components/timeline/afterEffect";
-import eventBox from "@/components/timeline/eventBox";
-import {current} from "immer";
-
 const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], initialData: TimelineEvent[], scrollRef: RefObject<HTMLDivElement>}) => {
     const timelineRef: RefObject<HTMLDivElement> = useRef(null)
 
@@ -34,9 +31,16 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
 
     // initialData setup
     useEffect(() => {
+        const heightsOfInitialEvents = initialData.map(IEvent => {
+            if (IEvent.isToggle && IEvent.toggleEvents) return (38 + (IEvent.toggleEvents.length + 1) * 124)
+            else return (eventBoxHeight + IEvent.overlap * overlapBottom)
+        }) as number[]
+
         dispatch(updateCurrentEvents(initialData))
         dispatch(updateCurrentEventsWithEffect(initialData))
         dispatch(updatePrevEventsWithEffect(initialData))
+        dispatch(updateData(data))
+        dispatch(updateTotalHeight(sum(heightsOfInitialEvents)))
     }, [dispatch, initialData]);
 
     // scroll setup
@@ -51,29 +55,26 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
         const scrollWrapper = scrollRef.current
         const timeline = timelineRef.current
         if (!scrollWrapper || !timeline) return
-        const eventElements = Array.from(timeline.querySelectorAll('.eventBox'))
-        let arrayOfHeight = eventElements.map(l => l.getBoundingClientRect().height)
 
-        dispatch(updateData(data))
-        dispatch(updateTotalHeight(sum(arrayOfHeight)))
+        const eventElements = Array.from(timeline.querySelectorAll('.eventBox'))
+        let heightsOfCurrentEvents = eventElements.map(l => l.getBoundingClientRect().height)
+        let topsOfCurrentEvents = heightsOfCurrentEvents.map((height, i) => sum(heightsOfCurrentEvents.slice(0,i)))
 
         // functions
         const getSwipedEvent = (scrollWrapper: HTMLDivElement, e: WheelEvent) : EventWithOrderTop => {
             let clientYInContainer = scrollWrapper.scrollTop + e.clientY
-            let arrayOfTop = arrayOfHeight.map((height, i) => sum(arrayOfHeight.slice(0,i)))
-            let order = arrayOfTop.findLastIndex(top => top < clientYInContainer - aboveTimelineHeight)
-            let top = arrayOfTop[order] + aboveTimelineHeight - scrollWrapper.scrollTop
+            let order = topsOfCurrentEvents.findLastIndex(top => top < clientYInContainer - aboveTimelineHeight)
+            let top = topsOfCurrentEvents[order] + aboveTimelineHeight - scrollWrapper.scrollTop
             let insideBoxTop = top
-            if (arrayOfHeight[order] > eventBoxHeight + 3 * overlapBottom) {
-                let clientYInBox = clientYInContainer - (arrayOfTop[order] + aboveTimelineHeight)
-                if (clientYInBox > 38) {
-                    let orderInBox = (clientYInBox - 38) % 124
-                    insideBoxTop = 38 + orderInBox * 124
-                }
+            if (heightsOfCurrentEvents[order] > eventBoxHeight + 2 * overlapBottom) {
+                let clientYInBox = clientYInContainer - (topsOfCurrentEvents[order] + aboveTimelineHeight)
+                let orderInBox = 0
+                if (clientYInBox > 38) {orderInBox = (clientYInBox - 38) % 124}
+                insideBoxTop = 38 + orderInBox * 124
             }
-            if (arrayOfHeight[order] > eventBoxHeight + overlapBottom * 2) insideBoxTop = 0
             return {...currentEvents[order], order: order, top: top, boxTop: insideBoxTop}
         }
+
         const fetchEventsForZoom = (depth: number, swipedEvent: EventWithOrderTop, events: TimelineEvent[]) => {
             if (depth === 3 || depth === -1) return {fetchedEvents: currentEvents, referEvent: swipedEvent}
             // initial setup
@@ -109,13 +110,11 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
                     if (fetchedEvents.length === 41) break
                 }
             }
-
             fetchedEvents = fetchedEvents.map(fEvent => {
                 const cEvent = currentEvents.find(cEvent => cEvent.id === fEvent.id)
                 if (cEvent) return cEvent
                 else return fEvent
             })
-
             return {fetchedEvents, referEvent}
         }
         const fetchEventsForScroll = (scrollEvent: EventWithOrderTop, events: TimelineEvent[]) => {
@@ -215,21 +214,19 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
 
         const getEventsWithEffectTest = (depth: number, swipedEvent: EventWithOrderTop, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[]) => {
             const order = fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)
-            const heightsOfCurrentEvents = eventElements.map(l => l.getBoundingClientRect().height)
             const heightsOfFetchedEvents = fetchedEvents.map(fEvent => {
-                if (fEvent.isToggle && fEvent.toggleEvents) return (50 + fEvent.toggleEvents.length * 112 + (fEvent.toggleEvents.length - 1) * 6)
+                if (fEvent.isToggle && fEvent.toggleEvents) return (38 + (fEvent.toggleEvents.length + 1) * 124)
                 else return (eventBoxHeight + fEvent.overlap * overlapBottom)
             }) as number[]
-            const topsOfCurrentEvents = heightsOfCurrentEvents.map((_, i) => sum(heightsOfCurrentEvents.slice(0,i)))
             const topsOfFetchedEvents = heightsOfFetchedEvents.map((_, i) => sum(heightsOfFetchedEvents.slice(0,i)))
 
             const fetchedEventsWithEffect = fetchedEvents.map((fEvent, i) => {
                 let distance = 0
+                //remained
                 const fEventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === fEvent.id)
                 const fEventOrderInFetched = i
-                //remained
                 if (currentEvents.find(cEvent => cEvent.id === fEvent.id)) {
-                    //zoom in
+                    // zoom in
                     if (depth > currentDepth) {
                         let initialDistance = topsOfCurrentEvents[swipedEvent.order] - topsOfCurrentEvents[fEventOrderInCurrent]
                         let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
@@ -266,11 +263,8 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
                     // zoom out
                     else {
                         let initialDistance
-                        if (fEventOrderInFetched <= order) {
-                            initialDistance = topsOfCurrentEvents[swipedEvent.order] + (eventBoxHeight + 3 * overlapBottom)
-                        } else {
-                            initialDistance = topsOfCurrentEvents[swipedEvent.order] - (topsOfCurrentEvents[topsOfCurrentEvents.length - 1]  + (eventBoxHeight + 3 * overlapBottom))
-                        }
+                        if (fEventOrderInFetched <= order) initialDistance = topsOfCurrentEvents[swipedEvent.order] + (eventBoxHeight + 2 * overlapBottom)
+                        else initialDistance = topsOfCurrentEvents[swipedEvent.order] - (topsOfCurrentEvents[topsOfCurrentEvents.length - 1]  + (eventBoxHeight + 2 * overlapBottom))
                         let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
                         distance = finalDistance - initialDistance
                     }
@@ -285,12 +279,14 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
         }
 
         const getScrollTop = (swipedEvent: EventWithOrderTop, referEvent: EventWithOrderTop, fetchedEvents: TimelineEvent[]) => {
-            if (!swipedEvent.top) return 0
-            let referTop = 0
-            let fetchedEventsHeight = fetchedEvents.map(fEvent => eventBoxHeight + fEvent.overlap * overlapBottom).slice(0, fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id))
-            fetchedEventsHeight.forEach(height => referTop += height)
-            let topInContainer = aboveTimelineHeight + referTop
-            return topInContainer - swipedEvent.top
+            if (!swipedEvent.top) return {newScrollTop: 0, totalHeight: 0}
+            const heightsOfFetchedEvents = fetchedEvents.map(fEvent => {
+                if (fEvent.isToggle && fEvent.toggleEvents) return (38 + (fEvent.toggleEvents.length + 1) * 124)
+                else return (eventBoxHeight + fEvent.overlap * overlapBottom)
+            }) as number[]
+            const topsOfFetchedEvents = heightsOfFetchedEvents.map((_, i) => sum(heightsOfFetchedEvents.slice(0,i)))
+            let topInContainer = aboveTimelineHeight + topsOfFetchedEvents[fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)]
+            return {newScrollTop: topInContainer - swipedEvent.top, totalHeight: sum(heightsOfFetchedEvents)}
         }
 
         const operateZoom = (e: WheelEvent) => {
@@ -298,14 +294,15 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
             let swipedEvent: EventWithOrderTop = getSwipedEvent(scrollWrapper, e)
             let { fetchedEvents, referEvent} = fetchEventsForZoom(depth, swipedEvent, data)
             if (fetchedEvents === currentEvents) return
-            let { fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop } = getEventsWithEffect(depth, swipedEvent, referEvent, fetchedEvents)
-            let newScrollTop = getScrollTop(swipedEvent, referEvent, fetchedEvents)
+            let { fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop } = getEventsWithEffectTest(depth, swipedEvent, referEvent, fetchedEvents)
+            let {newScrollTop, totalHeight} = getScrollTop(swipedEvent, referEvent, fetchedEvents)
             e.deltaX > 0 ? dispatch(decrementDepth()) : dispatch(incrementDepth())
             dispatch(updateCurrentEvents(fetchedEvents))
             dispatch(updateCurrentEventsWithEffect(fetchedEventsWithEffect))
             dispatch(updatePrevEventsWithEffect(currentEventsWithAfterEffect))
             dispatch(updateAfterEffectTop(afterEffectTop))
             dispatch(updateScrollTop(newScrollTop))
+            dispatch(updateTotalHeight(totalHeight))
             e.deltaX > 0 ? dispatch(updateLastAction('zoomOut')) : dispatch(updateLastAction('zoomIn'))
         }
         const operateScroll = (scrollUp: boolean) => {
@@ -317,10 +314,11 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
             const scrollEvent = {...currentEvents[order], order: order, top: top }
             let { fetchedEvents, referEvent } = fetchEventsForScroll(scrollEvent, data)
             if (fetchedEvents === currentEvents) return
-            let newScrollTop = getScrollTop(scrollEvent, referEvent, fetchedEvents)
+            let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
             dispatch(updateCurrentEvents(fetchedEvents))
             dispatch(updateCurrentEventsWithEffect(fetchedEvents))
             dispatch(updateScrollTop(newScrollTop))
+            dispatch(updateTotalHeight(totalHeight))
             dispatch(updateLastAction('scroll'))
         }
         const handleWheel = (e: WheelEvent) => {

@@ -1,18 +1,26 @@
 import {TimelineEvent} from "@/public/events";
 import {useRouter} from "next/router";
-import {useDispatch} from "react-redux";
-import {updateIsToggle, updateLastAction} from "@/store/slices/eventsSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {updateIsToggle, updateLastAction, updateToggleEvents, updateTotalHeight} from "@/store/slices/eventsSlice";
 import React from "react";
+import {RootState} from "@/store/store";
 
 const EventContent = ({event, eventOrder, isToggle} : {event: TimelineEvent, eventOrder?: number, isToggle?: boolean}) => {
     const router = useRouter()
     const dispatch = useDispatch()
+    const data: TimelineEvent[] = useSelector((state: RootState) => state.reducer.events.data)
+    const totalHeight = useSelector((state: RootState) => state.reducer.events.totalHeight)
 
     const handleClick = () => {
         if(event.overlap === 0 || isToggle) router.push(`/events/${event.id}`)
         else {
+            const newToggleEvents = data.filter(e => e.julianDate === event.julianDate).filter(e => e.id !== event.id)
+            // should generalize the layout states globally
+            const newTotalHeight = totalHeight - (124 + event.overlap * 6) + (38 + (newToggleEvents.length + 1) * 124)
+            dispatch(updateToggleEvents({order: eventOrder, toggleEvents: newToggleEvents}))
             dispatch(updateIsToggle(eventOrder))
             dispatch(updateLastAction('toggle'))
+            dispatch(updateTotalHeight(newTotalHeight))
         }
     }
 
