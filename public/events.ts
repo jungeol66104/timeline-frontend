@@ -142,6 +142,7 @@ export interface TimelineEvent {
     distance?: number
     order?: number
     top?: number
+    boxTop?: number
     fadeout?: boolean
     isToggle?: boolean
     toggleEvents?: TimelineEvent[]

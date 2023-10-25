@@ -18,7 +18,7 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
     let paddingBottom = event.overlap === 0 || isToggle ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
 
     useEffect(() => {
-        if (lastAction === 'scroll') return
+        if (lastAction === 'scroll' || lastAction === 'toggle') return
         const eventBox = eventBoxRef.current
         if (!eventBox) return
         const tl = gsap.timeline()
@@ -28,7 +28,7 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
     })
 
     return (
-        <div ref={eventBoxRef} className={`relative flex pt-[6px] flex-shrink-0 ${paddingBottom} ${animation} ${zIndex}`}>
+        <div ref={eventBoxRef} className={`eventBox relative flex pt-[6px] flex-shrink-0 ${paddingBottom} ${animation} ${zIndex}`}>
             <EventNode />
             <EventList event={event}/>
         </div>

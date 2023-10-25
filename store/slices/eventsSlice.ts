@@ -4,15 +4,18 @@ import {dummyEvents} from "@/public/events";
 const eventsSlice = createSlice({
     name: 'events',
     initialState: {
-        currentDepth: 0,
         // use fetched result later, this state is temporary
         currentEvents: dummyEvents,
         currentEventsWithEffect: dummyEvents,
         prevEventsWithEffect: dummyEvents,
+        data: [],
+
+        // sub
+        currentDepth: 0,
         scrollTop: 0,
         afterEffectTop: 0,
         lastAction: 'render',
-        data: []
+        totalHeight: 0
     },
     reducers: {
         incrementDepth: state => {
@@ -47,9 +50,12 @@ const eventsSlice = createSlice({
         },
         updateToggleEvents: (state, action) => {
             state.currentEvents[action.payload.order].ToggleEvents = action.payload.toggleEvents
+        },
+        updateTotalHeight: (state, action) => {
+            state.totalHeight = action.payload
         }
     },
 });
 
-export const { incrementDepth, decrementDepth, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect, updateScrollTop, updateAfterEffectTop, updateLastAction, updateData, updateIsToggle, updateToggleEvents} = eventsSlice.actions;
+export const { incrementDepth, decrementDepth, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect, updateScrollTop, updateAfterEffectTop, updateLastAction, updateData, updateIsToggle, updateToggleEvents, updateTotalHeight} = eventsSlice.actions;
 export default eventsSlice.reducer;

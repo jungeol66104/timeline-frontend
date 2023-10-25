@@ -1,7 +1,7 @@
 import Timeline from "@/components/timeline/timeline";
 import {RefObject, useEffect, useRef} from "react";
 import {useRouter} from "next/router";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {updateShowTitle, updateTitle} from "@/store/slices/layoutSlice";
 import {GetServerSideProps} from "next";
 import events, {initialEvents, TimelineEvent} from "@/public/events";

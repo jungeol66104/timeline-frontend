@@ -28,7 +28,7 @@ const EventList = ({event} : {event: TimelineEvent}) => {
     return (
         <div>
             {isToggle ? <EventListHeader event={event}/> : <></>}
-            <EventContent event={event}/>
+            <EventContent event={event} eventOrder={eventOrder} isToggle={isToggle}/>
             {isToggle
                 ? <div className={'flex flex-col pt-[12px] gap-[12px]'}>{toggleEvents.map(tEvent => <EventContent event={tEvent} eventOrder={eventOrder} isToggle={isToggle}/>)}</div>
                 : <><OverlapContent1 event={event}/><OverlapContent2 event={event}/></>
