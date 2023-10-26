@@ -13,7 +13,7 @@ const EventList = ({event} : {event: TimelineEvent}) => {
     const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
     const eventOrder = currentEvents.findIndex(cEvent => cEvent.id === event.id)
     const isToggle = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrder].isToggle)
-    const toggleEvents = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrder].ToggleEvents)
+    const toggleEvents = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrder].toggleEvents)
 
     return (
         <div>

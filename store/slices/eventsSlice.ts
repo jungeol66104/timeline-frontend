@@ -49,7 +49,7 @@ const eventsSlice = createSlice({
             state.currentEvents[action.payload].isToggle =  !state.currentEvents[action.payload].isToggle
         },
         updateToggleEvents: (state, action) => {
-            state.currentEvents[action.payload.order].ToggleEvents = action.payload.toggleEvents
+            state.currentEvents[action.payload.order].toggleEvents = action.payload.toggleEvents
         },
         updateTotalHeight: (state, action) => {
             state.totalHeight = action.payload

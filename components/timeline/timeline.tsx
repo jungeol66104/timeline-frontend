@@ -32,7 +32,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
     // initialData setup
     useEffect(() => {
         const heightsOfInitialEvents = initialData.map(IEvent => {
-            if (IEvent.isToggle && IEvent.toggleEvents) return (38 + (IEvent.toggleEvents.length + 1) * 124)
+            if (IEvent.isToggle) return (38 + (IEvent.toggleEvents.length + 1) * 124)
             else return (eventBoxHeight + IEvent.overlap * overlapBottom)
         }) as number[]
 
@@ -69,7 +69,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
             if (heightsOfCurrentEvents[order] > eventBoxHeight + 2 * overlapBottom) {
                 let clientYInBox = clientYInContainer - (topsOfCurrentEvents[order] + aboveTimelineHeight)
                 let orderInBox = 0
-                if (clientYInBox > 38) {orderInBox = (clientYInBox - 38) % 124}
+                if (clientYInBox > 38) {orderInBox = Math.floor((clientYInBox - 38) / 124)}
                 insideBoxTop = 38 + orderInBox * 124
             }
             return {...currentEvents[order], order: order, top: top, boxTop: insideBoxTop}
@@ -211,82 +211,77 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
             const afterEffectTop = referTop - swipedTop
             return {fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop}
         }
-
         const getEventsWithEffectTest = (depth: number, swipedEvent: EventWithOrderTop, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[]) => {
             const order = fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)
             const heightsOfFetchedEvents = fetchedEvents.map(fEvent => {
-                if (fEvent.isToggle && fEvent.toggleEvents) return (38 + (fEvent.toggleEvents.length + 1) * 124)
+                if (fEvent.isToggle) return (38 + (fEvent.toggleEvents.length + 1) * 124)
                 else return (eventBoxHeight + fEvent.overlap * overlapBottom)
             }) as number[]
             const topsOfFetchedEvents = heightsOfFetchedEvents.map((_, i) => sum(heightsOfFetchedEvents.slice(0,i)))
 
             const fetchedEventsWithEffect = fetchedEvents.map((fEvent, i) => {
                 let distance = 0
-                //remained
                 const fEventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === fEvent.id)
                 const fEventOrderInFetched = i
                 if (currentEvents.find(cEvent => cEvent.id === fEvent.id)) {
-                    // zoom in
-                    if (depth > currentDepth) {
+                    // remained
+                    if (depth < currentDepth && !fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle) {
+                        if (!swipedEvent.boxTop) return
+                        let initialDistance = (topsOfCurrentEvents[swipedEvent.order] + swipedEvent.boxTop) - topsOfCurrentEvents[fEventOrderInCurrent]
+                        let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
+                        distance = finalDistance - initialDistance
+                    } else {
                         let initialDistance = topsOfCurrentEvents[swipedEvent.order] - topsOfCurrentEvents[fEventOrderInCurrent]
                         let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
                         distance = finalDistance - initialDistance
                     }
-                    // zoom out
-                    else {
-                        // swiped event disappears & swipedEvent was toggled
-                        if (!fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle) {
-                            if (!swipedEvent.boxTop) return
-                            if (fEventOrderInFetched <= order) {
-                                let initialDistance = (topsOfCurrentEvents[swipedEvent.order] + swipedEvent.boxTop) - topsOfCurrentEvents[fEventOrderInCurrent]
-                                let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
-                                distance = finalDistance - initialDistance
-                            } else {
-                                let initialDistance = (topsOfCurrentEvents[swipedEvent.order] + swipedEvent.boxTop) - topsOfCurrentEvents[fEventOrderInCurrent]
-                                let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
-                                distance = finalDistance - initialDistance
-                            }
-                        }
-                        // else
-                        else {
-                            // refactor with above after testing
-                            let initialDistance = topsOfCurrentEvents[swipedEvent.order] - topsOfCurrentEvents[fEventOrderInCurrent]
-                            let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
-                            distance = finalDistance - initialDistance
-                        }
-                    }
-                }
-                // new
-                else {
-                    // zoom in
-                    if (depth > currentDepth) return fEvent
-                    // zoom out
-                    else {
+                } else {
+                    // new
+                    if (depth < currentDepth) {
                         let initialDistance
                         if (fEventOrderInFetched <= order) initialDistance = topsOfCurrentEvents[swipedEvent.order] + (eventBoxHeight + 2 * overlapBottom)
-                        else initialDistance = topsOfCurrentEvents[swipedEvent.order] - (topsOfCurrentEvents[topsOfCurrentEvents.length - 1]  + (eventBoxHeight + 2 * overlapBottom))
+                        else initialDistance = topsOfCurrentEvents[swipedEvent.order] - (topsOfCurrentEvents[topsOfCurrentEvents.length - 1] + (eventBoxHeight + 2 * overlapBottom))
                         let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
                         distance = finalDistance - initialDistance
-                    }
+                    } else return fEvent
                 }
                 return {...fEvent, distance: distance}
             })
             //disappeared
-            const currentEventsWithAfterEffect = [] as TimelineEvent[]
-            const afterEffectTop = 0
-
+            const currentEventsWithAfterEffect = currentEvents.map((cEvent, i) => {
+                let distance = 0
+                let cEventOrderInCurrent = i
+                let cEventOrderInFetched = fetchedEvents.findIndex(fEvent => fEvent.id === cEvent.id)
+                if (!fetchedEvents.find(fEvent => fEvent.id === cEvent.id)) {
+                    if (depth > currentDepth) {
+                        let initialDistance = topsOfCurrentEvents[swipedEvent.order] - topsOfCurrentEvents[cEventOrderInCurrent]
+                        let finalDistance
+                        if (cEventOrderInFetched <= order) finalDistance = topsOfFetchedEvents[order] + (eventBoxHeight + 2 * overlapBottom)
+                        else finalDistance = topsOfFetchedEvents[order] - (topsOfFetchedEvents[topsOfFetchedEvents.length -1] + (eventBoxHeight + 2 * overlapBottom))
+                        distance = finalDistance - initialDistance
+                    } else return {...cEvent, fadeout: true}
+                } else return cEvent
+                return {...cEvent, distance: distance}
+            })
+            let afterEffectTop = topsOfFetchedEvents[order] - topsOfCurrentEvents[swipedEvent.order]
+            if (depth < currentDepth && !fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop) {
+                afterEffectTop -= swipedEvent.boxTop
+            }
             return {fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop}
         }
 
         const getScrollTop = (swipedEvent: EventWithOrderTop, referEvent: EventWithOrderTop, fetchedEvents: TimelineEvent[]) => {
             if (!swipedEvent.top) return {newScrollTop: 0, totalHeight: 0}
             const heightsOfFetchedEvents = fetchedEvents.map(fEvent => {
-                if (fEvent.isToggle && fEvent.toggleEvents) return (38 + (fEvent.toggleEvents.length + 1) * 124)
+                if (fEvent.isToggle) {return (38 + (fEvent.toggleEvents.length + 1) * 124)}
                 else return (eventBoxHeight + fEvent.overlap * overlapBottom)
             }) as number[]
             const topsOfFetchedEvents = heightsOfFetchedEvents.map((_, i) => sum(heightsOfFetchedEvents.slice(0,i)))
             let topInContainer = aboveTimelineHeight + topsOfFetchedEvents[fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)]
-            return {newScrollTop: topInContainer - swipedEvent.top, totalHeight: sum(heightsOfFetchedEvents)}
+            let newScrollTop = topInContainer - swipedEvent.top
+            // if swipedEvent toggled and disappeared
+            if (!fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop !== undefined) {newScrollTop -= swipedEvent.boxTop}
+            return {newScrollTop: newScrollTop, totalHeight: sum(heightsOfFetchedEvents)}
         }
 
         const operateZoom = (e: WheelEvent) => {

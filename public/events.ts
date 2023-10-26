@@ -20,7 +20,7 @@ const events = arrayOfObjects.map((event, i) => {
             tag: '#전쟁',
             overlap: 0,
             isToggle: false,
-            ToggleEvents: []
+            toggleEvents: []
         }
     )
 }).sort((eventA, eventB) => eventA.julianDate - eventB.julianDate)
@@ -47,7 +47,7 @@ export const dummyEvents = [
         tag: '#전쟁',
         overlap: 0,
         isToggle: false,
-        ToggleEvents: []
+        toggleEvents: []
     },
     {
         id: 1,
@@ -60,7 +60,7 @@ export const dummyEvents = [
         tag: '#전쟁',
         overlap: 0,
         isToggle: false,
-        ToggleEvents: []
+        toggleEvents: []
     },
     {
         id: 2,
@@ -73,7 +73,7 @@ export const dummyEvents = [
         tag: '#전쟁',
         overlap: 0,
         isToggle: false,
-        ToggleEvents: []
+        toggleEvents: []
     },
     {
         id: 3,
@@ -86,7 +86,7 @@ export const dummyEvents = [
         tag: '#전쟁',
         overlap: 0,
         isToggle: false,
-        ToggleEvents: []
+        toggleEvents: []
     },
     {
         id: 4,
@@ -99,7 +99,7 @@ export const dummyEvents = [
         tag: '#전쟁',
         overlap: 0,
         isToggle: false,
-        ToggleEvents: []
+        toggleEvents: []
     },
     {
         id: 5,
@@ -112,7 +112,7 @@ export const dummyEvents = [
         tag: '#전쟁',
         overlap: 0,
         isToggle: false,
-        ToggleEvents: []
+        toggleEvents: []
     },
     {
         id: 6,
@@ -125,7 +125,7 @@ export const dummyEvents = [
         tag: '#전쟁',
         overlap: 0,
         isToggle: false,
-        ToggleEvents: []
+        toggleEvents: []
     }
 ]
 
@@ -144,8 +144,8 @@ export interface TimelineEvent {
     top?: number
     boxTop?: number
     fadeout?: boolean
-    isToggle?: boolean
-    toggleEvents?: TimelineEvent[]
+    isToggle: boolean
+    toggleEvents: any[]
 }
 
 export interface EventWithOrderTop extends TimelineEvent {
