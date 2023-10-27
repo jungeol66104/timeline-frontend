@@ -10,8 +10,8 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
     const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
     const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
-    const eventOrder = currentEvents.findIndex(cEvent => cEvent.id === event.id)
-    const isToggle = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrder].isToggle)
+    const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === event.id)
+    const isToggle = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrderInCurrent].isToggle)
 
     let animation = event.fadeout ? 'animate-fadeOut' : event.distance !== undefined ? '' :'animate-fadeIn'
     let zIndex = event.fadeout || animation === 'animate-fadeIn' ? '' : 'z-20'

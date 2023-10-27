@@ -5,12 +5,25 @@ import EventNode from "@/components/timeline/eventNode";
 import EventContent from "@/components/timeline/eventContent";
 import OverlapContent1 from "@/components/timeline/overlapContent1";
 import OverlapContent2 from "@/components/timeline/overlapContent2";
+import {useSelector} from "react-redux";
+import {RootState} from "@/store/store";
+import EventList from "@/components/timeline/eventList";
+import AfterEventList from "@/components/timeline/afterEventList";
 
 const AfterEventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
+    const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
+    const prevEventsWithEffect = useSelector((state: RootState) => state.reducer.events.prevEventsWithEffect)
+    const eventOrderInPrev = prevEventsWithEffect.findIndex(pEvent => pEvent.id === event.id)
+    const isToggle = useSelector((state: RootState) => state.reducer.events.prevEventsWithEffect[eventOrderInPrev].isToggle)
+
+    let animation = event.fadeout ? 'animate-fadeOut' : ''
     let zIndex = event.fadeout ? '' : 'z-20'
-    let paddingBottom = event.overlap === 0 ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
+    let paddingBottom = event.overlap === 0 || isToggle ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
+    let opacity = event.blank === true ? 'opacity-0' : ''
+
     useEffect(() => {
+        if (lastAction === 'scroll' || lastAction === 'toggle') return
         const eventBox = eventBoxRef.current
         if (!eventBox) return
         const tl = gsap.timeline()
@@ -18,12 +31,11 @@ const AfterEventBox = ({event} : {event: TimelineEvent}) => {
         tl.play()
         return ()=> {tl.kill()}
     })
+
     return (
-        <div ref={eventBoxRef} className={`relative flex pt-[6px] ${paddingBottom} animate-fadeOut ${zIndex}`}>
+        <div ref={eventBoxRef} className={`eventBox relative flex pt-[6px] flex-shrink-0 ${paddingBottom} ${animation} ${zIndex} ${opacity}`}>
             <EventNode />
-            <EventContent event={event}/>
-            <OverlapContent1 event={event}/>
-            <OverlapContent2 event={event}/>
+            <AfterEventList event={event}/>
         </div>
     )
 }

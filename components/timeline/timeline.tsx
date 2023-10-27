@@ -8,7 +8,7 @@ import {sum, julianDateToEvent} from '@/utils/global'
 // components
 import TimelineFrame from "@/components/timeline/timelineFrame";
 import TimelineEvents from "@/components/timeline/timelineEvents";
-import AfterEffect from "@/components/timeline/afterEffect";
+import AfterEffectEvents from "@/components/timeline/afterEffectEvents";
 const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], initialData: TimelineEvent[], scrollRef: RefObject<HTMLDivElement>}) => {
     const timelineRef: RefObject<HTMLDivElement> = useRef(null)
 
@@ -149,67 +149,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
                 if (cEvent) return cEvent
                 else return fEvent
             })
-
             return {fetchedEvents, referEvent}
-        }
-        const getEventsWithEffect = (depth: number, swipedEvent: EventWithOrderTop, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[]) => {
-            const order = fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)
-            const fetchedEventsWithEffect = fetchedEvents.map((fEvent, i) => {
-                let distance = 0
-                // remained
-                if(currentEvents.find(cEvent => cEvent.id === fEvent.id)) {
-                    // zoom in
-                    if (depth > currentDepth) {
-                        let initialOrder = order + (currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) - swipedEvent.order)
-                        let finalOrder = i
-                        if (initialOrder >= finalOrder) {for (let o = initialOrder; o > finalOrder ; o--) {distance += eventBoxHeight + fetchedEvents[o].overlap * overlapBottom}}
-                        else {for (let o = initialOrder; o < finalOrder ; o++) {distance -= eventBoxHeight + fetchedEvents[o].overlap * overlapBottom}}
-                    // zoom out
-                    } else {
-                        let initialOrder = currentEvents.findIndex(cEvent => cEvent.id === fEvent.id)
-                        let finalOrder = swipedEvent.order + (i - order)
-                        if (initialOrder <= finalOrder) {for (let o = finalOrder; o > initialOrder ; o--) {distance -= eventBoxHeight + currentEvents[o].overlap * overlapBottom}}
-                        else {for (let o = finalOrder; o < initialOrder ; o++) {distance += eventBoxHeight + currentEvents[o].overlap * overlapBottom}}
-                    }
-                    // new
-                } else {
-                    // zoom in
-                    if (depth > currentDepth) return fEvent
-                    // zoom out
-                    else {
-                        let initialOrder = i < order ? -1 : currentEvents.length
-                        let finalOrder = swipedEvent.order + (i - order)
-                        if (initialOrder <= finalOrder) {for (let o = finalOrder; o > initialOrder ; o--) {distance -= eventBoxHeight + currentEvents[o].overlap * overlapBottom}}
-                        else {for (let o = finalOrder; o < initialOrder ; o++) {distance += eventBoxHeight + currentEvents[o].overlap * overlapBottom}}
-                    }
-                }
-                return {...fEvent, distance: distance}
-            })
-            const currentEventsWithAfterEffect = currentEvents.map((cEvent, i) => {
-                let distance = 0
-                // disappear
-                if (!fetchedEvents.find(fEvent => fEvent.id === cEvent.id)) {
-                    // zoom in
-                    if (depth > currentDepth) {
-                        let initialOrder = order + (i - swipedEvent.order)
-                        let finalOrder = i < swipedEvent.order ? -1 : fetchedEvents.length
-                        if (initialOrder >= finalOrder) {for (let o = initialOrder ; o > finalOrder ; o--) {distance -= eventBoxHeight + fetchedEvents[o].overlap * overlapBottom}}
-                        else {for (let o = initialOrder; o < finalOrder; o++) {distance += eventBoxHeight + fetchedEvents[o].overlap * overlapBottom}}
-                    }
-                    // zoom out
-                    else return {...cEvent, fadeout: true}
-                } else return cEvent
-                return {...cEvent, distance: distance}
-            })
-            // get afterEffectTop
-            let referTop = 0
-            let swipedTop = 0
-            let fetchedEventsHeight = fetchedEvents.map(fEvent => eventBoxHeight + fEvent.overlap * overlapBottom).slice(0, order)
-            let currentEventsHeight = currentEvents.map(cEvent => eventBoxHeight + cEvent.overlap * overlapBottom).slice(0, swipedEvent.order)
-            fetchedEventsHeight.forEach(height => referTop += height)
-            currentEventsHeight.forEach(height => swipedTop += height)
-            const afterEffectTop = referTop - swipedTop
-            return {fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop}
         }
         const getEventsWithEffectTest = (depth: number, swipedEvent: EventWithOrderTop, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[]) => {
             const order = fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)
@@ -247,29 +187,30 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
                 }
                 return {...fEvent, distance: distance}
             })
-            //disappeared
+
             const currentEventsWithAfterEffect = currentEvents.map((cEvent, i) => {
                 let distance = 0
                 let cEventOrderInCurrent = i
                 let cEventOrderInFetched = fetchedEvents.findIndex(fEvent => fEvent.id === cEvent.id)
                 if (!fetchedEvents.find(fEvent => fEvent.id === cEvent.id)) {
+                //disappeared
                     if (depth > currentDepth) {
                         let initialDistance = topsOfCurrentEvents[swipedEvent.order] - topsOfCurrentEvents[cEventOrderInCurrent]
                         let finalDistance
                         if (cEventOrderInFetched <= order) finalDistance = topsOfFetchedEvents[order] + (eventBoxHeight + 2 * overlapBottom)
                         else finalDistance = topsOfFetchedEvents[order] - (topsOfFetchedEvents[topsOfFetchedEvents.length -1] + (eventBoxHeight + 2 * overlapBottom))
                         distance = finalDistance - initialDistance
-                    } else return {...cEvent, fadeout: true}
-                } else return cEvent
-                return {...cEvent, distance: distance}
+                        return {...cEvent, distance: distance, prev: true}
+                    } else return {...cEvent, fadeout: true, prev: true}
+                } else return {...cEvent, blank: true, prev: true}
             })
+
             let afterEffectTop = topsOfFetchedEvents[order] - topsOfCurrentEvents[swipedEvent.order]
             if (depth < currentDepth && !fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop) {
                 afterEffectTop -= swipedEvent.boxTop
             }
             return {fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop}
         }
-
         const getScrollTop = (swipedEvent: EventWithOrderTop, referEvent: EventWithOrderTop, fetchedEvents: TimelineEvent[]) => {
             if (!swipedEvent.top) return {newScrollTop: 0, totalHeight: 0}
             const heightsOfFetchedEvents = fetchedEvents.map(fEvent => {
@@ -341,7 +282,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
         <div ref={timelineRef} className='timeline flex flex-col max-w-lg relative overflow-hidden' style={{height: `${totalHeight + 20}px`}}>
             <TimelineFrame />
             <TimelineEvents />
-            {/*{(lastAction === 'zoomIn' || lastAction === 'zoomOut') && <AfterEffect />}*/}
+            {(lastAction === 'zoomIn' || lastAction === 'zoomOut') && <AfterEffectEvents />}
         </div>
     )
 }

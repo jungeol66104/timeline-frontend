@@ -139,13 +139,15 @@ export interface TimelineEvent {
     content: string
     tag: string
     overlap: number
+    isToggle: boolean
+    toggleEvents: any[]
     distance?: number
     order?: number
     top?: number
     boxTop?: number
     fadeout?: boolean
-    isToggle: boolean
-    toggleEvents: any[]
+    prev?: boolean
+    blank?: boolean
 }
 
 export interface EventWithOrderTop extends TimelineEvent {

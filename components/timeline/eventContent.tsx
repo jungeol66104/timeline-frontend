@@ -2,14 +2,19 @@ import {TimelineEvent} from "@/public/events";
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import {updateIsToggle, updateLastAction, updateToggleEvents, updateTotalHeight} from "@/store/slices/eventsSlice";
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import {RootState} from "@/store/store";
+import gsap from "gsap";
+import eventContent from "@/components/timeline/eventContent";
 
-const EventContent = ({event, eventOrder, isToggle} : {event: TimelineEvent, eventOrder?: number, isToggle?: boolean}) => {
+const EventContent = ({event, eventOrder, contentOrder, isToggle} : {event: TimelineEvent, eventOrder?: number, contentOrder: number, isToggle?: boolean}) => {
+    const eventContentRef = useRef(null)
+
     const router = useRouter()
     const dispatch = useDispatch()
     const data: TimelineEvent[] = useSelector((state: RootState) => state.reducer.events.data)
     const totalHeight = useSelector((state: RootState) => state.reducer.events.totalHeight)
+    const zIndex = 9999 - contentOrder
 
     const handleClick = () => {
         if(event.overlap === 0 || isToggle) router.push(`/events/${event.id}`)
@@ -24,8 +29,27 @@ const EventContent = ({event, eventOrder, isToggle} : {event: TimelineEvent, eve
         }
     }
 
+    useEffect(() => {
+        const eventContent = eventContentRef.current
+        if (!eventContent) return
+
+        const tl = gsap.timeline()
+        let distance
+        if (contentOrder === 0) distance = 38
+        else if (contentOrder === 1) {
+            distance = 144
+        }
+        else {
+            distance = 262 + (contentOrder - 2) * 124
+        }
+        tl.fromTo(eventContent, {y: isToggle ? `${-distance}px` : `${distance}px`}, {y: '0', duration: 0.5})
+        tl.play()
+        return ()=> {tl.kill()}
+    }, [isToggle]);
+
+
     return (
-        <div onClick={handleClick} className={"cursor-pointer w-full h-28 bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5"}>
+        <div ref={eventContentRef} onClick={handleClick} className={`eventContent relative cursor-pointer w-full h-28 bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5`} style={{zIndex: zIndex}}>
             <div className={'flex gap-2.5'}>
                 <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
                 <div className={'text-[12px] text-gray-500 line-clamp-1 overflow-hidden'}>{event.tag}</div>

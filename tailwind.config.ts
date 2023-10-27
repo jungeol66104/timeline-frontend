@@ -17,7 +17,6 @@ const config: Config = {
         'fadeIn' : 'fadeInKeyframe 1.5s ease-in-out both',
         'fadeOut' : 'fadeOutKeyframe 0.6s ease-in-out both',
         'fadeInForSearch' : 'fadeInForSearchKeyframe 0.3s ease-in-out both',
-        'bottomUpSlide' : 'bottomUpSlideKeyframe 1.5s ease-in-out-both'
       },
       keyframes: {
         fadeInKeyframe: {
@@ -32,10 +31,6 @@ const config: Config = {
           '0%' :{ opacity: '0' },
           '100%' :{ opacity: '0.4' }
         },
-        bottomUpSlideKeyframe: {
-          '0%' : {translateY: '2rem'},
-          '100%': {translateY: '0'}
-        }
       }
     },
   },
