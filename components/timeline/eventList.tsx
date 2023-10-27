@@ -15,14 +15,14 @@ const EventList = ({event} : {event: TimelineEvent}) => {
     const isToggle = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrder].isToggle)
     const toggleEvents = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrder].toggleEvents)
 
+    const listHeight = !isToggle ? 112 : 28 + (toggleEvents.length + 1) * 124
+
     return (
-        <div>
-            {isToggle ? <EventListHeader event={event}/> : <></>}
+        <div style={{height: listHeight, transition: 'height 0.5s'}}>
+            <EventListHeader event={event}/>
             <EventContent event={event} eventOrder={eventOrder} contentOrder={0} isToggle={isToggle}/>
-            {isToggle
-                ? <div className={'flex flex-col items-center pt-[12px] gap-[12px]'}>{toggleEvents.map((tEvent: TimelineEvent, i) => <EventContent key={i} event={tEvent} eventOrder={eventOrder} contentOrder={i+1} isToggle={isToggle}/>)}</div>
-                : <><OverlapContent1 event={event}/><OverlapContent2 event={event}/></>
-            }
+            <div className={'relative pt-[12px]'}>{toggleEvents.map((tEvent: TimelineEvent, i) => <EventContent key={i} event={tEvent} eventOrder={eventOrder} contentOrder={i+1} isToggle={isToggle}/>)}</div>
+            <><OverlapContent1 event={event}/><OverlapContent2 event={event}/></>
         </div>
     )
 }

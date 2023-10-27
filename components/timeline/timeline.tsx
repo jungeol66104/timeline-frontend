@@ -279,7 +279,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
         };
     });
     return (
-        <div ref={timelineRef} className='timeline flex flex-col max-w-lg relative overflow-hidden' style={{height: `${totalHeight + 20}px`}}>
+        <div ref={timelineRef} className='timeline flex flex-col max-w-lg relative overflow-hidden' style={{height: `${totalHeight + 20}px`, transition: 'height 0.5s'}}>
             <TimelineFrame />
             <TimelineEvents />
             {(lastAction === 'zoomIn' || lastAction === 'zoomOut') && <AfterEffectEvents />}

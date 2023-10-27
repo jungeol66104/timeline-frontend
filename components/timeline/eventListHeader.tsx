@@ -33,11 +33,15 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
         return ()=> {tl.kill()}
     }, [isToggle]);
 
+    const listHeaderHeight = isToggle ? 38 : 0
+
     return (
+        <div className={`absolute`} style={{height: listHeaderHeight, transition: 'height 0.5s'}}>
             <div ref={eventListHeaderRef} className={`pb-2.5 flex justify-between`}>
                 <div className={'text-xl font-semibold'}>{event.date}</div>
                 <div onClick={handleClick} className={'cursor-pointer pt-[1px] flex items-center text-[14px] font-medium'}><div>간략히 보기</div><div><Image src={ExpandLessSVG} alt={'toggle'} width={22} height={22} /></div></div>
             </div>
+        </div>
 
     )
 }
