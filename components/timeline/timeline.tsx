@@ -199,7 +199,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
                         let finalDistance
                         if (cEventOrderInCurrent <= swipedEvent.order) finalDistance = topsOfFetchedEvents[order] + (eventBoxHeight + 2 * overlapBottom)
                         else finalDistance = topsOfFetchedEvents[order] - (topsOfFetchedEvents[topsOfFetchedEvents.length - 1] + (eventBoxHeight + 2 * overlapBottom))
-                        distance = finalDistance - initialDistance
+                        distance = initialDistance - finalDistance
                         return {...cEvent, distance: distance, prev: true}
                     } else return {...cEvent, fadeout: true, prev: true}
                 } else return {...cEvent, blank: true, prev: true}
