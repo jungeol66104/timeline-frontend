@@ -18,7 +18,6 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
     const currentEventsWithEffect = useSelector((state: RootState) => state.reducer.events.currentEventsWithEffect)
     const scrollTop = useSelector((state: RootState) => state.reducer.events.scrollTop)
     const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
-    const totalHeight = useSelector((state: RootState) => state.reducer.events.totalHeight)
 
     const aboveTimelineHeight = 70
     const eventBoxHeight = 124
@@ -56,8 +55,10 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
         const timeline = timelineRef.current
         if (!scrollWrapper || !timeline) return
 
-        const eventElements = Array.from(timeline.querySelectorAll('.eventBox'))
-        let heightsOfCurrentEvents = eventElements.map(l => l.getBoundingClientRect().height)
+        const heightsOfCurrentEvents = currentEvents.map(cEvent => {
+            if (cEvent.isToggle) return (38 + (cEvent.toggleEvents.length + 1) * 124)
+            else return (eventBoxHeight + cEvent.overlap * overlapBottom)
+        }) as number[]
         let topsOfCurrentEvents = heightsOfCurrentEvents.map((height, i) => sum(heightsOfCurrentEvents.slice(0,i)))
 
         // functions
@@ -65,14 +66,14 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
             let clientYInContainer = scrollWrapper.scrollTop + e.clientY
             let order = topsOfCurrentEvents.findLastIndex(top => top < clientYInContainer - aboveTimelineHeight)
             let top = topsOfCurrentEvents[order] + aboveTimelineHeight - scrollWrapper.scrollTop
-            let insideBoxTop = top
-            if (heightsOfCurrentEvents[order] > eventBoxHeight + 2 * overlapBottom) {
+            let boxTop = top
+            if (currentEvents[order].isToggle) {
                 let clientYInBox = clientYInContainer - (topsOfCurrentEvents[order] + aboveTimelineHeight)
                 let orderInBox = 0
                 if (clientYInBox > 38) {orderInBox = Math.floor((clientYInBox - 38) / 124)}
-                insideBoxTop = 38 + orderInBox * 124
+                boxTop = 38 + orderInBox * 124
             }
-            return {...currentEvents[order], order: order, top: top, boxTop: insideBoxTop}
+            return {...currentEvents[order], order: order, top: top, boxTop: boxTop}
         }
 
         const fetchEventsForZoom = (depth: number, swipedEvent: EventWithOrderTop, events: TimelineEvent[]) => {
@@ -191,14 +192,13 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
             const currentEventsWithAfterEffect = currentEvents.map((cEvent, i) => {
                 let distance = 0
                 let cEventOrderInCurrent = i
-                let cEventOrderInFetched = fetchedEvents.findIndex(fEvent => fEvent.id === cEvent.id)
                 if (!fetchedEvents.find(fEvent => fEvent.id === cEvent.id)) {
                 //disappeared
                     if (depth > currentDepth) {
                         let initialDistance = topsOfCurrentEvents[swipedEvent.order] - topsOfCurrentEvents[cEventOrderInCurrent]
                         let finalDistance
-                        if (cEventOrderInFetched <= order) finalDistance = topsOfFetchedEvents[order] + (eventBoxHeight + 2 * overlapBottom)
-                        else finalDistance = topsOfFetchedEvents[order] - (topsOfFetchedEvents[topsOfFetchedEvents.length -1] + (eventBoxHeight + 2 * overlapBottom))
+                        if (cEventOrderInCurrent <= swipedEvent.order) finalDistance = topsOfFetchedEvents[order] + (eventBoxHeight + 2 * overlapBottom)
+                        else finalDistance = topsOfFetchedEvents[order] - (topsOfFetchedEvents[topsOfFetchedEvents.length - 1] + (eventBoxHeight + 2 * overlapBottom))
                         distance = finalDistance - initialDistance
                         return {...cEvent, distance: distance, prev: true}
                     } else return {...cEvent, fadeout: true, prev: true}
@@ -279,7 +279,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
         };
     });
     return (
-        <div ref={timelineRef} className='timeline flex flex-col max-w-lg relative overflow-hidden' style={{height: `${totalHeight + 20}px`, transition: 'height 0.5s'}}>
+        <div ref={timelineRef} className='timeline flex flex-col max-w-lg relative'>
             <TimelineFrame />
             <TimelineEvents />
             {(lastAction === 'zoomIn' || lastAction === 'zoomOut') && <AfterEffectEvents />}

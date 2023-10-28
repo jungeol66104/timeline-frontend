@@ -8,7 +8,6 @@ import React, {useEffect, useRef} from "react";
 import gsap from "gsap";
 
 const EventListHeader = ({event} : {event: TimelineEvent}) => {
-    const eventListHeaderRef = useRef(null)
 
     const dispatch = useDispatch()
     const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
@@ -24,20 +23,11 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
         dispatch(updateTotalHeight(newTotalHeight))
     }
 
-    useEffect(() => {
-        const eventListHeader = eventListHeaderRef.current
-        if (!eventListHeader) return
-        const tl = gsap.timeline()
-        tl.fromTo(eventListHeader, {y: '30px'}, {y: '0', duration: 0.5})
-        tl.play()
-        return ()=> {tl.kill()}
-    }, [isToggle]);
-
-    const listHeaderHeight = isToggle ? 38 : 0
+    let top = isToggle ? 0 : 38
 
     return (
-        <div className={`absolute`} style={{height: listHeaderHeight, transition: 'height 0.5s'}}>
-            <div ref={eventListHeaderRef} className={`pb-2.5 flex justify-between`}>
+        <div className={`absolute w-full`} style={{transition: 'all 0.5s', top: top}}>
+            <div className={`pb-2.5 flex justify-between`}>
                 <div className={'text-xl font-semibold'}>{event.date}</div>
                 <div onClick={handleClick} className={'cursor-pointer pt-[1px] flex items-center text-[14px] font-medium'}><div>간략히 보기</div><div><Image src={ExpandLessSVG} alt={'toggle'} width={22} height={22} /></div></div>
             </div>

@@ -6,12 +6,14 @@ import {stat} from "fs";
 
 const OverlapContent1 = ({event} : {event: TimelineEvent}) => {
     const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
-    const eventOrder = currentEvents.findIndex(cEvent => cEvent.id === event.id)
-    const isToggle = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrder].isToggle)
+    const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === event.id)
+    const prevEventsWithEffect = useSelector((state: RootState) => state.reducer.events.prevEventsWithEffect)
+    const eventOrderInPrev = prevEventsWithEffect.findIndex(pEvent => pEvent.id === event.id)
+    const isToggle = !event.prev ? useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrderInCurrent].isToggle) : useSelector((state: RootState) => state.reducer.events.prevEventsWithEffect[eventOrderInPrev].isToggle)
 
     const display = event.overlap !== 0 ? '' : 'hidden'
     return (
-        <div className={`${display} absolute top-[24px] left-[28px] h-[100px] bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md -z-10 transform transition-opacity ease-in-out duration-500 ${!isToggle ? 'opacity-100' : 'opacity-0'}`} style={{width: `calc(100% - 34px)`}}></div>
+        <div className={`${display} absolute top-[18px] left-[6px] h-[100px] bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md -z-10 transform transition-opacity ease-in-out duration-500 ${!isToggle ? 'opacity-100' : 'opacity-0'}`} style={{width: `calc(100% - 12px)`}}></div>
     )
 }
 
