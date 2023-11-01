@@ -1,8 +1,6 @@
 import {useSelector} from "react-redux";
 import {RootState} from "@/store/store";
-import {TimelineEvent} from "@/public/events";
-import {sum} from "@/utils/global";
-import React, {useEffect} from "react";
+import React from "react";
 
 const TimelineFrame = () => {
     const totalHeight = useSelector((state: RootState) => state.reducer.events.totalHeight)

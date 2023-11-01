@@ -9,6 +9,7 @@ import OverlapContent1 from "@/components/timeline/overlapContent1";
 import OverlapContent2 from "@/components/timeline/overlapContent2";
 
 const EventList = ({event} : {event: TimelineEvent}) => {
+
     const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
     const eventOrder = currentEvents.findIndex(cEvent => cEvent.id === event.id)
     const isToggle = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrder].isToggle)

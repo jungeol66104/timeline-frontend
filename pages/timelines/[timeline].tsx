@@ -8,12 +8,10 @@ import events, {initialEvents, TimelineEvent} from "@/public/events";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
-        const initialData = initialEvents
-        const data = events
-        return {props: {data, initialData}}
+        return {props: {data: events, initialData: initialEvents}}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);
-        return {props: {data:[], initialData: []}}
+        return {props: {}}
     }
 }
 

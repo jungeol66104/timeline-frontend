@@ -1,22 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {dummyEvents} from "@/public/events";
+import {TimelineEvent} from "@/public/events";
+
+interface initialState {
+    currentEvents: TimelineEvent[],
+    currentEventsWithEffect: TimelineEvent[],
+    prevEventsWithEffect: TimelineEvent[],
+    data: TimelineEvent[],
+    // sub
+    currentDepth: number,
+    scrollTop: number,
+    afterEffectTop: number,
+    lastAction: string,
+    totalHeight: number,
+}
+
+const initialState = {
+    currentEvents: [],
+    currentEventsWithEffect: [],
+    prevEventsWithEffect: [],
+    data: [],
+
+    currentDepth: 0,
+    scrollTop: 0,
+    afterEffectTop: 0,
+    lastAction: 'render',
+    totalHeight: 0,
+} as initialState
 
 const eventsSlice = createSlice({
     name: 'events',
-    initialState: {
-        // use fetched result later, this state is temporary
-        currentEvents: dummyEvents,
-        currentEventsWithEffect: dummyEvents,
-        prevEventsWithEffect: dummyEvents,
-        data: [],
-
-        // sub
-        currentDepth: 0,
-        scrollTop: 0,
-        afterEffectTop: 0,
-        lastAction: 'render',
-        totalHeight: 0
-    },
+    initialState,
     reducers: {
         incrementDepth: state => {
             state.currentDepth += 1
@@ -53,7 +66,7 @@ const eventsSlice = createSlice({
         },
         updateTotalHeight: (state, action) => {
             state.totalHeight = action.payload
-        }
+        },
     },
 });
 

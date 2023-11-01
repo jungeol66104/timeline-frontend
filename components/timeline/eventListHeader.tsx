@@ -1,7 +1,7 @@
 import {TimelineEvent} from "@/public/events";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store/store";
-import {updateIsToggle, updateLastAction, updateTotalHeight} from "@/store/slices/eventsSlice";
+import {updateIsToggle, updateLastAction, updateToggleEvents, updateTotalHeight} from "@/store/slices/eventsSlice";
 import Image from "next/image";
 import ExpandLessSVG from "@/public/svg/expandLess.svg";
 import React, {useEffect, useRef} from "react";

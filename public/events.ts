@@ -1,6 +1,5 @@
 import {julianDateToEvent, getRandomInt} from "@/utils/global";
 
-
 const arrayOfObjects = Array(71).fill({});
 const distribution = Array(7).fill(0).concat(Array(16).fill(1).concat(Array(48).fill(2)))
 for (let i = distribution.length - 1; i > 0; i--) {
@@ -34,100 +33,6 @@ const getInitialEvents = (events: TimelineEvent[])=> {
     return initialEvents
 }
 export const initialEvents = getInitialEvents(events)
-
-export const dummyEvents = [
-    {
-        id: 0,
-        date: '0000. 00. 00.',
-        julianDate: 0,
-        importance: 0,
-        depth: 0,
-        title: "이벤트",
-        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
-        tag: '#전쟁',
-        overlap: 0,
-        isToggle: false,
-        toggleEvents: []
-    },
-    {
-        id: 1,
-        date: '0000. 00. 00.',
-        julianDate: 0,
-        importance: 0,
-        depth: 0,
-        title: "0000",
-        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
-        tag: '#전쟁',
-        overlap: 0,
-        isToggle: false,
-        toggleEvents: []
-    },
-    {
-        id: 2,
-        date: '0000. 00. 00.',
-        julianDate: 0,
-        importance: 0,
-        depth: 0,
-        title: "0000",
-        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
-        tag: '#전쟁',
-        overlap: 0,
-        isToggle: false,
-        toggleEvents: []
-    },
-    {
-        id: 3,
-        date: '0000. 00. 00.',
-        julianDate: 0,
-        importance: 0,
-        depth: 0,
-        title: "0000",
-        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
-        tag: '#전쟁',
-        overlap: 0,
-        isToggle: false,
-        toggleEvents: []
-    },
-    {
-        id: 4,
-        date: '0000. 00. 00.',
-        julianDate: 0,
-        importance: 0,
-        depth: 0,
-        title: "0000",
-        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
-        tag: '#전쟁',
-        overlap: 0,
-        isToggle: false,
-        toggleEvents: []
-    },
-    {
-        id: 5,
-        date: '0000. 00. 00.',
-        julianDate: 0,
-        importance: 0,
-        depth: 0,
-        title: "0000",
-        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
-        tag: '#전쟁',
-        overlap: 0,
-        isToggle: false,
-        toggleEvents: []
-    },
-    {
-        id: 6,
-        date: '0000. 00. 00.',
-        julianDate: 0,
-        importance: 0,
-        depth: 0,
-        title: "0000",
-        content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
-        tag: '#전쟁',
-        overlap: 0,
-        isToggle: false,
-        toggleEvents: []
-    }
-]
 
 export interface TimelineEvent {
     id: number

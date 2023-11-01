@@ -1,24 +1,27 @@
 import {TimelineEvent} from "@/public/events";
 import React, {RefObject, useEffect, useRef} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/store/store";
 import gsap from "gsap";
 import EventNode from "@/components/timeline/eventNode";
 import EventList from "@/components/timeline/eventList";
+import {updateToggleEvents} from "@/store/slices/eventsSlice";
 
 const EventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
+
     const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
     const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
     const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === event.id)
     const isToggle = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrderInCurrent].isToggle)
 
     let animation = event.fadeout ? 'animate-fadeOut' : event.distance !== undefined ? '' :'animate-fadeIn'
+    if (lastAction) {}
     let zIndex = event.fadeout || animation === 'animate-fadeIn' ? '' : 'z-20'
     let paddingBottom = event.overlap === 0 || isToggle ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
 
     useEffect(() => {
-        if (lastAction === 'scroll' || lastAction === 'toggle') return
+        if (lastAction !== 'zoomIn' && lastAction !== 'zoomOut') return
         const eventBox = eventBoxRef.current
         if (!eventBox) return
         const tl = gsap.timeline()
