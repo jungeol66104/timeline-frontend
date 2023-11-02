@@ -7,7 +7,7 @@ import {
     updateTotalHeight
 } from "@/store/slices/eventsSlice";
 import React, {RefObject, useEffect, useRef} from "react";
-import {RootState} from "@/store/store";
+import {RootState} from "@/store/rootReducer";
 import gsap from "gsap";
 import Link from "next/link";
 
@@ -16,9 +16,9 @@ const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {eve
     const eventContentRef : RefObject<HTMLDivElement> = useRef(null)
 
     const dispatch = useDispatch()
-    const data: TimelineEvent[] = useSelector((state: RootState) => state.reducer.events.data)
-    const totalHeight = useSelector((state: RootState) => state.reducer.events.totalHeight)
-    const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
+    const data: TimelineEvent[] = useSelector((state: RootState) => state.events.data)
+    const totalHeight = useSelector((state: RootState) => state.events.totalHeight)
+    const lastAction = useSelector((state: RootState) => state.events.lastAction)
 
     let isZooming = true
     if (lastAction === 'zoomIn' || lastAction === 'zoomOut') {setTimeout(() => {isZooming = false}, 500)}

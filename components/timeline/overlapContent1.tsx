@@ -1,15 +1,15 @@
 import {TimelineEvent} from "@/public/events";
 import React from "react";
 import {useSelector} from "react-redux";
-import {RootState} from "@/store/store";
+import {RootState} from "@/store/rootReducer";
 import {stat} from "fs";
 
 const OverlapContent1 = ({event} : {event: TimelineEvent}) => {
-    const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
+    const currentEvents = useSelector((state: RootState) => state.events.currentEvents)
     const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === event.id)
-    const prevEventsWithEffect = useSelector((state: RootState) => state.reducer.events.prevEventsWithEffect)
+    const prevEventsWithEffect = useSelector((state: RootState) => state.events.prevEventsWithEffect)
     const eventOrderInPrev = prevEventsWithEffect.findIndex(pEvent => pEvent.id === event.id)
-    const isToggle = !event.prev ? useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrderInCurrent].isToggle) : useSelector((state: RootState) => state.reducer.events.prevEventsWithEffect[eventOrderInPrev].isToggle)
+    const isToggle = !event.prev ? useSelector((state: RootState) => state.events.currentEvents[eventOrderInCurrent].isToggle) : useSelector((state: RootState) => state.events.prevEventsWithEffect[eventOrderInPrev].isToggle)
 
     const display = event.overlap !== 0 ? '' : 'hidden'
     return (

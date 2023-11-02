@@ -1,7 +1,7 @@
 // modules
 import React, {RefObject, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "@/store/store";
+import {RootState} from "@/store/rootReducer";
 import {
     updateTotalHeight,
     updateData,
@@ -14,7 +14,7 @@ import {
     updateScrollTop,
     updateAfterEffectTop,
 } from "@/store/slices/eventsSlice";
-import {EventWithOrderTop, initialEvents, TimelineEvent} from '@/public/events'
+import {EventWithOrderTop, TimelineEvent} from '@/public/events'
 import {sum, julianDateToEvent} from '@/utils/global'
 // components
 import TimelineFrame from "@/components/timeline/timelineFrame";
@@ -24,12 +24,11 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
     const timelineRef: RefObject<HTMLDivElement> = useRef(null)
 
     const dispatch = useDispatch()
-    const currentDepth = useSelector((state: RootState) => state.reducer.events.currentDepth)
-    const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
-    const currentEventsWithEffect = useSelector((state: RootState) => state.reducer.events.currentEventsWithEffect)
-    const scrollTop = useSelector((state: RootState) => state.reducer.events.scrollTop)
-    const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
-    console.log(currentEventsWithEffect)
+    const currentDepth = useSelector((state: RootState) => state.events.currentDepth)
+    const currentEvents = useSelector((state: RootState) => state.events.currentEvents)
+    const currentEventsWithEffect = useSelector((state: RootState) => state.events.currentEventsWithEffect)
+    const scrollTop = useSelector((state: RootState) => state.events.scrollTop)
+    const lastAction = useSelector((state: RootState) => state.events.lastAction)
 
     const aboveTimelineHeight = 70
     const eventBoxHeight = 124
@@ -49,7 +48,6 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
 
         dispatch(updateCurrentEvents(initialData))
         dispatch(updateCurrentEventsWithEffect(initialData))
-        dispatch(updatePrevEventsWithEffect(initialData))
         dispatch(updateData(data))
         dispatch(updateTotalHeight(sum(heightsOfInitialEvents)))
     }, [dispatch, initialData]);

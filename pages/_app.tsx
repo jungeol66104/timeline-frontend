@@ -1,17 +1,22 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Layout from '../components/layout'
-import { Provider} from "react-redux";
-import store from '../store/store'
+import {persistor, storeWrapper} from '@/store/store'
+import {PersistGate} from "redux-persist/integration/react";
+import {Provider} from "react-redux";
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, ...rest }: AppProps) {
+    const {store, props} = storeWrapper.useWrappedStore(rest)
+
   return (
       <Provider store={store}>
-          <main>
+          <PersistGate persistor={persistor} loading={null}>
               <Layout>
-                  <Component {...pageProps} />
+                  <Component {...props.pageProps} />
               </Layout>
-          </main>
+          </PersistGate>
       </Provider>
   )
 }
+
+export default App

@@ -2,20 +2,16 @@ import {TimelineEvent} from "@/public/events";
 import React, {RefObject, useEffect, useRef} from "react";
 import gsap from "gsap";
 import EventNode from "@/components/timeline/eventNode";
-import EventContent from "@/components/timeline/eventContent";
-import OverlapContent1 from "@/components/timeline/overlapContent1";
-import OverlapContent2 from "@/components/timeline/overlapContent2";
 import {useSelector} from "react-redux";
-import {RootState} from "@/store/store";
-import EventList from "@/components/timeline/eventList";
+import {RootState} from "@/store/rootReducer";
 import AfterEventList from "@/components/timeline/afterEventList";
 
 const AfterEventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
-    const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
-    const prevEventsWithEffect = useSelector((state: RootState) => state.reducer.events.prevEventsWithEffect)
+    const lastAction = useSelector((state: RootState) => state.events.lastAction)
+    const prevEventsWithEffect = useSelector((state: RootState) => state.events.prevEventsWithEffect)
     const eventOrderInPrev = prevEventsWithEffect.findIndex(pEvent => pEvent.id === event.id)
-    const isToggle = useSelector((state: RootState) => state.reducer.events.prevEventsWithEffect[eventOrderInPrev].isToggle)
+    const isToggle = useSelector((state: RootState) => state.events.prevEventsWithEffect[eventOrderInPrev].isToggle)
 
     let animation = event.fadeout ? 'animate-fadeOut' : ''
     let zIndex = event.fadeout ? '' : 'z-20'

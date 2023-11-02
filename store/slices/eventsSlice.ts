@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {TimelineEvent} from "@/public/events";
+import { TimelineEvent } from "@/public/events";
 
-interface initialState {
+export interface initialEventsState {
     currentEvents: TimelineEvent[],
     currentEventsWithEffect: TimelineEvent[],
     prevEventsWithEffect: TimelineEvent[],
@@ -25,7 +25,7 @@ const initialState = {
     afterEffectTop: 0,
     lastAction: 'render',
     totalHeight: 0,
-} as initialState
+} as initialEventsState
 
 const eventsSlice = createSlice({
     name: 'events',

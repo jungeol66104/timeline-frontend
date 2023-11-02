@@ -1,20 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export interface initialSearchState {
+    isSearch: boolean
+    searchValue: string
+    tab: number
+}
+
+const initialState = {
+    isSearch: false,
+    searchValue: '',
+    tab: 0,
+} as initialSearchState
+
 const searchSlice = createSlice({
     name: 'search',
-    initialState: {
-        isSearch: false,
-        searchValue: '',
-        tab: 0,
-    },
+    initialState,
     reducers: {
         updateIsSearch : state => {
             state.isSearch = !state.isSearch
         },
         updateSearchValue : (state, action) => {
             state.searchValue = action.payload
-        }
-        ,
+        },
         updateTab : (state, action) => {
             state.tab = action.payload
         }

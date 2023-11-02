@@ -1,7 +1,7 @@
 import {TimelineEvent} from "@/public/events";
 import React, {RefObject, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "@/store/store";
+import {RootState} from "@/store/rootReducer";
 import gsap from "gsap";
 import EventNode from "@/components/timeline/eventNode";
 import EventList from "@/components/timeline/eventList";
@@ -10,10 +10,10 @@ import {updateToggleEvents} from "@/store/slices/eventsSlice";
 const EventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
 
-    const lastAction = useSelector((state: RootState) => state.reducer.events.lastAction)
-    const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
+    const lastAction = useSelector((state: RootState) => state.events.lastAction)
+    const currentEvents = useSelector((state: RootState) => state.events.currentEvents)
     const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === event.id)
-    const isToggle = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrderInCurrent].isToggle)
+    const isToggle = useSelector((state: RootState) => state.events.currentEvents[eventOrderInCurrent].isToggle)
 
     let animation = event.fadeout ? 'animate-fadeOut' : event.distance !== undefined ? '' :'animate-fadeIn'
     if (lastAction) {}

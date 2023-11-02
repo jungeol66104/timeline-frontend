@@ -1,6 +1,6 @@
 import {TimelineEvent} from "@/public/events";
 import {useSelector} from "react-redux";
-import {RootState} from "@/store/store";
+import {RootState} from "@/store/rootReducer";
 import React from "react";
 
 import EventContent from "@/components/timeline/eventContent";
@@ -10,10 +10,10 @@ import OverlapContent2 from "@/components/timeline/overlapContent2";
 
 const EventList = ({event} : {event: TimelineEvent}) => {
 
-    const currentEvents = useSelector((state: RootState) => state.reducer.events.currentEvents)
+    const currentEvents = useSelector((state: RootState) => state.events.currentEvents)
     const eventOrder = currentEvents.findIndex(cEvent => cEvent.id === event.id)
-    const isToggle = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrder].isToggle)
-    const toggleEvents = useSelector((state: RootState) => state.reducer.events.currentEvents[eventOrder].toggleEvents)
+    const isToggle = useSelector((state: RootState) => state.events.currentEvents[eventOrder].isToggle)
+    const toggleEvents = useSelector((state: RootState) => state.events.currentEvents[eventOrder].toggleEvents)
 
     const listHeight = !isToggle ? 112 : 28 + (toggleEvents.length + 1) * 124
 

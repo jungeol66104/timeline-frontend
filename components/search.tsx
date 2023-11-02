@@ -4,13 +4,13 @@ import SearchInBarSVG from "@/public/svg/searchInBar.svg";
 import NorthwestSVG from '@/public/svg/northwest.svg'
 import React, {ChangeEvent, RefObject, useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "@/store/store";
+import {RootState} from "@/store/rootReducer";
 import {updateIsSearch, updateSearchValue, updateTab} from "@/store/slices/searchSlice";
 import dummyEvents, {TimelineEvent} from "@/public/events";
 
 const Search = () => {
     const dispatch = useDispatch()
-    const isSearch = useSelector((state: RootState) => state.reducer.search.isSearch)
+    const isSearch = useSelector((state: RootState) => state.search.isSearch)
 
     return (
         <>
@@ -29,8 +29,8 @@ const SearchHeader = () => {
     const searchBarInputRef: RefObject<HTMLInputElement> = useRef(null)
 
     const dispatch = useDispatch()
-    const isSearch = useSelector((state: RootState) => state.reducer.search.isSearch)
-    const searchValue = useSelector((state: RootState) => state.reducer.search.searchValue)
+    const isSearch = useSelector((state: RootState) => state.search.isSearch)
+    const searchValue = useSelector((state: RootState) => state.search.searchValue)
 
     const handelSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value
@@ -62,7 +62,7 @@ const SearchHeader = () => {
 
 const SearchTab = () => {
     const dispatch = useDispatch()
-    const tab = useSelector((state: RootState) => state.reducer.search.tab)
+    const tab = useSelector((state: RootState) => state.search.tab)
 
     return (
         <div className={'h-fit flex flex-col ml-4 mr-4'}>
@@ -76,7 +76,7 @@ const SearchTab = () => {
 }
 
 const SearchBody = () => {
-    const tab = useSelector((state: RootState) => state.reducer.search.tab)
+    const tab = useSelector((state: RootState) => state.search.tab)
 
     return (
         <div className={`flex w-fit transform transition-transform ease-in-out duration-300 ${tab === 0 ? 'translate-x-0' : '-translate-x-1/2'}`}>
