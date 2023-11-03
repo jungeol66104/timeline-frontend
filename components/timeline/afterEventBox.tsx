@@ -3,15 +3,17 @@ import React, {RefObject, useEffect, useRef} from "react";
 import gsap from "gsap";
 import EventNode from "@/components/timeline/eventNode";
 import {useSelector} from "react-redux";
-import {RootState} from "@/store/rootReducer";
 import AfterEventList from "@/components/timeline/afterEventList";
+import {selectLastAction} from "@/store/slices/effectsSlice";
+import {selectPrevEventsWithEffect} from "@/store/slices/eventsSlice";
+// refactoring: needed
 
 const AfterEventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
-    const lastAction = useSelector((state: RootState) => state.events.lastAction)
-    const prevEventsWithEffect = useSelector((state: RootState) => state.events.prevEventsWithEffect)
+    const lastAction = useSelector(selectLastAction)
+    const prevEventsWithEffect = useSelector(selectPrevEventsWithEffect)
     const eventOrderInPrev = prevEventsWithEffect.findIndex(pEvent => pEvent.id === event.id)
-    const isToggle = useSelector((state: RootState) => state.events.prevEventsWithEffect[eventOrderInPrev].isToggle)
+    const isToggle = prevEventsWithEffect[eventOrderInPrev].isToggle
 
     let animation = event.fadeout ? 'animate-fadeOut' : ''
     let zIndex = event.fadeout ? '' : 'z-20'

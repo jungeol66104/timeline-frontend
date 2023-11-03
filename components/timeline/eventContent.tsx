@@ -1,24 +1,32 @@
 import {TimelineEvent} from "@/public/events";
 import {useDispatch, useSelector} from "react-redux";
 import {
+    selectCurrentEvents,
+    selectData,
     updateIsToggle,
-    updateLastAction,
     updateToggleEvents,
-    updateTotalHeight
 } from "@/store/slices/eventsSlice";
-import React, {RefObject, useEffect, useRef} from "react";
-import {RootState} from "@/store/rootReducer";
+import {RefObject, useEffect, useRef} from "react";
 import gsap from "gsap";
 import Link from "next/link";
-
+import {
+    selectCurrentDepth,
+    selectLastAction,
+    selectTotalHeight,
+    updateLastAction,
+    updateTotalHeight
+} from "@/store/slices/effectsSlice";
+// refactoring: needed
 
 const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {event: TimelineEvent, eventOrder: number, contentOrder: number, isToggle?: boolean, isPrev?: boolean}) => {
     const eventContentRef : RefObject<HTMLDivElement> = useRef(null)
 
     const dispatch = useDispatch()
-    const data: TimelineEvent[] = useSelector((state: RootState) => state.events.data)
-    const totalHeight = useSelector((state: RootState) => state.events.totalHeight)
-    const lastAction = useSelector((state: RootState) => state.events.lastAction)
+    const data: TimelineEvent[] = useSelector(selectData)
+    const currentEvents = useSelector(selectCurrentEvents)
+    const totalHeight = useSelector(selectTotalHeight)
+    const currentDepth = useSelector(selectCurrentDepth)
+    const lastAction = useSelector(selectLastAction)
 
     let isZooming = true
     if (lastAction === 'zoomIn' || lastAction === 'zoomOut') {setTimeout(() => {isZooming = false}, 500)}
@@ -26,7 +34,16 @@ const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {eve
 
     const handleClick = () => {
         if (isZooming) return
-        if ((!isToggle && contentOrder === 0 && event.overlap === 0) || isToggle) return
+        if ((!isToggle && contentOrder === 0 && event.overlap === 0) || isToggle) {
+            const scrollWrapper = document.querySelector('.page')
+            if (!scrollWrapper) return
+            sessionStorage.setItem('currentEvents',JSON.stringify(currentEvents))
+            sessionStorage.setItem('totalHeight',JSON.stringify(totalHeight))
+            sessionStorage.setItem('currentDepth', JSON.stringify(currentDepth))
+            sessionStorage.setItem('scrollTop', JSON.stringify(scrollWrapper.scrollTop))
+            sessionStorage.setItem('lastAction', 'enter')
+            return
+        }
         const newToggleEvents = data.filter(e => e.julianDate === event.julianDate).filter(e => e.id !== event.id)
         // should generalize the layout states globally
         const newTotalHeight = totalHeight - (124 + event.overlap * 6) + (38 + (newToggleEvents.length + 1) * 124)

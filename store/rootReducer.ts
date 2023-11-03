@@ -1,8 +1,9 @@
 import {AnyAction, CombinedState, combineReducers, Reducer} from 'redux';
 import {HYDRATE} from "next-redux-wrapper";
 import eventsSlice, {initialEventsState} from "@/store/slices/eventsSlice";
+import effectsSlice, {initialEffectsState} from "@/store/slices/effectsSlice";
 import searchSlice, {initialSearchState} from "@/store/slices/searchSlice";
-import layoutSlice, {initialLayoutState} from "@/store/slices/layoutSlice";
+// refactoring: clear
 
 const rootReducer: Reducer = (state: initialState, action: AnyAction): CombinedState<initialState> => {
     switch (action.type) {
@@ -12,15 +13,16 @@ const rootReducer: Reducer = (state: initialState, action: AnyAction): CombinedS
             return combineReducers({
                 events: eventsSlice,
                 search: searchSlice,
-                layout: layoutSlice
+                effects: effectsSlice
             })(state, action)
     }
 }
+export default rootReducer;
+
+// types
 export interface initialState {
     events: initialEventsState
     search: initialSearchState
-    layout: initialLayoutState
+    effects: initialEffectsState
 }
 export type RootState = initialState
-export type RootReducer = (state: initialState, action: AnyAction) => initialState
-export default rootReducer;

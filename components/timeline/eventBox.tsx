@@ -1,19 +1,20 @@
-import {TimelineEvent} from "@/public/events";
-import React, {RefObject, useEffect, useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "@/store/rootReducer";
+import {RefObject, useEffect, useRef} from "react";
+import {useSelector} from "react-redux";
 import gsap from "gsap";
+import {TimelineEvent} from "@/public/events";
 import EventNode from "@/components/timeline/eventNode";
 import EventList from "@/components/timeline/eventList";
-import {updateToggleEvents} from "@/store/slices/eventsSlice";
+import {selectCurrentEvents} from "@/store/slices/eventsSlice";
+import {selectLastAction} from "@/store/slices/effectsSlice";
+// refactoring: needed (animation logic)
 
 const EventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
 
-    const lastAction = useSelector((state: RootState) => state.events.lastAction)
-    const currentEvents = useSelector((state: RootState) => state.events.currentEvents)
+    const currentEvents = useSelector(selectCurrentEvents)
     const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === event.id)
-    const isToggle = useSelector((state: RootState) => state.events.currentEvents[eventOrderInCurrent].isToggle)
+    const isToggle = currentEvents[eventOrderInCurrent].isToggle
+    const lastAction = useSelector(selectLastAction)
 
     let animation = event.fadeout ? 'animate-fadeOut' : event.distance !== undefined ? '' :'animate-fadeIn'
     if (lastAction) {}

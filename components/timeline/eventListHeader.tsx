@@ -1,29 +1,28 @@
 import {TimelineEvent} from "@/public/events";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "@/store/rootReducer";
-import {updateIsToggle, updateLastAction, updateToggleEvents, updateTotalHeight} from "@/store/slices/eventsSlice";
+import {selectCurrentEvents, updateIsToggle} from "@/store/slices/eventsSlice";
 import Image from "next/image";
 import ExpandLessSVG from "@/public/svg/expandLess.svg";
-import React, {useEffect, useRef} from "react";
-import gsap from "gsap";
+import {selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/effectsSlice";
+// refactoring: needed
 
 const EventListHeader = ({event} : {event: TimelineEvent}) => {
 
     const dispatch = useDispatch()
-    const currentEvents = useSelector((state: RootState) => state.events.currentEvents)
-    const totalHeight = useSelector((state: RootState) => state.events.totalHeight)
-    const eventOrder = currentEvents.findIndex(cEvent => cEvent.id === event.id)
-    const toggleEvents = useSelector((state: RootState) => state.events.currentEvents[eventOrder].toggleEvents)
-    const isToggle = useSelector((state: RootState) => state.events.currentEvents[eventOrder].isToggle)
+    const currentEvents = useSelector(selectCurrentEvents)
+    const totalHeight = useSelector(selectTotalHeight)
+    const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === event.id)
+    const isToggle = currentEvents[eventOrderInCurrent].isToggle
+    const toggleEvents = currentEvents[eventOrderInCurrent].toggleEvents
+
+    let top = isToggle ? 0 : 38
 
     const handleClick = () => {
         const newTotalHeight = totalHeight + (124 + event.overlap * 6) - (38 + (toggleEvents.length + 1) * 124)
-        dispatch(updateIsToggle(eventOrder))
+        dispatch(updateIsToggle(eventOrderInCurrent))
         dispatch(updateLastAction('toggle'))
         dispatch(updateTotalHeight(newTotalHeight))
     }
-
-    let top = isToggle ? 0 : 38
 
     return (
         <div className={`absolute w-full`} style={{transition: 'all 0.5s', top: top}}>

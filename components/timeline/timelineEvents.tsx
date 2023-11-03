@@ -1,11 +1,11 @@
 import {useSelector} from "react-redux";
-import {RootState} from "@/store/rootReducer";
 import {TimelineEvent} from "@/public/events";
-import React from "react";
 import EventBox from "@/components/timeline/eventBox";
+import {selectCurrentEventsWithEffect} from "@/store/slices/eventsSlice";
+// refactoring: clear
 
 const TimelineEvents = () => {
-    const currentEventsWithEffect = useSelector((state: RootState) => state.events.currentEventsWithEffect)
+    const currentEventsWithEffect = useSelector(selectCurrentEventsWithEffect)
     return (
         <>
             {currentEventsWithEffect.map((event: TimelineEvent) => {
@@ -14,5 +14,4 @@ const TimelineEvents = () => {
         </>
     )
 }
-
 export default TimelineEvents

@@ -1,34 +1,38 @@
-// modules
-import React, {RefObject, useEffect, useRef} from "react";
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "@/store/rootReducer";
+import {EventWithOrderTop, TimelineEvent} from '@/public/events'
+import {sum, julianDateToEvent, getEventHeights} from '@/utils/global'
 import {
-    updateTotalHeight,
-    updateData,
-    decrementDepth,
-    incrementDepth,
+    selectCurrentEvents, selectCurrentEventsWithEffect,
+    selectData,
     updateCurrentEvents,
     updateCurrentEventsWithEffect,
-    updateLastAction,
     updatePrevEventsWithEffect,
-    updateScrollTop,
-    updateAfterEffectTop,
 } from "@/store/slices/eventsSlice";
-import {EventWithOrderTop, TimelineEvent} from '@/public/events'
-import {sum, julianDateToEvent} from '@/utils/global'
-// components
+import {
+    decrementDepth, incrementDepth,
+    selectCurrentDepth,
+    selectLastAction,
+    selectScrollTop, updateAfterEffectTop,
+    updateCurrentDepth, updateLastAction, updateScrollTop,
+    updateTotalHeight
+} from "@/store/slices/effectsSlice";
 import TimelineFrame from "@/components/timeline/timelineFrame";
 import TimelineEvents from "@/components/timeline/timelineEvents";
 import AfterEffectEvents from "@/components/timeline/afterEffectEvents";
-const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], initialData: TimelineEvent[], scrollRef: RefObject<HTMLDivElement>}) => {
-    const timelineRef: RefObject<HTMLDivElement> = useRef(null)
+// refactoring: needed (handler refactoring, vars need to be globalized?)
+
+const Timeline = () => {
+    const timeline: HTMLDivElement | null = document.querySelector('.timeline')
+    const scrollWrapper: HTMLDivElement | null = document.querySelector('.page')
 
     const dispatch = useDispatch()
-    const currentDepth = useSelector((state: RootState) => state.events.currentDepth)
-    const currentEvents = useSelector((state: RootState) => state.events.currentEvents)
-    const currentEventsWithEffect = useSelector((state: RootState) => state.events.currentEventsWithEffect)
-    const scrollTop = useSelector((state: RootState) => state.events.scrollTop)
-    const lastAction = useSelector((state: RootState) => state.events.lastAction)
+    const currentEvents = useSelector(selectCurrentEvents)
+    const currentEventsWithEffect = useSelector(selectCurrentEventsWithEffect)
+    const data = useSelector(selectData)
+    const currentDepth = useSelector(selectCurrentDepth)
+    const scrollTop = useSelector(selectScrollTop)
+    const lastAction = useSelector(selectLastAction)
 
     const aboveTimelineHeight = 70
     const eventBoxHeight = 124
@@ -39,37 +43,31 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
     if (lastAction === 'zoomIn' || lastAction === 'zoomOut') {setTimeout(() => {isZooming = false}, 500)}
     else {isZooming = false}
 
-    // initialData setup
+    // clicking back button
     useEffect(() => {
-        const heightsOfInitialEvents = initialData.map(IEvent => {
-            if (IEvent.isToggle) return (38 + (IEvent.toggleEvents.length + 1) * 124)
-            else return (eventBoxHeight + IEvent.overlap * overlapBottom)
-        }) as number[]
-
-        dispatch(updateCurrentEvents(initialData))
-        dispatch(updateCurrentEventsWithEffect(initialData))
-        dispatch(updateData(data))
-        dispatch(updateTotalHeight(sum(heightsOfInitialEvents)))
-    }, [dispatch, initialData]);
+        if (sessionStorage.getItem('lastAction') === 'enter') {
+            dispatch(updateCurrentEvents(JSON.parse(sessionStorage.getItem('currentEvents') as string)))
+            dispatch(updateCurrentEventsWithEffect(JSON.parse(sessionStorage.getItem('currentEvents') as string)))
+            dispatch(updateTotalHeight(JSON.parse(sessionStorage.getItem('totalHeight') as string)))
+            dispatch(updateCurrentDepth(JSON.parse(sessionStorage.getItem('currentDepth') as string)))
+            dispatch(updateScrollTop(JSON.parse(sessionStorage.getItem('scrollTop') as string)))
+            dispatch(updateLastAction('back'))
+            sessionStorage.clear()
+        }
+    }, []);
 
     // scroll setup
     useEffect(() => {
-        const scrollWrapper = scrollRef.current
         if (!scrollWrapper) return
         scrollWrapper.scrollTop = scrollTop
     },[scrollTop])
 
     // event handlers
     useEffect(() => {
-        const scrollWrapper = scrollRef.current
-        const timeline = timelineRef.current
         if (!scrollWrapper || !timeline) return
 
-        const heightsOfCurrentEvents = currentEvents.map(cEvent => {
-            if (cEvent.isToggle) return (38 + (cEvent.toggleEvents.length + 1) * 124)
-            else return (eventBoxHeight + cEvent.overlap * overlapBottom)
-        }) as number[]
-        let topsOfCurrentEvents = heightsOfCurrentEvents.map((height, i) => sum(heightsOfCurrentEvents.slice(0,i)))
+        const heightsOfCurrentEvents = getEventHeights(currentEvents)
+        let topsOfCurrentEvents = heightsOfCurrentEvents.map((_, i) => sum(heightsOfCurrentEvents.slice(0,i)))
         let startX: number | null = null
 
         // functions
@@ -230,10 +228,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
         }
         const getScrollTop = (swipedEvent: EventWithOrderTop, referEvent: EventWithOrderTop, fetchedEvents: TimelineEvent[]) => {
             if (!swipedEvent.top) return {newScrollTop: 0, totalHeight: 0}
-            const heightsOfFetchedEvents = fetchedEvents.map(fEvent => {
-                if (fEvent.isToggle) {return (38 + (fEvent.toggleEvents.length + 1) * 124)}
-                else return (eventBoxHeight + fEvent.overlap * overlapBottom)
-            }) as number[]
+            const heightsOfFetchedEvents = getEventHeights(fetchedEvents)
             const topsOfFetchedEvents = heightsOfFetchedEvents.map((_, i) => sum(heightsOfFetchedEvents.slice(0,i)))
             let topInContainer = aboveTimelineHeight + topsOfFetchedEvents[fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)]
             let newScrollTop = topInContainer - swipedEvent.top
@@ -275,7 +270,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
             let order =  scrollUp ? 0 : currentEvents.length - 1
             //this code below can be generalized in the future
             let arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + cEvent.overlap * overlapBottom)
-            let arrayOfTop = arrayOfHeight.map((height, i) => sum(arrayOfHeight.slice(0,i)))
+            let arrayOfTop = arrayOfHeight.map((_, i) => sum(arrayOfHeight.slice(0,i)))
             let top = aboveTimelineHeight + arrayOfTop[order] - scrollWrapper.scrollTop
             const scrollEvent = {...currentEvents[order], order: order, top: top }
             let { fetchedEvents, referEvent } = fetchEventsForScroll(scrollEvent, data)
@@ -318,9 +313,9 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
                 startX = null
             }
         }
-        const handleKeyDown = () => {
-
-        }
+        // const handleKeyDown = () => {
+        //
+        // }
         const handleScroll = () => {
             let viewportHeight = typeof window !== 'undefined' ? window.innerHeight : undefined
             if (!viewportHeight) return
@@ -347,7 +342,7 @@ const Timeline = ({ data, initialData, scrollRef }: {data: TimelineEvent[], init
         };
     });
     return (
-        <div ref={timelineRef} className='timeline flex flex-col max-w-lg relative'>
+        <div className='timeline flex flex-col max-w-lg relative'>
             <TimelineFrame />
             <TimelineEvents />
             {(lastAction === 'zoomIn' || lastAction === 'zoomOut') && <AfterEffectEvents />}

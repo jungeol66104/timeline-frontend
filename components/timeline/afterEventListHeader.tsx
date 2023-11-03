@@ -1,14 +1,14 @@
 import {TimelineEvent} from "@/public/events";
 import {useSelector} from "react-redux";
-import {RootState} from "@/store/rootReducer";
 import Image from "next/image";
-import React from "react";
+import {selectPrevEventsWithEffect} from "@/store/slices/eventsSlice";
+// refactoring: needed
 
 const AfterEventListHeader = ({event} : {event: TimelineEvent}) => {
 
-    const prevEventsWithEffect = useSelector((state: RootState) => state.events.prevEventsWithEffect)
+    const prevEventsWithEffect = useSelector(selectPrevEventsWithEffect)
     const eventOrder = prevEventsWithEffect.findIndex(cEvent => cEvent.id === event.id)
-    const isToggle = useSelector((state: RootState) => state.events.prevEventsWithEffect[eventOrder].isToggle)
+    const isToggle = prevEventsWithEffect[eventOrder].isToggle
 
     let top = isToggle ? 0 : 38
 

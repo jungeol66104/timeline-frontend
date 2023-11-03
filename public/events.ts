@@ -34,6 +34,20 @@ const getInitialEvents = (events: TimelineEvent[])=> {
 }
 export const initialEvents = getInitialEvents(events)
 
+export const dummyEvent = {
+    id: 0,
+    date: '',
+    julianDate: 0,
+    importance: 0,
+    depth: 0,
+    title: '',
+    content: '',
+    tag: '',
+    overlap: 0,
+    isToggle: false,
+    toggleEvents: [],
+}
+
 export interface TimelineEvent {
     id: number
     date: string

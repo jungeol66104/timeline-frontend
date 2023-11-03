@@ -1,41 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TimelineEvent } from "@/public/events";
-
-export interface initialEventsState {
-    currentEvents: TimelineEvent[],
-    currentEventsWithEffect: TimelineEvent[],
-    prevEventsWithEffect: TimelineEvent[],
-    data: TimelineEvent[],
-    // sub
-    currentDepth: number,
-    scrollTop: number,
-    afterEffectTop: number,
-    lastAction: string,
-    totalHeight: number,
-}
+import {dummyEvent, TimelineEvent} from "@/public/events";
+import {RootState} from "@/store/rootReducer";
+// refactoring: clear
 
 const initialState = {
+    currentEvent: dummyEvent,
     currentEvents: [],
     currentEventsWithEffect: [],
     prevEventsWithEffect: [],
     data: [],
-
-    currentDepth: 0,
-    scrollTop: 0,
-    afterEffectTop: 0,
-    lastAction: 'render',
-    totalHeight: 0,
 } as initialEventsState
 
 const eventsSlice = createSlice({
     name: 'events',
     initialState,
     reducers: {
-        incrementDepth: state => {
-            state.currentDepth += 1
-        },
-        decrementDepth: state => {
-            state.currentDepth -= 1
+        updateCurrentEvent: (state, action) => {
+            state.currentEvent = action.payload
         },
         updateCurrentEvents: (state, action) => {
             state.currentEvents = action.payload
@@ -46,15 +27,6 @@ const eventsSlice = createSlice({
         updatePrevEventsWithEffect: (state, action) => {
             state.prevEventsWithEffect = action.payload
         },
-        updateScrollTop: (state, action) => {
-            state.scrollTop = action.payload
-        },
-        updateAfterEffectTop: (state, action) => {
-            state.afterEffectTop = action.payload
-        },
-        updateLastAction: (state, action) => {
-            state.lastAction = action.payload
-        },
         updateData: (state, action) => {
             state.data = action.payload
         },
@@ -64,11 +36,23 @@ const eventsSlice = createSlice({
         updateToggleEvents: (state, action) => {
             state.currentEvents[action.payload.order].toggleEvents = action.payload.toggleEvents
         },
-        updateTotalHeight: (state, action) => {
-            state.totalHeight = action.payload
-        },
     },
 });
-
-export const { incrementDepth, decrementDepth, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect, updateScrollTop, updateAfterEffectTop, updateLastAction, updateData, updateIsToggle, updateToggleEvents, updateTotalHeight} = eventsSlice.actions;
 export default eventsSlice.reducer;
+export const { updateCurrentEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect, updateData, updateIsToggle, updateToggleEvents, } = eventsSlice.actions;
+
+// selectors
+export const selectCurrentEvent = (state: RootState) => state.events.currentEvent
+export const selectCurrentEvents = (state: RootState) => state.events.currentEvents
+export const selectCurrentEventsWithEffect = (state: RootState) => state.events.currentEventsWithEffect
+export const selectPrevEventsWithEffect = (state: RootState) => state.events.prevEventsWithEffect
+export const selectData = (state: RootState) => state.events.data
+
+// types
+export interface initialEventsState {
+    currentEvent: TimelineEvent,
+    currentEvents: TimelineEvent[],
+    currentEventsWithEffect: TimelineEvent[],
+    prevEventsWithEffect: TimelineEvent[],
+    data: TimelineEvent[],
+}

@@ -1,18 +1,17 @@
+import {storeWrapper} from "@/store/store";
+import {sum, getEventHeights} from "@/utils/global";
+import events, {initialEvents} from "@/public/events";
+import {updateCurrentEvents, updateCurrentEventsWithEffect, updateData} from "@/store/slices/eventsSlice";
+import {updateTotalHeight} from "@/store/slices/effectsSlice";
 import Timeline from "@/components/timeline/timeline";
-import {RefObject, useEffect, useRef} from "react";
-import events, {initialEvents, TimelineEvent} from "@/public/events";
-import {persistor, storeWrapper} from "@/store/store";
-import {saveStateToSessionStorage} from "@/store/action";
-import {
-    updateCurrentEvents,
-    updateCurrentEventsWithEffect, updateData,
-    updatePrevEventsWithEffect
-} from "@/store/slices/eventsSlice";
+// refactoring: needed (events to API fetching)
 
-export const getServerSideProps = storeWrapper.getServerSideProps((store) => async() => {
+export const getServerSideProps = storeWrapper.getServerSideProps((store) => async () => {
     try {
+        const initialTotalHeight = sum(getEventHeights(initialEvents))
         store.dispatch(updateCurrentEvents(initialEvents))
         store.dispatch(updateCurrentEventsWithEffect(initialEvents))
+        store.dispatch(updateTotalHeight(initialTotalHeight))
         store.dispatch(updateData(events))
         return {props: {}}
     } catch (error) {
@@ -21,14 +20,11 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
     }
 })
 
-const TimelinePage = ({data, initialData}:{data:TimelineEvent[], initialData: TimelineEvent[]}) => {
-    const scrollRef: RefObject<HTMLDivElement> = useRef(null)
-
+const TimelinePage = () => {
     return (
-        <div ref={scrollRef} className={'page'}>
-            <Timeline data={data} initialData={initialData} scrollRef={scrollRef}/>
+        <div className={'page'}>
+            <Timeline/>
         </div>
     )
 }
-
 export default TimelinePage

@@ -1,13 +1,13 @@
 import {useSelector} from "react-redux";
-import {RootState} from "@/store/rootReducer";
 import {TimelineEvent} from "@/public/events";
-import React from "react";
 import AfterEventBox from "@/components/timeline/afterEventBox";
+import {selectPrevEventsWithEffect} from "@/store/slices/eventsSlice";
+import {selectAfterEffectTop, selectTotalHeight} from "@/store/slices/effectsSlice";
 
 const AfterEffectEvents = () => {
-    const prevEventsWithEffect = useSelector((state: RootState) => state.events.prevEventsWithEffect)
-    const afterEffectTop = useSelector((state: RootState) => state.events.afterEffectTop)
-    const totalHeight = useSelector((state: RootState) => state.events.totalHeight)
+    const prevEventsWithEffect = useSelector(selectPrevEventsWithEffect)
+    const afterEffectTop = useSelector(selectAfterEffectTop)
+    const totalHeight = useSelector(selectTotalHeight)
 
     return (
         <div className={'pointer-events-none absolute w-full overflow-hidden'} style={{height: `${totalHeight + 20}px`}}>
