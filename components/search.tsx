@@ -13,6 +13,8 @@ import {
     updateTab
 } from "@/store/slices/searchSlice";
 import dummyEvents, {TimelineEvent} from "@/public/events";
+import api from "@/utils/api";
+// refactoring: needed
 
 const Search = () => {
     const dispatch = useDispatch()
@@ -37,9 +39,15 @@ const SearchHeader = () => {
     const dispatch = useDispatch()
     const isSearch = useSelector(selectIsSearch)
     const searchValue = useSelector(selectSearchValue)
+    const tab = useSelector(selectTab)
 
     const handelSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value
+
+        // fetchSearchResults = async (query) => {
+        //      const response = api.post('/v1/search', {'searchType': tab, 'text': query})
+        // }
+
         dispatch(updateSearchValue(query))
     }
 

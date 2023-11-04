@@ -4,6 +4,7 @@ import {RootState} from "@/store/rootReducer";
 // refactoring: clear
 
 const initialState = {
+    currentTimeline: {id: 0, name: ''},
     currentEvent: dummyEvent,
     currentEvents: [],
     currentEventsWithEffect: [],
@@ -15,6 +16,9 @@ const eventsSlice = createSlice({
     name: 'events',
     initialState,
     reducers: {
+        updateCurrentTimeline: (state, action) => {
+            state.currentTimeline = action.payload
+        },
         updateCurrentEvent: (state, action) => {
             state.currentEvent = action.payload
         },
@@ -39,9 +43,10 @@ const eventsSlice = createSlice({
     },
 });
 export default eventsSlice.reducer;
-export const { updateCurrentEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect, updateData, updateIsToggle, updateToggleEvents, } = eventsSlice.actions;
+export const { updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect, updateData, updateIsToggle, updateToggleEvents, } = eventsSlice.actions;
 
 // selectors
+export const selectCurrentTimeline = (state: RootState) => state.events.currentTimeline
 export const selectCurrentEvent = (state: RootState) => state.events.currentEvent
 export const selectCurrentEvents = (state: RootState) => state.events.currentEvents
 export const selectCurrentEventsWithEffect = (state: RootState) => state.events.currentEventsWithEffect
@@ -50,6 +55,7 @@ export const selectData = (state: RootState) => state.events.data
 
 // types
 export interface initialEventsState {
+    currentTimeline: {id: number, name: string}
     currentEvent: TimelineEvent,
     currentEvents: TimelineEvent[],
     currentEventsWithEffect: TimelineEvent[],

@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {EventWithOrderTop, TimelineEvent} from '@/public/events'
 import {sum, julianDateToEvent, getEventHeights} from '@/utils/global'
 import {
-    selectCurrentEvents, selectCurrentEventsWithEffect,
+    selectCurrentEvents, selectCurrentEventsWithEffect, selectCurrentTimeline,
     selectData,
     updateCurrentEvents,
     updateCurrentEventsWithEffect,
@@ -20,13 +20,15 @@ import {
 import TimelineFrame from "@/components/timeline/timelineFrame";
 import TimelineEvents from "@/components/timeline/timelineEvents";
 import AfterEffectEvents from "@/components/timeline/afterEffectEvents";
+import api from "@/utils/api"
 // refactoring: needed (handler refactoring, vars need to be globalized?)
 
 const Timeline = () => {
-    const timeline: HTMLDivElement | null = document.querySelector('.timeline')
-    const scrollWrapper: HTMLDivElement | null = document.querySelector('.page')
+    const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
+    const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
 
     const dispatch = useDispatch()
+    const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
     const currentEventsWithEffect = useSelector(selectCurrentEventsWithEffect)
     const data = useSelector(selectData)
@@ -167,6 +169,19 @@ const Timeline = () => {
             })
             return {fetchedEvents, referEvent}
         }
+
+        const fetchEventsTest = async (depth: number, pivotEvent: TimelineEvent) => {
+            const response = await api.post('/v1/getTimeline', {'timelineId': currentTimeline.id , 'depth': currentDepth, 'pivotJulianDate': pivotEvent.julianDate})
+            let fetchedEvents = response.data.events as TimelineEvent[]
+            fetchedEvents = fetchedEvents.map(fEvent => {
+                const cEvent = currentEvents.find(cEvent => cEvent.id === fEvent.id)
+                if (cEvent) return cEvent
+                else return fEvent
+            })
+            // const referEvent = response.data.referEvent
+            return {fetchedEvents} // referEvent too
+        }
+
         const getEventsWithEffectTest = (depth: number, swipedEvent: EventWithOrderTop, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[]) => {
             const order = fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)
             const heightsOfFetchedEvents = fetchedEvents.map(fEvent => {

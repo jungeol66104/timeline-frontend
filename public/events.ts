@@ -36,12 +36,12 @@ export const initialEvents = getInitialEvents(events)
 
 export const dummyEvent = {
     id: 0,
+    title: '',
+    content: '',
     date: '',
     julianDate: 0,
     importance: 0,
     depth: 0,
-    title: '',
-    content: '',
     tag: '',
     overlap: 0,
     isToggle: false,

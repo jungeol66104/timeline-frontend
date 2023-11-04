@@ -2,12 +2,26 @@ import {useSelector} from "react-redux";
 import {storeWrapper} from "@/store/store";
 import events from "@/public/events";
 import {selectCurrentEvent, updateCurrentEvent} from "@/store/slices/eventsSlice";
+import api from "@/utils/api"
+
 // refactoring: needed (events to API fetching)
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
     try {
         const event = events.find(e => e.id === Number(context.query.event))
         store.dispatch(updateCurrentEvent(event))
+        return {props: {}}
+    } catch (error) {
+        console.error('Error fetching initial data during SSR:', error);
+        return {props: {}}
+    }
+})
+
+export const getServerSidePropsTest = storeWrapper.getServerSideProps((store) => async (context) => {
+    try {
+        const response = await api.post('/v1/getEvent', {'eventId': Number(context.query.event)})
+        const newCurrentEvent = response.data.event
+        store.dispatch(updateCurrentEvent(newCurrentEvent))
         return {props: {}}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);

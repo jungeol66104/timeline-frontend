@@ -1,12 +1,12 @@
+import {ReactNode} from "react";
 import Image from "next/image";
 import Link from 'next/link'
-import React, {ReactNode, RefObject, useRef, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateIsSearch } from "@/store/slices/searchSlice";
 import MenuSVG from "../public/svg/menu.svg"
 import SearchSVG from "../public/svg/search.svg"
 import Search from "./search"
-import {RootState} from "@/store/rootReducer";
+import { updateIsSearch } from "@/store/slices/searchSlice";
+import {selectCurrentEvents} from "@/store/slices/eventsSlice";
 
 const Layout = ({ children } : {children: ReactNode}) => {
     return (
@@ -23,8 +23,9 @@ export default Layout
 
 const Navbar = () => {
     const dispatch = useDispatch()
-    // const showTitle = useSelector((state: RootState) => state.reducer.layout.showTitle)
-    // const title = useSelector((state:RootState) => state.reducer.layout.title)
+    const currentEvents = useSelector(selectCurrentEvents)
+    let timelineTitle = ''
+    if (currentEvents.length !== 0) {timelineTitle = currentEvents[0].tag}
 
     return (
         <div className={'fixed top-0 left-0 h-[60px] w-full bg-white pr-5 pl-5 shadow-md flex items-center justify-between z-30'}>
@@ -32,8 +33,9 @@ const Navbar = () => {
             {/*<Link href={'/'} className={`${!showTitle ? '' : 'pointer-events-none'} font-black text-2xl transform transition-opacity ease-in-out duration-300 ${!showTitle ? 'opacity-100' : 'opacity-0'}`}>Timeline</Link>*/}
             <Link href={'/'} className={`font-black text-2xl transform transition-opacity ease-in-out duration-300`}>Timeline</Link>
             <div className={'flex items-center gap-2.5'}>
+                <Link href={`/timelines/${timelineTitle.slice(1,)}`} className={'font-medium text-lg text-gray-500 pt-[1.5px]'}>{timelineTitle}</Link>
                 <button><Image src={SearchSVG} alt={'search'} width={24} height={24} onClick={() => dispatch(updateIsSearch())}/></button>
-                <button><Image src={MenuSVG} alt={'menu'} width={24} height={24} /></button>
+                <button className={'hidden'}><Image src={MenuSVG} alt={'menu'} width={24} height={24} /></button>
             </div>
         </div>
     )
@@ -41,6 +43,9 @@ const Navbar = () => {
 
 const Footer = () => {
     return (
-        <></>
+        <div className={'hidden fixed flex flex-col items-center bottom-0 w-full bg-white border-t-[1px] p-2.5'}>
+            <div className={'text-center font-semibold'}></div>
+            <div className={'text-[10px] text-center'}>© 2023 Timeline. All rights reserved.</div>
+        </div>
     )
 }

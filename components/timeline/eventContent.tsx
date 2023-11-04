@@ -46,6 +46,8 @@ const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {eve
         }
         const newToggleEvents = data.filter(e => e.julianDate === event.julianDate).filter(e => e.id !== event.id)
         // should generalize the layout states globally
+        // const response = api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': event.julianDate})
+        // const newToggleEvents = response.data.events
         const newTotalHeight = totalHeight - (124 + event.overlap * 6) + (38 + (newToggleEvents.length + 1) * 124)
         dispatch(updateToggleEvents({order: eventOrder, toggleEvents: newToggleEvents}))
         dispatch(updateIsToggle(eventOrder))
