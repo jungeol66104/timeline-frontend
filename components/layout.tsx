@@ -6,7 +6,7 @@ import MenuSVG from "../public/svg/menu.svg"
 import SearchSVG from "../public/svg/search.svg"
 import Search from "./search"
 import { updateIsSearch } from "@/store/slices/searchSlice";
-import {selectCurrentEvents} from "@/store/slices/eventsSlice";
+import {selectCurrentEvents, selectCurrentTimeline} from "@/store/slices/eventsSlice";
 
 const Layout = ({ children } : {children: ReactNode}) => {
     return (
@@ -23,9 +23,7 @@ export default Layout
 
 const Navbar = () => {
     const dispatch = useDispatch()
-    const currentEvents = useSelector(selectCurrentEvents)
-    let timelineTitle = ''
-    if (currentEvents.length !== 0) {timelineTitle = currentEvents[0].tag}
+    const currentTimeline = useSelector(selectCurrentTimeline)
 
     return (
         <div className={'fixed top-0 left-0 h-[60px] w-full bg-white pr-5 pl-5 shadow-md flex items-center justify-between z-30'}>
@@ -33,7 +31,7 @@ const Navbar = () => {
             {/*<Link href={'/'} className={`${!showTitle ? '' : 'pointer-events-none'} font-black text-2xl transform transition-opacity ease-in-out duration-300 ${!showTitle ? 'opacity-100' : 'opacity-0'}`}>Timeline</Link>*/}
             <Link href={'/'} className={`font-black text-2xl transform transition-opacity ease-in-out duration-300`}>Timeline</Link>
             <div className={'flex items-center gap-2.5'}>
-                <Link href={`/timelines/${timelineTitle.slice(1,)}`} className={'font-medium text-lg text-gray-500 pt-[1.5px]'}>{timelineTitle}</Link>
+                <Link href={`/timelines/${currentTimeline.id}`} className={'font-medium text-lg text-gray-500 pt-[1.5px]'}>#{currentTimeline.name}</Link>
                 <button><Image src={SearchSVG} alt={'search'} width={24} height={24} onClick={() => dispatch(updateIsSearch())}/></button>
                 <button className={'hidden'}><Image src={MenuSVG} alt={'menu'} width={24} height={24} /></button>
             </div>

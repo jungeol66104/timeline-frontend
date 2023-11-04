@@ -18,7 +18,8 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
     let top = isToggle ? 0 : 38
 
     const handleClick = () => {
-        const newTotalHeight = totalHeight + (124 + event.overlap * 6) - (38 + (toggleEvents.length + 1) * 124)
+        if (!toggleEvents) return
+        const newTotalHeight = totalHeight + (124 + (event.overlap as number) * 6) - (38 + (toggleEvents.length + 1) * 124)
         dispatch(updateIsToggle(eventOrderInCurrent))
         dispatch(updateLastAction('toggle'))
         dispatch(updateTotalHeight(newTotalHeight))

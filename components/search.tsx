@@ -6,20 +6,23 @@ import React, {RefObject, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
     selectIsSearch,
+    selectSearchedTimelines,
+    selectSearchedEvents,
     selectSearchValue,
     selectTab,
     updateIsSearch,
     updateSearchValue,
-    updateTab
+    updateTab,
+    updateSearchedTimelines,
+    updateSearchedEvents
 } from "@/store/slices/searchSlice";
-import dummyEvents, {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/public/events";
 import api from "@/utils/api";
 // refactoring: needed
 
 const Search = () => {
     const dispatch = useDispatch()
     const isSearch = useSelector(selectIsSearch)
-
     return (
         <>
             <div onClick={() => dispatch(updateIsSearch())} className={`absolute ${isSearch ? '' : 'pointer-events-none'} top-0 left-0 h-screen w-screen bg-gray-900 z-30 transform transition-opacity ease-in-out duration-300 ${isSearch ? 'opacity-40' : 'opacity-0'}`}></div>
@@ -43,12 +46,31 @@ const SearchHeader = () => {
 
     const handelSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value
-
-        // fetchSearchResults = async (query) => {
-        //      const response = api.post('/v1/search', {'searchType': tab, 'text': query})
-        // }
-
         dispatch(updateSearchValue(query))
+
+        const fetchSearchResults = async (query: any) => {
+            if (query === '') return { timelines: [], events: [] }
+            try {
+                const timelineResponse = await api.post('/v1/search', {"searchType": "timeline", "text": query})
+                const eventResponse = await api.post('/v1/search', {"searchType": "event", "text": query})
+                const timelines = timelineResponse.data.data.searchResult
+                const events = eventResponse.data.data.searchResult
+                return { timelines, events }
+            } catch (error) {
+                console.error('Error fetching searched timelines and events: ', error);
+                return { timelines: [], events: [] }
+            }
+        }
+        const operateSearch = async () => {
+            try {
+                const { timelines, events } = await fetchSearchResults(query)
+                dispatch(updateSearchedTimelines(timelines))
+                dispatch(updateSearchedEvents(events))
+            } catch (error) {
+                console.error('Error updating timelines, events and query: ', error);
+            }
+        }
+        operateSearch()
     }
 
     useEffect(() => {
@@ -81,26 +103,29 @@ const SearchTab = () => {
     return (
         <div className={'h-fit flex flex-col ml-4 mr-4'}>
             <div className={'flex'}>
-                <div onClick={() => dispatch(updateTab(0))} className={`cursor-pointer pt-2.5 pb-2.5 w-1/2 text-center transition-colors duration-300 ease-in-out ${tab === 0 ? 'text-gray-600' : 'text-gray-400' } font-semibold text-[14px]`}>타임라인</div>
-                <div onClick={() => dispatch(updateTab(1))} className={`cursor-pointer pt-2.5 pb-2.5 w-1/2 text-center transition-colors duration-300 ease-in-out ${tab === 1 ? 'text-gray-600' : 'text-gray-400' }  font-semibold text-[14px]`}>이벤트</div>
+                <div onClick={() => dispatch(updateTab('timeline'))} className={`cursor-pointer pt-2.5 pb-2.5 w-1/2 text-center transition-colors duration-300 ease-in-out ${tab === 'timeline' ? 'text-gray-600' : 'text-gray-400' } font-semibold text-[14px]`}>타임라인</div>
+                <div onClick={() => dispatch(updateTab('event'))} className={`cursor-pointer pt-2.5 pb-2.5 w-1/2 text-center transition-colors duration-300 ease-in-out ${tab === 'event' ? 'text-gray-600' : 'text-gray-400' }  font-semibold text-[14px]`}>이벤트</div>
             </div>
-            <div className={`w-1/2 border-b-2 border-gray-500 transform transition-transform ease-in-out duration-300 ${tab === 0 ? '-translate-x-0' : 'translate-x-full'}`}></div>
+            <div className={`w-1/2 border-b-2 border-gray-500 transform transition-transform ease-in-out duration-300 ${tab === 'timeline' ? '-translate-x-0' : 'translate-x-full'}`}></div>
         </div>
     )
 }
 
 const SearchBody = () => {
+
     const tab = useSelector(selectTab)
+    const searchedTimelines = useSelector(selectSearchedTimelines)
+    const searchedEvents = useSelector(selectSearchedEvents)
 
     return (
-        <div className={`flex w-fit transform transition-transform ease-in-out duration-300 ${tab === 0 ? 'translate-x-0' : '-translate-x-1/2'}`}>
+        <div className={`flex w-fit transform transition-transform ease-in-out duration-300 ${tab === 'timeline' ? 'translate-x-0' : '-translate-x-1/2'}`}>
             <div className={'page w-screen overflow-scroll'} style={{height: `calc(98vh - 143px)`}}>
-            {Array(20).fill(0).map((l, i) => {
-                return <SearchResultBox key={i}/>
+            {searchedTimelines.map((timeline, i) => {
+                return <SearchResultBox timeline={timeline} key={i}/>
             })}
             </div>
             <div className={'page w-screen overflow-scroll'} style={{height: `calc(98vh - 143px)`}}>
-            {dummyEvents.map((event, i) => {
+            {searchedEvents.map((event, i) => {
                 return <SearchResultBox event={event} key={i}/>
             })}
             </div>
@@ -108,12 +133,12 @@ const SearchBody = () => {
     )
 }
 
-const SearchResultBox = ({event}: {event?: TimelineEvent}) => {
+const SearchResultBox = ({timeline, event}: {timeline?: any,event?: TimelineEvent}) => {
     return (
         <div className={'flex items-center pt-[12px] pb-[12px] gap-2.5'}>
             <div><Image src={NorthwestSVG} alt={'northwest'} width={20} height={20} /></div>
-            <div className={'font-black'}>{event ? '이벤트' : `타임라인` }</div>
-            <div className={'text-sm text-gray-500'}>{event ? '0000. 00. 00.' :`#`}</div>
+            <div className={'font-black'}>{event ? event.name : timeline.name }</div>
+            <div className={'text-sm text-gray-500'}>{event ? event.date :`#`}</div>
         </div>
     )
 }

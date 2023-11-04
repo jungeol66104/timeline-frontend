@@ -5,7 +5,7 @@ import {useEffect} from "react";
 export default function Home() {
     const router = useRouter()
     useEffect(() => {
-        router.push('/timelines/전쟁')
+        router.push('/timelines/1')
     }, []);
     
     return <></>

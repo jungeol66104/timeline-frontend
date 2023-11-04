@@ -11,12 +11,12 @@ const events = arrayOfObjects.map((event, i) => {
         {
             id: i,
             date: '0000. 00. 00.',
+            name: distribution[i] === 0 ? '메이저' : distribution[i] === 1 ? '마이너' : '라스트',
+            description: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
             julianDate: getRandomInt(0, 60),
             importance: getRandomInt(1, 1000),
             depth: distribution[i],
-            title: distribution[i] === 0 ? '메이저' : distribution[i] === 1 ? '마이너' : '라스트',
-            content: '오늘은 맑은 날씨에 바람이 부드럽게 불고 있어서 나들이하기 딱 좋아요. 아침에는 산책을 하면서 새들의 노래를 듣고, 오후에는 카페에서 친구들과 커피를 마시며 이야기를 나눴어요. 저녁에는 가족과 함께 맛있는 한식 식사를 즐겼고, 밤에는 별들을 보며 휴식했어요.',
-            tag: '#전쟁',
+            timelineInfo: [{id: 1, name: ''}],
             overlap: 0,
             isToggle: false,
             toggleEvents: []
@@ -36,13 +36,13 @@ export const initialEvents = getInitialEvents(events)
 
 export const dummyEvent = {
     id: 0,
-    title: '',
-    content: '',
+    name: '',
+    description: '',
     date: '',
     julianDate: 0,
     importance: 0,
     depth: 0,
-    tag: '',
+    timelineInfo: [],
     overlap: 0,
     isToggle: false,
     toggleEvents: [],
@@ -52,14 +52,14 @@ export interface TimelineEvent {
     id: number
     date: string
     julianDate: number
-    importance: number
-    depth: number
-    title: string
-    content: string
-    tag: string
-    overlap: number
-    isToggle: boolean
-    toggleEvents: any[]
+    name: string
+    description: string
+    timelineInfo?: any[]
+    overlap?: number
+    isToggle?: boolean
+    toggleEvents?: any[]
+    depth?: number
+    importance?: number
     distance?: number
     order?: number
     top?: number
@@ -67,9 +67,4 @@ export interface TimelineEvent {
     fadeout?: boolean
     prev?: boolean
     blank?: boolean
-}
-
-export interface EventWithOrderTop extends TimelineEvent {
-    order: number
-    top: number
 }

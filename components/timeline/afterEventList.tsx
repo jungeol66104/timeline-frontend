@@ -10,7 +10,7 @@ const AfterEventList = ({event} : {event: TimelineEvent}) => {
     const prevEventsWithEffect = useSelector(selectPrevEventsWithEffect)
     const eventOrderInPrev = prevEventsWithEffect.findIndex(cEvent => cEvent.id === event.id)
     const isToggle = prevEventsWithEffect[eventOrderInPrev].isToggle
-    const toggleEvents = prevEventsWithEffect[eventOrderInPrev].toggleEvents
+    const toggleEvents = prevEventsWithEffect[eventOrderInPrev].toggleEvents as any[]
 
     const listHeight = !isToggle ? 112 : 28 + (toggleEvents.length + 1) * 124
 

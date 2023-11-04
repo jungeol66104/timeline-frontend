@@ -1,28 +1,18 @@
 import {TimelineEvent} from "@/public/events";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    selectCurrentEvents,
-    selectData,
-    updateIsToggle,
-    updateToggleEvents,
-} from "@/store/slices/eventsSlice";
 import {RefObject, useEffect, useRef} from "react";
 import gsap from "gsap";
 import Link from "next/link";
-import {
-    selectCurrentDepth,
-    selectLastAction,
-    selectTotalHeight,
-    updateLastAction,
-    updateTotalHeight
-} from "@/store/slices/effectsSlice";
+import api from "@/utils/api";
+import {selectCurrentEvents, selectCurrentTimeline, updateIsToggle, updateToggleEvents,} from "@/store/slices/eventsSlice";
+import {selectCurrentDepth, selectLastAction, selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/effectsSlice";
 // refactoring: needed
 
 const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {event: TimelineEvent, eventOrder: number, contentOrder: number, isToggle?: boolean, isPrev?: boolean}) => {
     const eventContentRef : RefObject<HTMLDivElement> = useRef(null)
 
     const dispatch = useDispatch()
-    const data: TimelineEvent[] = useSelector(selectData)
+    const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
     const totalHeight = useSelector(selectTotalHeight)
     const currentDepth = useSelector(selectCurrentDepth)
@@ -44,15 +34,30 @@ const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {eve
             sessionStorage.setItem('lastAction', 'enter')
             return
         }
-        const newToggleEvents = data.filter(e => e.julianDate === event.julianDate).filter(e => e.id !== event.id)
-        // should generalize the layout states globally
-        // const response = api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': event.julianDate})
-        // const newToggleEvents = response.data.events
-        const newTotalHeight = totalHeight - (124 + event.overlap * 6) + (38 + (newToggleEvents.length + 1) * 124)
-        dispatch(updateToggleEvents({order: eventOrder, toggleEvents: newToggleEvents}))
-        dispatch(updateIsToggle(eventOrder))
-        dispatch(updateLastAction('toggle'))
-        dispatch(updateTotalHeight(newTotalHeight))
+        const fetchToggleEvents = async () => {
+            try {
+                const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': event.julianDate})
+                console.log(response)
+                const newToggleEvents = response.data.data.events
+                const newTotalHeight = totalHeight - (124 + (event.overlap as number) * 6) + (38 + (newToggleEvents.length + 1) * 124)
+                return { newToggleEvents, newTotalHeight }
+            } catch (error) {
+                console.error('Error fetching toggle events: ', error);
+                return {newToggleEvents: [], newTotalHeight: 0}
+            }
+        }
+        const operateToggle = async () => {
+            try {
+                const { newToggleEvents, newTotalHeight} = await fetchToggleEvents()
+                dispatch(updateToggleEvents({order: eventOrder, toggleEvents: newToggleEvents}))
+                dispatch(updateIsToggle(eventOrder))
+                dispatch(updateLastAction('toggle'))
+                dispatch(updateTotalHeight(newTotalHeight))
+            } catch (error){
+                console.error('Error updating toggle events: ', error);
+            }
+        }
+        operateToggle()
     }
 
     const zIndex = 9999 - contentOrder
@@ -92,10 +97,10 @@ const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {eve
             <Link href={`/events/${event.id}`} className={(!isToggle && contentOrder === 0 && event.overlap === 0 ) || isToggle ? '' : `pointer-events-none`}>
                 <div className={'flex gap-2.5'}>
                     <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
-                    <div className={'text-[12px] text-gray-500 line-clamp-1 overflow-hidden'}>{event.tag}</div>
+                    {/*<div className={'text-[12px] text-gray-500 line-clamp-1 overflow-hidden'}>{event.tags}</div>*/}
                 </div>
-                <div className={'mt-0.5 font-black'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.title}</div>
-                <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.content}</div>
+                <div className={'mt-0.5 font-black'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</div>
+                <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.description}</div>
             </Link>
         </div>
     )
