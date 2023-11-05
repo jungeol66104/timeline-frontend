@@ -18,12 +18,12 @@ const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {eve
     const currentDepth = useSelector(selectCurrentDepth)
     const lastAction = useSelector(selectLastAction)
 
-    let isZooming = true
-    if (lastAction === 'zoomIn' || lastAction === 'zoomOut') {setTimeout(() => {isZooming = false}, 500)}
-    else {isZooming = false}
+    let isLoading = true
+    if (lastAction === 'zoom') {setTimeout(() => {isLoading = false}, 500)}
+    else {isLoading = false}
 
     const handleClick = () => {
-        if (isZooming) return
+        if (isLoading) return
         if ((!isToggle && contentOrder === 0 && event.overlap === 0) || isToggle) {
             const scrollWrapper = document.querySelector('.page')
             if (!scrollWrapper) return
@@ -37,7 +37,6 @@ const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {eve
         const fetchToggleEvents = async () => {
             try {
                 const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': event.julianDate})
-                console.log(response)
                 const newToggleEvents = response.data.data.events
                 const newTotalHeight = totalHeight - (124 + (event.overlap as number) * 6) + (38 + (newToggleEvents.length + 1) * 124)
                 return { newToggleEvents, newTotalHeight }

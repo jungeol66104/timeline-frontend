@@ -4,7 +4,7 @@ import {RootState} from "@/store/rootReducer";
 // refactoring: clear
 
 const initialState = {
-    currentTimeline: {id: 1, name: '전쟁'},
+    currentTimeline: {id: 1, name: '타임라인_1'},
     currentEvent: dummyEvent,
     currentEvents: [],
     currentEventsWithEffect: [],

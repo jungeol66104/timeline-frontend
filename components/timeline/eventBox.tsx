@@ -17,12 +17,11 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
     const lastAction = useSelector(selectLastAction)
 
     let animation = event.fadeout ? 'animate-fadeOut' : event.distance !== undefined ? '' :'animate-fadeIn'
-    if (lastAction) {}
     let zIndex = event.fadeout || animation === 'animate-fadeIn' ? '' : 'z-20'
     let paddingBottom = event.overlap === 0 || isToggle ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
 
     useEffect(() => {
-        if (lastAction !== 'zoomIn' && lastAction !== 'zoomOut') return
+        if (lastAction !== 'zoom') return
         const eventBox = eventBoxRef.current
         if (!eventBox) return
         const tl = gsap.timeline()

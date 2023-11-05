@@ -67,4 +67,5 @@ export interface TimelineEvent {
     fadeout?: boolean
     prev?: boolean
     blank?: boolean
+    new?: boolean
 }
