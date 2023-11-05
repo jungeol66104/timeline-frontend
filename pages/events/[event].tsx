@@ -3,7 +3,6 @@ import Link from "next/link";
 import {storeWrapper} from "@/store/store";
 import {selectCurrentEvent, updateCurrentEvent} from "@/store/slices/eventsSlice";
 import api from "@/utils/api"
-
 // refactoring: needed (events to API fetching)
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
@@ -18,7 +17,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
     }
 })
 
-const eventPage = () => {
+const EventPage = () => {
     const currentEvent = useSelector(selectCurrentEvent)
 
     return (
@@ -38,4 +37,4 @@ const eventPage = () => {
         </div>
     )
 }
-export default eventPage
+export default EventPage

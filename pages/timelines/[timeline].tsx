@@ -1,6 +1,6 @@
 import {storeWrapper} from "@/store/store";
 import {sum, getEventHeights} from "@/utils/global";
-import {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/public/events"
 import {updateCurrentEvents, updateCurrentEventsWithEffect} from "@/store/slices/eventsSlice";
 import {updateTotalHeight} from "@/store/slices/effectsSlice";
 import Timeline from "@/components/timeline/timeline";
