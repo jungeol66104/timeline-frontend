@@ -1,12 +1,12 @@
 import {TimelineEvent} from "@/public/events";
 import {useSelector} from "react-redux";
 import EventContent from "@/components/timeline/eventContent";
-import OverlapContent1 from "@/components/timeline/overlapContent1";
-import OverlapContent2 from "@/components/timeline/overlapContent2";
+import OverlapContent from "@/components/timeline/overlapContent";
 import AfterEventListHeader from "@/components/timeline/afterEventListHeader";
-import {selectPrevEventsWithEffect} from "@/store/slices/eventsSlice";
+import {selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
 
 const AfterEventList = ({event} : {event: TimelineEvent}) => {
+
     const prevEventsWithEffect = useSelector(selectPrevEventsWithEffect)
     const eventOrderInPrev = prevEventsWithEffect.findIndex(cEvent => cEvent.id === event.id)
     const isToggle = prevEventsWithEffect[eventOrderInPrev].isToggle
@@ -19,8 +19,8 @@ const AfterEventList = ({event} : {event: TimelineEvent}) => {
             <AfterEventListHeader event={event}/>
             <EventContent event={event} eventOrder={eventOrderInPrev} contentOrder={0} isToggle={isToggle}/>
             {toggleEvents.map((tEvent: TimelineEvent, i) => <EventContent key={i} event={tEvent} eventOrder={eventOrderInPrev} contentOrder={i+1} isToggle={isToggle} isPrev={true}/>)}
-            <OverlapContent1 event={event}/>
-            <OverlapContent2 event={event}/>
+            <OverlapContent event={event} order={1}/>
+            <OverlapContent event={event} order={2}/>
         </div>
     )
 }

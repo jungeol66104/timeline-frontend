@@ -3,9 +3,8 @@ import {useSelector} from "react-redux";
 import React from "react";
 import EventContent from "@/components/timeline/eventContent";
 import EventListHeader from "@/components/timeline/eventListHeader";
-import OverlapContent1 from "@/components/timeline/overlapContent1";
-import OverlapContent2 from "@/components/timeline/overlapContent2";
-import {selectCurrentEvents} from "@/store/slices/eventsSlice";
+import OverlapContent from "@/components/timeline/overlapContent";
+import {selectCurrentEvents} from "@/store/slices/contentsSlice";
 // refactoring: needed
 
 const EventList = ({event} : {event: TimelineEvent}) => {
@@ -22,8 +21,8 @@ const EventList = ({event} : {event: TimelineEvent}) => {
             <EventListHeader event={event}/>
             <EventContent event={event} eventOrder={eventOrderInCurrent} contentOrder={0} isToggle={isToggle}/>
             {toggleEvents.map((tEvent: TimelineEvent, i) => <EventContent key={i} event={tEvent} eventOrder={eventOrderInCurrent} contentOrder={i+1} isToggle={isToggle}/>)}
-            <OverlapContent1 event={event}/>
-            <OverlapContent2 event={event}/>
+            <OverlapContent event={event} order={1}/>
+            <OverlapContent event={event} order={2}/>
         </div>
     )
 }

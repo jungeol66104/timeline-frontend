@@ -1,8 +1,8 @@
 import {useSelector} from "react-redux";
 import {TimelineEvent} from "@/public/events";
 import AfterEventBox from "@/components/timeline/afterEventBox";
-import {selectPrevEventsWithEffect} from "@/store/slices/eventsSlice";
-import {selectAfterEffectTop, selectTotalHeight} from "@/store/slices/effectsSlice";
+import {selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
+import {selectAfterEffectTop, selectTotalHeight} from "@/store/slices/appearanceSlice";
 
 const AfterEffectEvents = () => {
     const prevEventsWithEffect = useSelector(selectPrevEventsWithEffect)

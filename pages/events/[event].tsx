@@ -1,9 +1,9 @@
 import {useSelector} from "react-redux";
 import Link from "next/link";
 import {storeWrapper} from "@/store/store";
-import {selectCurrentEvent, updateCurrentEvent} from "@/store/slices/eventsSlice";
+import {selectCurrentEvent, updateCurrentEvent} from "@/store/slices/contentsSlice";
 import api from "@/utils/api"
-// refactoring: needed (events to API fetching)
+// refactoring: clear
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
     try {

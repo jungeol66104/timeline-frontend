@@ -23,6 +23,11 @@ import api from "@/utils/api";
 const Search = () => {
     const dispatch = useDispatch()
     const isSearch = useSelector(selectIsSearch)
+
+    useEffect(() => {
+
+    }, [isSearch]);
+
     return (
         <>
             <div onClick={() => dispatch(updateIsSearch())} className={`absolute ${isSearch ? '' : 'pointer-events-none'} top-0 left-0 h-screen w-screen bg-gray-900 z-30 transform transition-opacity ease-in-out duration-300 ${isSearch ? 'opacity-40' : 'opacity-0'}`}></div>

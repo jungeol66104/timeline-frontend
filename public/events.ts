@@ -1,4 +1,4 @@
-import {julianDateToEvent, getRandomInt} from "@/utils/global";
+import {getRandomInt} from "@/utils/global";
 
 const arrayOfObjects = Array(71).fill({});
 const distribution = Array(7).fill(0).concat(Array(16).fill(1).concat(Array(48).fill(2)))
@@ -26,41 +26,19 @@ const events = arrayOfObjects.map((event, i) => {
 
 export default events
 
-const getInitialEvents = (events: TimelineEvent[])=> {
-    let initialEvents = events.filter(event => event.depth === 0)
-    let initialJulianDates = Array.from(new Set(initialEvents.map(iEvent => iEvent.julianDate)))
-    initialEvents = initialJulianDates.map(jDate => julianDateToEvent(jDate, events))
-    return initialEvents
-}
-export const initialEvents = getInitialEvents(events)
-
-export const dummyEvent = {
-    id: 0,
-    name: '',
-    description: '',
-    date: '',
-    julianDate: 0,
-    importance: 0,
-    depth: 0,
-    timelineInfo: [],
-    overlap: 0,
-    isToggle: false,
-    toggleEvents: [],
-}
-
 export interface TimelineEvent {
     id: number
     date: string
     julianDate: number
     name: string
     description: string
-    timelineInfo?: any[]
+    timelineInfo?: {id: number, name: string}[]
     overlap?: number
+    depth?: number
+    distance?: number
+    animation?: string
     isToggle?: boolean
     toggleEvents?: any[]
-    depth?: number
-    importance?: number
-    distance?: number
     order?: number
     top?: number
     boxTop?: number
@@ -68,4 +46,10 @@ export interface TimelineEvent {
     prev?: boolean
     blank?: boolean
     new?: boolean
+}
+
+export interface ReferEvent extends TimelineEvent {
+    top: number
+    order: number
+    boxTop: number
 }

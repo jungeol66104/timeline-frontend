@@ -21,7 +21,7 @@
 /* find ways to avoid global css like this */
 .page {
     overflow: scroll;
-    height: calc(100vh - 60px);
+    height: calc(100dvh - 60px);
     margin: 0 20px;
 }
 

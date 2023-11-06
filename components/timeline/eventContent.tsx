@@ -4,8 +4,14 @@ import {RefObject, useEffect, useRef} from "react";
 import gsap from "gsap";
 import Link from "next/link";
 import api from "@/utils/api";
-import {selectCurrentEvents, selectCurrentTimeline, updateIsToggle, updateToggleEvents,} from "@/store/slices/eventsSlice";
-import {selectCurrentDepth, selectLastAction, selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/effectsSlice";
+import {
+    selectCurrentEvents,
+    selectCurrentTimeline,
+    updateCurrentEvents,
+    updateIsToggle,
+    updateToggleEvents,
+} from "@/store/slices/contentsSlice";
+import {selectCurrentDepth, selectLastAction, selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/appearanceSlice";
 // refactoring: needed
 
 const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {event: TimelineEvent, eventOrder: number, contentOrder: number, isToggle?: boolean, isPrev?: boolean}) => {
@@ -50,8 +56,8 @@ const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {eve
                 const { newToggleEvents, newTotalHeight} = await fetchToggleEvents()
                 dispatch(updateToggleEvents({order: eventOrder, toggleEvents: newToggleEvents}))
                 dispatch(updateIsToggle(eventOrder))
-                dispatch(updateLastAction('toggle'))
                 dispatch(updateTotalHeight(newTotalHeight))
+                dispatch(updateLastAction('toggle'))
             } catch (error){
                 console.error('Error updating toggle events: ', error);
             }
@@ -60,22 +66,24 @@ const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {eve
     }
 
     const zIndex = 9999 - contentOrder
-    let top = contentOrder === 0 ? 0 : contentOrder === 1 ? 18 : 36
-    let left = contentOrder === 0 ? 0 : contentOrder === 1 ? 6 : 12
-    let height = contentOrder === 0 ? 112 : contentOrder === 1 ? 100 : 88
-    let width = contentOrder === 0 ? `100%` : contentOrder === 1 ?  `calc(100% - 12px)` : `calc(100% - 24px)`
-    let opacity = contentOrder > 0 ? 0 : 1
+    let top: number, left, height, width: string, opacity
     if (isToggle) {
         top = 38 + contentOrder * 124
         left = 0
         height = 112
         width = `100%`
         opacity = 1
+    } else {
+        top = contentOrder === 0 ? 0 : contentOrder === 1 ? 18 : 36
+        left = contentOrder === 0 ? 0 : contentOrder === 1 ? 6 : 12
+        height = contentOrder === 0 ? 112 : contentOrder === 1 ? 100 : 88
+        width = contentOrder === 0 ? `100%` : contentOrder === 1 ?  `calc(100% - 12px)` : `calc(100% - 24px)`
+        opacity = contentOrder > 0 ? 0 : 1
     }
 
     useEffect(() => {
         const eventContent = eventContentRef.current
-        if (!eventContent || isPrev || event.prev || lastAction === 'render') return
+        if (!eventContent || isPrev || event.prev || lastAction !== 'toggle') return
         const tl = gsap.timeline()
         if (isToggle) {
             let y =  contentOrder === 0 ? top : contentOrder === 1 ? top - 18 : top - 36
@@ -94,11 +102,8 @@ const EventContent = ({event, eventOrder, contentOrder, isToggle, isPrev} : {eve
     return (
         <div ref={eventContentRef} onClick={handleClick} className={`eventContent absolute cursor-pointer bg-white border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5 ${(!isToggle && contentOrder > 0 ? 'pointer-events-none' : '')}`} style={{top: top, left: left, height: height, width: width, opacity: opacity, zIndex: zIndex}}>
             <Link href={`/events/${event.id}`} className={(!isToggle && contentOrder === 0 && event.overlap === 0 ) || isToggle ? '' : `pointer-events-none`}>
-                <div className={'flex gap-2.5'}>
-                    <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
-                    {/*<div className={'text-[12px] text-gray-500 line-clamp-1 overflow-hidden'}>{event.tags}</div>*/}
-                </div>
-                <div className={'mt-0.5 font-black'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</div>
+                <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
+                <div className={'mt-0.5 font-black line-clamp-1 overflow-hidden'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</div>
                 <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.description}</div>
             </Link>
         </div>
