@@ -18,20 +18,22 @@ import {
 } from "@/store/slices/searchSlice";
 import {TimelineEvent} from "@/public/events";
 import api from "@/utils/api";
-// refactoring: needed
+import Link from "next/link";
+import {selectViewportHeight} from "@/store/slices/appearanceSlice";
+// refactoring: needed (hover effect and load 10 each?)
 
 const Search = () => {
     const dispatch = useDispatch()
+    const viewportHeight = useSelector(selectViewportHeight)
     const isSearch = useSelector(selectIsSearch)
 
-    useEffect(() => {
-
-    }, [isSearch]);
+    let bottom = viewportHeight - 20
+    let height = viewportHeight - 20
 
     return (
         <>
-            <div onClick={() => dispatch(updateIsSearch())} className={`absolute ${isSearch ? '' : 'pointer-events-none'} top-0 left-0 h-screen w-screen bg-gray-900 z-30 transform transition-opacity ease-in-out duration-300 ${isSearch ? 'opacity-40' : 'opacity-0'}`}></div>
-            <div className={`fixed bottom-[-98vh] h-[98vh] w-full rounded-t-2xl bg-white z-30 transform transition-transform ease-in-out duration-300 ${isSearch ? '-translate-y-full' : 'translate-y-full'}`}>
+            <div onClick={() => dispatch(updateIsSearch())} className={`absolute ${isSearch ? '' : 'pointer-events-none'} top-0 left-0 h-screen w-screen bg-gray-900 z-30`} style={{transition: 'all 0.3s', opacity: isSearch ? 0.4 : 0}}></div>
+            <div className={`fixed w-full rounded-t-2xl bg-white z-30`} style={{bottom: isSearch ? 0 : -bottom, height: height, transition: 'all 0.3s'}}>
                 <SearchHeader />
                 <SearchBody />
             </div>
@@ -140,10 +142,12 @@ const SearchBody = () => {
 
 const SearchResultBox = ({timeline, event}: {timeline?: any,event?: TimelineEvent}) => {
     return (
-        <div className={'flex items-center pt-[12px] pb-[12px] gap-2.5'}>
-            <div><Image src={NorthwestSVG} alt={'northwest'} width={20} height={20} /></div>
-            <div className={'font-black'}>{event ? event.name : timeline.name }</div>
-            <div className={'text-sm text-gray-500'}>{event ? event.date :`#`}</div>
-        </div>
+        <Link href={ timeline ? `/timelines/${timeline.id}` : `/events/${event?.id}`}>
+            <div className={'flex items-center pt-[12px] pb-[12px] gap-2.5'}>
+                <div><Image src={NorthwestSVG} alt={'northwest'} width={20} height={20} /></div>
+                <div className={'font-black'}>{event ? event.name : timeline.name }</div>
+                <div className={'text-sm text-gray-500'}>{event ? event.date :`#`}</div>
+            </div>
+        </Link>
     )
 }

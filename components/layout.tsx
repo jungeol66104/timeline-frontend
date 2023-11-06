@@ -16,7 +16,12 @@ const Layout = ({ children } : {children: ReactNode}) => {
     // always adjust viewportHeight (until dvh is under wide usage)
     useEffect(() => {
         const handleResize = () => {
-            if(typeof window !== undefined) {dispatch(updateViewportHeight(window.innerHeight))}
+            if(typeof window !== undefined) {
+                let newVisualHeight
+                if (window.visualViewport) newVisualHeight = window.visualViewport.height
+                else newVisualHeight = window.innerHeight
+                dispatch(updateViewportHeight(newVisualHeight))
+            }
         };
         handleResize()
         window.addEventListener('resize', handleResize);
