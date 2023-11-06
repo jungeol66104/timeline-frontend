@@ -28,7 +28,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    });
 
     return (
         <div className={'layout pt-[60px]'}>

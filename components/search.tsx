@@ -27,13 +27,13 @@ const Search = () => {
     const viewportHeight = useSelector(selectViewportHeight)
     const isSearch = useSelector(selectIsSearch)
 
-    let bottom = viewportHeight - 20
+    let bottom = isNaN(viewportHeight) ? '100vh' :  viewportHeight - 20
     let height = viewportHeight - 20
 
     return (
         <>
             <div onClick={() => dispatch(updateIsSearch())} className={`absolute ${isSearch ? '' : 'pointer-events-none'} top-0 left-0 h-screen w-screen bg-gray-900 z-30`} style={{transition: 'all 0.3s', opacity: isSearch ? 0.4 : 0}}></div>
-            <div className={`fixed w-full rounded-t-2xl bg-white z-30`} style={{bottom: isSearch ? 0 : -bottom, height: height, transition: 'all 0.3s'}}>
+            <div className={`fixed w-full rounded-t-2xl bg-white z-30`} style={{bottom: !isSearch ? -bottom : 0, height: height, transition: 'all 0.3s'}}>
                 <SearchHeader />
                 <SearchBody />
             </div>
