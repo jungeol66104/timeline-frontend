@@ -275,7 +275,7 @@ const Timeline = () => {
         timeline.addEventListener('mouseup' , handleDrag);
         timeline.addEventListener('touchstart' , handleTouch);
         timeline.addEventListener('touchend' , handleTouch);
-        scrollWrapper.addEventListener('scroll', handleScroll)
+        // scrollWrapper.addEventListener('scroll', handleScroll)
         return () => {
             timeline.removeEventListener('wheel', handleWheel);
             timeline.removeEventListener('mousedown' , handleDrag);
@@ -283,7 +283,7 @@ const Timeline = () => {
             timeline.removeEventListener('mouseup' , handleDrag);
             timeline.removeEventListener('touchstart' , handleTouch);
             timeline.removeEventListener('touchend' , handleTouch);
-            scrollWrapper.removeEventListener('scroll', handleScroll)
+            // scrollWrapper.removeEventListener('scroll', handleScroll)
         };
     });
     return (
