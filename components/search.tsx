@@ -27,7 +27,7 @@ const Search = () => {
     const viewportHeight = useSelector(selectViewportHeight)
     const isSearch = useSelector(selectIsSearch)
 
-    let bottom = isNaN(viewportHeight) ? '100vh' :  viewportHeight - 20
+    let bottom = viewportHeight === 0 ? '100vh' :  viewportHeight - 20
     let height = viewportHeight - 20
 
     return (
