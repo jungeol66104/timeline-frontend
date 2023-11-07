@@ -234,7 +234,7 @@ const Timeline = () => {
                 const deltaX = endX - startX;
                 if (deltaX !== 0) {
                     e.preventDefault()
-                    if (!isLoading && Math.abs(deltaX) > 50) {
+                    if (!isLoading && Math.abs(deltaX) > 70) {
                         isLoading = true
                         await operateZoomTest(e, deltaX)
                         setTimeout(() => isLoading = false, 500)

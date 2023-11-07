@@ -44,9 +44,10 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {e
             }
         }
 
-        const operateToggle = async () => {
+        const operateToggle = async (e: MouseEvent) => {
             try {
                 if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
+                    e.preventDefault()
                     let { newToggleEvents, newTotalHeight} = await fetchToggleEvents()
                     newToggleEvents = newToggleEvents.slice(1,)
                     dispatch(updateToggleEvents({order: eventOrderInCurrent, toggleEvents: newToggleEvents}))
@@ -59,9 +60,9 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {e
             }
         }
 
-        const handleClick = async () => {
+        const handleClick = async (e: MouseEvent) => {
             if (isLoading) return
-            await operateToggle()
+            await operateToggle(e)
         }
 
         eventContent.addEventListener('click', handleClick)
