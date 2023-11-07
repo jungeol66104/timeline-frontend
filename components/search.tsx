@@ -139,7 +139,6 @@ const SearchBody = () => {
         </div>
     )
 }
-
 const SearchResultBox = ({timeline, event}: {timeline?: any,event?: TimelineEvent}) => {
     return (
         <Link href={ timeline ? `/timelines/${timeline.id}` : `/events/${event?.id}`}>

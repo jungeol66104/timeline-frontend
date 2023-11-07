@@ -20,9 +20,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
     useEffect(() => {
         const handleResize = () => {
             if(typeof window !== undefined) {
-                let newVisualHeight
-                if (window.visualViewport) newVisualHeight = window.visualViewport.height
-                else newVisualHeight = window.innerHeight
+                let newVisualHeight = window.innerHeight
                 dispatch(updateViewportHeight(newVisualHeight))
             }
         };

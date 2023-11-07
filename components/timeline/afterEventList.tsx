@@ -15,7 +15,7 @@ const AfterEventList = ({event} : {event: TimelineEvent}) => {
     const listHeight = !isToggle ? 112 : 28 + (toggleEvents.length + 1) * 124
 
     return (
-        <div className={'relative'} style={{width: 'calc(100% - 22px)',height: listHeight, transition: 'height 0.5s'}}>
+        <div className={'relative'} style={{width: 'calc(100% - 22px)',height: listHeight}}>
             <AfterEventListHeader event={event}/>
             <EventContent key={0} event={event} highestEvent={event} contentOrder={0} isToggle={isToggle}/>
             {toggleEvents.map((tEvent: TimelineEvent, i) => <EventContent key={i+1} event={tEvent} highestEvent={event} contentOrder={i+1} isToggle={isToggle} isPrev={true}/>)}
