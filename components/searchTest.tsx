@@ -32,7 +32,7 @@ const SearchContents = () => {
     const viewportHeight = useSelector(selectViewportHeight)
 
     return (
-        <div className={'fixed top-[60px] pt-2.5 left-0 w-screen bg-white'} style={{height: viewportHeight - 60, zIndex: 20}}>
+        <div className={'fixed top-[60px] pt-2.5 left-0 w-screen bg-white'} style={{height: viewportHeight - 60, zIndex: 5000}}>
             <SearchHeader />
             <SearchBody />
         </div>

@@ -67,6 +67,7 @@ const Timeline = () => {
         const heightsOfCurrentEvents = getEventHeights(currentEvents)
         let topsOfCurrentEvents = heightsOfCurrentEvents.map((_, i) => sum(heightsOfCurrentEvents.slice(0,i)))
         let startX: number | null = null
+        let startY: number | null = null
 
         // functions
         const getSwipedEvent = (scrollWrapper: HTMLDivElement, e: WheelEvent | TouchEvent | MouseEvent) : TimelineEvent => {
@@ -229,12 +230,15 @@ const Timeline = () => {
         const handleTouch = async (e: TouchEvent) => {
             if (e.type === 'touchstart') {
                 startX = e.touches[0].clientX;
-            } else if (e.type === 'touchend' && startX !== null) {
+                startY = e.touches[0].clientY;
+            } else if (e.type === 'touchend' && startX !== null && startY !== null) {
                 const endX = e.changedTouches[0].clientX;
+                const endY = e.changedTouches[0].clientY;
                 const deltaX = endX - startX;
+                const deltaY = endY - startY
                 if (deltaX !== 0) {
                     e.preventDefault()
-                    if (!isLoading && Math.abs(deltaX) > 70) {
+                    if (!isLoading && Math.abs(deltaX) > 70 && Math.abs(deltaY) < 10) {
                         isLoading = true
                         await operateZoomTest(e, deltaX)
                         setTimeout(() => isLoading = false, 500)

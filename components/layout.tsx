@@ -10,6 +10,7 @@ import {selectCurrentEvents, selectCurrentTimeline} from "@/store/slices/content
 import {selectViewportHeight, updateViewportHeight} from "@/store/slices/appearanceSlice";
 import SearchTest from "@/components/searchTest";
 import CloseSVG from "@/public/svg/close.svg";
+import {z} from "zod";
 // refactoring: needed
 
 const Layout = ({ children } : {children: ReactNode}) => {
@@ -50,7 +51,7 @@ const Navbar = () => {
     const isSearch = useSelector(selectIsSearch)
 
     return (
-        <div className={'fixed top-0 left-0 h-[60px] w-full bg-white pr-5 pl-5 shadow-md flex items-center justify-between z-30'}>
+        <div className={'fixed top-0 left-0 h-[60px] w-full bg-white pr-5 pl-5 shadow-md flex items-center justify-between'} style={{zIndex: 9999}}>
             <Link href={'/'} className={`font-black text-2xl transform transition-opacity ease-in-out duration-300`}>Timeline</Link>
             <div className={'flex items-center gap-2.5'}>
                 <button onClick={() => dispatch(updateIsSearch())}>
