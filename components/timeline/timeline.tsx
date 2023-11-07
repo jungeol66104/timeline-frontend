@@ -296,7 +296,7 @@ const Timeline = () => {
         <div className='timeline flex flex-col max-w-lg relative'>
             <TimelineFrame />
             <TimelineEvents />
-            {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
+            {(lastAction === 'zoom') && <AfterEffectEvents />}
         </div>
     )
 }
