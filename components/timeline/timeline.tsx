@@ -30,7 +30,6 @@ const Timeline = () => {
     const aboveTimelineHeight = useSelector(selectAboveTimelineHeight)
     const eventBoxHeight = useSelector(selectEventBoxHeight)
     const overlapBottom = useSelector(selectOverlapBottom)
-    const totalHeight = useSelector(selectTotalHeight)
     const currentDepth = useSelector(selectCurrentDepth)
     const scrollTop = useSelector(selectScrollTop)
     const lastAction = useSelector(selectLastAction)
@@ -294,7 +293,7 @@ const Timeline = () => {
         };
     });
     return (
-        <div className='timeline flex flex-col max-w-lg relative' style={{height: totalHeight}}>
+        <div className='timeline flex flex-col max-w-lg relative'>
             <TimelineFrame />
             <TimelineEvents />
             {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
