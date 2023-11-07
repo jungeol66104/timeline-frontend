@@ -50,7 +50,7 @@ const Navbar = () => {
         <div className={'fixed top-0 left-0 h-[60px] w-full bg-white pr-5 pl-5 shadow-md flex items-center justify-between z-30'}>
             <Link href={'/'} className={`font-black text-2xl transform transition-opacity ease-in-out duration-300`}>Timeline</Link>
             <div className={'flex items-center gap-2.5'}>
-                <div className={'absolute bottom-10'}>{viewportHeight}</div>
+                <input/>
                 <button><Image src={SearchSVG} alt={'search'} width={24} height={24} onClick={() => dispatch(updateIsSearch())}/></button>
                 <button className={'hidden'}><Image src={MenuSVG} alt={'menu'} width={24} height={24} /></button>
             </div>
