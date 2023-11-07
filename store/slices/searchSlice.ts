@@ -49,3 +49,4 @@ export interface initialSearchState {
     searchedTimelines: any[]
     searchedEvents: any[]
 }
+

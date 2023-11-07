@@ -4,8 +4,8 @@ import gsap from "gsap";
 import EventNode from "@/components/timeline/eventNode";
 import {useSelector} from "react-redux";
 import AfterEventList from "@/components/timeline/afterEventList";
-import {selectLastAction} from "@/store/slices/effectsSlice";
-import {selectPrevEventsWithEffect} from "@/store/slices/eventsSlice";
+import {selectLastAction} from "@/store/slices/appearanceSlice";
+import {selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
 // refactoring: needed
 
 const AfterEventBox = ({event} : {event: TimelineEvent}) => {

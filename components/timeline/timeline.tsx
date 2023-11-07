@@ -1,20 +1,21 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TimelineEvent} from '@/public/events'
-import {sum, julianDateToEvent, getEventHeights} from '@/utils/global'
-import {selectCurrentEvents, selectCurrentEventsWithEffect, selectCurrentTimeline, selectData, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/eventsSlice";
+import {sum, getEventHeights} from '@/utils/global'
+import {selectCurrentEvents, selectCurrentEventsWithEffect, selectCurrentTimeline, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
 import {
     decrementDepth,
     incrementDepth,
-    selectCurrentDepth,
-    selectLastAction,
+    selectAboveTimelineHeight,
+    selectCurrentDepth, selectEventBoxHeight,
+    selectLastAction, selectOverlapBottom,
     selectScrollTop,
     updateAfterEffectTop,
     updateCurrentDepth,
     updateLastAction,
     updateScrollTop,
     updateTotalHeight
-} from "@/store/slices/effectsSlice";
+} from "@/store/slices/appearanceSlice";
 import TimelineFrame from "@/components/timeline/timelineFrame";
 import TimelineEvents from "@/components/timeline/timelineEvents";
 import AfterEffectEvents from "@/components/timeline/afterEffectEvents";
@@ -26,18 +27,14 @@ const Timeline = () => {
     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
 
     const dispatch = useDispatch()
-    const currentTimeline = useSelector(selectCurrentTimeline)
-    const currentEvents = useSelector(selectCurrentEvents)
-    console.log(currentEvents)
-    const currentEventsWithEffect = useSelector(selectCurrentEventsWithEffect)
-    const data = useSelector(selectData)
+    const aboveTimelineHeight = useSelector(selectAboveTimelineHeight)
+    const eventBoxHeight = useSelector(selectEventBoxHeight)
+    const overlapBottom = useSelector(selectOverlapBottom)
     const currentDepth = useSelector(selectCurrentDepth)
     const scrollTop = useSelector(selectScrollTop)
     const lastAction = useSelector(selectLastAction)
-
-    const aboveTimelineHeight = 70
-    const eventBoxHeight = 124
-    const overlapBottom = 6
+    const currentTimeline = useSelector(selectCurrentTimeline)
+    const currentEvents = useSelector(selectCurrentEvents)
 
     let isLoading = true
     if (lastAction === 'zoom' || 'scroll') {setTimeout(() => {isLoading = false}, 500)}
@@ -46,6 +43,7 @@ const Timeline = () => {
     // clicking back button
     useEffect(() => {
         if (sessionStorage.getItem('lastAction') === 'enter') {
+            return
             dispatch(updateCurrentEvents(JSON.parse(sessionStorage.getItem('currentEvents') as string)))
             dispatch(updateCurrentEventsWithEffect(JSON.parse(sessionStorage.getItem('currentEvents') as string)))
             dispatch(updateTotalHeight(JSON.parse(sessionStorage.getItem('totalHeight') as string)))
@@ -69,6 +67,7 @@ const Timeline = () => {
         const heightsOfCurrentEvents = getEventHeights(currentEvents)
         let topsOfCurrentEvents = heightsOfCurrentEvents.map((_, i) => sum(heightsOfCurrentEvents.slice(0,i)))
         let startX: number | null = null
+        let startY: number | null = null
 
         // functions
         const getSwipedEvent = (scrollWrapper: HTMLDivElement, e: WheelEvent | TouchEvent | MouseEvent) : TimelineEvent => {
@@ -90,41 +89,7 @@ const Timeline = () => {
             }
             return {...currentEvents[order], order: order, top: top, boxTop: boxTop}
         }
-        const fetchEventsForScroll = (scrollEvent: TimelineEvent, events: TimelineEvent[]) => {
-            let referEvent = scrollEvent
-            let targetOrderInEvents = events.findIndex(event => event.id === referEvent.id)
-            let addedEvents: TimelineEvent[] = []
-            let fetchedEvents: TimelineEvent[] = [...currentEventsWithEffect]
-            if (scrollEvent.order === 0) {
-                let eventsAboveTarget = events.slice(0, targetOrderInEvents).filter(event => event.julianDate !== referEvent.julianDate)
-                let julianDatesAboveTargetWithDepth = Array.from(new Set(eventsAboveTarget.filter(event => event.depth as number <= currentDepth).map(event => event.julianDate)))
-                for (let i = julianDatesAboveTargetWithDepth.length - 1 ; i >= 0 ; i--) {
-                    addedEvents.unshift(julianDateToEvent(julianDatesAboveTargetWithDepth[i], eventsAboveTarget))
-                    if (addedEvents.length === 21) break
-                }
-                    fetchedEvents.unshift(...addedEvents)
-                    fetchedEvents = fetchedEvents.slice(0, fetchedEvents.length - addedEvents.length)
-            }
-            if (scrollEvent.order === currentEvents.length - 1) {
-                let eventsBelowTarget = events.slice(targetOrderInEvents + 1, ).filter(event => event.julianDate !== referEvent.julianDate)
-                let julianDatesBelowTargetWithDepth = Array.from(new Set(eventsBelowTarget.filter(event => event.depth as number <= currentDepth).map(event => event.julianDate)))
-                for (let i = 0 ; i < julianDatesBelowTargetWithDepth.length ; i++) {
-                    addedEvents.push(julianDateToEvent(julianDatesBelowTargetWithDepth[i], eventsBelowTarget))
-                    if (addedEvents.length === 21) break
-                }
-                fetchedEvents.push(...addedEvents)
-                fetchedEvents = fetchedEvents.slice(addedEvents.length, )
-            }
-            if (addedEvents.length === 0) return {fetchedEvents: currentEvents, referEvent: scrollEvent}
-
-            fetchedEvents = fetchedEvents.map(fEvent => {
-                const cEvent = currentEvents.find(cEvent => cEvent.id === fEvent.id)
-                if (cEvent) return cEvent
-                else return fEvent
-            })
-            return {fetchedEvents, referEvent}
-        }
-        const fetchEventsTest = async (depth: number, pivotEvent: TimelineEvent) => {
+        const fetchEvents = async (depth: number, pivotEvent: TimelineEvent) => {
             if (depth === 2 || depth === -1) return {fetchedEvents: currentEvents, referEvent: pivotEvent}
             try {
                 const response = await api.post('/v1/getTimeline', {'timelineId': currentTimeline.id , 'depth': depth, 'pivotJulianDate': pivotEvent.julianDate})
@@ -144,7 +109,7 @@ const Timeline = () => {
                 return {fetchedEvents: currentEvents, referEvent: pivotEvent }
             }
         }
-        const getEventsWithEffectTest = (depth: number, swipedEvent: TimelineEvent, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[])=> {
+        const getEventsWithEffectForZoom = (depth: number, swipedEvent: TimelineEvent, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[])=> {
             const order = fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)
             const heightsOfFetchedEvents = getEventHeights(fetchedEvents)
             const topsOfFetchedEvents = heightsOfFetchedEvents.map((_, i) => sum(heightsOfFetchedEvents.slice(0,i)))
@@ -155,8 +120,7 @@ const Timeline = () => {
                 const fEventOrderInFetched = i
                 if (currentEvents.find(cEvent => cEvent.id === fEvent.id)) {
                     // remained
-                    if (depth < currentDepth && !fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle) {
-                        if (!swipedEvent.boxTop) return
+                    if (depth < currentDepth && !fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop) {
                         let initialDistance = (topsOfCurrentEvents[swipedEvent.order as number] + swipedEvent.boxTop) - topsOfCurrentEvents[fEventOrderInCurrent]
                         let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
                         distance = finalDistance - initialDistance
@@ -173,11 +137,10 @@ const Timeline = () => {
                         else initialDistance = topsOfCurrentEvents[swipedEvent.order as number] - (topsOfCurrentEvents[topsOfCurrentEvents.length - 1] + (eventBoxHeight + 2 * overlapBottom))
                         let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
                         distance = finalDistance - initialDistance
-                    } else return fEvent
+                    } else return {...fEvent, animation: 'fadeIn'}
                 }
-                return {...fEvent, distance: distance}
+                return {...fEvent, animation: 'move' , distance: distance}
             })
-
             const currentEventsWithAfterEffect = currentEvents.map((cEvent, i) => {
                 let distance = 0
                 let cEventOrderInCurrent = i
@@ -189,11 +152,10 @@ const Timeline = () => {
                         if (cEventOrderInCurrent <= (swipedEvent.order as number)) finalDistance = topsOfFetchedEvents[order] + (eventBoxHeight + 2 * overlapBottom)
                         else finalDistance = topsOfFetchedEvents[order] - (topsOfFetchedEvents[topsOfFetchedEvents.length - 1] + (eventBoxHeight + 2 * overlapBottom))
                         distance = initialDistance - finalDistance
-                        return {...cEvent, distance: distance, prev: true}
-                    } else return {...cEvent, fadeout: true, prev: true}
-                } else return {...cEvent, blank: true, prev: true}
+                        return {...cEvent, animation: 'move' ,distance: distance, prev: true}
+                    } else return {...cEvent, animation: 'fadeOut' ,fadeout: true, prev: true}
+                } else return {...cEvent, animation: 'blank', blank: true, prev: true}
             })
-
             let afterEffectTop = topsOfFetchedEvents[order] - topsOfCurrentEvents[swipedEvent.order as number]
             if (depth < currentDepth && !fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop) {
                 afterEffectTop -= swipedEvent.boxTop
@@ -203,11 +165,10 @@ const Timeline = () => {
         const getEventsWithEffectForScroll = (fetchedEvents: TimelineEvent[]) => {
             return fetchedEvents.map(fEvent => {
                 const cEvent = currentEvents.find(cEvent => cEvent.id === fEvent.id)
-                if (cEvent) return {...fEvent, new: false }
-                else return {...fEvent, new: true }
+                if (cEvent) return {...fEvent, animation: 'none' }
+                else return {...fEvent, animation: 'fadeIn' }
             })
         }
-
         const getScrollTop = (swipedEvent: TimelineEvent, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[]) => {
             if (!swipedEvent.top) return {newScrollTop: 0, totalHeight: 0}
             const heightsOfFetchedEvents = getEventHeights(fetchedEvents)
@@ -223,9 +184,9 @@ const Timeline = () => {
             if (e instanceof WheelEvent) {depth = e.deltaX > 0 ? currentDepth - 1 : currentDepth + 1}
             else {depth = (deltaX as number) < 0 ? currentDepth - 1 : currentDepth + 1}
             let swipedEvent: TimelineEvent = getSwipedEvent(scrollWrapper, e)
-            fetchEventsTest(depth, swipedEvent).then(({fetchedEvents, referEvent}) => {
+            fetchEvents(depth, swipedEvent).then(({fetchedEvents, referEvent}) => {
                 if (fetchedEvents === currentEvents) return
-                let { fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop } = getEventsWithEffectTest(depth, swipedEvent, referEvent, fetchedEvents)
+                let { fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop } = getEventsWithEffectForZoom(depth, swipedEvent, referEvent, fetchedEvents)
                 let { newScrollTop, totalHeight} = getScrollTop(swipedEvent, referEvent, fetchedEvents)
                 dispatch(updateCurrentEvents(fetchedEvents))
                 dispatch(updateCurrentEventsWithEffect(fetchedEventsWithEffect))
@@ -241,28 +202,13 @@ const Timeline = () => {
                 }
             })
         }
-        const operateScroll = (scrollUp: boolean) => {
-            let order =  scrollUp ? 0 : currentEvents.length - 1
-            //this code below can be generalized in the future
-            let arrayOfHeight = currentEvents.map((cEvent: TimelineEvent) => eventBoxHeight + (cEvent.overlap as number) * overlapBottom)
-            let arrayOfTop = arrayOfHeight.map((_, i) => sum(arrayOfHeight.slice(0,i)))
-            let top = aboveTimelineHeight + arrayOfTop[order] - scrollWrapper.scrollTop
-            const scrollEvent = {...currentEvents[order], order: order, top: top }
-            let { fetchedEvents, referEvent } = fetchEventsForScroll(scrollEvent, data)
-            if (fetchedEvents === currentEvents) return
-            let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
-            dispatch(updateCurrentEvents(fetchedEvents))
-            dispatch(updateCurrentEventsWithEffect(fetchedEvents))
-            dispatch(updateScrollTop(newScrollTop))
-            dispatch(updateTotalHeight(totalHeight))
-            dispatch(updateLastAction('scroll'))
-        }
         const operateScrollTest = (scrollUp: boolean) => {
             let order =  scrollUp ? 0 : currentEvents.length - 1
             let top = aboveTimelineHeight + topsOfCurrentEvents[order] - scrollWrapper.scrollTop
             const scrollEvent = {...currentEvents[order], order: order, top: top }
-            fetchEventsTest(currentDepth, scrollEvent).then(({fetchedEvents, referEvent}) => {
+            fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent}) => {
                 if (fetchedEvents === currentEvents) return
+                fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
                 let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
                 dispatch(updateCurrentEvents(fetchedEvents))
                 dispatch(updateCurrentEventsWithEffect(fetchedEvents))
@@ -284,12 +230,15 @@ const Timeline = () => {
         const handleTouch = async (e: TouchEvent) => {
             if (e.type === 'touchstart') {
                 startX = e.touches[0].clientX;
-            } else if (e.type === 'touchend' && startX !== null) {
+                startY = e.touches[0].clientY;
+            } else if (e.type === 'touchend' && startX !== null && startY !== null) {
                 const endX = e.changedTouches[0].clientX;
+                const endY = e.changedTouches[0].clientY;
                 const deltaX = endX - startX;
+                const deltaY = endY - startY
                 if (deltaX !== 0) {
                     e.preventDefault()
-                    if (!isLoading && Math.abs(deltaX) > 50) {
+                    if (!isLoading && Math.abs(deltaX) > 70 && Math.abs(deltaY) < 10) {
                         isLoading = true
                         await operateZoomTest(e, deltaX)
                         setTimeout(() => isLoading = false, 500)
@@ -319,7 +268,7 @@ const Timeline = () => {
             let scrollDown = scrollWrapper.scrollTop > aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.9 - viewportHeight
             if (!isLoading && (scrollUp || scrollDown)) {
                 isLoading = true
-                // await operateScrollTest(scrollUp)
+                await operateScrollTest(scrollUp)
                 setTimeout(() => isLoading = false, 500)
             }
         }
@@ -330,7 +279,7 @@ const Timeline = () => {
         timeline.addEventListener('mouseup' , handleDrag);
         timeline.addEventListener('touchstart' , handleTouch);
         timeline.addEventListener('touchend' , handleTouch);
-        scrollWrapper.addEventListener('scroll', handleScroll)
+        // scrollWrapper.addEventListener('scroll', handleScroll)
         return () => {
             timeline.removeEventListener('wheel', handleWheel);
             timeline.removeEventListener('mousedown' , handleDrag);
@@ -338,7 +287,7 @@ const Timeline = () => {
             timeline.removeEventListener('mouseup' , handleDrag);
             timeline.removeEventListener('touchstart' , handleTouch);
             timeline.removeEventListener('touchend' , handleTouch);
-            scrollWrapper.removeEventListener('scroll', handleScroll)
+            // scrollWrapper.removeEventListener('scroll', handleScroll)
         };
     });
     return (

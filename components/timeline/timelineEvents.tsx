@@ -1,7 +1,7 @@
 import {useSelector} from "react-redux";
 import {TimelineEvent} from "@/public/events";
 import EventBox from "@/components/timeline/eventBox";
-import {selectCurrentEventsWithEffect} from "@/store/slices/eventsSlice";
+import {selectCurrentEventsWithEffect} from "@/store/slices/contentsSlice";
 // refactoring: clear
 
 const TimelineEvents = () => {

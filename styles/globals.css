@@ -10,6 +10,10 @@
     font-family: 'Inter', sans-serif;
 }
 
+html, body, #__next, .layout {
+    height: fit-content;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera && IE, Edge and Firefox */
 .page::-webkit-scrollbar, .layout::-webkit-scrollbar, .search::-webkit-scrollbar{
     display: none;
@@ -21,7 +25,7 @@
 /* find ways to avoid global css like this */
 .page {
     overflow: scroll;
-    height: calc(100vh - 60px);
+    height: calc(100dvh - 60px);
     margin: 0 20px;
 }
 

@@ -1,20 +1,23 @@
 import {storeWrapper} from "@/store/store";
 import {sum, getEventHeights} from "@/utils/global";
 import {TimelineEvent} from "@/public/events"
-import {updateCurrentEvents, updateCurrentEventsWithEffect} from "@/store/slices/eventsSlice";
-import {updateTotalHeight} from "@/store/slices/effectsSlice";
+import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
+import {selectViewportHeight, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import Timeline from "@/components/timeline/timeline";
 import api from "@/utils/api"
+import {useSelector} from "react-redux";
 // refactoring: needed (events to API fetching)
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
     try {
         const response = await api.post('/v1/getTimeline', {"timelineId": Number(context.query.timeline), "depth": 0, "pivotJulianDate": "0"})
+        // const newCurrentTimeline = response.data.data.timelineInfo
         let newCurrentEvents = response.data.data.events as TimelineEvent[]
         newCurrentEvents = newCurrentEvents.map(cEvent => {
-            return {...cEvent, isToggle: false, toggleEvents: []}
+            return {...cEvent, isToggle: false, toggleEvents: [], animation: 'none'}
         })
         const newTotalHeight = sum(getEventHeights(newCurrentEvents))
+        store.dispatch(updateCurrentTimeline({id: context.query.timeline, name: ''}))
         store.dispatch(updateCurrentEvents(newCurrentEvents))
         store.dispatch(updateCurrentEventsWithEffect(newCurrentEvents))
         store.dispatch(updateTotalHeight(newTotalHeight))
@@ -25,8 +28,10 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
     }
 })
 const TimelinePage = () => {
+    const viewportHeight = useSelector(selectViewportHeight)
+
     return (
-        <div className={'page'}>
+        <div className={'page'} style={{height: viewportHeight - 60}}>
             <Timeline/>
         </div>
     )

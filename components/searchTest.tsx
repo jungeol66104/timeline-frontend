@@ -1,47 +1,44 @@
-import Image from "next/image";
-import CloseSVG from "../public/svg/close.svg"
-import SearchInBarSVG from "@/public/svg/searchInBar.svg";
-import NorthwestSVG from '@/public/svg/northwest.svg'
-import React, {RefObject, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    selectIsSearch,
-    selectSearchedTimelines,
-    selectSearchedEvents,
+    selectIsSearch, selectSearchedEvents, selectSearchedTimelines,
     selectSearchValue,
-    selectTab,
-    updateIsSearch,
-    updateSearchValue,
-    updateTab,
+    selectTab, updateIsSearch, updateSearchedEvents,
     updateSearchedTimelines,
-    updateSearchedEvents
+    updateSearchValue,
+    updateTab
 } from "@/store/slices/searchSlice";
-import {TimelineEvent} from "@/public/events";
-import api from "@/utils/api";
-import Link from "next/link";
 import {selectViewportHeight} from "@/store/slices/appearanceSlice";
-// refactoring: needed (hover effect and load 10 each?)
+import React, {RefObject, useEffect, useRef} from "react";
+import api from "@/utils/api";
+import Image from "next/image";
+import CloseSVG from "@/public/svg/close.svg";
+import SearchInBarSVG from "@/public/svg/searchInBar.svg";
+import {TimelineEvent} from "@/public/events";
+import Link from "next/link";
+import NorthwestSVG from "@/public/svg/northwest.svg";
 
-const Search = () => {
-    const dispatch = useDispatch()
-    const viewportHeight = useSelector(selectViewportHeight)
+const SearchTest = () => {
     const isSearch = useSelector(selectIsSearch)
-
-    let bottom = viewportHeight === 0 ? '100vh' :  viewportHeight - 20
-    let height = viewportHeight - 20
 
     return (
         <>
-            <div onClick={() => dispatch(updateIsSearch())} className={`absolute ${isSearch ? '' : 'pointer-events-none'} top-0 left-0 w-screen bg-gray-900`} style={{transition: 'all 0.3s', height: height + 20,  opacity: isSearch ? 0.4 : 0, zIndex: 9999}}></div>
-            <div className={`fixed w-full rounded-t-2xl bg-white`} style={{bottom: !isSearch ? -bottom : 0, height: height, transition: 'all 0.3s', zIndex: 9999}}>
-                <SearchHeader />
-                <SearchBody />
-            </div>
+            {isSearch ? <SearchContents/> : <></>}
         </>
     )
 }
+export default SearchTest
 
-export default Search
+const SearchContents = () => {
+    const viewportHeight = useSelector(selectViewportHeight)
+
+    return (
+        <div className={'fixed top-[60px] pt-2.5 left-0 w-screen bg-white'} style={{height: viewportHeight - 60, zIndex: 5000}}>
+            <SearchHeader />
+            <SearchBody />
+        </div>
+    )
+}
+
 
 const SearchHeader = () => {
     const searchBarInputRef: RefObject<HTMLInputElement> = useRef(null)
@@ -81,26 +78,21 @@ const SearchHeader = () => {
     }
 
     useEffect(() => {
-     const searchBarInput = searchBarInputRef.current
-     if (!searchBarInput) return;
-     if(isSearch)
-        searchBarInput.focus()
+        const searchBarInput = searchBarInputRef.current
+        if (!searchBarInput) return;
+        if(isSearch)
+            searchBarInput.focus()
     }, [isSearch]);
 
     return (
-         <div className={''}>
-             <div className={'h-[50px] flex justify-between pl-5 pr-5 pb-2.5 pt-2.5 align-middle border-b-[1px]'}>
-                 <div className={'w-5 h-5'}></div>
-                 <span className={'font-black text-md pt-[2.5px]'}>검색</span>
-                 <button><Image src={CloseSVG} alt={'close'} width={22} height={22} onClick={() => dispatch(updateIsSearch())} /></button>
-             </div>
-             <div className={'h-[50px] flex gap-2.5 ml-4 mr-4 pt-2.5 pb-2.5 border-b-[1px]'}>
+        <div>
+            <div className={'h-[50px] flex gap-2.5 ml-4 mr-4 pt-2.5 pb-2.5 border-b-[1px]'}>
                 <div className={'flex-shrink-0 w-7 h-7 bg-gray-500 rounded-full flex align-middle justify-center'}><Image src={SearchInBarSVG} alt={'searchInBar'} width={16} height={16} /></div>
                 <input ref={searchBarInputRef} onChange={handelSearch} value={searchValue} placeholder={'Search...'} className={'w-full focus:outline-0'}></input>
-             </div>
-             <SearchTab />
-         </div>
-     )
+            </div>
+            <SearchTab />
+        </div>
+    )
 }
 
 const SearchTab = () => {
@@ -127,14 +119,14 @@ const SearchBody = () => {
     return (
         <div className={`flex w-fit transform transition-transform ease-in-out duration-300 ${tab === 'timeline' ? 'translate-x-0' : '-translate-x-1/2'}`}>
             <div className={'page w-screen overflow-scroll'} style={{height: `calc(98vh - 143px)`}}>
-            {searchedTimelines.map((timeline, i) => {
-                return <SearchResultBox timeline={timeline} key={i}/>
-            })}
+                {searchedTimelines.map((timeline, i) => {
+                    return <SearchResultBox timeline={timeline} key={i}/>
+                })}
             </div>
             <div className={'page w-screen overflow-scroll'} style={{height: `calc(98vh - 143px)`}}>
-            {searchedEvents.map((event, i) => {
-                return <SearchResultBox event={event} key={i}/>
-            })}
+                {searchedEvents.map((event, i) => {
+                    return <SearchResultBox event={event} key={i}/>
+                })}
             </div>
         </div>
     )

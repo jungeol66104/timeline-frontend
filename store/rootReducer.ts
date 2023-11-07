@@ -1,7 +1,7 @@
 import {AnyAction, CombinedState, combineReducers, Reducer} from 'redux';
 import {HYDRATE} from "next-redux-wrapper";
-import eventsSlice, {initialEventsState} from "@/store/slices/eventsSlice";
-import effectsSlice, {initialEffectsState} from "@/store/slices/effectsSlice";
+import contentsSlice, {initialContentsState} from "@/store/slices/contentsSlice";
+import appearanceSlice, {initialAppearanceState} from "@/store/slices/appearanceSlice";
 import searchSlice, {initialSearchState} from "@/store/slices/searchSlice";
 // refactoring: clear
 
@@ -11,9 +11,9 @@ const rootReducer: Reducer = (state: initialState, action: AnyAction): CombinedS
             return action.payload
         default:
             return combineReducers({
-                events: eventsSlice,
-                search: searchSlice,
-                effects: effectsSlice
+                appearance: appearanceSlice,
+                contents: contentsSlice,
+                search: searchSlice
             })(state, action)
     }
 }
@@ -21,8 +21,8 @@ export default rootReducer;
 
 // types
 export interface initialState {
-    events: initialEventsState
+    appearance: initialAppearanceState
+    contents: initialContentsState
     search: initialSearchState
-    effects: initialEffectsState
 }
 export type RootState = initialState
