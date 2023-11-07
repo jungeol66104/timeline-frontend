@@ -4,6 +4,7 @@ import EventContent from "@/components/timeline/eventContent";
 import OverlapContent from "@/components/timeline/overlapContent";
 import AfterEventListHeader from "@/components/timeline/afterEventListHeader";
 import {selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
+import AfterEventContent from "@/components/timeline/afterEventContent";
 
 const AfterEventList = ({event} : {event: TimelineEvent}) => {
 
@@ -17,8 +18,8 @@ const AfterEventList = ({event} : {event: TimelineEvent}) => {
     return (
         <div className={'relative'} style={{width: 'calc(100% - 22px)',height: listHeight}}>
             <AfterEventListHeader event={event}/>
-            <EventContent key={0} event={event} highestEvent={event} contentOrder={0} isToggle={isToggle}/>
-            {toggleEvents.map((tEvent: TimelineEvent, i) => <EventContent key={i+1} event={tEvent} highestEvent={event} contentOrder={i+1} isToggle={isToggle} isPrev={true}/>)}
+            <AfterEventContent key={0} event={event} highestEvent={event} contentOrder={0} isToggle={isToggle}/>
+            {toggleEvents.map((tEvent: TimelineEvent, i) => <AfterEventContent key={i+1} event={tEvent} highestEvent={event} contentOrder={i+1} isToggle={isToggle} isPrev={true}/>)}
             <OverlapContent event={event} order={1}/>
             <OverlapContent event={event} order={2}/>
         </div>

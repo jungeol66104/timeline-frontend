@@ -17,7 +17,7 @@ const AfterEventBox = ({event} : {event: TimelineEvent}) => {
     const eventOrderInPrev = prevEventsWithEffect.findIndex(pEvent => pEvent.id === event.id)
     const isToggle = prevEventsWithEffect[eventOrderInPrev].isToggle
 
-    let zIndex = event.animation === 'fadeIn' || event.animation === 'fadeOut' ? '' : '20'
+    let zIndex = event.animation === 'move' ? 20 : ''
     let paddingBottom = event.overlap === 0 || isToggle ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
 
     useEffect(() => {
@@ -25,16 +25,12 @@ const AfterEventBox = ({event} : {event: TimelineEvent}) => {
         if (!eventBox) return
         const tl = gsap.timeline()
         if (lastAction === 'zoom') {
-            if (event.animation === 'fadeIn') {
-                tl.fromTo(eventBox, {opacity: 0}, {opacity: 1, duration: 0.5, ease: 'ease-in-out'})
-            } else if (event.animation === 'fadeOut') {
+            if (event.animation === 'fadeOut') {
                 tl.fromTo(eventBox, {opacity: 1}, {opacity: 0, duration: 0.5, ease: 'ease-in-out'})
             } else if (event.animation === 'move') {
                 tl.fromTo(eventBox, {y: event.distance}, {y: '0', duration: 0.5, ease: 'ease-in-out'})
             } else if (event.animation === 'blank') {
                 tl.fromTo(eventBox, {opacity: 0}, {opacity: 0})
-            } else if (event.animation === 'none'){
-                return
             } else {
                 console.error('invalid event animation: ', event)
             }
