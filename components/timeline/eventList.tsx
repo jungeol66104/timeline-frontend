@@ -19,8 +19,8 @@ const EventList = ({event} : {event: TimelineEvent}) => {
     return (
         <div className={'relative'} style={{width: 'calc(100% - 22px)',height: listHeight, transition: 'height 0.5s'}}>
             <EventListHeader event={event}/>
-            <EventContent event={event} eventOrder={eventOrderInCurrent} contentOrder={0} isToggle={isToggle}/>
-            {toggleEvents.map((tEvent: TimelineEvent, i) => <EventContent key={i} event={tEvent} eventOrder={eventOrderInCurrent} contentOrder={i+1} isToggle={isToggle}/>)}
+            <EventContent key={0} event={event} highestEvent={event} contentOrder={0} isToggle={isToggle}/>
+            {toggleEvents.map((tEvent: TimelineEvent, i) => <EventContent key={i+1} event={tEvent} highestEvent={event} contentOrder={i+1} isToggle={isToggle}/>)}
             <OverlapContent event={event} order={1}/>
             <OverlapContent event={event} order={2}/>
         </div>
