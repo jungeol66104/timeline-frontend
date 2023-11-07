@@ -32,8 +32,8 @@ const Search = () => {
 
     return (
         <>
-            <div onClick={() => dispatch(updateIsSearch())} className={`absolute ${isSearch ? '' : 'pointer-events-none'} top-0 left-0 h-screen w-screen bg-gray-900 z-30`} style={{transition: 'all 0.3s', opacity: isSearch ? 0.4 : 0}}></div>
-            <div className={`fixed w-full rounded-t-2xl bg-white z-30`} style={{bottom: !isSearch ? -bottom : 0, height: height, transition: 'all 0.3s'}}>
+            <div onClick={() => dispatch(updateIsSearch())} className={`absolute ${isSearch ? '' : 'pointer-events-none'} top-0 left-0 h-screen w-screen bg-gray-900`} style={{transition: 'all 0.3s', opacity: isSearch ? 0.4 : 0, zIndex: 9999}}></div>
+            <div className={`fixed w-full rounded-t-2xl bg-white`} style={{bottom: !isSearch ? -bottom : 0, height: height, transition: 'all 0.3s', zIndex: 9999}}>
                 <SearchHeader />
                 <SearchBody />
             </div>
