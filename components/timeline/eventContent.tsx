@@ -34,9 +34,9 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {e
 
         const fetchToggleEvents = async () => {
             try {
-                const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': event.julianDate})
+                const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': highestEvent.julianDate})
                 const newToggleEvents = response.data.data.events
-                const newTotalHeight = totalHeight - (124 + (event.overlap as number) * 6) + (38 + newToggleEvents.length * 124)
+                const newTotalHeight = totalHeight - (124 + (event.overlap as number) * 6) + (38 + (newToggleEvents.length + 1) * 124)
                 return { newToggleEvents, newTotalHeight }
             } catch (error) {
                 console.error('Error fetching toggle events: ', error);
@@ -46,10 +46,9 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {e
 
         const operateToggle = async (e: MouseEvent) => {
             try {
-                if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
+                if ((!isToggle && contentOrder === 0 && event.overlap !== 0) || contentOrder !== 0) {
                     e.preventDefault()
                     let { newToggleEvents, newTotalHeight} = await fetchToggleEvents()
-                    newToggleEvents = newToggleEvents.slice(1,)
                     dispatch(updateToggleEvents({order: eventOrderInCurrent, toggleEvents: newToggleEvents}))
                     dispatch(updateIsToggle(eventOrderInCurrent))
                     dispatch(updateTotalHeight(newTotalHeight))

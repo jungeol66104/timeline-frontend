@@ -60,7 +60,6 @@ const Navbar = () => {
         </div>
     )
 }
-
 const Footer = () => {
     return (
         <div className={'hidden fixed flex flex-col items-center bottom-0 w-full bg-white border-t-[1px] p-2.5'}>

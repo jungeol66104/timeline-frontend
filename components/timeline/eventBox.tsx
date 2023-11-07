@@ -16,7 +16,7 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
     const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === event.id)
     const isToggle = currentEvents[eventOrderInCurrent].isToggle
 
-    let zIndex = event.animation === 'fadeIn' || event.animation === 'fadeOut' ? '' : '20'
+    let zIndex = event.animation === 'fadeIn' || event.animation === 'fadeOut' ? '10' : '20'
     let paddingBottom = event.overlap === 0 || isToggle ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
 
     useEffect(() => {
