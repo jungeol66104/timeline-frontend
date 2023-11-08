@@ -2,20 +2,8 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TimelineEvent} from '@/public/events'
 import {sum, getEventHeights} from '@/utils/global'
-import {selectCurrentEvents, selectCurrentEventsWithEffect, selectCurrentTimeline, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
-import {
-    decrementDepth,
-    incrementDepth,
-    selectAboveTimelineHeight,
-    selectCurrentDepth, selectEventBoxHeight,
-    selectLastAction, selectOverlapBottom,
-    selectScrollTop, selectTotalHeight,
-    updateAfterEffectTop,
-    updateCurrentDepth,
-    updateLastAction,
-    updateScrollTop,
-    updateTotalHeight
-} from "@/store/slices/appearanceSlice";
+import {selectCurrentEvents, selectCurrentTimeline, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
+import {decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth,selectEventBoxHeight, selectLastAction,selectOverlapBottom, selectScrollTop,selectTotalHeight, updateAfterEffectTop, updateLastAction, updateScrollTop, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import TimelineFrame from "@/components/timeline/timelineFrame";
 import TimelineEvents from "@/components/timeline/timelineEvents";
 import AfterEffectEvents from "@/components/timeline/afterEffectEvents";
@@ -24,8 +12,6 @@ import {RootState} from "@/store/rootReducer";
 // refactoring: needed (handler refactoring, vars need to be globalized?)
 
 const Timeline = () => {
-    const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
-    const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
 
     const dispatch = useDispatch()
     const aboveTimelineHeight = useSelector(selectAboveTimelineHeight)
@@ -37,59 +23,25 @@ const Timeline = () => {
     const lastAction = useSelector(selectLastAction)
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
-    const state = useSelector((state: RootState) => state)
-    console.log(lastAction, state)
+    // const state = useSelector((state: RootState) => state)
+    // console.log(lastAction, state)
 
     let isLoading = true
     if (lastAction === 'zoom' || lastAction === 'scroll') {setTimeout(() => {isLoading = false}, 500)}
     else {isLoading = false}
 
-    // clicking back button
-    useEffect(() => {
-        if (sessionStorage.getItem('lastAction') === 'enter') {
-            return
-            dispatch(updateCurrentEvents(JSON.parse(sessionStorage.getItem('currentEvents') as string)))
-            dispatch(updateCurrentEventsWithEffect(JSON.parse(sessionStorage.getItem('currentEvents') as string)))
-            dispatch(updateTotalHeight(JSON.parse(sessionStorage.getItem('totalHeight') as string)))
-            dispatch(updateCurrentDepth(JSON.parse(sessionStorage.getItem('currentDepth') as string)))
-            dispatch(updateScrollTop(JSON.parse(sessionStorage.getItem('scrollTop') as string)))
-            dispatch(updateLastAction('back'))
-            sessionStorage.clear()
-        }
-    }, []);
-
-    // always adjust viewportHeight (until dvh is under wide usage)
-    useEffect(() => {
-        const handleResize = () => {
-            if(typeof window !== undefined) {
-                let newHeight = window.innerHeight
-                document.documentElement.style.height = `${newHeight}px`
-                document.body.style.height = `${newHeight}px`
-                let nextDiv = document.getElementById('__next') as HTMLDivElement
-                nextDiv.style.height = `${newHeight}px`
-                let layoutDiv = document.querySelector('.layout') as HTMLDivElement
-                layoutDiv.style.height = `${newHeight}px`
-                let pageDivs: NodeListOf<HTMLDivElement> = document.querySelectorAll('.page');
-                pageDivs.forEach((div: HTMLDivElement) => {
-                    div.style.height = `${window.innerHeight - 60}px`;
-                })
-            }
-        };
-        handleResize()
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    });
-
     // scroll setup
     useEffect(() => {
+        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         if (!scrollWrapper) return
         scrollWrapper.scrollTop = scrollTop
     },[scrollTop])
 
     // event handlers
     useEffect(() => {
+        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
+
         if (!scrollWrapper || !timeline) return
 
         const heightsOfCurrentEvents = getEventHeights(currentEvents)
@@ -321,10 +273,10 @@ const Timeline = () => {
         };
     });
     return (
-        <div className='timeline flex flex-col max-w-lg relative bg-fuchsia-300' style={{height: `${totalHeight + 20}`}}>
+        <div className='timeline flex flex-col max-w-lg relative bg-fuchsia-300' style={{height: `${totalHeight + 20}`, transition: 'all 0.5s'}}>
             <TimelineFrame />
             <TimelineEvents />
-            {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
+            {(lastAction === 'zoom') && <AfterEffectEvents />}
         </div>
     )
 }

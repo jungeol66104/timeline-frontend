@@ -1,25 +1,19 @@
-import React, {ReactNode, useEffect} from "react";
+import React, {ReactNode} from "react";
 import Image from "next/image";
 import Link from 'next/link'
 import { useDispatch, useSelector } from "react-redux";
 import MenuSVG from "../public/svg/menu.svg"
 import SearchSVG from "../public/svg/search.svg"
 import {selectIsSearch, updateIsSearch} from "@/store/slices/searchSlice";
-import {selectCurrentEvents, selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import SearchTest from "@/components/searchTest";
 import CloseSVG from "@/public/svg/close.svg";
 // refactoring: needed
 
 const Layout = ({ children } : {children: ReactNode}) => {
-    const dispatch = useDispatch()
-
-
-
     return (
         <div className={'layout pt-[60px]'}>
             <Navbar />
             <>{children}</>
-            <Footer />
             <SearchTest />
         </div>
     )
@@ -40,14 +34,6 @@ const Navbar = () => {
                 </button>
                 <button className={'hidden'}><Image src={MenuSVG} alt={'menu'} width={24} height={24} /></button>
             </div>
-        </div>
-    )
-}
-const Footer = () => {
-    return (
-        <div className={'hidden fixed flex flex-col items-center bottom-0 w-full bg-white border-t-[1px] p-2.5'}>
-            <div className={'text-center font-semibold'}></div>
-            <div className={'text-[10px] text-center'}>© 2023 Timeline. All rights reserved.</div>
         </div>
     )
 }

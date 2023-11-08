@@ -12,7 +12,6 @@
 
 html, body, #__next, .layout {
     height: 100%;
-    overflow: hidden;
 }
 
 html {background-color: antiquewhite}

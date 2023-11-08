@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     selectIsSearch, selectSearchedEvents, selectSearchedTimelines,
     selectSearchValue,
-    selectTab, updateIsSearch, updateSearchedEvents,
+    selectTab, updateSearchedEvents,
     updateSearchedTimelines,
     updateSearchValue,
     updateTab

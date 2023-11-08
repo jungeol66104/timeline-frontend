@@ -5,7 +5,6 @@ import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimelin
 import {updateTotalHeight} from "@/store/slices/appearanceSlice";
 import Timeline from "@/components/timeline/timeline";
 import api from "@/utils/api"
-import {useSelector} from "react-redux";
 // refactoring: needed (events to API fetching)
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
