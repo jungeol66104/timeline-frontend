@@ -10,8 +10,9 @@
     font-family: 'Inter', sans-serif;
 }
 
-html, body, #__next, .layout, .page{
+html, body, #__next, .layout {
     height: 100%;
+    overflow: hidden;
 }
 
 html {background-color: antiquewhite}
@@ -27,6 +28,7 @@ html {background-color: antiquewhite}
 }
 /* find ways to avoid global css like this */
 .page {
+    height: 100%;
     overflow: scroll;
     margin: 0 20px;
 }
