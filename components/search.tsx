@@ -17,12 +17,12 @@ import NorthwestSVG from "@/public/svg/northwest.svg";
 import gsap from "gsap";
 // refactoring: needed (incarnate tab animation that works on mobile)
 
-const SearchTest = () => {
+const Search = () => {
     const isSearch = useSelector(selectIsSearch)
 
     return (<>{isSearch ? <SearchContents/> : <></>}</>)
 }
-export default SearchTest
+export default Search
 
 const SearchContents = () => {
     return (
@@ -125,7 +125,6 @@ const SearchBody = () => {
         </div>
     )
 }
-
 const SearchResultBox = ({timeline, event}: {timeline?: any,event?: TimelineEvent}) => {
     return (
         <Link href={ timeline ? `/timelines/${timeline.id}` : `/events/${event?.id}`}>

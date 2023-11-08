@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MenuSVG from "../public/svg/menu.svg"
 import SearchSVG from "../public/svg/search.svg"
 import {selectIsSearch, updateIsSearch} from "@/store/slices/searchSlice";
-import SearchTest from "@/components/searchTest";
+import Search from "@/components/search";
 import CloseSVG from "@/public/svg/close.svg";
 // refactoring: needed
 
@@ -14,7 +14,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
         <div className={'layout pt-[60px]'}>
             <Navbar />
             <>{children}</>
-            <SearchTest />
+            <Search />
         </div>
     )
 }
