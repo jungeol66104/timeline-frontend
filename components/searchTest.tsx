@@ -15,6 +15,7 @@ import SearchInBarSVG from "@/public/svg/searchInBar.svg";
 import {TimelineEvent} from "@/public/events";
 import Link from "next/link";
 import NorthwestSVG from "@/public/svg/northwest.svg";
+import gsap from "gsap";
 
 const SearchTest = () => {
     const isSearch = useSelector(selectIsSearch)
@@ -95,8 +96,20 @@ const SearchHeader = () => {
 }
 
 const SearchTab = () => {
+    const selectTabRef = useRef(null)
+
     const dispatch = useDispatch()
     const tab = useSelector(selectTab)
+
+    // useEffect(() => {
+    //     const selectTab = selectTabRef.current
+    //     if (!selectTab) return
+    //
+    //     const tl = gsap.timeline()
+    //     // tl.fromTo(selectTab, {y: -y, x: x, opacity: contentOrder > 0 ? 0 : 1, width: prevWidth}, {y: '0', x:'0', opacity: 1, duration: 0.5, width: width, ease: 'ease-in-out'})
+    //     tl.play()
+    //     return ()=> {tl.kill()}
+    // });
 
     return (
         <div className={'h-fit flex flex-col ml-4 mr-4'}>
@@ -104,7 +117,7 @@ const SearchTab = () => {
                 <div onClick={() => dispatch(updateTab('timeline'))} className={`cursor-pointer pt-2.5 pb-2.5 w-1/2 text-center font-semibold text-[14px]`} style={{transition: 'all 0.3s', color: tab === 'timeline' ? '#475569': '#94a3b8'}}>타임라인</div>
                 <div onClick={() => dispatch(updateTab('event'))} className={`cursor-pointer pt-2.5 pb-2.5 w-1/2 text-center font-semibold text-[14px]`} style={{transition: 'all 0.3s', color: tab === 'event' ? '#475569': '#94a3b8'}}>이벤트</div>
             </div>
-            <div className={`w-1/2 border-b-2 border-gray-500`} style={{transition: 'all 0.3s', transform: tab === 'timeline' ? 'translateX(0)' : 'translateX(100%)'}}></div>
+            <div className={`border-b-2 border-gray-500`} style={{width: '50%', transition: 'all 0.3s', transform: tab === 'timeline' ? 'translateX(0)' : 'translateX(100%)'}}></div>
         </div>
     )
 }
