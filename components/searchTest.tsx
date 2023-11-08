@@ -7,7 +7,6 @@ import {
     updateSearchValue,
     updateTab
 } from "@/store/slices/searchSlice";
-import {selectViewportHeight} from "@/store/slices/appearanceSlice";
 import React, {RefObject, useEffect, useRef} from "react";
 import api from "@/utils/api";
 import Image from "next/image";
@@ -16,23 +15,18 @@ import {TimelineEvent} from "@/public/events";
 import Link from "next/link";
 import NorthwestSVG from "@/public/svg/northwest.svg";
 import gsap from "gsap";
+// refactoring: needed (incarnate tab animation that works on mobile)
 
 const SearchTest = () => {
     const isSearch = useSelector(selectIsSearch)
 
-    return (
-        <>
-            {isSearch ? <SearchContents/> : <></>}
-        </>
-    )
+    return (<>{isSearch ? <SearchContents/> : <></>}</>)
 }
 export default SearchTest
 
 const SearchContents = () => {
-    const viewportHeight = useSelector(selectViewportHeight)
-
     return (
-        <div className={'fixed top-[60px] pt-2.5 left-0 w-screen bg-white'} style={{height: viewportHeight - 60, zIndex: 5000}}>
+        <div className={'fixed top-[60px] pt-2.5 left-0 w-screen bg-white'} style={{height: '100%', zIndex: 5000}}>
             <SearchHeader />
             <SearchBody />
         </div>

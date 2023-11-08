@@ -9,7 +9,7 @@ import {
     selectAboveTimelineHeight,
     selectCurrentDepth, selectEventBoxHeight,
     selectLastAction, selectOverlapBottom,
-    selectScrollTop, selectTotalHeight,
+    selectScrollTop,
     updateAfterEffectTop,
     updateCurrentDepth,
     updateLastAction,

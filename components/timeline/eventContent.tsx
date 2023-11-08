@@ -7,7 +7,6 @@ import api from "@/utils/api";
 import {
     selectCurrentEvents,
     selectCurrentTimeline,
-    updateCurrentEvents,
     updateIsToggle,
     updateToggleEvents,
 } from "@/store/slices/contentsSlice";
