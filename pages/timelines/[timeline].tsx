@@ -28,10 +28,8 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
     }
 })
 const TimelinePage = () => {
-    const viewportHeight = useSelector(selectViewportHeight)
-
     return (
-        <div className={'page bg-amber-500'}>
+        <div className={'page'}>
             <Timeline/>
         </div>
     )

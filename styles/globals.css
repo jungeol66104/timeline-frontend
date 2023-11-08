@@ -9,11 +9,8 @@
 * {
     font-family: 'Inter', sans-serif;
 }
-html {
-    background: antiquewhite;
-}
 
-html, body, #__next, .layout {
+html, body, #__next, .layout, .page{
     height: 100%;
 }
 
@@ -27,7 +24,6 @@ html, body, #__next, .layout {
 }
 /* find ways to avoid global css like this */
 .page {
-    height: 100%;
     overflow: scroll;
     margin: 0 20px;
 }
