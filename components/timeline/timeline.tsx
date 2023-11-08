@@ -273,7 +273,7 @@ const Timeline = () => {
         };
     });
     return (
-        <div className='timeline max-w-lg relative bg-fuchsia-300' style={{height: `${totalHeight + 20}`}}>
+        <div className='timeline max-w-lg relative' style={{height: `${totalHeight + 20}`}}>
             <TimelineFrame />
             <TimelineEvents />
             {(lastAction === 'zoom') && <AfterEffectEvents />}
