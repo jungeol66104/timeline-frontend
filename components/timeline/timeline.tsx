@@ -9,7 +9,7 @@ import {
     selectAboveTimelineHeight,
     selectCurrentDepth, selectEventBoxHeight,
     selectLastAction, selectOverlapBottom,
-    selectScrollTop,
+    selectScrollTop, selectTotalHeight,
     updateAfterEffectTop,
     updateCurrentDepth,
     updateLastAction,
@@ -30,6 +30,7 @@ const Timeline = () => {
     const dispatch = useDispatch()
     const aboveTimelineHeight = useSelector(selectAboveTimelineHeight)
     const eventBoxHeight = useSelector(selectEventBoxHeight)
+    const totalHeight = useSelector(selectTotalHeight)
     const overlapBottom = useSelector(selectOverlapBottom)
     const currentDepth = useSelector(selectCurrentDepth)
     const scrollTop = useSelector(selectScrollTop)
@@ -320,7 +321,7 @@ const Timeline = () => {
         };
     });
     return (
-        <div className='timeline flex flex-col max-w-lg relative bg-fuchsia-300'>
+        <div className='timeline flex flex-col max-w-lg relative bg-fuchsia-300' style={{height: `${totalHeight + 20}`}}>
             <TimelineFrame />
             <TimelineEvents />
             {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
