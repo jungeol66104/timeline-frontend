@@ -9,7 +9,7 @@ import {
     selectAboveTimelineHeight,
     selectCurrentDepth, selectEventBoxHeight,
     selectLastAction, selectOverlapBottom,
-    selectScrollTop,
+    selectScrollTop, selectTotalHeight,
     updateAfterEffectTop,
     updateCurrentDepth,
     updateLastAction,
@@ -91,8 +91,10 @@ const Timeline = () => {
         }
         const fetchEvents = async (depth: number, pivotEvent: TimelineEvent) => {
             if (depth === 2 || depth === -1) return {fetchedEvents: currentEvents, referEvent: pivotEvent}
+            // console.log({'timelineId': currentTimeline.id , 'depth': depth, 'pivotJulianDate': pivotEvent.julianDate})
             try {
                 const response = await api.post('/v1/getTimeline', {'timelineId': currentTimeline.id , 'depth': depth, 'pivotJulianDate': pivotEvent.julianDate})
+                // console.log('response',response)
                 let fetchedEvents = response.data.data.events as TimelineEvent[]
                 fetchedEvents = fetchedEvents.map(fEvent => {
                     return {...fEvent, isToggle: false, toggleEvents: []}
@@ -238,7 +240,7 @@ const Timeline = () => {
                 const deltaY = endY - startY
                 if (deltaX !== 0) {
                     e.preventDefault()
-                    if (!isLoading && Math.abs(deltaX) > 70 && Math.abs(deltaY) < 10) {
+                    if (!isLoading && Math.abs(deltaX) > 70 && Math.abs(deltaY) < 20) {
                         isLoading = true
                         await operateZoomTest(e, deltaX)
                         setTimeout(() => isLoading = false, 500)

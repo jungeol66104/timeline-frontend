@@ -20,9 +20,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
     useEffect(() => {
         const handleResize = () => {
             if(typeof window !== undefined) {
-                let newVisualHeight
-                if (window.visualViewport) newVisualHeight = window.visualViewport.height
-                else newVisualHeight = window.innerHeight
+                let newVisualHeight = window.innerHeight
                 dispatch(updateViewportHeight(newVisualHeight))
             }
         };
@@ -62,7 +60,6 @@ const Navbar = () => {
         </div>
     )
 }
-
 const Footer = () => {
     return (
         <div className={'hidden fixed flex flex-col items-center bottom-0 w-full bg-white border-t-[1px] p-2.5'}>

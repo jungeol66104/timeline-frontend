@@ -3,6 +3,7 @@ import {TimelineEvent} from "@/public/events";
 import AfterEventBox from "@/components/timeline/afterEventBox";
 import {selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
 import {selectAfterEffectTop, selectTotalHeight} from "@/store/slices/appearanceSlice";
+// refactoring: clear
 
 const AfterEffectEvents = () => {
     const prevEventsWithEffect = useSelector(selectPrevEventsWithEffect)
@@ -10,7 +11,7 @@ const AfterEffectEvents = () => {
     const totalHeight = useSelector(selectTotalHeight)
 
     return (
-        <div className={'pointer-events-none absolute w-full overflow-hidden'} style={{height: `${totalHeight + 20}px`}}>
+        <div className={'absolute w-full'} style={{pointerEvents: 'none', overflow: "hidden", height: `${totalHeight + 20}px`}}>
             <div className={'absolute left-0'} style={{width: '100%' ,top: `${afterEffectTop + 10}px`}}>
                 {prevEventsWithEffect.map((event: TimelineEvent) => {
                     return <AfterEventBox key={event.id} event={event} />

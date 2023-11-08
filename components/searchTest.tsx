@@ -11,11 +11,11 @@ import {selectViewportHeight} from "@/store/slices/appearanceSlice";
 import React, {RefObject, useEffect, useRef} from "react";
 import api from "@/utils/api";
 import Image from "next/image";
-import CloseSVG from "@/public/svg/close.svg";
 import SearchInBarSVG from "@/public/svg/searchInBar.svg";
 import {TimelineEvent} from "@/public/events";
 import Link from "next/link";
 import NorthwestSVG from "@/public/svg/northwest.svg";
+import gsap from "gsap";
 
 const SearchTest = () => {
     const isSearch = useSelector(selectIsSearch)
@@ -88,7 +88,7 @@ const SearchHeader = () => {
         <div>
             <div className={'h-[50px] flex gap-2.5 ml-4 mr-4 pt-2.5 pb-2.5 border-b-[1px]'}>
                 <div className={'flex-shrink-0 w-7 h-7 bg-gray-500 rounded-full flex align-middle justify-center'}><Image src={SearchInBarSVG} alt={'searchInBar'} width={16} height={16} /></div>
-                <input ref={searchBarInputRef} onChange={handelSearch} value={searchValue} placeholder={'Search...'} className={'w-full focus:outline-0'}></input>
+                <input ref={searchBarInputRef} onChange={handelSearch} value={searchValue} placeholder={'Search...'} className={'w-full'} style={{outline: 'none'}}></input>
             </div>
             <SearchTab />
         </div>
@@ -102,10 +102,10 @@ const SearchTab = () => {
     return (
         <div className={'h-fit flex flex-col ml-4 mr-4'}>
             <div className={'flex'}>
-                <div onClick={() => dispatch(updateTab('timeline'))} className={`cursor-pointer pt-2.5 pb-2.5 w-1/2 text-center transition-colors duration-300 ease-in-out ${tab === 'timeline' ? 'text-gray-600' : 'text-gray-400' } font-semibold text-[14px]`}>타임라인</div>
-                <div onClick={() => dispatch(updateTab('event'))} className={`cursor-pointer pt-2.5 pb-2.5 w-1/2 text-center transition-colors duration-300 ease-in-out ${tab === 'event' ? 'text-gray-600' : 'text-gray-400' }  font-semibold text-[14px]`}>이벤트</div>
+                <div onClick={() => dispatch(updateTab('timeline'))} className={`cursor-pointer pt-2.5 pb-2.5 w-1/2 text-center font-semibold text-[14px]`} style={{transition: 'all 0.3s', color: tab === 'timeline' ? '#475569': '#94a3b8'}}>타임라인</div>
+                <div onClick={() => dispatch(updateTab('event'))} className={`cursor-pointer pt-2.5 pb-2.5 w-1/2 text-center font-semibold text-[14px]`} style={{transition: 'all 0.3s', color: tab === 'event' ? '#475569': '#94a3b8'}}>이벤트</div>
             </div>
-            <div className={`w-1/2 border-b-2 border-gray-500 transform transition-transform ease-in-out duration-300 ${tab === 'timeline' ? '-translate-x-0' : 'translate-x-full'}`}></div>
+                <div className={`h-[2px] bg-gray-500`} style={{width: '50%', transition: 'transform 0.3s', transform: tab === 'timeline' ? 'translateX(0)' : 'translateX(100%)'}}></div>
         </div>
     )
 }

@@ -12,65 +12,18 @@ import {
     updateToggleEvents,
 } from "@/store/slices/contentsSlice";
 import {selectCurrentDepth, selectLastAction, selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/appearanceSlice";
-// refactoring: needed
+// refactoring: needed (clear all animations, make it static)
 
-const EventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {event: TimelineEvent, highestEvent: TimelineEvent, contentOrder: number, isToggle?: boolean, isPrev?: boolean}) => {
+const AfterEventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {event: TimelineEvent, highestEvent: TimelineEvent, contentOrder: number, isToggle?: boolean, isPrev?: boolean}) => {
     const eventContentRef : RefObject<HTMLDivElement> = useRef(null)
 
-    const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
     const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === highestEvent.id)
     const totalHeight = useSelector(selectTotalHeight)
     const lastAction = useSelector(selectLastAction)
 
-    let isLoading = true
-    if (lastAction === 'zoom') {setTimeout(() => {isLoading = false}, 500)}
-    else {isLoading = false}
-
-    useEffect(() => {
-        const eventContent = eventContentRef.current
-        if (!eventContent) return
-
-        const fetchToggleEvents = async () => {
-            try {
-                const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': highestEvent.julianDate})
-                const newToggleEvents = response.data.data.events
-                const newTotalHeight = totalHeight - (124 + (event.overlap as number) * 6) + (38 + (newToggleEvents.length + 1) * 124)
-                return { newToggleEvents, newTotalHeight }
-            } catch (error) {
-                console.error('Error fetching toggle events: ', error);
-                return {newToggleEvents: [], newTotalHeight: 0}
-            }
-        }
-
-        const operateToggle = async (e: MouseEvent) => {
-            try {
-                if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
-                    e.preventDefault()
-                    let { newToggleEvents, newTotalHeight} = await fetchToggleEvents()
-                    dispatch(updateToggleEvents({order: eventOrderInCurrent, toggleEvents: newToggleEvents}))
-                    dispatch(updateIsToggle(eventOrderInCurrent))
-                    dispatch(updateTotalHeight(newTotalHeight))
-                    dispatch(updateLastAction('toggle'))
-                } else return
-            } catch (error){
-                console.error('Error updating toggle events: ', error);
-            }
-        }
-
-        const handleClick = async (e: MouseEvent) => {
-            if (isLoading) return
-            await operateToggle(e)
-        }
-
-        eventContent.addEventListener('click', handleClick)
-        return () => {
-            eventContent.removeEventListener('click', handleClick)
-        }
-    });
-
-    const zIndex = 5000 - contentOrder
+    const zIndex = 10
     let top: number, left, height, width: string, opacity
     if (isToggle) {
         top = 38 + contentOrder * 124
@@ -106,15 +59,13 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {e
 
     return (
         <div ref={eventContentRef} className={'eventContent absolute cursor-pointer'} style={{pointerEvents: !isToggle && contentOrder === 0 && event.overlap !== 0 ? 'auto' : 'none', top: top, left: left, height: height, width: width, opacity: opacity, zIndex: zIndex}}>
-            <Link href={`/events/${event.id}`} style={{pointerEvents: (!isToggle && ((contentOrder === 0 && event.overlap !== 0) || (contentOrder !== 0 && event.overlap === 0 ))) ? 'none' : 'auto'}}>
                 <div className={`bg-white h-full border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5`}>
-                        <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
-                        <div className={'mt-0.5 font-black line-clamp-1 overflow-hidden'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</div>
-                        <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.description}</div>
+                    <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
+                    <div className={'mt-0.5 font-black line-clamp-1 overflow-hidden'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</div>
+                    <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.description}</div>
                 </div>
-            </Link>
         </div>
     )
 }
 
-export default EventContent
+export default AfterEventContent
