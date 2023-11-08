@@ -246,10 +246,6 @@ const Timeline = () => {
         const handleScroll = async () => {
             let viewportHeight = typeof window !== 'undefined' ? window.innerHeight : undefined
             if (!viewportHeight) return
-            if (scrollWrapper.scrollHeight - viewportHeight < scrollWrapper.scrollTop) {
-
-                scrollWrapper.scrollTop = scrollWrapper.scrollHeight - viewportHeight
-            }
             let scrollUp = scrollWrapper.scrollTop < aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.1
             let scrollDown = scrollWrapper.scrollTop > aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.9 - viewportHeight
             if (!isLoading && (scrollUp || scrollDown)) {
