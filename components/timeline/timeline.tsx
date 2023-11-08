@@ -23,6 +23,7 @@ const Timeline = () => {
     const lastAction = useSelector(selectLastAction)
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
+    console.log(currentEvents.length)
     // const state = useSelector((state: RootState) => state)
     // console.log(lastAction, state)
 
