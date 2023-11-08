@@ -293,7 +293,7 @@ const Timeline = () => {
         };
     });
     return (
-        <div className='timeline flex flex-col max-w-lg relative'>
+        <div className='timeline flex flex-col max-w-lg relative bg-fuchsia-300'>
             <TimelineFrame />
             <TimelineEvents />
             {(lastAction === 'zoom') && <AfterEffectEvents />}

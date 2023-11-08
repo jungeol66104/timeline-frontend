@@ -11,7 +11,7 @@ const AfterEffectEvents = () => {
     const totalHeight = useSelector(selectTotalHeight)
 
     return (
-        <div className={'absolute w-full'} style={{pointerEvents: 'none', overflow: "hidden", height: `${totalHeight + 20}px`}}>
+        <div className={'absolute w-full bg-blue-500'} style={{pointerEvents: 'none', overflow: "hidden", height: `${totalHeight + 20}px`}}>
             <div className={'absolute left-0'} style={{width: '100%' ,top: `${afterEffectTop + 10}px`}}>
                 {prevEventsWithEffect.map((event: TimelineEvent) => {
                     return <AfterEventBox key={event.id} event={event} />
