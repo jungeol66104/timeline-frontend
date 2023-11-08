@@ -7,7 +7,7 @@ import logger from 'redux-logger'
 const makeStore = () => {
     return configureStore({
         reducer: rootReducer,
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(logger)
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
     })
 }
 export const storeWrapper = createWrapper(makeStore);

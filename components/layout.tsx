@@ -1,43 +1,20 @@
-import React, {ReactNode, useEffect} from "react";
+import React, {ReactNode} from "react";
 import Image from "next/image";
 import Link from 'next/link'
 import { useDispatch, useSelector } from "react-redux";
 import MenuSVG from "../public/svg/menu.svg"
 import SearchSVG from "../public/svg/search.svg"
-import Search from "./search"
 import {selectIsSearch, updateIsSearch} from "@/store/slices/searchSlice";
-import {selectCurrentEvents, selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {selectViewportHeight, updateViewportHeight} from "@/store/slices/appearanceSlice";
-import SearchTest from "@/components/searchTest";
+import Search from "@/components/search";
 import CloseSVG from "@/public/svg/close.svg";
-import {z} from "zod";
 // refactoring: needed
 
 const Layout = ({ children } : {children: ReactNode}) => {
-    const dispatch = useDispatch()
-
-    // always adjust viewportHeight (until dvh is under wide usage)
-    useEffect(() => {
-        const handleResize = () => {
-            if(typeof window !== undefined) {
-                let newVisualHeight = window.innerHeight
-                dispatch(updateViewportHeight(newVisualHeight))
-            }
-        };
-        handleResize()
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    });
-
     return (
         <div className={'layout pt-[60px]'}>
             <Navbar />
             <>{children}</>
-            <Footer />
-            {/*<Search />*/}
-            <SearchTest />
+            <Search />
         </div>
     )
 }
@@ -57,14 +34,6 @@ const Navbar = () => {
                 </button>
                 <button className={'hidden'}><Image src={MenuSVG} alt={'menu'} width={24} height={24} /></button>
             </div>
-        </div>
-    )
-}
-const Footer = () => {
-    return (
-        <div className={'hidden fixed flex flex-col items-center bottom-0 w-full bg-white border-t-[1px] p-2.5'}>
-            <div className={'text-center font-semibold'}></div>
-            <div className={'text-[10px] text-center'}>© 2023 Timeline. All rights reserved.</div>
         </div>
     )
 }
