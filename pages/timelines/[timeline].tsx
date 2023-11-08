@@ -5,7 +5,7 @@ import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimelin
 import {updateTotalHeight} from "@/store/slices/appearanceSlice";
 import Timeline from "@/components/timeline/timeline";
 import api from "@/utils/api"
-// refactoring: needed (events to API fetching)
+// refactoring: needed (update currentTimeline when API is ready)
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
     try {
