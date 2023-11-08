@@ -13,30 +13,7 @@ import CloseSVG from "@/public/svg/close.svg";
 const Layout = ({ children } : {children: ReactNode}) => {
     const dispatch = useDispatch()
 
-    // always adjust viewportHeight (until dvh is under wide usage)
-    useEffect(() => {
-        const handleResize = () => {
-            if(typeof window !== undefined) {
-                let newHeight = window.innerHeight
-                console.log(newHeight)
-                document.documentElement.style.height = `${newHeight}px`
-                document.body.style.height = `${newHeight}px`
-                let nextDiv = document.getElementById('__next') as HTMLDivElement
-                nextDiv.style.height = `${newHeight}px`
-                let layoutDiv = document.querySelector('.layout') as HTMLDivElement
-                layoutDiv.style.height = `${newHeight}px`
-                let pageDivs: NodeListOf<HTMLDivElement> = document.querySelectorAll('.page');
-                pageDivs.forEach((div: HTMLDivElement) => {
-                    div.style.height = `${window.innerHeight - 60}px`;
-                })
-            }
-        };
-        handleResize()
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    });
+
 
     return (
         <div className={'layout pt-[60px]'}>

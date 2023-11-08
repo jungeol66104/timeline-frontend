@@ -20,6 +20,7 @@ import TimelineFrame from "@/components/timeline/timelineFrame";
 import TimelineEvents from "@/components/timeline/timelineEvents";
 import AfterEffectEvents from "@/components/timeline/afterEffectEvents";
 import api from "@/utils/api"
+import {RootState} from "@/store/rootReducer";
 // refactoring: needed (handler refactoring, vars need to be globalized?)
 
 const Timeline = () => {
@@ -35,9 +36,11 @@ const Timeline = () => {
     const lastAction = useSelector(selectLastAction)
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
+    const state = useSelector((state: RootState) => state)
+    console.log(lastAction, state)
 
     let isLoading = true
-    if (lastAction === 'zoom' || 'scroll') {setTimeout(() => {isLoading = false}, 500)}
+    if (lastAction === 'zoom' || lastAction === 'scroll') {setTimeout(() => {isLoading = false}, 500)}
     else {isLoading = false}
 
     // clicking back button
@@ -53,6 +56,30 @@ const Timeline = () => {
             sessionStorage.clear()
         }
     }, []);
+
+    // always adjust viewportHeight (until dvh is under wide usage)
+    useEffect(() => {
+        const handleResize = () => {
+            if(typeof window !== undefined) {
+                let newHeight = window.innerHeight
+                document.documentElement.style.height = `${newHeight}px`
+                document.body.style.height = `${newHeight}px`
+                let nextDiv = document.getElementById('__next') as HTMLDivElement
+                nextDiv.style.height = `${newHeight}px`
+                let layoutDiv = document.querySelector('.layout') as HTMLDivElement
+                layoutDiv.style.height = `${newHeight}px`
+                let pageDivs: NodeListOf<HTMLDivElement> = document.querySelectorAll('.page');
+                pageDivs.forEach((div: HTMLDivElement) => {
+                    div.style.height = `${window.innerHeight - 60}px`;
+                })
+            }
+        };
+        handleResize()
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    });
 
     // scroll setup
     useEffect(() => {
@@ -296,7 +323,7 @@ const Timeline = () => {
         <div className='timeline flex flex-col max-w-lg relative bg-fuchsia-300'>
             <TimelineFrame />
             <TimelineEvents />
-            {(lastAction === 'zoom') && <AfterEffectEvents />}
+            {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
         </div>
     )
 }
