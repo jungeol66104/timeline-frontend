@@ -3,7 +3,7 @@ import {RootState} from "@/store/rootReducer";
 // refactoring: clear
 
 const initialState = {
-    viewportHeight: 0,
+    // viewportHeight: 0,
     aboveTimelineHeight: 70,
     eventBoxHeight: 124,
     overlapBottom: 6,
@@ -18,9 +18,9 @@ const appearanceSlice = createSlice({
     name: 'appearance',
     initialState,
     reducers: {
-        updateViewportHeight: (state, action) => {
-          state.viewportHeight = action.payload
-        },
+        // updateViewportHeight: (state, action) => {
+        //   state.viewportHeight = action.payload
+        // },
         incrementDepth: state => {
             state.currentDepth += 1
         },
@@ -45,10 +45,10 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateViewportHeight ,incrementDepth, decrementDepth, updateCurrentDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight } = appearanceSlice.actions;
+export const {incrementDepth, decrementDepth, updateCurrentDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight } = appearanceSlice.actions;
 
 // selectors
-export const selectViewportHeight = (state: RootState) => state.appearance.viewportHeight
+// export const selectViewportHeight = (state: RootState) => state.appearance.viewportHeight
 export const selectAboveTimelineHeight = (state: RootState) => state.appearance.aboveTimelineHeight
 export const selectEventBoxHeight = (state: RootState) => state.appearance.eventBoxHeight
 export const selectOverlapBottom = (state: RootState) => state.appearance.overlapBottom
@@ -60,7 +60,7 @@ export const selectTotalHeight = (state: RootState) => state.appearance.totalHei
 
 // types
 export interface initialAppearanceState {
-    viewportHeight: number
+    // viewportHeight: number
     aboveTimelineHeight: number
     eventBoxHeight: number
     overlapBottom: number

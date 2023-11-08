@@ -4,13 +4,10 @@ import Link from 'next/link'
 import { useDispatch, useSelector } from "react-redux";
 import MenuSVG from "../public/svg/menu.svg"
 import SearchSVG from "../public/svg/search.svg"
-import Search from "./search"
 import {selectIsSearch, updateIsSearch} from "@/store/slices/searchSlice";
 import {selectCurrentEvents, selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {selectViewportHeight, updateViewportHeight} from "@/store/slices/appearanceSlice";
 import SearchTest from "@/components/searchTest";
 import CloseSVG from "@/public/svg/close.svg";
-import {z} from "zod";
 // refactoring: needed
 
 const Layout = ({ children } : {children: ReactNode}) => {
@@ -20,8 +17,18 @@ const Layout = ({ children } : {children: ReactNode}) => {
     useEffect(() => {
         const handleResize = () => {
             if(typeof window !== undefined) {
-                let newVisualHeight = window.innerHeight
-                dispatch(updateViewportHeight(newVisualHeight))
+                let newHeight = window.innerHeight
+                console.log(newHeight)
+                document.documentElement.style.height = `${newHeight}px`
+                document.body.style.height = `${newHeight}px`
+                let nextDiv = document.getElementById('__next') as HTMLDivElement
+                nextDiv.style.height = `${newHeight}px`
+                let layoutDiv = document.querySelector('.layout') as HTMLDivElement
+                layoutDiv.style.height = `${newHeight}px`
+                let pageDivs: NodeListOf<HTMLDivElement> = document.querySelectorAll('.page');
+                pageDivs.forEach((div: HTMLDivElement) => {
+                    div.style.height = `${window.innerHeight - 60}px`;
+                })
             }
         };
         handleResize()
@@ -36,7 +43,6 @@ const Layout = ({ children } : {children: ReactNode}) => {
             <Navbar />
             <>{children}</>
             <Footer />
-            {/*<Search />*/}
             <SearchTest />
         </div>
     )
