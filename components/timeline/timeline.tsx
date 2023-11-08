@@ -37,6 +37,14 @@ const Timeline = () => {
         scrollWrapper.scrollTop = scrollTop
     },[scrollTop])
 
+    // timelineHeight setup
+    useEffect(() => {
+        const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
+        if (!timeline) return
+
+        timeline.style.height = `${totalHeight + 20}px`
+    }, [totalHeight]);
+
     // event handlers
     useEffect(() => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
@@ -273,7 +281,7 @@ const Timeline = () => {
         };
     });
     return (
-        <div className='timeline flex flex-col max-w-lg relative bg-fuchsia-300' style={{height: `${totalHeight + 20}`, transition: 'all 0.5s'}}>
+        <div className='timeline flex flex-col max-w-lg relative bg-fuchsia-300' style={{height: `${totalHeight + 20}`}}>
             <TimelineFrame />
             <TimelineEvents />
             {(lastAction === 'zoom') && <AfterEffectEvents />}
