@@ -27,8 +27,8 @@ html, body, #__next, .layout {
 }
 /* find ways to avoid global css like this */
 .page {
+    height: calc(100% - 60px);
     overflow: scroll;
-    height: calc(100dvh - 60px);
     margin: 0 20px;
 }
 
