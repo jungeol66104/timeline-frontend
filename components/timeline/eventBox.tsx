@@ -19,26 +19,26 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
     let zIndex = event.animation === 'fadeIn' || event.animation === 'fadeOut' ? '10' : '20'
     let paddingBottom = event.overlap === 0 || isToggle ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
 
-    useEffect(() => {
-        const eventBox = eventBoxRef.current
-        if (!eventBox) return
-        const tl = gsap.timeline()
-        if (lastAction === 'zoom' || lastAction === 'scroll') {
-             if (event.animation === 'fadeIn') {
-                tl.fromTo(eventBox, {opacity: 0}, {opacity: 1, duration: 0.5, ease: 'ease-in-out'})
-            } else if (event.animation === 'fadeOut') {
-                tl.fromTo(eventBox, {opacity: 1}, {opacity: 0, duration: 0.5, ease: 'ease-in-out'})
-            } else if (event.animation === 'move') {
-                tl.fromTo(eventBox, {y: event.distance}, {y: '0', duration: 0.5, ease: 'ease-in-out'})
-            } else if (event.animation === ('none' || 'blank')){
-                return
-            } else {
-                console.error('invalid event animation: ', event)
-            }
-        }
-        tl.play()
-        return ()=> {tl.kill()}
-    });
+    // useEffect(() => {
+    //     const eventBox = eventBoxRef.current
+    //     if (!eventBox) return
+    //     const tl = gsap.timeline()
+    //     if (lastAction === 'zoom' || lastAction === 'scroll') {
+    //          if (event.animation === 'fadeIn') {
+    //             tl.fromTo(eventBox, {opacity: 0}, {opacity: 1, duration: 0.5, ease: 'ease-in-out'})
+    //         } else if (event.animation === 'fadeOut') {
+    //             tl.fromTo(eventBox, {opacity: 1}, {opacity: 0, duration: 0.5, ease: 'ease-in-out'})
+    //         } else if (event.animation === 'move') {
+    //             tl.fromTo(eventBox, {y: event.distance}, {y: '0', duration: 0.5, ease: 'ease-in-out'})
+    //         } else if (event.animation === ('none' || 'blank')){
+    //             return
+    //         } else {
+    //             console.error('invalid event animation: ', event)
+    //         }
+    //     }
+    //     tl.play()
+    //     return ()=> {tl.kill()}
+    // });
     return (
         <div ref={eventBoxRef} className={`eventBox relative flex pt-[6px] flex-shrink-0 ${paddingBottom}`} style={{zIndex: zIndex}}>
             <EventNode />

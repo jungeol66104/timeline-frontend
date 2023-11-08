@@ -37,14 +37,6 @@ const Timeline = () => {
         scrollWrapper.scrollTop = scrollTop
     },[scrollTop])
 
-    // timelineHeight setup
-    useEffect(() => {
-        const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
-        if (!timeline) return
-
-        timeline.style.height = `${totalHeight + 20}px`
-    }, [totalHeight]);
-
     // event handlers
     useEffect(() => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
@@ -254,11 +246,15 @@ const Timeline = () => {
         const handleScroll = async () => {
             let viewportHeight = typeof window !== 'undefined' ? window.innerHeight : undefined
             if (!viewportHeight) return
+            if (scrollWrapper.scrollHeight - viewportHeight < scrollWrapper.scrollTop) {
+
+                scrollWrapper.scrollTop = scrollWrapper.scrollHeight - viewportHeight
+            }
             let scrollUp = scrollWrapper.scrollTop < aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.1
             let scrollDown = scrollWrapper.scrollTop > aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.9 - viewportHeight
             if (!isLoading && (scrollUp || scrollDown)) {
                 isLoading = true
-                await operateScrollTest(scrollUp)
+                // await operateScrollTest(scrollUp)
                 setTimeout(() => isLoading = false, 500)
             }
         }
@@ -269,7 +265,7 @@ const Timeline = () => {
         timeline.addEventListener('mouseup' , handleDrag);
         timeline.addEventListener('touchstart' , handleTouch);
         timeline.addEventListener('touchend' , handleTouch);
-        // scrollWrapper.addEventListener('scroll', handleScroll)
+        scrollWrapper.addEventListener('scroll', handleScroll)
         return () => {
             timeline.removeEventListener('wheel', handleWheel);
             timeline.removeEventListener('mousedown' , handleDrag);
@@ -277,11 +273,11 @@ const Timeline = () => {
             timeline.removeEventListener('mouseup' , handleDrag);
             timeline.removeEventListener('touchstart' , handleTouch);
             timeline.removeEventListener('touchend' , handleTouch);
-            // scrollWrapper.removeEventListener('scroll', handleScroll)
+            scrollWrapper.removeEventListener('scroll', handleScroll)
         };
     });
     return (
-        <div className='timeline flex flex-col max-w-lg relative bg-fuchsia-300' style={{height: `${totalHeight + 20}`, overflow: "hidden"}}>
+        <div className='timeline flex flex-col max-w-lg relative bg-fuchsia-300' style={{height: `${totalHeight + 20}`}}>
             <TimelineFrame />
             <TimelineEvents />
             {(lastAction === 'zoom') && <AfterEffectEvents />}
