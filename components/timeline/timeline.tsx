@@ -9,7 +9,7 @@ import {
     selectAboveTimelineHeight,
     selectCurrentDepth, selectEventBoxHeight,
     selectLastAction, selectOverlapBottom,
-    selectScrollTop, selectTotalHeight,
+    selectScrollTop,
     updateAfterEffectTop,
     updateCurrentDepth,
     updateLastAction,
@@ -293,7 +293,7 @@ const Timeline = () => {
         };
     });
     return (
-        <div className='timeline flex flex-col max-w-lg relative bg-amber-500'>
+        <div className='timeline flex flex-col max-w-lg relative'>
             <TimelineFrame />
             <TimelineEvents />
             {(lastAction === 'zoom') && <AfterEffectEvents />}

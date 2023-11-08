@@ -31,7 +31,7 @@ const TimelinePage = () => {
     const viewportHeight = useSelector(selectViewportHeight)
 
     return (
-        <div className={'page'} style={{height: viewportHeight - 60}}>
+        <div className={'page bg-amber-500'} style={{height: viewportHeight - 60}}>
             <Timeline/>
         </div>
     )
