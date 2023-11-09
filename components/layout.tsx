@@ -7,7 +7,7 @@ import SearchSVG from "../public/svg/search.svg"
 import {selectIsSearch, updateIsSearch} from "@/store/slices/searchSlice";
 import Search from "@/components/search";
 import CloseSVG from "@/public/svg/close.svg";
-// refactoring: needed
+// refactoring: component separation
 
 const Layout = ({ children } : {children: ReactNode}) => {
     return (

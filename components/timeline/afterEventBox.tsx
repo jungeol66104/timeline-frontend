@@ -6,8 +6,7 @@ import {useSelector} from "react-redux";
 import AfterEventList from "@/components/timeline/afterEventList";
 import {selectLastAction} from "@/store/slices/appearanceSlice";
 import {selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
-import EventList from "@/components/timeline/eventList";
-// refactoring: needed
+// refactoring: clear
 
 const AfterEventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
@@ -45,5 +44,4 @@ const AfterEventBox = ({event} : {event: TimelineEvent}) => {
         </div>
     )
 }
-
 export default AfterEventBox

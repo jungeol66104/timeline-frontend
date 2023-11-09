@@ -5,7 +5,7 @@ import EventContent from "@/components/timeline/eventContent";
 import EventListHeader from "@/components/timeline/eventListHeader";
 import OverlapContent from "@/components/timeline/overlapContent";
 import {selectCurrentEvents} from "@/store/slices/contentsSlice";
-// refactoring: needed
+// refactoring: clear
 
 const EventList = ({event} : {event: TimelineEvent}) => {
 
@@ -21,8 +21,8 @@ const EventList = ({event} : {event: TimelineEvent}) => {
             <EventListHeader event={event}/>
             <EventContent key={0} event={event} highestEvent={event} contentOrder={0} isToggle={isToggle}/>
             {toggleEvents.map((tEvent: TimelineEvent, i) => <EventContent key={i+1} event={tEvent} highestEvent={event} contentOrder={i+1} isToggle={isToggle}/>)}
+            <OverlapContent event={event} order={0}/>
             <OverlapContent event={event} order={1}/>
-            <OverlapContent event={event} order={2}/>
         </div>
     )
 }

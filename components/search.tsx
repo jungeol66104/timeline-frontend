@@ -1,12 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {
-    selectIsSearch, selectSearchedEvents, selectSearchedTimelines,
-    selectSearchValue,
-    selectTab, updateSearchedEvents,
-    updateSearchedTimelines,
-    updateSearchValue,
-    updateTab
-} from "@/store/slices/searchSlice";
+import {selectIsSearch, selectSearchedEvents, selectSearchedTimelines, selectSearchValue, selectTab, updateSearchedEvents, updateSearchedTimelines, updateSearchValue, updateTab} from "@/store/slices/searchSlice";
 import React, {RefObject, useEffect, useRef} from "react";
 import api from "@/utils/api";
 import Image from "next/image";
@@ -14,8 +7,7 @@ import SearchInBarSVG from "@/public/svg/searchInBar.svg";
 import {TimelineEvent} from "@/public/events";
 import Link from "next/link";
 import NorthwestSVG from "@/public/svg/northwest.svg";
-import gsap from "gsap";
-// refactoring: needed (incarnate tab animation that works on mobile)
+// refactoring: needed (component separation)
 
 const Search = () => {
     const isSearch = useSelector(selectIsSearch)
@@ -40,9 +32,8 @@ const SearchHeader = () => {
     const dispatch = useDispatch()
     const isSearch = useSelector(selectIsSearch)
     const searchValue = useSelector(selectSearchValue)
-    const tab = useSelector(selectTab)
 
-    const handelSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handelSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value
         dispatch(updateSearchValue(query))
 
@@ -68,7 +59,7 @@ const SearchHeader = () => {
                 console.error('Error updating timelines, events and query: ', error);
             }
         }
-        operateSearch()
+        await operateSearch()
     }
 
     useEffect(() => {
@@ -88,7 +79,6 @@ const SearchHeader = () => {
         </div>
     )
 }
-
 const SearchTab = () => {
     const dispatch = useDispatch()
     const tab = useSelector(selectTab)
@@ -99,11 +89,10 @@ const SearchTab = () => {
                 <div onClick={() => dispatch(updateTab('timeline'))} className={`cursor-pointer pt-2.5 pb-2.5 w-1/2 text-center font-semibold text-[14px]`} style={{transition: 'all 0.3s', color: tab === 'timeline' ? '#475569': '#94a3b8'}}>타임라인</div>
                 <div onClick={() => dispatch(updateTab('event'))} className={`cursor-pointer pt-2.5 pb-2.5 w-1/2 text-center font-semibold text-[14px]`} style={{transition: 'all 0.3s', color: tab === 'event' ? '#475569': '#94a3b8'}}>이벤트</div>
             </div>
-                <div className={`h-[2px] bg-gray-500`} style={{width: '50%', transition: 'transform 0.3s', transform: tab === 'timeline' ? 'translateX(0)' : 'translateX(100%)'}}></div>
+            <div className={`h-[2px] bg-gray-500`} style={{width: '50%', transition: 'transform 0s', transform: tab === 'timeline' ? 'translateX(0)' : 'translateX(100%)'}}></div>
         </div>
     )
 }
-
 const SearchBody = () => {
 
     const tab = useSelector(selectTab)

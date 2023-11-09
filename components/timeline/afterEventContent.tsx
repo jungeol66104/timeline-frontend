@@ -1,26 +1,13 @@
 import {TimelineEvent} from "@/public/events";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {RefObject, useEffect, useRef} from "react";
 import gsap from "gsap";
-import Link from "next/link";
-import api from "@/utils/api";
-import {
-    selectCurrentEvents,
-    selectCurrentTimeline,
-    updateCurrentEvents,
-    updateIsToggle,
-    updateToggleEvents,
-} from "@/store/slices/contentsSlice";
-import {selectCurrentDepth, selectLastAction, selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/appearanceSlice";
-// refactoring: needed (clear all animations, make it static)
+import {selectLastAction} from "@/store/slices/appearanceSlice";
+// refactoring: clear
 
-const AfterEventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {event: TimelineEvent, highestEvent: TimelineEvent, contentOrder: number, isToggle?: boolean, isPrev?: boolean}) => {
+const AfterEventContent = ({event, highestEvent, contentOrder, isToggle} : {event: TimelineEvent, highestEvent: TimelineEvent, contentOrder: number, isToggle?: boolean}) => {
     const eventContentRef : RefObject<HTMLDivElement> = useRef(null)
 
-    const currentTimeline = useSelector(selectCurrentTimeline)
-    const currentEvents = useSelector(selectCurrentEvents)
-    const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === highestEvent.id)
-    const totalHeight = useSelector(selectTotalHeight)
     const lastAction = useSelector(selectLastAction)
 
     const zIndex = 10
@@ -41,7 +28,7 @@ const AfterEventContent = ({event, highestEvent, contentOrder, isToggle, isPrev}
 
     useEffect(() => {
         const eventContent = eventContentRef.current
-        if (!eventContent || isPrev || event.prev || lastAction !== 'toggle') return
+        if (!eventContent || lastAction !== 'toggle') return
         const tl = gsap.timeline()
         if (isToggle) {
             let y =  contentOrder === 0 ? top : contentOrder === 1 ? top - 18 : top - 36
