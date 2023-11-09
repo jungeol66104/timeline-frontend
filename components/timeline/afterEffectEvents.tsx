@@ -3,7 +3,7 @@ import {TimelineEvent} from "@/public/events";
 import AfterEventBox from "@/components/timeline/afterEventBox";
 import {selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
 import {selectAfterEffectTop, selectTotalHeight} from "@/store/slices/appearanceSlice";
-// refactoring: clear
+// refactoring: needed (alignment problem of toggled prevEvent with currentEvent when it is at the end)
 
 const AfterEffectEvents = () => {
     const prevEventsWithEffect = useSelector(selectPrevEventsWithEffect)

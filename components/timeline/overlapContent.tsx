@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {selectCurrentEvents, selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
 import {useEffect, useRef} from "react";
 import gsap from "gsap";
-// refactoring: needed (integration with overlapContent1)
+// refactoring: clear
 
 const OverlapContent = ({event, order} : {event: TimelineEvent, order: number}) => {
     const overlapContentRef = useRef(null)
@@ -13,7 +13,7 @@ const OverlapContent = ({event, order} : {event: TimelineEvent, order: number}) 
     const prevEventsWithEffect = useSelector(selectPrevEventsWithEffect)
     const eventOrderInPrev = prevEventsWithEffect.findIndex(pEvent => pEvent.id === event.id)
     const isToggle = !event.prev ? currentEvents[eventOrderInCurrent].isToggle : prevEventsWithEffect[eventOrderInPrev].isToggle
-    const display = order === 1 && event.overlap !== 0 ? '' : order === 2 && event.overlap === 2 ? '' : 'hidden'
+    const display = order === 0 && event.overlap !== 0 ? '' : order === 1 && event.overlap === 2 ? '' : 'hidden'
 
     useEffect(() => {
         const overlapContent = overlapContentRef.current
@@ -27,7 +27,7 @@ const OverlapContent = ({event, order} : {event: TimelineEvent, order: number}) 
 
     // display
     let top, left, height, width, zIndex
-    if (order === 1) {
+    if (order === 0) {
         top = 18
         left = 6
         height = 100

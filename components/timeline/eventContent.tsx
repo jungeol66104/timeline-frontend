@@ -4,16 +4,11 @@ import {RefObject, useEffect, useRef} from "react";
 import gsap from "gsap";
 import Link from "next/link";
 import api from "@/utils/api";
-import {
-    selectCurrentEvents,
-    selectCurrentTimeline,
-    updateIsToggle,
-    updateToggleEvents,
-} from "@/store/slices/contentsSlice";
-import {selectCurrentDepth, selectLastAction, selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/appearanceSlice";
-// refactoring: needed
+import {selectCurrentEvents, selectCurrentTimeline, updateIsToggle, updateToggleEvents,} from "@/store/slices/contentsSlice";
+import {selectLastAction, selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/appearanceSlice";
+// refactoring: clear
 
-const EventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {event: TimelineEvent, highestEvent: TimelineEvent, contentOrder: number, isToggle?: boolean, isPrev?: boolean}) => {
+const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: TimelineEvent, highestEvent: TimelineEvent, contentOrder: number, isToggle?: boolean}) => {
     const eventContentRef : RefObject<HTMLDivElement> = useRef(null)
 
     const dispatch = useDispatch()
@@ -24,7 +19,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {e
     const lastAction = useSelector(selectLastAction)
 
     let isLoading = true
-    if (lastAction === 'zoom') {setTimeout(() => {isLoading = false}, 500)}
+    if (lastAction === 'zoom' || lastAction === 'scroll') {setTimeout(() => {isLoading = false}, 500)}
     else {isLoading = false}
 
     useEffect(() => {
@@ -42,7 +37,6 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {e
                 return {newToggleEvents: [], newTotalHeight: 0}
             }
         }
-
         const operateToggle = async (e: MouseEvent) => {
             try {
                 if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
@@ -57,12 +51,10 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {e
                 console.error('Error updating toggle events: ', error);
             }
         }
-
         const handleClick = async (e: MouseEvent) => {
             if (isLoading) return
             await operateToggle(e)
         }
-
         eventContent.addEventListener('click', handleClick)
         return () => {
             eventContent.removeEventListener('click', handleClick)
@@ -87,7 +79,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {e
 
     useEffect(() => {
         const eventContent = eventContentRef.current
-        if (!eventContent || isPrev || event.prev || lastAction !== 'toggle') return
+        if (!eventContent || lastAction !== 'toggle') return
         const tl = gsap.timeline()
         if (isToggle) {
             let y =  contentOrder === 0 ? top : contentOrder === 1 ? top - 18 : top - 36
@@ -115,5 +107,4 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle, isPrev} : {e
         </div>
     )
 }
-
 export default EventContent

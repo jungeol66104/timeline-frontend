@@ -8,25 +8,25 @@ import TimelineFrame from "@/components/timeline/timelineFrame";
 import TimelineEvents from "@/components/timeline/timelineEvents";
 import AfterEffectEvents from "@/components/timeline/afterEffectEvents";
 import api from "@/utils/api"
-import {RootState} from "@/store/rootReducer";
-// refactoring: needed (handler refactoring, vars need to be globalized?)
+// refactoring: needed (scroll operation)
 
 const Timeline = () => {
 
     const dispatch = useDispatch()
+    // global vars
     const aboveTimelineHeight = useSelector(selectAboveTimelineHeight)
     const eventBoxHeight = useSelector(selectEventBoxHeight)
-    const totalHeight = useSelector(selectTotalHeight)
     const overlapBottom = useSelector(selectOverlapBottom)
+    // effects
+    const totalHeight = useSelector(selectTotalHeight)
     const currentDepth = useSelector(selectCurrentDepth)
     const scrollTop = useSelector(selectScrollTop)
     const lastAction = useSelector(selectLastAction)
+    // contents
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
-    console.log(currentEvents.length)
-    // const state = useSelector((state: RootState) => state)
-    // console.log(lastAction, state)
 
+    // suppress additional actions after zoom or scroll
     let isLoading = true
     if (lastAction === 'zoom' || lastAction === 'scroll') {setTimeout(() => {isLoading = false}, 500)}
     else {isLoading = false}
@@ -42,7 +42,6 @@ const Timeline = () => {
     useEffect(() => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
-
         if (!scrollWrapper || !timeline) return
 
         const heightsOfCurrentEvents = getEventHeights(currentEvents)
@@ -52,13 +51,9 @@ const Timeline = () => {
 
         // functions
         const getSwipedEvent = (scrollWrapper: HTMLDivElement, e: WheelEvent | TouchEvent | MouseEvent) : TimelineEvent => {
-            let clientYInContainer: number
-            if (e instanceof TouchEvent) {
-                const clientY = e.changedTouches[0].clientY
-                clientYInContainer = scrollWrapper.scrollTop + clientY
-            } else {
-                clientYInContainer = scrollWrapper.scrollTop + e.clientY
-            }
+            let clientYInContainer = 0
+            if (e instanceof TouchEvent) {clientYInContainer = scrollWrapper.scrollTop + e.changedTouches[0].clientY}
+            else {clientYInContainer = scrollWrapper.scrollTop + e.clientY}
             let order = topsOfCurrentEvents.findLastIndex(top => top < clientYInContainer - aboveTimelineHeight)
             let top = topsOfCurrentEvents[order] + aboveTimelineHeight - scrollWrapper.scrollTop
             let boxTop = top
@@ -71,11 +66,10 @@ const Timeline = () => {
             return {...currentEvents[order], order: order, top: top, boxTop: boxTop}
         }
         const fetchEvents = async (depth: number, pivotEvent: TimelineEvent) => {
+            // pivotEvent === swipedEvent or scrollBasisEvent
             if (depth === 2 || depth === -1) return {fetchedEvents: currentEvents, referEvent: pivotEvent}
-            // console.log({'timelineId': currentTimeline.id , 'depth': depth, 'pivotJulianDate': pivotEvent.julianDate})
             try {
                 const response = await api.post('/v1/getTimeline', {'timelineId': currentTimeline.id , 'depth': depth, 'pivotJulianDate': pivotEvent.julianDate})
-                // console.log('response',response)
                 let fetchedEvents = response.data.data.events as TimelineEvent[]
                 fetchedEvents = fetchedEvents.map(fEvent => {
                     return {...fEvent, isToggle: false, toggleEvents: []}
@@ -88,12 +82,12 @@ const Timeline = () => {
                 const referEvent = fetchedEvents.find(fEvent => fEvent.id === response.data.data.pivotEventId) as TimelineEvent
                 return {fetchedEvents, referEvent}
             } catch (error) {
-                console.error('Error fetching initial data during SSR:', error);
+                console.error('Error fetching data in useEffect:', error);
                 return {fetchedEvents: currentEvents, referEvent: pivotEvent }
             }
         }
         const getEventsWithEffectForZoom = (depth: number, swipedEvent: TimelineEvent, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[])=> {
-            const order = fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)
+            const referEventOrderInFetched = fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)
             const heightsOfFetchedEvents = getEventHeights(fetchedEvents)
             const topsOfFetchedEvents = heightsOfFetchedEvents.map((_, i) => sum(heightsOfFetchedEvents.slice(0,i)))
 
@@ -105,20 +99,20 @@ const Timeline = () => {
                     // remained
                     if (depth < currentDepth && !fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop) {
                         let initialDistance = (topsOfCurrentEvents[swipedEvent.order as number] + swipedEvent.boxTop) - topsOfCurrentEvents[fEventOrderInCurrent]
-                        let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
+                        let finalDistance = topsOfFetchedEvents[referEventOrderInFetched] - topsOfFetchedEvents[fEventOrderInFetched]
                         distance = finalDistance - initialDistance
                     } else {
                         let initialDistance = topsOfCurrentEvents[swipedEvent.order as number] - topsOfCurrentEvents[fEventOrderInCurrent]
-                        let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
+                        let finalDistance = topsOfFetchedEvents[referEventOrderInFetched] - topsOfFetchedEvents[fEventOrderInFetched]
                         distance = finalDistance - initialDistance
                     }
                 } else {
                     // new
                     if (depth < currentDepth) {
                         let initialDistance
-                        if (fEventOrderInFetched <= order) initialDistance = topsOfCurrentEvents[swipedEvent.order as number] + (eventBoxHeight + 2 * overlapBottom)
+                        if (fEventOrderInFetched <= referEventOrderInFetched) initialDistance = topsOfCurrentEvents[swipedEvent.order as number] + (eventBoxHeight + 2 * overlapBottom)
                         else initialDistance = topsOfCurrentEvents[swipedEvent.order as number] - (topsOfCurrentEvents[topsOfCurrentEvents.length - 1] + (eventBoxHeight + 2 * overlapBottom))
-                        let finalDistance = topsOfFetchedEvents[order] - topsOfFetchedEvents[fEventOrderInFetched]
+                        let finalDistance = topsOfFetchedEvents[referEventOrderInFetched] - topsOfFetchedEvents[fEventOrderInFetched]
                         distance = finalDistance - initialDistance
                     } else return {...fEvent, animation: 'fadeIn'}
                 }
@@ -132,14 +126,14 @@ const Timeline = () => {
                     if (depth > currentDepth) {
                         let initialDistance = topsOfCurrentEvents[swipedEvent.order as number] - topsOfCurrentEvents[cEventOrderInCurrent]
                         let finalDistance
-                        if (cEventOrderInCurrent <= (swipedEvent.order as number)) finalDistance = topsOfFetchedEvents[order] + (eventBoxHeight + 2 * overlapBottom)
-                        else finalDistance = topsOfFetchedEvents[order] - (topsOfFetchedEvents[topsOfFetchedEvents.length - 1] + (eventBoxHeight + 2 * overlapBottom))
+                        if (cEventOrderInCurrent <= (swipedEvent.order as number)) finalDistance = topsOfFetchedEvents[referEventOrderInFetched] + (eventBoxHeight + 2 * overlapBottom)
+                        else finalDistance = topsOfFetchedEvents[referEventOrderInFetched] - (topsOfFetchedEvents[topsOfFetchedEvents.length - 1] + (eventBoxHeight + 2 * overlapBottom))
                         distance = initialDistance - finalDistance
                         return {...cEvent, animation: 'move' ,distance: distance, prev: true}
-                    } else return {...cEvent, animation: 'fadeOut' ,fadeout: true, prev: true}
-                } else return {...cEvent, animation: 'blank', blank: true, prev: true}
+                    } else return {...cEvent, animation: 'fadeOut' , prev: true}
+                } else return {...cEvent, animation: 'blank', prev: true}
             })
-            let afterEffectTop = topsOfFetchedEvents[order] - topsOfCurrentEvents[swipedEvent.order as number]
+            let afterEffectTop = topsOfFetchedEvents[referEventOrderInFetched] - topsOfCurrentEvents[swipedEvent.order as number]
             if (depth < currentDepth && !fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop) {
                 afterEffectTop -= swipedEvent.boxTop
             }
@@ -162,7 +156,7 @@ const Timeline = () => {
             if (!fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop !== undefined) {newScrollTop -= swipedEvent.boxTop}
             return {newScrollTop: newScrollTop, totalHeight: sum(heightsOfFetchedEvents)}
         }
-        const operateZoomTest = (e: WheelEvent | TouchEvent | MouseEvent, deltaX?: number) => {
+        const operateZoom = (e: WheelEvent | TouchEvent | MouseEvent, deltaX?: number) => {
             let depth: number
             if (e instanceof WheelEvent) {depth = e.deltaX > 0 ? currentDepth - 1 : currentDepth + 1}
             else {depth = (deltaX as number) < 0 ? currentDepth - 1 : currentDepth + 1}
@@ -178,11 +172,8 @@ const Timeline = () => {
                 dispatch(updateScrollTop(newScrollTop))
                 dispatch(updateTotalHeight(totalHeight))
                 dispatch(updateLastAction('zoom'))
-                if (e instanceof WheelEvent) {
-                    e.deltaX > 0 ? dispatch(decrementDepth()) : dispatch(incrementDepth())
-                } else {
-                    (deltaX as number) < 0 ? dispatch(decrementDepth()) : dispatch(incrementDepth())
-                }
+                if (e instanceof WheelEvent) {e.deltaX > 0 ? dispatch(decrementDepth()) : dispatch(incrementDepth())}
+                else {(deltaX as number) < 0 ? dispatch(decrementDepth()) : dispatch(incrementDepth())}
             })
         }
         const operateScrollTest = (scrollUp: boolean) => {
@@ -205,7 +196,7 @@ const Timeline = () => {
                 e.preventDefault()
                 if (!isLoading && Math.abs(e.deltaX) > 90) {
                     isLoading = true
-                    await operateZoomTest(e)
+                    await operateZoom(e)
                     setTimeout(() => isLoading = false, 500)
                 }
             }
@@ -223,7 +214,7 @@ const Timeline = () => {
                     e.preventDefault()
                     if (!isLoading && Math.abs(deltaX) > 70 && Math.abs(deltaY) < 20) {
                         isLoading = true
-                        await operateZoomTest(e, deltaX)
+                        await operateZoom(e, deltaX)
                         setTimeout(() => isLoading = false, 500)
                     }
                 }
@@ -237,7 +228,7 @@ const Timeline = () => {
                 const deltaX = endX - startX
                 if (!isLoading && Math.abs(deltaX) > 50) {
                     isLoading = true
-                    await operateZoomTest(e, deltaX)
+                    await operateZoom(e, deltaX)
                     setTimeout(() => isLoading = false, 500)
                     }
             } else {
@@ -274,7 +265,7 @@ const Timeline = () => {
         };
     });
     return (
-        <div className='timeline max-w-lg relative' style={{height: `${totalHeight + 20}`}}>
+        <div className='timeline relative max-w-lg' style={{height: `${totalHeight + 20}`}}>
             <TimelineFrame />
             <TimelineEvents />
             {(lastAction === 'zoom') && <AfterEffectEvents />}
