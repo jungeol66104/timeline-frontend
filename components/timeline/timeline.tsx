@@ -25,6 +25,7 @@ const Timeline = () => {
     // contents
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
+    console.log(currentEvents.length)
 
     // suppress additional actions after zoom or scroll
     let isLoading = true
@@ -67,7 +68,7 @@ const Timeline = () => {
         }
         const fetchEvents = async (depth: number, pivotEvent: TimelineEvent) => {
             // pivotEvent === swipedEvent or scrollBasisEvent
-            if (depth === 2 || depth === -1) return {fetchedEvents: currentEvents, referEvent: pivotEvent}
+            if (depth === 3 || depth === -1) return {fetchedEvents: currentEvents, referEvent: pivotEvent}
             try {
                 const response = await api.post('/v1/getTimeline', {'timelineId': currentTimeline.id , 'depth': depth, 'pivotJulianDate': pivotEvent.julianDate})
                 let fetchedEvents = response.data.data.events as TimelineEvent[]
@@ -241,8 +242,9 @@ const Timeline = () => {
             let scrollUp = scrollWrapper.scrollTop < aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.1
             let scrollDown = scrollWrapper.scrollTop > aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.9 - viewportHeight
             if (!isLoading && (scrollUp || scrollDown)) {
+                console.log('scroll')
                 isLoading = true
-                // await operateScrollTest(scrollUp)
+                await operateScrollTest(scrollUp)
                 setTimeout(() => isLoading = false, 500)
             }
         }
