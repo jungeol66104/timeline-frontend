@@ -182,7 +182,8 @@ const Timeline = () => {
             let top = aboveTimelineHeight + topsOfCurrentEvents[order] - scrollWrapper.scrollTop
             const scrollEvent = {...currentEvents[order], order: order, top: top }
             fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent}) => {
-                if (fetchedEvents === currentEvents) return
+                if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) return
+                console.log('hi')
                 fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
                 let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
                 dispatch(updateCurrentEvents(fetchedEvents))
@@ -239,8 +240,8 @@ const Timeline = () => {
         const handleScroll = async () => {
             let viewportHeight = typeof window !== 'undefined' ? window.innerHeight : undefined
             if (!viewportHeight) return
-            let scrollUp = scrollWrapper.scrollTop < aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.1
-            let scrollDown = scrollWrapper.scrollTop > aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.9 - viewportHeight
+            let scrollUp = scrollWrapper.scrollTop < aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.05
+            let scrollDown = scrollWrapper.scrollTop > aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.95 - viewportHeight
             if (!isLoading && (scrollUp || scrollDown)) {
                 console.log('scroll')
                 isLoading = true
