@@ -11,7 +11,7 @@ const Scroll = () => {
     return (
         <div className={'page'}>
             {Array(100).fill(1).map((_,i) => {
-               return <div className={'w-[100px] h-[100px] border-2 border-black'}>{i}</div>
+               return <div key={i} className={'w-[100px] h-[100px] border-2 border-black'}>{i}</div>
             })}
         </div>
     )
