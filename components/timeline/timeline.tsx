@@ -32,10 +32,16 @@ const Timeline = () => {
     else {isLoading = false}
 
     // scroll setup
+    // useEffect(() => {
+    //     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+    //     if (!scrollWrapper) return
+    //     scrollWrapper.scrollTop = scrollTop
+    // },[scrollTop])
+
     useEffect(() => {
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-        if (!scrollWrapper) return
-        scrollWrapper.scrollTop = scrollTop
+        const timelineEvents: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineEvents') : null
+        if (!timelineEvents) return
+        timelineEvents.style.top = `${scrollTop}px`
     },[scrollTop])
 
     // event handlers
