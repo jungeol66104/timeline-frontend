@@ -33,11 +33,11 @@ const Timeline = () => {
 
 
     // scroll setup
-    // useEffect(() => {
-    //     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-    //     if (!scrollWrapper) return
-    //     scrollWrapper.scrollTop = scrollTop
-    // },[scrollTop])
+    useEffect(() => {
+        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        if (!scrollWrapper) return
+        scrollWrapper.scrollTo({top: scrollTop})
+    },[scrollTop])
 
     // event handlers
     useEffect(() => {
