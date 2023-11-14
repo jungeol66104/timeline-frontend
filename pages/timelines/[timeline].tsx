@@ -2,9 +2,11 @@ import {storeWrapper} from "@/store/store";
 import {sum, getEventHeights} from "@/utils/global";
 import {TimelineEvent} from "@/public/events"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {selectScrollTop, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import Timeline from "@/components/timeline/timeline";
 import api from "@/utils/api"
+import {RefObject, useEffect, useRef} from "react";
+import {useSelector} from "react-redux";
 // refactoring: needed (update currentTimeline when API is ready)
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
@@ -27,8 +29,19 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
     }
 })
 const TimelinePage = () => {
+    const scrollWrapperRef: RefObject<HTMLDivElement> = useRef(null)
+
+    const scrollTop = useSelector(selectScrollTop)
+
+    useEffect(() => {
+        const scrollWrapper = scrollWrapperRef.current
+        if (!scrollWrapper) return
+
+        scrollWrapper.scrollTop = scrollTop
+    },[scrollTop])
+
     return (
-        <div className={'page'}>
+        <div ref={scrollWrapperRef} className={'page'}>
             <Timeline/>
         </div>
     )

@@ -31,13 +31,13 @@ const Timeline = () => {
     if (lastAction === 'zoom' || lastAction === 'scroll') {setTimeout(() => {isLoading = false}, 500)}
     else {isLoading = false}
 
-
     // scroll setup
-    useEffect(() => {
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-        if (!scrollWrapper) return
-        scrollWrapper.scrollTo({top: scrollTop})
-    },[scrollTop])
+    // useEffect(() => {
+    //     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+    //     if (!scrollWrapper) return
+    //
+    //     scrollWrapper.scrollTop = scrollTop
+    // },[scrollTop])
 
     // event handlers
     useEffect(() => {
