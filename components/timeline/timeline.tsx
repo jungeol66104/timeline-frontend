@@ -35,9 +35,7 @@ const Timeline = () => {
     useEffect(() => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         if (!scrollWrapper) return
-        if (lastAction !== 'scroll') {
-            scrollWrapper.scrollTop = scrollTop
-        }
+        scrollWrapper.scrollTop = scrollTop
     },[scrollTop])
 
     // event handlers
@@ -191,7 +189,6 @@ const Timeline = () => {
                 dispatch(updateScrollTop(newScrollTop))
                 dispatch(updateTotalHeight(totalHeight))
                 dispatch(updateLastAction('scroll'))
-                scrollWrapper.scrollTop = newScrollTop
             })
         }
         const handleWheel = async (e: WheelEvent) => {
