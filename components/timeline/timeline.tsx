@@ -25,7 +25,8 @@ const Timeline = () => {
     // contents
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
-    console.log(currentEvents.length)
+    // console.log(currentEvents.length)
+    // console.log('START')
 
     // suppress additional actions after zoom or scroll
     let isLoading = true
@@ -181,13 +182,14 @@ const Timeline = () => {
             let order =  scrollUp ? 0 : currentEvents.length - 1
             let top = aboveTimelineHeight + topsOfCurrentEvents[order] - scrollWrapper.scrollTop
             const scrollEvent = {...currentEvents[order], order: order, top: top }
+            // console.log(scrollEvent.id)
             fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent}) => {
                 if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) return
-                console.log('hi')
                 fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
                 let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
                 dispatch(updateCurrentEvents(fetchedEvents))
                 dispatch(updateCurrentEventsWithEffect(fetchedEvents))
+                dispatch(updatePrevEventsWithEffect(currentEvents))
                 dispatch(updateScrollTop(newScrollTop))
                 dispatch(updateTotalHeight(totalHeight))
                 dispatch(updateLastAction('scroll'))
@@ -243,7 +245,6 @@ const Timeline = () => {
             let scrollUp = scrollWrapper.scrollTop < aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.05
             let scrollDown = scrollWrapper.scrollTop > aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.95 - viewportHeight
             if (!isLoading && (scrollUp || scrollDown)) {
-                console.log('scroll')
                 isLoading = true
                 await operateScrollTest(scrollUp)
                 setTimeout(() => isLoading = false, 500)
