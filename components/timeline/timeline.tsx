@@ -32,12 +32,13 @@ const Timeline = () => {
     else {isLoading = false}
 
     // scroll setup
-    // useEffect(() => {
-    //     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-    //     if (!scrollWrapper) return
-    //
-    //     scrollWrapper.scrollTop = scrollTop
-    // },[scrollTop])
+    useEffect(() => {
+        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        if (!scrollWrapper) return
+        if (lastAction !== 'scroll') {
+            scrollWrapper.scrollTop = scrollTop
+        }
+    },[scrollTop])
 
     // event handlers
     useEffect(() => {
@@ -190,6 +191,7 @@ const Timeline = () => {
                 dispatch(updateScrollTop(newScrollTop))
                 dispatch(updateTotalHeight(totalHeight))
                 dispatch(updateLastAction('scroll'))
+                scrollWrapper.scrollTop = newScrollTop
             })
         }
         const handleWheel = async (e: WheelEvent) => {

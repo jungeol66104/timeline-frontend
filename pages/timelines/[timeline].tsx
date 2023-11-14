@@ -29,19 +29,8 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
     }
 })
 const TimelinePage = () => {
-    const scrollWrapperRef: RefObject<HTMLDivElement> = useRef(null)
-
-    const scrollTop = useSelector(selectScrollTop)
-
-    useEffect(() => {
-        const scrollWrapper = scrollWrapperRef.current
-        if (!scrollWrapper) return
-
-        scrollWrapper.scrollTop = scrollTop
-    },[scrollTop])
-
     return (
-        <div ref={scrollWrapperRef} className={'page'}>
+        <div className={'page'}>
             <Timeline/>
         </div>
     )
