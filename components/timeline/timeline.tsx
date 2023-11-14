@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TimelineEvent} from '@/public/events'
 import {sum, getEventHeights} from '@/utils/global'
@@ -25,13 +25,12 @@ const Timeline = () => {
     // contents
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
-    // console.log(currentEvents.length)
-    // console.log('START')
 
     // suppress additional actions after zoom or scroll
     let isLoading = true
     if (lastAction === 'zoom' || lastAction === 'scroll') {setTimeout(() => {isLoading = false}, 500)}
     else {isLoading = false}
+
 
     // scroll setup
     useEffect(() => {
@@ -178,18 +177,16 @@ const Timeline = () => {
                 else {(deltaX as number) < 0 ? dispatch(decrementDepth()) : dispatch(incrementDepth())}
             })
         }
-        const operateScrollTest = (scrollUp: boolean) => {
+        const operateScrollTest = async (scrollUp: boolean) => {
             let order =  scrollUp ? 0 : currentEvents.length - 1
             let top = aboveTimelineHeight + topsOfCurrentEvents[order] - scrollWrapper.scrollTop
             const scrollEvent = {...currentEvents[order], order: order, top: top }
-            // console.log(scrollEvent.id)
-            fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent}) => {
+            await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent}) => {
                 if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) return
                 fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
                 let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
                 dispatch(updateCurrentEvents(fetchedEvents))
                 dispatch(updateCurrentEventsWithEffect(fetchedEvents))
-                dispatch(updatePrevEventsWithEffect(currentEvents))
                 dispatch(updateScrollTop(newScrollTop))
                 dispatch(updateTotalHeight(totalHeight))
                 dispatch(updateLastAction('scroll'))
@@ -268,6 +265,7 @@ const Timeline = () => {
             scrollWrapper.removeEventListener('scroll', handleScroll)
         };
     });
+
     return (
         <div className='timeline relative max-w-lg' style={{height: `${totalHeight + 20}`}}>
             <TimelineFrame />

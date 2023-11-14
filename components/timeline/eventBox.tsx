@@ -1,17 +1,15 @@
-import React, {RefObject, useEffect, useRef, useState} from "react";
+import React, {RefObject, useEffect, useRef} from "react";
 import {useSelector} from "react-redux";
 import gsap from "gsap";
 import {TimelineEvent} from "@/public/events";
 import EventNode from "@/components/timeline/eventNode";
 import EventList from "@/components/timeline/eventList";
-import {selectCurrentEvents, selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
+import {selectCurrentEvents} from "@/store/slices/contentsSlice";
 import {selectLastAction} from "@/store/slices/appearanceSlice";
 // refactoring: clear
 
 const EventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
-    const [reRender, setReRender] = useState(false)
-    console.log('rerender: ', event.id, event.animation)
 
     const lastAction = useSelector(selectLastAction)
     const currentEvents = useSelector(selectCurrentEvents)
@@ -20,11 +18,6 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
 
     let zIndex = event.animation === 'fadeIn' ? '10' : '20'
     let paddingBottom = event.overlap === 0 || isToggle ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
-
-    useEffect(() => {
-        if (lastAction === 'scroll' && event.animation === 'none') return
-        setReRender(!reRender)
-    }, [lastAction]);
 
     useEffect(() => {
         const eventBox = eventBoxRef.current
@@ -43,15 +36,11 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
         return ()=> {tl.kill()}
     });
 
-    const memoizedEventBox = React.useMemo(() => {
-        return (
-            <div ref={eventBoxRef} className={`eventBox relative flex pt-[6px] flex-shrink-0 ${paddingBottom}`} style={{zIndex: zIndex}}>
-                <EventNode />
-                <EventList event={event}/>
-            </div>
-        )
-    },[reRender])
-
-    return memoizedEventBox
+    return (
+        <div ref={eventBoxRef} className={`eventBox relative flex pt-[6px] flex-shrink-0 ${paddingBottom}`} style={{zIndex: zIndex}}>
+            <EventNode />
+            <EventList event={event}/>
+        </div>
+    )
 }
 export default EventBox
