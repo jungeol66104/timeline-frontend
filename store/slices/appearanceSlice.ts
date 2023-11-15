@@ -8,7 +8,7 @@ const initialState = {
     overlapBottom: 6,
     lastAction: 'render',
     currentDepth: 0,
-    scrollTop: 0,
+    scrollTop: -10,
     afterEffectTop: 0,
     totalHeight: 0,
 } as initialAppearanceState

@@ -7,7 +7,7 @@ import {selectCurrentEventsWithEffect} from "@/store/slices/contentsSlice";
 const TimelineEvents = () => {
     const currentEventsWithEffect = useSelector(selectCurrentEventsWithEffect)
     return (
-        <div className={'timelineEvents absolute w-full flex flex-col overflow-hidden'}>
+        <div className={'timelineEvents absolute w-full flex flex-col'}>
             {currentEventsWithEffect.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event} />
             })}

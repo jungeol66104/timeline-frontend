@@ -32,16 +32,14 @@ const Timeline = () => {
     else {isLoading = false}
 
     // scroll setup
-    // useEffect(() => {
-    //     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-    //     if (!scrollWrapper) return
-    //     scrollWrapper.scrollTop = scrollTop
-    // },[scrollTop])
-
     useEffect(() => {
-        const timelineEvents: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineEvents') : null
-        if (!timelineEvents) return
-        timelineEvents.style.top = `${scrollTop}px`
+        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        if (!scrollWrapper) return
+
+        window.requestAnimationFrame(() => {
+            scrollWrapper.scrollTop = scrollTop
+        })
+
     },[scrollTop])
 
     // event handlers
@@ -272,7 +270,7 @@ const Timeline = () => {
     });
 
     return (
-        <div className='timeline relative max-w-lg' style={{height: `${totalHeight + 20}`}}>
+        <div className='timeline max-w-lg relative'>
             <TimelineFrame />
             <TimelineEvents />
             {(lastAction === 'zoom') && <AfterEffectEvents />}
