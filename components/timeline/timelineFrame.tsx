@@ -5,9 +5,7 @@ import {selectTotalHeight} from "@/store/slices/appearanceSlice";
 const TimelineFrame = () => {
     const totalHeight = useSelector(selectTotalHeight)
     return (
-        <div className={`timelineFrame w-3 h-[10px] relative`}>
-            <div className={`absolute w-0.5 bg-gray-600 left-1/2`} style={{height: `${totalHeight + 20}px`, transform:'translate(-50%,-0)'}}></div>
-        </div>
+        <div className={`timelineFrame absolute w-0.5 bg-gray-600 left-[6px]`} style={{height: `${totalHeight + 20}px`, transform:'translate(-50%,-0)'}}></div>
     )
 }
 export default TimelineFrame

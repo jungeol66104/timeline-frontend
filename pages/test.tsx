@@ -1,30 +1,41 @@
 import {useEffect} from "react";
-import exp from "constants";
 
 const Test = () => {
-
     useEffect(() => {
-        const container = document.querySelector('.container')
-        const reference = document.querySelector('.testBox')
-        if (!container || !reference) return
+        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        if (!scrollWrapper) return
 
-        const newTestBox = document.createElement('div')
-        newTestBox.style.height = '100px'
-        newTestBox.style.width = '100px'
-        newTestBox.style.border = '2px solid black'
+        const handleScroll = ()=> {
+            console.log('hi')
+            if (scrollWrapper.scrollTop > 4000) {
+                console.log('hi')
+                scrollWrapper.scrollTop = 500
+            }
+        }
 
-        setTimeout(() => {
-            container.insertBefore(newTestBox , reference)
-        }, 5000)
+        scrollWrapper.addEventListener('scroll', handleScroll)
+        return () => {
+            scrollWrapper.removeEventListener('scroll', handleScroll)
+        }
     });
 
     return (
-        <div className={'container'}>
-            {Array(100).fill(1).map((l,i) => {
-                return <div key={i} className={'testBox w-[100px] h-[100px] border-black border-2'}>{i}</div>
-            })}
+        <div className={'page h-full overflow-auto relative'}>
+            <TestWrapper />
         </div>
     )
 }
 
 export default Test
+
+const TestWrapper = () => {
+    return (
+        <div className={'absolute top-0 w-full'}>
+            <div className={'container w-full flex flex-col'}>
+                {Array(100).fill(1).map((l,i) => {
+                    return <div key={i} className={'relative flex flex-shrink-0 testBox w-[100px] h-[100px] border-black border-2'}>{i}</div>
+                })}
+            </div>
+        </div>
+    )
+}

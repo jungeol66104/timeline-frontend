@@ -11,7 +11,6 @@ import api from "@/utils/api"
 // refactoring: needed (scroll operation)
 
 const Timeline = () => {
-
     const dispatch = useDispatch()
     // global vars
     const aboveTimelineHeight = useSelector(selectAboveTimelineHeight)
@@ -33,11 +32,12 @@ const Timeline = () => {
     else {isLoading = false}
 
     // scroll setup
-    useEffect(() => {
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-        if (!scrollWrapper) return
-        scrollWrapper.scrollTo({top: scrollTop})
-    },[scrollTop])
+    // useEffect(() => {
+    //     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+    //     if (!scrollWrapper) return
+    //     scrollWrapper.scrollTop = scrollTop
+    // },[scrollTop])
+
 
     // event handlers
     useEffect(() => {
@@ -179,7 +179,9 @@ const Timeline = () => {
         }
         const operateScroll = async (scrollUp: boolean) => {
             let order =  scrollUp ? 0 : currentEvents.length - 1
-            let top = aboveTimelineHeight + topsOfCurrentEvents[order] - scrollWrapper.scrollTop
+            const heightsOfCurrentEventsPocket = getEventHeights(currentEventsPocket)
+            let topsOfCurrentEventsPocket = heightsOfCurrentEventsPocket.map((_, i) => sum(heightsOfCurrentEventsPocket.slice(0,i)))
+            let top = aboveTimelineHeight + topsOfCurrentEventsPocket[order] - scrollWrapper.scrollTop
             const scrollEvent = {...currentEvents[order], order: order, top: top }
             await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent}) => {
                 if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) return
@@ -194,8 +196,14 @@ const Timeline = () => {
         }
 
         const operateScrollTest = async (scrollUp: boolean) => {
-            let order =  scrollUp ? 0 : currentEvents.length - 1
+            let order =  scrollUp ? 0 : currentEventsPocket.length - 1
             let top = aboveTimelineHeight + topsOfCurrentEvents[order] - scrollWrapper.scrollTop
+            const scrollEvent = {...currentEvents[order], order: order, top: top }
+            await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent}) => {
+                if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) return
+                fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
+                let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
+            })
         }
 
         const handleWheel = async (e: WheelEvent) => {
@@ -273,10 +281,10 @@ const Timeline = () => {
     });
 
     return (
-        <div className='timeline max-w-lg relative' style={{height: `${totalHeight + 20}`}}>
+        <div className='timeline absolute w-full' style={{height: totalHeight + 20, transform: `translateY(${-scrollTop}px)`}}>
             <TimelineFrame />
             <TimelineEvents />
-            {(lastAction === 'zoom') && <AfterEffectEvents />}
+            {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
         </div>
     )
 }

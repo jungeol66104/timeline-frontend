@@ -8,23 +8,8 @@ import {useEffect} from "react";
 const TimelineEvents = () => {
     const currentEventsWithEffect = useSelector(selectCurrentEventsWithEffect)
 
-    // useEffect(() => {
-    //     const container = document.querySelector('.container')
-    //     const reference = document.querySelector('.testBox')
-    //     if (!container || !reference) return
-    //
-    //     const newTestBox = document.createElement('div')
-    //     newTestBox.style.height = '100px'
-    //     newTestBox.style.width = '100px'
-    //     newTestBox.style.border = '2px solid black'
-    //
-    //     setTimeout(() => {
-    //         container.insertBefore(newTestBox , reference)
-    //     }, 5000)
-    // }, []);
-
     return (
-        <div className={'timelineEvents absolute w-full flex flex-col'}>
+        <div className={'timelineEvents absolute top-[10px] w-full max-w-lg flex flex-col'}>
             {currentEventsWithEffect.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event} />
             })}
