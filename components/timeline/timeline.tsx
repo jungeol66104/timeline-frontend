@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect} from "react";
+import React, {RefObject, useEffect, useLayoutEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TimelineEvent} from '@/public/events'
 import {sum, getEventHeights} from '@/utils/global'
@@ -35,7 +35,6 @@ const Timeline = () => {
     useLayoutEffect(() => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         if (!scrollWrapper) return
-        scrollWrapper.scrollTop = scrollTop/2
         scrollWrapper.scrollTop = scrollTop
 
     },[scrollTop])
@@ -263,6 +262,14 @@ const Timeline = () => {
             }
         }
 
+        const handleClick = async () => {
+            isLoading = true
+            await operateScroll(true)
+            setTimeout(() => isLoading = false, 500)
+        }
+
+
+        testButton?.addEventListener('click', handleClick)
         timeline.addEventListener('wheel' , handleWheel);
         timeline.addEventListener('mousedown' , handleDrag);
         timeline.addEventListener('mousemove' , handleDrag);
@@ -281,11 +288,15 @@ const Timeline = () => {
         };
     });
 
+    const testButtonRef: RefObject<HTMLButtonElement> = useRef(null)
+    const testButton = testButtonRef.current
+
     return (
         <div className='timeline absolute w-full' style={{height: totalHeight + 20}}>
             <TimelineFrame />
             <TimelineEvents />
-            {(lastAction === 'zoom') && <AfterEffectEvents />}
+            <button ref={testButtonRef} className={'testButton fixed left-1/2 top-[100px] z-50'}>click</button>
+            {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
         </div>
     )
 }
