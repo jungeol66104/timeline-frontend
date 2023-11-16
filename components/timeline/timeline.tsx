@@ -36,7 +36,7 @@ const Timeline = () => {
     useEffect(() => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         if (!scrollWrapper) return
-        scrollWrapper.scrollTop = scrollTop
+        scrollWrapper.scrollTo({top: scrollTop})
     },[scrollTop])
 
     // event handlers
@@ -273,7 +273,7 @@ const Timeline = () => {
     });
 
     return (
-        <div className='timeline max-w-lg relative'>
+        <div className='timeline max-w-lg relative' style={{height: `${totalHeight + 20}`}}>
             <TimelineFrame />
             <TimelineEvents />
             {(lastAction === 'zoom') && <AfterEffectEvents />}
