@@ -2,11 +2,9 @@ import {storeWrapper} from "@/store/store";
 import {sum, getEventHeights} from "@/utils/global";
 import {TimelineEvent} from "@/public/events"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {selectScrollTop, updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {updateTotalHeight} from "@/store/slices/appearanceSlice";
 import Timeline from "@/components/timeline/timeline";
 import api from "@/utils/api"
-import {RefObject, useEffect, useRef} from "react";
-import {useSelector} from "react-redux";
 // refactoring: needed (update currentTimeline when API is ready)
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {

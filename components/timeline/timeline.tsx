@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useLayoutEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TimelineEvent} from '@/public/events'
 import {sum, getEventHeights} from '@/utils/global'
@@ -32,12 +32,11 @@ const Timeline = () => {
     else {isLoading = false}
 
     // scroll setup
-    // useEffect(() => {
-    //     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-    //     if (!scrollWrapper) return
-    //     scrollWrapper.scrollTop = scrollTop
-    // },[scrollTop])
-
+    useLayoutEffect(() => {
+        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        if (!scrollWrapper) return
+        scrollWrapper.scrollTop = scrollTop
+    },[scrollTop])
 
     // event handlers
     useEffect(() => {
@@ -281,10 +280,10 @@ const Timeline = () => {
     });
 
     return (
-        <div className='timeline absolute w-full' style={{height: totalHeight + 20, transform: `translateY(${-scrollTop}px)`}}>
+        <div className='timeline absolute w-full' style={{height: totalHeight + 20}}>
             <TimelineFrame />
             <TimelineEvents />
-            {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
+            {(lastAction === 'zoom') && <AfterEffectEvents />}
         </div>
     )
 }
