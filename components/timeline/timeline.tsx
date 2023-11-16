@@ -25,6 +25,7 @@ const Timeline = () => {
     // contents
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
+    const currentEventsPocket = currentEvents
 
     // suppress additional actions after zoom or scroll
     let isLoading = true
@@ -35,11 +36,7 @@ const Timeline = () => {
     useEffect(() => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         if (!scrollWrapper) return
-
-        window.requestAnimationFrame(() => {
-            scrollWrapper.scrollTop = scrollTop
-        })
-
+        scrollWrapper.scrollTop = scrollTop
     },[scrollTop])
 
     // event handlers
@@ -180,7 +177,7 @@ const Timeline = () => {
                 else {(deltaX as number) < 0 ? dispatch(decrementDepth()) : dispatch(incrementDepth())}
             })
         }
-        const operateScrollTest = async (scrollUp: boolean) => {
+        const operateScroll = async (scrollUp: boolean) => {
             let order =  scrollUp ? 0 : currentEvents.length - 1
             let top = aboveTimelineHeight + topsOfCurrentEvents[order] - scrollWrapper.scrollTop
             const scrollEvent = {...currentEvents[order], order: order, top: top }
@@ -195,6 +192,12 @@ const Timeline = () => {
                 dispatch(updateLastAction('scroll'))
             })
         }
+
+        const operateScrollTest = async (scrollUp: boolean) => {
+            let order =  scrollUp ? 0 : currentEvents.length - 1
+            let top = aboveTimelineHeight + topsOfCurrentEvents[order] - scrollWrapper.scrollTop
+        }
+
         const handleWheel = async (e: WheelEvent) => {
             if (e.deltaX !== 0) {
                 e.preventDefault()
@@ -246,7 +249,7 @@ const Timeline = () => {
             let scrollDown = scrollWrapper.scrollTop > aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.95 - viewportHeight
             if (!isLoading && (scrollUp || scrollDown)) {
                 isLoading = true
-                await operateScrollTest(scrollUp)
+                await operateScroll(scrollUp)
                 setTimeout(() => isLoading = false, 500)
             }
         }
