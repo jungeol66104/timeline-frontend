@@ -35,7 +35,9 @@ const Timeline = () => {
     useLayoutEffect(() => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         if (!scrollWrapper) return
+        scrollWrapper.scrollTop = scrollTop/2
         scrollWrapper.scrollTop = scrollTop
+
     },[scrollTop])
 
     // event handlers
