@@ -1,4 +1,4 @@
-import React, {RefObject, useEffect, useRef} from "react";
+import React, {ReactNode, RefObject, useEffect, useRef} from "react";
 import {useSelector} from "react-redux";
 import gsap from "gsap";
 import {TimelineEvent} from "@/public/events";
@@ -8,7 +8,7 @@ import {selectCurrentEvents} from "@/store/slices/contentsSlice";
 import {selectLastAction} from "@/store/slices/appearanceSlice";
 // refactoring: clear
 
-const EventBox = ({event} : {event: TimelineEvent}) => {
+const EventBox: React.FC<{event: TimelineEvent}> = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
 
     const lastAction = useSelector(selectLastAction)

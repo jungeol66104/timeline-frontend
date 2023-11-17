@@ -36,7 +36,6 @@ const Timeline = () => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         if (!scrollWrapper) return
         scrollWrapper.scrollTop = scrollTop
-
     },[scrollTop])
 
     // event handlers
@@ -179,9 +178,9 @@ const Timeline = () => {
         }
         const operateScroll = async (scrollUp: boolean) => {
             let order =  scrollUp ? 0 : currentEvents.length - 1
-            const heightsOfCurrentEventsPocket = getEventHeights(currentEventsPocket)
-            let topsOfCurrentEventsPocket = heightsOfCurrentEventsPocket.map((_, i) => sum(heightsOfCurrentEventsPocket.slice(0,i)))
-            let top = aboveTimelineHeight + topsOfCurrentEventsPocket[order] - scrollWrapper.scrollTop
+            // const heightsOfCurrentEventsPocket = getEventHeights(currentEventsPocket)
+            // let topsOfCurrentEventsPocket = heightsOfCurrentEventsPocket.map((_, i) => sum(heightsOfCurrentEventsPocket.slice(0,i)))
+            let top = aboveTimelineHeight + topsOfCurrentEvents[order] - scrollWrapper.scrollTop
             const scrollEvent = {...currentEvents[order], order: order, top: top }
             await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent}) => {
                 if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) return
@@ -192,17 +191,6 @@ const Timeline = () => {
                 dispatch(updateScrollTop(newScrollTop))
                 dispatch(updateTotalHeight(totalHeight))
                 dispatch(updateLastAction('scroll'))
-            })
-        }
-
-        const operateScrollTest = async (scrollUp: boolean) => {
-            let order =  scrollUp ? 0 : currentEventsPocket.length - 1
-            let top = aboveTimelineHeight + topsOfCurrentEvents[order] - scrollWrapper.scrollTop
-            const scrollEvent = {...currentEvents[order], order: order, top: top }
-            await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent}) => {
-                if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) return
-                fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
-                let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
             })
         }
 
@@ -262,14 +250,6 @@ const Timeline = () => {
             }
         }
 
-        const handleClick = async () => {
-            isLoading = true
-            await operateScroll(true)
-            setTimeout(() => isLoading = false, 500)
-        }
-
-
-        testButton?.addEventListener('click', handleClick)
         timeline.addEventListener('wheel' , handleWheel);
         timeline.addEventListener('mousedown' , handleDrag);
         timeline.addEventListener('mousemove' , handleDrag);
@@ -288,14 +268,10 @@ const Timeline = () => {
         };
     });
 
-    const testButtonRef: RefObject<HTMLButtonElement> = useRef(null)
-    const testButton = testButtonRef.current
-
     return (
         <div className='timeline absolute w-full' style={{height: totalHeight + 20}}>
             <TimelineFrame />
             <TimelineEvents />
-            <button ref={testButtonRef} className={'testButton fixed left-1/2 top-[100px] z-50'}>click</button>
             {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
         </div>
     )

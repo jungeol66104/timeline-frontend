@@ -1,4 +1,5 @@
 import {useEffect} from "react";
+import {createPortal} from "react-dom";
 
 const Test = () => {
     useEffect(() => {
@@ -10,7 +11,6 @@ const Test = () => {
             if (scrollWrapper.scrollTop > 4000) {
                 console.log('hi')
                 scrollWrapper.scrollTop = 500
-                scrollWrapper.scrollTo({top: 600, behavior: "smooth"})
             }
         }
 

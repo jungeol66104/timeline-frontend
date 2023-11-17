@@ -24,6 +24,7 @@ html, body, #__next, .layout {
 }
 /* find ways to avoid global css like this */
 .page {
+    will-change: scroll-position;
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
