@@ -8,7 +8,7 @@ import {selectCurrentEvents} from "@/store/slices/contentsSlice";
 import {selectLastAction} from "@/store/slices/appearanceSlice";
 // refactoring: clear
 
-const EventBox: React.FC<{event: TimelineEvent}> = ({event} : {event: TimelineEvent}) => {
+const EventBox = ({event} : {event: TimelineEvent}) => {
     const eventBoxRef: RefObject<HTMLDivElement> = useRef(null)
 
     const lastAction = useSelector(selectLastAction)
