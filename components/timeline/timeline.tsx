@@ -36,8 +36,9 @@ const Timeline = () => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
         if (!scrollWrapper || !timeline) return
+        scrollWrapper.style.overflowY = 'hidden'
         scrollWrapper.scrollTop = scrollTop
-        timeline.style.transform = 'translateZ(0)'
+        scrollWrapper.style.overflowY = 'auto'
 
     },[scrollTop])
 
