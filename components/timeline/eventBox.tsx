@@ -1,4 +1,4 @@
-import {RefObject, useEffect, useRef} from "react";
+import React, {RefObject, useEffect, useRef} from "react";
 import {useSelector} from "react-redux";
 import gsap from "gsap";
 import {TimelineEvent} from "@/public/events";
@@ -21,15 +21,13 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
 
     useEffect(() => {
         const eventBox = eventBoxRef.current
-        if (!eventBox) return
+        if (!eventBox || event.animation === 'none') return
         const tl = gsap.timeline()
         if (lastAction === 'zoom' || lastAction === 'scroll') {
              if (event.animation === 'fadeIn') {
                 tl.fromTo(eventBox, {opacity: 0}, {opacity: 1, duration: 0.5, ease: 'ease-in-out'})
             } else if (event.animation === 'move') {
                 tl.fromTo(eventBox, {y: event.distance}, {y: '0', duration: 0.5, ease: 'ease-in-out'})
-            } else if (event.animation === 'none'){
-                return
             } else {
                 console.error('Invalid event animation: ', event)
             }
@@ -37,6 +35,7 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
         tl.play()
         return ()=> {tl.kill()}
     });
+
     return (
         <div ref={eventBoxRef} className={`eventBox relative flex pt-[6px] flex-shrink-0 ${paddingBottom}`} style={{zIndex: zIndex}}>
             <EventNode />

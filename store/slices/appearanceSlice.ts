@@ -8,6 +8,7 @@ const initialState = {
     overlapBottom: 6,
     lastAction: 'render',
     currentDepth: 0,
+    maxDepth: 1,
     scrollTop: 0,
     afterEffectTop: 0,
     totalHeight: 0,
@@ -26,6 +27,10 @@ const appearanceSlice = createSlice({
         updateCurrentDepth: (state, action) => {
             state.currentDepth = action.payload
         },
+        updateMaxDepth: (state, action) => {
+            state.maxDepth = action.payload
+        }
+        ,
         updateScrollTop: (state, action) => {
             state.scrollTop = action.payload
         },
@@ -41,13 +46,14 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {incrementDepth, decrementDepth, updateCurrentDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight } = appearanceSlice.actions;
+export const {incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight } = appearanceSlice.actions;
 
 // selectors
 export const selectAboveTimelineHeight = (state: RootState) => state.appearance.aboveTimelineHeight
 export const selectEventBoxHeight = (state: RootState) => state.appearance.eventBoxHeight
 export const selectOverlapBottom = (state: RootState) => state.appearance.overlapBottom
 export const selectCurrentDepth = (state: RootState) => state.appearance.currentDepth
+export const selectMaxDepth = (state: RootState) => state.appearance.maxDepth
 export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectAfterEffectTop = (state: RootState) => state.appearance.afterEffectTop
 export const selectLastAction = (state: RootState) => state.appearance.lastAction
@@ -60,6 +66,7 @@ export interface initialAppearanceState {
     overlapBottom: number
     lastAction: string
     currentDepth: number
+    maxDepth: number
     scrollTop: number
     afterEffectTop: number
     totalHeight: number

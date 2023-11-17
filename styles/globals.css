@@ -24,9 +24,10 @@ html, body, #__next, .layout {
 }
 /* find ways to avoid global css like this */
 .page {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
     height: 100%;
-    overflow: scroll;
     margin: 0 20px;
 }
-
 
