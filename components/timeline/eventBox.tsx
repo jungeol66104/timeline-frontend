@@ -1,4 +1,4 @@
-import React, {ReactNode, RefObject, useEffect, useRef} from "react";
+import React, {RefObject, useEffect, useRef} from "react";
 import {useSelector} from "react-redux";
 import gsap from "gsap";
 import {TimelineEvent} from "@/public/events";

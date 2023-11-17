@@ -12,6 +12,7 @@ import api from "@/utils/api"
 
 const Timeline = () => {
     const dispatch = useDispatch()
+    const latestScrollTop = useRef(0)
     // global vars
     const aboveTimelineHeight = useSelector(selectAboveTimelineHeight)
     const eventBoxHeight = useSelector(selectEventBoxHeight)
@@ -24,7 +25,6 @@ const Timeline = () => {
     // contents
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
-    const currentEventsPocket = currentEvents
 
     // suppress additional actions after zoom or scroll
     let isLoading = true
@@ -34,8 +34,7 @@ const Timeline = () => {
     // scroll setup
     useLayoutEffect(() => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-        const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
-        if (!scrollWrapper || !timeline) return
+        if (!scrollWrapper) return
         scrollWrapper.style.overflowY = 'hidden'
         scrollWrapper.scrollTop = scrollTop
         scrollWrapper.style.overflowY = 'auto'
@@ -182,10 +181,24 @@ const Timeline = () => {
         }
         const operateScroll = async (scrollUp: boolean) => {
             let order =  scrollUp ? 0 : currentEvents.length - 1
-            // const heightsOfCurrentEventsPocket = getEventHeights(currentEventsPocket)
-            // let topsOfCurrentEventsPocket = heightsOfCurrentEventsPocket.map((_, i) => sum(heightsOfCurrentEventsPocket.slice(0,i)))
             let top = aboveTimelineHeight + topsOfCurrentEvents[order] - scrollWrapper.scrollTop
             const scrollEvent = {...currentEvents[order], order: order, top: top }
+            await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent}) => {
+                if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) return
+                fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
+                let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
+                dispatch(updateCurrentEvents(fetchedEvents))
+                dispatch(updateCurrentEventsWithEffect(fetchedEvents))
+                dispatch(updateScrollTop(newScrollTop))
+                dispatch(updateTotalHeight(totalHeight))
+                dispatch(updateLastAction('scroll'))
+            })
+        }
+
+        const operateScrollTest = async (scrollUp: boolean) => {
+            let order =  scrollUp ? 0 : currentEvents.length - 1
+            let top = aboveTimelineHeight + topsOfCurrentEvents[order] - scrollWrapper.scrollTop
+            const scrollEvent = {...currentEvents[order], order: order, top: top}
             await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent}) => {
                 if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) return
                 fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
@@ -254,6 +267,19 @@ const Timeline = () => {
             }
         }
 
+        const handleScrollTest = async () => {
+            latestScrollTop.current = scrollWrapper.scrollTop
+            let viewportHeight = typeof window !== 'undefined' ? window.innerHeight : undefined
+            if (!viewportHeight) return
+            let scrollUp = scrollWrapper.scrollTop < 25
+            let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - (viewportHeight - aboveTimelineHeight) - 25
+            if (!isLoading && (scrollUp || scrollDown)) {
+                isLoading = true
+                await operateScrollTest(scrollUp)
+                setTimeout(() => isLoading = false, 500)
+            }
+        }
+
         timeline.addEventListener('wheel' , handleWheel);
         timeline.addEventListener('mousedown' , handleDrag);
         timeline.addEventListener('mousemove' , handleDrag);
@@ -273,7 +299,7 @@ const Timeline = () => {
     });
 
     return (
-        <div className='timeline absolute w-full' style={{height: totalHeight + 20}}>
+        <div className='timeline absolute w-full' style={{height: totalHeight + 80}}>
             <TimelineFrame />
             <TimelineEvents />
             {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
