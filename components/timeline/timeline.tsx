@@ -37,9 +37,7 @@ const Timeline = () => {
         const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
         if (!scrollWrapper || !timeline) return
         scrollWrapper.scrollTop = scrollTop
-        timeline.style.display='block';
-        timeline.offsetHeight; // no need to store this anywhere, the reference is enough
-        timeline.style.display=''
+        timeline.style.transform = 'translateZ(0)'
 
     },[scrollTop])
 
