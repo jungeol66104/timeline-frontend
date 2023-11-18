@@ -37,7 +37,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
                 return {newToggleEvents: [], newTotalHeight: 0}
             }
         }
-        const operateToggle = async (e: MouseEvent | TouchEvent) => {
+        const operateToggle = async (e: MouseEvent) => {
             try {
                 if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
                     e.preventDefault()
@@ -51,15 +51,13 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
                 console.error('Error updating toggle events: ', error);
             }
         }
-        const handleClick = async (e: MouseEvent | TouchEvent) => {
+        const handleClick = async (e: MouseEvent) => {
             if (isLoading) return
             await operateToggle(e)
         }
         eventContent.addEventListener('click', handleClick)
-        eventContent.addEventListener('touchend', handleClick)
         return () => {
             eventContent.removeEventListener('click', handleClick)
-            eventContent.removeEventListener('touchend', handleClick)
         }
     });
 
