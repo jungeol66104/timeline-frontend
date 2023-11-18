@@ -40,7 +40,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
         const operateToggle = async (e: MouseEvent) => {
             try {
                 if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
-                    // e.preventDefault()
+                    e.preventDefault()
                     let { newToggleEvents, newTotalHeight} = await fetchToggleEvents()
                     dispatch(updateToggleEvents({order: eventOrderInCurrent, toggleEvents: newToggleEvents}))
                     dispatch(updateIsToggle(eventOrderInCurrent))
