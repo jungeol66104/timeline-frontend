@@ -6,7 +6,7 @@ export default function Home() {
     const router = useRouter()
 
     useEffect(() => {
-        router.push(`/timelines/11`)
+        router.push(`/timelines/1`)
     });
 
     return <div className={'page'}></div>
