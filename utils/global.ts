@@ -20,6 +20,6 @@ export const getEventHeights = (events: TimelineEvent[])=> {
 
 export const getClickOrTouch = () => {
     let clickOrTouchend = 'click'
-    if (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement) clickOrTouchend = 'Touchend'
+    if (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement) clickOrTouchend = 'touchend'
     return clickOrTouchend
 }

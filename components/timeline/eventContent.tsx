@@ -6,6 +6,7 @@ import Link from "next/link";
 import api from "@/utils/api";
 import {selectCurrentEvents, selectCurrentTimeline, updateIsToggle, updateToggleEvents,} from "@/store/slices/contentsSlice";
 import {selectLastAction, selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {getClickOrTouch} from "@/utils/global";
 // refactoring: clear
 
 const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: TimelineEvent, highestEvent: TimelineEvent, contentOrder: number, isToggle?: boolean}) => {
@@ -26,6 +27,8 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
         const eventContent = eventContentRef.current
         if (!eventContent) return
 
+        let clickOrTouchend = getClickOrTouch()
+
         const fetchToggleEvents = async () => {
             try {
                 const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': highestEvent.julianDate})
@@ -37,7 +40,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
                 return {newToggleEvents: [], newTotalHeight: 0}
             }
         }
-        const operateToggle = async (e: MouseEvent) => {
+        const operateToggle = async (e: MouseEvent | TouchEvent) => {
             try {
                 if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
                     e.preventDefault()
@@ -51,13 +54,16 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
                 console.error('Error updating toggle events: ', error);
             }
         }
-        const handleClick = async (e: MouseEvent) => {
+        const handleClick = async (e: MouseEvent | TouchEvent) => {
             if (isLoading) return
             await operateToggle(e)
         }
-        eventContent.addEventListener('click', handleClick)
+
+        if (clickOrTouchend === 'click') eventContent.addEventListener('click', handleClick)
+        else eventContent.addEventListener('touchend', handleClick)
         return () => {
-            eventContent.removeEventListener('click', handleClick)
+            if (clickOrTouchend === 'click') eventContent.removeEventListener(clickOrTouchend, handleClick)
+            else eventContent.removeEventListener('touchend', handleClick)
         }
     });
 
