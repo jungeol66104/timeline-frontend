@@ -9,7 +9,7 @@ import Search from "@/components/search";
 import CloseSVG from "@/public/svg/close.svg";
 import {selectCurrentEvents, selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {selectCurrentDepth} from "@/store/slices/appearanceSlice";
-// refactoring: component separation
+// refactoring: component separation, title swapping incarnation
 
 const Layout = ({ children } : {children: ReactNode}) => {
     return (
@@ -20,7 +20,6 @@ const Layout = ({ children } : {children: ReactNode}) => {
         </div>
     )
 }
-
 export default Layout
 
 const Navbar = () => {

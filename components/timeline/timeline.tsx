@@ -1,36 +1,15 @@
-import React, {RefObject, useEffect, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TimelineEvent} from '@/public/events'
-import {sum, getEventHeights} from '@/utils/global'
-import {
-    selectCurrentEvents,
-    selectCurrentTimeline,
-    selectPrevEventsWithEffect,
-    updateCurrentEvents,
-    updateCurrentEventsWithEffect,
-    updatePrevEventsWithEffect
-} from "@/store/slices/contentsSlice";
-import {
-    decrementDepth,
-    incrementDepth,
-    selectAboveTimelineHeight,
-    selectCurrentDepth,
-    selectEventBoxHeight,
-    selectLastAction,
-    selectMaxDepth,
-    selectOverlapBottom,
-    selectScrollTop,
-    selectTotalHeight,
-    updateAfterEffectTop,
-    updateLastAction,
-    updateScrollTop,
-    updateTotalHeight
-} from "@/store/slices/appearanceSlice";
+import {sum, getEventHeights, getClickOrTouch} from '@/utils/global'
+import {selectCurrentEvents, selectCurrentTimeline, selectPrevEventsWithEffect, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
+import {decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectScrollTop, selectTotalHeight, updateAfterEffectTop, updateLastAction, updateScrollTop, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import TimelineFrame from "@/components/timeline/timelineFrame";
 import TimelineEvents from "@/components/timeline/timelineEvents";
+// afterEffect seems like that it does not affect UX
 import AfterEffectEvents from "@/components/timeline/afterEffectEvents";
 import api from "@/utils/api"
-// refactoring: needed (scroll operation)
+// refactoring: needed (mobile detection, scroll operation, height and top calculation)
 
 const Timeline = () => {
     const dispatch = useDispatch()
@@ -48,7 +27,7 @@ const Timeline = () => {
     // contents
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
-    const prevEvents = useSelector(selectPrevEventsWithEffect)
+    // const prevEvents = useSelector(selectPrevEventsWithEffect)
 
     // suppress additional actions after zoom or scroll
     let isLoading = true
@@ -59,6 +38,7 @@ const Timeline = () => {
     useEffect(() => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         if (!scrollWrapper) return
+        // trick for stopping momentum scroll error in webkit based browsers
         scrollWrapper.style.overflowY = 'hidden'
         scrollWrapper.scrollTop = scrollTop
         scrollWrapper.style.overflowY = 'auto'

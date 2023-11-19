@@ -2,10 +2,10 @@ import {storeWrapper} from "@/store/store";
 import {sum, getEventHeights} from "@/utils/global";
 import {TimelineEvent} from "@/public/events"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {updateCurrentDepth, updateMaxDepth, updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {updateMaxDepth, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import Timeline from "@/components/timeline/timeline";
 import api from "@/utils/api"
-// refactoring: needed (update currentTimeline when API is ready)
+// refactoring: clear
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
     try {

@@ -4,8 +4,10 @@ import {useEffect} from "react";
 
 export default function Home() {
     const router = useRouter()
+
     useEffect(() => {
         router.push(`/timelines/11`)
-    }, []);
+    });
+
     return <div className={'page'}></div>
 }
