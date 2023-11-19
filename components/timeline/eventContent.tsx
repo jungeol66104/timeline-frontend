@@ -23,60 +23,58 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
     if (lastAction === 'zoom' || lastAction === 'scroll') {setTimeout(() => {isLoading = false}, 500)}
     else {isLoading = false}
 
-    useEffect(() => {
-        const eventContent = eventContentRef.current
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-        if (!eventContent || !scrollWrapper) return
-
-        let clickOrTouchend = getClickOrTouch()
-
-        // disable handleClick when it is swipe motion
-        let isSwipe = false
-
-        const fetchToggleEvents = async () => {
-            try {
-                const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': highestEvent.julianDate})
-                const newToggleEvents = response.data.data.events
-                const newTotalHeight = totalHeight - (124 + (event.overlap as number) * 6) + (38 + (newToggleEvents.length + 1) * 124)
-                return { newToggleEvents, newTotalHeight }
-            } catch (error) {
-                console.error('Error fetching toggle events: ', error);
-                return {newToggleEvents: [], newTotalHeight: 0}
-            }
-        }
-        const operateToggle = async (e: MouseEvent | TouchEvent) => {
-            try {
-                if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
-                    e.preventDefault()
-                    let { newToggleEvents, newTotalHeight} = await fetchToggleEvents()
-                    dispatch(updateToggleEvents({order: eventOrderInCurrent, toggleEvents: newToggleEvents}))
-                    dispatch(updateIsToggle(eventOrderInCurrent))
-                    dispatch(updateTotalHeight(newTotalHeight))
-                    dispatch(updateLastAction('toggle'))
-                } else return
-            } catch (error){
-                console.error('Error updating toggle events: ', error);
-            }
-        }
-        const handleClick = async (e: MouseEvent | TouchEvent) => {
-            if (isSwipe) return
-            if (isLoading) return
-            if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
-                await operateToggle(e)
-            }
-        }
-
-        if (clickOrTouchend === 'click') eventContent.addEventListener('click', handleClick)
-        else eventContent.addEventListener('touchend', handleClick)
-        scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
-        scrollWrapper.addEventListener('touchend', () => isSwipe = false)
-        return () => {
-            if (clickOrTouchend === 'click') eventContent.removeEventListener(clickOrTouchend, handleClick)
-            else eventContent.removeEventListener('touchend', handleClick)
-            scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
-            scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
-        }
-    });
+    // useEffect(() => {
+    //     const eventContent = eventContentRef.current
+    //     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+    //     if (!eventContent || !scrollWrapper) return
+    //
+    //     let clickOrTouchend = getClickOrTouch()
+    //
+    //     // disable handleClick when it is swipe motion
+    //     let isSwipe = false
+    //
+    //     const fetchToggleEvents = async () => {
+    //         try {
+    //             const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': highestEvent.julianDate})
+    //             const newToggleEvents = response.data.data.events
+    //             const newTotalHeight = totalHeight - (124 + (event.overlap as number) * 6) + (38 + (newToggleEvents.length + 1) * 124)
+    //             return { newToggleEvents, newTotalHeight }
+    //         } catch (error) {
+    //             console.error('Error fetching toggle events: ', error);
+    //             return {newToggleEvents: [], newTotalHeight: 0}
+    //         }
+    //     }
+    //     const operateToggle = async (e: MouseEvent | TouchEvent) => {
+    //         try {
+    //             if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
+    //                 e.preventDefault()
+    //                 let { newToggleEvents, newTotalHeight} = await fetchToggleEvents()
+    //                 dispatch(updateToggleEvents({order: eventOrderInCurrent, toggleEvents: newToggleEvents}))
+    //                 dispatch(updateIsToggle(eventOrderInCurrent))
+    //                 dispatch(updateTotalHeight(newTotalHeight))
+    //                 dispatch(updateLastAction('toggle'))
+    //             } else return
+    //         } catch (error){
+    //             console.error('Error updating toggle events: ', error);
+    //         }
+    //     }
+    //     const handleClick = async (e: MouseEvent | TouchEvent) => {
+    //         if (isSwipe) return
+    //         if (isLoading) return
+    //         await operateToggle(e)
+    //     }
+    //
+    //     if (clickOrTouchend === 'click') eventContent.addEventListener('click', handleClick)
+    //     else eventContent.addEventListener('touchend', handleClick)
+    //     scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
+    //     scrollWrapper.addEventListener('touchend', () => isSwipe = false)
+    //     return () => {
+    //         if (clickOrTouchend === 'click') eventContent.removeEventListener(clickOrTouchend, handleClick)
+    //         else eventContent.removeEventListener('touchend', handleClick)
+    //         scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
+    //         scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
+    //     }
+    // });
 
     // set css
     const zIndex = 5000 - contentOrder
