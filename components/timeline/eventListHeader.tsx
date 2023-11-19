@@ -35,7 +35,7 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
 
         untoggleButton.addEventListener(clickOrTouchend, handleClick)
         return () => {
-
+            untoggleButton.removeEventListener(clickOrTouchend, handleClick)
         }
     });
 

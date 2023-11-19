@@ -11,7 +11,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
     try {
         const response = await api.post('/v1/getTimeline', {"timelineId": Number(context.query.timeline), "depth": 0, "pivotJulianDate": "0"})
         const newCurrentTimeline = response.data.data.timelineInfo
-        const newMaxDepth = response.data.data.max_depth
+        const newMaxDepth = response.data.data.maxDepth
         let newCurrentEvents = response.data.data.events as TimelineEvent[]
         newCurrentEvents = newCurrentEvents.map(cEvent => {
             return {...cEvent, isToggle: false, toggleEvents: [], animation: 'none'}
