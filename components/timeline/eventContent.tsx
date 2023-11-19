@@ -61,7 +61,9 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
         const handleClick = async (e: MouseEvent | TouchEvent) => {
             if (isSwipe) return
             if (isLoading) return
-            await operateToggle(e)
+            if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
+                await operateToggle(e)
+            }
         }
 
         if (clickOrTouchend === 'click') eventContent.addEventListener('click', handleClick)
