@@ -25,9 +25,13 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
 
     useEffect(() => {
         const eventContent = eventContentRef.current
-        if (!eventContent) return
+        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        if (!eventContent || !scrollWrapper) return
 
         let clickOrTouchend = getClickOrTouch()
+
+        // disable handleClick when it is swipe motion
+        let isSwipe = false
 
         const fetchToggleEvents = async () => {
             try {
@@ -55,18 +59,24 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
             }
         }
         const handleClick = async (e: MouseEvent | TouchEvent) => {
+            if (isSwipe) return
             if (isLoading) return
             await operateToggle(e)
         }
 
         if (clickOrTouchend === 'click') eventContent.addEventListener('click', handleClick)
         else eventContent.addEventListener('touchend', handleClick)
+        scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
+        scrollWrapper.addEventListener('touchend', () => isSwipe = false)
         return () => {
             if (clickOrTouchend === 'click') eventContent.removeEventListener(clickOrTouchend, handleClick)
             else eventContent.removeEventListener('touchend', handleClick)
+            scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
+            scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
         }
     });
 
+    // set css
     const zIndex = 5000 - contentOrder
     let top: number, left, height, width: string, opacity
     if (isToggle) {
@@ -83,6 +93,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
         opacity = contentOrder > 0 ? 0 : 1
     }
 
+    // toggle animation
     useEffect(() => {
         const eventContent = eventContentRef.current
         if (!eventContent || lastAction !== 'toggle') return

@@ -20,12 +20,17 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
 
     useEffect(() => {
         const untoggleButton = untoggleButtonRef.current
-        if (!untoggleButton) return
+        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        if (!untoggleButton || !scrollWrapper) return
 
         // mobile detection
         let clickOrTouchend = getClickOrTouch()
 
+        // disable handleClick when it is swipe motion
+        let isSwipe = false
+
         const handleClick = () => {
+            if (isSwipe) return
             if (!toggleEvents) return
             const newTotalHeight = totalHeight + (124 + (event.overlap as number) * 6) - (38 + (toggleEvents.length + 1) * 124)
             dispatch(updateIsToggle(eventOrderInCurrent))
@@ -34,8 +39,12 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
         }
 
         untoggleButton.addEventListener(clickOrTouchend, handleClick)
+        scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
+        scrollWrapper.addEventListener('touchend', () => isSwipe = false)
         return () => {
             untoggleButton.removeEventListener(clickOrTouchend, handleClick)
+            scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
+            scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
         }
     });
 
