@@ -41,7 +41,6 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
         <div ref={eventBoxRef} className={`eventBox relative flex pt-[6px] flex-shrink-0 ${paddingBottom}`} style={{zIndex: zIndex}}>
             <EventNode />
             <EventList event={event}/>
-            <Link href={'/'}>hohohohohoho</Link>
         </div>
     )
 }

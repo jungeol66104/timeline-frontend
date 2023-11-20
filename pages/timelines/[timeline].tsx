@@ -5,6 +5,8 @@ import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimelin
 import {updateMaxDepth, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import Timeline from "@/components/timeline/timeline";
 import api from "@/utils/api"
+import Link from "next/link";
+import React from "react";
 // refactoring: clear
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
@@ -31,6 +33,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 const TimelinePage = () => {
     return (
         <div className={'page'}>
+            <Link href={'/'}>page</Link>
             <Timeline/>
         </div>
     )

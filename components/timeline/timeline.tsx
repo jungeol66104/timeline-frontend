@@ -9,6 +9,7 @@ import TimelineEvents from "@/components/timeline/timelineEvents";
 // afterEffect seems like that it does not affect UX
 import AfterEffectEvents from "@/components/timeline/afterEffectEvents";
 import api from "@/utils/api"
+import Link from "next/link";
 // refactoring: needed (mobile detection, scroll operation, height and top calculation)
 
 const Timeline = () => {
@@ -307,6 +308,7 @@ const Timeline = () => {
     return (
         <div className='timeline absolute w-full overflow-hidden' style={{height: totalHeight + 140}}>
             <TimelineFrame />
+            <Link href={'/'}>timeline</Link>
             <TimelineEvents />
             {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
         </div>
