@@ -53,13 +53,15 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
                     dispatch(updateIsToggle(eventOrderInCurrent))
                     dispatch(updateTotalHeight(newTotalHeight))
                     dispatch(updateLastAction('toggle'))
-                } else return
+                } else {
+                    e.stopPropagation()
+                    return
+                }
             } catch (error){
                 console.error('Error updating toggle events: ', error);
             }
         }
         const handleClick = async (e: MouseEvent | TouchEvent) => {
-            // e.stopPropagation()
             if (isSwipe) return
             if (isLoading) return
             await operateToggle(e)
