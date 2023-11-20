@@ -113,6 +113,8 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
     }, [isToggle]);
 
     return (
+        <div className={'absolute'} style={{zIndex: 5000}}>
+
         <Link href={'/'} onClick={(e) => e.stopPropagation()}>
             hi
             {/*<div className={'eventContent absolute'} style={{top: top, left: left, height: height, width: width, opacity: opacity, zIndex: zIndex}}>*/}
@@ -123,6 +125,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
             {/*        </div>*/}
             {/*</div>*/}
         </Link>
+        </div>
     )
     // return (
     //     <div ref={eventContentRef} className={'eventContent absolute cursor-pointer'} style={{pointerEvents: !isToggle && contentOrder === 0 && event.overlap !== 0 ? 'auto' : 'none', top: top, left: left, height: height, width: width, opacity: opacity, zIndex: zIndex}}>

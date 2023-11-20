@@ -36,8 +36,8 @@ const TimelinePage = () => {
 
     return (
         <div className={'page'}>
-            <div className={'timeline absolute w-full overflow-hidden'} style={{height: totalHeight + 140, zIndex:9998}}>
-                <Link href={'/'} onClick={(e) => e.stopPropagation()}>page</Link>
+            <div className={'timeline absolute w-full overflow-hidden'} style={{height: totalHeight + 140}}>
+                <Link href={'/'} onClick={(e) => e.stopPropagation()} style={{zIndex: 7000, position:"relative"}}>page</Link>
             </div>
             <Timeline/>
         </div>
