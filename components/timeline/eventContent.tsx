@@ -113,7 +113,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
     }, [isToggle]);
 
     return (
-        <Link href={'/'}>
+        <Link href={'/'} onClick={(e) => e.stopPropagation()}>
             hi
             {/*<div className={'eventContent absolute'} style={{top: top, left: left, height: height, width: width, opacity: opacity, zIndex: zIndex}}>*/}
             {/*        <div className={`bg-white h-full border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5`}>*/}
