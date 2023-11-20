@@ -33,7 +33,9 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 const TimelinePage = () => {
     return (
         <div className={'page'}>
-            <Link href={'/'}>page</Link>
+            <div className={'absolute'}>
+                <Link href={'/'}>page</Link>
+            </div>
             <Timeline/>
         </div>
     )
