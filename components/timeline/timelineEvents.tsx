@@ -13,7 +13,6 @@ const TimelineEvents = () => {
     return (
         <div className={'timelineEvents absolute w-full max-w-lg flex flex-col'}>
             <TimelineEventsEdge type={'top'} />
-            <Link href={'/'}>hohohohohoho</Link>
             {currentEventsWithEffect.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event} />
             })}
