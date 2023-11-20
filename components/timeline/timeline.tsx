@@ -274,23 +274,23 @@ const Timeline = () => {
                 setTimeout(() => isLoading = false, 500)
             }
         }
-        //
-        // timeline.addEventListener('wheel' , handleWheel);
-        // timeline.addEventListener('mousedown' , handleDrag);
-        // timeline.addEventListener('mousemove' , handleDrag);
-        // timeline.addEventListener('mouseup' , handleDrag);
-        // timeline.addEventListener('touchstart' , handleTouch);
-        // timeline.addEventListener('touchend' , handleTouch);
-        // scrollWrapper.addEventListener('scroll', handleScrollTest)
-        // return () => {
-        //     timeline.removeEventListener('wheel', handleWheel);
-        //     timeline.removeEventListener('mousedown' , handleDrag);
-        //     timeline.removeEventListener('mousemove' , handleDrag);
-        //     timeline.removeEventListener('mouseup' , handleDrag);
-        //     timeline.removeEventListener('touchstart' , handleTouch);
-        //     timeline.removeEventListener('touchend' , handleTouch);
-        //     scrollWrapper.removeEventListener('scroll', handleScrollTest)
-        // };
+
+        timeline.addEventListener('wheel' , handleWheel);
+        timeline.addEventListener('touchstart' , handleTouch);
+        timeline.addEventListener('touchend' , handleTouch);
+        timeline.addEventListener('mousedown' , handleDrag);
+        timeline.addEventListener('mousemove' , handleDrag);
+        timeline.addEventListener('mouseup' , handleDrag);
+        scrollWrapper.addEventListener('scroll', handleScrollTest)
+        return () => {
+            timeline.removeEventListener('wheel', handleWheel);
+            timeline.removeEventListener('touchstart' , handleTouch);
+            timeline.removeEventListener('touchend' , handleTouch);
+            timeline.removeEventListener('mousedown' , handleDrag);
+            timeline.removeEventListener('mousemove' , handleDrag);
+            timeline.removeEventListener('mouseup' , handleDrag);
+            scrollWrapper.removeEventListener('scroll', handleScrollTest)
+        };
     });
 
     return (
