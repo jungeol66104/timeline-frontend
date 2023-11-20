@@ -38,14 +38,14 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
             dispatch(updateLastAction('toggle'))
         }
 
-        untoggleButton.addEventListener(clickOrTouchend, handleClick)
-        scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
-        scrollWrapper.addEventListener('touchend', () => isSwipe = false)
-        return () => {
-            untoggleButton.removeEventListener(clickOrTouchend, handleClick)
-            scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
-            scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
-        }
+        // untoggleButton.addEventListener(clickOrTouchend, handleClick)
+        // scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
+        // scrollWrapper.addEventListener('touchend', () => isSwipe = false)
+        // return () => {
+        //     untoggleButton.removeEventListener(clickOrTouchend, handleClick)
+        //     scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
+        //     scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
+        // }
     });
 
     let top = isToggle ? 0 : 38
