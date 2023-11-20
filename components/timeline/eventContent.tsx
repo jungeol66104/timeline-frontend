@@ -6,6 +6,7 @@ import Link from "next/link";
 import api from "@/utils/api";
 import {selectCurrentEvents, selectCurrentTimeline, updateIsToggle, updateToggleEvents,} from "@/store/slices/contentsSlice";
 import {selectLastAction, selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {getClickOrTouch} from "@/utils/global";
 // refactoring: clear
 
 const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: TimelineEvent, highestEvent: TimelineEvent, contentOrder: number, isToggle?: boolean}) => {
@@ -24,7 +25,13 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
 
     useEffect(() => {
         const eventContent = eventContentRef.current
-        if (!eventContent) return
+        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        if (!eventContent || !scrollWrapper) return
+
+        let clickOrTouchend = getClickOrTouch()
+
+        // disable handleClick when it is swipe motion
+        let isSwipe = false
 
         const fetchToggleEvents = async () => {
             try {
@@ -37,7 +44,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
                 return {newToggleEvents: [], newTotalHeight: 0}
             }
         }
-        const operateToggle = async (e: MouseEvent) => {
+        const operateToggle = async (e: MouseEvent | TouchEvent) => {
             try {
                 if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
                     e.preventDefault()
@@ -46,21 +53,33 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
                     dispatch(updateIsToggle(eventOrderInCurrent))
                     dispatch(updateTotalHeight(newTotalHeight))
                     dispatch(updateLastAction('toggle'))
-                } else return
+                } else {
+                    e.stopPropagation()
+                    return
+                }
             } catch (error){
                 console.error('Error updating toggle events: ', error);
             }
         }
-        const handleClick = async (e: MouseEvent) => {
+        const handleClick = async (e: MouseEvent | TouchEvent) => {
+            if (isSwipe) return
             if (isLoading) return
             await operateToggle(e)
         }
-        eventContent.addEventListener('click', handleClick)
+
+        if (clickOrTouchend === 'click') eventContent.addEventListener('click', handleClick)
+        else eventContent.addEventListener('touchend', handleClick)
+        scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
+        scrollWrapper.addEventListener('touchend', () => isSwipe = false)
         return () => {
-            eventContent.removeEventListener('click', handleClick)
+            if (clickOrTouchend === 'click') eventContent.removeEventListener(clickOrTouchend, handleClick)
+            else eventContent.removeEventListener('touchend', handleClick)
+            scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
+            scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
         }
     });
 
+    // set css
     const zIndex = 5000 - contentOrder
     let top: number, left, height, width: string, opacity
     if (isToggle) {
@@ -77,6 +96,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
         opacity = contentOrder > 0 ? 0 : 1
     }
 
+    // toggle animation
     useEffect(() => {
         const eventContent = eventContentRef.current
         if (!eventContent || lastAction !== 'toggle') return
@@ -99,9 +119,9 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
         <div ref={eventContentRef} className={'eventContent absolute cursor-pointer'} style={{pointerEvents: !isToggle && contentOrder === 0 && event.overlap !== 0 ? 'auto' : 'none', top: top, left: left, height: height, width: width, opacity: opacity, zIndex: zIndex}}>
             <Link href={`/events/${event.id}`} style={{pointerEvents: (!isToggle && ((contentOrder === 0 && event.overlap !== 0) || (contentOrder !== 0 && event.overlap === 0 ))) ? 'none' : 'auto'}}>
                 <div className={`bg-white h-full border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5`}>
-                        <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
-                        <div className={'mt-0.5 font-black line-clamp-1 overflow-hidden'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</div>
-                        <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.description}</div>
+                    <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 overflow-hidden'}>{event.date}</div>
+                    <div className={'mt-0.5 font-black line-clamp-1 overflow-hidden'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</div>
+                    <div className={'mt-1.5 overflow-hidden line-clamp-2 text-[14px] font-medium'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.description}</div>
                 </div>
             </Link>
         </div>

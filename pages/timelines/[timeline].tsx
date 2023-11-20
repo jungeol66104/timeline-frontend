@@ -2,16 +2,17 @@ import {storeWrapper} from "@/store/store";
 import {sum, getEventHeights} from "@/utils/global";
 import {TimelineEvent} from "@/public/events"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {updateCurrentDepth, updateMaxDepth, updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {updateMaxDepth, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import Timeline from "@/components/timeline/timeline";
 import api from "@/utils/api"
-// refactoring: needed (update currentTimeline when API is ready)
+import React from "react";
+// refactoring: clear
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
     try {
         const response = await api.post('/v1/getTimeline', {"timelineId": Number(context.query.timeline), "depth": 0, "pivotJulianDate": "0"})
         const newCurrentTimeline = response.data.data.timelineInfo
-        const newMaxDepth = response.data.data.max_depth
+        const newMaxDepth = response.data.data.maxDepth
         let newCurrentEvents = response.data.data.events as TimelineEvent[]
         newCurrentEvents = newCurrentEvents.map(cEvent => {
             return {...cEvent, isToggle: false, toggleEvents: [], animation: 'none'}

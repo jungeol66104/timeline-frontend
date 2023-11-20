@@ -6,6 +6,7 @@ import EventNode from "@/components/timeline/eventNode";
 import EventList from "@/components/timeline/eventList";
 import {selectCurrentEvents} from "@/store/slices/contentsSlice";
 import {selectLastAction} from "@/store/slices/appearanceSlice";
+import Link from "next/link";
 // refactoring: clear
 
 const EventBox = ({event} : {event: TimelineEvent}) => {

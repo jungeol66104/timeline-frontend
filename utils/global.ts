@@ -17,3 +17,9 @@ export const getEventHeights = (events: TimelineEvent[])=> {
         else return (124 + (event.overlap as number) * 6)
     }) as number[]
 }
+
+export const getClickOrTouch = () => {
+    let clickOrTouchend = 'click'
+    if (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement) clickOrTouchend = 'touchend'
+    return clickOrTouchend
+}

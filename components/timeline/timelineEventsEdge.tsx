@@ -1,6 +1,7 @@
 import {useSelector} from "react-redux";
 import {selectCurrentEvents, selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {selectCurrentDepth, selectMaxDepth} from "@/store/slices/appearanceSlice";
+import {selectCurrentDepth} from "@/store/slices/appearanceSlice";
+// refactoring: needed (change temp logic for isEnd after API is completed)
 
 const TimelineEventsEdge = ({type, isEnd = true} : {type: string, isEnd?: boolean}) => {
     const currentTimeline = useSelector(selectCurrentTimeline)
@@ -26,5 +27,4 @@ const TimelineEventsEdge = ({type, isEnd = true} : {type: string, isEnd?: boolea
         </div>
     )
 }
-
 export default TimelineEventsEdge

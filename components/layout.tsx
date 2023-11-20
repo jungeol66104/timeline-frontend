@@ -9,7 +9,7 @@ import Search from "@/components/search";
 import CloseSVG from "@/public/svg/close.svg";
 import {selectCurrentEvents, selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {selectCurrentDepth} from "@/store/slices/appearanceSlice";
-// refactoring: component separation
+// refactoring: component separation, title swapping incarnation
 
 const Layout = ({ children } : {children: ReactNode}) => {
     return (
@@ -20,7 +20,6 @@ const Layout = ({ children } : {children: ReactNode}) => {
         </div>
     )
 }
-
 export default Layout
 
 const Navbar = () => {
@@ -35,20 +34,20 @@ const Navbar = () => {
 
     if (currentDepth === 2 && currentEvents.findIndex(cEvent => cEvent.id === 31) === -1) isEnd = false
 
-    useEffect(() => {
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-        if (!scrollWrapper) return
-
-        let scrollTop = scrollWrapper.scrollTop <= 60;
-
-        const handleScroll = () => {
-        }
-
-        scrollWrapper.addEventListener('scroll', handleScroll)
-        return () => {
-            scrollWrapper.removeEventListener('scroll', handleScroll)
-        }
-    });
+    // useEffect(() => {
+    //     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+    //     if (!scrollWrapper) return
+    //
+    //     let scrollTop = scrollWrapper.scrollTop <= 60;
+    //
+    //     const handleScroll = () => {
+    //     }
+    //
+    //     scrollWrapper.addEventListener('scroll', handleScroll)
+    //     return () => {
+    //         scrollWrapper.removeEventListener('scroll', handleScroll)
+    //     }
+    // });
 
     return (
         <div className={'fixed top-0 left-0 h-[60px] w-full bg-white pr-5 pl-5 shadow-md flex items-center justify-between'} style={{zIndex: 9999}}>
