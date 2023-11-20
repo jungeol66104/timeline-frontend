@@ -59,7 +59,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
             }
         }
         const handleClick = async (e: MouseEvent | TouchEvent) => {
-            e.stopPropagation()
+            // e.stopPropagation()
             if (isSwipe) return
             if (isLoading) return
             await operateToggle(e)
