@@ -306,7 +306,7 @@ const Timeline = () => {
     });
 
     return (
-        <div className='timeline absolute w-full overflow-hidden' style={{height: totalHeight + 140, zIndex: -1}}>
+        <div className='timeline absolute w-full overflow-hidden' style={{height: totalHeight + 140, pointerEvents: "none"}}>
             <TimelineFrame />
             <Link href={'/'}>page</Link>
             <TimelineEvents />
