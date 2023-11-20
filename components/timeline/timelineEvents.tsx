@@ -11,7 +11,7 @@ const TimelineEvents = () => {
     const currentEventsWithEffect = useSelector(selectCurrentEventsWithEffect)
 
     return (
-        <div className={'timelineEvents absolute w-full max-w-lg flex flex-col'}>
+        <div className={'timelineEvents absolute w-full max-w-lg flex flex-col'} style={{zIndex: -1}}>
             <TimelineEventsEdge type={'top'} />
             {currentEventsWithEffect.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event} />

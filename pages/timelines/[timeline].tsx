@@ -36,9 +36,9 @@ const TimelinePage = () => {
 
     return (
         <div className={'page'}>
-            <div className={'absolute w-full overflow-hidden'} style={{height: totalHeight + 140, zIndex:9999}}>
-                <Link href={'/'}>page</Link>
-            </div>
+            {/*<div className={'absolute w-full overflow-hidden'} style={{height: totalHeight + 140, zIndex:9999}}>*/}
+            {/*    <Link href={'/'}>page</Link>*/}
+            {/*</div>*/}
             <Timeline/>
         </div>
     )

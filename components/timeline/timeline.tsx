@@ -306,8 +306,9 @@ const Timeline = () => {
     });
 
     return (
-        <div className='timeline absolute w-full overflow-hidden' style={{height: totalHeight + 140}}>
+        <div className='timeline absolute w-full overflow-hidden' style={{height: totalHeight + 140, zIndex: -1}}>
             <TimelineFrame />
+            <Link href={'/'}>page</Link>
             <TimelineEvents />
             {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
         </div>
