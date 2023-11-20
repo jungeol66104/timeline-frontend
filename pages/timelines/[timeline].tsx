@@ -2,12 +2,10 @@ import {storeWrapper} from "@/store/store";
 import {sum, getEventHeights} from "@/utils/global";
 import {TimelineEvent} from "@/public/events"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {selectTotalHeight, updateMaxDepth, updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {updateMaxDepth, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import Timeline from "@/components/timeline/timeline";
 import api from "@/utils/api"
-import Link from "next/link";
 import React from "react";
-import {useSelector} from "react-redux";
 // refactoring: clear
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
@@ -32,13 +30,8 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
     }
 })
 const TimelinePage = () => {
-    const totalHeight = useSelector(selectTotalHeight)
-
     return (
         <div className={'page'}>
-            <div className={'timeline absolute w-full overflow-hidden'} style={{height: totalHeight + 140}}>
-                <Link href={'/'} onClick={(e) => e.stopPropagation()} style={{zIndex: 7000, position:"relative"}}>page</Link>
-            </div>
             <Timeline/>
         </div>
     )

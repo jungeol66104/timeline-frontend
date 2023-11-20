@@ -274,7 +274,7 @@ const Timeline = () => {
                 setTimeout(() => isLoading = false, 500)
             }
         }
-
+        //
         // timeline.addEventListener('wheel' , handleWheel);
         // timeline.addEventListener('mousedown' , handleDrag);
         // timeline.addEventListener('mousemove' , handleDrag);
@@ -296,7 +296,6 @@ const Timeline = () => {
     return (
         <div className='timeline absolute w-full overflow-hidden' style={{height: totalHeight + 140}}>
             <TimelineFrame />
-            {/*<Link href={'/'} className={'relative'} style={{zIndex: 9999}}>timeline</Link>*/}
             <TimelineEvents />
             {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
         </div>
