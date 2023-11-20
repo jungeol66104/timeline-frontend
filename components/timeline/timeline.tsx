@@ -262,18 +262,6 @@ const Timeline = () => {
                 startX = null
             }
         }
-        const handleScroll = async () => {
-            let viewportHeight = typeof window !== 'undefined' ? window.innerHeight : undefined
-            if (!viewportHeight) return
-            let scrollUp = scrollWrapper.scrollTop < aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.05
-            let scrollDown = scrollWrapper.scrollTop > aboveTimelineHeight + (scrollWrapper.scrollHeight - aboveTimelineHeight) * 0.95 - viewportHeight
-            if (!isLoading && (scrollUp || scrollDown)) {
-                isLoading = true
-                await operateScroll(scrollUp)
-                setTimeout(() => isLoading = false, 500)
-            }
-        }
-
         const handleScrollTest = async () => {
             latestScrollTop.current = scrollWrapper.scrollTop
             let viewportHeight = typeof window !== 'undefined' ? window.innerHeight : undefined
