@@ -1,4 +1,4 @@
-import {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/store/slices/contentsSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvents, updateIsToggle} from "@/store/slices/contentsSlice";
 import Image from "next/image";
@@ -6,7 +6,7 @@ import ExpandLessSVG from "@/public/svg/expandLess.svg";
 import {selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import {RefObject, useEffect, useRef} from "react";
 import {getClickOrTouch} from "@/utils/global";
-// refactoring: needed (fix AOS error of clicking the event)
+// refactoring: clear
 
 const EventListHeader = ({event} : {event: TimelineEvent}) => {
     const untoggleButtonRef : RefObject<HTMLDivElement> = useRef(null)
@@ -18,6 +18,7 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
     const isToggle = currentEvents[eventOrderInCurrent].isToggle
     const toggleEvents = currentEvents[eventOrderInCurrent].toggleEvents
 
+    // event handler for toggle
     useEffect(() => {
         const untoggleButton = untoggleButtonRef.current
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null

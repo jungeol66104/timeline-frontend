@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/store/slices/contentsSlice";
 import AfterEventBox from "@/components/timeline/afterEventBox";
 import {selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
 import {selectAfterEffectTop, selectTotalHeight} from "@/store/slices/appearanceSlice";

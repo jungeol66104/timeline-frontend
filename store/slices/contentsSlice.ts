@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {TimelineEvent} from "@/public/events";
 import {RootState} from "@/store/rootReducer";
 // refactoring: clear
 
+// values before any dispatch
 const initialState = {
     currentTimeline: {id: 1, name: '타임라인_1'},
     currentEvent: {id: 1, name: '', description: '', date: '', julianDate: 0, importance: 0, depth: 0, timelineInfo: [], overlap: 0, isToggle: false, toggleEvents: []},
@@ -11,6 +11,7 @@ const initialState = {
     prevEventsWithEffect: [],
 } as initialContentsState
 
+// part of the store as a whole, related with actual contents
 const contentsSlice = createSlice({
     name: 'contents',
     initialState,
@@ -41,6 +42,7 @@ const contentsSlice = createSlice({
 export default contentsSlice.reducer;
 export const { updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect, updateIsToggle, updateToggleEvents, } = contentsSlice.actions;
 
+// reduces repetition inside components when selecting the specific state
 // selectors
 export const selectCurrentTimeline = (state: RootState) => state.contents.currentTimeline
 export const selectCurrentEvent = (state: RootState) => state.contents.currentEvent
@@ -55,4 +57,25 @@ export interface initialContentsState {
     currentEvents: TimelineEvent[],
     currentEventsWithEffect: TimelineEvent[],
     prevEventsWithEffect: TimelineEvent[],
+}
+export interface TimelineEvent {
+    id: number
+    date: string
+    julianDate: number
+    name: string
+    description: string
+    timelineInfo?: {id: number, name: string}[]
+    overlap?: number
+    depth?: number
+    distance?: number
+    animation?: string
+    isToggle?: boolean
+    toggleEvents?: any[]
+    order?: number
+    top?: number
+    boxTop?: number
+    fadeout?: boolean
+    prev?: boolean
+    blank?: boolean
+    new?: boolean
 }

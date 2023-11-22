@@ -1,4 +1,4 @@
-import {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/store/slices/contentsSlice";
 import React, {RefObject, useEffect, useRef} from "react";
 import gsap from "gsap";
 import EventNode from "@/components/timeline/eventNode";

@@ -1,4 +1,4 @@
-import {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/store/slices/contentsSlice";
 import {useSelector} from "react-redux";
 import OverlapContent from "@/components/timeline/overlapContent";
 import AfterEventListHeader from "@/components/timeline/afterEventListHeader";

@@ -1,4 +1,4 @@
-import {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/store/slices/contentsSlice";
 import {useSelector} from "react-redux";
 import Image from "next/image";
 import {selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";

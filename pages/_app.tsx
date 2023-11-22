@@ -2,7 +2,7 @@ import '@/styles/global.css'
 import type { AppProps } from 'next/app'
 import {storeWrapper} from '@/store/store'
 import {Provider} from "react-redux";
-import Layout from '../components/layout'
+import Layout from '../components/layout/layout'
 // refactoring; clear
 
 function App({ Component, ...rest }: AppProps) {

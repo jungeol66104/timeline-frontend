@@ -1,9 +1,8 @@
 import {useSelector} from "react-redux";
-import {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/store/slices/contentsSlice";
 import EventBox from "@/components/timeline/eventBox";
 import {selectCurrentEventsWithEffect} from "@/store/slices/contentsSlice";
 import TimelineEventsEdge from "@/components/timeline/timelineEventsEdge";
-import Link from "next/link";
 import React from "react";
 // refactoring: clear
 

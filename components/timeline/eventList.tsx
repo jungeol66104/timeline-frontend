@@ -1,11 +1,10 @@
-import {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/store/slices/contentsSlice";
 import {useSelector} from "react-redux";
 import React from "react";
 import EventContent from "@/components/timeline/eventContent";
 import EventListHeader from "@/components/timeline/eventListHeader";
 import OverlapContent from "@/components/timeline/overlapContent";
 import {selectCurrentEvents} from "@/store/slices/contentsSlice";
-import Link from "next/link";
 // refactoring: clear
 
 const EventList = ({event} : {event: TimelineEvent}) => {

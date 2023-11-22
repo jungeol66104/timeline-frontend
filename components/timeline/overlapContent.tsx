@@ -1,4 +1,4 @@
-import {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/store/slices/contentsSlice";
 import {useSelector} from "react-redux";
 import {selectCurrentEvents, selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
 import {useEffect, useRef} from "react";
@@ -15,6 +15,7 @@ const OverlapContent = ({event, order} : {event: TimelineEvent, order: number}) 
     const isToggle = !event.prev ? currentEvents[eventOrderInCurrent].isToggle : prevEventsWithEffect[eventOrderInPrev].isToggle
     const display = order === 0 && event.overlap !== 0 ? '' : order === 1 && event.overlap === 2 ? '' : 'hidden'
 
+    // toggle animation
     useEffect(() => {
         const overlapContent = overlapContentRef.current
         if (!overlapContent) return
@@ -23,7 +24,6 @@ const OverlapContent = ({event, order} : {event: TimelineEvent, order: number}) 
         tl.play()
         return ()=> {tl.kill()}
     }, [isToggle]);
-
 
     // display
     let top, left, height, width, zIndex

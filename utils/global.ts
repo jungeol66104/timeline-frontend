@@ -1,4 +1,11 @@
-import {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/store/slices/contentsSlice";
+// refactoring: clear
+
+// vars
+const aboveTimelineHeight = 70
+const eventContentHeight = 124
+const overlapBottomHeight = 6
+const eventListHeaderHeight = 38
 
 // math
 export const sum = (array: number[]) => {
@@ -6,18 +13,16 @@ export const sum = (array: number[]) => {
     array.forEach(l => sum += l)
     return sum
 }
-export const getRandomInt = (min: number, max: number) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 // timeline
+// normally used for getting positions of certain events by calculating height of each event
 export const getEventHeights = (events: TimelineEvent[])=> {
     return events.map(event => {
-        if (event.isToggle && event.toggleEvents) return (38 + (event.toggleEvents.length + 1) * 124)
-        else return (124 + (event.overlap as number) * 6)
+        if (event.isToggle && event.toggleEvents) return (eventListHeaderHeight + (event.toggleEvents.length + 1) * eventContentHeight)
+        else return (eventContentHeight + (event.overlap as number) * overlapBottomHeight)
     }) as number[]
 }
-
+// check if the device is mobile or PC
 export const getClickOrTouch = () => {
     let clickOrTouchend = 'click'
     if (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement) clickOrTouchend = 'touchend'
