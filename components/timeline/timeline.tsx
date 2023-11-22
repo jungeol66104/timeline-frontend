@@ -9,7 +9,7 @@ import TimelineEvents from "@/components/timeline/timelineEvents";
 // afterEffect seems like it does not affect UX that much
 import AfterEffectEvents from "@/components/timeline/afterEffectEvents";
 import api from "@/utils/api"
-// refactoring: needed (check height and top calculation)
+// refactoring: needed (scrollTop calculation)
 
 const Timeline = () => {
     const dispatch = useDispatch()
