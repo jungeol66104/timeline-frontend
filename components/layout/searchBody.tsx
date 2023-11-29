@@ -8,7 +8,7 @@ const SearchBody = () => {
     const tab = useSelector(selectTab)
 
     return (
-        <div className={`flex w-fit transform transition-transform ease-in-out duration-300 ${tab === 'timeline' ? 'translate-x-0' : '-translate-x-1/2'}`}>
+        <div className={`flex w-fit h-full transform transition-transform ease-in-out duration-300 ${tab === 'timeline' ? 'translate-x-0' : '-translate-x-1/2'}`}>
             <SearchList type={"timeline"}/>
             <SearchList type={"event"}/>
         </div>
