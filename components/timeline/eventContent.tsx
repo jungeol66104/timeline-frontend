@@ -1,4 +1,4 @@
-import {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/store/slices/contentsSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {RefObject, useEffect, useRef} from "react";
 import gsap from "gsap";
@@ -23,14 +23,16 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
     if (lastAction === 'zoom' || lastAction === 'scroll') {setTimeout(() => {isLoading = false}, 500)}
     else {isLoading = false}
 
+    // event handler for toggle
     useEffect(() => {
         const eventContent = eventContentRef.current
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         if (!eventContent || !scrollWrapper) return
 
+        // mobile detection
         let clickOrTouchend = getClickOrTouch()
 
-        // disable handleClick when it is swipe motion
+        // for disabling handleClick when it is swipe motion
         let isSwipe = false
 
         const fetchToggleEvents = async () => {
@@ -62,8 +64,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
             }
         }
         const handleClick = async (e: MouseEvent | TouchEvent) => {
-            if (isSwipe) return
-            if (isLoading) return
+            if (isLoading || isSwipe) return
             await operateToggle(e)
         }
 

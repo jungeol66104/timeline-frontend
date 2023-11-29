@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
 // refactoring: clear
 
+// values before any dispatch
 const initialState = {
     aboveTimelineHeight: 70,
     eventBoxHeight: 124,
@@ -16,6 +17,7 @@ const initialState = {
     totalHeight: 0,
 } as initialAppearanceState
 
+// part of the store as a whole, related with the app's appearance such as layout and effects
 const appearanceSlice = createSlice({
     name: 'appearance',
     initialState,
@@ -55,6 +57,7 @@ const appearanceSlice = createSlice({
 export default appearanceSlice.reducer;
 export const {updateIsTopEnd, updateIsBottomEnd, incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight } = appearanceSlice.actions;
 
+// reduces repetition inside components when selecting the specific state
 // selectors
 export const selectAboveTimelineHeight = (state: RootState) => state.appearance.aboveTimelineHeight
 export const selectEventBoxHeight = (state: RootState) => state.appearance.eventBoxHeight

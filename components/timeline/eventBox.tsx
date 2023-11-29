@@ -1,12 +1,11 @@
 import React, {RefObject, useEffect, useRef} from "react";
 import {useSelector} from "react-redux";
 import gsap from "gsap";
-import {TimelineEvent} from "@/public/events";
+import {TimelineEvent} from "@/store/slices/contentsSlice";
 import EventNode from "@/components/timeline/eventNode";
 import EventList from "@/components/timeline/eventList";
 import {selectCurrentEvents} from "@/store/slices/contentsSlice";
 import {selectLastAction} from "@/store/slices/appearanceSlice";
-import Link from "next/link";
 // refactoring: clear
 
 const EventBox = ({event} : {event: TimelineEvent}) => {
@@ -20,6 +19,7 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
     let zIndex = event.animation === 'fadeIn' ? '10' : '20'
     let paddingBottom = event.overlap === 0 || isToggle ? 'pb-[6px]' : event.overlap === 1 ? 'pb-[12px]' : 'pb-[18px]'
 
+    // animation after rendering
     useEffect(() => {
         const eventBox = eventBoxRef.current
         if (!eventBox || event.animation === 'none') return

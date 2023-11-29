@@ -5,6 +5,7 @@ import appearanceSlice, {initialAppearanceState} from "@/store/slices/appearance
 import searchSlice, {initialSearchState} from "@/store/slices/searchSlice";
 // refactoring: clear
 
+// integrates all slices
 const rootReducer: Reducer = (state: initialState, action: AnyAction): CombinedState<initialState> => {
     switch (action.type) {
         case HYDRATE:

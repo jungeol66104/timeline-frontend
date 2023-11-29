@@ -1,26 +1,14 @@
-import React, {ReactNode, useEffect, useState} from "react";
-import Image from "next/image";
-import Link from 'next/link'
-import { useDispatch, useSelector } from "react-redux";
-import MenuSVG from "../public/svg/menu.svg"
-import SearchSVG from "../public/svg/search.svg"
+import {useDispatch, useSelector} from "react-redux";
 import {selectIsSearch, updateIsSearch} from "@/store/slices/searchSlice";
-import Search from "@/components/search";
-import CloseSVG from "@/public/svg/close.svg";
 import {selectCurrentEvents, selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {selectCurrentDepth} from "@/store/slices/appearanceSlice";
-// refactoring: component separation, title swapping incarnation
-
-const Layout = ({ children } : {children: ReactNode}) => {
-    return (
-        <div className={'layout pt-[60px]'}>
-            <Navbar />
-            <>{children}</>
-            <Search />
-        </div>
-    )
-}
-export default Layout
+import React, {useState} from "react";
+import Link from "next/link";
+import Image from "next/image";
+import SearchSVG from "@/public/svg/search.svg";
+import CloseSVG from "@/public/svg/close.svg";
+import MenuSVG from "@/public/svg/menu.svg";
+// refactoring: needed(dynamic title)
 
 const Navbar = () => {
     const dispatch = useDispatch()
@@ -33,7 +21,6 @@ const Navbar = () => {
     let isEnd = true
 
     if (currentDepth === 2 && currentEvents.findIndex(cEvent => cEvent.id === 31) === -1) isEnd = false
-
     // useEffect(() => {
     //     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
     //     if (!scrollWrapper) return
@@ -56,8 +43,11 @@ const Navbar = () => {
                 <button onClick={() => dispatch(updateIsSearch())}>
                     {!isSearch ? <Image src={SearchSVG} alt={'search'} width={24} height={24} /> : <Image src={CloseSVG} alt={'close'} width={24} height={24} />}
                 </button>
-                <button className={'hidden'}><Image src={MenuSVG} alt={'menu'} width={24} height={24} /></button>
+                <button className={'hidden'}>
+                    <Image src={MenuSVG} alt={'menu'} width={24} height={24} />
+                </button>
             </div>
         </div>
     )
 }
+export default Navbar

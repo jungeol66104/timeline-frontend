@@ -1,17 +1,9 @@
 import {useSelector} from "react-redux";
-import {selectCurrentEvents, selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {selectCurrentDepth} from "@/store/slices/appearanceSlice";
-// refactoring: needed (change temp logic for isEnd after API is completed)
+import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
+// refactoring: clear
 
-const TimelineEventsEdge = ({type, isEnd = true} : {type: string, isEnd?: boolean}) => {
+const TimelineEventsEdge = ({type, isEnd} : {type: string, isEnd: boolean}) => {
     const currentTimeline = useSelector(selectCurrentTimeline)
-    const currentEvents = useSelector(selectCurrentEvents)
-    const currentDepth = useSelector(selectCurrentDepth)
-
-    // temp logic for isEnd
-    if ((type === 'top' && currentDepth === 2 && currentEvents.findIndex(cEvent => cEvent.id === 31) === -1)
-        || (type === 'bottom' && currentDepth === 2 && currentEvents.findIndex(cEvent => cEvent.id === 7) === -1)
-    ) isEnd = false
 
     return (
         <div className={'flex items-center justify-center bg-white h-[60px]'} style={{padding: type === 'top' && isEnd ? '0 0 0 0' : type === 'bottom' ? '0 0 10px 22px' : '10px 0 0 22px', justifyContent: type === 'top' && isEnd ? 'left' : "center", zIndex: type === 'top' && isEnd ? 50 : 0, margin: type === 'top' ? '0 0 10px 0': '10px 0 0 0'}}>

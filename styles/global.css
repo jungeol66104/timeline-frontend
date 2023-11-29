@@ -1,3 +1,5 @@
+/* refactoring: clear */
+
 /* font */
 @import url('./font.css');
 
@@ -22,7 +24,8 @@ html, body, #__next, .layout {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
-/* find ways to avoid global css like this */
+
+/* highly repetitive css */
 .page {
     position: relative;
     overflow-y: auto;
