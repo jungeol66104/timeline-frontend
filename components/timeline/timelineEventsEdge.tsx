@@ -1,11 +1,9 @@
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {selectIsTopEnd, selectIsBottomEnd} from "@/store/slices/appearanceSlice";
 // refactoring: clear
 
-const TimelineEventsEdge = ({type} : {type: string}) => {
+const TimelineEventsEdge = ({type, isEnd} : {type: string, isEnd: boolean}) => {
     const currentTimeline = useSelector(selectCurrentTimeline)
-    let isEnd = type === 'top' ? useSelector(selectIsTopEnd) : useSelector(selectIsBottomEnd)
 
     return (
         <div className={'flex items-center justify-center bg-white h-[60px]'} style={{padding: type === 'top' && isEnd ? '0 0 0 0' : type === 'bottom' ? '0 0 10px 22px' : '10px 0 0 22px', justifyContent: type === 'top' && isEnd ? 'left' : "center", zIndex: type === 'top' && isEnd ? 50 : 0, margin: type === 'top' ? '0 0 10px 0': '10px 0 0 0'}}>

@@ -9,9 +9,9 @@ function App({ Component, ...rest }: AppProps) {
     const {store, props} = storeWrapper.useWrappedStore(rest)
     return (
         <Provider store={store}>
-              <Layout>
+            <Layout>
                   <Component {...props.pageProps} />
-              </Layout>
+            </Layout>
         </Provider>
     )
 }
