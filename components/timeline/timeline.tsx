@@ -57,9 +57,10 @@ const Timeline = () => {
         // functions
         const getSwipedEvent = (scrollWrapper: HTMLDivElement, e: WheelEvent | TouchEvent | MouseEvent) : TimelineEvent => {
             let clientYInContainer = 0
-            if (e instanceof TouchEvent) {clientYInContainer = scrollWrapper.scrollTop + e.changedTouches[0].clientY}
-            else {clientYInContainer = scrollWrapper.scrollTop + e.clientY}
-            let order = CurrentEventTops.findLastIndex(top => top < clientYInContainer - aboveTimelineHeight)
+            if (e instanceof TouchEvent) {clientYInContainer = scrollWrapper.scrollTop + e.changedTouches[0].clientY - 60}
+            else {clientYInContainer = scrollWrapper.scrollTop + e.clientY  - 60}
+            let order = 0
+            if (clientYInContainer - aboveTimelineHeight > 0) order = CurrentEventTops.findLastIndex(top => top < clientYInContainer - aboveTimelineHeight)
             let top = CurrentEventTops[order] + aboveTimelineHeight - scrollWrapper.scrollTop
             let boxTop = top
             if (currentEvents[order].isToggle) {
