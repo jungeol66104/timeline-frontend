@@ -11,7 +11,7 @@ const SearchList = ({type}: {type: string}) => {
     let TimelinesOrEvents = type === 'timeline' ? searchedTimelines : searchedEvents
 
     return (
-        <div className={'page'} style={{height: `calc(98vh - 143px)`,width: `calc(100vw - 32px)`, margin: '0 16px'}}>
+        <div className={'page'} style={{width: `calc(100vw - 32px)`, margin: '0 16px'}}>
             {TimelinesOrEvents.map((timelineOrEvent, i) => {
                 return (
                     type === 'timeline'
