@@ -56,7 +56,7 @@ const SearchHeader = () => {
         if (!searchBarInput) return;
         if(isHome || isSearch)
             searchBarInput.focus()
-    }, [isHome, isSearch]);
+    });
 
     return (
         <div>
