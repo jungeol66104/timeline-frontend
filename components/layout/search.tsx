@@ -1,8 +1,6 @@
 import React from "react";
 import SearchHeader from "@/components/layout/searchHeader";
 import SearchBody from "@/components/layout/searchBody";
-import {useSelector} from "react-redux";
-import {selectTotalHeight} from "@/store/slices/appearanceSlice";
 // refactoring: clear
 
 const Search = () => {

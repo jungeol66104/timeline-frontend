@@ -5,11 +5,14 @@ import api from "@/utils/api";
 import Image from "next/image";
 import SearchInBarSVG from "@/public/svg/searchInBar.svg";
 import SearchTab from "@/components/layout/searchTab";
+import {useRouter} from "next/router";
 // refactoring: clear
 
 const SearchHeader = () => {
     const searchBarInputRef: RefObject<HTMLInputElement> = useRef(null)
 
+    const router = useRouter();
+    const isHome = router.pathname === '/';
     const dispatch = useDispatch()
     const isSearch = useSelector(selectIsSearch)
     const searchValue = useSelector(selectSearchValue)
@@ -19,7 +22,11 @@ const SearchHeader = () => {
         dispatch(updateSearchValue(query))
 
         const fetchSearchResults = async (query: any) => {
-            if (query === '') return { timelines: [], events: [] }
+            // initial timelines and events must be fetched
+            if (query === '') {
+                const initialTimelines = [{"id": 1, "name": "조 바이든"}]
+                return { timelines: initialTimelines, events: [] }
+            }
             try {
                 const timelineResponse = await api.post('/v1/search', {"searchType": "timeline", "text": query})
                 const eventResponse = await api.post('/v1/search', {"searchType": "event", "text": query})
@@ -47,9 +54,9 @@ const SearchHeader = () => {
     useEffect(() => {
         const searchBarInput = searchBarInputRef.current
         if (!searchBarInput) return;
-        if(isSearch)
+        if(isHome || isSearch)
             searchBarInput.focus()
-    }, [isSearch]);
+    });
 
     return (
         <div>

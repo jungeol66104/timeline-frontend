@@ -9,7 +9,7 @@ import TimelineEvents from "@/components/timeline/timelineEvents";
 // afterEffect seems like it does not affect UX that much
 import AfterEffectEvents from "@/components/timeline/afterEffectEvents";
 import api from "@/utils/api"
-// refactoring: needed (scrollTop calculation)
+// refactoring: needed (latest scrollTop applying method)
 
 const Timeline = () => {
     const dispatch = useDispatch()
