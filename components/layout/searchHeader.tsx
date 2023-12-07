@@ -19,7 +19,13 @@ const SearchHeader = () => {
         dispatch(updateSearchValue(query))
 
         const fetchSearchResults = async (query: any) => {
-            if (query === '') return { timelines: [], events: [] }
+            // initial timelines and events must be fetched
+            if (query === '') {
+                const initialTimelines = [
+                    {"id": 1, "name": "조 바이든"}
+                ]
+                return { timelines: initialTimelines, events: [] }
+            }
             try {
                 const timelineResponse = await api.post('/v1/search', {"searchType": "timeline", "text": query})
                 const eventResponse = await api.post('/v1/search', {"searchType": "event", "text": query})
