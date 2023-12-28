@@ -4,7 +4,6 @@ import Navbar from "@/components/layout/navbar";
 import {useSelector} from "react-redux";
 import {selectIsSearch} from "@/store/slices/searchSlice";
 import {useRouter} from "next/router";
-import Toolbar from "@/components/layout/toolbar";
 // refactoring: clear
 
 const Layout = ({ children } : {children: ReactNode}) => {
@@ -17,7 +16,6 @@ const Layout = ({ children } : {children: ReactNode}) => {
             <Navbar />
             <>{children}</>
             { (isHome || isSearch) ? <Search /> : <></> }
-            {<Toolbar />}
         </div>
     )
 }

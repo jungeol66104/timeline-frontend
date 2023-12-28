@@ -6,6 +6,7 @@ import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight} fr
 import Timeline from "@/components/timeline/timeline";
 import api from "@/utils/api"
 import React from "react";
+import TimelineLayout from "@/components/timeline/timelineLayout";
 // refactoring: clear
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
@@ -37,6 +38,7 @@ const TimelinePage = () => {
     return (
         <div className={'page'}>
             <Timeline/>
+            <TimelineLayout />
         </div>
     )
 }
