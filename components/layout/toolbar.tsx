@@ -5,6 +5,7 @@ import LastPageSVG from '@/public/svg/lastPage.svg'
 import FirstPageSVG from '@/public/svg/firstPage.svg'
 import NavigateBeforeSVG from '@/public/svg/NavigateBefore.svg'
 import NavigateNextSVG from '@/public/svg/NavigateNext.svg'
+// refactoring:
 
 const Toolbar = () => {
     return (
@@ -19,5 +20,4 @@ const Toolbar = () => {
         </div>
     );
 };
-
 export default Toolbar;
