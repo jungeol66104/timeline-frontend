@@ -14,10 +14,10 @@ const TimelineInfo = () => {
                 ? <div onClick={() => dispatch(updateIsTimelineInfo()) } className={'fixed left-0 top-0 w-full h-full bg-black opacity-50'} style={{zIndex: 5001}}></div>
                 : <></>
             }
-            <div className={`fixed w-screen h-2/3 bg-white rounded-t-2xl left-0 bottom-0 transform duration-300 ease-in-out ${isTimelineInfo ? 'translate-y-0' : 'translate-y-full'}`} style={{zIndex: 5002}}>
-                <div className={'relative flex justify-center items-center w-full h-[40px] border-b-[1px]'}>
-                    <span className={'font-bold pt-[2px]'}>타임라인 정보</span>
-                    <button onClick={() => dispatch(updateIsTimelineInfo())} className={'absolute top-[10px] right-[15px]'}><Image src={CloseSVG} alt={'close'} width={20} height={20} /></button>
+            <div className={`fixed w-screen h-[380px] bg-white rounded-t-2xl left-0 bottom-0 transform duration-300 ease-in-out ${isTimelineInfo ? 'translate-y-0' : 'translate-y-full'}`} style={{zIndex: 5002}}>
+                <div className={'relative flex justify-center items-center w-full h-[50px] border-b-[1px]'}>
+                    <span className={'font-bold text-md pt-[3px]'}>타임라인 정보</span>
+                    <button onClick={() => dispatch(updateIsTimelineInfo())} className={'absolute top-[15px] right-[15px]'}><Image src={CloseSVG} alt={'close'} width={20} height={20} /></button>
                 </div>
                 <div className={'px-[20px]'}>
                     <div className={'mt-[20px]'}>
