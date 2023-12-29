@@ -31,13 +31,13 @@ const ToolbarExpanded = () => {
     }
 
     return (
-        <div draggable onDragStart={(e) => handleDragStart(e)} onDragEnd={handleDragEnd} onDragEnter={(e) => e.preventDefault()} onDragOver={(e) => e.preventDefault()} className={`${isToolbarDrag ? 'opacity-0' : ''} ${toolbarStatus === "expand" ? 'bottom-[22px]' : 'bottom-[-25px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-[168px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md`} style={{zIndex: 4999}}>
+        <div draggable onDragStart={(e) => handleDragStart(e)} onDragEnd={handleDragEnd} onDragEnter={(e) => e.preventDefault()} onDragOver={(e) => e.preventDefault()} className={`${isToolbarDrag ? 'opacity-0' : ''} ${toolbarStatus === "expand" ? 'bottom-[22px]' : 'bottom-[-25px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-[180px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md`} style={{zIndex: 4999}}>
             <div className={'flex items-center'}>
                 <button className={'px-[6px]'}><Image src={FirstPageSVG} alt={'last depth'} draggable={false} /></button>
-                <button className={'px-[9px] '}><Image src={NavigateBeforeSVG} alt={'plus one depth'}  draggable={false}/></button>
+                <button className={'px-[12px] '}><Image src={NavigateBeforeSVG} alt={'plus one depth'}  draggable={false}/></button>
                 {/*<div className={'mx-[6px] h-[24px] w-[0.1px] bg-gray-300'}></div>*/}
                 {/*<button onClick={() => dispatch(updateIsTimelineInfo())} className={'px-[7px] border-x-[1px]'}><Image src={HorizontalSplitSVG} alt={'timeline menu'}  draggable={false}/></button>*/}
-                <button className={'px-[9px] border-l-[0.1px]'}><Image src={NavigateNextSVG} alt={'minus one depth'}  draggable={false}/></button>
+                <button className={'px-[12px] border-l-[0.1px]'}><Image src={NavigateNextSVG} alt={'minus one depth'}  draggable={false}/></button>
                 <button className={'px-[6px]'}><Image src={LastPageSVG} alt={'first depth'} draggable={false}/></button>
             </div>
         </div>
