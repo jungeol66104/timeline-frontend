@@ -20,6 +20,7 @@ html, body, #__next, .layout {
 .page::-webkit-scrollbar, .layout::-webkit-scrollbar, .search::-webkit-scrollbar{
     display: none;
 }
+
 .page, .search {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */

@@ -16,7 +16,7 @@ const TimelineInfo = () => {
             }
             <div className={`fixed w-screen h-[380px] bg-white rounded-t-2xl left-0 bottom-0 transform duration-300 ease-in-out ${isTimelineInfo ? 'translate-y-0' : 'translate-y-full'}`} style={{zIndex: 5002}}>
                 <div className={'relative flex justify-center items-center w-full h-[50px] border-b-[1px]'}>
-                    <span className={'font-bold text-md pt-[3px]'}>타임라인 정보</span>
+                    <span className={'font-bold text-md pt-[2px]'}>타임라인 정보</span>
                     <button onClick={() => dispatch(updateIsTimelineInfo())} className={'absolute top-[15px] right-[15px]'}><Image src={CloseSVG} alt={'close'} width={20} height={20} /></button>
                 </div>
                 <div className={'px-[20px]'}>
