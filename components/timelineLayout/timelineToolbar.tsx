@@ -1,8 +1,8 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectIsToolbarDrag, selectToolbarStatus, updateIsTimelineInfo} from "@/store/slices/appearanceSlice";
-import ToolbarExpanded from "@/components/timeline/toolbarExpanded";
-import ToolbarShrunk from "@/components/timeline/toolbarShrunk";
+import ToolbarExpanded from "@/components/timelineLayout/toolbarExpanded";
+import ToolbarShrunk from "@/components/timelineLayout/toolbarShrunk";
 import Image from "next/image";
 import HorizontalSplitSVG from "@/public/svg/horizontalSplit.svg";
 // refactoring: clear

@@ -1,9 +1,9 @@
 import {TimelineEvent} from "@/store/slices/contentsSlice";
 import {useSelector} from "react-redux";
 import OverlapContent from "@/components/timeline/overlapContent";
-import AfterEventListHeader from "@/components/timeline/afterEventListHeader";
+import AfterEventListHeader from "@/components/timeline/afterEffect/afterEventListHeader";
 import {selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
-import AfterEventContent from "@/components/timeline/afterEventContent";
+import AfterEventContent from "@/components/timeline/afterEffect/afterEventContent";
 // refactoring: clear
 
 const AfterEventList = ({event} : {event: TimelineEvent}) => {

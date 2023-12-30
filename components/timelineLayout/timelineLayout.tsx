@@ -1,6 +1,6 @@
 import React from 'react';
-import TimelineInfo from "@/components/timeline/timelineInfo";
-import TimelineToolbar from "@/components/timeline/timelineToolbar";
+import TimelineInfo from "@/components/timelineLayout/timelineInfo";
+import TimelineToolbar from "@/components/timelineLayout/timelineToolbar";
 
 const TimelineLayout = () => {
     return (

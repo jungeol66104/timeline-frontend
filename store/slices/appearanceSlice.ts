@@ -20,7 +20,7 @@ const initialState = {
     isToolbarDrag: false
 } as initialAppearanceState
 
-// part of the store as a whole, related with the app's appearance such as layout and effects
+// part of the store as a whole, related with the app's appearance such as timelineLayout and effects
 const appearanceSlice = createSlice({
     name: 'appearance',
     initialState,

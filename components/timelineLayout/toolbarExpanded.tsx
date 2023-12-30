@@ -1,64 +1,57 @@
-import React, {useEffect} from "react";
+import React, {useEffect} from 'react';
+import Image from "next/image";
+import FirstPageSVG from "@/public/svg/firstPage.svg";
+import NavigateBeforeSVG from "@/public/svg/NavigateBefore.svg";
+import {
+    decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight,
+    selectIsToolbarDrag,
+    selectLastAction, selectMaxDepth, selectOverlapBottom,
+    selectToolbarStatus, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd,
+    updateIsTimelineInfo,
+    updateIsToolbarDrag, updateIsTopEnd, updateLastAction, updateScrollTop, updateTotalHeight
+} from "@/store/slices/appearanceSlice";
+import HorizontalSplitSVG from "@/public/svg/horizontalSplit.svg";
+import NavigateNextSVG from "@/public/svg/NavigateNext.svg";
+import LastPageSVG from "@/public/svg/lastPage.svg";
 import {useDispatch, useSelector} from "react-redux";
-import {TimelineEvent} from "@/store/slices/contentsSlice";
-import {sum, getEventHeights} from '@/utils/global'
-import {selectCurrentEvents, selectCurrentTimeline, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
-import {decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectScrollTop, selectTotalHeight, updateAfterEffectTop, updateIsTopEnd, updateIsBottomEnd, updateLastAction, updateScrollTop, updateTotalHeight} from "@/store/slices/appearanceSlice";
-import TimelineFrame from "@/components/timeline/timelineFrame";
-import TimelineEvents from "@/components/timeline/timelineEvents";
-// afterEffect seems like it does not affect UX that much
-import AfterEffectEvents from "@/components/timeline/afterEffect/afterEffectEvents";
-import api from "@/utils/api"
-// refactoring: needed (latest scrollTop applying method)
+import {
+    selectCurrentEvents, selectCurrentTimeline,
+    TimelineEvent,
+    updateCurrentEvents,
+    updateCurrentEventsWithEffect,
+    updatePrevEventsWithEffect
+} from "@/store/slices/contentsSlice";
+import api from "@/utils/api";
+import {getEventHeights, sum} from "@/utils/global";
 
-const Timeline = () => {
+const ToolbarExpanded = () => {
     const dispatch = useDispatch()
-    // global vars
     const aboveTimelineHeight = useSelector(selectAboveTimelineHeight)
     const eventBoxHeight = useSelector(selectEventBoxHeight)
     const overlapBottom = useSelector(selectOverlapBottom)
-    // effects
-    const totalHeight = useSelector(selectTotalHeight)
-    const currentDepth = useSelector(selectCurrentDepth)
-    const maxDepth = useSelector(selectMaxDepth)
-    const scrollTop = useSelector(selectScrollTop)
-    const lastAction = useSelector(selectLastAction)
-    // contents
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
+    const currentDepth = useSelector(selectCurrentDepth)
+    const maxDepth = useSelector(selectMaxDepth)
+    const lastAction = useSelector(selectLastAction)
 
-    // suppress additional actions after zoom or scroll
+    const toolbarStatus = useSelector(selectToolbarStatus)
+    const isToolbarDrag = useSelector(selectIsToolbarDrag)
+
     let isLoading = true
     if (lastAction === 'zoom' || lastAction === 'scroll') {setTimeout(() => {isLoading = false}, 500)}
     else {isLoading = false}
 
-    // scroll setup
     useEffect(() => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-        if (!scrollWrapper) return
-        // trick for stopping momentum scroll error in webkit based browsers
-        scrollWrapper.style.overflowY = 'hidden'
-        scrollWrapper.scrollTop = scrollTop
-        scrollWrapper.style.overflowY = 'auto'
-    },[scrollTop])
-
-    // event handlers
-    useEffect(() => {
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-        const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
-        if (!scrollWrapper || !timeline) return
+        const toolbarButtons: NodeListOf<HTMLButtonElement> | null = typeof window !== 'undefined' ? document.querySelectorAll('.toolbarButton') : null
+        if (!toolbarButtons || !scrollWrapper) return
 
         const CurrentEventHeights = getEventHeights(currentEvents)
         let CurrentEventTops = CurrentEventHeights.map((_, i) => sum(CurrentEventHeights.slice(0,i)))
-        // initial setting for calculating user swipe action
-        let startX: number | null = null
-        let startY: number | null = null
 
-        // functions
-        const getSwipedEvent = (scrollWrapper: HTMLDivElement, e: WheelEvent | TouchEvent | MouseEvent) : TimelineEvent => {
-            let clientYInContainer = 0
-            if (e instanceof TouchEvent) {clientYInContainer = scrollWrapper.scrollTop + e.changedTouches[0].clientY - 60}
-            else {clientYInContainer = scrollWrapper.scrollTop + e.clientY  - 60}
+        const getSwipedEvent = (scrollWrapper: HTMLDivElement) : TimelineEvent => {
+            let clientYInContainer = scrollWrapper.scrollTop + scrollWrapper.clientHeight/2
             let order = 0
             if (clientYInContainer - aboveTimelineHeight > 0) order = CurrentEventTops.findLastIndex(top => top < clientYInContainer - aboveTimelineHeight)
             let top = CurrentEventTops[order] + aboveTimelineHeight - scrollWrapper.scrollTop
@@ -71,6 +64,7 @@ const Timeline = () => {
             }
             return {...currentEvents[order], order: order, top: top, boxTop: boxTop}
         }
+
         const fetchEvents = async (depth: number, pivotEvent: TimelineEvent) => {
             if (depth === maxDepth + 1 || depth === -1) return {fetchedEvents: currentEvents, referEvent: pivotEvent}
             try {
@@ -93,6 +87,7 @@ const Timeline = () => {
                 return {fetchedEvents: currentEvents, referEvent: pivotEvent}
             }
         }
+
         const getEventsWithEffectForZoom = (depth: number, swipedEvent: TimelineEvent, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[])=> {
             const referEventOrderInFetched = fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)
             const heightsOfFetchedEvents = getEventHeights(fetchedEvents)
@@ -129,7 +124,7 @@ const Timeline = () => {
                 let distance = 0
                 let cEventOrderInCurrent = i
                 if (!fetchedEvents.find(fEvent => fEvent.id === cEvent.id)) {
-                //disappeared
+                    //disappeared
                     if (depth > currentDepth) {
                         let initialDistance = CurrentEventTops[swipedEvent.order as number] - CurrentEventTops[cEventOrderInCurrent]
                         let finalDistance
@@ -146,13 +141,6 @@ const Timeline = () => {
             }
             return {fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop}
         }
-        const getEventsWithEffectForScroll = (fetchedEvents: TimelineEvent[]) => {
-            return fetchedEvents.map(fEvent => {
-                const cEvent = currentEvents.find(cEvent => cEvent.id === fEvent.id)
-                if (cEvent) return {...fEvent, animation: 'none' }
-                else return {...fEvent, animation: 'fadeIn' }
-            })
-        }
         const getScrollTop = (swipedEvent: TimelineEvent, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[]) => {
             if (!swipedEvent.top) return {newScrollTop: 0, totalHeight: 0}
             const heightsOfFetchedEvents = getEventHeights(fetchedEvents)
@@ -163,11 +151,9 @@ const Timeline = () => {
             if (!fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop !== undefined) {newScrollTop -= swipedEvent.boxTop}
             return {newScrollTop: newScrollTop, totalHeight: sum(heightsOfFetchedEvents)}
         }
-        const operateZoom = (e: WheelEvent | TouchEvent | MouseEvent, deltaX?: number) => {
-            let depth: number
-            if (e instanceof WheelEvent) {depth = e.deltaX > 0 ? currentDepth - 1 : currentDepth + 1}
-            else {depth = (deltaX as number) < 0 ? currentDepth - 1 : currentDepth + 1}
-            let swipedEvent: TimelineEvent = getSwipedEvent(scrollWrapper, e)
+        const operateZoom = (classNames: DOMTokenList) => {
+            let depth = classNames.contains('first') ? 0 : classNames.contains('prev') ? currentDepth - 1 : classNames.contains('next') ? currentDepth + 1 : maxDepth
+            let swipedEvent: TimelineEvent = getSwipedEvent(scrollWrapper)
             fetchEvents(depth, swipedEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
                 if (fetchedEvents === currentEvents) return
                 let { fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop } = getEventsWithEffectForZoom(depth, swipedEvent, referEvent, fetchedEvents)
@@ -183,111 +169,51 @@ const Timeline = () => {
                     dispatch(updateIsTopEnd(isTopEnd))
                     dispatch(updateIsBottomEnd(isBottomEnd))
                 }
-                if (e instanceof WheelEvent) {e.deltaX > 0 ? dispatch(decrementDepth()) : dispatch(incrementDepth())}
-                else {(deltaX as number) < 0 ? dispatch(decrementDepth()) : dispatch(incrementDepth())}
+                classNames.contains('first') ? dispatch(updateCurrentDepth(0)) : classNames.contains('prev') ? dispatch(decrementDepth()) : classNames.contains('next') ? dispatch(incrementDepth()) : dispatch(updateCurrentDepth(maxDepth))
             })
         }
-        const operateScroll = async (scrollUp: boolean) => {
-            let order =  scrollUp ? 0 : currentEvents.length - 1
-            let top = aboveTimelineHeight + CurrentEventTops[order] - scrollWrapper.scrollTop
-            const scrollEvent = {...currentEvents[order], order: order, top: top}
-            await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
-                if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) return
-                fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
-                let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
-                setTimeout(() => {
-                    dispatch(updateCurrentEvents(fetchedEvents))
-                    dispatch(updateCurrentEventsWithEffect(fetchedEvents))
-                    dispatch(updateScrollTop(newScrollTop))
-                    dispatch(updateTotalHeight(totalHeight))
-                    dispatch(updateLastAction('scroll'))
-                    if (isTopEnd !== undefined && isBottomEnd !== undefined) {
-                        dispatch(updateIsTopEnd(isTopEnd))
-                        dispatch(updateIsBottomEnd(isBottomEnd))
-                    }
-                }, 500)
-            })
-        }
-        const handleWheel = async (e: WheelEvent) => {
-            if (e.deltaX !== 0) {
-                e.preventDefault()
-                if (!isLoading && Math.abs(e.deltaX) > 90) {
-                    isLoading = true
-                    await operateZoom(e)
-                    setTimeout(() => isLoading = false, 500)
-                }
-            }
-        }
-        const handleTouch = async (e: TouchEvent) => {
-            if (e.type === 'touchstart') {
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-            } else if (e.type === 'touchend' && startX !== null && startY !== null) {
-                const endX = e.changedTouches[0].clientX;
-                const endY = e.changedTouches[0].clientY;
-                const deltaX = endX - startX;
-                const deltaY = endY - startY
-                if (deltaX !== 0) {
-                    e.preventDefault()
-                    if (!isLoading && Math.abs(deltaX) > 70 && Math.abs(deltaY) < 20) {
-                        isLoading = true
-                        await operateZoom(e, deltaX)
-                        setTimeout(() => isLoading = false, 500)
-                    }
-                }
-            }
-        }
-        const handleDrag = async (e: MouseEvent) => {
-            if (e.type === 'mousedown') {
-                startX = e.clientX;
-            } else if (e.type === 'mousemove' && startX){
-                const endX = e.clientX;
-                const deltaX = endX - startX
-                if (!isLoading && Math.abs(deltaX) > 50) {
-                    isLoading = true
-                    await operateZoom(e, deltaX)
-                    setTimeout(() => isLoading = false, 500)
-                    }
-            } else {
-                startX = null
-            }
-        }
-        const handleScroll = async () => {
-            let viewportHeight = typeof window !== 'undefined' ? window.innerHeight : undefined
-            if (!viewportHeight) return
-            let scrollUp = scrollWrapper.scrollTop < 25
-            let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - (viewportHeight - aboveTimelineHeight) - 25
-            if (!isLoading && (scrollUp || scrollDown)) {
+
+        const handleClick = async (e: MouseEvent) => {
+            const toolbarButton = e.currentTarget as HTMLButtonElement
+            const classNames = toolbarButton.classList
+            let type = classNames.contains('first') ? 'first' : classNames.contains('prev') ? 'prev' : classNames.contains('next') ? 'next' : 'last'
+            if (!isLoading) {
                 isLoading = true
-                await operateScroll(scrollUp)
+                await operateZoom(classNames)
                 setTimeout(() => isLoading = false, 500)
             }
         }
 
-        timeline.addEventListener('wheel' , handleWheel);
-        timeline.addEventListener('touchstart' , handleTouch);
-        timeline.addEventListener('touchend' , handleTouch);
-        timeline.addEventListener('mousedown' , handleDrag);
-        timeline.addEventListener('mousemove' , handleDrag);
-        timeline.addEventListener('mouseup' , handleDrag);
-        scrollWrapper.addEventListener('scroll', handleScroll)
+        toolbarButtons?.forEach(toolbarButton => toolbarButton.addEventListener('click', handleClick))
         return () => {
-            timeline.removeEventListener('wheel', handleWheel);
-            timeline.removeEventListener('touchstart' , handleTouch);
-            timeline.removeEventListener('touchend' , handleTouch);
-            timeline.removeEventListener('mousedown' , handleDrag);
-            timeline.removeEventListener('mousemove' , handleDrag);
-            timeline.removeEventListener('mouseup' , handleDrag);
-            scrollWrapper.removeEventListener('scroll', handleScroll)
-        };
+            toolbarButtons?.forEach(toolbarButton => toolbarButton.removeEventListener('click', handleClick))
+        }
     });
 
+
+    // temporary drag event test
+    const handleDragStart = (e: React.DragEvent) => {
+    //     const toolbarShrunk = document.querySelector('.shrunk')
+    //     if (!toolbarShrunk) return
+    //
+    //     e.dataTransfer.setDragImage(toolbarShrunk,20,20)
+    //     dispatch(updateIsToolbarDrag(true))
+    }
+    const handleDragEnd = () => {
+        // dispatch(updateIsToolbarDrag(false))
+    }
+
     return (
-        <div className='timeline absolute w-full overflow-hidden' style={{height: totalHeight + 140}}>
-            <TimelineFrame />
-            <TimelineEvents />
-            {/*{(lastAction === 'zoom') && <AfterEffectEvents />}*/}
+        <div draggable onDragStart={(e) => handleDragStart(e)} onDragEnd={handleDragEnd} onDragEnter={(e) => e.preventDefault()} onDragOver={(e) => e.preventDefault()} className={`${isToolbarDrag ? 'opacity-0' : ''} ${toolbarStatus === "expand" ? 'bottom-[22px]' : 'bottom-[-25px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-[180px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md`} style={{zIndex: 4999}}>
+            <div className={'flex items-center'}>
+                <button className={'toolbarButton last px-[6px]'}><Image src={FirstPageSVG} alt={'last depth'} draggable={false} /></button>
+                <button className={'toolbarButton next px-[12px] '}><Image src={NavigateBeforeSVG} alt={'plus one depth'}  draggable={false}/></button>
+                {/*<button onClick={() => dispatch(updateIsTimelineInfo())} className={'px-[7px] border-x-[1px]'}><Image src={HorizontalSplitSVG} alt={'timeline menu'}  draggable={false}/></button>*/}
+                <button className={'toolbarButton prev px-[12px] border-l-[0.1px]'}><Image src={NavigateNextSVG} alt={'minus one depth'}  draggable={false}/></button>
+                <button className={'toolbarButton first px-[6px]'}><Image src={LastPageSVG} alt={'first depth'} draggable={false}/></button>
+            </div>
         </div>
-    )
-}
-export default Timeline
+    );
+};
+
+export default ToolbarExpanded;
