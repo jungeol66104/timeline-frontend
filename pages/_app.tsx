@@ -13,8 +13,8 @@ function App({ Component, ...rest }: AppProps) {
             <Head>
                 <link rel="icon" href="/favicon.ico" />
                 <title>Timeline</title>
-                <meta name="description" content="모든 사건들에 대한 타임라인" />
-                <meta name="viewport" content="initail-scale=1.0, width=device-width" />
+                <meta name="description" content="Discover dynamic timelines. Unveiling history and diverse subjects in a clean, interactive format. Explore past, present, and future seamlessly with our engaging timelines." />
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <Provider store={store}>
                 <Layout>
