@@ -1,28 +1,12 @@
 import React, {useEffect} from 'react';
-import Image from "next/image";
-import FirstPageSVG from "@/public/svg/firstPage.svg";
-import NavigateBeforeSVG from "@/public/svg/NavigateBefore.svg";
-import {
-    decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight,
-    selectIsToolbarDrag,
-    selectLastAction, selectMaxDepth, selectOverlapBottom,
-    selectToolbarStatus, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd,
-    updateIsTimelineInfo,
-    updateIsToolbarDrag, updateIsTopEnd, updateLastAction, updateScrollTop, updateTotalHeight
-} from "@/store/slices/appearanceSlice";
-import HorizontalSplitSVG from "@/public/svg/horizontalSplit.svg";
-import NavigateNextSVG from "@/public/svg/NavigateNext.svg";
-import LastPageSVG from "@/public/svg/lastPage.svg";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    selectCurrentEvents, selectCurrentTimeline,
-    TimelineEvent,
-    updateCurrentEvents,
-    updateCurrentEventsWithEffect,
-    updatePrevEventsWithEffect
-} from "@/store/slices/contentsSlice";
-import api from "@/utils/api";
+import Image from "next/image";
 import {getEventHeights, sum} from "@/utils/global";
+import api from "@/utils/api";
+import AddSVG from "@/public/svg/add.svg";
+import RemoveSVG from "@/public/svg/remove.svg";
+import {decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectToolbarStatus, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd, updateIsTimelineInfo, updateIsTopEnd, updateLastAction, updateScrollTop, updateToolbarStatus, updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
 
 const ToolbarExpanded = () => {
     const dispatch = useDispatch()
@@ -34,9 +18,9 @@ const ToolbarExpanded = () => {
     const currentDepth = useSelector(selectCurrentDepth)
     const maxDepth = useSelector(selectMaxDepth)
     const lastAction = useSelector(selectLastAction)
-
     const toolbarStatus = useSelector(selectToolbarStatus)
-    const isToolbarDrag = useSelector(selectIsToolbarDrag)
+
+    const zoomPercentage = Math.floor(currentDepth / maxDepth * 100)
 
     let isLoading = true
     if (lastAction === 'zoom' || lastAction === 'scroll') {setTimeout(() => {isLoading = false}, 500)}
@@ -64,7 +48,6 @@ const ToolbarExpanded = () => {
             }
             return {...currentEvents[order], order: order, top: top, boxTop: boxTop}
         }
-
         const fetchEvents = async (depth: number, pivotEvent: TimelineEvent) => {
             if (depth === maxDepth + 1 || depth === -1) return {fetchedEvents: currentEvents, referEvent: pivotEvent}
             try {
@@ -87,7 +70,6 @@ const ToolbarExpanded = () => {
                 return {fetchedEvents: currentEvents, referEvent: pivotEvent}
             }
         }
-
         const getEventsWithEffectForZoom = (depth: number, swipedEvent: TimelineEvent, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[])=> {
             const referEventOrderInFetched = fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)
             const heightsOfFetchedEvents = getEventHeights(fetchedEvents)
@@ -152,7 +134,7 @@ const ToolbarExpanded = () => {
             return {newScrollTop: newScrollTop, totalHeight: sum(heightsOfFetchedEvents)}
         }
         const operateZoom = (classNames: DOMTokenList) => {
-            let depth = classNames.contains('first') ? 0 : classNames.contains('prev') ? currentDepth - 1 : classNames.contains('next') ? currentDepth + 1 : maxDepth
+            let depth = classNames.contains('first') ? 0 : classNames.contains('zoomOut') ? currentDepth - 1 : classNames.contains('zoomIn') ? currentDepth + 1 : maxDepth
             let swipedEvent: TimelineEvent = getSwipedEvent(scrollWrapper)
             fetchEvents(depth, swipedEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
                 if (fetchedEvents === currentEvents) return
@@ -169,14 +151,17 @@ const ToolbarExpanded = () => {
                     dispatch(updateIsTopEnd(isTopEnd))
                     dispatch(updateIsBottomEnd(isBottomEnd))
                 }
-                classNames.contains('first') ? dispatch(updateCurrentDepth(0)) : classNames.contains('prev') ? dispatch(decrementDepth()) : classNames.contains('next') ? dispatch(incrementDepth()) : dispatch(updateCurrentDepth(maxDepth))
+                classNames.contains('first') ? dispatch(updateCurrentDepth(0)) : classNames.contains('zoomOut') ? dispatch(decrementDepth()) : classNames.contains('zoomIn') ? dispatch(incrementDepth()) : dispatch(updateCurrentDepth(maxDepth))
             })
         }
 
         const handleClick = async (e: MouseEvent) => {
             const toolbarButton = e.currentTarget as HTMLButtonElement
             const classNames = toolbarButton.classList
-            let type = classNames.contains('first') ? 'first' : classNames.contains('prev') ? 'prev' : classNames.contains('next') ? 'next' : 'last'
+            if (classNames.contains('status')) {
+                // dispatch(updateToolbarStatus('shrink'))
+                return
+            }
             if (!isLoading) {
                 isLoading = true
                 await operateZoom(classNames)
@@ -190,27 +175,12 @@ const ToolbarExpanded = () => {
         }
     });
 
-
-    // temporary drag event test
-    const handleDragStart = (e: React.DragEvent) => {
-    //     const toolbarShrunk = document.querySelector('.shrunk')
-    //     if (!toolbarShrunk) return
-    //
-    //     e.dataTransfer.setDragImage(toolbarShrunk,20,20)
-    //     dispatch(updateIsToolbarDrag(true))
-    }
-    const handleDragEnd = () => {
-        // dispatch(updateIsToolbarDrag(false))
-    }
-
     return (
-        <div draggable onDragStart={(e) => handleDragStart(e)} onDragEnd={handleDragEnd} onDragEnter={(e) => e.preventDefault()} onDragOver={(e) => e.preventDefault()} className={`${isToolbarDrag ? 'opacity-0' : ''} ${toolbarStatus === "expand" ? 'bottom-[22px]' : 'bottom-[-25px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-[180px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md`} style={{zIndex: 4999}}>
+        <div className={`${toolbarStatus === "expand" ? 'bottom-[22px]' : 'bottom-[-40px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-[140px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md`} style={{zIndex: 4999}}>
             <div className={'flex items-center'}>
-                <button className={'toolbarButton last px-[6px]'}><Image src={FirstPageSVG} alt={'last depth'} draggable={false} /></button>
-                <button className={'toolbarButton next px-[12px] '}><Image src={NavigateBeforeSVG} alt={'plus one depth'}  draggable={false}/></button>
-                {/*<button onClick={() => dispatch(updateIsTimelineInfo())} className={'px-[7px] border-x-[1px]'}><Image src={HorizontalSplitSVG} alt={'timeline menu'}  draggable={false}/></button>*/}
-                <button className={'toolbarButton prev px-[12px] border-l-[0.1px]'}><Image src={NavigateNextSVG} alt={'minus one depth'}  draggable={false}/></button>
-                <button className={'toolbarButton first px-[6px]'}><Image src={LastPageSVG} alt={'first depth'} draggable={false}/></button>
+                <button className={'toolbarButton zoomIn px-[6px] '}><Image src={AddSVG} alt={'plus'} draggable={false}/></button>
+                <button className={'toolbarButton status w-[38px] mx-[6px] text-[14px] font-semibold flex justify-center'}>{zoomPercentage + '%'}</button>
+                <button className={'toolbarButton zoomOut px-[6px]'}><Image src={RemoveSVG} alt={'minus'} draggable={false}/></button>
             </div>
         </div>
     );
