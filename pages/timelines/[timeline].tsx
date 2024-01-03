@@ -10,6 +10,7 @@ import React from "react";
 import ToolbarExpanded from "@/components/timelineToolbar/toolbarExpanded";
 import ToolbarShrunk from "@/components/timelineToolbar/toolbarShrunk";
 import {useSelector} from "react-redux";
+import DynamicHead from "@/components/dynamicHead";
 // refactoring: clear
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
@@ -42,10 +43,7 @@ const TimelinePage = () => {
 
     return (
         <>
-            <Head>
-                <title>{currentTimeline.name} | Timeline</title>
-                <meta name="description" content={currentTimeline.name} />
-            </Head>
+            <DynamicHead type={'timeline'}/>
             <div className={'page'}>
                 <Timeline/>
                 <ToolbarExpanded />
