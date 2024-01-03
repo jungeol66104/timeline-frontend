@@ -24,7 +24,7 @@ const SearchHeader = () => {
         const fetchSearchResults = async (query: any) => {
             // initial timelines and events must be fetched
             if (query === '') {
-                const initialTimelines = [{"id": 1, "name": "조 바이든"}]
+                const initialTimelines = [{"id": 1, "name": "조 바이든"},{"id": 2, "name": "도널드 트럼프"},{"id": 3, "name": "시진핑"},{"id": 4, "name": "윤숙열"},{"id": 5, "name": "문재인"}]
                 return { timelines: initialTimelines, events: [] }
             }
             try {

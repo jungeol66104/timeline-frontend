@@ -7,7 +7,7 @@ const initialState = {
     isSearch: false,
     searchValue: '',
     tab: 'timeline',
-    searchedTimelines: [{"id": 1, "name": "조 바이든"}],
+    searchedTimelines: [{"id": 1, "name": "조 바이든"},{"id": 2, "name": "도널드 트럼프"},{"id": 3, "name": "시진핑"},{"id": 4, "name": "윤숙열"},{"id": 5, "name": "문재인"}],
     searchedEvents: []
 } as initialSearchState
 
