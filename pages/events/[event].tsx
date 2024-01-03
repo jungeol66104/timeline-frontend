@@ -23,9 +23,10 @@ const EventPage = () => {
     return (
         <div className={'page'}>
             <div className={'mt-5 mb-5 z-40 flex flex-col gap-10'}>
-                <div className={'flex flex-col gap-2.5'}>
-                    <h1 className={'text-2xl font-black'}>{currentEvent.name}</h1>
-                    <p>{currentEvent.description}</p>
+                <div className={'flex flex-col'}>
+                    <span className={'text-md font-semibold text-gray-500'}>{currentEvent.date}</span>
+                    <h1 className={'mt-1 text-2xl font-black'}>{currentEvent.name}</h1>
+                    <p className={'mt-2.5'}>{currentEvent.description}</p>
                 </div>
                 <div className={'flex flex-col gap-2.5'}>
                     <h2 className={'text-lg font-semibold'}>연관된 타임라인</h2>

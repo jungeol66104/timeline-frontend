@@ -6,7 +6,7 @@ import SearchBody from "@/components/layout/searchBody";
 const Search = () => {
 
     return (
-        <div className={'fixed top-[60px] pt-2.5 left-0 w-screen bg-white'} style={{height: 'calc(100% - 60px)', zIndex: 5000}}>
+        <div className={'fixed top-[60px] pt-2.5 left-0 w-screen bg-white'} style={{height: 'calc(100% - 60px)', zIndex: 4999}}>
             <SearchHeader />
             <SearchBody />
         </div>

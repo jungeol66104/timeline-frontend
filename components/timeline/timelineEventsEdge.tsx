@@ -11,9 +11,9 @@ const TimelineEventsEdge = ({type, isEnd} : {type: string, isEnd: boolean}) => {
                 ? <div className={'h-[15px] w-[15px] rounded-full border-gray-600 border-l-white border-2 animate-spin '}></div>
                 : type === 'top'
                     ? <div className={'text-2xl font-semibold'}>{currentTimeline.name}</div>
-                    : <div className={'text-xs text-gray-400 text-center'}>
-                        현재 줌 상태의 마지막 이벤트입니다. <br/>
-                        좌-우 스와이프로 줌인해보세요.
+                    : <div className={'text-xs text-center'}>
+                        <b>마지막 이벤트</b><br/>
+                        줌 상태를 변경해보세요.
                     </div>
             }
         </div>

@@ -6,6 +6,8 @@ import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight} fr
 import Timeline from "@/components/timeline/timeline";
 import api from "@/utils/api"
 import React from "react";
+import ToolbarExpanded from "@/components/timelineToolbar/toolbarExpanded";
+import ToolbarShrunk from "@/components/timelineToolbar/toolbarShrunk";
 // refactoring: clear
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
@@ -37,6 +39,8 @@ const TimelinePage = () => {
     return (
         <div className={'page'}>
             <Timeline/>
+            <ToolbarExpanded />
+            {/*<ToolbarShrunk />*/}
         </div>
     )
 }

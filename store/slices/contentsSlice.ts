@@ -4,6 +4,7 @@ import {RootState} from "@/store/rootReducer";
 
 // values before any dispatch
 const initialState = {
+    language: "en",
     currentTimeline: {id: 1, name: '타임라인_1'},
     currentEvent: {id: 1, name: '', description: '', date: '', julianDate: 0, importance: 0, depth: 0, timelineInfo: [], overlap: 0, isToggle: false, toggleEvents: []},
     currentEvents: [],
@@ -16,6 +17,9 @@ const contentsSlice = createSlice({
     name: 'contents',
     initialState,
     reducers: {
+        updateLanguage: (state, action) => {
+            state.language = action.payload
+        },
         updateCurrentTimeline: (state, action) => {
             state.currentTimeline = action.payload
         },
@@ -40,10 +44,11 @@ const contentsSlice = createSlice({
     },
 });
 export default contentsSlice.reducer;
-export const { updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect, updateIsToggle, updateToggleEvents, } = contentsSlice.actions;
+export const { updateLanguage,updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect, updateIsToggle, updateToggleEvents, } = contentsSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
+export const selectLanguage = (state: RootState) => state.contents.language
 export const selectCurrentTimeline = (state: RootState) => state.contents.currentTimeline
 export const selectCurrentEvent = (state: RootState) => state.contents.currentEvent
 export const selectCurrentEvents = (state: RootState) => state.contents.currentEvents
@@ -52,6 +57,7 @@ export const selectPrevEventsWithEffect = (state: RootState) => state.contents.p
 
 // types
 export interface initialContentsState {
+    language: "en" | "kr"
     currentTimeline: {id: number, name: string}
     currentEvent: TimelineEvent,
     currentEvents: TimelineEvent[],

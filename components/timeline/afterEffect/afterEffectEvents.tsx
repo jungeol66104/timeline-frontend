@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 import {TimelineEvent} from "@/store/slices/contentsSlice";
-import AfterEventBox from "@/components/timeline/afterEventBox";
+import AfterEventBox from "@/components/timeline/afterEffect/afterEventBox";
 import {selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
 import {selectAfterEffectTop, selectTotalHeight} from "@/store/slices/appearanceSlice";
 // refactoring: needed (alignment problem of toggled prevEvent with currentEvent when it is at the end)

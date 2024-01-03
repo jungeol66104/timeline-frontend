@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
-// refactoring: clear
+// refactoring: needed (separation logic maybe?)
 
 // values before any dispatch
 const initialState = {
@@ -15,9 +15,11 @@ const initialState = {
     scrollTop: 0,
     afterEffectTop: 0,
     totalHeight: 0,
+    isTimelineInfo: false,
+    toolbarStatus: "expand",
 } as initialAppearanceState
 
-// part of the store as a whole, related with the app's appearance such as layout and effects
+// part of the store as a whole, related with the app's appearance such as timelineToolbar and effects
 const appearanceSlice = createSlice({
     name: 'appearance',
     initialState,
@@ -52,10 +54,16 @@ const appearanceSlice = createSlice({
         updateTotalHeight: (state, action) => {
             state.totalHeight = action.payload
         },
+        updateIsTimelineInfo: state => {
+            state.isTimelineInfo = !state.isTimelineInfo
+        },
+        updateToolbarStatus: (state, action) => {
+            state.toolbarStatus = action.payload
+        }
     },
 });
 export default appearanceSlice.reducer;
-export const {updateIsTopEnd, updateIsBottomEnd, incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight } = appearanceSlice.actions;
+export const {updateIsTopEnd, updateIsBottomEnd, incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight, updateIsTimelineInfo , updateToolbarStatus} = appearanceSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
@@ -70,6 +78,8 @@ export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectAfterEffectTop = (state: RootState) => state.appearance.afterEffectTop
 export const selectLastAction = (state: RootState) => state.appearance.lastAction
 export const selectTotalHeight = (state: RootState) => state.appearance.totalHeight
+export const selectIsTimelineInfo = (state: RootState) => state.appearance.isTimelineInfo
+export const selectToolbarStatus = (state: RootState) => state.appearance.toolbarStatus
 
 // types
 export interface initialAppearanceState {
@@ -87,4 +97,6 @@ export interface initialAppearanceState {
     scrollTop: number
     afterEffectTop: number
     totalHeight: number
+    isTimelineInfo: boolean
+    toolbarStatus: "expand" | "shrink"
 }
