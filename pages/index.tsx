@@ -1,5 +1,12 @@
 // refactoring: clear
 
+import DynamicHead from "@/components/dynamicHead";
+
 export default function Home() {
-    return <div className={'page'}></div>
+    return (
+        <>
+            <DynamicHead type={'index'}/>
+            <div className={'page'}></div>
+        </>
+    )
 }

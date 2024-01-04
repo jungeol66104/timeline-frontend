@@ -39,8 +39,6 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
     }
 })
 const TimelinePage = () => {
-    const currentTimeline = useSelector(selectCurrentTimeline)
-
     return (
         <>
             <DynamicHead type={'timeline'}/>
