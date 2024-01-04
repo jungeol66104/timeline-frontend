@@ -7,7 +7,7 @@ const DynamicHead = ({type}: {type: string} ) => {
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvent = useSelector(selectCurrentEvent)
     const title = type === "timeline" ? `${currentTimeline.name} | Timeline` : type === "event" ? `${currentEvent.name} | Timeline` : "Timeline"
-    const description = type === "timeline" ? `The timeline of ${currentTimeline.name}` : type === "event" ? `${currentEvent.description}` : "Discover dynamic timelines. Unveiling history and diverse subjects in a clean, interactive format. Explore past, present, and future seamlessly with our engaging timelines."
+    const description = type === "timeline" ? `${currentTimeline.name}에 대한 타임라인` : type === "event" ? `${currentEvent.description}` : "Discover dynamic timelines. Unveiling history and diverse subjects in a clean, interactive format. Explore past, present, and future seamlessly with our engaging timelines."
     const url = type === "timeline" ? `https://timeline.vg/timelines/${currentTimeline.id}` : type === "event" ? `https://timeline.vg/events/${currentEvent.id}` : "https://timeline.vg"
 
     return (
