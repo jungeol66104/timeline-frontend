@@ -11,7 +11,6 @@ function App({ Component, ...rest }: AppProps) {
     const {store, props} = storeWrapper.useWrappedStore(rest)
     return (
         <Provider store={store}>
-            <DynamicHead type={'index'}/>
             <Layout>
                   <Component {...props.pageProps} />
             </Layout>

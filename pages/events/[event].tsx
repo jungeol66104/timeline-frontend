@@ -5,6 +5,7 @@ import {selectCurrentEvent, updateCurrentEvent} from "@/store/slices/contentsSli
 import api from "@/utils/api"
 import Head from "next/head";
 import React from "react";
+import DynamicHead from "@/components/dynamicHead";
 // refactoring: clear
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
@@ -24,10 +25,7 @@ const EventPage = () => {
 
     return (
         <>
-            <Head>
-                <title>{currentEvent.name} | Timeline</title>
-                <meta name="description" content={currentEvent.description} />
-            </Head>
+            <DynamicHead type={'event'}/>
             <div className={'page'}>
                 <div className={'mt-5 mb-5 z-40 flex flex-col gap-10'}>
                     <div className={'flex flex-col'}>
