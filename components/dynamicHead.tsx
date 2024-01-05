@@ -21,12 +21,12 @@ const DynamicHead = ({type}: {type: string} ) => {
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
             <meta property="og:url" content={url} />
-            <meta property="og:image" content="/image/ogImage.png" />
+            <meta property="og:image" content="/images/ogImage.png" />
             <meta property="og:type" content="website" />
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
-            <meta name="twitter:image" content="/image/twitterImage.png" />
+            <meta name="twitter:image" content="/images/twitterImage.png" />
             <link rel="canonical" href={url} />
             <link rel="shortcut icon" href="/images/favicon.ico" />
             <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
