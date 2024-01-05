@@ -1,7 +1,8 @@
 import React from 'react';
-import Head from 'next/head'
 import {useSelector} from "react-redux";
+import Head from 'next/head'
 import {selectCurrentEvent, selectCurrentTimeline} from "@/store/slices/contentsSlice";
+// refactoring: needed (make perfect description for the page)
 
 const DynamicHead = ({type}: {type: string} ) => {
     const currentTimeline = useSelector(selectCurrentTimeline)
@@ -26,11 +27,10 @@ const DynamicHead = ({type}: {type: string} ) => {
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
             <meta name="twitter:image" content="/twitterImage.png" />
-            <link rel="canonical" href="https://timeline.vg" />
+            <link rel="canonical" href={url} />
             <link rel="icon" href="/favicon.ico" type="image/x-icon" />
             <title>{title}</title>
         </Head>
     );
 };
-
 export default DynamicHead;
