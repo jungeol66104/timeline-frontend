@@ -1,7 +1,6 @@
 import DynamicHead from "@/components/dynamicHead";
 // refactoring: clear
 
-
 export default function Home() {
     return (
         <>

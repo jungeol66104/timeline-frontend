@@ -1,16 +1,13 @@
-import Head from 'next/head'
-import {storeWrapper} from "@/store/store";
 import {sum, getEventHeights} from "@/utils/global";
-import {selectCurrentTimeline, TimelineEvent} from "@/store/slices/contentsSlice"
-import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight} from "@/store/slices/appearanceSlice";
-import Timeline from "@/components/timeline/timeline";
 import api from "@/utils/api"
 import React from "react";
-import ToolbarExpanded from "@/components/timelineToolbar/toolbarExpanded";
-import ToolbarShrunk from "@/components/timelineToolbar/toolbarShrunk";
-import {useSelector} from "react-redux";
+import {storeWrapper} from "@/store/store";
+import {TimelineEvent} from "@/store/slices/contentsSlice"
+import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
+import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
+import Timeline from "@/components/timeline/timeline";
+import ToolbarExpanded from "@/components/timelineToolbar/toolbarExpanded";
 // refactoring: clear
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
