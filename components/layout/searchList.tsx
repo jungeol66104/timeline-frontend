@@ -1,23 +1,19 @@
 import SearchContent from "@/components/layout/searchContent";
 import React from "react";
 import {useSelector} from "react-redux";
-import {selectSearchedEvents, selectSearchedTimelines} from "@/store/slices/searchSlice";
+import {selectSearchedEvents, selectSearchedTimelines, selectTab} from "@/store/slices/searchSlice";
 // refactoring: clear
 
-const SearchList = ({type}: {type: string}) => {
-
+const SearchList = () => {
+    const tab = useSelector(selectTab)
     const searchedTimelines = useSelector(selectSearchedTimelines)
     const searchedEvents = useSelector(selectSearchedEvents)
-    let TimelinesOrEvents = type === 'timeline' ? searchedTimelines : searchedEvents
+    const searchResults = tab === 'timeline' ? searchedTimelines : searchedEvents
 
     return (
-        <div className={'page'} style={{width: `calc(100vw - 32px)`, margin: '0 16px'}}>
-            {TimelinesOrEvents.map((timelineOrEvent, i) => {
-                return (
-                    type === 'timeline'
-                        ? <SearchContent timeline={timelineOrEvent} key={i}/>
-                        : <SearchContent event={timelineOrEvent} key={i}/>
-                )
+        <div className={'w-full'} style={{maxWidth: '480px'}}>
+            {searchResults.map((searchResult, i) => {
+                return <SearchContent searchResult={searchResult} key={i}/>
             })}
         </div>
     )

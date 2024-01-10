@@ -5,13 +5,9 @@ import SearchList from "@/components/layout/searchList";
 // refactoring: clear
 
 const SearchBody = () => {
-    const tab = useSelector(selectTab)
-
     return (
-        // <div className={`flex w-fit transform transition-transform ease-in-out duration-300 ${tab === 'timeline' ? 'translate-x-0' : '-translate-x-1/2'}`} style={{height: `calc(100% - 93px)`}}>
-        <div className={`flex w-fit transform ${tab === 'timeline' ? 'translate-x-0' : '-translate-x-1/2'}`} style={{height: `calc(100% - 93px)`}}>
-            <SearchList type={"timeline"}/>
-            <SearchList type={"event"}/>
+        <div className={`flex w-full overflow-y-auto`} style={{height: `calc(100% - 93px)`}}>
+            <SearchList/>
         </div>
     )
 }

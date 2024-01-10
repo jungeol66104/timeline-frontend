@@ -3,15 +3,18 @@ import Link from "next/link";
 import Image from "next/image";
 import NorthwestSVG from "@/public/svg/northwest.svg";
 import React from "react";
+import {useSelector} from "react-redux";
+import {selectTab} from "@/store/slices/searchSlice";
 // refactoring: clear
 
-const SearchContent = ({timeline, event}: {timeline?: any,event?: TimelineEvent}) => {
+const SearchContent = ({searchResult}: {searchResult: any}) => {
+    const tab = useSelector(selectTab)
+
     return (
-        <Link href={ timeline ? `/timelines/${timeline.id}` : `/events/${event?.id}`}>
+        <Link href={ tab === 'timeline' ? `/timelines/${searchResult.id}` : `/events/${searchResult.id}`}>
             <div className={'flex items-center pt-[12px] pb-[12px] gap-2.5'}>
-                <div><Image src={NorthwestSVG} alt={'northwest'} width={20} height={20} /></div>
-                <div className={'font-black flex-1 line-clamp-1'} >{event ? event.name : timeline.name }</div>
-                <div className={'text-sm text-gray-500'}>{event ? event.date :`#`}</div>
+                <div className={'font-black flex-1 line-clamp-1'} >{searchResult.name}</div>
+                <div className={'text-sm text-gray-500'}>{tab === 'timeline' ? "" : searchResult.date}</div>
             </div>
         </Link>
     )
