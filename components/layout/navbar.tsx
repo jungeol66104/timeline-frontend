@@ -36,7 +36,7 @@ const Navbar = () => {
     });
 
     return (
-        <div className={'fixed top-0 left-0 h-[60px] w-full bg-white pr-5 pl-5 shadow-md flex items-center justify-between'} style={{zIndex: 5000}}>
+        <div className={'fixed top-0 left-1/2 transform -translate-x-1/2 h-[60px] w-full max-w-lg bg-white pr-5 pl-5 shadow-md flex items-center justify-between'} style={{zIndex: 5000}}>
             <Link href={navbarTitle === 'Timeline' ? '/' : `/timelines/${currentTimeline.id}`} className={`font-black text-2xl transform transition-opacity ease-in-out duration-300`}>{navbarTitle}</Link>
             <div className={'flex items-center gap-2.5'}>
                 <button onClick={() => dispatch(updateIsSearch())}>
