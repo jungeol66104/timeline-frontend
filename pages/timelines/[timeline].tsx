@@ -40,6 +40,7 @@ const TimelinePage = () => {
         <>
             <DynamicHead type={'timeline'}/>
             <div className={'page'}>
+                {/*<div className={'absolute w-[60px] h-[60px] bg-black z-[5000] left-[-20px]'}></div>*/}
                 <Timeline/>
                 <ToolbarExpanded />
                 {/*<ToolbarShrunk />*/}

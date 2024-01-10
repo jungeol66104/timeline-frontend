@@ -1,5 +1,6 @@
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
+import TimelineHeader from "@/components/timeline/timeilneHeader";
 // refactoring: clear
 
 const TimelineEventsEdge = ({type, isEnd} : {type: string, isEnd: boolean}) => {
@@ -10,7 +11,7 @@ const TimelineEventsEdge = ({type, isEnd} : {type: string, isEnd: boolean}) => {
             { !isEnd
                 ? <div className={'h-[15px] w-[15px] rounded-full border-gray-600 border-l-white border-2 animate-spin '}></div>
                 : type === 'top'
-                    ? <div className={'text-2xl font-semibold'}>{currentTimeline.name}</div>
+                    ? <TimelineHeader />
                     : <div className={'text-xs text-center'}>
                         <b>마지막 이벤트</b><br/>
                         줌 상태를 변경해보세요.
