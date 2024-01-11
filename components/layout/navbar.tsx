@@ -9,6 +9,7 @@ import { selectIsTopEnd} from "@/store/slices/appearanceSlice";
 import SearchSVG from "@/public/svg/search.svg";
 import CloseSVG from "@/public/svg/close.svg";
 import MenuSVG from "@/public/svg/menu.svg";
+import TimelineHeader from "@/components/timeline/timeilneHeader";
 // refactoring: clear
 
 const Navbar = () => {
@@ -37,7 +38,13 @@ const Navbar = () => {
 
     return (
         <nav className={'navbar fixed top-0 left-1/2 transform -translate-x-1/2 h-[60px] w-full max-w-lg bg-white pr-5 pl-5 shadow-md flex items-center justify-between'} style={{zIndex: 5000}}>
-            <Link href={navbarTitle === 'Timeline' ? '/' : `/timelines/${currentTimeline.id}`} className={`font-black text-2xl transform transition-opacity ease-in-out duration-300`}>{navbarTitle}</Link>
+            <Link href={navbarTitle === 'Timeline' ? '/' : `/timelines/${currentTimeline.id}`} className={`relative w-full font-black text-2xl transform transition-opacity ease-in-out duration-300`}>
+                {navbarTitle === "Timeline"
+                    ? navbarTitle
+                    : <div className={'flex gap-2.5 items-center'}><div className={'w-[28px] h-[28px] top-0 right-0'}><Image className={'rounded-sm'} src={`/images/timeline/${currentTimeline.id}.png`} alt={`${currentTimeline.name}`} width={28} height={28} /></div>
+                        <div className={'text-2xl font-semibold'}>{currentTimeline.name}</div></div>
+                }
+            </Link>
             <div className={'flex items-center gap-2.5'}>
                 <button onClick={() => dispatch(updateIsSearch())}>
                     {!isHome ? !isSearch ? <Image src={SearchSVG} alt={'search'} width={24} height={24} /> : <Image src={CloseSVG} alt={'close'} width={24} height={24} /> : <></> }
