@@ -15,7 +15,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
         <div className={'layout pt-[60px]'}>
             <Navbar />
             <>{children}</>
-            { (isHome || isSearch) ? <Search /> : <></> }
+            { (isSearch) ? <Search /> : <></> }
         </div>
     )
 }
