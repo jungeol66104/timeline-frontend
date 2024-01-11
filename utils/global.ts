@@ -28,3 +28,4 @@ export const getClickOrTouch = () => {
     if (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement) clickOrTouchend = 'touchend'
     return clickOrTouchend
 }
+

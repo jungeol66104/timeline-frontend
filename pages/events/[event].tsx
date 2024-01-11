@@ -26,7 +26,7 @@ const EventPage = () => {
         <>
             <DynamicHead type={'event'}/>
             <div className={'page'}>
-                <div className={'mt-5 mb-5 z-40 flex flex-col gap-10'}>
+                <div className={'mt-5 mb-5 z-40 flex flex-col gap-10 mx-[20px]'}>
                     <div className={'flex flex-col'}>
                         <span className={'text-md font-semibold text-gray-500'}>{currentEvent.date}</span>
                         <h1 className={'mt-1 text-2xl font-black'}>{currentEvent.name}</h1>
