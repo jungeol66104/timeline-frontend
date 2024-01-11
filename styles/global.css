@@ -44,9 +44,29 @@ html {
     height: 100%;
 }
 
-@media screen and (min-width: 512px) {
+/* responsive, temporary */
+@media (min-width: 0px) {
+    .swiperCard {
+        width: calc((100% - 20px)/2.3);
+        padding-top: calc((100% - 20px)/2.3);
+        margin-right: calc((100% - 20px)/23)
+    }
+    .swiperContainer > .swiperCard:last-child {
+        margin-right: 0
+    }
+}
+
+@media (min-width: 520px) {
     body, .search, .navbar {
         border-left: 0.1px solid #d1d5db; /* Left border color and width */
         border-right: 0.1px solid #d1d5db; /* Right border color and width */
+    }
+    .swiperCard {
+        width: calc((100% - 20px)/3.3);
+        padding-top: calc((100% - 20px)/3.3);
+        margin-right: calc((100% - 20px)/33)
+    }
+    .swiperContainer > .swiperCard:last-child {
+        margin-right: 0
     }
 }
