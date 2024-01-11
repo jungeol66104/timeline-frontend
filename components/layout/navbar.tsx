@@ -43,7 +43,7 @@ const Navbar = () => {
                     ? navbarTitle
                     : <div className={'flex gap-2.5 items-center'}>
                         <div className={'text-2xl font-semibold'}>{currentTimeline.name}</div>
-                        <div className={'w-[24px] h-[24px] top-0 right-0 mb-[1px]'}><Image className={'rounded-sm'} src={`/images/timeline/${currentTimeline.id}.png`} alt={`${currentTimeline.name}`} width={28} height={28} /></div>
+                        <div className={'w-[24px] h-[24px] top-0 right-0 mb-[0.5px]'}><Image className={'rounded-sm'} src={`/images/timeline/${currentTimeline.id}.png`} alt={`${currentTimeline.name}`} width={28} height={28} priority={true}/></div>
                     </div>
                 }
             </Link>
