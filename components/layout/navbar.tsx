@@ -41,8 +41,10 @@ const Navbar = () => {
             <Link href={navbarTitle === 'Timeline' ? '/' : `/timelines/${currentTimeline.id}`} className={`relative w-full font-black text-2xl transform transition-opacity ease-in-out duration-300`}>
                 {navbarTitle === "Timeline"
                     ? navbarTitle
-                    : <div className={'flex gap-2.5 items-center'}><div className={'w-[28px] h-[28px] top-0 right-0'}><Image className={'rounded-sm'} src={`/images/timeline/${currentTimeline.id}.png`} alt={`${currentTimeline.name}`} width={28} height={28} /></div>
-                        <div className={'text-2xl font-semibold'}>{currentTimeline.name}</div></div>
+                    : <div className={'flex gap-2.5 items-center'}>
+                        <div className={'text-2xl font-semibold'}>{currentTimeline.name}</div>
+                        <div className={'w-[24px] h-[24px] top-0 right-0 mb-[1.5px]'}><Image className={'rounded-sm'} src={`/images/timeline/${currentTimeline.id}.png`} alt={`${currentTimeline.name}`} width={28} height={28} /></div>
+                    </div>
                 }
             </Link>
             <div className={'flex items-center gap-2.5'}>
