@@ -13,7 +13,7 @@ const SearchContent = ({searchResult}: {searchResult: any}) => {
     return (
         <Link href={ tab === 'timeline' ? `/timelines/${searchResult.id}` : `/events/${searchResult.id}`}>
             <div className={'flex items-center pt-[6px] pb-[6px] gap-2.5'}>
-                {tab === 'timeline' && <div className={'searchImage w-[28px] h-[28px] relative'}><Image className={'rounded-sm'} src={`/images/timeline/${searchResult.id}.png`} alt={`${searchResult.name}`} width={28} height={28} /></div>}
+                {tab === 'timeline' && <div className={'searchImage w-[28px] h-[28px] relative'}><Image className={'rounded-sm'} src={`/images/timeline/${searchResult.id}.png`} alt={`${searchResult.name}`} width={28} height={28} priority={true}/></div>}
                 <div className={'font-medium flex-1 line-clamp-1'} >{searchResult.name}</div>
                 <div className={'text-sm text-gray-500'}>{tab === 'timeline' ? "" : searchResult.date}</div>
             </div>
