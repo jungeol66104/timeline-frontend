@@ -31,6 +31,8 @@ const Navbar = () => {
             else setNavbarTitle(currentTimeline.name)
         }
 
+        if(scrollWrapper.scrollTop === 0) setNavbarTitle('Timeline')
+
         scrollWrapper.addEventListener("scroll", handleScroll)
         return () => {
             scrollWrapper.removeEventListener("scroll", handleScroll)
