@@ -9,7 +9,7 @@ const Swiper = () => {
                 <div className={'text-sm text-gray-500'}>되풀이되는 금융의 역사를 보고싶다면</div>
                 <div className={'text-2xl font-bold'}>금융 위기</div>
             </div>
-            <div className={'swiperContainer flex px-5 w-full mt-2.5 overflow-x-scroll'}>
+            <div className={'swiperContainer w-full flex px-5 pb-2.5 mt-2.5 overflow-x-scroll'}>
                 <SwiperCard />
                 <SwiperCard />
                 <SwiperCard />

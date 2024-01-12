@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const SwiperCard = () => {
     return (
-        <div className={'swiperCard relative shrink-0 border-[0.1px] border-gray-300 rounded-xl shadow-md'} >
+        <div className={'swiperCard relative shrink-0 rounded-xl shadow-md'} >
             <Image src={'/images/timeline/1.png'} alt={'Joe Biden'} fill className={'rounded-xl'}/>
             <div className={'absolute top-0 left-0 w-full h-full rounded-xl bg-gradient-to-b from-transparent via-50% via-transparent to-black opacity-80'}></div>
             <div className={'absolute bottom-0 left-0 w-full p-2.5 font-semibold text-white'}>
