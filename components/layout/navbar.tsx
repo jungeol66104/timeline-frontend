@@ -26,7 +26,8 @@ const Navbar = () => {
         if (!scrollWrapper) return
 
         const handleScroll = () => {
-            if ((scrollWrapper.scrollTop < 60 && isTopEnd) || isSearch) setNavbarTitle('Timeline')
+            if (isHome) return
+            if (scrollWrapper.scrollTop < 60 && isTopEnd) setNavbarTitle('Timeline')
             else setNavbarTitle(currentTimeline.name)
         }
 
@@ -49,7 +50,7 @@ const Navbar = () => {
             </Link>
             <div className={'flex items-center gap-2.5'}>
                 <button onClick={() => dispatch(updateIsSearch())}>
-                    {!isHome ? !isSearch ? <Image src={SearchSVG} alt={'search'} width={24} height={24} /> : <Image src={CloseSVG} alt={'close'} width={24} height={24} /> : <></> }
+                    {!isSearch ? <Image src={SearchSVG} alt={'search'} width={24} height={24} /> : <Image src={CloseSVG} alt={'close'} width={24} height={24} />}
                 </button>
                 <button className={'hidden'}>
                     <Image src={MenuSVG} alt={'menu'} width={24} height={24} />

@@ -12,6 +12,9 @@ export default function Home() {
                     return <Swiper key={i} series={series}/>
                 })}
             </div>
+            <div className={'footer'}>
+
+            </div>
         </>
     )
 }
