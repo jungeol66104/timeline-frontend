@@ -3,7 +3,7 @@ import {TimelineEvent} from "@/store/slices/contentsSlice";
 import EventBox from "@/components/timeline/eventBox";
 import {selectCurrentEventsWithEffect} from "@/store/slices/contentsSlice";
 import TimelineEventsEdge from "@/components/timeline/timelineEventsEdge";
-import React from "react";
+import React, {Suspense} from "react";
 import {selectIsBottomEnd, selectIsTopEnd} from "@/store/slices/appearanceSlice";
 // refactoring: clear
 

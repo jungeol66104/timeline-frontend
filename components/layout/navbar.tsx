@@ -26,9 +26,12 @@ const Navbar = () => {
         if (!scrollWrapper) return
 
         const handleScroll = () => {
-            if ((scrollWrapper.scrollTop < 60 && isTopEnd) || isSearch) setNavbarTitle('Timeline')
+            if (isHome) return
+            if (scrollWrapper.scrollTop < 60 && isTopEnd) setNavbarTitle('Timeline')
             else setNavbarTitle(currentTimeline.name)
         }
+
+        if(scrollWrapper.scrollTop === 0) setNavbarTitle('Timeline')
 
         scrollWrapper.addEventListener("scroll", handleScroll)
         return () => {
@@ -38,7 +41,7 @@ const Navbar = () => {
 
     return (
         <nav className={'navbar fixed top-0 left-1/2 transform -translate-x-1/2 h-[60px] w-full max-w-lg bg-white pr-5 pl-5 shadow-md flex items-center justify-between'} style={{zIndex: 5000}}>
-            <Link href={navbarTitle === 'Timeline' ? '/' : `/timelines/${currentTimeline.id}`} className={`relative w-full font-black text-2xl transform transition-opacity ease-in-out duration-300`}>
+            <Link href={navbarTitle === 'Timeline' ? '/' : `/timelines/${currentTimeline.id}`} className={`relative w-fit font-black text-2xl transform transition-opacity ease-in-out duration-300`}>
                 {navbarTitle === "Timeline"
                     ? navbarTitle
                     : <div className={'flex gap-2.5 items-center'}>
@@ -49,7 +52,7 @@ const Navbar = () => {
             </Link>
             <div className={'flex items-center gap-2.5'}>
                 <button onClick={() => dispatch(updateIsSearch())}>
-                    {!isHome ? !isSearch ? <Image src={SearchSVG} alt={'search'} width={24} height={24} /> : <Image src={CloseSVG} alt={'close'} width={24} height={24} /> : <></> }
+                    {!isSearch ? <Image src={SearchSVG} alt={'search'} width={24} height={24} /> : <Image src={CloseSVG} alt={'close'} width={24} height={24} />}
                 </button>
                 <button className={'hidden'}>
                     <Image src={MenuSVG} alt={'menu'} width={24} height={24} />
