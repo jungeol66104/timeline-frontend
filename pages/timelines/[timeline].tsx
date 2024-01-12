@@ -1,6 +1,6 @@
 import {sum, getEventHeights} from "@/utils/global";
 import api from "@/utils/api"
-import React from "react";
+import React, {Suspense} from "react";
 import {storeWrapper} from "@/store/store";
 import {TimelineEvent} from "@/store/slices/contentsSlice"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
@@ -8,6 +8,7 @@ import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight} fr
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
 import ToolbarExpanded from "@/components/timelineToolbar/toolbarExpanded";
+import {updateIsSearch} from "@/store/slices/searchSlice";
 // refactoring: clear
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
@@ -41,8 +42,8 @@ const TimelinePage = () => {
             <DynamicHead type={'timeline'}/>
             <div className={'page'}>
                 {/*<div className={'absolute w-[60px] h-[60px] bg-black z-[5000] left-[-20px]'}></div>*/}
-                <Timeline/>
-                <ToolbarExpanded />
+                    <Timeline/>
+                    <ToolbarExpanded />
                 {/*<ToolbarShrunk />*/}
             </div>
         </>
