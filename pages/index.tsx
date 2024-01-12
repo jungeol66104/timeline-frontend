@@ -1,6 +1,6 @@
 import DynamicHead from "@/components/dynamicHead";
-import Image from "next/image";
 import Swiper from "@/components/swiper";
+import {temporarySeries} from "@/utils/global"
 // refactoring: clear
 
 export default function Home() {
@@ -8,7 +8,9 @@ export default function Home() {
         <>
             <DynamicHead type={'index'}/>
             <div className={'page'}>
-                <Swiper />
+                {temporarySeries.map((series, i) => {
+                    return <Swiper key={i} series={series}/>
+                })}
             </div>
         </>
     )
