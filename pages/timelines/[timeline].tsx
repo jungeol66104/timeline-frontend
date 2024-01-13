@@ -11,9 +11,18 @@ import ToolbarExpanded from "@/components/timelineToolbar/toolbarExpanded";
 import {updateIsSearch} from "@/store/slices/searchSlice";
 // refactoring: clear
 
-export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
+export const getStaticPaths = async () => {
+    const timelineIds = Array.from({length: 8}, (_, index) => index + 1)
+    const paths = timelineIds.map(timelineId => ({ params: {timeline: String(timelineId) }}))
+    return {
+        paths,
+        fallback: false
+    }
+}
+
+export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
     try {
-        const response = await api.post('/v1/getTimeline', {"timelineId": Number(context.query.timeline), "depth": 0, "pivotJulianDate": "0"})
+        const response = await api.post('/v1/getTimeline', {"timelineId": Number(params?.timeline), "depth": 0, "pivotJulianDate": "0"})
         const newCurrentTimeline = response.data.data.timelineInfo
         const newMaxDepth = response.data.data.maxDepth
         const newIsTopEnd = response.data.data.isTopEnd
