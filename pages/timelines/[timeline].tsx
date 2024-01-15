@@ -7,7 +7,7 @@ import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimelin
 import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
-import ToolbarExpanded from "@/components/timelineToolbar/toolbarExpanded";
+import Toolbar from "@/components/timelineToolbar/toolbar";
 import {useDispatch} from "react-redux";
 // refactoring: clear
 
@@ -92,7 +92,7 @@ const TimelinePage = () => {
             <DynamicHead type={'timeline'}/>
             <div className={`page ${isVisible ? '' : 'invisible'}`}>
                 <Timeline/>
-                <ToolbarExpanded />
+                <Toolbar />
             </div>
         </>
     )

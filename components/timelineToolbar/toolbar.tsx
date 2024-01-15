@@ -5,10 +5,11 @@ import {getEventHeights, sum} from "@/utils/global";
 import api from "@/utils/api";
 import AddSVG from "@/public/svg/add.svg";
 import RemoveSVG from "@/public/svg/remove.svg";
+import MoreSVG from "@/public/svg/more.svg";
 import {decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectToolbarStatus, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd, updateIsTimelineInfo, updateIsTopEnd, updateLastAction, updateScrollTop, updateToolbarStatus, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
 
-const ToolbarExpanded = () => {
+const Toolbar = () => {
     const dispatch = useDispatch()
     const aboveTimelineHeight = useSelector(selectAboveTimelineHeight)
     const eventBoxHeight = useSelector(selectEventBoxHeight)
@@ -176,14 +177,19 @@ const ToolbarExpanded = () => {
     });
 
     return (
-        <div className={`${toolbarStatus === "expand" ? 'bottom-[22px]' : 'bottom-[-40px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-[140px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md`} style={{zIndex: 4999}}>
-            <div className={'flex items-center'}>
-                <button className={'toolbarButton zoomIn px-[6px] '}><Image src={AddSVG} alt={'plus'} draggable={false}/></button>
-                <button className={'toolbarButton status w-[38px] mx-[6px] text-[14px] font-semibold flex justify-center'}>{zoomPercentage + '%'}</button>
-                <button className={'toolbarButton zoomOut px-[6px]'}><Image src={RemoveSVG} alt={'minus'} draggable={false}/></button>
+        <div className={'bottom-[22px] fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-full max-w-lg'} style={{zIndex: 4999}}>
+            <div className={`${toolbarStatus === "expand" ? 'bottom-0' : 'bottom-[-40px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-[140px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md`}>
+                <div className={'flex items-center'}>
+                    <button className={'toolbarButton zoomIn px-[6px] '}><Image src={AddSVG} alt={'plus'} draggable={false}/></button>
+                    <button className={'toolbarButton status w-[38px] mx-[6px] text-[14px] font-semibold flex justify-center'}>{zoomPercentage + '%'}</button>
+                    <button className={'toolbarButton zoomOut px-[6px]'}><Image src={RemoveSVG} alt={'minus'} draggable={false}/></button>
+                </div>
+            </div>
+            <div className={'bottom-0 fixed right-[20px] flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md'}>
+                <button><Image src={MoreSVG} alt={'more'} /></button>
             </div>
         </div>
     );
 };
 
-export default ToolbarExpanded;
+export default Toolbar;
