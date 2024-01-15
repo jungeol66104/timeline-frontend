@@ -1,6 +1,6 @@
 import {sum, getEventHeights} from "@/utils/global";
 import api from "@/utils/api"
-import React, {Suspense} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import {storeWrapper} from "@/store/store";
 import {TimelineEvent} from "@/store/slices/contentsSlice"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
@@ -8,7 +8,7 @@ import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight} fr
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
 import ToolbarExpanded from "@/components/timelineToolbar/toolbarExpanded";
-import {updateIsSearch} from "@/store/slices/searchSlice";
+import {useDispatch} from "react-redux";
 // refactoring: clear
 
 export const getStaticPaths = async () => {
@@ -46,14 +46,54 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
     }
 })
 const TimelinePage = () => {
+    const dispatch = useDispatch()
+    const [isVisible, setIsVisible] = useState(false)
+
+    useEffect(() => {
+        if (typeof window === 'undefined') {
+            setIsVisible(true)
+            return
+        }
+
+        const currentUrl = window.location.href;
+        let statePacket = JSON.parse(sessionStorage.getItem('statePacket') || '{}')
+        if (statePacket.url === currentUrl) {
+            let state = statePacket.state
+            const scrollTop = JSON.parse(sessionStorage.getItem('scrollTop') || '0')
+            let appearanceSlice = state["appearance"]
+            appearanceSlice["lastAction"] = 'render'
+            appearanceSlice["scrollTop"] = scrollTop
+            let contentsSlice = state["contents"]
+            contentsSlice["currentEventsWithEffect"] = contentsSlice.currentEventsWithEffect.map((cEvent: TimelineEvent) => {
+                return {...cEvent, isToggle: false ,toggleEvents: [], animation: 'none'}
+            })
+            contentsSlice["currentEvents"] = contentsSlice["currentEventsWithEffect"]
+
+            setIsVisible(true)
+            dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice}})
+        }
+    }, []);
+
+    useEffect(() => {
+        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        if (!scrollWrapper) return
+
+        const handleUnload = () => {
+            sessionStorage.setItem('scrollTop', scrollWrapper.scrollTop.toString())
+        }
+
+        window.addEventListener('beforeunload', handleUnload)
+        return () => {
+            window.removeEventListener('beforeunload', handleUnload)
+        }
+    }, []);
+
     return (
         <>
             <DynamicHead type={'timeline'}/>
-            <div className={'page'}>
-                {/*<div className={'absolute w-[60px] h-[60px] bg-black z-[5000] left-[-20px]'}></div>*/}
-                    <Timeline/>
-                    <ToolbarExpanded />
-                {/*<ToolbarShrunk />*/}
+            <div className={`page ${isVisible ? '' : 'invisible'}`}>
+                <Timeline/>
+                <ToolbarExpanded />
             </div>
         </>
     )

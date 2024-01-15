@@ -2,9 +2,6 @@ import DynamicHead from "@/components/dynamicHead";
 import Swiper from "@/components/swiper";
 import {temporarySeries} from "@/utils/global"
 import {storeWrapper} from "@/store/store";
-import {useDispatch, useSelector} from "react-redux";
-import {selectIsSearch, updateIsSearch} from "@/store/slices/searchSlice";
-import {useEffect} from "react";
 // refactoring: clear
 
 export const getStaticProps = storeWrapper.getServerSideProps((store) => async (context) => {
@@ -18,7 +15,6 @@ export const getStaticProps = storeWrapper.getServerSideProps((store) => async (
 
 export default function Home() {
 
-
     return (
         <>
             <DynamicHead type={'index'}/>
@@ -27,9 +23,7 @@ export default function Home() {
                     return <Swiper key={i} series={series}/>
                 })}
             </div>
-            <div className={'footer'}>
-
-            </div>
+            <div className={'footer'}></div>
         </>
     )
 }
