@@ -7,7 +7,7 @@ import AddSVG from "@/public/svg/add.svg";
 import RemoveSVG from "@/public/svg/remove.svg";
 import MoreSVG from "@/public/svg/more.svg";
 import LeftEndSVG from "@/public/svg/leftEnd.svg";
-import RightEndSVG from "@/public/svg/RightEnd.svg";
+import RightEndSVG from "@/public/svg/rightEnd.svg";
 
 import {decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectToolbarStatus, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd, updateIsTimelineInfo, updateIsTopEnd, updateLastAction, updateScrollTop, updateToolbarStatus, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
