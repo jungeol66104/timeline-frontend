@@ -65,11 +65,8 @@ const TimelinePage = () => {
             appearanceSlice["scrollTop"] = scrollTop
             let contentsSlice = state["contents"]
             contentsSlice["currentEventsWithEffect"] = contentsSlice.currentEventsWithEffect.map((cEvent: TimelineEvent) => {
-                return {...cEvent, isToggle: false ,toggleEvents: [], animation: 'none'}
+                return {...cEvent, animation: 'none'}
             })
-            contentsSlice["currentEvents"] = contentsSlice["currentEventsWithEffect"]
-
-
 
             setIsVisible(true)
             dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice}})
