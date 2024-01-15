@@ -80,14 +80,13 @@ const TimelinePage = () => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         if (!scrollWrapper) return
 
-
-        const handleUnload = () => {
+        const handleScroll = () => {
             sessionStorage.setItem('scrollTop', scrollWrapper.scrollTop.toString())
         }
 
-        window.addEventListener('pagehide', handleUnload)
+        scrollWrapper.addEventListener('scroll', handleScroll)
         return () => {
-            window.removeEventListener('pagehide', handleUnload)
+            scrollWrapper.removeEventListener('scroll', handleScroll)
         }
     }, []);
 
