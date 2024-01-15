@@ -185,9 +185,9 @@ const Toolbar = () => {
                     <button className={'toolbarButton zoomOut px-[6px]'}><Image src={RemoveSVG} alt={'minus'} draggable={false}/></button>
                 </div>
             </div>
-            <div className={'bottom-0 fixed right-[20px] flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md'}>
-                <button><Image src={MoreSVG} alt={'more'} /></button>
-            </div>
+            {/*<div className={'bottom-0 fixed right-[20px] flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md'}>*/}
+            {/*    <button><Image src={MoreSVG} alt={'more'} /></button>*/}
+            {/*</div>*/}
         </div>
     );
 };
