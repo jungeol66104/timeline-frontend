@@ -69,6 +69,8 @@ const TimelinePage = () => {
             })
             contentsSlice["currentEvents"] = contentsSlice["currentEventsWithEffect"]
 
+
+
             setIsVisible(true)
             dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice}})
         }
@@ -78,13 +80,14 @@ const TimelinePage = () => {
         const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
         if (!scrollWrapper) return
 
+
         const handleUnload = () => {
             sessionStorage.setItem('scrollTop', scrollWrapper.scrollTop.toString())
         }
 
-        window.addEventListener('beforeunload', handleUnload)
+        window.addEventListener('pagehide', handleUnload)
         return () => {
-            window.removeEventListener('beforeunload', handleUnload)
+            window.removeEventListener('pagehide', handleUnload)
         }
     }, []);
 
