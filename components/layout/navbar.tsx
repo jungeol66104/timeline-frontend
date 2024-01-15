@@ -48,7 +48,12 @@ const Navbar = () => {
                     : <div className={'flex gap-2.5 items-center'}>
                         <div className={'text-2xl font-semibold'}>{currentTimeline.name}</div>
                         <div className={'w-[24px] h-[24px] top-0 right-0 mb-[0.5px]'}><Image className={'rounded-sm'} src={`/images/timeline/${currentTimeline.id}.png`} alt={`${currentTimeline.name}`} width={28} height={28} priority={true}/></div>
-                        <button className={'pb-[1px]'}><Image src={ShareSVG} alt={'share'} width={22} height={22}/></button>
+                        <div className={'cursor-pointer flex items-center pr-1 h-[24px] mb-[0.5px] rounded-sm bg-white border-[1px] drop-shadow-md '}>
+                            <div className={'flex w-[24px] h-[24px] items-center justify-center pr-[1px]'}>
+                                <Image src={ShareSVG} alt={'share'} width={14} height={14}/>
+                            </div>
+                            <div className={'text-xs font-semibold'}>공유</div>
+                        </div>
                     </div>
                 }
             </Link>
