@@ -188,15 +188,15 @@ const Toolbar = () => {
                     <button className={'toolbarButton zoomOut px-[6px]'}><Image src={RemoveSVG} alt={'minus'} draggable={false}/></button>
                 </div>
             </div>
-            <div className={'bottom-0 fixed right-[30px] flex items-center justify-center'}>
-                <div className={'flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md'} style={{zIndex: 100}}>
-                    <button>{<Image src={MoreSVG} alt={'more'} />}</button>
-                </div>
-                <div className={'absolute flex flex-col items-center pt-[9px] w-[40px] h-[127px] right-0 bottom-0 border-[1px] rounded-2xl bg-white drop-shadow-md'}>
-                    <button className={'py-[6px] rotate-90'}><Image src={LeftEndSVG} alt={'uppermost'} /></button>
-                    <button className={'py-[6px] rotate-90'}><Image src={RightEndSVG} alt={'lowermost'} /></button>
-                </div>
-            </div>
+            {/*<div className={'bottom-0 fixed right-[30px] flex items-center justify-center'}>*/}
+            {/*    <div className={'flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md'} style={{zIndex: 100}}>*/}
+            {/*        <button>{<Image src={MoreSVG} alt={'more'} />}</button>*/}
+            {/*    </div>*/}
+            {/*    <div className={'absolute flex flex-col items-center pt-[9px] w-[40px] h-[127px] right-0 bottom-0 border-[1px] rounded-2xl bg-white drop-shadow-md'}>*/}
+            {/*        <button className={'py-[6px] rotate-90'}><Image src={LeftEndSVG} alt={'uppermost'} /></button>*/}
+            {/*        <button className={'py-[6px] rotate-90'}><Image src={RightEndSVG} alt={'lowermost'} /></button>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </div>
     );
 };
