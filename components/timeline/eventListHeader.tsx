@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvents, updateIsToggle} from "@/store/slices/contentsSlice";
 import Image from "next/image";
 import ExpandLessSVG from "@/public/svg/expandLess.svg";
-import {selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {selectLastAction, selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import {RefObject, useEffect, useRef} from "react";
 import {getClickOrTouch} from "@/utils/global";
 // refactoring: clear
@@ -17,6 +17,8 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
     const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === event.id)
     const isToggle = currentEvents[eventOrderInCurrent].isToggle
     const toggleEvents = currentEvents[eventOrderInCurrent].toggleEvents
+    const lastAction = useSelector(selectLastAction)
+
 
     // event handler for toggle
     useEffect(() => {
@@ -50,9 +52,10 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
     });
 
     let top = isToggle ? 0 : 38
+    const transition = lastAction === 'toggle' ? 'all 0.5s' : ''
 
     return (
-        <div className={`absolute w-full`} style={{transition: 'all 0.5s', top: top}}>
+        <div className={`absolute w-full`} style={{transition: transition, top: top}}>
             <div className={`pb-2.5 flex justify-between`}>
                 <div className={'text-xl font-semibold'}>{event.date}</div>
                 <div ref={untoggleButtonRef} className={'cursor-pointer pt-[1px] flex items-center text-[14px] font-medium'}>

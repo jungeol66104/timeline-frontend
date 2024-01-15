@@ -41,7 +41,7 @@ const Navbar = () => {
 
     return (
         <nav className={'navbar fixed top-0 left-1/2 transform -translate-x-1/2 h-[60px] w-full max-w-lg bg-white pr-5 pl-5 shadow-md flex items-center justify-between'} style={{zIndex: 5000}}>
-            <Link href={navbarTitle === 'Timeline' ? '/' : `/timelines/${currentTimeline.id}`} className={`relative w-fit font-black text-2xl transform transition-opacity ease-in-out duration-300`}>
+            <Link onClick={() => sessionStorage.clear()} href={navbarTitle === 'Timeline' ? '/' : `/timelines/${currentTimeline.id}`} className={`relative w-fit font-black text-2xl transform transition-opacity ease-in-out duration-300`}>
                 {navbarTitle === "Timeline"
                     ? navbarTitle
                     : <div className={'flex gap-2.5 items-center'}>

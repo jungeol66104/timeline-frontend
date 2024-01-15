@@ -8,6 +8,7 @@ import Navbar from "@/components/layout/navbar";
 
 const Layout = ({ children } : {children: ReactNode}) => {
     const isSearch = useSelector(selectIsSearch)
+
     return (
         <div className={'layout pt-[60px]'}>
             <Navbar />
