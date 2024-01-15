@@ -6,7 +6,6 @@ import api from "@/utils/api";
 import AddSVG from "@/public/svg/add.svg";
 import RemoveSVG from "@/public/svg/remove.svg";
 import NorthSVG from "@/public/svg/north.svg";
-import ArrowUpSVG from "@/public/svg/arrowUp.svg";
 
 import {decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectToolbarStatus, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd, updateIsTimelineInfo, updateIsTopEnd, updateLastAction, updateScrollTop, updateToolbarStatus, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
@@ -188,8 +187,8 @@ const Toolbar = () => {
                 </div>
             </div>
             <div className={'bottom-0 fixed right-[20px] flex items-center justify-center'}>
-                <div className={'flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white/10 drop-shadow-md'} style={{zIndex: 100}}>
-                    <button>{<Image src={NorthSVG} alt={'uppermost'} height={22} width={22}/>}</button>
+                <div className={'flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white/50 drop-shadow-md'} style={{zIndex: 100}}>
+                    <button>{<Image src={NorthSVG} alt={'uppermost'} height={20} width={20}/>}</button>
                 </div>
             </div>
         </div>
