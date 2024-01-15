@@ -17,7 +17,7 @@ const EventList = ({event} : {event: TimelineEvent}) => {
     const toggleEvents = currentEvents[eventOrderInCurrent].toggleEvents as any[]
 
     const listHeight = !isToggle ? 112 : 28 + (toggleEvents.length + 1) * 124
-    const transition = lastAction === 'toggle' ? 'height 0.5s' : ''
+    const transition = lastAction === 'toggle' ? 'height 0.5s' : '0s'
 
     return (
         <div className={'relative'} style={{width: 'calc(100% - 22px)',height: listHeight, transition: transition}}>

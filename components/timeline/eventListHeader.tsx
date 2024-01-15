@@ -52,10 +52,10 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
     });
 
     let top = isToggle ? 0 : 38
-    const transition = lastAction === 'toggle' ? 'all 0.5s' : ''
+    const transition = lastAction === 'toggle' ? 'all 0.5s' : 'all 0s'
 
     return (
-        <div className={`absolute w-full`} style={{transition: transition, top: top}}>
+        <div className={`absolute w-full`} style={{ transition: transition, top: top}}>
             <div className={`pb-2.5 flex justify-between`}>
                 <div className={'text-xl font-semibold'}>{event.date}</div>
                 <div ref={untoggleButtonRef} className={'cursor-pointer pt-[1px] flex items-center text-[14px] font-medium'}>
