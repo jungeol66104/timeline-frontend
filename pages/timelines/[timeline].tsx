@@ -89,8 +89,8 @@ const TimelinePage = () => {
     return (
         <>
             <DynamicHead type={'timeline'}/>
-            <div className={`page`}>
-                {!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}
+            <div className={`page ${isVisible ? '': 'invisible'}`}>
+                {/*{!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}*/}
                 <Timeline/>
                 <Toolbar />
             </div>

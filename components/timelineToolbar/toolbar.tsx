@@ -169,8 +169,12 @@ const Toolbar = () => {
             let top = 0
             const scrollEvent = {...currentEvents[order], julianDate: "0", order: order, top: top}
             await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
+                if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) {
+                    scrollWrapper.scrollTop = 0
+                }
                 fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
-                let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
+                let newScrollTop = 0
+                let totalHeight = getEventHeights(fetchedEvents)
                 setTimeout(() => {
                     dispatch(updateCurrentEvents(fetchedEvents))
                     dispatch(updateCurrentEventsWithEffect(fetchedEvents))
@@ -215,11 +219,11 @@ const Toolbar = () => {
                     <button className={'toolbarButton zoomOut px-[6px]'}><Image src={RemoveSVG} alt={'minus'} draggable={false}/></button>
                 </div>
             </div>
-            {/*<div className={'bottom-0 fixed right-[20px] flex items-center justify-center'}>*/}
-            {/*    <div className={'toolbarButton uppermost flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white/50 drop-shadow-md'} style={{zIndex: 100}}>*/}
-            {/*        <button><Image src={NorthSVG} alt={'uppermost'} height={20} width={20}/></button>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
+            <div className={'bottom-0 fixed right-[20px] flex items-center justify-center'}>
+                <div className={'toolbarButton uppermost flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white/50 drop-shadow-md'} style={{zIndex: 100}}>
+                    <button><Image src={NorthSVG} alt={'uppermost'} height={20} width={20}/></button>
+                </div>
+            </div>
         </div>
     );
 };
