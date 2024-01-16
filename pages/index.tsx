@@ -4,7 +4,17 @@ import {temporarySeries} from "@/utils/global"
 import {storeWrapper} from "@/store/store";
 // refactoring: clear
 
-export const getStaticProps = storeWrapper.getServerSideProps((store) => async (context) => {
+// for dev
+// export const getServerSideProps = storeWrapper.getServerSideProps((store) => async (context) => {
+//     try {
+//         return {props: {}}
+//     } catch (error) {
+//         console.error('Error fetching initial data during SSR:', error);
+//         return {props: {}}
+//     }
+// })
+
+export const getStaticProps = storeWrapper.getStaticProps((store) => async (context) => {
     try {
         return {props: {}}
     } catch (error) {

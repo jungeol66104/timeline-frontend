@@ -8,6 +8,18 @@ import DynamicHead from "@/components/dynamicHead";
 // refactoring: clear
 
 
+// export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params}) => {
+//     try {
+//         const response = await api.post('/v1/getEvent', {'eventId': Number(params?.event)})
+//         let newCurrentEvent = response.data.data.event
+//         store.dispatch(updateCurrentEvent(newCurrentEvent))
+//         return {props: {}}
+//     } catch (error) {
+//         console.error('Error fetching initial data during SSR:', error);
+//         return {props: {}}
+//     }
+// })
+
 export const getStaticPaths = async () => {
     const eventIds = Array.from({length: 704}, (_, index) => index + 1)
     const paths = eventIds.map(eventId => ({ params: {event: String(eventId) }}))
