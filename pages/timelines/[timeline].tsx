@@ -11,42 +11,7 @@ import Toolbar from "@/components/timelineToolbar/toolbar";
 import {useDispatch} from "react-redux";
 // refactoring: clear
 
-export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({ params }) => {
-    try {
-        const response = await api.post('/v1/getTimeline', {"timelineId": Number(params?.timeline), "depth": 0, "pivotJulianDate": "0"})
-        const newCurrentTimeline = response.data.data.timelineInfo
-        const newMaxDepth = response.data.data.maxDepth
-        const newIsTopEnd = response.data.data.isTopEnd
-        const newIsBottomEnd = response.data.data.isBottomEnd
-        let newCurrentEvents = response.data.data.events as TimelineEvent[]
-        newCurrentEvents = newCurrentEvents.map(cEvent => {
-            return {...cEvent, isToggle: false, toggleEvents: [], animation: 'none'}
-        })
-        const newTotalHeight = sum(getEventHeights(newCurrentEvents))
-        store.dispatch(updateCurrentTimeline(newCurrentTimeline))
-        store.dispatch(updateMaxDepth(newMaxDepth))
-        store.dispatch(updateIsTopEnd(newIsTopEnd))
-        store.dispatch(updateIsBottomEnd(newIsBottomEnd))
-        store.dispatch(updateCurrentEvents(newCurrentEvents))
-        store.dispatch(updateCurrentEventsWithEffect(newCurrentEvents))
-        store.dispatch(updateTotalHeight(newTotalHeight))
-        return {props: {}}
-    } catch (error) {
-        console.error('Error fetching initial data during SSR:', error);
-        return {props: {}}
-    }
-})
-
-// export const getStaticPaths = async () => {
-//     const timelineIds = Array.from({length: 8}, (_, index) => index + 1)
-//     const paths = timelineIds.map(timelineId => ({ params: {timeline: String(timelineId) }}))
-//     return {
-//         paths,
-//         fallback: false
-//     }
-// }
-//
-// export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
+// export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({ params }) => {
 //     try {
 //         const response = await api.post('/v1/getTimeline', {"timelineId": Number(params?.timeline), "depth": 0, "pivotJulianDate": "0"})
 //         const newCurrentTimeline = response.data.data.timelineInfo
@@ -71,6 +36,41 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 //         return {props: {}}
 //     }
 // })
+
+export const getStaticPaths = async () => {
+    const timelineIds = Array.from({length: 8}, (_, index) => index + 1)
+    const paths = timelineIds.map(timelineId => ({ params: {timeline: String(timelineId) }}))
+    return {
+        paths,
+        fallback: false
+    }
+}
+
+export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
+    try {
+        const response = await api.post('/v1/getTimeline', {"timelineId": Number(params?.timeline), "depth": 0, "pivotJulianDate": "0"})
+        const newCurrentTimeline = response.data.data.timelineInfo
+        const newMaxDepth = response.data.data.maxDepth
+        const newIsTopEnd = response.data.data.isTopEnd
+        const newIsBottomEnd = response.data.data.isBottomEnd
+        let newCurrentEvents = response.data.data.events as TimelineEvent[]
+        newCurrentEvents = newCurrentEvents.map(cEvent => {
+            return {...cEvent, isToggle: false, toggleEvents: [], animation: 'none'}
+        })
+        const newTotalHeight = sum(getEventHeights(newCurrentEvents))
+        store.dispatch(updateCurrentTimeline(newCurrentTimeline))
+        store.dispatch(updateMaxDepth(newMaxDepth))
+        store.dispatch(updateIsTopEnd(newIsTopEnd))
+        store.dispatch(updateIsBottomEnd(newIsBottomEnd))
+        store.dispatch(updateCurrentEvents(newCurrentEvents))
+        store.dispatch(updateCurrentEventsWithEffect(newCurrentEvents))
+        store.dispatch(updateTotalHeight(newTotalHeight))
+        return {props: {}}
+    } catch (error) {
+        console.error('Error fetching initial data during SSR:', error);
+        return {props: {}}
+    }
+})
 
 const TimelinePage = () => {
     const dispatch = useDispatch()
@@ -116,8 +116,8 @@ const TimelinePage = () => {
     return (
         <>
             <DynamicHead type={'timeline'}/>
-            <div className={`page ${isVisible ? '': 'invisible'}`}>
-                {/*{!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}*/}
+            <div className={`page`}>
+                {!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}
                 <Timeline/>
                 <Toolbar />
             </div>
