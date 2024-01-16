@@ -121,7 +121,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
             <Link href={`/events/${event.id}`} style={{pointerEvents: (!isToggle && ((contentOrder === 0 && event.overlap !== 0) || (contentOrder !== 0 && event.overlap === 0 ))) ? 'none' : 'auto'}}>
                 <div className={`flex flex-col gap-1.5 bg-white h-full border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5`}>
                     <div className={'flex flex-col gap-0.5'}>
-                        <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1'}>{event.date}</div>
+                        <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 text-ellipsis'}>{event.date}</div>
                         <div className={'mt-0.5 font-black line-clamp-1'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</div>
                     </div>
                     <div className={'line-clamp-2 text-[14px] font-medium'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.description}</div>
