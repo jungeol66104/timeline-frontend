@@ -1,6 +1,6 @@
 import {TimelineEvent} from "@/store/slices/contentsSlice";
 import {useDispatch, useSelector} from "react-redux";
-import {RefObject, useEffect, useRef} from "react";
+import {RefObject, useEffect, useLayoutEffect, useRef, useState} from "react";
 import gsap from "gsap";
 import Link from "next/link";
 import api from "@/utils/api";
@@ -11,6 +11,7 @@ import {getClickOrTouch} from "@/utils/global";
 
 const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: TimelineEvent, highestEvent: TimelineEvent, contentOrder: number, isToggle?: boolean}) => {
     const eventContentRef : RefObject<HTMLDivElement> = useRef(null)
+    const [isVisible, setIsVisible] = useState(false)
 
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
@@ -116,13 +117,17 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
         return ()=> {tl.kill()}
     }, [isToggle]);
 
+    useLayoutEffect(() => {
+        setIsVisible(true)
+    }, []);
+
     return (
-        <div ref={eventContentRef} className={'eventContent absolute cursor-pointer'} style={{pointerEvents: !isToggle && contentOrder === 0 && event.overlap !== 0 ? 'auto' : 'none', top: top, left: left, height: height, width: width, opacity: opacity, zIndex: zIndex}}>
+        <div ref={eventContentRef} className={`eventContent  absolute cursor-pointer ${isVisible ? '' : 'invisible'}`} style={{pointerEvents: !isToggle && contentOrder === 0 && event.overlap !== 0 ? 'auto' : 'none', top: top, left: left, height: height, width: width, opacity: opacity, zIndex: zIndex}}>
             <Link href={`/events/${event.id}`} style={{pointerEvents: (!isToggle && ((contentOrder === 0 && event.overlap !== 0) || (contentOrder !== 0 && event.overlap === 0 ))) ? 'none' : 'auto'}}>
                 <div className={`flex flex-col bg-white h-full border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5`}>
                     <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1'}>{event.date}</div>
-                    <h2 className={'mt-0.5 font-black line-clamp-1'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</h2>
-                    <p className={'mt-1.5 line-clamp-2 text-[14px] font-medium'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.description}</p>
+                    <div className={'mt-0.5 font-black line-clamp-1'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</div>
+                    <div className={'mt-1.5 line-clamp-2 text-[14px] font-medium'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.description}</div>
                 </div>
             </Link>
         </div>
