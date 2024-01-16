@@ -67,7 +67,7 @@ export interface initialContentsState {
 export interface TimelineEvent {
     id: number
     date: string
-    julianDate: number
+    julianDate: number | string
     name: string
     description: string
     timelineInfo?: {id: number, name: string}[]
