@@ -71,7 +71,7 @@ html {
 }
 
 @media (min-width: 520px) {
-    body, .search, .navbar {
+    body, .search, .navbar, .share {
         border-left: 0.1px solid #d1d5db; /* Left border color and width */
         border-right: 0.1px solid #d1d5db; /* Right border color and width */
     }
