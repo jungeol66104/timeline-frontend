@@ -86,7 +86,6 @@ const TimelinePage = () => {
             scrollWrapper.removeEventListener('scroll', handleScroll)
         }
     }, []);
-
     return (
         <>
             <DynamicHead type={'timeline'}/>
