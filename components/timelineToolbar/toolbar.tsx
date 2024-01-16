@@ -5,9 +5,7 @@ import {getEventHeights, sum} from "@/utils/global";
 import api from "@/utils/api";
 import AddSVG from "@/public/svg/add.svg";
 import RemoveSVG from "@/public/svg/remove.svg";
-import MoreSVG from "@/public/svg/more.svg";
-import LeftEndSVG from "@/public/svg/leftEnd.svg";
-import RightEndSVG from "@/public/svg/rightEnd.svg";
+import NorthSVG from "@/public/svg/north.svg";
 
 import {decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectToolbarStatus, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd, updateIsTimelineInfo, updateIsTopEnd, updateLastAction, updateScrollTop, updateToolbarStatus, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
@@ -127,6 +125,13 @@ const Toolbar = () => {
             }
             return {fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop}
         }
+        const getEventsWithEffectForScroll = (fetchedEvents: TimelineEvent[]) => {
+            return fetchedEvents.map(fEvent => {
+                const cEvent = currentEvents.find(cEvent => cEvent.id === fEvent.id)
+                if (cEvent) return {...fEvent, animation: 'none' }
+                else return {...fEvent, animation: 'fadeIn' }
+            })
+        }
         const getScrollTop = (swipedEvent: TimelineEvent, referEvent: TimelineEvent, fetchedEvents: TimelineEvent[]) => {
             if (!swipedEvent.top) return {newScrollTop: 0, totalHeight: 0}
             const heightsOfFetchedEvents = getEventHeights(fetchedEvents)
@@ -138,6 +143,7 @@ const Toolbar = () => {
             return {newScrollTop: newScrollTop, totalHeight: sum(heightsOfFetchedEvents)}
         }
         const operateZoom = (classNames: DOMTokenList) => {
+            if (classNames.contains('status')) return
             let depth = classNames.contains('first') ? 0 : classNames.contains('zoomOut') ? currentDepth - 1 : classNames.contains('zoomIn') ? currentDepth + 1 : maxDepth
             let swipedEvent: TimelineEvent = getSwipedEvent(scrollWrapper)
             fetchEvents(depth, swipedEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
@@ -158,18 +164,39 @@ const Toolbar = () => {
                 classNames.contains('first') ? dispatch(updateCurrentDepth(0)) : classNames.contains('zoomOut') ? dispatch(decrementDepth()) : classNames.contains('zoomIn') ? dispatch(incrementDepth()) : dispatch(updateCurrentDepth(maxDepth))
             })
         }
+        const operateScroll = async (scrollUp: boolean) => {
+            let order =  0
+            let top = 0
+            const scrollEvent = {...currentEvents[order], julianDate: "0", order: order, top: top}
+            await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
+                fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
+                let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
+                setTimeout(() => {
+                    dispatch(updateCurrentEvents(fetchedEvents))
+                    dispatch(updateCurrentEventsWithEffect(fetchedEvents))
+                    dispatch(updateScrollTop(newScrollTop))
+                    dispatch(updateTotalHeight(totalHeight))
+                    dispatch(updateLastAction('scroll'))
+                    if (isTopEnd !== undefined && isBottomEnd !== undefined) {
+                        dispatch(updateIsTopEnd(isTopEnd))
+                        dispatch(updateIsBottomEnd(isBottomEnd))
+                    }
+                }, 500)
+            })
+        }
 
         const handleClick = async (e: MouseEvent) => {
             const toolbarButton = e.currentTarget as HTMLButtonElement
             const classNames = toolbarButton.classList
-            if (classNames.contains('status')) {
-                // dispatch(updateToolbarStatus('shrink'))
-                return
-            }
             if (!isLoading) {
                 isLoading = true
-                await operateZoom(classNames)
-                setTimeout(() => isLoading = false, 500)
+                if (classNames.contains('uppermost')) {
+                    await operateScroll(true)
+                    setTimeout(() => isLoading = false, 500)
+                } else {
+                    await operateZoom(classNames)
+                    setTimeout(() => isLoading = false, 500)
+                }
             }
         }
 
@@ -188,13 +215,9 @@ const Toolbar = () => {
                     <button className={'toolbarButton zoomOut px-[6px]'}><Image src={RemoveSVG} alt={'minus'} draggable={false}/></button>
                 </div>
             </div>
-            {/*<div className={'bottom-0 fixed right-[30px] flex items-center justify-center'}>*/}
-            {/*    <div className={'flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md'} style={{zIndex: 100}}>*/}
-            {/*        <button>{<Image src={MoreSVG} alt={'more'} />}</button>*/}
-            {/*    </div>*/}
-            {/*    <div className={'absolute flex flex-col items-center pt-[9px] w-[40px] h-[127px] right-0 bottom-0 border-[1px] rounded-2xl bg-white drop-shadow-md'}>*/}
-            {/*        <button className={'py-[6px] rotate-90'}><Image src={LeftEndSVG} alt={'uppermost'} /></button>*/}
-            {/*        <button className={'py-[6px] rotate-90'}><Image src={RightEndSVG} alt={'lowermost'} /></button>*/}
+            {/*<div className={'bottom-0 fixed right-[20px] flex items-center justify-center'}>*/}
+            {/*    <div className={'toolbarButton uppermost flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white/50 drop-shadow-md'} style={{zIndex: 100}}>*/}
+            {/*        <button><Image src={NorthSVG} alt={'uppermost'} height={20} width={20}/></button>*/}
             {/*    </div>*/}
             {/*</div>*/}
         </div>

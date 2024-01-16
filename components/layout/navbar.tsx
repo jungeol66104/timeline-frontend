@@ -10,6 +10,7 @@ import SearchSVG from "@/public/svg/search.svg";
 import CloseSVG from "@/public/svg/close.svg";
 import MenuSVG from "@/public/svg/menu.svg";
 import TimelineHeader from "@/components/timeline/timeilneHeader";
+import ShareSVG from "@/public/svg/share.svg";
 // refactoring: clear
 
 const Navbar = () => {
@@ -44,10 +45,7 @@ const Navbar = () => {
             <Link onClick={() => sessionStorage.clear()} href={navbarTitle === 'Timeline' ? '/' : `/timelines/${currentTimeline.id}`} className={`relative w-fit font-black text-2xl transform transition-opacity ease-in-out duration-300`}>
                 {navbarTitle === "Timeline"
                     ? navbarTitle
-                    : <div className={'flex gap-2.5 items-center'}>
-                        <div className={'text-2xl font-semibold'}>{currentTimeline.name}</div>
-                        <div className={'w-[24px] h-[24px] top-0 right-0 mb-[0.5px]'}><Image className={'rounded-sm'} src={`/images/timeline/${currentTimeline.id}.png`} alt={`${currentTimeline.name}`} width={28} height={28} priority={true}/></div>
-                    </div>
+                    : <div className={'flex gap-2.5 items-center'}><TimelineHeader /></div>
                 }
             </Link>
             <div className={'flex items-center gap-2.5'}>

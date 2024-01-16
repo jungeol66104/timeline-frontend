@@ -11,10 +11,10 @@ const TimelineEventsEdge = ({type, isEnd} : {type: string, isEnd: boolean}) => {
             { !isEnd
                 ? <div className={'h-[15px] w-[15px] rounded-full border-gray-600 border-l-white border-2 animate-spin '}></div>
                 : type === 'top'
-                    ? <TimelineHeader />
+                    ?  <div className={'absolute flex items-center gap-2.5 w-full'}><TimelineHeader /></div>
                     : <div className={'text-xs text-center'}>
-                        <b>마지막 이벤트</b><br/>
-                        줌 상태를 변경해보세요.
+                        {/*<b>마지막 이벤트</b><br/>*/}
+                        {/*줌 상태를 변경해보세요.*/}
                     </div>
             }
         </div>
