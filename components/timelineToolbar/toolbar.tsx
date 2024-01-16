@@ -171,10 +171,11 @@ const Toolbar = () => {
             await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
                 if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) {
                     scrollWrapper.scrollTop = 0
+                    return
                 }
                 fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
                 let newScrollTop = 0
-                let totalHeight = getEventHeights(fetchedEvents)
+                let totalHeight = sum(getEventHeights(fetchedEvents))
                 setTimeout(() => {
                     dispatch(updateCurrentEvents(fetchedEvents))
                     dispatch(updateCurrentEventsWithEffect(fetchedEvents))
