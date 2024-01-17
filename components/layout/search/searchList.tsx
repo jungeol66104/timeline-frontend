@@ -1,4 +1,4 @@
-import SearchContent from "@/components/layout/searchContent";
+import SearchContent from "@/components/layout/search/searchContent";
 import React from "react";
 import {useSelector} from "react-redux";
 import {selectSearchedEvents, selectSearchedTimelines, selectTab} from "@/store/slices/searchSlice";

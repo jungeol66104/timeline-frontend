@@ -1,9 +1,9 @@
 import React, {ReactNode} from "react";
 import {useSelector} from "react-redux";
 import {selectIsSearch} from "@/store/slices/searchSlice";
-import Search from "@/components/layout/search";
+import Search from "@/components/layout/search/search";
 import Navbar from "@/components/layout/navbar";
-import Share from "@/components/layout/share";
+import Share from "@/components/layout/share/share";
 import Overlay from "@/components/layout/overlay";
 import {selectIsShare} from "@/store/slices/appearanceSlice";
 // refactoring: clear

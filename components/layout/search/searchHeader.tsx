@@ -4,7 +4,7 @@ import {selectIsSearch, selectSearchValue, updateSearchedEvents, updateSearchedT
 import api from "@/utils/api";
 import Image from "next/image";
 import SearchInBarSVG from "@/public/svg/searchInBar.svg";
-import SearchTab from "@/components/layout/searchTab";
+import SearchTab from "@/components/layout/search/searchTab";
 import {useRouter} from "next/router";
 // refactoring: clear
 
