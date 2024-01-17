@@ -23,8 +23,7 @@ const TimelineHeader = () => {
                 console.error('Error fetching for web share api: ', error)
                 return
             }
-        }
-        dispatch(updateIsShare())
+        } else dispatch(updateIsShare())
     }
 
     return (
