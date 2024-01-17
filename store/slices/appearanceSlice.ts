@@ -17,6 +17,7 @@ const initialState = {
     totalHeight: 0,
     isTimelineInfo: false,
     toolbarStatus: "expand",
+    isShare: false
 } as initialAppearanceState
 
 // part of the store as a whole, related with the app's appearance such as timelineToolbar and effects
@@ -59,11 +60,14 @@ const appearanceSlice = createSlice({
         },
         updateToolbarStatus: (state, action) => {
             state.toolbarStatus = action.payload
+        },
+        updateIsShare: (state) => {
+            state.isShare = !state.isShare
         }
     },
 });
 export default appearanceSlice.reducer;
-export const {updateIsTopEnd, updateIsBottomEnd, incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight, updateIsTimelineInfo , updateToolbarStatus} = appearanceSlice.actions;
+export const {updateIsShare, updateIsTopEnd, updateIsBottomEnd, incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight, updateIsTimelineInfo , updateToolbarStatus} = appearanceSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
@@ -80,6 +84,7 @@ export const selectLastAction = (state: RootState) => state.appearance.lastActio
 export const selectTotalHeight = (state: RootState) => state.appearance.totalHeight
 export const selectIsTimelineInfo = (state: RootState) => state.appearance.isTimelineInfo
 export const selectToolbarStatus = (state: RootState) => state.appearance.toolbarStatus
+export const selectIsShare = (state: RootState) => state.appearance.isShare
 
 // types
 export interface initialAppearanceState {
@@ -99,4 +104,5 @@ export interface initialAppearanceState {
     totalHeight: number
     isTimelineInfo: boolean
     toolbarStatus: "expand" | "shrink"
+    isShare: boolean
 }

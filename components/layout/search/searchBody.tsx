@@ -1,7 +1,7 @@
 import {useSelector} from "react-redux";
 import {selectTab} from "@/store/slices/searchSlice";
 import React from "react";
-import SearchList from "@/components/layout/searchList";
+import SearchList from "@/components/layout/search/searchList";
 // refactoring: clear
 
 const SearchBody = () => {

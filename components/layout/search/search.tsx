@@ -1,6 +1,6 @@
 import React from "react";
-import SearchHeader from "@/components/layout/searchHeader";
-import SearchBody from "@/components/layout/searchBody";
+import SearchHeader from "@/components/layout/search/searchHeader";
+import SearchBody from "@/components/layout/search/searchBody";
 // refactoring: clear
 
 const Search = () => {
