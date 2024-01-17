@@ -10,7 +10,20 @@ const TimelineHeader = () => {
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
 
-    const handleClick = () => {
+    const handleClick = async  () => {
+        if ('share' in navigator && !window.matchMedia('(hover: hover)').matches) {
+            const title = document.title;
+            const text = document.title;
+            const url = location.href;
+            try {
+                await navigator.share({url, text, title,});
+                return
+            } catch (error) {
+                dispatch(updateIsShare())
+                console.error('Error fetching for web share api: ', error)
+                return
+            }
+        }
         dispatch(updateIsShare())
     }
 
