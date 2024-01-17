@@ -215,9 +215,9 @@ const Toolbar = () => {
         <div className={'bottom-[22px] fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-full max-w-lg'} style={{zIndex: 4998}}>
             <div className={`${toolbarStatus === "expand" ? 'bottom-0' : 'bottom-[-40px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-[140px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md`}>
                 <div className={'flex items-center'}>
-                    <button className={'toolbarButton zoomIn px-[6px] '}><Image src={AddSVG} alt={'plus'} draggable={false}/></button>
-                    <button className={'toolbarButton status w-[38px] mx-[6px] text-[14px] font-semibold flex justify-center z-30'}><span>{zoomPercentage}</span><span>%</span></button>
-                    <button className={'toolbarButton zoomOut px-[6px]'}><Image src={RemoveSVG} alt={'minus'} draggable={false}/></button>
+                    <button className={'toolbarButton zoomIn shrink-0 px-[6px] '}><Image src={AddSVG} alt={'plus'} draggable={false}/></button>
+                    <button className={'toolbarButton status shrink-0 w-[38px] mx-[6px] text-[14px] font-semibold flex justify-center'}><span>{zoomPercentage}</span><span>%</span></button>
+                    <button className={'toolbarButton zoomOut shrink-0 px-[6px]'}><Image src={RemoveSVG} alt={'minus'} draggable={false}/></button>
                 </div>
             </div>
             <div className={'bottom-0 fixed right-[20px] flex items-center justify-center'}>

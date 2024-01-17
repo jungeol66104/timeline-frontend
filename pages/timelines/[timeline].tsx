@@ -65,7 +65,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateCurrentEvents(newCurrentEvents))
         store.dispatch(updateCurrentEventsWithEffect(newCurrentEvents))
         store.dispatch(updateTotalHeight(newTotalHeight))
-        return {props: {}}
+        return {props: {}, revalidate:10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);
         return {props: {}}

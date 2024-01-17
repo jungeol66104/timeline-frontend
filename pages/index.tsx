@@ -16,7 +16,7 @@ import {storeWrapper} from "@/store/store";
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async (context) => {
     try {
-        return {props: {}}
+        return {props: {}, revalidate:10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);
         return {props: {}}
