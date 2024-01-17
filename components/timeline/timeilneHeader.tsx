@@ -16,14 +16,14 @@ const TimelineHeader = () => {
             const text = document.title;
             const url = location.href;
             try {
-                await navigator.share({url, text, title,});
+                await navigator.share({url , text, title});
                 return
             } catch (error) {
-                dispatch(updateIsShare())
                 console.error('Error fetching for web share api: ', error)
                 return
             }
         } else dispatch(updateIsShare())
+        return
     }
 
     return (
