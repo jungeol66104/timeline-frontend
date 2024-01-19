@@ -5,7 +5,6 @@ import {storeWrapper} from '@/store/store'
 import Layout from '@/components/layout/layout'
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import Script from "next/script";
 // refactoring; clear
 
 function App({ Component, ...rest }: AppProps) {
