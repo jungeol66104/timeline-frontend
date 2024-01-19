@@ -11,9 +11,9 @@ export const temporarySeries = [
         "name": "금융 위기",
         "description": "되풀이되는 금융의 역사를 보고싶다면",
         "timelines": [
-            {"id": 6, "name": "글로벌 금융 위기", "description": "2008 리먼 브라더스 사태"},
             {"id": 8, "name": "아시아 금융 위기", "description": "태국, 한국 등 아시아에서부터 시작된 국제 금융 위기"},
-            // {"id": "1","title":"","description": ""},
+            {"id": 9,"name":"세계 대공황","description": "1930년대 심각한 경제 침체와 대규모 실업"},
+            {"id": 6, "name": "글로벌 금융 위기", "description": "2008 리먼 브라더스 사태"},
         ]
     },
     {
@@ -34,11 +34,12 @@ export const temporarySeries = [
         "timelines": [
             {"id": 1,"name":"조 바이든","description": "제46대 미국 대통령"},
             {"id": 6,"name":"글로벌 금융 위기","description": "2008 리먼 브라더스 사태"},
+            {"id": 3,"name":"시진핑","description": "제7대 중화인민공화국 국가주석"},
             {"id": 2,"name":"도널드 트럼프","description": "제45대 미국 대통령"},
             {"id": 4,"name":"윤석열","description": "제20대 대한민국 대통령"},
             {"id": 5,"name":"문재인","description": "제19대 대한민국 대통령"},
-            {"id": 3,"name":"시진핑","description": "제7대 중화인민공화국 국가주석"},
             {"id": 8,"name":"아시아 금융 위기","description": "태국, 한국 등 아시아에서부터 시작된 국제 금융 위기"},
+            {"id": 9,"name":"세계 대공황","description": "1930년대 심각한 경제 침체와 대규모 실업"},
             {"id": 7,"name":"모하메드 빈 살만","description": "사우디아라비아의 왕세자"},
         ]
     }
