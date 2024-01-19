@@ -10,6 +10,7 @@ const TimelineHeader = () => {
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
 
+
     const handleClick = async () => {
         if ('share' in navigator && !window.matchMedia('(hover: hover)').matches) {
             const title = document.title;
