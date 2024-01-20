@@ -20,6 +20,7 @@ import DynamicHead from "@/components/dynamicHead";
 //     }
 // })
 
+
 export const getStaticPaths = async () => {
     const eventIds = Array.from({length: 924}, (_, index) => index + 1)
     const paths = eventIds.map(eventId => ({ params: {event: String(eventId) }}))
