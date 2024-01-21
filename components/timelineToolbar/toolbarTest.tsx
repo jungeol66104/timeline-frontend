@@ -213,10 +213,10 @@ const ToolbarText = () => {
 
     return (
         <div className={'bottom-[22px] fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-full max-w-lg'} style={{zIndex: 4998}}>
-            <div className={`${toolbarStatus === "expand" ? 'bottom-0' : 'bottom-[-40px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-[96px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md px-[12px]`}>
+            <div className={`${toolbarStatus === "expand" ? 'bottom-0' : 'bottom-[-40px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md px-[12px]`}>
                     <button className={`toolbarButton ${currentDepth === 0 ? 'unfold' : 'fold'} flex gap-1 shrink-0 text-sm font-semibold`}>
                         <Image src={currentDepth === 0 ? UnfoldSVG : FoldSVG} alt={currentDepth === 0 ? 'unfold' : 'fold'} height={20} width={20}/>
-                        <div className={'mr-[4px] text-center'}>{currentDepth === 0 ? '펼치기' : '접기'}</div>
+                        <div className={'mr-[4px] text-center'} >{currentDepth === 0 ? '펼치기' : '접기'}</div>
                     </button>
             </div>
             <div className={'bottom-0 fixed right-[20px] flex items-center justify-center'}>
