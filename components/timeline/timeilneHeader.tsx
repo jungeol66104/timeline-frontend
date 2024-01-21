@@ -26,7 +26,8 @@ const TimelineHeader = () => {
         if (!shareButton || !timelineLink || !scrollWrapper) return
 
         const handleClickShareButton = async () => {
-            if ('share' in navigator && getClickOrTouch() === 'touch') {
+            if (isSwipe) return
+            if ('share' in navigator && getClickOrTouch() === 'touchend') {
                 const title = document.title;
                 const text = document.title;
                 const url = location.href;
@@ -41,6 +42,7 @@ const TimelineHeader = () => {
             return
         }
         const handleClickTimelineLink = (e: MouseEvent | TouchEvent) => {
+            if (isSwipe) return
             e.stopPropagation()
             sessionStorage.clear()
         }
