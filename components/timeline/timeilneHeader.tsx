@@ -27,8 +27,8 @@ const TimelineHeader = () => {
     }
 
     return (
-        <div className={'relative w-fit flex gap-2.5 items-center'} style={{zIndex: 2000}}>
-            <Link onClick={() => sessionStorage.clear()} href={`/timelines/${currentTimeline.id}`} className={`relative w-fit font-black text-2xl`}>
+        <div className={'relative w-fit flex gap-2.5 items-center'} style={{zIndex: 4999}}>
+            <Link onClick={() => sessionStorage.clear()} href={`/timelines/${currentTimeline.id}`} className={`relative w-fit font-black text-2xl pointer-events-auto`}>
                 <div className={'flex gap-2.5 items-center'}>
                     <div className={'text-2xl font-semibold'}>{currentTimeline.name}</div>
                     <div className={'w-[24px] h-[24px] top-0 right-0 mb-[0.5px]'}><Image className={'rounded-sm'} src={`/images/timeline/${currentTimeline.id}.png`} alt={`${currentTimeline.name}`} width={28} height={28} /></div>
