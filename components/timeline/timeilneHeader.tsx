@@ -10,7 +10,6 @@ const TimelineHeader = () => {
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
 
-
     const handleClick = async () => {
         if ('share' in navigator && !window.matchMedia('(hover: hover)').matches) {
             const title = document.title;
@@ -28,7 +27,7 @@ const TimelineHeader = () => {
     }
 
     return (
-        <div className={'relative w-fit flex gap-2.5 items-center'}>
+        <div className={'relative w-fit flex gap-2.5 items-center'} style={{zIndex: 2000}}>
             <Link onClick={() => sessionStorage.clear()} href={`/timelines/${currentTimeline.id}`} className={`relative w-fit font-black text-2xl`}>
                 <div className={'flex gap-2.5 items-center'}>
                     <div className={'text-2xl font-semibold'}>{currentTimeline.name}</div>
