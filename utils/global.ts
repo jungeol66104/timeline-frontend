@@ -63,7 +63,7 @@ export const getEventHeights = (events: TimelineEvent[])=> {
 // check if the device is mobile or PC
 export const getClickOrTouch = () => {
     let clickOrTouchend = 'click'
-    if (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement) clickOrTouchend = 'touch'
+    if (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement) clickOrTouchend = 'touchend'
     return clickOrTouchend
 }
 
