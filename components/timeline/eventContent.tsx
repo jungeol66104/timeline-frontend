@@ -73,7 +73,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
         scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
         scrollWrapper.addEventListener('touchend', () => isSwipe = false)
         return () => {
-            if (clickOrTouchend === 'click') eventContent.removeEventListener(clickOrTouchend, handleClick)
+            if (clickOrTouchend === 'click') eventContent.removeEventListener('click', handleClick)
             else eventContent.removeEventListener('touchend', handleClick)
             scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
             scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
