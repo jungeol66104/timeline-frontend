@@ -9,6 +9,7 @@ import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
 import Toolbar from "@/components/timelineToolbar/toolbar";
 import {useDispatch} from "react-redux";
+import ToolbarTest from "@/components/timelineToolbar/toolbarTest";
 // refactoring: clear
 
 // export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({ params }) => {
@@ -119,7 +120,7 @@ const TimelinePage = () => {
             <div className={`page`}>
                 {!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}
                 <Timeline/>
-                <Toolbar />
+                <ToolbarTest />
             </div>
         </>
     )
