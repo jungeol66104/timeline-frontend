@@ -5,13 +5,14 @@ import Image from "next/image";
 import ShareSVG from "@/public/svg/share.svg"
 import {updateIsShare} from "@/store/slices/appearanceSlice";
 import Link from "next/link";
+import {getClickOrTouch} from "@/utils/global";
 
 const TimelineHeader = () => {
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     const handleClick = async () => {
-        if ('share' in navigator && !window.matchMedia('(hover: hover)').matches) {
+        if ('share' in navigator && getClickOrTouch() === 'touch') {
             const title = document.title;
             const text = document.title;
             const url = location.href;
@@ -27,8 +28,8 @@ const TimelineHeader = () => {
     }
 
     return (
-        <div className={'absolute left-0 w-fit flex gap-2.5 items-center cursor-pointer'} style={{zIndex: 4999}}>
-            <Link onClick={() => sessionStorage.clear()} href={`/timelines/${currentTimeline.id}`} className={`relative w-fit font-black text-2xl pointer-events-auto`}>
+        <div className={'relative left-0 w-fit flex gap-2.5 items-center'} style={{zIndex: 4999}}>
+            <Link onClick={() => sessionStorage.clear()} href={`/timelines/${currentTimeline.id}`} className={`w-fit font-black text-2xl cursor-pointer`}>
                 <div className={'flex gap-2.5 items-center'}>
                     <div className={'text-2xl font-semibold'}>{currentTimeline.name}</div>
                     <div className={'w-[24px] h-[24px] top-0 right-0 mb-[0.5px]'}><Image className={'rounded-sm'} src={`/images/timeline/${currentTimeline.id}.png`} alt={`${currentTimeline.name}`} width={28} height={28} /></div>
