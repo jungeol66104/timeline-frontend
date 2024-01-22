@@ -8,6 +8,7 @@ import {temporarySeries} from "@/utils/global";
 const RelatedTimeline = () => {
     const currentEvent = useSelector(selectCurrentEvent)
 
+
     return (
         <div className={'flex flex-col gap-2.5'}>
             <h2 className={'text-lg font-semibold'}>연관된 타임라인</h2>
