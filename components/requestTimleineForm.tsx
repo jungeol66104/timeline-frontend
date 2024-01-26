@@ -22,14 +22,14 @@ const RequestTimelineForm = () => {
                 <div className={'relative h-[50px] rounded-lg border-[1px] border-black'}>
                     <label className={'absolute top-[-10px] left-4 bg-white px-1 text-sm'}>Timeline</label>
                     <div className={'flex h-full w-full pr-4'}>
-                        <input type={'timeline'} className={'px-4 h-full flex-grow shrink-0 bg-transparent outline-0'} readOnly={showSendButton} />
+                        <input type={'timeline'} className={'px-4 h-full flex-grow shrink-0 bg-transparent focus:outline-none'} readOnly={showSendButton} />
                         {showSendButton && <button onClick={handleEditClick} className={'shrink-0 text-gray-500 hover:text-black'}>Edit</button>}
                     </div>
                 </div>
                 { showSendButton &&
                     <div className={'relative h-[50px] rounded-lg border-[1px] border-black'}>
-                        <label className={'absolute top-[-10px] left-4 bg-white px-1 text-sm'}>Email (Optional)</label>
-                        <input type={'email'} className={'px-4 h-full w-full bg-transparent outline-0'} />
+                        <label className={'absolute top-[-10px] left-4 bg-white px-1 text-sm '}>Email(Optional)</label>
+                        <input type={'email'} className={'px-4 h-full w-full bg-transparent focus:outline-none'} />
                     </div>
                 }
                 <button type={"submit"} className={'h-[50px] rounded-lg bg-black text-white font-semibold'}>{showSendButton ? 'Send' : 'Continue'}</button>
