@@ -2,6 +2,7 @@ import DynamicHead from "@/components/dynamicHead";
 import Swiper from "@/components/swiper";
 import {temporarySeries} from "@/utils/global"
 import {storeWrapper} from "@/store/store";
+import RequestTimelineForm from "@/components/requestTimleineForm";
 // refactoring: clear
 
 // for dev
@@ -29,6 +30,7 @@ export default function Home() {
         <>
             <DynamicHead type={'index'}/>
             <div className={'page'}>
+                <RequestTimelineForm />
                 {temporarySeries.map((series, i) => {
                     return <Swiper key={i} series={series}/>
                 })}
