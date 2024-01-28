@@ -34,6 +34,8 @@ const Navbar = () => {
             else setShowTimelineInformation(true)
         }
 
+        if (isHome) setShowTimelineInformation(false)
+
         scrollWrapper.addEventListener("scroll", handleScroll)
         return () => {
             scrollWrapper.removeEventListener("scroll", handleScroll)

@@ -1,6 +1,6 @@
 import React, {RefObject, useEffect, useRef} from 'react';
 import Image from 'next/image'
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {getClickOrTouch} from "@/utils/global";
 import {updateIsShare} from "@/store/slices/appearanceSlice";
 

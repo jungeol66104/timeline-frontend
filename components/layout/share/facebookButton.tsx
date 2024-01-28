@@ -8,7 +8,7 @@ const FacebookButton = () => {
     }
 
     return (
-        <ShareButtonTemplate handleClick={handleClick} svgPath={'/svg/facebook.svg'} title={'facebook'} />
+        <ShareButtonTemplate handleClick={handleClick} svgPath={'/svg/facebook.svg'} title={'Facebook'} />
     );
 };
 
