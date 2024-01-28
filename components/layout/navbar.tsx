@@ -47,7 +47,7 @@ const Navbar = () => {
                 : <TimelineHeader />
                 }
             <div className={'flex items-center gap-2.5'}>
-                <Link href={'https://docs.google.com/forms/d/e/1FAIpQLScN4ooRXZylBgKtElHSJi7m739iHHSMNg4QfbAcDx0v0OjwnA/viewform?usp=sf_link'} target="_blank" className={'cursor-pointer flex items-center pr-[6px] h-[24px] mb-[0.5px] rounded-sm bg-white border-[0.1px] shadow-[0_2px_3px_rgba(0,0,0,0.07)]'}>
+                <Link href={'https://docs.google.com/forms/d/e/1FAIpQLScN4ooRXZylBgKtElHSJi7m739iHHSMNg4QfbAcDx0v0OjwnA/viewform?usp=sf_link'} target="_blank" className={'cursor-pointer flex items-center px-[6px] h-[24px] mb-[0.5px] rounded-sm bg-white border-[0.1px] shadow-[0_2px_3px_rgba(0,0,0,0.07)]'}>
                     {/*<div className={'flex w-[24px] h-[24px] items-center justify-center'}>*/}
                     {/*    <Image src={ShareSVG} alt={'share'} width={14} height={14}/>*/}
                     {/*</div>*/}
