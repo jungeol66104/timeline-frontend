@@ -1,5 +1,5 @@
 import React from 'react';
-import ShareButtonTemplate from "@/components/layout/share/shareButtonTemplate";
+import ShareButtonTemplate from "@/components/layout/share/shareElementButtonTemplate";
 import Link from "next/link";
 
 const XButton = () => {
