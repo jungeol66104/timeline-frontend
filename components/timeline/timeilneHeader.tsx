@@ -77,7 +77,7 @@ const TimelineHeader = () => {
                 <div className={'flex w-[24px] h-[24px] items-center justify-center'}>
                     <Image src={ShareSVG} alt={'share'} width={14} height={14}/>
                 </div>
-                <div className={'text-xs font-semibold'}>공유</div>
+                <div className={'text-xs font-semibold'}>Share</div>
             </div>
         </div>
     );

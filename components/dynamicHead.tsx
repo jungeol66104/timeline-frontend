@@ -7,8 +7,8 @@ import {selectCurrentEvent, selectCurrentTimeline} from "@/store/slices/contents
 const DynamicHead = ({type}: {type: string} ) => {
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvent = useSelector(selectCurrentEvent)
-    const title = type === "timeline" ? `${currentTimeline.name} - 타임라인` : type === "event" ? `${currentEvent.name} - 타임라인` : "타임라인 | 금융, 인물, 역사 등"
-    const description = type === "timeline" ? `${currentTimeline.name}에 대한 타임라인` : type === "event" ? `${currentEvent.description}` : "다양한 주제를 아우르는 타임라인. 과거부터 현대까지, 타임라인은 풍부한 콘텐츠로 지식을 새롭게 정의합니다. 금융, 인물, 역사 등의 주제를 아우르는 세계의 다양한 측면을 살펴보세요."
+    const title = type === "timeline" ? `${currentTimeline.name} - Timeline` : type === "event" ? `${currentEvent.name} - Timeline` : "Timeline | Finanace, History, Personalities, and More"
+    const description = type === "timeline" ? `Timeline about ${currentTimeline.name}` : type === "event" ? `${currentEvent.description}` : "\"A timeline that encompasses various topics. From the past to the present, the timeline redefines knowledge with rich content. Explore various aspects of the world, covering topics such as finance, history, personalities, and more."
     const url = type === "timeline" ? `https://timeline.vg/timelines/${currentTimeline.id}` : type === "event" ? `https://timeline.vg/events/${currentEvent.id}` : "https://timeline.vg"
 
     return (

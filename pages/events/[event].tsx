@@ -1,7 +1,6 @@
 import api from "@/utils/api"
 import React from "react";
 import {useSelector} from "react-redux";
-import Link from "next/link";
 import {storeWrapper} from "@/store/store";
 import {selectCurrentEvent, updateCurrentEvent} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
