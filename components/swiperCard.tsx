@@ -2,13 +2,14 @@ import React from 'react';
 import Image from "next/image";
 import Link from "next/link";
 
-interface TemporaryTimeline {
+interface SeriesTimeline {
     id: number
     name: string
     description: string
+    image: string
 }
 
-const SwiperCard = ({timeline} : {timeline: TemporaryTimeline}) => {
+const SwiperCard = ({timeline} : {timeline: SeriesTimeline}) => {
     return (
             <Link href={`/timelines/${timeline.id}`} className={'swiperCard relative shrink-0 rounded-xl shadow-md'} >
                 <Image src={`/images/timeline/${timeline.id}.png`} alt={timeline.name} fill sizes={"(min-width: 520px) 137px, calc(48vw - 38px)"} priority={true} quality={100} className={'rounded-xl'}/>

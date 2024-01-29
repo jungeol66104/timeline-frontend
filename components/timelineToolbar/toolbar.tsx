@@ -3,8 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import Image from "next/image";
 import {getEventHeights, sum} from "@/utils/global";
 import api from "@/utils/api";
-import AddSVG from "@/public/svg/add.svg";
-import RemoveSVG from "@/public/svg/remove.svg";
+import UnfoldSVG from "@/public/svg/unfold.svg";
+import FoldSVG from "@/public/svg/fold.svg";
 import NorthSVG from "@/public/svg/north.svg";
 
 import {decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectToolbarStatus, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd, updateIsTimelineInfo, updateIsTopEnd, updateLastAction, updateScrollTop, updateToolbarStatus, updateTotalHeight} from "@/store/slices/appearanceSlice";
@@ -53,7 +53,8 @@ const Toolbar = () => {
         const fetchEvents = async (depth: number, pivotEvent: TimelineEvent) => {
             if (depth === maxDepth + 1 || depth === -1) return {fetchedEvents: currentEvents, referEvent: pivotEvent}
             try {
-                const response = await api.post('/v1/getTimeline', {'timelineId': currentTimeline.id , 'depth': depth, 'pivotJulianDate': pivotEvent.julianDate})
+                // const response = await api.post(`/timeline/${currentTimeline.id}?timelineId=${currentTimeline.id}&depth=${depth}&time=${pivotEvent.ephemeris_time}`, {'timelineId': currentTimeline.id , 'depth': depth, 'pivotJulianDate': pivotEvent.julianDate})
+                const response = await api.post(`/v1/getTimeline`, {'timelineId': currentTimeline.id , 'depth': depth, 'pivotJulianDate': pivotEvent.julianDate})
                 let fetchedEvents = response.data.data.events as TimelineEvent[]
                 fetchedEvents = fetchedEvents.map(fEvent => {
                     return {...fEvent, isToggle: false, toggleEvents: []}
@@ -143,8 +144,8 @@ const Toolbar = () => {
             return {newScrollTop: newScrollTop, totalHeight: sum(heightsOfFetchedEvents)}
         }
         const operateZoom = (classNames: DOMTokenList) => {
-            if (classNames.contains('status')) return
-            let depth = classNames.contains('first') ? 0 : classNames.contains('zoomOut') ? currentDepth - 1 : classNames.contains('zoomIn') ? currentDepth + 1 : maxDepth
+            if (!classNames.contains('fold') && !classNames.contains('unfold')) return
+            let depth = classNames.contains('fold') ? 0 : maxDepth
             let swipedEvent: TimelineEvent = getSwipedEvent(scrollWrapper)
             fetchEvents(depth, swipedEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
                 if (fetchedEvents === currentEvents) return
@@ -161,7 +162,7 @@ const Toolbar = () => {
                     dispatch(updateIsTopEnd(isTopEnd))
                     dispatch(updateIsBottomEnd(isBottomEnd))
                 }
-                classNames.contains('first') ? dispatch(updateCurrentDepth(0)) : classNames.contains('zoomOut') ? dispatch(decrementDepth()) : classNames.contains('zoomIn') ? dispatch(incrementDepth()) : dispatch(updateCurrentDepth(maxDepth))
+                classNames.contains('fold') ? dispatch(updateCurrentDepth(0)) : dispatch(updateCurrentDepth(maxDepth))
             })
         }
         const operateScroll = async (scrollUp: boolean) => {
@@ -213,12 +214,9 @@ const Toolbar = () => {
 
     return (
         <div className={'bottom-[22px] fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-full max-w-lg'} style={{zIndex: 4998}}>
-            <div className={`${toolbarStatus === "expand" ? 'bottom-0' : 'bottom-[-40px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-[140px] h-[40px] border-[1px] rounded-3xl bg-white drop-shadow-md`}>
-                <div className={'flex items-center'}>
-                    <button className={'toolbarButton zoomIn shrink-0 px-[6px] '}><Image src={AddSVG} alt={'plus'} draggable={false}/></button>
-                    <button className={'toolbarButton status shrink-0 w-[38px] mx-[6px] text-[14px] font-semibold flex justify-center'}><span>{zoomPercentage}</span><span>%</span></button>
-                    <button className={'toolbarButton zoomOut shrink-0 px-[6px]'}><Image src={RemoveSVG} alt={'minus'} draggable={false}/></button>
-                </div>
+            <div className={`${toolbarStatus === "expand" ? 'bottom-0' : 'bottom-[-40px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center h-[40px] rounded-3xl drop-shadow-md`}>
+                    <button className={`toolbarButton unfold pl-4 pr-2.5 border-l-[1px] border-t-[1px] border-b-[1px] h-full rounded-l-3xl shrink-0 text-sm font-semibold ${currentDepth === 0 ? 'bg-white' : currentDepth === maxDepth ? 'bg-[#222222] shadow-black text-white shadow-inner' : ''}`} style={{backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0))'}}>More</button>
+                    <button className={`toolbarButton fold pl-2.5 pr-4 border-r-[1px] border-t-[1px] border-b-[1px] h-full rounded-r-3xl shrink-0 text-sm font-semibold ${currentDepth === maxDepth ? 'bg-white' : currentDepth === 0 ? 'bg-[#222222] shadow-black text-white shadow-inner' : ''}`} style={{backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0))'}}>Less</button>
             </div>
             <div className={'bottom-0 fixed right-[20px] flex items-center justify-center'}>
                 <div className={'toolbarButton uppermost flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white/50 drop-shadow-md'} style={{zIndex: 100}}>

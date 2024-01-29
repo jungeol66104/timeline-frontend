@@ -38,6 +38,7 @@ html {
 
 /* custom scrollbar for series */
 .swiperContainer::-webkit-scrollbar {
+    /*display: none;*/
     height: 5px;
 }
 .swiperContainer::-webkit-scrollbar-track {
