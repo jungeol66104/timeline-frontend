@@ -37,7 +37,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
 
         const fetchToggleEvents = async () => {
             try {
-                const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': highestEvent.julianDate})
+                const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': highestEvent.ephemerisTime})
                 const newToggleEvents = response.data.data.events
                 const newTotalHeight = totalHeight - (124 + (event.overlap as number) * 6) + (38 + (newToggleEvents.length + 1) * 124)
                 return { newToggleEvents, newTotalHeight }
