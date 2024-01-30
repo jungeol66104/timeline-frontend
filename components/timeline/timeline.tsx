@@ -74,7 +74,7 @@ const Timeline = () => {
         const fetchEvents = async (depth: number, pivotEvent: TimelineEvent) => {
             if (depth === maxDepth + 1 || depth === -1) return {fetchedEvents: currentEvents, referEvent: pivotEvent}
             try {
-                const response = await api.post('/v1/getTimeline', {'timelineId': currentTimeline.id , 'depth': depth, 'pivotJulianDate': pivotEvent.julianDate})
+                const response = await api.get(`/timeline/${currentTimeline.id}?depth=${depth}&time=${pivotEvent.ephemerisTime}`, {headers: {lang: 'en'}})
                 let fetchedEvents = response.data.data.events as TimelineEvent[]
                 fetchedEvents = fetchedEvents.map(fEvent => {
                     return {...fEvent, isToggle: false, toggleEvents: []}

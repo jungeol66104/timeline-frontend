@@ -18,7 +18,7 @@ export const allTimelines = {
             {"id": 5,"name":"Moon Jae In","description": "The 19th President of South Korea", "image": ''},
             {"id": 8,"name":"Asian Financial Crisis","description": "1997 economic turmoil in Asian countries", "image": ''},
             {"id": 9,"name":"Great Depression","description": "Widespread poverty, unemployment, and economic hardship in 1930s", "image": ''},
-            {"id": 7,"name":"Mohamed Bin Salman","description": "The Crown Prince of Saudi Arabia", "image": ''},
+            {"id": 7,"name":"Mohammed Bin Salman","description": "The Crown Prince of Saudi Arabia", "image": ''},
         ]
     }
 

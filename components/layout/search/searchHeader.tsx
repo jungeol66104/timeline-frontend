@@ -28,10 +28,10 @@ const SearchHeader = () => {
                 return { timelines: initialTimelines, events: [] }
             }
             try {
-                const timelineResponse = await api.post('/v1/search', {"searchType": "timeline", "text": query})
-                const eventResponse = await api.post('/v1/search', {"searchType": "event", "text": query})
-                const timelines = timelineResponse.data.data.searchResult
-                const events = eventResponse.data.data.searchResult
+                const eventResponse = await api.get(`/search/event?searchText=${query}`, {headers: {lang: 'en'}})
+                const timelineResponse = await api.get(`/search/timeline?searchText=${query}`, {headers: {lang: 'en'}})
+                const timelines = timelineResponse.data.data
+                const events = eventResponse.data.data
                 return { timelines, events }
             } catch (error) {
                 console.error('Error fetching searched timelines and events: ', error);

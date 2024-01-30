@@ -53,8 +53,7 @@ const Toolbar = () => {
         const fetchEvents = async (depth: number, pivotEvent: TimelineEvent) => {
             if (depth === maxDepth + 1 || depth === -1) return {fetchedEvents: currentEvents, referEvent: pivotEvent}
             try {
-                // const response = await api.post(`/timeline/${currentTimeline.id}?timelineId=${currentTimeline.id}&depth=${depth}&time=${pivotEvent.ephemeris_time}`, {'timelineId': currentTimeline.id , 'depth': depth, 'pivotJulianDate': pivotEvent.julianDate})
-                const response = await api.post(`/v1/getTimeline`, {'timelineId': currentTimeline.id , 'depth': depth, 'pivotJulianDate': pivotEvent.julianDate})
+                const response = await api.get(`/timeline/${currentTimeline.id}?depth=${depth}&time=${pivotEvent.ephemerisTime}`, {headers: {lang: 'en'}})
                 let fetchedEvents = response.data.data.events as TimelineEvent[]
                 fetchedEvents = fetchedEvents.map(fEvent => {
                     return {...fEvent, isToggle: false, toggleEvents: []}
@@ -168,7 +167,7 @@ const Toolbar = () => {
         const operateScroll = async (scrollUp: boolean) => {
             let order =  0
             let top = 0
-            const scrollEvent = {...currentEvents[order], julianDate: "0", order: order, top: top}
+            const scrollEvent = {...currentEvents[order], ephemerisTime: "0", order: order, top: top}
             await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
                 if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) {
                     scrollWrapper.scrollTop = 0

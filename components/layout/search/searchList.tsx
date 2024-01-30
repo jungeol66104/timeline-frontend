@@ -11,7 +11,7 @@ const SearchList = () => {
     const searchResults = tab === 'timeline' ? searchedTimelines : searchedEvents
 
     return (
-        <div className={'w-full'} style={{maxWidth: '480px'}}>
+        <div className={'w-full px-2.5'} style={{maxWidth: '480px'}}>
             {searchResults.map((searchResult, i) => {
                 return <SearchContent searchResult={searchResult} key={i}/>
             })}

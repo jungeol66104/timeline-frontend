@@ -6,7 +6,7 @@ import {RootState} from "@/store/rootReducer";
 const initialState = {
     // language: "en",
     currentTimeline: {id: 1, name: '타임라인_1'},
-    currentEvent: {id: 1, name: '', description: '', date: '', julianDate: 0, importance: 0, depth: 0, timelineInfo: [], overlap: 0, isToggle: false, toggleEvents: []},
+    currentEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, importance: 0, depth: 0, timelineInfo: [], overlap: 0, isToggle: false, toggleEvents: []},
     currentEvents: [],
     currentEventsWithEffect: [],
     prevEventsWithEffect: [],
@@ -73,10 +73,10 @@ export interface initialContentsState {
 export interface TimelineEvent {
     id: number
     date: string
-    julianDate: number | string
+    ephemerisTime: number | string
     name: string
     description: string
-    timelineInfo?: {id: number, name: string}[]
+    timelines?: {id: number, name: string, description: string, image: string}[]
     overlap?: number
     depth?: number
     distance?: number
