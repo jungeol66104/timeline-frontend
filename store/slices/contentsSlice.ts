@@ -5,7 +5,7 @@ import {RootState} from "@/store/rootReducer";
 // values before any dispatch
 const initialState = {
     // language: "en",
-    currentTimeline: {id: 1, name: '타임라인_1'},
+    currentTimeline: {id: 1, name: ''},
     currentEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, importance: 0, depth: 0, timelineInfo: [], overlap: 0, isToggle: false, toggleEvents: []},
     currentEvents: [],
     currentEventsWithEffect: [],

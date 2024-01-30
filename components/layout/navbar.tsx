@@ -9,8 +9,6 @@ import { selectIsTopEnd} from "@/store/slices/appearanceSlice";
 import SearchSVG from "@/public/svg/search.svg";
 import CloseSVG from "@/public/svg/close.svg";
 import MenuSVG from "@/public/svg/menu.svg";
-import TimelineHeader from "@/components/timeline/timeilneHeader";
-import ShareSVG from "@/public/svg/share.svg";
 import TimelineInformationHeader from "@/components/layout/timelineInformationHeader";
 import ShareButton from "@/components/layout/share/shareButton";
 // refactoring: clear
@@ -18,6 +16,7 @@ import ShareButton from "@/components/layout/share/shareButton";
 const Navbar = () => {
     const router = useRouter();
     const isHome = router.pathname === '/';
+    const isTimeline = router.pathname.startsWith('/timelines')
     const dispatch = useDispatch()
     const isSearch = useSelector(selectIsSearch)
     const isTopEnd = useSelector(selectIsTopEnd)
@@ -34,7 +33,7 @@ const Navbar = () => {
             else setShowTimelineInformation(true)
         }
 
-        if (isHome) setShowTimelineInformation(false)
+        if (!isTimeline) setShowTimelineInformation(false)
 
         scrollWrapper.addEventListener("scroll", handleScroll)
         return () => {
