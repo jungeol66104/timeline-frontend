@@ -1,6 +1,6 @@
 import {TimelineEvent} from "@/store/slices/contentsSlice";
 import {useDispatch, useSelector} from "react-redux";
-import {RefObject, useEffect, useLayoutEffect, useRef, useState} from "react";
+import {RefObject, useEffect, useRef} from "react";
 import gsap from "gsap";
 import Link from "next/link";
 import api from "@/utils/api";
@@ -37,8 +37,9 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
 
         const fetchToggleEvents = async () => {
             try {
-                const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': highestEvent.ephemerisTime})
-                const newToggleEvents = response.data.data.events
+                // const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': highestEvent.ephemerisTime})
+                const response = await api.get(`/event/overlap?time=${highestEvent.ephemerisTime}&timelineId=${currentTimeline.id}`, {headers: {lang: 'en'}})
+                const newToggleEvents = response.data.data
                 const newTotalHeight = totalHeight - (124 + (event.overlap as number) * 6) + (38 + (newToggleEvents.length + 1) * 124)
                 return { newToggleEvents, newTotalHeight }
             } catch (error) {

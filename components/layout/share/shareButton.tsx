@@ -45,8 +45,7 @@ const ShareButton = () => {
     }, []);
 
     return (
-        // <div ref={shareButtonRef} className={'cursor-pointer flex items-center pr-[6px] h-[24px] mb-[0.5px] rounded-sm bg-white border-[0.1px] shadow-[0_2px_3px_rgba(0,0,0,0.07)]'}>
-        <div ref={shareButtonRef} className={'cursor-pointer flex items-center pr-[6px] h-[24px] mb-[0.5px] rounded-sm bg-white'}>
+        <div ref={shareButtonRef} className={'cursor-pointer flex items-center pr-[6px] h-[24px] mb-[0.5px] rounded-sm bg-white border-[0.1px] shadow-[0_2px_3px_rgba(0,0,0,0.07)]'}>
             <div className={'flex w-[24px] h-[24px] items-center justify-center'}>
                 <Image src={'/svg/share.svg'} alt={'share'} width={14} height={14}/>
             </div>
