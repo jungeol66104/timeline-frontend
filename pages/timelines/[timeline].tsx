@@ -1,42 +1,15 @@
 import {sum, getEventHeights} from "@/utils/global";
 import api from "@/utils/api"
-import React, {useEffect, useLayoutEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {storeWrapper} from "@/store/store";
 import {TimelineEvent} from "@/store/slices/contentsSlice"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
 import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
-import Toolbar from "@/components/timelineToolbar/toolbar";
 import {useDispatch} from "react-redux";
-import ToolbarTest from "@/components/timelineToolbar/toolbarTest";
+import Toolbar from "@/components/timelineToolbar/toolbar";
 // refactoring: clear
-
-// export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({ params }) => {
-//     try {
-//         const response = await api.post('/v1/getTimeline', {"timelineId": Number(params?.timeline), "depth": 0, "pivotJulianDate": "0"})
-//         const newCurrentTimeline = response.data.data.timelineInfo
-//         const newMaxDepth = response.data.data.maxDepth
-//         const newIsTopEnd = response.data.data.isTopEnd
-//         const newIsBottomEnd = response.data.data.isBottomEnd
-//         let newCurrentEvents = response.data.data.events as TimelineEvent[]
-//         newCurrentEvents = newCurrentEvents.map(cEvent => {
-//             return {...cEvent, isToggle: false, toggleEvents: [], animation: 'none'}
-//         })
-//         const newTotalHeight = sum(getEventHeights(newCurrentEvents))
-//         store.dispatch(updateCurrentTimeline(newCurrentTimeline))
-//         store.dispatch(updateMaxDepth(newMaxDepth))
-//         store.dispatch(updateIsTopEnd(newIsTopEnd))
-//         store.dispatch(updateIsBottomEnd(newIsBottomEnd))
-//         store.dispatch(updateCurrentEvents(newCurrentEvents))
-//         store.dispatch(updateCurrentEventsWithEffect(newCurrentEvents))
-//         store.dispatch(updateTotalHeight(newTotalHeight))
-//         return {props: {}}
-//     } catch (error) {
-//         console.error('Error fetching initial data during SSR:', error);
-//         return {props: {}}
-//     }
-// })
 
 export const getStaticPaths = async () => {
     const timelineIds = Array.from({length: 9}, (_, index) => index + 1)
@@ -49,7 +22,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
     try {
-        const response = await api.post('/v1/getTimeline', {"timelineId": Number(params?.timeline), "depth": 0, "pivotJulianDate": "0"})
+        const response = await api.get(`/timeline/${Number(params?.timeline)}?timelineId=${Number(params?.timeline)}&depth=0&time=0`, {headers: {lang: 'en'}})
         const newCurrentTimeline = response.data.data.timelineInfo
         const newMaxDepth = response.data.data.maxDepth
         const newIsTopEnd = response.data.data.isTopEnd
@@ -120,7 +93,7 @@ const TimelinePage = () => {
             <div className={`page`}>
                 {!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}
                 <Timeline/>
-                <ToolbarTest />
+                <Toolbar />
             </div>
         </>
     )

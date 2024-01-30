@@ -1,6 +1,6 @@
 import {TimelineEvent} from "@/store/slices/contentsSlice";
 import {useDispatch, useSelector} from "react-redux";
-import {RefObject, useEffect, useLayoutEffect, useRef, useState} from "react";
+import {RefObject, useEffect, useRef} from "react";
 import gsap from "gsap";
 import Link from "next/link";
 import api from "@/utils/api";
@@ -37,8 +37,9 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
 
         const fetchToggleEvents = async () => {
             try {
-                const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': highestEvent.julianDate})
-                const newToggleEvents = response.data.data.events
+                // const response = await api.post('/v1/getEventsByTime', {'timelineId': currentTimeline.id, 'julianDate': highestEvent.ephemerisTime})
+                const response = await api.get(`/event/overlap?time=${highestEvent.ephemerisTime}&timelineId=${currentTimeline.id}`, {headers: {lang: 'en'}})
+                const newToggleEvents = response.data.data
                 const newTotalHeight = totalHeight - (124 + (event.overlap as number) * 6) + (38 + (newToggleEvents.length + 1) * 124)
                 return { newToggleEvents, newTotalHeight }
             } catch (error) {
@@ -119,10 +120,10 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
     return (
         <div ref={eventContentRef} className={`eventContent absolute cursor-pointer`} style={{pointerEvents: !isToggle && contentOrder === 0 && event.overlap !== 0 ? 'auto' : 'none', top: top, left: left, height: height, width: width, opacity: opacity, zIndex: zIndex}}>
             <Link href={`/events/${event.id}`} style={{pointerEvents: (!isToggle && ((contentOrder === 0 && event.overlap !== 0) || (contentOrder !== 0 && event.overlap === 0 ))) ? 'none' : 'auto'}}>
-                <div className={`flex flex-col gap-1.5 bg-white h-full border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5`}>
+                <div className={`flex flex-col gap-1 bg-white h-full border-[0.1px] border-gray-300 rounded-xl shadow-md p-2.5`}>
                     <div className={'flex flex-col h-[46px] gap-0.5'}>
                         <div className={'text-[12px] font-semibold text-gray-500 line-clamp-1 text-ellipsis'}>{event.date}</div>
-                        <div className={'mt-0.5 font-black line-clamp-1'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</div>
+                        <div className={'mt-0.5 font-bold line-clamp-1'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</div>
                     </div>
                     <div className={'line-clamp-2 text-[14px] font-medium'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.description}</div>
                 </div>

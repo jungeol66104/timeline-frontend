@@ -1,5 +1,5 @@
 import React from 'react';
-import ShareButtonTemplate from "@/components/layout/share/shareButtonTemplate";
+import ShareButtonTemplate from "@/components/layout/share/shareElementButtonTemplate";
 
 const FacebookButton = () => {
     const handleClick = () => {
@@ -8,7 +8,7 @@ const FacebookButton = () => {
     }
 
     return (
-        <ShareButtonTemplate handleClick={handleClick} svgPath={'/svg/facebook.svg'} title={'facebook'} />
+        <ShareButtonTemplate handleClick={handleClick} svgPath={'/svg/facebook.svg'} title={'Facebook'} />
     );
 };
 

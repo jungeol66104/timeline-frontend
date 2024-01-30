@@ -38,6 +38,7 @@ html {
 
 /* custom scrollbar for series */
 .swiperContainer::-webkit-scrollbar {
+    /*display: none;*/
     height: 5px;
 }
 .swiperContainer::-webkit-scrollbar-track {
@@ -71,7 +72,7 @@ html {
 }
 
 @media (min-width: 520px) {
-    body, .search, .navbar, .share {
+    body, .search, .navbar, .share, .timelineInformationHeader{
         border-left: 0.1px solid #d1d5db; /* Left border color and width */
         border-right: 0.1px solid #d1d5db; /* Right border color and width */
     }

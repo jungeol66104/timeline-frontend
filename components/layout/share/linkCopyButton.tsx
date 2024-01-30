@@ -1,5 +1,5 @@
 import React from 'react';
-import ShareButtonTemplate from "@/components/layout/share/shareButtonTemplate";
+import ShareButtonTemplate from "@/components/layout/share/shareElementButtonTemplate";
 import {useDispatch} from "react-redux";
 import {updateIsShare} from "@/store/slices/appearanceSlice";
 
@@ -15,7 +15,7 @@ const LinkCopyButton = () => {
     }
 
     return (
-        <ShareButtonTemplate handleClick={handleClick} svgPath={'/svg/link.svg'} title={'링크 복사'} />
+        <ShareButtonTemplate handleClick={handleClick} svgPath={'/svg/link.svg'} title={'Copy link'} />
     );
 };
 
