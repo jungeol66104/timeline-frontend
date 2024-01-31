@@ -1,6 +1,5 @@
 import DynamicHead from "@/components/dynamicHead";
 import Swiper from "@/components/swiper";
-import {allTimelines} from "@/utils/global"
 import {storeWrapper} from "@/store/store";
 import RequestTimelineForm from "@/components/requestTimelineForm";
 import api from "@/utils/api";
@@ -13,7 +12,6 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async (cont
     try {
         const response = await api.get('/series', {headers: {lang: 'en'}})
         let series = response.data.data
-        series[2] = {"id": 2, "name": "All Timelines", "description": "", "timelines": allTimelines.timelines}
         store.dispatch(updateCurrentSeries(series))
 
         return {props: {}, revalidate:10}
