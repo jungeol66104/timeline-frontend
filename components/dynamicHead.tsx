@@ -9,7 +9,7 @@ const DynamicHead = ({type}: {type: string} ) => {
     const currentEvent = useSelector(selectCurrentEvent)
     const currentEvents = useSelector(selectCurrentEvents)
     const title = type === "timeline" ? `${currentTimeline.name} - Timeline` : type === "event" ? `${currentEvent.name} - Timeline` : "Timeline | Finanace, History, Personalities, and More"
-    const description = type === "timeline" ? `Timeline about ${currentTimeline.name}. ${currentEvents.map(cEvent => cEvent.name).join(', ')}.` : type === "event" ? `${currentEvent.description}` : "\"A timeline that encompasses various topics. From the past to the present, the timeline redefines knowledge with rich content. Explore various aspects of the world, covering topics such as finance, history, personalities, and more."
+    const description = type === "timeline" ? `Timeline of ${currentTimeline.name} | ${currentEvents.map(cEvent => cEvent.name).join(', ')}.` : type === "event" ? `${currentEvent.description}` : "A timeline that encompasses various topics. From the past to the present, the timeline redefines knowledge with rich content. Explore various aspects of the world, covering topics such as finance, history, personalities, and more."
     const url = type === "timeline" ? `https://timeline.vg/timelines/${currentTimeline.id}` : type === "event" ? `https://timeline.vg/events/${currentEvent.id}` : "https://timeline.vg"
 
     return (
