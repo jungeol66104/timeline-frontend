@@ -19,7 +19,6 @@ const SearchHeader = () => {
 
     const handelSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value
-        dispatch(updateSearchValue(query))
 
         const fetchSearchResults = async (query: any) => {
             // initial timelines and events must be fetched
@@ -48,6 +47,7 @@ const SearchHeader = () => {
             }
         }
         await operateSearch()
+        dispatch(updateSearchValue(query))
     }
 
     // when search feature activates, focus to the searchbar in order to write query immediately

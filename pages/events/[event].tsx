@@ -9,7 +9,7 @@ import RelatedTimeline from "@/components/event/relatedTimeline";
 
 
 export const getStaticPaths = async () => {
-    const eventIds = Array.from({length: 966}, (_, index) => index + 1)
+    const eventIds = Array.from({length: 1355}, (_, index) => index + 1)
     const paths = eventIds.map(eventId => ({ params: {event: String(eventId) }}))
     return {
         paths,
