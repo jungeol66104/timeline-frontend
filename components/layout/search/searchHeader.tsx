@@ -19,7 +19,6 @@ const SearchHeader = () => {
 
     const handelSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value
-        dispatch(updateSearchValue(query))
 
         const fetchSearchResults = async (query: any) => {
             // initial timelines and events must be fetched
@@ -48,6 +47,7 @@ const SearchHeader = () => {
             }
         }
         await operateSearch()
+        dispatch(updateSearchValue(query))
     }
 
     // when search feature activates, focus to the searchbar in order to write query immediately
@@ -59,7 +59,7 @@ const SearchHeader = () => {
     });
 
     return (
-        <div className={'mb-[5px]'}>
+        <div>
             <div className={'h-[50px] flex gap-2.5 py-2.5 border-b-[1px]'}>
                 <div className={'flex-shrink-0 w-7 h-7 bg-gray-500 rounded-full flex align-middle justify-center'}><Image src={SearchInBarSVG} alt={'searchInBar'} width={16} height={16} /></div>
                 <input ref={searchBarInputRef} onChange={handelSearch} value={searchValue} placeholder={'Search...'} className={'w-full'} style={{outline: 'none'}}></input>
