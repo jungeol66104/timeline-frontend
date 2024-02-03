@@ -12,7 +12,7 @@ import Toolbar from "@/components/timelineToolbar/toolbar";
 // refactoring: clear
 
 export const getStaticPaths = async () => {
-    const timelineIds = Array.from({length: 64}, (_, index) => index + 1)
+    const timelineIds = Array.from({length: 324}, (_, index) => index + 1)
     const paths = timelineIds.map(timelineId => ({ params: {timeline: String(timelineId) }}))
     return {
         paths,
