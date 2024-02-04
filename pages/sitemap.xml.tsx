@@ -1,9 +1,14 @@
 import { GetServerSideProps } from 'next'
+import api from "@/utils/api";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     if (res) {
-        const timelineIds = Array.from({length: 324}, (_, index) => index + 1)
-        const eventIds = Array.from({length: 2509}, (_, index) => index + 1)
+        const timelineResponse = await api.get('/timeline', {headers: {lang: 'en'}})
+        const eventResponse = await api.get('/event', {headers: {lang: 'en'}})
+        const timelines: any[] = timelineResponse.data.data
+        const events: any[] = eventResponse.data.data
+        const timelineIds = timelines.map(timeline => timeline.id)
+        const eventIds = events.map(event => event.id)
         const urls = [...timelineIds.map(timelineId => `https://timeline.vg/timelines/${timelineId}`), ...eventIds.map(eventId => `https://timeline.vg/events/${eventId}`)]
 
         res.setHeader('Content-Type', 'text/xml')
