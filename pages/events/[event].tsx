@@ -5,9 +5,7 @@ import {updateCurrentEvent} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Event from "@/components/event/event"
 import RelatedTimeline from "@/components/event/relatedTimeline";
-import {selectIs404, updateIs404} from "@/store/slices/appearanceSlice";
-import {useSelector} from "react-redux";
-import Custom404 from "@/pages/404";
+import {updateIs404} from "@/store/slices/appearanceSlice";
 // refactoring: clear
 
 

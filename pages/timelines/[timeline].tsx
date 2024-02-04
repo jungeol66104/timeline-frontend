@@ -9,13 +9,12 @@ import {
     updateIsBottomEnd,
     updateMaxDepth,
     updateTotalHeight,
-    updateIs404, selectIs404
+    updateIs404
 } from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import Toolbar from "@/components/timelineToolbar/toolbar";
-import Custom404 from "@/pages/404";
 // refactoring: clear
 
 
