@@ -5,21 +5,27 @@ import {updateCurrentEvent} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Event from "@/components/event/event"
 import RelatedTimeline from "@/components/event/relatedTimeline";
+import {selectIs404, updateIs404} from "@/store/slices/appearanceSlice";
+import {useSelector} from "react-redux";
+import Custom404 from "@/pages/404";
 // refactoring: clear
 
 
 export const getStaticPaths = async () => {
-    const eventIds = Array.from({length: 2509}, (_, index) => index + 1)
+    const response = await api.get('/event', {headers: {lang: 'en'}})
+    const events: any[] = response.data.data
+    const eventIds = events.map(event => event.id)
     const paths = eventIds.map(eventId => ({ params: {event: String(eventId) }}))
     return {
         paths,
-        fallback: false
+        fallback: 'blocking'
     }
 }
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({params}) => {
     try {
         const response = await api.get(`/event/${Number(params?.event)}`, {headers: {lang: 'en'}})
+        if (response.data.code === 69999) store.dispatch(updateIs404(true))
         let newCurrentEvent = response.data.data
         store.dispatch(updateCurrentEvent(newCurrentEvent))
         return {props: {}, revalidate: 10}

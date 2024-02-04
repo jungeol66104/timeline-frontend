@@ -17,7 +17,8 @@ const initialState = {
     totalHeight: 0,
     isTimelineInfo: false,
     toolbarStatus: "expand",
-    isShare: false
+    isShare: false,
+    is404: false
 } as initialAppearanceState
 
 // part of the store as a whole, related with the app's appearance such as timelineToolbar and effects
@@ -63,11 +64,14 @@ const appearanceSlice = createSlice({
         },
         updateIsShare: (state) => {
             state.isShare = !state.isShare
+        },
+        updateIs404: (state, action) => {
+            state.is404 = action.payload
         }
     },
 });
 export default appearanceSlice.reducer;
-export const {updateIsShare, updateIsTopEnd, updateIsBottomEnd, incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight, updateIsTimelineInfo , updateToolbarStatus} = appearanceSlice.actions;
+export const {updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight, updateIsTimelineInfo , updateToolbarStatus} = appearanceSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
@@ -85,6 +89,7 @@ export const selectTotalHeight = (state: RootState) => state.appearance.totalHei
 export const selectIsTimelineInfo = (state: RootState) => state.appearance.isTimelineInfo
 export const selectToolbarStatus = (state: RootState) => state.appearance.toolbarStatus
 export const selectIsShare = (state: RootState) => state.appearance.isShare
+export const selectIs404 = (state: RootState) => state.appearance.is404
 
 // types
 export interface initialAppearanceState {
@@ -105,4 +110,5 @@ export interface initialAppearanceState {
     isTimelineInfo: boolean
     toolbarStatus: "expand" | "shrink"
     isShare: boolean
+    is404: boolean
 }

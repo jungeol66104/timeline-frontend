@@ -4,25 +4,36 @@ import React, {useEffect, useState} from "react";
 import {storeWrapper} from "@/store/store";
 import {TimelineEvent} from "@/store/slices/contentsSlice"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {
+    updateIsTopEnd,
+    updateIsBottomEnd,
+    updateMaxDepth,
+    updateTotalHeight,
+    updateIs404, selectIs404
+} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Toolbar from "@/components/timelineToolbar/toolbar";
+import Custom404 from "@/pages/404";
 // refactoring: clear
 
+
 export const getStaticPaths = async () => {
-    const timelineIds = Array.from({length: 324}, (_, index) => index + 1)
+    const response = await api.get('/timeline', {headers: {lang: 'en'}})
+    const timelines: any[] = response.data.data
+    const timelineIds = timelines.map(timeline => timeline.id)
     const paths = timelineIds.map(timelineId => ({ params: {timeline: String(timelineId) }}))
     return {
         paths,
-        fallback: false
+        fallback: 'blocking'
     }
 }
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
     try {
         const response = await api.get(`/timeline/${Number(params?.timeline)}?timelineId=${Number(params?.timeline)}&depth=0&time=0`, {headers: {lang: 'en'}})
+        if (response.data.code === 69999) store.dispatch(updateIs404(true))
         const newCurrentTimeline = response.data.data.timelineInfo
         const newMaxDepth = response.data.data.maxDepth
         const newIsTopEnd = response.data.data.isTopEnd
@@ -87,6 +98,7 @@ const TimelinePage = () => {
             scrollWrapper.removeEventListener('scroll', handleScroll)
         }
     }, []);
+
     return (
         <>
             <DynamicHead type={'timeline'}/>
