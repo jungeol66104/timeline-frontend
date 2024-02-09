@@ -20,7 +20,7 @@ const SearchContent = ({searchResult}: {searchResult: any}) => {
                     }
                 </div>}
                 <div className={'font-medium flex-1 line-clamp-1'} >{searchResult.name}</div>
-                <div className={' text-sm text-gray-500'}>{tab === 'timeline' ? "" : searchResult.date}</div>
+                <div className={'text-sm text-gray-500'}>{tab === 'timeline' ? "" : searchResult.date}</div>
             </div>
         </Link>
     )

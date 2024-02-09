@@ -59,7 +59,7 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
             <div className={`pb-2.5 flex justify-between`}>
                 <div className={'text-xl font-semibold'}>{event.date}</div>
                 <div ref={untoggleButtonRef} className={'cursor-pointer pt-[1px] flex items-center text-[14px] font-medium'}>
-                    <div className={'line-clamp-1 overflow-hidden'}>간략히 보기</div>
+                    <div className={'line-clamp-1 overflow-hidden'}>Show Less</div>
                     <div><Image src={ExpandLessSVG} alt={'toggle'} width={22} height={22} /></div>
                 </div>
             </div>

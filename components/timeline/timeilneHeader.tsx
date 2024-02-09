@@ -64,13 +64,12 @@ const TimelineHeader = () => {
     }, []);
 
 
-
     return (
         <div className={'timelineHeader relative left-0 w-fit flex gap-2.5 items-center'} style={{zIndex: 4999}}>
             <Link ref={timelineLinkRef} href={`/timelines/${currentTimeline.id}`} className={`w-fit font-black text-2xl cursor-pointer`}>
                 <div className={'flex gap-2.5 items-center'}>
-                    <div className={'text-2xl font-bold'}>{currentTimeline.name}</div>
-                    <div className={'w-[24px] h-[24px] top-0 right-0 mb-[0.5px]'}>
+                    <div className={'text-2xl font-bold line-clamp-1'}>{currentTimeline.name}</div>
+                    <div className={'w-[24px] h-[24px] top-0 right-0 mb-[0.5px] shrink-0'}>
                         {currentTimeline.id <= 10
                             ?   <Image className={'rounded-sm'} src={`/images/timeline/${currentTimeline.id}.png`} alt={`${currentTimeline.name}`} width={28} height={28} />
                             :   <div className={'w-full h-full rounded-sm bg-gray-500 text-white flex items-center justify-center text-sm font-medium hidden'}><span>{currentTimeline.name.charAt(0).toUpperCase()}</span></div>
