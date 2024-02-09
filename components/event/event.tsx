@@ -8,7 +8,7 @@ const Event = () => {
 
     return (
         <div className={'flex flex-col'}>
-            <span className={'text-md font-semibold text-gray-700'}>{currentEvent.date}</span>
+            <span className={'text-md font-semibold'}>{currentEvent.date}</span>
             <h1 className={'text-2xl font-bold'}>{currentEvent.name}</h1>
             <div className={'mt-1 mb-1 flex gap-1 text-gray-500 font-medium text-sm'}>
                 by
