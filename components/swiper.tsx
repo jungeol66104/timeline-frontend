@@ -3,8 +3,8 @@ import SwiperCard from "@/components/swiperCard";
 import Image from "next/image";
 
 
-
 const Swiper = ({series}: {series: Series}) => {
+    const showMoreButton = series.timelines.length
     return (
         <div className={'my-[20px]'}>
             <div className={'pl-5 w-full'}>

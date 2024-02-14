@@ -12,14 +12,14 @@
     font-family: 'Inter', sans-serif;
 }
 
-html, body, #__next, .layout {
-    height: 100%;
-    width: 100%;
-}
+/*html, body, #__next, .layout {*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*}*/
 
-body, #__next, .layout {
-    max-width: 512px;
-}
+/*body, #__next, .layout {*/
+/*    max-width: 512px;*/
+/*}*/
 
 html {
     display: flex;
@@ -52,12 +52,12 @@ html {
 
 
 /* highly repetitive css */
-.page {
-    position: relative;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 100%;
-}
+/*.page {*/
+/*    position: relative;*/
+/*    overflow-y: auto;*/
+/*    overflow-x: hidden;*/
+/*    height: 100%;*/
+/*}*/
 
 /* responsive, temporary */
 @media (min-width: 0px) {
@@ -72,14 +72,14 @@ html {
 }
 
 @media (min-width: 520px) {
-    body, .search, .navbar, .share, .timelineInformationHeader{
-        border-left: 0.1px solid #d1d5db; /* Left border color and width */
-        border-right: 0.1px solid #d1d5db; /* Right border color and width */
-    }
+    /*body, .search, .navbar, .share, .timelineInformationHeader{*/
+    /*    border-left: 0.1px solid #d1d5db; !* Left border color and width *!*/
+    /*    border-right: 0.1px solid #d1d5db; !* Right border color and width *!*/
+    /*}*/
     .swiperCard {
         width: calc((100% - 20px)/3.15);
         padding-top: calc((100% - 20px)/3.15);
-        margin-right: calc((100% - 20px)/31.5)
+        margin-right: calc((100% - 20px)/31.5);
     }
     .swiperContainer > .swiperCard:last-child {
         margin-right: 0
