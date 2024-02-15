@@ -15,7 +15,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
     if (is404) return <Custom404 />
 
     return (
-        <div className={'layout pt-[60px]'}>
+        <div className={'layout'}>
             <Navbar />
             <>{children}</>
             {isSearch && <Search />}

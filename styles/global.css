@@ -12,10 +12,10 @@
     font-family: 'Inter', sans-serif;
 }
 
-/*html, body, #__next, .layout {*/
-/*    height: 100%;*/
-/*    width: 100%;*/
-/*}*/
+html, body, #__next, .layout {
+    /*height: 100%;*/
+    width: 100%;
+}
 
 /*body, #__next, .layout {*/
 /*    max-width: 512px;*/
