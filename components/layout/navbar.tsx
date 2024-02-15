@@ -43,22 +43,25 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className={'navbar sticky top-0 left-0 h-[60px] w-full bg-white pr-5 pl-5 shadow-md flex items-center justify-between'} style={{zIndex: 5000}}>
-                <Link onClick={() => sessionStorage.clear()} href={'/'} className={`w-fit font-black text-2xl transform transition-opacity ease-in-out duration-300`}>Timeline</Link>
-                <div className={'flex items-center gap-2.5'}>
-                    <ShareButton />
-                    <Link href={'https://docs.google.com/forms/d/e/1FAIpQLScN4ooRXZylBgKtElHSJi7m739iHHSMNg4QfbAcDx0v0OjwnA/viewform?usp=sf_link'} target="_blank" className={'cursor-pointer flex items-center pr-[6px] h-[24px] mb-[0.5px] rounded-sm bg-white border-[0.1px] shadow-[0_2px_3px_rgba(0,0,0,0.07)]'}>
-                            <div className={'flex w-[24px] h-[24px] items-center justify-center'}>
-                                <Image src={'/svg/feedback.svg'} alt={'feedback'} width={14} height={14}/>
-                            </div>
-                            <div className={'text-xs font-semibold'}>Feedback</div>
-                    </Link>
-                    <button onClick={() => dispatch(updateIsSearch())}>
-                        {!isSearch ? <Image src={SearchSVG} alt={'search'} width={24} height={24} /> : <Image src={CloseSVG} alt={'close'} width={24} height={24} />}
-                    </button>
-                    <button className={'hidden'}>
-                        <Image src={MenuSVG} alt={'menu'} width={24} height={24} />
-                    </button>
+            <nav className={'navbar fixed top-[-30px] left-0 h-[90px] w-full bg-white pr-5 pl-5 shadow-md flex flex-col'} style={{zIndex: 5000}}>
+                <div className={'h-[30px]'}></div>
+                <div className={'h-[60px] w-full flex items-center justify-between'}>
+                    <Link onClick={() => sessionStorage.clear()} href={'/'} className={`w-fit font-black text-2xl transform transition-opacity ease-in-out duration-300`}>Timeline</Link>
+                    <div className={'flex items-center gap-2.5'}>
+                        <ShareButton />
+                        <Link href={'https://docs.google.com/forms/d/e/1FAIpQLScN4ooRXZylBgKtElHSJi7m739iHHSMNg4QfbAcDx0v0OjwnA/viewform?usp=sf_link'} target="_blank" className={'cursor-pointer flex items-center pr-[6px] h-[24px] mb-[0.5px] rounded-sm bg-white border-[0.1px] shadow-[0_2px_3px_rgba(0,0,0,0.07)]'}>
+                                <div className={'flex w-[24px] h-[24px] items-center justify-center'}>
+                                    <Image src={'/svg/feedback.svg'} alt={'feedback'} width={14} height={14}/>
+                                </div>
+                                <div className={'text-xs font-semibold'}>Feedback</div>
+                        </Link>
+                        <button onClick={() => dispatch(updateIsSearch())}>
+                            {!isSearch ? <Image src={SearchSVG} alt={'search'} width={24} height={24} /> : <Image src={CloseSVG} alt={'close'} width={24} height={24} />}
+                        </button>
+                        <button className={'hidden'}>
+                            <Image src={MenuSVG} alt={'menu'} width={24} height={24} />
+                        </button>
+                    </div>
                 </div>
             </nav>
             {showTimelineInformation && <TimelineInformationHeader/>}

@@ -15,19 +15,8 @@
 
 /* layout */
 html, body, #__next, .layout, .page {
-    /*height: 100%;*/
     width: 100%;
 }
-
-.navbar {
-    transition: -ms-transform 0.2s cubic-bezier(0.35, 0, 0.65, 1),
-    -webkit-transform 0.2s cubic-bezier(0.35, 0, 0.65, 1),
-    transform 0.2s cubic-bezier(0.35, 0, 0.65, 1);
-}
-
-/*body, #__next, .layout {*/
-/*    max-width: 512px;*/
-/*}*/
 
 html {
     display: flex;
