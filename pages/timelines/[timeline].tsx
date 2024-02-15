@@ -14,7 +14,7 @@ import {
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
 import {useDispatch} from "react-redux";
-import Toolbar from "@/components/timelineToolbar/toolbar";
+import Toolbar from "@/components/timeline/toolbar";
 // refactoring: clear
 
 

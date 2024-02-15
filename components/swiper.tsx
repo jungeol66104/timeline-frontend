@@ -6,7 +6,7 @@ import Image from "next/image";
 const Swiper = ({series}: {series: Series}) => {
     const showMoreButton = series.timelines.length
     return (
-        <div className={'my-[20px]'}>
+        <div className={'swiper w-full max-w-[984px] my-[20px]'}>
             <div className={'pl-5 w-full'}>
                 <div className={'text-sm text-gray-500'}>{series.description}</div>
                 <div className={'flex items-center justify-between'} style={{width: `calc(100% - 30px)`}}>
@@ -17,7 +17,7 @@ const Swiper = ({series}: {series: Series}) => {
                     {/*</div>*/}
                 </div>
             </div>
-            <div className={'swiperContainer w-full flex px-5 pb-2.5 mt-2.5 overflow-x-scroll'}>
+            <div className={'swiperContainer w-full flex gap-4 px-5 pb-2.5 mt-2.5 overflow-x-scroll'}>
                 {series["timelines"].map((timeline, i) => {
                     return <SwiperCard key={i} timeline={timeline}/>
                 })}

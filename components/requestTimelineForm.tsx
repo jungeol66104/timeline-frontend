@@ -16,7 +16,7 @@ const RequestTimelineForm = () => {
     }
 
     return (
-        <div className={'flex flex-col gap-2.5 mt-[20px] mb-[30px] mx-[20px] pt-3.5 pb-5 px-5 border-[0.1px] border-gray-300 rounded-xl shadow-md'}>
+        <div className={'max-w-[1000px] flex flex-col gap-2.5 mt-[20px] mb-[20px] mx-[20px] pt-3.5 pb-5 px-5 border-[0.1px] border-gray-300 rounded-xl shadow-md'} style={{width: 'calc(100% - 40px)'}}>
             <div>
                 <span className={'text-sm text-gray-500'}>Give Feedback</span>
                 <h2 className={'text-2xl font-bold'}>Request Timeline</h2>
