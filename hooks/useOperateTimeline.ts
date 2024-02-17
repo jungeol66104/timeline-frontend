@@ -2,7 +2,26 @@ import {useEffect} from "react";
 import {getEventHeights, sum} from "@/utils/global";
 import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
 import api from "@/utils/api";
-import {decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectScrollTop, selectTimelineEdgeHeight, selectTotalHeight, updateAfterEffectTop, updateIsBottomEnd, updateIsTopEnd, updateLastAction, updateScrollTop, updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {
+    decrementDepth,
+    incrementDepth,
+    selectAboveTimelineHeight,
+    selectCurrentDepth,
+    selectEventBoxHeight,
+    selectLastAction,
+    selectMaxDepth,
+    selectOverlapBottom,
+    selectScrollTop,
+    selectTimelineEdgeHeight,
+    selectTotalHeight,
+    updateAfterEffectTop,
+    updateCurrentDepth,
+    updateIsBottomEnd,
+    updateIsTopEnd,
+    updateLastAction,
+    updateScrollTop,
+    updateTotalHeight
+} from "@/store/slices/appearanceSlice";
 import {useDispatch, useSelector} from "react-redux";
 
 const useOperateTimeline = () => {
@@ -38,14 +57,14 @@ const useOperateTimeline = () => {
         let startY: number | null = null
 
         // functions
-        const getSwipedEvent = (e: WheelEvent | TouchEvent | MouseEvent) : TimelineEvent => {
+        const getSwipedEvent = (e?: WheelEvent | TouchEvent | MouseEvent) : TimelineEvent => {
             let clientYInContainer = 0
             if (e instanceof TouchEvent) clientYInContainer = scrollWrapper.scrollTop + e.changedTouches[0].clientY - aboveTimelineHeight - timelineEdgeHeight
-            else clientYInContainer = scrollWrapper.scrollTop + e.clientY  - aboveTimelineHeight - timelineEdgeHeight
+            else if (e instanceof WheelEvent || e instanceof MouseEvent) clientYInContainer = scrollWrapper.scrollTop + e.clientY  - aboveTimelineHeight - timelineEdgeHeight
+            else clientYInContainer = scrollWrapper.scrollTop + scrollWrapper.clientHeight/2
             let order = 0
             if (clientYInContainer > 0) order = currentEventTops.findLastIndex(top => top < clientYInContainer)
             let top = currentEventTops[order] + aboveTimelineHeight + timelineEdgeHeight - scrollWrapper.scrollTop
-            console.log(top)
             let boxTop = top
             if (currentEvents[order].isToggle) {
                 let clientYInBox = clientYInContainer - currentEventTops[order]
@@ -147,11 +166,18 @@ const useOperateTimeline = () => {
             if (!fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop !== undefined) {newScrollTop -= swipedEvent.boxTop}
             return {newScrollTop: newScrollTop, totalHeight: sum(heightsOfFetchedEvents)}
         }
-        const operateZoom = (e: WheelEvent | TouchEvent | MouseEvent, deltaX?: number) => {
+        const operateZoom = (e?: WheelEvent | TouchEvent | MouseEvent, deltaX?: number, classNames?: DOMTokenList) => {
             let depth: number
-            if (e instanceof WheelEvent) {depth = e.deltaX > 0 ? currentDepth - 1 : currentDepth + 1}
-            else {depth = (deltaX as number) < 0 ? currentDepth - 1 : currentDepth + 1}
-            let swipedEvent: TimelineEvent = getSwipedEvent(e)
+            let swipedEvent: TimelineEvent
+            if (classNames) {
+                if (!classNames.contains('fold') && !classNames.contains('unfold')) return
+                depth = classNames.contains('fold') ? 0 : maxDepth
+                swipedEvent = getSwipedEvent()
+            } else {
+                if (e instanceof WheelEvent) depth = e.deltaX > 0 ? currentDepth - 1 : currentDepth + 1
+                else depth = (deltaX as number) < 0 ? currentDepth - 1 : currentDepth + 1
+                swipedEvent = getSwipedEvent(e)
+            }
             fetchEvents(depth, swipedEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
                 if (fetchedEvents === currentEvents) return
                 let { fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop } = getEventsWithEffectForZoom(depth, swipedEvent, referEvent, fetchedEvents)
@@ -163,22 +189,32 @@ const useOperateTimeline = () => {
                 dispatch(updateScrollTop(newScrollTop))
                 dispatch(updateTotalHeight(totalHeight))
                 dispatch(updateLastAction('zoom'))
+                dispatch(updateCurrentDepth(depth))
                 if (isTopEnd !== undefined && isBottomEnd !== undefined) {
                     dispatch(updateIsTopEnd(isTopEnd))
                     dispatch(updateIsBottomEnd(isBottomEnd))
                 }
-                if (e instanceof WheelEvent) {e.deltaX > 0 ? dispatch(decrementDepth()) : dispatch(incrementDepth())}
-                else {(deltaX as number) < 0 ? dispatch(decrementDepth()) : dispatch(incrementDepth())}
+
             })
         }
-        const operateScroll = async (scrollUp: boolean) => {
-            let order =  scrollUp ? 0 : currentEvents.length - 1
-            let top = aboveTimelineHeight + timelineEdgeHeight + currentEventTops[order] - scrollWrapper.scrollTop
-            const scrollEvent = {...currentEvents[order], order: order, top: top}
+        const operateScroll = async (scrollUp?: boolean, uppermost?: boolean) => {
+            let order: number, top: number, scrollEvent: TimelineEvent
+            if (uppermost) scrollEvent = {...currentEvents[0], ephemerisTime: "0", order: 0 , top: 0}
+            else {
+                order =  scrollUp ? 0 : currentEvents.length - 1
+                top = aboveTimelineHeight + timelineEdgeHeight + currentEventTops[order] - scrollWrapper.scrollTop
+                scrollEvent = {...currentEvents[order], order: order, top: top}
+            }
             await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
-                if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) return
+                if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) {
+                    if (uppermost) scrollWrapper.scrollTop = 0
+                    return
+                }
                 fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
-                let { newScrollTop, totalHeight } = getScrollTop(scrollEvent, referEvent, fetchedEvents)
+                let newScrollTop = 0, totalHeight = sum(getEventHeights(fetchedEvents))
+                if (!uppermost) {
+                    newScrollTop = getScrollTop(scrollEvent, referEvent, fetchedEvents).newScrollTop
+                }
                 setTimeout(() => {
                     dispatch(updateCurrentEvents(fetchedEvents))
                     dispatch(updateCurrentEventsWithEffect(fetchedEvents))
@@ -242,17 +278,17 @@ const useOperateTimeline = () => {
             if (!isLoading) {
                 isLoading = true
                 if (classNames.contains('uppermost')) {
-                    await operateScroll(true)
+                    await operateScroll(undefined, true)
                     setTimeout(() => isLoading = false, 500)
                 } else {
-                    // await operateZoom(classNames)
+                    await operateZoom(undefined, undefined, classNames)
                     setTimeout(() => isLoading = false, 500)
                 }
             }
         }
         const handleScroll = async () => {
-            let scrollUp = scrollWrapper.scrollTop < 85
-            let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - scrollWrapper.clientHeight - 25
+            let scrollUp = scrollWrapper.scrollTop < 5
+            let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - scrollWrapper.clientHeight - 5
             if (!isLoading && (scrollUp || scrollDown)) {
                 isLoading = true
                 await operateScroll(scrollUp)

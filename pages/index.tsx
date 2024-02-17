@@ -26,7 +26,7 @@ export default function Home() {
     return (
         <>
             <DynamicHead type={'index'}/>
-            <div className={'page mt-10'}>
+            <div className={'page mt-[30px] pb-2.5'}>
                 {/*<div>*/}
                 {/*    <Swiper series={} />*/}
                 {/*    <RequestTimelineForm />*/}
