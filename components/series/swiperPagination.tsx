@@ -64,7 +64,6 @@ const SwiperPagination = ({swiperContainerRef} : {swiperContainerRef: React.RefO
             targetSwiperCard.scrollIntoView({inline: "end",behavior: 'smooth', block: 'nearest'})
         } else {
             const currentIndex = Math.floor(swiperContainer.scrollLeft/(swiperCards[0].clientWidth + 16))
-            // const indexInterval = Math.floor(swiperContainer.clientWidth/(swiperCards[0].clientWidth + 16)) + 1
             let targetSwiperCard = currentIndex + indexInterval < maxIndex ? swiperCards[currentIndex + indexInterval] : swiperCards[maxIndex]
             targetSwiperCard.scrollIntoView({inline: "start",behavior: 'smooth', block: 'nearest'})
         }

@@ -7,6 +7,8 @@ const initialState = {
     aboveTimelineHeight: 70,
     eventBoxHeight: 124,
     overlapBottom: 6,
+    timelineEdgeHeight: 60,
+    footerHeight: 0,
     maxDepth: 1,
     isTopEnd: true,
     isBottomEnd: true,
@@ -78,6 +80,8 @@ export const {updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, inc
 export const selectAboveTimelineHeight = (state: RootState) => state.appearance.aboveTimelineHeight
 export const selectEventBoxHeight = (state: RootState) => state.appearance.eventBoxHeight
 export const selectOverlapBottom = (state: RootState) => state.appearance.overlapBottom
+export const selectFooterHeight = (state: RootState) => state.appearance.footerHeight
+export const selectTimelineEdgeHeight = (state: RootState) => state.appearance.timelineEdgeHeight
 export const selectIsTopEnd = (state: RootState) => state.appearance.isTopEnd
 export const selectIsBottomEnd = (state: RootState) => state.appearance.isBottomEnd
 export const selectCurrentDepth = (state: RootState) => state.appearance.currentDepth
@@ -95,6 +99,8 @@ export const selectIs404 = (state: RootState) => state.appearance.is404
 export interface initialAppearanceState {
     // fixed
     aboveTimelineHeight: number
+    timelineEdgeHeight: number
+    footerHeight: number
     eventBoxHeight: number
     overlapBottom: number
     // timeline info

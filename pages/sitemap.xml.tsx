@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next'
 import api from "@/utils/api";
+// refactoring: clear
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     if (res) {

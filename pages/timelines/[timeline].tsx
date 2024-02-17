@@ -1,19 +1,13 @@
-import {sum, getEventHeights} from "@/utils/global";
-import api from "@/utils/api"
 import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import api from "@/utils/api"
+import {sum, getEventHeights} from "@/utils/global";
 import {storeWrapper} from "@/store/store";
 import {TimelineEvent} from "@/store/slices/contentsSlice"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {
-    updateIsTopEnd,
-    updateIsBottomEnd,
-    updateMaxDepth,
-    updateTotalHeight,
-    updateIs404, selectTotalHeight
-} from "@/store/slices/appearanceSlice";
+import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight, updateIs404, selectTotalHeight} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
-import {useDispatch, useSelector} from "react-redux";
 import Toolbar from "@/components/timeline/toolbar";
 // refactoring: clear
 
@@ -22,7 +16,7 @@ export const getStaticPaths = async () => {
     const response = await api.get('/timeline', {headers: {lang: 'en'}})
     const timelines: any[] = response.data.data
     const timelineIds = timelines.map(timeline => timeline.id)
-    const paths = timelineIds.map(timelineId => ({ params: {timeline: String(timelineId) }}))
+    const paths = timelineIds.map(timelineId => ({ params: {timeline: String(timelineId)}}))
     return {
         paths,
         fallback: 'blocking'
@@ -49,6 +43,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateCurrentEvents(newCurrentEvents))
         store.dispatch(updateCurrentEventsWithEffect(newCurrentEvents))
         store.dispatch(updateTotalHeight(newTotalHeight))
+
         return {props: {}, revalidate:10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);
@@ -102,7 +97,7 @@ const TimelinePage = () => {
     return (
         <>
             <DynamicHead type={'timeline'}/>
-            <div className={`page flex flex-col justify-end max-w-[795px]`} style={{height: totalHeight + 140}}>
+            <div className={`page max-w-[795px]`}>
                 {!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}
                 <Timeline/>
                 <Toolbar />
