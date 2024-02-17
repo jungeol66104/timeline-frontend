@@ -12,12 +12,12 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* layout */
 html, body, #__next, .layout, .page {
     width: 100%;
 }
 html {
+    height: 100%;
     display: flex;
     justify-content: center;
 }
@@ -45,11 +45,6 @@ html {
 .hideScrollbar::-webkit-scrollbar {
     visibility: hidden;
 }
-
-/*.swiperContainer::-webkit-scrollbar {*/
-/*    visibility: hidden;*/
-/*}*/
-
 
 /* series responsive */
 @media only screen and (width >= 0px) and (width <= 353px) {

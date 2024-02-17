@@ -102,7 +102,7 @@ const TimelinePage = () => {
     return (
         <>
             <DynamicHead type={'timeline'}/>
-            <div className={`page`} style={{height: totalHeight + 140}}>
+            <div className={`page flex flex-col justify-end max-w-[795px]`} style={{height: totalHeight + 140}}>
                 {!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}
                 <Timeline/>
                 <Toolbar />

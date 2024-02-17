@@ -10,7 +10,7 @@ import Custom404 from "@/pages/404";
 import Footer from "@/components/layout/footer";
 // refactoring: clear
 
-const Layout = ({ children } : {children: ReactNode}) => {
+const Layout = ({ children, loading } : {children: ReactNode, loading: boolean}) => {
     const isSearch = useSelector(selectIsSearch)
     const is404 = useSelector(selectIs404)
     if (is404) return <Custom404 />
@@ -19,7 +19,10 @@ const Layout = ({ children } : {children: ReactNode}) => {
         <div className={'layout relative pt-[60px]'}>
             <Navbar />
             <>{children}</>
-            <Footer />
+            {loading
+                ?   <div></div>
+                :   <Footer />
+            }
             {/*{isSearch && <Search />}*/}
             <Share />
             <Overlay />
