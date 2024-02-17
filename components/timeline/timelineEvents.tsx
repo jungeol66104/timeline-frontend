@@ -13,7 +13,7 @@ const TimelineEvents = () => {
     const isBottomEnd = useSelector(selectIsBottomEnd)
 
     return (
-        <div className={'timelineEvents absolute max-w-lg flex flex-col overflow-x-visible mx-[20px]'} style={{width: `calc(100% - 40px)`}}>
+        <div className={'timelineEvents absolute max-w-[650px] flex flex-col overflow-x-visible mx-[20px]'} style={{width: `calc(100% - 40px)`}}>
             <TimelineEventsEdge type={'top'} isEnd={isTopEnd} />
             {currentEventsWithEffect.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event} />

@@ -212,12 +212,12 @@ const Toolbar = () => {
     });
 
     return (
-        <div className={'bottom-[22px] fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-full max-w-lg'} style={{zIndex: 4998}}>
-            <div className={`${toolbarStatus === "expand" ? 'bottom-0' : 'bottom-[-40px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center h-[40px] rounded-3xl drop-shadow-md`}>
+        <div className={'fixed bottom-[63px] flex items-center justify-end w-full max-w-[650px]'} style={{zIndex: 4998}}>
+            <div className={`${toolbarStatus === "expand" ? 'bottom-0' : 'bottom-[-40px]'} absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center h-[40px] rounded-3xl drop-shadow-md`}>
                     <button className={`toolbarButton unfold pl-4 pr-2.5 border-l-[1px] border-t-[1px] border-b-[1px] h-full rounded-l-3xl shrink-0 text-sm font-semibold ${currentDepth === maxDepth ? 0 !== maxDepth ? 'bg-[#222222] shadow-black text-white shadow-inner' : 'bg-white/50' : 'bg-white'}`} style={{backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0))'}}>More</button>
                     <button className={`toolbarButton fold pl-2.5 pr-4 border-r-[1px] border-t-[1px] border-b-[1px] h-full rounded-r-3xl shrink-0 text-sm font-semibold ${currentDepth === 0 ? 0 !== maxDepth ? 'bg-[#222222] shadow-black text-white shadow-inner' : 'bg-white/50' : 'bg-white'}`} style={{backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0))'}}>Less</button>
             </div>
-            <div className={'bottom-0 fixed right-[20px] flex items-center justify-center'}>
+            <div className={'flex items-center justify-center'}>
                 <div className={'toolbarButton uppermost flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white/50 drop-shadow-md'} style={{zIndex: 100}}>
                     <button><Image src={NorthSVG} alt={'uppermost'} height={20} width={20}/></button>
                 </div>

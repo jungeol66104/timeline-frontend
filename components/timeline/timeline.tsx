@@ -17,8 +17,9 @@ const Timeline = () => {
     const aboveTimelineHeight = useSelector(selectAboveTimelineHeight)
     const eventBoxHeight = useSelector(selectEventBoxHeight)
     const overlapBottom = useSelector(selectOverlapBottom)
-    // effects
     const totalHeight = useSelector(selectTotalHeight)
+
+    // effects
     const currentDepth = useSelector(selectCurrentDepth)
     const maxDepth = useSelector(selectMaxDepth)
     const scrollTop = useSelector(selectScrollTop)
@@ -283,7 +284,7 @@ const Timeline = () => {
     });
 
     return (
-        <div className='timeline absolute w-full overflow-y-hidden' style={{height: totalHeight + 140}}>
+        <div className='timeline absolute w-full max-w-[670px] overflow-y-hidden' style={{height: totalHeight + 140}}>
             <TimelineFrame />
             <TimelineEvents />
         </div>

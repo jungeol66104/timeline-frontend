@@ -9,11 +9,11 @@ import {
     updateIsBottomEnd,
     updateMaxDepth,
     updateTotalHeight,
-    updateIs404
+    updateIs404, selectTotalHeight
 } from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Toolbar from "@/components/timeline/toolbar";
 // refactoring: clear
 
@@ -58,6 +58,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
 
 const TimelinePage = () => {
     const dispatch = useDispatch()
+    const totalHeight = useSelector(selectTotalHeight)
     const [isVisible, setIsVisible] = useState(false)
 
     useEffect(() => {
@@ -101,7 +102,7 @@ const TimelinePage = () => {
     return (
         <>
             <DynamicHead type={'timeline'}/>
-            <div className={`page`}>
+            <div className={`page`} style={{height: totalHeight + 140}}>
                 {!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}
                 <Timeline/>
                 <Toolbar />

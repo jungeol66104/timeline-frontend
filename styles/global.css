@@ -21,6 +21,10 @@ html {
     display: flex;
     justify-content: center;
 }
+.page {
+    position: relative;
+}
+
 @media only screen and (width >= 1149px) {
     .page {
         padding-left: 125px;

@@ -16,8 +16,8 @@ const MobileNavbarControl = () => {
             <div className={'flex items-center gap-2.5'}>
                 <ShareButton />
                 <FeedbackButton />
-                <button onClick={() => dispatch(updateIsSearch())}>
-                    {!isSearch ? <Image src={'/svg/search.svg'} alt={'search'} width={24} height={24} /> : <Image src={'/svg/close.vg'} alt={'close'} width={24} height={24} />}
+                <button>
+                    {!isSearch ? <Image onClick={() => dispatch(updateIsSearch(true))} src={'/svg/search.svg'} alt={'search'} width={24} height={24} /> : <Image onClick={() => dispatch(updateIsSearch(false))} src={'/svg/close.vg'} alt={'close'} width={24} height={24} />}
                 </button>
                 <button className={'hidden'}>
                     <Image src={'/svg/menu.svg'} alt={'menu'} width={24} height={24} />
