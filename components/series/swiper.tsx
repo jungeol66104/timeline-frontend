@@ -28,7 +28,7 @@ const Swiper = ({series}: {series: Series}) => {
                     </div>
                 </div>
             </div>
-            <div ref={swiperContainerRef}  className={'swiperContainer hideScrollbar w-full max-w-[964px] flex gap-4 pb-2.5 mt-2.5 overflow-x-scroll'}>
+            <div ref={swiperContainerRef}  className={'swiperContainer hideScrollbar w-full max-w-[964px] flex pb-2.5 mt-2.5 overflow-x-scroll'}>
                 {series["timelines"].map((timeline, i) => {
                     return <SwiperCard key={i} timeline={timeline}/>
                 })}
