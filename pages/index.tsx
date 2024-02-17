@@ -1,5 +1,5 @@
 import DynamicHead from "@/components/dynamicHead";
-import Swiper from "@/components/swiper";
+import Swiper from "@/components/series/swiper";
 import {storeWrapper} from "@/store/store";
 import RequestTimelineForm from "@/components/requestTimelineForm";
 import api from "@/utils/api";
@@ -23,7 +23,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async (cont
 
 export default function Home() {
     const currentSeries = useSelector(selectCurrentSeries)
-    console.log(currentSeries)
+    // console.log(currentSeries)
     const newSeries = {
         description: "",
         hasMore: "false"
@@ -43,7 +43,7 @@ export default function Home() {
     return (
         <>
             <DynamicHead type={'index'}/>
-            <div className={'page'}>
+            <div className={'page my-10'}>
                 <div>
                     {/*<Swiper series={} />*/}
                     {/*<RequestTimelineForm />*/}
@@ -52,7 +52,6 @@ export default function Home() {
                     return <Swiper key={i} series={series}/>
                 })}
             </div>
-            <div className={'footer'}></div>
         </>
     )
 }

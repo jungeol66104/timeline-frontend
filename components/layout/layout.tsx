@@ -7,6 +7,7 @@ import Share from "@/components/layout/share/share";
 import Overlay from "@/components/layout/overlay";
 import {selectIs404, selectIsShare} from "@/store/slices/appearanceSlice";
 import Custom404 from "@/pages/404";
+import Footer from "@/components/layout/footer";
 // refactoring: clear
 
 const Layout = ({ children } : {children: ReactNode}) => {
@@ -18,7 +19,8 @@ const Layout = ({ children } : {children: ReactNode}) => {
         <div className={'layout relative pt-[60px]'}>
             <Navbar />
             <>{children}</>
-            {isSearch && <Search />}
+            <Footer />
+            {/*{isSearch && <Search />}*/}
             <Share />
             <Overlay />
         </div>

@@ -16,8 +16,9 @@ const searchSlice = createSlice({
     name: 'search',
     initialState,
     reducers: {
-        updateIsSearch : state => {
-            state.isSearch = !state.isSearch
+        updateIsSearch : (state, action) => {
+            if (action) state.isSearch = action.payload
+            else state.isSearch = !state.isSearch
         },
         updateSearchValue : (state, action) => {
             state.searchValue = action.payload
