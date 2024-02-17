@@ -1,14 +1,17 @@
 import React from 'react';
 import Image from "next/image";
 import Link from "next/link";
+import {useSelector} from "react-redux";
+import {selectIsMobileSize} from "@/store/slices/appearanceSlice";
 
-const FeedbackButton = () => {
+const FeedbackButton = ({isMobileSize}:{isMobileSize?: boolean}) => {
+
     return (
-        <Link href={'https://docs.google.com/forms/d/e/1FAIpQLScN4ooRXZylBgKtElHSJi7m739iHHSMNg4QfbAcDx0v0OjwnA/viewform?usp=sf_link'} target="_blank" className={'cursor-pointer flex items-center pr-[6px] h-[24px] mb-[0.5px] rounded-sm bg-white border-[0.1px] shadow-[0_2px_3px_rgba(0,0,0,0.07)]'}>
-            <div className={'flex w-[24px] h-[24px] items-center justify-center'}>
-                <Image src={'/svg/feedback.svg'} alt={'feedback'} width={14} height={14}/>
-            </div>
-            <div className={'text-xs font-semibold'}>Feedback</div>
+        <Link href={'https://docs.google.com/forms/d/e/1FAIpQLScN4ooRXZylBgKtElHSJi7m739iHHSMNg4QfbAcDx0v0OjwnA/viewform?usp=sf_link'} target="_blank" className={'cursor-pointer'}>
+            {isMobileSize
+                ?   <div className={'w-[36px] h-[36px] flex items-center justify-center rounded-full bg-white hover:bg-gray-100'}><Image src={'/svg/feedback.svg'} alt={'feedback'} width={24} height={24}/></div>
+                :   <div className={'px-3 py-1.5 h-[36px] rounded-3xl bg-white hover:bg-gray-100 font-semibold'}>Feedback</div>
+            }
         </Link>
     );
 };

@@ -7,7 +7,7 @@ import useSearch from "@/hooks/useSearch";
 import SearchTab from "@/components/layout/search/searchTab";
 import SearchList from "@/components/layout/search/searchList";
 
-const SearchBar = () => {
+const MobileSearchBar = () => {
     const searchBodyRef = useRef<HTMLDivElement>(null)
     const searchInputRef = useRef<HTMLInputElement>(null)
 
@@ -34,12 +34,15 @@ const SearchBar = () => {
     }
 
     return (
-        <div ref={searchBodyRef}  className={`relative`}>
-            <div onClick={handleClick} className={`h-[40px] w-[480px] px-2.5 flex gap-2.5 items-center border-gray-200 ${isSearch ? 'bg-white rounded-t-lg border-t-[1px] border-x-[1px]' : 'bg-gray-100 rounded-lg border-[1px]'}`}>
+        <div ref={searchBodyRef} className={`absolute top-[40px] left-2.5`} style={{width: `calc(100% - 20px)`}}>
+            <div className={`h-[40px] w-full px-2.5 flex gap-2.5 items-center border-gray-200 ${isSearch ? 'bg-white rounded-t-lg border-t-[1px] border-x-[1px]' : 'bg-gray-100 rounded-lg border-[1px]'}`}>
                 <Image src={'/svg/search.svg'} alt={'search'} width={24} height={24} className={`cursor-pointer  ${isSearch ? '': "opacity-30" }`} />
-                <input ref={searchInputRef} className={'bg-transparent w-full outline-0'} onChange={(e) => dispatch(updateSearchValue(e.target.value))} value={searchValue} placeholder={'Search timelines, events'}/>
+                <div className={'flex w-full'}>
+                    <input ref={searchInputRef} className={'bg-transparent w-full outline-0'} onChange={(e) => dispatch(updateSearchValue(e.target.value))} value={searchValue} placeholder={'Search timelines, events'}/>
+                    <button className={'w-[36px] h-[36px] flex items-center justify-center rounded-full bg-white hover:bg-gray-100'}><Image onClick={() => dispatch(updateIsSearch(false))} src={'/svg/close.svg'} alt={'close'} width={24} height={24} /></button>
+                </div>
             </div>
-            <div className={`absolute top-[40px] left-0 h-fit w-[480px] pb-2.5 px-2.5 bg-white shadow-md rounded-b-lg border-[1px] border-gray-200 ${isSearch ? '' : 'hidden'}`}>
+            <div className={`absolute top-[40px] left-0 h-fit w-full pb-2.5 px-2.5 bg-white shadow-md rounded-b-lg border-[1px] border-gray-200 ${isSearch ? '' : 'hidden'}`}>
                 <SearchTab />
                 <SearchList />
             </div>
@@ -47,4 +50,4 @@ const SearchBar = () => {
     );
 };
 
-export default SearchBar;
+export default MobileSearchBar;

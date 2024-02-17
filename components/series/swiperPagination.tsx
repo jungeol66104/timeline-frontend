@@ -1,8 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Image from "next/image";
-import swiperPagination from "@/components/series/swiperPagination";
-import {hidden} from "next/dist/lib/picocolors";
-import swiperCard from "@/components/series/swiperCard";
 import {getClickOrTouch} from "@/utils/global";
 
 const SwiperPagination = ({swiperContainerRef} : {swiperContainerRef: React.RefObject<HTMLDivElement>}) => {
@@ -54,18 +51,18 @@ const SwiperPagination = ({swiperContainerRef} : {swiperContainerRef: React.RefO
         if (!swiperContainer) return
 
         const swiperCards = Array.from(swiperContainer.children)
-        const maxIndex = swiperCards.length
+        const maxIndex = swiperCards.length - 1
         let indexInterval = Math.floor(swiperContainer.clientWidth/(swiperCards[0].clientWidth + 16))
         if (swiperContainer.clientWidth === 964) indexInterval = 5
         if (direction === 'prev') {
             const currentIndex = Math.floor(maxIndex - (swiperContainer.scrollWidth - swiperContainer.scrollLeft - swiperContainer.clientWidth)/(swiperCards[0].clientWidth + 16))
             let resultIndex = swiperContainer.clientWidth === 964 ? currentIndex - indexInterval - 1 : currentIndex - indexInterval
             let targetSwiperCard = resultIndex > 0 ? swiperCards[resultIndex] : swiperCards[0]
-            targetSwiperCard.scrollIntoView({inline: "end",behavior: 'smooth', block: 'nearest'})
+            targetSwiperCard.scrollIntoView({inline: "end", behavior: 'smooth', block: 'nearest'})
         } else {
             const currentIndex = Math.floor(swiperContainer.scrollLeft/(swiperCards[0].clientWidth + 16))
             let targetSwiperCard = currentIndex + indexInterval < maxIndex ? swiperCards[currentIndex + indexInterval] : swiperCards[maxIndex]
-            targetSwiperCard.scrollIntoView({inline: "start",behavior: 'smooth', block: 'nearest'})
+            targetSwiperCard.scrollIntoView({inline: "start", behavior: 'smooth', block: 'nearest'})
         }
     }
 

@@ -28,7 +28,7 @@ const Swiper = ({series}: {series: Series}) => {
                     </div>
                 </div>
             </div>
-            <div ref={swiperContainerRef}  className={'swiperContainer hideScrollbar w-full max-w-[964px] flex pb-2.5 mt-2.5 overflow-x-scroll'}>
+            <div ref={swiperContainerRef} onMouseOver={() => handleHover(true)} onMouseLeave={() => handleHover(false)} className={'swiperContainer hideScrollbar h-fit w-full max-w-[964px] flex pb-2.5 mt-2.5 overflow-x-scroll'}>
                 {series["timelines"].map((timeline, i) => {
                     return <SwiperCard key={i} timeline={timeline}/>
                 })}
@@ -38,7 +38,6 @@ const Swiper = ({series}: {series: Series}) => {
 };
 
 export default Swiper;
-// onMouseOver={() => handleHover(true)} onMouseLeave={() => handleHover(false)}
 interface Series {
     id: number
     name: string

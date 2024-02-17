@@ -19,10 +19,6 @@ const Layout = ({ children, loading } : {children: ReactNode, loading: boolean})
         <div className={'layout relative pt-[60px]'}>
             <Navbar />
             <>{children}</>
-            {/*{loading*/}
-            {/*    ?   <div></div>*/}
-            {/*    :   <Footer />*/}
-            {/*}*/}
             {/*{isSearch && <Search />}*/}
             <Share />
             <Overlay />

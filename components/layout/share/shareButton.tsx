@@ -4,8 +4,8 @@ import {useDispatch} from "react-redux";
 import {getClickOrTouch} from "@/utils/global";
 import {updateIsShare} from "@/store/slices/appearanceSlice";
 
-const ShareButton = () => {
-    const shareButtonRef : RefObject<HTMLDivElement> = useRef(null)
+const ShareButton = ({isMobileSize}:{isMobileSize?: boolean}) => {
+    const shareButtonRef : RefObject<HTMLButtonElement> = useRef(null)
 
     const dispatch = useDispatch()
     let isSwipe = false
@@ -45,12 +45,12 @@ const ShareButton = () => {
     }, []);
 
     return (
-        <div ref={shareButtonRef} className={'cursor-pointer flex items-center pr-[6px] h-[24px] mb-[0.5px] rounded-sm bg-white border-[0.1px] shadow-[0_2px_3px_rgba(0,0,0,0.07)]'}>
-            <div className={'flex w-[24px] h-[24px] items-center justify-center'}>
-                <Image src={'/svg/share.svg'} alt={'share'} width={14} height={14}/>
-            </div>
-            <div className={'text-xs font-semibold'}>Share</div>
-        </div>
+        <button ref={shareButtonRef} className={'cursor-pointer '}>
+            {isMobileSize
+                ?   <div className={'w-[36px] h-[36px] flex items-center justify-center rounded-full bg-white hover:bg-gray-100'}><Image src={'/svg/share.svg'} alt={'share'} width={24} height={24}/></div>
+                :   <div className={'px-3 py-1.5 h-[36px] rounded-3xl bg-white hover:bg-gray-100 font-semibold'}>Share</div>
+            }
+        </button>
     );
 };
 

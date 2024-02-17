@@ -17,7 +17,8 @@ const initialState = {
     scrollTop: 0,
     afterEffectTop: 0,
     totalHeight: 0,
-    isTimelineInfo: false,
+    isMobileSize: false,
+    isTimelineInfo: true,
     toolbarStatus: "expand",
     isShare: false,
     is404: false
@@ -69,11 +70,14 @@ const appearanceSlice = createSlice({
         },
         updateIs404: (state, action) => {
             state.is404 = action.payload
-        }
+        },
+        updateIsMobileSize: (state, action) => {
+            state.isMobileSize = action.payload
+        },
     },
 });
 export default appearanceSlice.reducer;
-export const {updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight, updateIsTimelineInfo , updateToolbarStatus} = appearanceSlice.actions;
+export const {updateIsMobileSize, updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight, updateIsTimelineInfo , updateToolbarStatus} = appearanceSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
@@ -90,8 +94,7 @@ export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectAfterEffectTop = (state: RootState) => state.appearance.afterEffectTop
 export const selectLastAction = (state: RootState) => state.appearance.lastAction
 export const selectTotalHeight = (state: RootState) => state.appearance.totalHeight
-export const selectIsTimelineInfo = (state: RootState) => state.appearance.isTimelineInfo
-export const selectToolbarStatus = (state: RootState) => state.appearance.toolbarStatus
+export const selectIsMobileSize = (state: RootState) => state.appearance.isMobileSize
 export const selectIsShare = (state: RootState) => state.appearance.isShare
 export const selectIs404 = (state: RootState) => state.appearance.is404
 
@@ -113,6 +116,7 @@ export interface initialAppearanceState {
     scrollTop: number
     afterEffectTop: number
     totalHeight: number
+    isMobileSize: boolean
     isTimelineInfo: boolean
     toolbarStatus: "expand" | "shrink"
     isShare: boolean
