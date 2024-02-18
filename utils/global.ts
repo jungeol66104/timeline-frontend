@@ -30,3 +30,6 @@ export const getClickOrTouch = () => {
     return clickOrTouchend
 }
 
+// export const isBaseImage = (url: string) => {
+//     if ()
+// }

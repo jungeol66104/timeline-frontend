@@ -10,6 +10,8 @@ interface SeriesTimeline {
 }
 
 const SwiperCard = ({timeline} : {timeline: SeriesTimeline}) => {
+
+
     return (
             <Link href={`/timelines/${timeline.id}`} className={'swiperCard relative mr-4 shrink-0 rounded-xl shadow-md'} >
                 <Image src={`/images/timeline/${timeline.id}.png`} alt={timeline.name} fill sizes={"(min-width: 520px) 137px, calc(48vw - 38px)"} priority={true} quality={100} className={'rounded-xl'} />

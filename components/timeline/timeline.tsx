@@ -1,24 +1,12 @@
-import React, {useEffect} from "react";
-import {useSelector} from "react-redux";
-import {selectScrollTop, selectTotalHeight} from "@/store/slices/appearanceSlice";
+import React from "react";
 import TimelineFrame from "@/components/timeline/timelineFrame";
 import TimelineEvents from "@/components/timeline/timelineEvents";
 import useOperateTimeline from "@/hooks/useOperateTimeline";
+import useScrollSetup from "@/hooks/useScrollSetup";
 // refactoring: clear
 
 const Timeline = () => {
-    const scrollTop = useSelector(selectScrollTop)
-
-    // scroll setup
-    useEffect(() => {
-        const scrollWrapper: HTMLElement | null = typeof window !== 'undefined' ? document.documentElement : null
-        if (!scrollWrapper) return
-        // trick for stopping momentum scroll error in webkit based browsers
-        scrollWrapper.style.overflowY = 'hidden'
-        scrollWrapper.scrollTop = scrollTop
-        scrollWrapper.style.overflowY = 'auto'
-    },[scrollTop])
-
+    useScrollSetup()
     useOperateTimeline()
 
     return (
