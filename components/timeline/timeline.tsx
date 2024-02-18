@@ -8,7 +8,6 @@ import useOperateTimeline from "@/hooks/useOperateTimeline";
 
 const Timeline = () => {
     const scrollTop = useSelector(selectScrollTop)
-    const totalHeight = useSelector(selectTotalHeight)
 
     // scroll setup
     useEffect(() => {

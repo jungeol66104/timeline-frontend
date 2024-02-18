@@ -26,7 +26,7 @@ export default function Home() {
     return (
         <>
             <DynamicHead type={'index'}/>
-            <div className={'page mt-[30px] pb-2.5'}>
+            <div className={'page indexPage mt-[24px] pb-2.5'}>
                 {currentSeries.map((series, i) => {
                     return <Swiper key={i} series={series}/>
                 })}

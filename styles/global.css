@@ -24,12 +24,38 @@ html {
 }
 .page {
     position: relative;
+    display: flex;
+    flex-direction: column;
     height: fit-content;
 }
 
 /* layout responsive */
-@media only screen and (width >= 1149px) {
-    .page {
+@media (min-width: 670px) {
+    .timelinePage, .eventPage {
+        align-items: center;
+    }
+    .timelineInformationHeader {
+        align-items: center;
+    }
+}
+@media (min-width: 850px) {
+    .timelinePage, .eventPage {
+        align-items: start;
+        padding-left: 125px;
+    }
+    .timelineInformationHeader {
+        align-items: start;
+        padding-left: 125px;
+    }
+}
+@media (min-width: 1004px) {
+    .indexPage {
+        align-items: center;
+    }
+}
+@media (min-width: 1149px) {
+    .indexPage {
+        align-items: start;
         padding-left: 125px;
     }
 }
@@ -90,5 +116,10 @@ html {
     .swiperCard {
         width: 180px;
         padding-top: 180px;
+    }
+}
+@media (min-width: 1004px) {
+    .swiperContainer > .swiperCard:last-child {
+        margin-right: 0;
     }
 }

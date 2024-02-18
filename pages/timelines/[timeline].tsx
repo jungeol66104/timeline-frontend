@@ -53,7 +53,6 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
 
 const TimelinePage = () => {
     const dispatch = useDispatch()
-    const totalHeight = useSelector(selectTotalHeight)
     const [isVisible, setIsVisible] = useState(false)
 
     useEffect(() => {
@@ -81,23 +80,23 @@ const TimelinePage = () => {
     }, []);
 
     useEffect(() => {
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        const scrollWrapper: HTMLElement | null = typeof window !== 'undefined' ? document.documentElement : null
         if (!scrollWrapper) return
 
         const handleScroll = () => {
             sessionStorage.setItem('scrollTop', scrollWrapper.scrollTop.toString())
         }
 
-        scrollWrapper.addEventListener('scroll', handleScroll)
+        document.addEventListener('scroll', handleScroll)
         return () => {
-            scrollWrapper.removeEventListener('scroll', handleScroll)
+            document.removeEventListener('scroll', handleScroll)
         }
     }, []);
 
     return (
         <>
             <DynamicHead type={'timeline'}/>
-            <div className={`page max-w-[795px]`}>
+            <div className={`page timelinePage`}>
                 {!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}
                 <Timeline/>
                 <Toolbar />

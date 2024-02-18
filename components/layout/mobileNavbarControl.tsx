@@ -14,7 +14,7 @@ const MobileNavbarControl = ({isMobileSize}:{isMobileSize: boolean}) => {
     return (
         <div className={'h-[60px] w-full flex items-center justify-between'}>
             <Link onClick={() => sessionStorage.clear()} href={'/'} className={`w-fit font-black text-2xl transform transition-opacity ease-in-out duration-300`}>Timeline</Link>
-            <div className={'flex items-center gap-2.5'}>
+            <div className={'flex items-center gap-1'}>
                 <ShareButton isMobileSize={isMobileSize}/>
                 <FeedbackButton isMobileSize={isMobileSize}/>
                 <SearchButton />

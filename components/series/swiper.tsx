@@ -17,7 +17,7 @@ const Swiper = ({series}: {series: Series}) => {
     }
 
     return (
-        <div className={'swiper w-full max-w-[1004px] my-5 pl-5'}>
+        <div className={'swiper w-full max-w-[1004px] mb-2.5 pl-5'}>
             <div className={'swiperHeader w-full'}>
                 <div className={'h-5 text-sm text-gray-500'}>{series.description}</div>
                 <div className={'flex items-center justify-between'} style={{width: `calc(100% - 20px)`}}>
@@ -29,7 +29,6 @@ const Swiper = ({series}: {series: Series}) => {
                 </div>
             </div>
             <div ref={swiperContainerRef} onMouseOver={() => handleHover(true)} onMouseLeave={() => handleHover(false)} className={'swiperContainer hideScrollbar w-full max-w-[964px] flex pb-2.5 mt-2.5 overflow-x-scroll'}>
-                {/*hideScrollbar*/}
                 {series["timelines"].map((timeline, i) => {
                     return <SwiperCard key={i} timeline={timeline}/>
                 })}
