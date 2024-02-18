@@ -53,7 +53,7 @@ html {
 @media only screen and (width >= 0px) and (width <= 353px) {
     .swiperCard {
         width: 140px;
-        padding-top: 140px;
+        height: 140px;
     }
 }
 @media only screen and (width >= 439px) and (width <= 509px),
@@ -61,24 +61,24 @@ only screen and (width >= 635px) and (width <= 665px),
 only screen and (width >= 831px) {
     .swiperCard {
         width: 180px;
-        padding-top: 180px;
+        height: 180px;
     }
 }
 @media only screen and (width >= 353px) and (width <= 439px) {
     .swiperCard {
         width: calc((100% - 32px)/2.15);
-        padding-top: calc((100% - 32px)/2.15);
+        height: calc((100% - 32px)/2.15);
     }
 }
 @media only screen and (width >= 509px) and (width <= 635px) {
     .swiperCard {
         width: calc((100% - 48px)/3.15);
-        padding-top: calc((100% - 48px)/3.15);
+        height: calc((100% - 48px)/3.15);
     }
 }
 @media only screen and (width >= 665px) and (width <= 831px) {
     .swiperCard {
         width: calc((100% - 64px)/4.15);
-        padding-top: calc((100% - 64px)/4.15);
+        height: calc((100% - 64px)/4.15);
     }
 }
