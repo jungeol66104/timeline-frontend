@@ -30,6 +30,6 @@ export const getClickOrTouch = () => {
     return clickOrTouchend
 }
 
-// export const isBaseImage = (url: string) => {
-//     if ()
-// }
+export const getIsBaseImage = (url: string) => {
+    return url.includes('https://timeline-image.s3.ap-northeast-2.amazonaws.com/base-image.png')
+}

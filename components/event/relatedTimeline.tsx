@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import Link from "next/link";
 import {useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
