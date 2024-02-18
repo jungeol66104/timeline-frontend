@@ -27,10 +27,6 @@ export default function Home() {
         <>
             <DynamicHead type={'index'}/>
             <div className={'page mt-[30px] pb-2.5'}>
-                {/*<div>*/}
-                {/*    <Swiper series={} />*/}
-                {/*    <RequestTimelineForm />*/}
-                {/*</div>*/}
                 {currentSeries.map((series, i) => {
                     return <Swiper key={i} series={series}/>
                 })}
