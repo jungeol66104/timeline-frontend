@@ -49,15 +49,15 @@ body {
         padding-left: 125px;
     }
 }
-@media (min-width: 1004px) {
+@media (min-width: 996px) {
     .indexPage {
         align-items: center;
     }
 }
-@media (min-width: 1149px) {
+@media (min-width: 1125px) {
     .indexPage {
         align-items: start;
-        padding-left: 125px;
+        padding-left: 129px;
     }
 }
 
@@ -77,50 +77,45 @@ body {
 }
 
 /* series responsive */
-@media (min-width: 0px) and (max-width: 353px) {
+@media (min-width: 0px) and (max-width: 369px) {
     .swiperCard {
         width: 140px;
         padding-top: 140px;
     }
 }
-@media (min-width: 353px) and (max-width: 439px) {
+@media (min-width: 369px) and (max-width: 455px) {
     .swiperCard {
-        width: calc((100% - 32px)/2.15);
-        padding-top: calc((100% - 32px)/2.15);
+        width: calc((100% - 48px)/2.15);
+        padding-top: calc((100% - 48px)/2.15);
     }
 }
-@media (min-width: 439px) and (max-width: 509px) {
-    .swiperCard {
-        width: 180px;
-        padding-top: 180px;
-    }
-}
-@media (min-width: 509px) and (max-width: 635px) {
-    .swiperCard {
-        width: calc((100% - 48px)/3.15);
-        padding-top: calc((100% - 48px)/3.15);
-    }
-}
-@media (min-width: 635px) and (max-width: 665px) {
+@media (min-width: 455px) and (max-width: 525px) {
     .swiperCard {
         width: 180px;
         padding-top: 180px;
     }
 }
-@media (min-width: 665px) and (max-width: 831px) {
+@media (min-width: 525px) and (max-width: 651px) {
     .swiperCard {
-        width: calc((100% - 64px)/4.15);
-        padding-top: calc((100% - 64px)/4.15);
+        width: calc((100% - 64px)/3.15);
+        padding-top: calc((100% - 64px)/3.15);
     }
 }
-@media (min-width: 831px) {
+@media (min-width: 651px) and (max-width: 681px) {
     .swiperCard {
         width: 180px;
         padding-top: 180px;
     }
 }
-@media (min-width: 1004px) {
-    .swiperContainer > .swiperCard:last-child {
-        margin-right: 0;
+@media (min-width: 681px) and (max-width: 847px) {
+    .swiperCard {
+        width: calc((100% - 80px)/4.15);
+        padding-top: calc((100% - 80px)/4.15);
+    }
+}
+@media (min-width: 847px) {
+    .swiperCard {
+        width: 180px;
+        padding-top: 180px;
     }
 }

@@ -14,7 +14,7 @@ interface SeriesTimeline {
 const SwiperCard = ({timeline} : {timeline: SeriesTimeline}) => {
     const isBaseImage = getIsBaseImage(timeline.image)
     return (
-            <Link href={`/timelines/${timeline.id}`} className={'swiperCard relative mr-4 shrink-0 rounded-xl shadow-md'}>
+            <Link href={`/timelines/${timeline.id}`} className={'swiperCard relative shrink-0 rounded-xl shadow-md'}>
                 {isBaseImage
                     ?   <BaseImage />
                     :   <>

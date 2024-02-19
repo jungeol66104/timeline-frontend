@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Image from "next/image";
-import {getClickOrTouch} from "@/utils/global";
+import {getClickOrTouch, sum} from "@/utils/global";
 
 const SwiperPagination = ({swiperContainerRef} : {swiperContainerRef: React.RefObject<HTMLDivElement>}) => {
     const [showPagination, setShowPagination] = useState(false)
@@ -50,19 +50,18 @@ const SwiperPagination = ({swiperContainerRef} : {swiperContainerRef: React.RefO
         const swiperContainer = swiperContainerRef.current
         if (!swiperContainer) return
 
-        const swiperCards = Array.from(swiperContainer.children)
-        const maxIndex = swiperCards.length - 1
-        let indexInterval = Math.floor(swiperContainer.clientWidth/(swiperCards[0].clientWidth + 16))
-        if (swiperContainer.clientWidth === 964) indexInterval = 5
+        const swiperContainerChildren = Array.from(swiperContainer.children)
+        const childWidths = swiperContainerChildren.map(child => child.clientWidth)
+        const childLefts = swiperContainerChildren.map((_, i) => sum(childWidths.slice(0,i)))
+
         if (direction === 'prev') {
-            const currentIndex = Math.floor(maxIndex - (swiperContainer.scrollWidth - swiperContainer.scrollLeft - swiperContainer.clientWidth)/(swiperCards[0].clientWidth + 16))
-            let resultIndex = swiperContainer.clientWidth === 964 ? currentIndex - indexInterval - 1 : currentIndex - indexInterval
-            let targetSwiperCard = resultIndex > 0 ? swiperCards[resultIndex] : swiperCards[0]
-            targetSwiperCard.scrollIntoView({inline: "end", behavior: 'smooth', block: 'nearest'})
+            let targetIndexForPrev = childLefts.findIndex(left => left > swiperContainer.scrollLeft)
+            if (targetIndexForPrev % 2 !== 0) targetIndexForPrev += 1
+            swiperContainerChildren[targetIndexForPrev].scrollIntoView({inline: "end", behavior: 'smooth', block: 'nearest'})
         } else {
-            const currentIndex = Math.floor(swiperContainer.scrollLeft/(swiperCards[0].clientWidth + 16))
-            let targetSwiperCard = currentIndex + indexInterval < maxIndex ? swiperCards[currentIndex + indexInterval] : swiperCards[maxIndex]
-            targetSwiperCard.scrollIntoView({inline: "start", behavior: 'smooth', block: 'nearest'})
+            let targetIndexForNext = childLefts.findLastIndex(left => left < swiperContainer.scrollLeft + swiperContainer.clientWidth)
+            if (targetIndexForNext % 2 !== 0) targetIndexForNext -= 1
+            swiperContainerChildren[targetIndexForNext].scrollIntoView({inline: "start", behavior: 'smooth', block: 'nearest'})
         }
     }
 
