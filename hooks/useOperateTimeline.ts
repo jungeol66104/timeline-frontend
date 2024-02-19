@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import api from "@/utils/api";
-import {getEventHeights, sum} from "@/utils/global";
+import {debounce, getEventHeights, sum} from "@/utils/global";
 import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
 import {selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectTimelineEdgeHeight, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd, updateIsTopEnd, updateLastAction, updateScrollTop, updateTotalHeight} from "@/store/slices/appearanceSlice";
 
@@ -268,8 +268,8 @@ const useOperateTimeline = () => {
             }
         }
         const handleScroll = async () => {
-            let scrollUp = scrollWrapper.scrollTop < 5
-            let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - scrollWrapper.clientHeight - 5
+            let scrollUp = scrollWrapper.scrollTop < 25
+            let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - scrollWrapper.clientHeight - 25
             if (!isLoading && (scrollUp || scrollDown)) {
                 isLoading = true
                 await operateScroll(scrollUp)
@@ -284,7 +284,7 @@ const useOperateTimeline = () => {
         // timeline.addEventListener('mousemove' , handleDrag);
         // timeline.addEventListener('mouseup' , handleDrag);
         toolbarButtons?.forEach(toolbarButton => toolbarButton.addEventListener('click', handleClick))
-        document.addEventListener('scroll', handleScroll)
+        document.addEventListener('scroll', () => debounce(handleScroll, 200))
         return () => {
             timeline.removeEventListener('wheel', handleWheel);
             timeline.removeEventListener('touchstart' , handleTouch);
@@ -293,7 +293,7 @@ const useOperateTimeline = () => {
             // timeline.removeEventListener('mousemove' , handleDrag);
             // timeline.removeEventListener('mouseup' , handleDrag);
             toolbarButtons?.forEach(toolbarButton => toolbarButton.removeEventListener('click', handleClick))
-            document.removeEventListener('scroll', handleScroll)
+            document.removeEventListener('scroll', () => debounce(handleScroll, 200))
         };
     });
 }

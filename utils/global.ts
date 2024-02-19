@@ -33,3 +33,9 @@ export const getClickOrTouch = () => {
 export const getIsBaseImage = (url: string) => {
     return url.includes('https://timeline-image.s3.ap-northeast-2.amazonaws.com/base-image.png')
 }
+
+let timeoutId: any
+export const debounce = (callback: any, delay: number) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(callback, delay);
+}

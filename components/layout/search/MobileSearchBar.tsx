@@ -45,7 +45,7 @@ const MobileSearchBar = () => {
             <div className={`h-[40px] w-full px-2.5 flex gap-2.5 items-center border-gray-200 ${isSearch ? 'bg-white rounded-t-lg border-t-[1px] border-x-[1px]' : 'bg-gray-100 rounded-lg border-[1px]'}`}>
                 <Image src={'/svg/search.svg'} alt={'search'} width={24} height={24} className={`cursor-pointer  ${isSearch ? '': "opacity-30" }`} />
                 <div className={'flex w-full'}>
-                    <input ref={searchInputRef} className={'bg-transparent w-full outline-0 focus:border-none'} onChange={(e) => dispatch(updateSearchValue(e.target.value))} value={searchValue} placeholder={'Search timelines, events'}/>
+                    <input ref={searchInputRef} className={'bg-transparent w-full'} onChange={(e) => dispatch(updateSearchValue(e.target.value))} value={searchValue} placeholder={'Search timelines, events'} style={{outline: 'none'}}/>
                     <button className={'w-[36px] h-[36px] flex items-center justify-center rounded-full bg-white hover:bg-gray-100'}><Image onClick={() => dispatch(updateIsSearch(false))} src={'/svg/close.svg'} alt={'close'} width={22} height={22} /></button>
                 </div>
             </div>
