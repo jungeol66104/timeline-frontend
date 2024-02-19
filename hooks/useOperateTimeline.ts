@@ -268,14 +268,23 @@ const useOperateTimeline = () => {
             }
         }
         const handleScroll = async () => {
-            let scrollUp = scrollWrapper.scrollTop < 25
-            let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - scrollWrapper.clientHeight - 25
+            let scrollUp = scrollWrapper.scrollTop < 75
+            let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - scrollWrapper.clientHeight - 75
             if (!isLoading && (scrollUp || scrollDown)) {
                 isLoading = true
                 await operateScroll(scrollUp)
                 setTimeout(() => isLoading = false, 500)
             }
         }
+
+
+        const topObserver = new IntersectionObserver(entries => {
+
+        })
+
+        const bottomObserver = new IntersectionObserver(entries => {
+
+        })
 
         timeline.addEventListener('wheel' , handleWheel);
         timeline.addEventListener('touchstart' , handleTouch);
@@ -284,7 +293,7 @@ const useOperateTimeline = () => {
         // timeline.addEventListener('mousemove' , handleDrag);
         // timeline.addEventListener('mouseup' , handleDrag);
         toolbarButtons?.forEach(toolbarButton => toolbarButton.addEventListener('click', handleClick))
-        document.addEventListener('scroll', () => debounce(handleScroll, 200))
+        document.addEventListener('scroll', () => debounce(handleScroll, 100))
         return () => {
             timeline.removeEventListener('wheel', handleWheel);
             timeline.removeEventListener('touchstart' , handleTouch);
@@ -293,7 +302,7 @@ const useOperateTimeline = () => {
             // timeline.removeEventListener('mousemove' , handleDrag);
             // timeline.removeEventListener('mouseup' , handleDrag);
             toolbarButtons?.forEach(toolbarButton => toolbarButton.removeEventListener('click', handleClick))
-            document.removeEventListener('scroll', () => debounce(handleScroll, 200))
+            document.removeEventListener('scroll', () => debounce(handleScroll, 100))
         };
     });
 }

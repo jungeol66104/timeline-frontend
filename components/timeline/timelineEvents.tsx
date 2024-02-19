@@ -5,6 +5,8 @@ import {selectCurrentEventsWithEffect} from "@/store/slices/contentsSlice";
 import TimelineEventsEdge from "@/components/timeline/timelineEventsEdge";
 import React, {Suspense} from "react";
 import {selectIsBottomEnd, selectIsTopEnd} from "@/store/slices/appearanceSlice";
+import TimelineEventsTop from "@/components/timeline/timelineEventsTop";
+import TimelineEventsBottom from "@/components/timeline/timelineEventsBottom";
 // refactoring: clear
 
 const TimelineEvents = () => {
