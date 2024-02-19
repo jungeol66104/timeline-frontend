@@ -21,7 +21,7 @@ const Navbar = () => {
 
         const handleScroll = () => {
             if (isHome) return
-            if (scrollWrapper.scrollTop < 60 && isTopEnd) setShowTimelineInformation(false)
+            if (scrollWrapper.scrollTop < 50 && isTopEnd) setShowTimelineInformation(false)
             else setShowTimelineInformation(true)
         }
 
@@ -47,8 +47,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className={'navbar fixed top-[-30px] left-0 h-[90px] w-full bg-white pr-5 pl-5 shadow-md flex flex-col'} style={{zIndex: 5000}}>
-                <div className={'h-[30px] w-full bg-white'}></div>
+            <nav className={'navbar sticky top-0 left-0 h-[60px] w-full bg-white pr-5 pl-5 shadow-md flex flex-col'} style={{zIndex: 5000}}>
                 {isMobileSize
                     ?   <MobileNavbarControl isMobileSize={isMobileSize}/>
                     :   <ComputerNavbarControl isMobileSize={isMobileSize}/>

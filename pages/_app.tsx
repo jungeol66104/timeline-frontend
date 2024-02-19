@@ -35,7 +35,7 @@ function App({ Component, ...rest }: AppProps) {
 
     return (
         <Provider store={store}>
-            <Layout loading={loading}>
+            <Layout>
                 {loading
                     ? <div></div>
                     : <Component {...props.pageProps} />
