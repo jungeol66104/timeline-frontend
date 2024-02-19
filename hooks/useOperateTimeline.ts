@@ -271,8 +271,8 @@ const useOperateTimeline = () => {
             const scrollWrapper: HTMLElement | null = typeof window !== 'undefined' ? document.documentElement : null
             if (!scrollWrapper) return
 
-            let scrollUp = scrollWrapper.scrollTop < 25
-            let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - scrollWrapper.clientHeight - 25
+            let scrollUp = scrollWrapper.scrollTop < 150
+            let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - scrollWrapper.clientHeight - 150
             if (!isLoading && (scrollUp || scrollDown)) {
                 isLoading = true
                 await operateScroll(scrollUp)

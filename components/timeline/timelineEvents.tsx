@@ -16,11 +16,11 @@ const TimelineEvents = () => {
 
     return (
         <div className={'timelineEvents max-w-[650px] flex flex-col mx-[20px]'} style={{width: `calc(100% - 40px)`}}>
-            <TimelineEventsEdge type={'top'} isEnd={isTopEnd} />
+            <TimelineEventsTop isEnd={isTopEnd} />
             {currentEventsWithEffect.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event} />
             })}
-            <TimelineEventsEdge type={'bottom'} isEnd={isBottomEnd} />
+            <TimelineEventsBottom isEnd={isBottomEnd} />
         </div>
     )
 }

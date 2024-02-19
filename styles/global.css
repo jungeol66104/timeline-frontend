@@ -19,6 +19,7 @@ html, body, #__next, .layout, .page {
 html {
     height: 100%;
     scrollbar-gutter: stable;
+    overflow-y: scroll;
 }
 body {
     height: 100%;
