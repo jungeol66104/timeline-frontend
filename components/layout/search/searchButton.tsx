@@ -10,7 +10,7 @@ const SearchButton = () => {
 
     return (
         <>
-            <button className={'w-[36px] h-[36px] flex items-center justify-center rounded-full bg-white hover:bg-gray-100 '}><Image onClick={() => dispatch(updateIsSearch(true))} src={'/svg/search.svg'} alt={'search'} width={22} height={22} /></button>
+            <button className={'w-[24px] h-[24px] flex items-center justify-center rounded-full bg-white '}><Image onClick={() => dispatch(updateIsSearch(true))} src={'/svg/search.svg'} alt={'search'} width={24} height={24} /></button>
             {isSearch && <MobileSearchBar />}
         </>
     );

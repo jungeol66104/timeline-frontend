@@ -47,7 +47,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className={'navbar sticky top-0 left-0 h-[60px] w-full bg-white pr-5 pl-5 shadow-md flex flex-col'} style={{zIndex: 5000}}>
+            <nav className={'navbar sticky top-0 left-0 h-[60px] w-full bg-white px-4 shadow-md flex flex-col'} style={{zIndex: 5000}}>
                 {isMobileSize
                     ?   <MobileNavbarControl isMobileSize={isMobileSize}/>
                     :   <ComputerNavbarControl isMobileSize={isMobileSize}/>

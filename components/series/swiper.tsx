@@ -17,7 +17,7 @@ const Swiper = ({series}: {series: Series}) => {
     }
 
     return (
-        <div className={'swiper w-full mb-2.5'}>
+        <div className={'swiper w-full mb-2.5 max-w-[996px]'}>
             <div className={'swiperHeader w-full pl-4'}>
                 <div className={'h-5 text-sm text-gray-500'}>{series.description}</div>
                 <div className={'flex items-center justify-between'} style={{width: `calc(100% - 20px)`}}>
@@ -32,12 +32,12 @@ const Swiper = ({series}: {series: Series}) => {
                 {series["timelines"].map((timeline, i) => {
                     return (
                         <>
-                            <div className={'swiperGap w-4 shrink-0'}></div>
+                            <div className={'swiperGap w-4 bg-white shrink-0 z-30'}></div>
                             <SwiperCard key={i} timeline={timeline}/>
                         </>
                     )
                 })}
-                <div className={'swiperGap w-4 shrink-0'}></div>
+                <div className={'swiperGap w-4 bg-white shrink-0 z-30'}></div>
             </div>
         </div>
     );
