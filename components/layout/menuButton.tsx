@@ -28,7 +28,7 @@ const MenuButton = () => {
         <div className={'relative mr-4 flex justify-center items-center'}>
             <button ref={menuButtonRef} onClick={handleClick}><Image src={'/svg/menu.svg'} alt={'menu'} width={24} height={24} /></button>
             {isToggle &&
-                <div className={'absolute top-6 right-0 w-[104px] bg-white border-[1px] rounded-md shadow-md'}>
+                <div className={'absolute top-6 right-0 w-[110px] bg-white border-[1px] rounded-md shadow-md'}>
                     <ShareButton />
                     <FeedbackButton />
                 </div>
