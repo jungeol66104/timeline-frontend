@@ -53,13 +53,13 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
 
 const TimelinePage = () => {
     const dispatch = useDispatch()
-    const [isVisible, setIsVisible] = useState(false)
+    const [isVisible, setIsVisible] = useState(true)
 
     useEffect(() => {
-        if (typeof window === 'undefined') {
-            setIsVisible(true)
-            return
-        }
+            // if (typeof window === 'undefined') {
+            //     setIsVisible(true)
+            //     return
+            // }
 
         const currentUrl = window.location.href;
         let statePacket = JSON.parse(sessionStorage.getItem('statePacket') || '{}')
@@ -74,7 +74,7 @@ const TimelinePage = () => {
                 return {...cEvent, animation: 'none'}
             })
 
-            setIsVisible(true)
+            // setIsVisible(true)
             dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice}})
         }
     }, []);
@@ -83,9 +83,7 @@ const TimelinePage = () => {
         const scrollWrapper: HTMLElement | null = typeof window !== 'undefined' ? document.documentElement : null
         if (!scrollWrapper) return
 
-        const handleScroll = () => {
-            sessionStorage.setItem('scrollTop', scrollWrapper.scrollTop.toString())
-        }
+        const handleScroll = () => sessionStorage.setItem('scrollTop', scrollWrapper.scrollTop.toString())
 
         document.addEventListener('scroll', handleScroll)
         return () => {
