@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {useRouter} from "next/router";
 import {useSelector} from "react-redux";
 import {selectIsTopEnd} from "@/store/slices/appearanceSlice";
@@ -15,7 +15,7 @@ const useInformationHeader = () => {
         if (!isTimeline) return
 
         const handleScroll = () => {
-            if (scrollWrapper.scrollTop > 50 && isTopEnd) {
+            if (scrollWrapper.scrollTop > 50 || !isTopEnd) {
                 if(!timelineInformationHeader.classList.contains("flex")) {
                     timelineInformationHeader.classList.remove("hidden");
                     timelineInformationHeader.classList.add("flex");

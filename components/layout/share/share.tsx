@@ -1,17 +1,10 @@
 import React from 'react';
-import Image from "next/image";
-import LinkSVG from '@/public/svg/link.svg'
-import KakaotalkSVG from '@/public/svg/kakaotalk.svg'
-import XSVG from '@/public/svg/x.svg'
-import FacebookSVG from '@/public/svg/facebook.svg'
-import MoreSVG from '@/public/svg/more.svg'
 import {useDispatch, useSelector} from "react-redux";
 import {selectIsShare} from "@/store/slices/appearanceSlice";
 import LinkCopyButton from "@/components/layout/share/linkCopyButton";
 import KakaotalkButton from "@/components/layout/share/kakaotalkButton";
 import XButton from "@/components/layout/share/xButton";
 import FacebookButton from "@/components/layout/share/facebookButton";
-import Script from "next/script";
 
 
 const Share = () => {

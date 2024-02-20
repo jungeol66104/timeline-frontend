@@ -1,12 +1,9 @@
-import {TimelineEvent} from "@/store/slices/contentsSlice";
 import Link from "next/link";
 import Image from "next/image";
-import NorthwestSVG from "@/public/svg/northwest.svg";
 import React from "react";
 import {useSelector} from "react-redux";
 import {selectTab} from "@/store/slices/searchSlice";
 import {getIsBaseImage} from "@/utils/global";
-import BaseImage from "@/components/baseImage";
 // refactoring: clear
 
 const SearchContent = ({searchResult}: {searchResult: any}) => {

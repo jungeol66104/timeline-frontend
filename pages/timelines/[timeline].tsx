@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import api from "@/utils/api"
 import {sum, getEventHeights} from "@/utils/global";
 import {storeWrapper} from "@/store/store";

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import ShareButtonTemplate from "@/components/layout/share/shareElementButtonTemplate";
 import Script from "next/script";
 

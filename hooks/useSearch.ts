@@ -27,7 +27,7 @@ const useSearch = () => {
 
         const operateSearch = async () => {
             try {
-                const { timelines, events } = await fetchSearchResults(query)
+                let { timelines, events } = await fetchSearchResults(query)
                 dispatch(updateSearchedTimelines(timelines))
                 dispatch(updateSearchedEvents(events))
             } catch (error) {

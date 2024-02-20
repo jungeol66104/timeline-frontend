@@ -1,6 +1,5 @@
 import React, {useEffect, useRef} from 'react';
 import Image from "next/image";
-import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import {selectIsSearch, selectSearchValue, updateIsSearch, updateSearchValue} from "@/store/slices/searchSlice";
 import useSearch from "@/hooks/useSearch";

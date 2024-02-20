@@ -2,11 +2,9 @@ import React, {RefObject, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import Image from "next/image";
-import ShareSVG from "@/public/svg/share.svg"
 import {updateIsShare} from "@/store/slices/appearanceSlice";
 import Link from "next/link";
 import {getClickOrTouch, getIsBaseImage} from "@/utils/global";
-import {useRouter} from "next/router";
 
 const TimelineHeader = () => {
     const shareButtonRef : RefObject<HTMLDivElement> = useRef(null)
@@ -64,7 +62,7 @@ const TimelineHeader = () => {
 
 
     return (
-        <div className={'timelineHeader h-[60px] bg-white  relative w-fit flex gap-2.5 justify-center items-center'} style={{zIndex: 4999}}>
+        <div className={'timelineHeader h-[60px] bg-white relative w-full flex gap-2.5 items-center'} style={{zIndex: 4999}}>
             <Link ref={timelineLinkRef} href={`/timelines/${currentTimeline.id}`} className={`w-fit font-black text-2xl cursor-pointer`}>
                 <div className={'flex gap-2.5 items-center'}>
                     <div className={'text-2xl font-bold line-clamp-1'}>{currentTimeline.name}</div>

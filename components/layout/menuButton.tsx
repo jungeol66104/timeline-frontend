@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react';
 import Image from "next/image";
-import {useDispatch} from "react-redux";
 import ShareButton from "@/components/layout/share/shareButton";
 import FeedbackButton from "@/components/layout/feedbackButton";
 

@@ -280,15 +280,6 @@ const useOperateTimeline = () => {
             }
         }
 
-
-        const topObserver = new IntersectionObserver(entries => {
-
-        })
-
-        const bottomObserver = new IntersectionObserver(entries => {
-
-        })
-
         timeline.addEventListener('wheel' , handleWheel);
         timeline.addEventListener('touchstart' , handleTouch);
         timeline.addEventListener('touchend' , handleTouch);

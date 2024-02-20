@@ -1,5 +1,3 @@
-import {useSelector} from "react-redux";
-import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import TimelineHeader from "@/components/timeline/timeilneHeader";
 // refactoring: clear
 

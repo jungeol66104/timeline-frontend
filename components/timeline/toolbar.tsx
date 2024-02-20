@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useSelector} from "react-redux";
 import Image from "next/image";
 import NorthSVG from "@/public/svg/north.svg";
-import {selectCurrentDepth, selectFooterHeight, selectMaxDepth} from "@/store/slices/appearanceSlice";
+import {selectCurrentDepth, selectMaxDepth} from "@/store/slices/appearanceSlice";
 
 const Toolbar = () => {
     const maxDepth = useSelector(selectMaxDepth)

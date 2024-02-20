@@ -2,7 +2,6 @@ import React from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import {getIsBaseImage} from "@/utils/global";
-import BaseImage from "@/components/baseImage";
 
 interface SeriesTimeline {
     id: number
