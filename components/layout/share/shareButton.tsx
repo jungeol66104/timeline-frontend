@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {getClickOrTouch} from "@/utils/global";
 import {updateIsShare} from "@/store/slices/appearanceSlice";
 
-const ShareButton = ({isMobileSize}:{isMobileSize?: boolean}) => {
+const ShareButton = () => {
     const shareButtonRef : RefObject<HTMLButtonElement> = useRef(null)
 
     const dispatch = useDispatch()
@@ -34,13 +34,13 @@ const ShareButton = ({isMobileSize}:{isMobileSize?: boolean}) => {
 
         shareButton.addEventListener('click', handleClickShareButton)
         shareButton.addEventListener('touchend', handleClickShareButton)
-        scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
-        scrollWrapper.addEventListener('touchend', () => isSwipe = false)
+        // scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
+        // scrollWrapper.addEventListener('touchend', () => isSwipe = false)
         return () => {
             shareButton.removeEventListener('click', handleClickShareButton)
             shareButton.removeEventListener('touchend', handleClickShareButton)
-            scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
-            scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
+            // scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
+            // scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
         }
     }, []);
 

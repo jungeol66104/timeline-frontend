@@ -2,7 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['timeline-image.s3.ap-northeast-2.amazonaws.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'timeline-image.s3.ap-northeast-2.amazonaws.com',
+        port: '',
+      },
+    ],
   },
 }
 module.exports = nextConfig

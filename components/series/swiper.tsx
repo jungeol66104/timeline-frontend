@@ -32,12 +32,12 @@ const Swiper = ({series}: {series: Series}) => {
                 {series["timelines"].map((timeline, i) => {
                     return (
                         <>
-                            <div className={'swiperGap w-4 bg-white shrink-0 z-30'}></div>
-                            <SwiperCard key={i} timeline={timeline}/>
+                            <div key={i} className={'swiperGap w-4 bg-white shrink-0 z-30'}></div>
+                            <SwiperCard key={i + 11} timeline={timeline}/>
                         </>
                     )
                 })}
-                <div className={'swiperGap w-4 bg-white shrink-0 z-30'}></div>
+                <div key={100} className={'swiperGap w-4 bg-white shrink-0 z-30'}></div>
             </div>
         </div>
     );

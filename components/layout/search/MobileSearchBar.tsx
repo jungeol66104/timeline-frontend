@@ -16,29 +16,12 @@ const MobileSearchBar = () => {
     const searchValue = useSelector(selectSearchValue)
 
     useSearch()
-
     useEffect(() => {
         const searchInput = searchInputRef.current
         if (!searchInput) return
 
         if (isSearch) searchInput.focus()
     }, [isSearch]);
-
-    const handleClick = (e: React.MouseEvent) => {
-        const searchBody = searchBodyRef.current
-        const searchInput = searchInputRef.current
-        if (!searchBody || !searchInput) return
-        e.stopPropagation()
-        dispatch(updateIsSearch(true))
-        // searchInput.focus()
-
-        document.addEventListener('click', function hideMenu (e: MouseEvent) {
-            if (!searchBody.contains(e.target as Node)) {
-                dispatch(updateIsSearch(false))
-                document.removeEventListener('click', hideMenu)
-            }
-        })
-    }
 
     return (
         <div ref={searchBodyRef} className={`absolute top-[10px] right-1.5 max-w-[480px]`} style={{width: `calc(100% - 12px)`}}>

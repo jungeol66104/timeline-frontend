@@ -12,30 +12,6 @@ import SearchButton from "@/components/layout/search/searchButton";
 // refactoring: clear
 
 const Navbar = () => {
-    const router = useRouter();
-    const isHome = router.pathname === '/';
-    const isTimeline = router.pathname.startsWith('/timelines')
-    const isTopEnd = useSelector(selectIsTopEnd)
-    const [showTimelineInformation, setShowTimelineInformation] = useState(false)
-
-    useEffect(() => {
-        const scrollWrapper: HTMLElement | null = typeof window !== 'undefined' ? document.documentElement : null
-        if (!scrollWrapper) return
-
-        const handleScroll = () => {
-            if (isHome) return
-            if (scrollWrapper.scrollTop < 50 && isTopEnd) setShowTimelineInformation(false)
-            else setShowTimelineInformation(true)
-        }
-
-        if (!isTimeline) setShowTimelineInformation(false)
-
-        document.addEventListener("scroll", handleScroll)
-        return () => {
-            document.removeEventListener("scroll", handleScroll)
-        };
-    });
-
     return (
         <>
             <nav className={'navbar fixed top-0 left-0 h-[60px] w-full bg-white shadow-md flex flex-col'} style={{zIndex: 5000}}>
@@ -56,7 +32,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
-            {showTimelineInformation && <TimelineInformationHeader/>}
+            <TimelineInformationHeader/>
         </>
     )
 }
