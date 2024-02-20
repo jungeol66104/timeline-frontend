@@ -45,12 +45,8 @@ const ShareButton = ({isMobileSize}:{isMobileSize?: boolean}) => {
     }, []);
 
     return (
-        <button ref={shareButtonRef} className={'cursor-pointer '}>
-            {isMobileSize
-                // ?   <div className={'w-[36px] h-[36px] flex items-center justify-center rounded-full bg-white hover:bg-gray-100'}><Image src={'/svg/share.svg'} alt={'share'} width={20} height={20}/></div>
-                ?   <div className={'px-1.5 bg-white text-sm font-semibold'}>Share</div>
-                :   <div className={'px-3 py-1.5 h-[36px] rounded-3xl bg-white hover:bg-gray-100 font-semibold'}>Share</div>
-            }
+        <button ref={shareButtonRef} className={'cursor-pointer w-[69px] max-[850px]:w-full text-left'}>
+            <div className={'px-3 py-1.5 h-[36px] rounded-3xl bg-white hover:bg-gray-100 font-semibold max-[850px]:rounded-none'}>Share</div>
         </button>
     );
 };

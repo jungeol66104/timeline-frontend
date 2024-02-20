@@ -41,7 +41,7 @@ const MobileSearchBar = () => {
     }
 
     return (
-        <div ref={searchBodyRef} className={`absolute top-[10px] left-1.5`} style={{width: `calc(100% - 12px)`}}>
+        <div ref={searchBodyRef} className={`absolute top-[10px] right-1.5 max-w-[480px]`} style={{width: `calc(100% - 12px)`}}>
             <div className={`h-[40px] w-full px-2.5 flex gap-2.5 items-center border-gray-200 ${isSearch ? 'bg-white rounded-t-lg border-t-[1px] border-x-[1px]' : 'bg-gray-100 rounded-lg border-[1px]'}`}>
                 <Image src={'/svg/search.svg'} alt={'search'} width={24} height={24} className={`cursor-pointer  ${isSearch ? '': "opacity-30" }`} />
                 <div className={'flex w-full'}>

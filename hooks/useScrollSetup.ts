@@ -11,7 +11,7 @@ const useScrollSetup = () => {
         // trick for stopping momentum scroll error in webkit based browsers
         scrollWrapper.style.overflowY = 'hidden'
         scrollWrapper.scrollTop = scrollTop
-        scrollWrapper.style.overflowY = 'auto'
+        scrollWrapper.style.overflowY = 'scroll'
     })
 }
 export default useScrollSetup

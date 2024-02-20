@@ -34,7 +34,7 @@ const ComputerSearchBar = () => {
     }
 
     return (
-        <div ref={searchBodyRef} className={`relative`}>
+        <div ref={searchBodyRef} className={`relative max-[850px]:hidden`}>
             <div onClick={handleClick} className={`h-[40px] w-[480px] px-2.5 flex gap-2.5 items-center border-gray-200 ${isSearch ? 'bg-white rounded-t-lg border-t-[1px] border-x-[1px]' : 'bg-gray-100 rounded-lg border-[1px]'}`}>
                 <Image src={'/svg/search.svg'} alt={'search'} width={24} height={24} className={`cursor-pointer  ${isSearch ? '': "opacity-30" }`} />
                 <input ref={searchInputRef} className={'bg-transparent w-full outline-0'} onChange={(e) => dispatch(updateSearchValue(e.target.value))} value={searchValue} placeholder={'Search timelines, events'}/>

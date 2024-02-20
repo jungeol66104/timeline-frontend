@@ -21,9 +21,6 @@ html {
     scrollbar-gutter: stable;
     overflow-y: scroll;
 }
-body {
-    height: 100%;
-}
 .page {
     position: relative;
     display: flex;
