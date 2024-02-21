@@ -85,9 +85,9 @@ const TimelinePage = () => {
 
         const handleScroll = () => sessionStorage.setItem('scrollTop', scrollWrapper.scrollTop.toString())
 
-        document.addEventListener('scroll', handleScroll)
+        scrollWrapper.addEventListener('scroll', handleScroll)
         return () => {
-            document.removeEventListener('scroll', handleScroll)
+            scrollWrapper.removeEventListener('scroll', handleScroll)
         }
     }, []);
 

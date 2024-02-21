@@ -287,7 +287,7 @@ const useOperateTimeline = () => {
         // timeline.addEventListener('mousemove' , handleDrag);
         // timeline.addEventListener('mouseup' , handleDrag);
         toolbarButtons?.forEach(toolbarButton => toolbarButton.addEventListener('click', handleClick))
-        document.addEventListener('scroll', () => debounce(handleScroll, 100))
+        scrollWrapper.addEventListener('scroll', () => debounce(handleScroll, 100))
         return () => {
             timeline.removeEventListener('wheel', handleWheel);
             timeline.removeEventListener('touchstart' , handleTouch);
@@ -296,7 +296,7 @@ const useOperateTimeline = () => {
             // timeline.removeEventListener('mousemove' , handleDrag);
             // timeline.removeEventListener('mouseup' , handleDrag);
             toolbarButtons?.forEach(toolbarButton => toolbarButton.removeEventListener('click', handleClick))
-            document.removeEventListener('scroll', () => debounce(handleScroll, 100))
+            scrollWrapper.removeEventListener('scroll', () => debounce(handleScroll, 100))
         };
     });
 }
