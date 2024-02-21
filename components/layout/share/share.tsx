@@ -1,5 +1,5 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {selectIsShare} from "@/store/slices/appearanceSlice";
 import LinkCopyButton from "@/components/layout/share/linkCopyButton";
 import KakaotalkButton from "@/components/layout/share/kakaotalkButton";
@@ -8,7 +8,6 @@ import FacebookButton from "@/components/layout/share/facebookButton";
 
 
 const Share = () => {
-    const dispatch = useDispatch()
     const isShare = useSelector(selectIsShare)
 
     const bottom = isShare ? 0 : -150

@@ -4,7 +4,7 @@ import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import Image from "next/image";
 import {updateIsShare} from "@/store/slices/appearanceSlice";
 import Link from "next/link";
-import {getClickOrTouch, getIsBaseImage} from "@/utils/global";
+import {getClickOrTouch, getIsBaseImage, getScrollWrapper} from "@/utils/global";
 
 const TimelineHeader = () => {
     const shareButtonRef : RefObject<HTMLDivElement> = useRef(null)
@@ -19,7 +19,7 @@ const TimelineHeader = () => {
     useEffect(() => {
         const shareButton = shareButtonRef.current
         const timelineLink = timelineLinkRef.current
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        const scrollWrapper = getScrollWrapper()
         if (!shareButton || !timelineLink || !scrollWrapper) return
 
         const handleClickShareButton = async () => {

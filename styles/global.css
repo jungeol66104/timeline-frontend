@@ -21,11 +21,14 @@ html {
     scrollbar-gutter: stable;
     overflow-y: scroll;
 }
+body, #__next, .layout, .page {
+    height: 100%
+}
 .page {
     position: relative;
+    padding-top: 60px;
     display: flex;
     flex-direction: column;
-    height: fit-content;
 }
 
 /* layout responsive */

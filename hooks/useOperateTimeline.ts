@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import api from "@/utils/api";
-import {debounce, getEventHeights, sum} from "@/utils/global";
+import {debounce, getEventHeights, getScrollWrapper, sum} from "@/utils/global";
 import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
 import {selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectTimelineEdgeHeight, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd, updateIsTopEnd, updateLastAction, updateScrollTop, updateTotalHeight} from "@/store/slices/appearanceSlice";
 
@@ -26,7 +26,7 @@ const useOperateTimeline = () => {
     else {isLoading = false}
 
     useEffect(() => {
-        const scrollWrapper: HTMLElement | null = typeof window !== 'undefined' ? document.documentElement : null
+        const scrollWrapper = getScrollWrapper()
         const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
         const toolbarButtons: NodeListOf<HTMLButtonElement> | null = typeof window !== 'undefined' ? document.querySelectorAll('.toolbarButton') : null
         if (!scrollWrapper || !timeline || !toolbarButtons) return
@@ -268,7 +268,7 @@ const useOperateTimeline = () => {
             }
         }
         const handleScroll = async () => {
-            const scrollWrapper: HTMLElement | null = typeof window !== 'undefined' ? document.documentElement : null
+            const scrollWrapper = getScrollWrapper()
             if (!scrollWrapper) return
 
             let scrollUp = scrollWrapper.scrollTop < 150

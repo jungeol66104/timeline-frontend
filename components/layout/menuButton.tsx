@@ -7,7 +7,6 @@ const MenuButton = () => {
     const menuButtonRef = useRef<HTMLButtonElement>(null)
     const [isToggle, setIsToggle] = useState(false)
 
-
     const handleClick = (e: React.MouseEvent) => {
         const menuButton = menuButtonRef.current
         if (!menuButton) return

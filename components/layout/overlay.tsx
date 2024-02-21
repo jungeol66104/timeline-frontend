@@ -6,7 +6,6 @@ const Overlay = () => {
     const dispatch = useDispatch()
     const isShare = useSelector(selectIsShare)
 
-
     const handleClick = () => {
         dispatch(updateIsShare())
     }

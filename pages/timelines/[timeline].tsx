@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import api from "@/utils/api"
-import {sum, getEventHeights} from "@/utils/global";
+import {sum, getEventHeights, getScrollWrapper} from "@/utils/global";
 import {storeWrapper} from "@/store/store";
 import {TimelineEvent} from "@/store/slices/contentsSlice"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
@@ -80,7 +80,7 @@ const TimelinePage = () => {
     }, []);
 
     useEffect(() => {
-        const scrollWrapper: HTMLElement | null = typeof window !== 'undefined' ? document.documentElement : null
+        const scrollWrapper = getScrollWrapper()
         if (!scrollWrapper) return
 
         const handleScroll = () => sessionStorage.setItem('scrollTop', scrollWrapper.scrollTop.toString())

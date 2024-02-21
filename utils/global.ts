@@ -2,7 +2,6 @@ import {TimelineEvent} from "@/store/slices/contentsSlice";
 // refactoring: clear
 
 // variables
-const aboveTimelineHeight = 70
 const eventContentHeight = 124
 const overlapBottomHeight = 6
 const eventListHeaderHeight = 38
@@ -28,6 +27,12 @@ export const getClickOrTouch = () => {
     let clickOrTouchend = 'click'
     if (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement) clickOrTouchend = 'touchend'
     return clickOrTouchend
+}
+
+export const getScrollWrapper = () => {
+    // const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+    const scrollWrapper: HTMLElement | null = typeof window !== 'undefined' ? document.documentElement : null
+    return scrollWrapper
 }
 
 export const getIsBaseImage = (url: string | null | undefined) => {

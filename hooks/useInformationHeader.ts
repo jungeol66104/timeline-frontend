@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 import {useRouter} from "next/router";
 import {useSelector} from "react-redux";
 import {selectIsTopEnd} from "@/store/slices/appearanceSlice";
+import {getScrollWrapper} from "@/utils/global";
 
 const useInformationHeader = () => {
     const router = useRouter();
@@ -9,7 +10,7 @@ const useInformationHeader = () => {
     const isTopEnd = useSelector(selectIsTopEnd)
 
     useEffect(() => {
-        const scrollWrapper: HTMLElement | null = typeof window !== 'undefined' ? document.documentElement : null
+        const scrollWrapper = getScrollWrapper()
         const timelineInformationHeader : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineInformationHeader') : null
         if (!scrollWrapper || !timelineInformationHeader) return
         if (!isTimeline) return

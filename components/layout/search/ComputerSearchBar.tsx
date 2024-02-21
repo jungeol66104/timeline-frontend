@@ -22,7 +22,6 @@ const ComputerSearchBar = () => {
         if (!searchBody || !searchInput) return
         e.stopPropagation()
         dispatch(updateIsSearch(true))
-        // searchInput.focus()
 
         document.addEventListener('click', function hideMenu (e: MouseEvent) {
             if (!searchBody.contains(e.target as Node)) {
