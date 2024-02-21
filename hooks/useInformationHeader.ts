@@ -15,7 +15,7 @@ const useInformationHeader = () => {
         if (!scrollWrapper || !timelineInformationHeader) return
 
         const handleScroll = () => {
-            if (scrollWrapper.scrollTop > 50 || !isTopEnd || isTimeline) {
+            if ((scrollWrapper.scrollTop > 50 || !isTopEnd) && isTimeline) {
                 if(!timelineInformationHeader.classList.contains("flex")) {
                     timelineInformationHeader.classList.remove("hidden");
                     timelineInformationHeader.classList.add("flex");
