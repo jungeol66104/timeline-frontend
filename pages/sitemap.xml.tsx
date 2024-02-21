@@ -6,8 +6,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     if (res) {
         const timelineResponse = await api.get('/timeline', {headers: {lang: 'en'}})
         const eventResponse = await api.get('/event', {headers: {lang: 'en'}})
-        const timelines: any[] = timelineResponse.data.data
-        const events: any[] = eventResponse.data.data
+        const timelines: any[] = timelineResponse.data.data.slice(0, 10)
+        const events: any[] = eventResponse.data.data.slice(0, 10)
         const timelineIds = timelines.map(timeline => timeline.id)
         const eventIds = events.map(event => event.id)
         const urls = [...timelineIds.map(timelineId => `https://timeline.vg/timelines/${timelineId}`), ...eventIds.map(eventId => `https://timeline.vg/events/${eventId}`)]
