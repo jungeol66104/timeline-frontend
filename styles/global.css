@@ -24,8 +24,8 @@ html {
 .page {
     position: relative;
     padding-top: 60px;
-    display: flex;
-    flex-direction: column;
+    /*display: flex;*/
+    /*flex-direction: column;*/
 }
 
 /* layout responsive */
@@ -55,7 +55,7 @@ html {
 @media (min-width: 1125px) {
     .indexPage {
         align-items: start;
-        padding-left: 129px;
+        padding-left: 125px;
     }
 }
 
