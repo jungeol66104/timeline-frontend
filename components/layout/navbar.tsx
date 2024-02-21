@@ -14,18 +14,18 @@ const Navbar = React.memo(() => {
             <nav className={'navbar fixed top-0 left-0 h-[60px] w-full bg-white shadow-md flex items-center justify-between'} style={{zIndex: 5000}}>
                 <div className={'flex items-center gap-5'}>
                     <Link onClick={() => sessionStorage.clear()} href={'/'} className={`w-fit font-black text-2xl transform transition-opacity ease-in-out duration-300 ml-4`}>Timeline</Link>
-                    <ComputerSearchBar />
+                    {/*<ComputerSearchBar />*/}
                 </div>
-                <div className={'flex items-center ml-2'}>
-                    <div className={'pc flex items-center max-[850px]:hidden'}>
-                        <ShareButton />
-                        <FeedbackButton />
-                    </div>
-                    <div className={'mobile hidden items-center max-[850px]:flex'}>
-                        <MenuButton />
-                        <SearchButton />
-                    </div>
-                </div>
+                {/*<div className={'flex items-center ml-2'}>*/}
+                {/*    <div className={'pc flex items-center max-[850px]:hidden'}>*/}
+                {/*        <ShareButton />*/}
+                {/*        <FeedbackButton />*/}
+                {/*    </div>*/}
+                {/*    <div className={'mobile hidden items-center max-[850px]:flex'}>*/}
+                {/*        <MenuButton />*/}
+                {/*        <SearchButton />*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </nav>
             <TimelineInformationHeader/>
         </>

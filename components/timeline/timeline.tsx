@@ -6,7 +6,7 @@ import useScrollSetup from "@/hooks/useScrollSetup";
 // refactoring: clear
 
 const Timeline = () => {
-    // useScrollSetup()
+    useScrollSetup()
     useOperateTimeline()
 
     return (
