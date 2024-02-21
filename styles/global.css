@@ -18,14 +18,16 @@ html, body, #__next, .layout, .page {
     width: 100%;
 }
 html {
-    scrollbar-gutter: stable;
-    overflow-y: scroll;
+}
+.layout {
+    padding-top: 60px;
 }
 .page {
     position: relative;
-    padding-top: 60px;
-    /*display: flex;*/
-    /*flex-direction: column;*/
+    display: flex;
+    flex-direction: column;
+    scrollbar-gutter: stable;
+    overflow-y: scroll;
 }
 
 /* layout responsive */
