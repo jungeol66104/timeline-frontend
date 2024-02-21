@@ -13,10 +13,9 @@ const useInformationHeader = () => {
         const scrollWrapper = getScrollWrapper()
         const timelineInformationHeader : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineInformationHeader') : null
         if (!scrollWrapper || !timelineInformationHeader) return
-        if (!isTimeline) return
 
         const handleScroll = () => {
-            if (scrollWrapper.scrollTop > 50 || !isTopEnd) {
+            if (scrollWrapper.scrollTop > 50 || !isTopEnd || isTimeline) {
                 if(!timelineInformationHeader.classList.contains("flex")) {
                     timelineInformationHeader.classList.remove("hidden");
                     timelineInformationHeader.classList.add("flex");
@@ -29,9 +28,9 @@ const useInformationHeader = () => {
             }
         }
 
-        document.addEventListener("scroll", handleScroll)
+        scrollWrapper.addEventListener("scroll", handleScroll)
         return () => {
-            document.removeEventListener("scroll", handleScroll)
+            scrollWrapper.removeEventListener("scroll", handleScroll)
         };
     });
 };
