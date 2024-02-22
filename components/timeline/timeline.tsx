@@ -14,7 +14,7 @@ const Timeline = () => {
     useOperateTimeline()
 
     return (
-        <div className='timeline absolute w-full max-w-[670px]' style={{height: totalHeight + 140}}>
+        <div className='timeline absolute overflow-y-hidden w-full max-w-[670px]' style={{height: totalHeight + 140}}>
             <TimelineFrame />
             <TimelineEvents />
         </div>

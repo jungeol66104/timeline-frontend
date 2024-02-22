@@ -55,7 +55,7 @@ const SwiperPagination = ({swiperContainerRef} : {swiperContainerRef: React.RefO
         const childLefts = swiperContainerChildren.map((_, i) => sum(childWidths.slice(0,i)))
 
         if (direction === 'prev') {
-            let targetIndexForPrev = childLefts.findIndex(left => left > swiperContainer.scrollLeft)
+            let targetIndexForPrev = childLefts.findIndex(left => left >= swiperContainer.scrollLeft)
             if (targetIndexForPrev % 2 !== 0) targetIndexForPrev += 1
             swiperContainerChildren[targetIndexForPrev].scrollIntoView({inline: "end", behavior: 'smooth', block: 'nearest'})
         } else {

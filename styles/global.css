@@ -17,8 +17,6 @@ html, body, #__next, .layout, .page {
     height: 100%;
     width: 100%;
 }
-html {
-}
 .layout {
     padding-top: 60px;
 }

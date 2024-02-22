@@ -31,10 +31,10 @@ const Swiper = ({series}: {series: Series}) => {
             <div ref={swiperContainerRef} onMouseOver={() => handleHover(true)} onMouseLeave={() => handleHover(false)} className={'swiperContainer hideScrollbar w-full flex pb-2.5 mt-2.5 overflow-x-scroll'}>
                 {series["timelines"].map((timeline, i) => {
                     return (
-                        <>
-                            <div key={i} className={'swiperGap w-4 bg-white shrink-0 z-30'}></div>
-                            <SwiperCard key={i + 11} timeline={timeline}/>
-                        </>
+                        <React.Fragment key={i}>
+                            <div className={'swiperGap w-4 bg-white shrink-0 z-30'}></div>
+                            <SwiperCard timeline={timeline}/>
+                        </React.Fragment>
                     )
                 })}
                 <div key={100} className={'swiperGap w-4 bg-white shrink-0 z-30'}></div>
