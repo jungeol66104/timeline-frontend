@@ -28,6 +28,7 @@ const useInformationHeader = () => {
             }
         }
 
+        handleScroll()
         scrollWrapper.addEventListener("scroll", handleScroll)
         return () => {
             scrollWrapper.removeEventListener("scroll", handleScroll)
