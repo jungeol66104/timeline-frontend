@@ -17,7 +17,7 @@ const Navbar = () => {
                     <ComputerSearchBar />
                 </div>
                 <div className={'flex items-center ml-2'}>
-                    <div className={'pc flex items-center max-[850px]:hidden'}>
+                    <div className={'pc flex items-center pr-1.5 max-[850px]:hidden'}>
                         <ShareButton />
                         <FeedbackButton />
                     </div>
