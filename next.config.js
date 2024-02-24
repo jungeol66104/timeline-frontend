@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'timeline-image.s3.ap-northeast-2.amazonaws.com',
+        hostname: 'cdn.timeline.vg',
         port: '',
       },
     ],
