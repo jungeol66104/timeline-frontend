@@ -1,7 +1,6 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
-import Image from "next/image";
 
 const Event = () => {
     const currentEvent = useSelector(selectCurrentEvent)

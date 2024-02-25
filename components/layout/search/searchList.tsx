@@ -6,7 +6,7 @@ import {selectSearchedEvents, selectSearchedTimelines, selectTab} from "@/store/
 
 const SearchList = () => {
     const tab = useSelector(selectTab)
-    const searchedTimelines = useSelector(selectSearchedTimelines)
+    const searchedTimelines = useSelector(selectSearchedTimelines).slice(0, 10)
     const searchedEvents = useSelector(selectSearchedEvents)
     const searchResults = tab === 'timeline' ? searchedTimelines : searchedEvents
 

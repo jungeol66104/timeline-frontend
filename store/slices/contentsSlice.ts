@@ -5,7 +5,7 @@ import {RootState} from "@/store/rootReducer";
 // values before any dispatch
 const initialState = {
     // language: "en",
-    currentTimeline: {id: 1, name: ''},
+    currentTimeline: {id: 1, name: '', description: '', image: ''},
     currentEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, importance: 0, depth: 0, timelineInfo: [], overlap: 0, isToggle: false, toggleEvents: []},
     currentEvents: [],
     currentEventsWithEffect: [],
@@ -62,7 +62,7 @@ export const selectCurrentSeries = (state: RootState) => state.contents.currentS
 // types
 export interface initialContentsState {
     // language: "en" | "kr"
-    currentTimeline: {id: number, name: string}
+    currentTimeline: {id: number, name: string, description: string, image: string}
     currentEvent: TimelineEvent,
     currentEvents: TimelineEvent[],
     currentEventsWithEffect: TimelineEvent[],

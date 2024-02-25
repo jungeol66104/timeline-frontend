@@ -3,85 +3,107 @@
 /* font */
 @import url('./font.css');
 
+* {
+    font-family: 'Inter', sans-serif;
+}
+
 /* tailwind basic setting */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-* {
-    font-family: 'Inter', sans-serif;
-}
-
-html, body, #__next, .layout {
+/* layout */
+html, body, #__next, .layout, .page {
     height: 100%;
     width: 100%;
 }
-
-body, #__next, .layout {
-    max-width: 512px;
+.layout {
+    padding-top: 60px;
 }
-
-html {
-    display: flex;
-    justify-content: center;
-}
-
-/*Hide scrollbar for Chrome, Safari and Opera && IE, Edge and Firefox*/
-/*.page::-webkit-scrollbar, .layout::-webkit-scrollbar, .search::-webkit-scrollbar{*/
-/*    display: none;*/
-/*}*/
-
-/*.page, .search {*/
-/*    -ms-overflow-style: none;  !* IE and Edge *!*/
-/*    scrollbar-width: none;  !* Firefox *!*/
-/*}*/
-
-/* custom scrollbar for series */
-.swiperContainer::-webkit-scrollbar {
-    /*display: none;*/
-    height: 5px;
-}
-.swiperContainer::-webkit-scrollbar-track {
-    background: transparent;
-    margin-inline: 20px;
-}
-.swiperContainer::-webkit-scrollbar-thumb {
-    background: #4b5563;
-    border-radius: 100vw;
-}
-
-
-/* highly repetitive css */
 .page {
     position: relative;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    scrollbar-gutter: stable;
+    overflow-y: scroll;
 }
 
-/* responsive, temporary */
-@media (min-width: 0px) {
-    .swiperCard {
-        width: calc((100% - 20px)/2.1);
-        padding-top: calc((100% - 20px)/2.1);
-        margin-right: calc((100% - 20px)/21)
+/* layout responsive */
+@media (min-width: 670px) {
+    .timelinePage, .eventPage {
+        align-items: center;
     }
-    .swiperContainer > .swiperCard:last-child {
-        margin-right: 0
+    .timelineInformationHeader {
+        align-items: center;
+    }
+}
+@media (min-width: 850px) {
+    .timelinePage, .eventPage {
+        align-items: start;
+        padding-left: 125px;
+    }
+    .timelineInformationHeader {
+        align-items: start;
+        padding-left: 125px;
+    }
+}
+@media (min-width: 996px) {
+    .indexPage {
+        align-items: center;
+    }
+}
+@media (min-width: 1125px) {
+    .indexPage {
+        align-items: start;
+        padding-left: 125px;
     }
 }
 
-@media (min-width: 520px) {
-    body, .search, .navbar, .share, .timelineInformationHeader{
-        border-left: 0.1px solid #d1d5db; /* Left border color and width */
-        border-right: 0.1px solid #d1d5db; /* Right border color and width */
-    }
+/* series */
+.hideScrollbar::-webkit-scrollbar {
+    visibility: hidden;
+}
+
+/* series responsive */
+@media (min-width: 0px) and (max-width: 369px) {
     .swiperCard {
-        width: calc((100% - 20px)/3.15);
-        padding-top: calc((100% - 20px)/3.15);
-        margin-right: calc((100% - 20px)/31.5)
+        width: 140px;
+        padding-top: 140px;
     }
-    .swiperContainer > .swiperCard:last-child {
-        margin-right: 0
+}
+@media (min-width: 369px) and (max-width: 455px) {
+    .swiperCard {
+        width: calc((100% - 48px)/2.15);
+        padding-top: calc((100% - 48px)/2.15);
+    }
+}
+@media (min-width: 455px) and (max-width: 525px) {
+    .swiperCard {
+        width: 180px;
+        padding-top: 180px;
+    }
+}
+@media (min-width: 525px) and (max-width: 651px) {
+    .swiperCard {
+        width: calc((100% - 64px)/3.15);
+        padding-top: calc((100% - 64px)/3.15);
+    }
+}
+@media (min-width: 651px) and (max-width: 681px) {
+    .swiperCard {
+        width: 180px;
+        padding-top: 180px;
+    }
+}
+@media (min-width: 681px) and (max-width: 847px) {
+    .swiperCard {
+        width: calc((100% - 80px)/4.15);
+        padding-top: calc((100% - 80px)/4.15);
+    }
+}
+@media (min-width: 847px) {
+    .swiperCard {
+        width: 180px;
+        padding-top: 180px;
     }
 }

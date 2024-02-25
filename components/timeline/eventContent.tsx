@@ -6,7 +6,7 @@ import Link from "next/link";
 import api from "@/utils/api";
 import {selectCurrentEvents, selectCurrentTimeline, updateIsToggle, updateToggleEvents,} from "@/store/slices/contentsSlice";
 import {selectLastAction, selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/appearanceSlice";
-import {getClickOrTouch} from "@/utils/global";
+import {getClickOrTouch, getScrollWrapper} from "@/utils/global";
 // refactoring: clear
 
 const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: TimelineEvent, highestEvent: TimelineEvent, contentOrder: number, isToggle?: boolean}) => {
@@ -26,7 +26,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
     // event handler for toggle
     useEffect(() => {
         const eventContent = eventContentRef.current
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        const scrollWrapper = getScrollWrapper()
         if (!eventContent || !scrollWrapper) return
 
         // mobile detection

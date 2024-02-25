@@ -2,27 +2,24 @@ import React, {RefObject, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import Image from "next/image";
-import ShareSVG from "@/public/svg/share.svg"
 import {updateIsShare} from "@/store/slices/appearanceSlice";
 import Link from "next/link";
-import {getClickOrTouch} from "@/utils/global";
-import {useRouter} from "next/router";
+import {getClickOrTouch, getIsBaseImage, getScrollWrapper} from "@/utils/global";
 
 const TimelineHeader = () => {
     const shareButtonRef : RefObject<HTMLDivElement> = useRef(null)
     const timelineLinkRef : RefObject<HTMLAnchorElement> = useRef(null)
 
-
-    const router = useRouter()
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
+    const isBaseImage = getIsBaseImage(currentTimeline.image)
 
     let isSwipe = false
 
     useEffect(() => {
         const shareButton = shareButtonRef.current
         const timelineLink = timelineLinkRef.current
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        const scrollWrapper = getScrollWrapper()
         if (!shareButton || !timelineLink || !scrollWrapper) return
 
         const handleClickShareButton = async () => {
@@ -65,14 +62,14 @@ const TimelineHeader = () => {
 
 
     return (
-        <div className={'timelineHeader relative left-0 w-fit flex gap-2.5 items-center'} style={{zIndex: 4999}}>
+        <div className={'timelineHeader h-[60px] bg-white relative w-full flex gap-2.5 items-center'} style={{zIndex: 4999}}>
             <Link ref={timelineLinkRef} href={`/timelines/${currentTimeline.id}`} className={`w-fit font-black text-2xl cursor-pointer`}>
                 <div className={'flex gap-2.5 items-center'}>
                     <div className={'text-2xl font-bold line-clamp-1'}>{currentTimeline.name}</div>
                     <div className={'w-[24px] h-[24px] top-0 right-0 mb-[0.5px] shrink-0'}>
-                        {currentTimeline.id <= 10
-                            ?   <Image className={'rounded-sm'} src={`/images/timeline/${currentTimeline.id}.png`} alt={`${currentTimeline.name}`} width={28} height={28} />
-                            :   <div className={'w-full h-full rounded-sm bg-gray-500 text-white flex items-center justify-center text-sm font-medium hidden'}><span>{currentTimeline.name.charAt(0).toUpperCase()}</span></div>
+                        {isBaseImage
+                            ?   <div className={'w-full h-full rounded-sm bg-gray-500 text-white flex items-center justify-center text-sm font-medium hidden'}><span>{currentTimeline.name.charAt(0).toUpperCase()}</span></div>
+                            :   <Image className={'rounded-sm'} src={currentTimeline.image} alt={currentTimeline.name} width={28} height={28} />
                     }
                     </div>
                 </div>

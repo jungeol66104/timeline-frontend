@@ -1,49 +1,54 @@
-import React, {useEffect} from 'react';
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import Image from "next/image";
-import {getEventHeights, sum} from "@/utils/global";
 import api from "@/utils/api";
-import UnfoldSVG from "@/public/svg/unfold.svg";
-import FoldSVG from "@/public/svg/fold.svg";
-import NorthSVG from "@/public/svg/north.svg";
-
-import {decrementDepth, incrementDepth, selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectToolbarStatus, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd, updateIsTimelineInfo, updateIsTopEnd, updateLastAction, updateScrollTop, updateToolbarStatus, updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {debounce, getEventHeights, getScrollWrapper, sum} from "@/utils/global";
 import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
+import {selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectTimelineEdgeHeight, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd, updateIsTopEnd, updateLastAction, updateScrollTop, updateTotalHeight} from "@/store/slices/appearanceSlice";
 
-const Toolbar = () => {
+const useOperateTimeline = () => {
     const dispatch = useDispatch()
+    // global vars
     const aboveTimelineHeight = useSelector(selectAboveTimelineHeight)
     const eventBoxHeight = useSelector(selectEventBoxHeight)
     const overlapBottom = useSelector(selectOverlapBottom)
-    const currentTimeline = useSelector(selectCurrentTimeline)
-    const currentEvents = useSelector(selectCurrentEvents)
+    const timelineEdgeHeight = useSelector(selectTimelineEdgeHeight)
+    // effects
     const currentDepth = useSelector(selectCurrentDepth)
     const maxDepth = useSelector(selectMaxDepth)
     const lastAction = useSelector(selectLastAction)
-    const toolbarStatus = useSelector(selectToolbarStatus)
+    // contents
+    const currentTimeline = useSelector(selectCurrentTimeline)
+    const currentEvents = useSelector(selectCurrentEvents)
 
-    const zoomPercentage = Math.floor(currentDepth / maxDepth * 100)
-
+    // suppress additional actions after zoom or scroll
     let isLoading = true
     if (lastAction === 'zoom' || lastAction === 'scroll') {setTimeout(() => {isLoading = false}, 500)}
     else {isLoading = false}
 
     useEffect(() => {
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        const scrollWrapper = getScrollWrapper()
+        const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
         const toolbarButtons: NodeListOf<HTMLButtonElement> | null = typeof window !== 'undefined' ? document.querySelectorAll('.toolbarButton') : null
-        if (!toolbarButtons || !scrollWrapper) return
+        if (!scrollWrapper || !timeline || !toolbarButtons) return
 
-        const CurrentEventHeights = getEventHeights(currentEvents)
-        let CurrentEventTops = CurrentEventHeights.map((_, i) => sum(CurrentEventHeights.slice(0,i)))
+        const currentEventHeights = getEventHeights(currentEvents)
+        let currentEventTops = currentEventHeights.map((_, i) => sum(currentEventHeights.slice(0,i)))
+        // initial setting for calculating user swipe action
+        let startX: number | null = null
+        let startY: number | null = null
 
-        const getSwipedEvent = (scrollWrapper: HTMLDivElement) : TimelineEvent => {
-            let clientYInContainer = scrollWrapper.scrollTop + scrollWrapper.clientHeight/2
+        // functions
+        const getSwipedEvent = (e?: WheelEvent | TouchEvent | MouseEvent) : TimelineEvent => {
+            let clientYInContainer = 0
+            if (e instanceof TouchEvent) clientYInContainer = scrollWrapper.scrollTop + e.changedTouches[0].clientY - aboveTimelineHeight - timelineEdgeHeight
+            else if (e instanceof WheelEvent || e instanceof MouseEvent) clientYInContainer = scrollWrapper.scrollTop + e.clientY  - aboveTimelineHeight - timelineEdgeHeight
+            else clientYInContainer = scrollWrapper.scrollTop + scrollWrapper.clientHeight/2
             let order = 0
-            if (clientYInContainer - aboveTimelineHeight > 0) order = CurrentEventTops.findLastIndex(top => top < clientYInContainer - aboveTimelineHeight)
-            let top = CurrentEventTops[order] + aboveTimelineHeight - scrollWrapper.scrollTop
+            if (clientYInContainer > 0) order = currentEventTops.findLastIndex(top => top < clientYInContainer)
+            let top = currentEventTops[order] + aboveTimelineHeight + timelineEdgeHeight - scrollWrapper.scrollTop
             let boxTop = top
             if (currentEvents[order].isToggle) {
-                let clientYInBox = clientYInContainer - (CurrentEventTops[order] + aboveTimelineHeight)
+                let clientYInBox = clientYInContainer - currentEventTops[order]
                 let orderInBox = 0
                 if (clientYInBox > 38) {orderInBox = Math.floor((clientYInBox - 38) / 124)}
                 boxTop = 38 + orderInBox * 124
@@ -68,7 +73,7 @@ const Toolbar = () => {
                 const isBottomEnd = response.data.data.isBottomEnd
                 return {fetchedEvents, referEvent, isTopEnd, isBottomEnd}
             } catch (error) {
-                console.error('Error fetching data in useEffect:', error);
+                console.error('Error fetching data in useEffect: ', error);
                 return {fetchedEvents: currentEvents, referEvent: pivotEvent}
             }
         }
@@ -84,11 +89,11 @@ const Toolbar = () => {
                 if (currentEvents.find(cEvent => cEvent.id === fEvent.id)) {
                     // remained
                     if (depth < currentDepth && !fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop) {
-                        let initialDistance = (CurrentEventTops[swipedEvent.order as number] + swipedEvent.boxTop) - CurrentEventTops[fEventOrderInCurrent]
+                        let initialDistance = (currentEventTops[swipedEvent.order as number] + swipedEvent.boxTop) - currentEventTops[fEventOrderInCurrent]
                         let finalDistance = topsOfFetchedEvents[referEventOrderInFetched] - topsOfFetchedEvents[fEventOrderInFetched]
                         distance = finalDistance - initialDistance
                     } else {
-                        let initialDistance = CurrentEventTops[swipedEvent.order as number] - CurrentEventTops[fEventOrderInCurrent]
+                        let initialDistance = currentEventTops[swipedEvent.order as number] - currentEventTops[fEventOrderInCurrent]
                         let finalDistance = topsOfFetchedEvents[referEventOrderInFetched] - topsOfFetchedEvents[fEventOrderInFetched]
                         distance = finalDistance - initialDistance
                     }
@@ -96,8 +101,8 @@ const Toolbar = () => {
                     // new
                     if (depth < currentDepth) {
                         let initialDistance
-                        if (fEventOrderInFetched <= referEventOrderInFetched) initialDistance = CurrentEventTops[swipedEvent.order as number] + (eventBoxHeight + 2 * overlapBottom)
-                        else initialDistance = CurrentEventTops[swipedEvent.order as number] - (CurrentEventTops[CurrentEventTops.length - 1] + (eventBoxHeight + 2 * overlapBottom))
+                        if (fEventOrderInFetched <= referEventOrderInFetched) initialDistance = currentEventTops[swipedEvent.order as number] + (eventBoxHeight + 2 * overlapBottom)
+                        else initialDistance = currentEventTops[swipedEvent.order as number] - (currentEventTops[currentEventTops.length - 1] + (eventBoxHeight + 2 * overlapBottom))
                         let finalDistance = topsOfFetchedEvents[referEventOrderInFetched] - topsOfFetchedEvents[fEventOrderInFetched]
                         distance = finalDistance - initialDistance
                     } else return {...fEvent, animation: 'fadeIn'}
@@ -110,7 +115,7 @@ const Toolbar = () => {
                 if (!fetchedEvents.find(fEvent => fEvent.id === cEvent.id)) {
                     //disappeared
                     if (depth > currentDepth) {
-                        let initialDistance = CurrentEventTops[swipedEvent.order as number] - CurrentEventTops[cEventOrderInCurrent]
+                        let initialDistance = currentEventTops[swipedEvent.order as number] - currentEventTops[cEventOrderInCurrent]
                         let finalDistance
                         if (cEventOrderInCurrent <= (swipedEvent.order as number)) finalDistance = topsOfFetchedEvents[referEventOrderInFetched] + (eventBoxHeight + 2 * overlapBottom)
                         else finalDistance = topsOfFetchedEvents[referEventOrderInFetched] - (topsOfFetchedEvents[topsOfFetchedEvents.length - 1] + (eventBoxHeight + 2 * overlapBottom))
@@ -119,7 +124,7 @@ const Toolbar = () => {
                     } else return {...cEvent, animation: 'fadeOut' , prev: true}
                 } else return {...cEvent, animation: 'blank', prev: true}
             })
-            let afterEffectTop = topsOfFetchedEvents[referEventOrderInFetched] - CurrentEventTops[swipedEvent.order as number]
+            let afterEffectTop = topsOfFetchedEvents[referEventOrderInFetched] - currentEventTops[swipedEvent.order as number]
             if (depth < currentDepth && !fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop) {
                 afterEffectTop -= swipedEvent.boxTop
             }
@@ -136,16 +141,24 @@ const Toolbar = () => {
             if (!swipedEvent.top) return {newScrollTop: 0, totalHeight: 0}
             const heightsOfFetchedEvents = getEventHeights(fetchedEvents)
             const topsOfFetchedEvents = heightsOfFetchedEvents.map((_, i) => sum(heightsOfFetchedEvents.slice(0,i)))
-            let topInContainer = aboveTimelineHeight + topsOfFetchedEvents[fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)]
+            let topInContainer = aboveTimelineHeight + timelineEdgeHeight + topsOfFetchedEvents[fetchedEvents.findIndex(fEvent => fEvent.id === referEvent.id)]
             let newScrollTop = topInContainer - swipedEvent.top
             // if swipedEvent toggled and disappeared
             if (!fetchedEvents.find(fEvent => fEvent.id === swipedEvent.id) && swipedEvent.isToggle && swipedEvent.boxTop !== undefined) {newScrollTop -= swipedEvent.boxTop}
             return {newScrollTop: newScrollTop, totalHeight: sum(heightsOfFetchedEvents)}
         }
-        const operateZoom = (classNames: DOMTokenList) => {
-            if (!classNames.contains('fold') && !classNames.contains('unfold')) return
-            let depth = classNames.contains('fold') ? 0 : maxDepth
-            let swipedEvent: TimelineEvent = getSwipedEvent(scrollWrapper)
+        const operateZoom = (e?: WheelEvent | TouchEvent | MouseEvent, deltaX?: number, classNames?: DOMTokenList) => {
+            let depth: number
+            let swipedEvent: TimelineEvent
+            if (classNames) {
+                if (!classNames.contains('fold') && !classNames.contains('unfold')) return
+                depth = classNames.contains('fold') ? 0 : maxDepth
+                swipedEvent = getSwipedEvent()
+            } else {
+                if (e instanceof WheelEvent) depth = e.deltaX > 0 ? currentDepth - 1 : currentDepth + 1
+                else depth = (deltaX as number) < 0 ? currentDepth - 1 : currentDepth + 1
+                swipedEvent = getSwipedEvent(e)
+            }
             fetchEvents(depth, swipedEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
                 if (fetchedEvents === currentEvents) return
                 let { fetchedEventsWithEffect, currentEventsWithAfterEffect, afterEffectTop } = getEventsWithEffectForZoom(depth, swipedEvent, referEvent, fetchedEvents)
@@ -157,25 +170,32 @@ const Toolbar = () => {
                 dispatch(updateScrollTop(newScrollTop))
                 dispatch(updateTotalHeight(totalHeight))
                 dispatch(updateLastAction('zoom'))
+                dispatch(updateCurrentDepth(depth))
                 if (isTopEnd !== undefined && isBottomEnd !== undefined) {
                     dispatch(updateIsTopEnd(isTopEnd))
                     dispatch(updateIsBottomEnd(isBottomEnd))
                 }
-                classNames.contains('fold') ? dispatch(updateCurrentDepth(0)) : dispatch(updateCurrentDepth(maxDepth))
+
             })
         }
-        const operateScroll = async (scrollUp: boolean) => {
-            let order =  0
-            let top = 0
-            const scrollEvent = {...currentEvents[order], ephemerisTime: "0", order: order, top: top}
+        const operateScroll = async (scrollUp?: boolean, uppermost?: boolean) => {
+            let order: number, top: number, scrollEvent: TimelineEvent
+            if (uppermost) scrollEvent = {...currentEvents[0], ephemerisTime: "0", order: 0 , top: 0}
+            else {
+                order =  scrollUp ? 0 : currentEvents.length - 1
+                top = aboveTimelineHeight + timelineEdgeHeight + currentEventTops[order] - scrollWrapper.scrollTop
+                scrollEvent = {...currentEvents[order], order: order, top: top}
+            }
             await fetchEvents(currentDepth, scrollEvent).then(({fetchedEvents, referEvent, isTopEnd, isBottomEnd}) => {
                 if (fetchedEvents.every(fEvent => currentEvents.findIndex(cEvent => cEvent.id === fEvent.id) !== -1)) {
-                    scrollWrapper.scrollTop = 0
+                    if (uppermost) scrollWrapper.scrollTop = 0
                     return
                 }
                 fetchedEvents = getEventsWithEffectForScroll(fetchedEvents)
-                let newScrollTop = 0
-                let totalHeight = sum(getEventHeights(fetchedEvents))
+                let newScrollTop = 0, totalHeight = sum(getEventHeights(fetchedEvents))
+                if (!uppermost) {
+                    newScrollTop = getScrollTop(scrollEvent, referEvent, fetchedEvents).newScrollTop
+                }
                 setTimeout(() => {
                     dispatch(updateCurrentEvents(fetchedEvents))
                     dispatch(updateCurrentEventsWithEffect(fetchedEvents))
@@ -189,41 +209,95 @@ const Toolbar = () => {
                 }, 500)
             })
         }
-
+        const handleWheel = async (e: WheelEvent) => {
+            if (e.deltaX !== 0) {
+                e.preventDefault()
+                if (!isLoading && Math.abs(e.deltaX) > 90) {
+                    isLoading = true
+                    await operateZoom(e)
+                    setTimeout(() => isLoading = false, 500)
+                }
+            }
+        }
+        const handleTouch = async (e: TouchEvent) => {
+            if (e.type === 'touchstart') {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            } else if (e.type === 'touchend' && startX !== null && startY !== null) {
+                const endX = e.changedTouches[0].clientX;
+                const endY = e.changedTouches[0].clientY;
+                const deltaX = endX - startX;
+                const deltaY = endY - startY
+                if (deltaX !== 0) {
+                    e.preventDefault()
+                    if (!isLoading && Math.abs(deltaX) > 70 && Math.abs(deltaY) < 20) {
+                        isLoading = true
+                        await operateZoom(e, deltaX)
+                        setTimeout(() => isLoading = false, 500)
+                    }
+                }
+            }
+        }
+        const handleDrag = async (e: MouseEvent) => {
+            if (e.type === 'mousedown') {
+                startX = e.clientX;
+            } else if (e.type === 'mousemove' && startX){
+                const endX = e.clientX;
+                const deltaX = endX - startX
+                if (!isLoading && Math.abs(deltaX) > 50) {
+                    isLoading = true
+                    await operateZoom(e, deltaX)
+                    setTimeout(() => isLoading = false, 500)
+                }
+            } else {
+                startX = null
+            }
+        }
         const handleClick = async (e: MouseEvent) => {
             const toolbarButton = e.currentTarget as HTMLButtonElement
             const classNames = toolbarButton.classList
             if (!isLoading) {
                 isLoading = true
                 if (classNames.contains('uppermost')) {
-                    await operateScroll(true)
+                    await operateScroll(undefined, true)
                     setTimeout(() => isLoading = false, 500)
                 } else {
-                    await operateZoom(classNames)
+                    await operateZoom(undefined, undefined, classNames)
                     setTimeout(() => isLoading = false, 500)
                 }
             }
         }
+        const handleScroll = async () => {
+            const scrollWrapper = getScrollWrapper()
+            if (!scrollWrapper) return
 
-        toolbarButtons?.forEach(toolbarButton => toolbarButton.addEventListener('click', handleClick))
-        return () => {
-            toolbarButtons?.forEach(toolbarButton => toolbarButton.removeEventListener('click', handleClick))
+            let scrollUp = scrollWrapper.scrollTop < 150
+            let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - scrollWrapper.clientHeight - 150
+            if (!isLoading && (scrollUp || scrollDown)) {
+                isLoading = true
+                await operateScroll(scrollUp)
+                setTimeout(() => isLoading = false, 500)
+            }
         }
+
+        timeline.addEventListener('wheel' , handleWheel);
+        timeline.addEventListener('touchstart' , handleTouch);
+        timeline.addEventListener('touchend' , handleTouch);
+        // timeline.addEventListener('mousedown' , handleDrag);
+        // timeline.addEventListener('mousemove' , handleDrag);
+        // timeline.addEventListener('mouseup' , handleDrag);
+        toolbarButtons?.forEach(toolbarButton => toolbarButton.addEventListener('click', handleClick))
+        scrollWrapper.addEventListener('scroll', () => debounce(handleScroll, 100))
+        return () => {
+            timeline.removeEventListener('wheel', handleWheel);
+            timeline.removeEventListener('touchstart' , handleTouch);
+            timeline.removeEventListener('touchend' , handleTouch);
+            // timeline.removeEventListener('mousedown' , handleDrag);
+            // timeline.removeEventListener('mousemove' , handleDrag);
+            // timeline.removeEventListener('mouseup' , handleDrag);
+            toolbarButtons?.forEach(toolbarButton => toolbarButton.removeEventListener('click', handleClick))
+            scrollWrapper.removeEventListener('scroll', () => debounce(handleScroll, 100))
+        };
     });
-
-    return (
-        <div className={'bottom-[22px] fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center w-full max-w-lg'} style={{zIndex: 4998}}>
-            <div className={`${toolbarStatus === "expand" ? 'bottom-0' : 'bottom-[-40px]' } fixed left-1/2 transform -translate-x-1/2 flex items-center justify-center h-[40px] rounded-3xl drop-shadow-md`}>
-                    <button className={`toolbarButton unfold pl-4 pr-2.5 border-l-[1px] border-t-[1px] border-b-[1px] h-full rounded-l-3xl shrink-0 text-sm font-semibold ${currentDepth === maxDepth ? 0 !== maxDepth ? 'bg-[#222222] shadow-black text-white shadow-inner' : 'bg-white/50' : 'bg-white'}`} style={{backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0))'}}>More</button>
-                    <button className={`toolbarButton fold pl-2.5 pr-4 border-r-[1px] border-t-[1px] border-b-[1px] h-full rounded-r-3xl shrink-0 text-sm font-semibold ${currentDepth === 0 ? 0 !== maxDepth ? 'bg-[#222222] shadow-black text-white shadow-inner' : 'bg-white/50' : 'bg-white'}`} style={{backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0))'}}>Less</button>
-            </div>
-            <div className={'bottom-0 fixed right-[20px] flex items-center justify-center'}>
-                <div className={'toolbarButton uppermost flex items-center justify-center w-[40px] h-[40px] border-[1px] rounded-3xl bg-white/50 drop-shadow-md'} style={{zIndex: 100}}>
-                    <button><Image src={NorthSVG} alt={'uppermost'} height={20} width={20}/></button>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default Toolbar;
+}
+export default useOperateTimeline

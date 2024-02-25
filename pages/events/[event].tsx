@@ -11,7 +11,7 @@ import {updateIs404} from "@/store/slices/appearanceSlice";
 
 export const getStaticPaths = async () => {
     const response = await api.get('/event', {headers: {lang: 'en'}})
-    const events: any[] = response.data.data
+    const events: any[] = response.data.data.slice(0, 4000)
     const eventIds = events.map(event => event.id)
     const paths = eventIds.map(eventId => ({ params: {event: String(eventId) }}))
     return {
@@ -37,8 +37,8 @@ const EventPage = () => {
     return (
         <>
             <DynamicHead type={'event'}/>
-            <div className={'page'}>
-                <div className={'mt-5 mb-5 z-40 flex flex-col gap-10 mx-[20px]'}>
+            <div className={'page eventPage'}>
+                <div className={'w-full max-w-[670px] mt-5 mb-5 z-40 flex flex-col gap-10 px-[20px]'}>
                     <Event />
                     <RelatedTimeline />
                 </div>

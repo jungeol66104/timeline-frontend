@@ -1,20 +1,14 @@
-import {sum, getEventHeights} from "@/utils/global";
-import api from "@/utils/api"
 import React, {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+import api from "@/utils/api"
+import {sum, getEventHeights, getScrollWrapper} from "@/utils/global";
 import {storeWrapper} from "@/store/store";
 import {TimelineEvent} from "@/store/slices/contentsSlice"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {
-    updateIsTopEnd,
-    updateIsBottomEnd,
-    updateMaxDepth,
-    updateTotalHeight,
-    updateIs404
-} from "@/store/slices/appearanceSlice";
+import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight, updateIs404, selectTotalHeight} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
-import {useDispatch} from "react-redux";
-import Toolbar from "@/components/timelineToolbar/toolbar";
+import Toolbar from "@/components/timeline/toolbar";
 // refactoring: clear
 
 
@@ -22,7 +16,7 @@ export const getStaticPaths = async () => {
     const response = await api.get('/timeline', {headers: {lang: 'en'}})
     const timelines: any[] = response.data.data
     const timelineIds = timelines.map(timeline => timeline.id)
-    const paths = timelineIds.map(timelineId => ({ params: {timeline: String(timelineId) }}))
+    const paths = timelineIds.map(timelineId => ({ params: {timeline: String(timelineId)}}))
     return {
         paths,
         fallback: 'blocking'
@@ -49,6 +43,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateCurrentEvents(newCurrentEvents))
         store.dispatch(updateCurrentEventsWithEffect(newCurrentEvents))
         store.dispatch(updateTotalHeight(newTotalHeight))
+
         return {props: {}, revalidate:10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);
@@ -58,13 +53,13 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
 
 const TimelinePage = () => {
     const dispatch = useDispatch()
-    const [isVisible, setIsVisible] = useState(false)
+    const [isVisible, setIsVisible] = useState(true)
 
     useEffect(() => {
-        if (typeof window === 'undefined') {
-            setIsVisible(true)
-            return
-        }
+            // if (typeof window === 'undefined') {
+            //     setIsVisible(true)
+            //     return
+            // }
 
         const currentUrl = window.location.href;
         let statePacket = JSON.parse(sessionStorage.getItem('statePacket') || '{}')
@@ -79,18 +74,16 @@ const TimelinePage = () => {
                 return {...cEvent, animation: 'none'}
             })
 
-            setIsVisible(true)
+            // setIsVisible(true)
             dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice}})
         }
     }, []);
 
     useEffect(() => {
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        const scrollWrapper = getScrollWrapper()
         if (!scrollWrapper) return
 
-        const handleScroll = () => {
-            sessionStorage.setItem('scrollTop', scrollWrapper.scrollTop.toString())
-        }
+        const handleScroll = () => sessionStorage.setItem('scrollTop', scrollWrapper.scrollTop.toString())
 
         scrollWrapper.addEventListener('scroll', handleScroll)
         return () => {
@@ -101,7 +94,7 @@ const TimelinePage = () => {
     return (
         <>
             <DynamicHead type={'timeline'}/>
-            <div className={`page`}>
+            <div className={`page timelinePage`}>
                 {!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}
                 <Timeline/>
                 <Toolbar />

@@ -2,9 +2,10 @@ import {useSelector} from "react-redux";
 import {TimelineEvent} from "@/store/slices/contentsSlice";
 import EventBox from "@/components/timeline/eventBox";
 import {selectCurrentEventsWithEffect} from "@/store/slices/contentsSlice";
-import TimelineEventsEdge from "@/components/timeline/timelineEventsEdge";
-import React, {Suspense} from "react";
+import React from "react";
 import {selectIsBottomEnd, selectIsTopEnd} from "@/store/slices/appearanceSlice";
+import TimelineEventsTop from "@/components/timeline/timelineEventsTop";
+import TimelineEventsBottom from "@/components/timeline/timelineEventsBottom";
 // refactoring: clear
 
 const TimelineEvents = () => {
@@ -13,12 +14,12 @@ const TimelineEvents = () => {
     const isBottomEnd = useSelector(selectIsBottomEnd)
 
     return (
-        <div className={'timelineEvents absolute max-w-lg flex flex-col overflow-x-visible mx-[20px]'} style={{width: `calc(100% - 40px)`}}>
-            <TimelineEventsEdge type={'top'} isEnd={isTopEnd} />
+        <div className={'timelineEvents absolute max-w-[650px] flex flex-col mx-4'} style={{width: `calc(100% - 32px)`}}>
+            <TimelineEventsTop isEnd={isTopEnd} />
             {currentEventsWithEffect.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event} />
             })}
-            <TimelineEventsEdge type={'bottom'} isEnd={isBottomEnd} />
+            <TimelineEventsBottom isEnd={isBottomEnd} />
         </div>
     )
 }

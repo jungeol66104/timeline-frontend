@@ -5,7 +5,7 @@ import Image from "next/image";
 import ExpandLessSVG from "@/public/svg/expandLess.svg";
 import {selectLastAction, selectTotalHeight, updateLastAction, updateTotalHeight} from "@/store/slices/appearanceSlice";
 import {RefObject, useEffect, useRef} from "react";
-import {getClickOrTouch} from "@/utils/global";
+import {getClickOrTouch, getScrollWrapper} from "@/utils/global";
 // refactoring: clear
 
 const EventListHeader = ({event} : {event: TimelineEvent}) => {
@@ -23,7 +23,7 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
     // event handler for toggle
     useEffect(() => {
         const untoggleButton = untoggleButtonRef.current
-        const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+        const scrollWrapper = getScrollWrapper()
         if (!untoggleButton || !scrollWrapper) return
 
         // mobile detection

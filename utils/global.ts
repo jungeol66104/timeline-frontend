@@ -2,25 +2,9 @@ import {TimelineEvent} from "@/store/slices/contentsSlice";
 // refactoring: clear
 
 // variables
-const aboveTimelineHeight = 70
 const eventContentHeight = 124
 const overlapBottomHeight = 6
 const eventListHeaderHeight = 38
-export const allTimelines = {
-        "name": "All timelines",
-        "description": "",
-        "timelines": [
-            {"id": 1,"name":"Joe Biden","description": "The 46th U.S. President", "image": ''},
-            {"id": 6,"name":"Global Financial Crisis","description": "Worldwide economic collapse of 2008", "image": ''},
-            {"id": 3,"name":"Xi Jinping","description": "The 18th and 19th General Secretary of the Chinese Communist Party", "image": ''},
-            {"id": 2,"name":"Donald Trump","description": "The 45th U.S. President", "image": ''},
-            {"id": 4,"name":"Yoon Seok Yeol","description": "The 20th President of South Korea", "image": ''},
-            {"id": 5,"name":"Moon Jae In","description": "The 19th President of South Korea", "image": ''},
-            {"id": 8,"name":"Asian Financial Crisis","description": "1997 economic turmoil in Asian countries", "image": ''},
-            {"id": 9,"name":"Great Depression","description": "Widespread poverty, unemployment, and economic hardship in 1930s", "image": ''},
-            {"id": 7,"name":"Mohammed Bin Salman","description": "The Crown Prince of Saudi Arabia", "image": ''},
-        ]
-    }
 
 // math
 export const sum = (array: number[]) => {
@@ -45,3 +29,19 @@ export const getClickOrTouch = () => {
     return clickOrTouchend
 }
 
+export const getScrollWrapper = () => {
+    const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+    // const scrollWrapper: HTMLElement | null = typeof window !== 'undefined' ? document.documentElement : null
+    return scrollWrapper
+}
+
+export const getIsBaseImage = (url: string | null | undefined) => {
+    if (typeof url !== "string") return true
+    return url.includes('https://timeline-image.s3.ap-northeast-2.amazonaws.com/base-image.png')
+}
+
+let timeoutId: any
+export const debounce = (callback: any, delay: number) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(callback, delay);
+}

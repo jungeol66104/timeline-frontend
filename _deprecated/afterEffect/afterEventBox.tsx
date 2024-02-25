@@ -3,7 +3,7 @@ import React, {RefObject, useEffect, useRef} from "react";
 import gsap from "gsap";
 import EventNode from "@/components/timeline/eventNode";
 import {useSelector} from "react-redux";
-import AfterEventList from "@/components/timeline/afterEffect/afterEventList";
+import AfterEventList from "@/_deprecated/afterEffect/afterEventList";
 import {selectLastAction} from "@/store/slices/appearanceSlice";
 import {selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
 // refactoring: clear
