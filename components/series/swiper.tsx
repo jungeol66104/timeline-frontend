@@ -23,7 +23,7 @@ const Swiper = ({series}: {series: Series}) => {
                 <div className={'h-5 text-sm text-gray-500'}>{series.description}</div>
                 <div className={'flex items-center justify-between'} style={{width: `calc(100% - 20px)`}}>
                     <div className={'text-2xl font-bold'}>{series.name}</div>
-                    <div className={'flex gap-5 h-8'}>
+                    <div className={'flex gap-5 h-8 max-[525px]:h-6'}>
                         {!showMoreButton && <MoreButton series={series} />}
                         <SwiperPagination swiperContainerRef={swiperContainerRef} />
                     </div>
