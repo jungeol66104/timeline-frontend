@@ -262,6 +262,7 @@ const useOperateTimeline = () => {
                     await operateScroll(undefined, true)
                     setTimeout(() => isLoading = false, 500)
                 } else {
+                    return
                     await operateZoom(undefined, undefined, classNames)
                     setTimeout(() => isLoading = false, 500)
                 }
@@ -280,18 +281,18 @@ const useOperateTimeline = () => {
             }
         }
 
-        timeline.addEventListener('wheel' , handleWheel);
-        timeline.addEventListener('touchstart' , handleTouch);
-        timeline.addEventListener('touchend' , handleTouch);
+        // timeline.addEventListener('wheel' , handleWheel);
+        // timeline.addEventListener('touchstart' , handleTouch);
+        // timeline.addEventListener('touchend' , handleTouch);
         // timeline.addEventListener('mousedown' , handleDrag);
         // timeline.addEventListener('mousemove' , handleDrag);
         // timeline.addEventListener('mouseup' , handleDrag);
         toolbarButtons?.forEach(toolbarButton => toolbarButton.addEventListener('click', handleClick))
         scrollWrapper.addEventListener('scroll', () => debounce(handleScroll, 100))
         return () => {
-            timeline.removeEventListener('wheel', handleWheel);
-            timeline.removeEventListener('touchstart' , handleTouch);
-            timeline.removeEventListener('touchend' , handleTouch);
+            // timeline.removeEventListener('wheel', handleWheel);
+            // timeline.removeEventListener('touchstart' , handleTouch);
+            // timeline.removeEventListener('touchend' , handleTouch);
             // timeline.removeEventListener('mousedown' , handleDrag);
             // timeline.removeEventListener('mousemove' , handleDrag);
             // timeline.removeEventListener('mouseup' , handleDrag);

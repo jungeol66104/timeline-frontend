@@ -20,7 +20,7 @@ const EventList = ({event} : {event: TimelineEvent}) => {
     const transition = lastAction === 'toggle' ? 'height 0.5s' : '0s'
 
     return (
-        <div className={'relative'} style={{width: 'calc(100% - 22px)',height: listHeight, transition: transition}}>
+        <div className={'relative'} style={{width: 'calc(100% - 22px)',height: 'fit-content', transition: transition}}>
             <EventListHeader event={event}/>
             <EventContent key={0} event={event} highestEvent={event} contentOrder={0} isToggle={isToggle}/>
             {toggleEvents.map((tEvent: TimelineEvent, i) => <EventContent key={i+1} event={tEvent} highestEvent={event} contentOrder={i+1} isToggle={isToggle}/>)}
