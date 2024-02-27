@@ -20,7 +20,7 @@ const Swiper = ({series}: {series: Series}) => {
     return (
         <div className={'swiper w-full max-w-[996px]'}>
             <div className={'swiperHeader w-full pl-4'}>
-                <div className={'h-5 text-sm text-gray-500'}>{series.description}</div>
+                <div className={'text-sm text-gray-500'}>{series.description}</div>
                 <div className={'flex items-end justify-between'} style={{width: `calc(100% - 20px)`}}>
                     <div className={'text-2xl font-bold'}>{series.name}</div>
                     <div className={'flex gap-5 h-8 max-[525px]:h-6'}>

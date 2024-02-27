@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from "next/link";
+import {Series} from "@/store/slices/contentsSlice";
 
 const MoreButton = ({series} : {series: Series}) => {
     return (
@@ -8,20 +9,4 @@ const MoreButton = ({series} : {series: Series}) => {
         </Link>
     );
 };
-
 export default MoreButton;
-
-interface Series {
-    id: number
-    name: string
-    description: string
-    timelines: SeriesTimeline[]
-    hasMore: boolean
-}
-
-interface SeriesTimeline {
-    id: number
-    name: string
-    description: string
-    image: string
-}

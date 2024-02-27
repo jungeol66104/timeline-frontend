@@ -1,7 +1,7 @@
 import api from "@/utils/api"
 import React from "react";
 import {storeWrapper} from "@/store/store";
-import {selectCurrentTimelines, updateCurrentTimelines} from "@/store/slices/contentsSlice";
+import {selectCurrentSeries, selectCurrentTimelines, updateCurrentTimelines} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
 import {updateIs404} from "@/store/slices/appearanceSlice";
 import {useSelector} from "react-redux";
@@ -37,11 +37,12 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({par
 const SeriesPage = () => {
     const series = {name: 'All Timelines', description: ''}
     const currentTimelines = useSelector(selectCurrentTimelines)
+    const currentSeries = useSelector(selectCurrentSeries)
 
     return (
         <>
             <DynamicHead type={'series'}/>
-            <div className={'page seriesPage pt-5 pb-5 items-center'}>
+            <div className={'page seriesPage pt-5 items-center'}>
                 <div className={'seriesHeader w-full pl-4'}>
                     <div className={'flex items-center justify-between'}>
                         <div className={'text-2xl font-bold'}>{series.name}</div>
@@ -52,7 +53,12 @@ const SeriesPage = () => {
                         return <SeriesCard key={i} timeline={timeline}/>
                     })}
                 </div>
-                <div className={'w-full h-[60px] shrink-0'}></div>
+                <div className={'w-full mt-2.5 h-[60px] shrink-0 flex justify-center items-center'}>
+                    <div className={'ml-[22px] text-sm text-center italic pb-[10px]'}>
+                        End of the Series<br/>
+                        <b>{currentSeries.name}</b>
+                    </div>
+                </div>
             </div>
         </>
     )
