@@ -8,10 +8,11 @@ import {
     updateCurrentTimelines
 } from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
-import {updateIs404, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
+import {updateCurrentPage, updateIs404, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
 import {useSelector} from "react-redux";
 import SeriesCard from "@/components/series/seriesCard";
 import SeriesBottom from "@/components/series/seriesBottom";
+import useOperateSeries from "@/hooks/useOperateSeries";
 // refactoring: clear
 
 
@@ -31,7 +32,8 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({par
         const response = await api.get(`/series/${Number(params?.series)}?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
         if (response.data.code === 69999) store.dispatch(updateIs404(true))
         let newCurrentSeries = response.data.data
-        store.dispatch(updateCurrentSeries(newCurrentSeries))
+        store.dispatch(updateCurrentSeries({...newCurrentSeries, id: Number(params?.series)}))
+        store.dispatch(updateCurrentPage(1))
         store.dispatch(updateIsBottomEnd(newCurrentSeries.totalPage === 1))
         return {props: {}, revalidate: 10}
     } catch (error) {
@@ -43,6 +45,8 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({par
 const SeriesPage = () => {
     const currentSeries = useSelector(selectCurrentSeries)
     const timelines: SeriesTimeline[] = currentSeries.timelineList
+
+    useOperateSeries()
 
     return (
         <>

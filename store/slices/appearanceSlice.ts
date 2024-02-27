@@ -9,10 +9,11 @@ const initialState = {
     overlapBottom: 6,
     timelineEdgeHeight: 60,
     maxDepth: 1,
+    currentDepth: 0,
     isTopEnd: true,
     isBottomEnd: true,
+    currentPage: 1,
     lastAction: 'render',
-    currentDepth: 0,
     scrollTop: 0,
     afterEffectTop: 0,
     totalHeight: 0,
@@ -41,6 +42,9 @@ const appearanceSlice = createSlice({
         updateCurrentDepth: (state, action) => {
             state.currentDepth = action.payload
         },
+        updateCurrentPage: (state, action) => {
+            state.currentPage = action.payload
+        },
         updateMaxDepth: (state, action) => {
             state.maxDepth = action.payload
         },
@@ -68,7 +72,7 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight, updateIsTimelineInfo} = appearanceSlice.actions;
+export const {updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateCurrentPage, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight, updateIsTimelineInfo} = appearanceSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
@@ -80,6 +84,7 @@ export const selectIsTopEnd = (state: RootState) => state.appearance.isTopEnd
 export const selectIsBottomEnd = (state: RootState) => state.appearance.isBottomEnd
 export const selectCurrentDepth = (state: RootState) => state.appearance.currentDepth
 export const selectMaxDepth = (state: RootState) => state.appearance.maxDepth
+export const selectCurrentPage = (state: RootState) => state.appearance.currentPage
 export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectAfterEffectTop = (state: RootState) => state.appearance.afterEffectTop
 export const selectLastAction = (state: RootState) => state.appearance.lastAction
@@ -96,12 +101,13 @@ export interface initialAppearanceState {
     overlapBottom: number
     // timeline info
     maxDepth: number
+    currentDepth: number
     isTopEnd: boolean
     isBottomEnd: boolean
+    currentPage: number
     // for effects
-    lastAction: string
-    currentDepth: number
     scrollTop: number
+    lastAction: string
     afterEffectTop: number
     totalHeight: number
     isTimelineInfo: boolean
