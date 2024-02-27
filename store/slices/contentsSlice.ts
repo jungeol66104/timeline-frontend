@@ -104,6 +104,7 @@ export interface TimelineEvent {
 }
 
 export interface Series {
+    id: number
     name: string
     description: string
     timelineList: SeriesTimeline[]
