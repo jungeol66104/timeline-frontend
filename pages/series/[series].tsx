@@ -1,11 +1,17 @@
 import api from "@/utils/api"
 import React from "react";
 import {storeWrapper} from "@/store/store";
-import {selectCurrentSeries, selectCurrentTimelines, updateCurrentTimelines} from "@/store/slices/contentsSlice";
+import {
+    selectCurrentSeries,
+    selectCurrentTimelines, SeriesTimeline,
+    updateCurrentSeries,
+    updateCurrentTimelines
+} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
-import {updateIs404} from "@/store/slices/appearanceSlice";
+import {updateIs404, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
 import {useSelector} from "react-redux";
 import SeriesCard from "@/components/series/seriesCard";
+import SeriesBottom from "@/components/series/seriesBottom";
 // refactoring: clear
 
 
@@ -22,11 +28,11 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({params}) => {
     try {
-        // const response = await api.get(`/series/${Number(params?.series)}`, {headers: {lang: 'en'}})
-        const response = await api.get('/timeline', {headers: {lang: 'en'}})
+        const response = await api.get(`/series/${Number(params?.series)}?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
         if (response.data.code === 69999) store.dispatch(updateIs404(true))
-        let newCurrentTimelines = response.data.data.slice(0,20)
-        store.dispatch(updateCurrentTimelines(newCurrentTimelines))
+        let newCurrentSeries = response.data.data
+        store.dispatch(updateCurrentSeries(newCurrentSeries))
+        store.dispatch(updateIsBottomEnd(newCurrentSeries.totalPage === 1))
         return {props: {}, revalidate: 10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);
@@ -35,9 +41,8 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({par
 })
 
 const SeriesPage = () => {
-    const series = {name: 'All Timelines', description: ''}
-    const currentTimelines = useSelector(selectCurrentTimelines)
     const currentSeries = useSelector(selectCurrentSeries)
+    const timelines: SeriesTimeline[] = currentSeries.timelineList
 
     return (
         <>
@@ -45,20 +50,15 @@ const SeriesPage = () => {
             <div className={'page seriesPage pt-5 items-center'}>
                 <div className={'seriesHeader w-full pl-4'}>
                     <div className={'flex items-center justify-between'}>
-                        <div className={'text-2xl font-bold'}>{series.name}</div>
+                        <div className={'text-2xl font-bold'}>{currentSeries.name}</div>
                     </div>
                 </div>
                 <div className={'seriesBody w-full mt-2.5 px-4 grid grid-cols-5 gap-4'}>
-                    {currentTimelines.map((timeline, i) => {
+                    {timelines.map((timeline, i) => {
                         return <SeriesCard key={i} timeline={timeline}/>
                     })}
                 </div>
-                <div className={'w-full mt-2.5 h-[60px] shrink-0 flex justify-center items-center'}>
-                    <div className={'ml-[22px] text-sm text-center italic pb-[10px]'}>
-                        End of the Series<br/>
-                        <b>{currentSeries.name}</b>
-                    </div>
-                </div>
+                <SeriesBottom />
             </div>
         </>
     )

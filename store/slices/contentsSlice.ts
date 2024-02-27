@@ -104,11 +104,13 @@ export interface TimelineEvent {
 }
 
 export interface Series {
-    id: number
     name: string
     description: string
+    timelineList: SeriesTimeline[]
     timelines: SeriesTimeline[]
     hasMore: boolean
+    totalCount: number
+    totalPage: number
 }
 
 export interface SeriesTimeline {

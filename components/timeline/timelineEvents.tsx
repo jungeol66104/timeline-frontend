@@ -13,19 +13,6 @@ const TimelineEvents = () => {
     const isTopEnd = useSelector(selectIsTopEnd)
     const isBottomEnd = useSelector(selectIsBottomEnd)
 
-    const testDescription = "Under the starlit sky, a solitary figure walks along the winding path, lost in contemplation of life's mysteries."
-    const testEvent = {
-        id: 217,
-        date: "XXXX-XX-XX",
-        name: "Test",
-        description: testDescription,
-        overlap: 0,
-        isToggle: false,
-        toggleEvents: [],
-        ephemerisTime: 228830465,
-        animation: "none"
-    }
-
     return (
         <div className={'timelineEvents max-w-[650px] flex flex-col mx-4'} style={{width: `calc(100% - 32px)`}}>
             <TimelineEventsTop isEnd={isTopEnd} />
