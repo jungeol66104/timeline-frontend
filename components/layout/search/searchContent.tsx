@@ -8,15 +8,20 @@ import {getIsBaseImage} from "@/utils/global";
 
 const SearchContent = ({searchResult}: {searchResult: any}) => {
     const tab = useSelector(selectTab)
-    const isBaseImage = tab === 'timeline' && getIsBaseImage(searchResult.image)
+    const isBaseImage = tab === 'timeline' && getIsBaseImage(searchResult.imageUrl)
 
     return (
         <Link href={ tab === 'timeline' ? `/timelines/${searchResult.id}` : `/events/${searchResult.id}`}>
             <div className={'flex items-center pt-[6px] pb-[6px] gap-2.5'}>
                 {tab === 'timeline' &&
                     <>{isBaseImage
-                        ?   <div className={'w-[28px] h-[28px] rounded-sm bg-gray-500 text-white flex items-center justify-center text-sm'}><span>{searchResult.name.charAt(0).toUpperCase()}</span></div>
-                        :   <Image className={'rounded-sm'} src={searchResult.image} alt={searchResult.name} width={28} height={28} priority={true}/>
+                        ?   <>
+                                <div className={'relative w-[28px] h-[28px] rounded-sm text-white flex items-center justify-center text-sm'}>
+                                    <span className={'absolute'}>{searchResult.name.charAt(0).toUpperCase()}</span>
+                                    <Image src={`/images/base-image/base-image${21}.jpg`} alt={'base-image'} width={28} height={28} priority={true} className={'rounded-sm'} />
+                                </div>
+                            </>
+                        :   <Image className={'rounded-sm'} src={searchResult.imageUrl} alt={searchResult.name} width={28} height={28} priority={true}/>
                     }</>}
                 <div className={'font-medium flex-1 line-clamp-1'} >{searchResult.name}</div>
                 <div className={'text-sm text-gray-500'}>{tab === 'timeline' ? "" : searchResult.date}</div>

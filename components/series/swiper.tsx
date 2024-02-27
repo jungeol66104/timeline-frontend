@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import SwiperCard from "@/components/series/swiperCard";
 import SwiperPagination from "@/components/series/swiperPagination";
 import MoreButton from "@/components/series/moreButton";
+import {Series} from "@/store/slices/contentsSlice";
 
 
 const Swiper = ({series}: {series: Series}) => {
@@ -17,13 +18,13 @@ const Swiper = ({series}: {series: Series}) => {
     }
 
     return (
-        <div className={'swiper w-full mb-2.5 max-w-[996px]'}>
+        <div className={'swiper w-full max-w-[996px]'}>
             <div className={'swiperHeader w-full pl-4'}>
-                <div className={'h-5 text-sm text-gray-500'}>{series.description}</div>
-                <div className={'flex items-center justify-between'} style={{width: `calc(100% - 20px)`}}>
+                <div className={'text-sm text-gray-500'}>{series.description}</div>
+                <div className={'flex items-end justify-between'} style={{width: `calc(100% - 20px)`}}>
                     <div className={'text-2xl font-bold'}>{series.name}</div>
-                    <div className={'flex gap-5'}>
-                        {showMoreButton && <MoreButton />}
+                    <div className={'flex gap-5 h-8 max-[525px]:h-6'}>
+                        {/*{!showMoreButton && <MoreButton series={series} />}*/}
                         <SwiperPagination swiperContainerRef={swiperContainerRef} />
                     </div>
                 </div>
@@ -42,19 +43,4 @@ const Swiper = ({series}: {series: Series}) => {
         </div>
     );
 };
-
 export default Swiper;
-interface Series {
-    id: number
-    name: string
-    description: string
-    timelines: SeriesTimeline[]
-    hasMore: boolean
-}
-
-interface SeriesTimeline {
-    id: number
-    name: string
-    description: string
-    image: string
-}

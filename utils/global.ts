@@ -37,11 +37,26 @@ export const getScrollWrapper = () => {
 
 export const getIsBaseImage = (url: string | null | undefined) => {
     if (typeof url !== "string") return true
-    return url.includes('https://timeline-image.s3.ap-northeast-2.amazonaws.com/base-image.png')
+    return url.includes("https://cdn.timeline.vg/base-image.png")
 }
 
 let timeoutId: any
 export const debounce = (callback: any, delay: number) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(callback, delay);
+}
+
+export const formatDate = (date: string | undefined) => {
+    if (!date) return
+
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    const [datePart, timePart] = date.split(" ");
+    const [year, month, day] = datePart.split("-");
+    const formattedMonth = months[parseInt(month, 10) - 1];
+
+    return `${formattedMonth} ${parseInt(day, 10)}, ${year}`;
 }
