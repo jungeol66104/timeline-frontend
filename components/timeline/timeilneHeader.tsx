@@ -4,7 +4,7 @@ import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import Image from "next/image";
 import {updateIsShare} from "@/store/slices/appearanceSlice";
 import Link from "next/link";
-import {getClickOrTouch, getIsBaseImage, getScrollWrapper} from "@/utils/global";
+import {getClickOrTouch, getIsBaseImage, getScrollWrapper, mapStrToNum} from "@/utils/global";
 
 const TimelineHeader = () => {
     const shareButtonRef : RefObject<HTMLDivElement> = useRef(null)
@@ -71,7 +71,7 @@ const TimelineHeader = () => {
                             ?   <>
                                     <div className={'relative w-full h-full rounded-sm bg-gray-500 text-white flex items-center justify-center text-sm font-medium'}>
                                         <span className={'absolute'}>{currentTimeline.name.charAt(0).toUpperCase()}</span>
-                                        <Image src={`/images/base-image/base-image${Math.floor(Math.random() * 4) + 21}.jpg`} alt={'base-image'} width={28} height={28} priority={true} className={'rounded-sm'} />
+                                        <Image src={`/images/base-image/base-image${mapStrToNum(currentTimeline.name)}.jpg`} alt={'base-image'} width={28} height={28} priority={true} className={'rounded-sm'} />
                                     </div>
                                 </>
                             :   <Image className={'rounded-sm'} src={currentTimeline.image} alt={currentTimeline.name} width={28} height={28} />

@@ -3,7 +3,7 @@ import Link from "next/link";
 import {useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
 import Image from "next/image";
-import {getIsBaseImage} from "@/utils/global";
+import {getIsBaseImage, mapStrToNum} from "@/utils/global";
 
 const RelatedTimeline = () => {
     const currentEvent = useSelector(selectCurrentEvent)
@@ -21,7 +21,7 @@ const RelatedTimeline = () => {
                                     ?   <>
                                             <div className={'relative w-full h-full rounded-md bg-gray-500 text-white flex items-center justify-center text-lg font-medium'}>
                                                 <span className={'absolute'}>{tI.name.charAt(0).toUpperCase()}</span>
-                                                <Image src={`/images/base-image/base-image${Math.floor(Math.random() * 4) + 21}.jpg`} alt={'base-image'} width={45} height={45} priority={true} className={'rounded-md'} />
+                                                <Image src={`/images/base-image/base-image${mapStrToNum(tI.name)}.jpg`} alt={'base-image'} width={45} height={45} priority={true} className={'rounded-md'} />
                                             </div>
                                         </>
                                     :   <Image src={tI.image} alt={tI.name} width={45} height={45} className={'rounded-md'}/>
