@@ -14,11 +14,11 @@ const useOperateSeries = () => {
         const scrollWrapper = getScrollWrapper()
         if (!scrollWrapper) return
 
-        const fetchTimelines = async () => {
+        const fetchSeries = async () => {
             try {
                 const response = await api.get(`/series/${currentSeries.id}?pageNum=${currentPage + 1}&pageSize=20`, {headers: {lang: 'en'}})
                 const newSeries = response.data.data
-                return {...newSeries, timelineList: [...currentSeries.timelineList, ...newSeries.timelineList]}
+                return {...currentSeries, timelineList: [...currentSeries.timelineList, ...newSeries.timelineList]}
             } catch (error) {
                 console.error('Error fetching data in useEffect: ', error);
                 return
@@ -27,7 +27,7 @@ const useOperateSeries = () => {
 
         const operateScroll = async () => {
             if (currentSeries.totalPage === currentPage) return
-            await fetchTimelines().then((newCurrentSeries) => {
+            await fetchSeries().then((newCurrentSeries) => {
                 dispatch(updateCurrentSeries(newCurrentSeries))
                 dispatch(updateCurrentPage(currentPage + 1))
                 dispatch(updateIsBottomEnd(newCurrentSeries.totalPage === currentPage + 1))
