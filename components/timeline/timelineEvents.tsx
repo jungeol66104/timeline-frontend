@@ -4,8 +4,8 @@ import EventBox from "@/components/timeline/eventBox";
 import {selectCurrentEventsWithEffect} from "@/store/slices/contentsSlice";
 import React from "react";
 import {selectIsBottomEnd, selectIsTopEnd} from "@/store/slices/appearanceSlice";
-import TimelineEventsTop from "@/components/timeline/timelineEventsTop";
-import TimelineEventsBottom from "@/components/timeline/timelineEventsBottom";
+import TimelineTop from "@/components/timeline/timelineTop";
+import TimelineBottom from "@/components/timeline/timelineBottom";
 // refactoring: clear
 
 const TimelineEvents = () => {
@@ -15,12 +15,12 @@ const TimelineEvents = () => {
 
     return (
         <div className={'timelineEvents max-w-[650px] flex flex-col mx-4'} style={{width: `calc(100% - 32px)`}}>
-            <TimelineEventsTop isEnd={isTopEnd} />
+            <TimelineTop isEnd={isTopEnd} />
             {/*<EventBox event={testEvent} />*/}
             {currentEventsWithEffect.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event} />
             })}
-            <TimelineEventsBottom isEnd={isBottomEnd} />
+            <TimelineBottom isEnd={isBottomEnd} />
         </div>
     )
 }

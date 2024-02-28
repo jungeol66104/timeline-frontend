@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from "next/image";
 import Link from "next/link";
-import {getIsBaseImage} from "@/utils/global";
+import {getIsBaseImage, mapStrToNum} from "@/utils/global";
 import {SeriesTimeline} from "@/store/slices/contentsSlice";
 
 const SeriesCard = ({timeline} : {timeline: SeriesTimeline}) => {
@@ -10,7 +10,7 @@ const SeriesCard = ({timeline} : {timeline: SeriesTimeline}) => {
     return (
         <Link href={`/timelines/${timeline.id}`} className={'seriesCard relative shrink-0 rounded-xl shadow-md'}>
             {isBaseImage
-                ?   <Image src={`/images/base-image/base-image${Math.floor(Math.random() * 4) + 21}.jpg`} alt={'base-image'} fill sizes={"(min-width: 520px) 137px, calc(48vw - 38px)"} priority={true} quality={100} className={'rounded-xl'} />
+                ?   <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} fill sizes={"(min-width: 520px) 137px, calc(48vw - 38px)"} priority={true} quality={100} className={'rounded-xl'} />
                 :   <>
                     <Image src={timeline.image} alt={timeline.name} fill sizes={"(min-width: 520px) 137px, calc(48vw - 38px)"} priority={true} quality={100} className={'rounded-xl'} />
                     <div className={'absolute top-0 left-0 w-full h-full rounded-xl bg-gradient-to-b from-transparent via-50% via-transparent to-black opacity-80'}></div>

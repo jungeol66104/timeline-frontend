@@ -177,7 +177,7 @@ html, body, #__next, .layout, .page {
     }
 }
 @media (min-width: 1016px) {
-    .seriesBody, .seriesHeader {
+    .seriesBody, .seriesHeader, .seriesBottom {
         grid-template-columns: repeat(5, 1fr);
         max-width: 996px;
     }

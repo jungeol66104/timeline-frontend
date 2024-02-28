@@ -1,4 +1,5 @@
 import {TimelineEvent} from "@/store/slices/contentsSlice";
+import crypto from 'crypto'
 // refactoring: clear
 
 // variables
@@ -59,4 +60,12 @@ export const formatDate = (date: string | undefined) => {
     const formattedMonth = months[parseInt(month, 10) - 1];
 
     return `${formattedMonth} ${parseInt(day, 10)}, ${year}`;
+}
+
+export const mapStrToNum = (inputString : string) => {
+    const hash1 = crypto.createHash('sha256').update(inputString).digest('hex');
+    const hash2 = crypto.createHash('md5').update(inputString).digest('hex');
+    const combinedHash = hash1 + hash2;
+    let hashedNumber = BigInt('0x' + combinedHash); // Use BigInt to handle large numbers
+    return Number((hashedNumber % BigInt(4)) + BigInt(1));
 }
