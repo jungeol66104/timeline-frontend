@@ -41,6 +41,7 @@ const useOperateSeries = () => {
             if (scrollDown) await operateScroll()
         }
 
+        if (scrollWrapper.scrollHeight === scrollWrapper.clientHeight) handleScroll()
         scrollWrapper.addEventListener('scroll', () => debounce(handleScroll, 100))
         return () => {
             scrollWrapper.removeEventListener('scroll', () => debounce(handleScroll, 100))
