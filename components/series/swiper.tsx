@@ -12,6 +12,7 @@ const Swiper = ({series}: {series: Series}) => {
     const handleHover = (isHover: boolean) => {
         const swiperContainer = swiperContainerRef.current
         if (!swiperContainer) return
+        if (navigator.userAgent.indexOf('Mac') !== -1) return
 
         if (isHover) swiperContainer.classList.remove('hideScrollbar')
         else swiperContainer.classList.add('hideScrollbar')
