@@ -98,6 +98,7 @@ const TimelinePage = () => {
             <div className={`page timelinePage`}>
                 {!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}
                 <Timeline/>
+                <Toolbar />
             </div>
         </>
     )
