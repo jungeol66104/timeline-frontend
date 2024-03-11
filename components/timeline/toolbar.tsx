@@ -11,14 +11,17 @@ const Toolbar = () => {
     const currentDepth = useSelector(selectCurrentDepth)
 
     useEffect(() => {
-        const toolbar = typeof window !== 'undefined' ? document.querySelector('.toolbar') : null
+        const toolbar : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.toolbar') : null
         if (!toolbar) return
 
-        if (getClickOrTouch() === 'touchend') toolbar.classList.add('right-4')
+        if (getClickOrTouch() === 'touchend') {
+            toolbar.style.right = '16px'
+        }
+        console.log(getClickOrTouch())
     }, []);
 
     return (
-        <div className={`toolbar fixed bottom-[18px] right-8`} style={{zIndex: 4998}}>
+        <div className={`toolbar fixed bottom-[18px]`} style={{zIndex: 4998, right: 32}}>
             <div className={'flex border-[1px] rounded-lg bg-white/50 drop-shadow-md h-[40px]'}>
                 { currentDepth === maxDepth
                     ?   <button className={'toolbarButton summary flex items-center justify-center text-sm font-medium w-[80px]'}>Summary</button>
