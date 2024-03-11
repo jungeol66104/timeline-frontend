@@ -13,6 +13,6 @@ const useScrollSetup = () => {
         scrollWrapper.style.overflowY = 'hidden'
         scrollWrapper.scrollTop = scrollTop
         scrollWrapper.style.overflowY = 'scroll'
-    })
+    }, [scrollTop])
 }
 export default useScrollSetup

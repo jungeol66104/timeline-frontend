@@ -24,80 +24,80 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
     else {isLoading = false}
 
     // event handler for toggle
-    useEffect(() => {
-        const eventContent = eventContentRef.current
-        const scrollWrapper = getScrollWrapper()
-        if (!eventContent || !scrollWrapper) return
-
-        // mobile detection
-        let clickOrTouchend = getClickOrTouch()
-
-        // for disabling handleClick when it is swipe motion
-        let isSwipe = false
-
-        const fetchToggleEvents = async () => {
-            try {
-                const response = await api.get(`/event/overlap?time=${highestEvent.ephemerisTime}&timelineId=${currentTimeline.id}`, {headers: {lang: 'en'}})
-                const newToggleEvents = response.data.data
-                const newTotalHeight = totalHeight - (124 + (event.overlap as number) * 6) + (38 + (newToggleEvents.length + 1) * 124)
-                return { newToggleEvents, newTotalHeight }
-            } catch (error) {
-                console.error('Error fetching toggle events: ', error);
-                return {newToggleEvents: [], newTotalHeight: 0}
-            }
-        }
-        const operateToggle = async (e: MouseEvent | TouchEvent) => {
-            try {
-                if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
-                    e.preventDefault()
-                    let { newToggleEvents, newTotalHeight} = await fetchToggleEvents()
-                    dispatch(updateToggleEvents({order: eventOrderInCurrent, toggleEvents: newToggleEvents}))
-                    dispatch(updateIsToggle(eventOrderInCurrent))
-                    dispatch(updateTotalHeight(newTotalHeight))
-                    dispatch(updateLastAction('toggle'))
-                } else {
-                    e.stopPropagation()
-                    return
-                }
-            } catch (error){
-                console.error('Error updating toggle events: ', error);
-            }
-        }
-        const handleClick = async (e: MouseEvent | TouchEvent) => {
-            if (isLoading || isSwipe) return
-            await operateToggle(e)
-        }
-
-        if (clickOrTouchend === 'click') eventContent.addEventListener('click', handleClick)
-        else eventContent.addEventListener('touchend', handleClick)
-        scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
-        scrollWrapper.addEventListener('touchend', () => isSwipe = false)
-        return () => {
-            if (clickOrTouchend === 'click') eventContent.removeEventListener('click', handleClick)
-            else eventContent.removeEventListener('touchend', handleClick)
-            scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
-            scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
-        }
-    });
+    // useEffect(() => {
+    //     const eventContent = eventContentRef.current
+    //     const scrollWrapper = getScrollWrapper()
+    //     if (!eventContent || !scrollWrapper) return
+    //
+    //     // mobile detection
+    //     let clickOrTouchend = getClickOrTouch()
+    //
+    //     // for disabling handleClick when it is swipe motion
+    //     let isSwipe = false
+    //
+    //     const fetchToggleEvents = async () => {
+    //         try {
+    //             const response = await api.get(`/event/overlap?time=${highestEvent.ephemerisTime}&timelineId=${currentTimeline.id}`, {headers: {lang: 'en'}})
+    //             const newToggleEvents = response.data.data
+    //             const newTotalHeight = totalHeight - (124 + (event.overlap as number) * 6) + (38 + (newToggleEvents.length + 1) * 124)
+    //             return { newToggleEvents, newTotalHeight }
+    //         } catch (error) {
+    //             console.error('Error fetching toggle events: ', error);
+    //             return {newToggleEvents: [], newTotalHeight: 0}
+    //         }
+    //     }
+    //     const operateToggle = async (e: MouseEvent | TouchEvent) => {
+    //         try {
+    //             if (!isToggle && contentOrder === 0 && event.overlap !== 0) {
+    //                 e.preventDefault()
+    //                 let { newToggleEvents, newTotalHeight} = await fetchToggleEvents()
+    //                 dispatch(updateToggleEvents({order: eventOrderInCurrent, toggleEvents: newToggleEvents}))
+    //                 dispatch(updateIsToggle(eventOrderInCurrent))
+    //                 dispatch(updateTotalHeight(newTotalHeight))
+    //                 dispatch(updateLastAction('toggle'))
+    //             } else {
+    //                 e.stopPropagation()
+    //                 return
+    //             }
+    //         } catch (error){
+    //             console.error('Error updating toggle events: ', error);
+    //         }
+    //     }
+    //     const handleClick = async (e: MouseEvent | TouchEvent) => {
+    //         if (isLoading || isSwipe) return
+    //         await operateToggle(e)
+    //     }
+    //
+    //     if (clickOrTouchend === 'click') eventContent.addEventListener('click', handleClick)
+    //     else eventContent.addEventListener('touchend', handleClick)
+    //     scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
+    //     scrollWrapper.addEventListener('touchend', () => isSwipe = false)
+    //     return () => {
+    //         if (clickOrTouchend === 'click') eventContent.removeEventListener('click', handleClick)
+    //         else eventContent.removeEventListener('touchend', handleClick)
+    //         scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
+    //         scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
+    //     }
+    // });
 
     // toggle animation
-    useEffect(() => {
-        const eventContent = eventContentRef.current
-        if (!eventContent || lastAction !== 'toggle') return
-        const tl = gsap.timeline()
-        if (isToggle) {
-            let y =  contentOrder === 0 ? top : contentOrder === 1 ? top - 18 : top - 36
-            let x = contentOrder < 2 ? contentOrder * 6 : 2 * 6
-            let prevWidth = contentOrder < 2 ? eventContent.getBoundingClientRect().width - contentOrder * 12 : eventContent.getBoundingClientRect().width - 2 * 12
-            tl.fromTo(eventContent, {y: -y, x: x, opacity: contentOrder > 0 ? 0 : 1, width: prevWidth}, {y: '0', x:'0', opacity: 1, duration: 0.5, width: width, ease: 'ease-in-out'})
-        } else {
-            let y =  contentOrder === 0 ? 38 + contentOrder * 124 : contentOrder === 1 ? 38 + contentOrder * 124 - 18 : 38 + contentOrder * 124 - 36
-            let x = contentOrder < 2 ? contentOrder * 6 : 2 * 6
-            tl.fromTo(eventContent, {y: y, x: -x, opacity: 1, width: '100%'}, {y: '0', x:'0', opacity: contentOrder > 0 ? 0 : 1, duration: 0.5, width: width, ease: 'ease-in-out'})
-        }
-        tl.play()
-        return ()=> {tl.kill()}
-    }, [isToggle]);
+    // useEffect(() => {
+    //     const eventContent = eventContentRef.current
+    //     if (!eventContent || lastAction !== 'toggle') return
+    //     const tl = gsap.timeline()
+    //     if (isToggle) {
+    //         let y =  contentOrder === 0 ? top : contentOrder === 1 ? top - 18 : top - 36
+    //         let x = contentOrder < 2 ? contentOrder * 6 : 2 * 6
+    //         let prevWidth = contentOrder < 2 ? eventContent.getBoundingClientRect().width - contentOrder * 12 : eventContent.getBoundingClientRect().width - 2 * 12
+    //         tl.fromTo(eventContent, {y: -y, x: x, opacity: contentOrder > 0 ? 0 : 1, width: prevWidth}, {y: '0', x:'0', opacity: 1, duration: 0.5, width: width, ease: 'ease-in-out'})
+    //     } else {
+    //         let y =  contentOrder === 0 ? 38 + contentOrder * 124 : contentOrder === 1 ? 38 + contentOrder * 124 - 18 : 38 + contentOrder * 124 - 36
+    //         let x = contentOrder < 2 ? contentOrder * 6 : 2 * 6
+    //         tl.fromTo(eventContent, {y: y, x: -x, opacity: 1, width: '100%'}, {y: '0', x:'0', opacity: contentOrder > 0 ? 0 : 1, duration: 0.5, width: width, ease: 'ease-in-out'})
+    //     }
+    //     tl.play()
+    //     return ()=> {tl.kill()}
+    // }, [isToggle]);
 
     // set css
     const zIndex = 5000 - contentOrder

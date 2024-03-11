@@ -1,6 +1,6 @@
 import {TimelineEvent} from "@/store/slices/contentsSlice";
 import {useSelector} from "react-redux";
-import {selectCurrentEvents, selectPrevEventsWithEffect} from "@/store/slices/contentsSlice";
+import {selectCurrentEvents, selectPreviousEvents} from "@/store/slices/contentsSlice";
 import {useEffect, useRef} from "react";
 import gsap from "gsap";
 // refactoring: clear
@@ -10,9 +10,10 @@ const OverlapContent = ({event, order} : {event: TimelineEvent, order: number}) 
 
     const currentEvents = useSelector(selectCurrentEvents)
     const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === event.id)
-    const prevEventsWithEffect = useSelector(selectPrevEventsWithEffect)
+    const prevEventsWithEffect = useSelector(selectPreviousEvents)
     const eventOrderInPrev = prevEventsWithEffect.findIndex(pEvent => pEvent.id === event.id)
-    const isToggle = !event.prev ? currentEvents[eventOrderInCurrent].isToggle : prevEventsWithEffect[eventOrderInPrev].isToggle
+    // const isToggle = !event.prev ? currentEvents[eventOrderInCurrent].isToggle : prevEventsWithEffect[eventOrderInPrev].isToggle
+    const isToggle = false
     const display = order === 0 && event.overlap !== 0 ? '' : order === 1 && event.overlap === 2 ? '' : 'hidden'
 
     // toggle animation

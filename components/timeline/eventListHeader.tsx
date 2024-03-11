@@ -15,8 +15,10 @@ const EventListHeader = ({event} : {event: TimelineEvent}) => {
     const totalHeight = useSelector(selectTotalHeight)
     const currentEvents = useSelector(selectCurrentEvents)
     const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === event.id)
-    const isToggle = currentEvents[eventOrderInCurrent].isToggle
-    const toggleEvents = currentEvents[eventOrderInCurrent].toggleEvents
+    // const isToggle = currentEvents[eventOrderInCurrent].isToggle
+    // const toggleEvents = currentEvents[eventOrderInCurrent].toggleEvents
+    const isToggle = false
+    const toggleEvents = [] as any[]
     const lastAction = useSelector(selectLastAction)
 
 

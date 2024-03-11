@@ -14,8 +14,8 @@ import Toolbar from "@/components/timeline/toolbar";
 
 export const getStaticPaths = async () => {
     const response = await api.get('/timeline', {headers: {lang: 'en'}})
-    const timelines: any[] = response.data.data
-    // const timelines: any[] = response.data.data.slice(0, 10)
+    // const timelines: any[] = response.data.data
+    const timelines: any[] = response.data.data.slice(0, 10)
     const timelineIds = timelines.map(timeline => timeline.id)
     const paths = timelineIds.map(timelineId => ({ params: {timeline: String(timelineId)}}))
     return {

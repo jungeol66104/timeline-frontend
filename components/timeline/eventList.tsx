@@ -13,8 +13,11 @@ const EventList = ({event} : {event: TimelineEvent}) => {
     const lastAction = useSelector(selectLastAction)
     const currentEvents = useSelector(selectCurrentEvents)
     const eventOrderInCurrent = currentEvents.findIndex(cEvent => cEvent.id === event.id)
-    const isToggle = currentEvents[eventOrderInCurrent].isToggle
-    const toggleEvents = currentEvents[eventOrderInCurrent].toggleEvents as any[]
+    // const isToggle = currentEvents[eventOrderInCurrent].isToggle
+    // const toggleEvents = currentEvents[eventOrderInCurrent].toggleEvents as any[]
+    const isToggle = false
+    const toggleEvents = [] as any[]
+
 
     const listHeight = !isToggle ? 112 : 28 + (toggleEvents.length + 1) * 124
     const transition = lastAction === 'toggle' ? 'height 0.5s' : '0s'
