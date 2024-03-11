@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {useSelector} from "react-redux";
 import Image from "next/image";
 import NorthSVG from "@/public/svg/north.svg";
@@ -10,14 +10,13 @@ const Toolbar = () => {
     const maxDepth = useSelector(selectMaxDepth)
     const currentDepth = useSelector(selectCurrentDepth)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const toolbar : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.toolbar') : null
         if (!toolbar) return
 
         if (getClickOrTouch() === 'touchend') {
             toolbar.style.right = '16px'
         }
-        console.log(getClickOrTouch())
     }, []);
 
     return (
