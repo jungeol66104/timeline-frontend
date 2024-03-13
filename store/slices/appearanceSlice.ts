@@ -15,7 +15,7 @@ const initialState = {
     currentPage: 1,
     lastAction: 'render',
     scrollTop: 0,
-    afterEffectTop: 0,
+    previousTop: 0,
     totalHeight: 0,
     isTimelineInfo: true,
     isShare: false,
@@ -33,12 +33,6 @@ const appearanceSlice = createSlice({
         updateIsBottomEnd: (state, action) => {
             state.isBottomEnd = action.payload
         },
-        incrementDepth: state => {
-            state.currentDepth += 1
-        },
-        decrementDepth: state => {
-            state.currentDepth -= 1
-        },
         updateCurrentDepth: (state, action) => {
             state.currentDepth = action.payload
         },
@@ -51,8 +45,8 @@ const appearanceSlice = createSlice({
         updateScrollTop: (state, action) => {
             state.scrollTop = action.payload
         },
-        updateAfterEffectTop: (state, action) => {
-            state.afterEffectTop = action.payload
+        updatePreviousTop: (state, action) => {
+            state.previousTop = action.payload
         },
         updateLastAction: (state, action) => {
             state.lastAction = action.payload
@@ -72,7 +66,7 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, incrementDepth, decrementDepth, updateCurrentDepth, updateMaxDepth, updateCurrentPage, updateScrollTop, updateAfterEffectTop, updateLastAction, updateTotalHeight, updateIsTimelineInfo} = appearanceSlice.actions;
+export const {updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, updateCurrentDepth, updateMaxDepth, updateCurrentPage, updateScrollTop, updatePreviousTop, updateLastAction, updateTotalHeight, updateIsTimelineInfo} = appearanceSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
@@ -86,7 +80,7 @@ export const selectCurrentDepth = (state: RootState) => state.appearance.current
 export const selectMaxDepth = (state: RootState) => state.appearance.maxDepth
 export const selectCurrentPage = (state: RootState) => state.appearance.currentPage
 export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
-export const selectAfterEffectTop = (state: RootState) => state.appearance.afterEffectTop
+export const selectPreviousTop = (state: RootState) => state.appearance.previousTop
 export const selectLastAction = (state: RootState) => state.appearance.lastAction
 export const selectTotalHeight = (state: RootState) => state.appearance.totalHeight
 export const selectIsShare = (state: RootState) => state.appearance.isShare
@@ -108,7 +102,7 @@ export interface initialAppearanceState {
     // for effects
     scrollTop: number
     lastAction: string
-    afterEffectTop: number
+    previousTop: number
     totalHeight: number
     isTimelineInfo: boolean
     isShare: boolean

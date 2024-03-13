@@ -2,8 +2,8 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import api from "@/utils/api";
 import {debounce, getEventHeights, getScrollWrapper, sum} from "@/utils/global";
-import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePrevEventsWithEffect} from "@/store/slices/contentsSlice";
-import {selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectTimelineEdgeHeight, updateAfterEffectTop, updateCurrentDepth, updateIsBottomEnd, updateIsTopEnd, updateLastAction, updateScrollTop, updateTotalHeight} from "@/store/slices/appearanceSlice";
+import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsWithEffect} from "@/store/slices/contentsSlice";
+import {selectAboveTimelineHeight, selectCurrentDepth, selectEventBoxHeight, selectLastAction, selectMaxDepth, selectOverlapBottom, selectTimelineEdgeHeight, updateCurrentDepth, updateIsBottomEnd, updateIsTopEnd, updateLastAction, updateScrollTop, updateTotalHeight} from "@/store/slices/appearanceSlice";
 
 const useOperateTimeline = () => {
     const dispatch = useDispatch()
@@ -33,9 +33,6 @@ const useOperateTimeline = () => {
 
         const currentEventHeights = getEventHeights(currentEvents)
         let currentEventTops = currentEventHeights.map((_, i) => sum(currentEventHeights.slice(0,i)))
-        // initial setting for calculating user swipe action
-        let startX: number | null = null
-        let startY: number | null = null
 
         // functions
         const getSwipedEvent = (e?: WheelEvent | TouchEvent | MouseEvent) : TimelineEvent => {
@@ -151,8 +148,8 @@ const useOperateTimeline = () => {
             let depth: number
             let swipedEvent: TimelineEvent
             if (classNames) {
-                if (!classNames.contains('fold') && !classNames.contains('unfold')) return
-                depth = classNames.contains('fold') ? 0 : maxDepth
+                if (!classNames.contains('summary') && !classNames.contains('showAll')) return
+                depth = classNames.contains('summary') ? 0 : maxDepth
                 swipedEvent = getSwipedEvent()
             } else {
                 if (e instanceof WheelEvent) depth = e.deltaX > 0 ? currentDepth - 1 : currentDepth + 1
@@ -165,8 +162,6 @@ const useOperateTimeline = () => {
                 let { newScrollTop, totalHeight} = getScrollTop(swipedEvent, referEvent, fetchedEvents)
                 dispatch(updateCurrentEvents(fetchedEvents))
                 dispatch(updateCurrentEventsWithEffect(fetchedEventsWithEffect))
-                dispatch(updatePrevEventsWithEffect(currentEventsWithAfterEffect))
-                dispatch(updateAfterEffectTop(afterEffectTop))
                 dispatch(updateScrollTop(newScrollTop))
                 dispatch(updateTotalHeight(totalHeight))
                 dispatch(updateLastAction('zoom'))
@@ -175,7 +170,6 @@ const useOperateTimeline = () => {
                     dispatch(updateIsTopEnd(isTopEnd))
                     dispatch(updateIsBottomEnd(isBottomEnd))
                 }
-
             })
         }
         const operateScroll = async (scrollUp?: boolean, uppermost?: boolean) => {
@@ -209,50 +203,6 @@ const useOperateTimeline = () => {
                 }, 500)
             })
         }
-        const handleWheel = async (e: WheelEvent) => {
-            if (e.deltaX !== 0) {
-                e.preventDefault()
-                if (!isLoading && Math.abs(e.deltaX) > 90) {
-                    isLoading = true
-                    await operateZoom(e)
-                    setTimeout(() => isLoading = false, 500)
-                }
-            }
-        }
-        const handleTouch = async (e: TouchEvent) => {
-            if (e.type === 'touchstart') {
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-            } else if (e.type === 'touchend' && startX !== null && startY !== null) {
-                const endX = e.changedTouches[0].clientX;
-                const endY = e.changedTouches[0].clientY;
-                const deltaX = endX - startX;
-                const deltaY = endY - startY
-                if (deltaX !== 0) {
-                    e.preventDefault()
-                    if (!isLoading && Math.abs(deltaX) > 70 && Math.abs(deltaY) < 20) {
-                        isLoading = true
-                        await operateZoom(e, deltaX)
-                        setTimeout(() => isLoading = false, 500)
-                    }
-                }
-            }
-        }
-        const handleDrag = async (e: MouseEvent) => {
-            if (e.type === 'mousedown') {
-                startX = e.clientX;
-            } else if (e.type === 'mousemove' && startX){
-                const endX = e.clientX;
-                const deltaX = endX - startX
-                if (!isLoading && Math.abs(deltaX) > 50) {
-                    isLoading = true
-                    await operateZoom(e, deltaX)
-                    setTimeout(() => isLoading = false, 500)
-                }
-            } else {
-                startX = null
-            }
-        }
         const handleClick = async (e: MouseEvent) => {
             const toolbarButton = e.currentTarget as HTMLButtonElement
             const classNames = toolbarButton.classList
@@ -262,7 +212,6 @@ const useOperateTimeline = () => {
                     await operateScroll(undefined, true)
                     setTimeout(() => isLoading = false, 500)
                 } else {
-                    return
                     await operateZoom(undefined, undefined, classNames)
                     setTimeout(() => isLoading = false, 500)
                 }
@@ -281,21 +230,9 @@ const useOperateTimeline = () => {
             }
         }
 
-        // timeline.addEventListener('wheel' , handleWheel);
-        // timeline.addEventListener('touchstart' , handleTouch);
-        // timeline.addEventListener('touchend' , handleTouch);
-        // timeline.addEventListener('mousedown' , handleDrag);
-        // timeline.addEventListener('mousemove' , handleDrag);
-        // timeline.addEventListener('mouseup' , handleDrag);
         toolbarButtons?.forEach(toolbarButton => toolbarButton.addEventListener('click', handleClick))
         scrollWrapper.addEventListener('scroll', () => debounce(handleScroll, 100))
         return () => {
-            // timeline.removeEventListener('wheel', handleWheel);
-            // timeline.removeEventListener('touchstart' , handleTouch);
-            // timeline.removeEventListener('touchend' , handleTouch);
-            // timeline.removeEventListener('mousedown' , handleDrag);
-            // timeline.removeEventListener('mousemove' , handleDrag);
-            // timeline.removeEventListener('mouseup' , handleDrag);
             toolbarButtons?.forEach(toolbarButton => toolbarButton.removeEventListener('click', handleClick))
             scrollWrapper.removeEventListener('scroll', () => debounce(handleScroll, 100))
         };
