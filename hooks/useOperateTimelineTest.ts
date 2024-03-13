@@ -41,7 +41,9 @@ const useOperateTimelineTest = () => {
             let eventBoxTops = eventBoxHeights.map((_, i) => sum(eventBoxHeights.slice(0,i)))
             let order = eventBoxTops.findLastIndex(top => top < clientYInContainer - timelineEdgeHeight)
             let top = eventBoxTops[order] + aboveTimelineHeight + timelineEdgeHeight - scrollWrapper.scrollTop
-            return {...currentEvents[order], top: top}
+            let targetEvent = {...currentEvents[order], top: top}
+            targetEvent = {...targetEvent, top: -1, ephemerisTime: "0"}
+            return targetEvent
         }
         const getScrollTargetEvent = (scrollDirection: string) => {
             let eventBoxHeights = Array.from(eventBoxes).map(eventBox => eventBox.clientHeight)

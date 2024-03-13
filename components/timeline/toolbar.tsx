@@ -14,7 +14,7 @@ const Toolbar = () => {
         const toolbar : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.toolbar') : null
         if (!toolbar) return
 
-        if (getClickOrTouch() === 'touchend') {
+        if (getClickOrTouch() === 'touchend' && window.innerWidth <= 850) {
             toolbar.style.right = '16px'
         }
     }, []);

@@ -37,6 +37,14 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
     //     tl.play()
     //     return ()=> {tl.kill()}
     // });
+    //
+    // useEffect(() => {
+    //
+    //
+    //
+    //
+    // }, []);
+
 
     return (
         <div ref={eventBoxRef} className={`eventBox relative flex pt-[6px] flex-shrink-0 ${paddingBottom}`} style={{zIndex: zIndex}}>
