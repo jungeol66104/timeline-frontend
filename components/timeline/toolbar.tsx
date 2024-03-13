@@ -20,8 +20,8 @@ const Toolbar = () => {
     }, []);
 
     return (
-        <div className={`toolbar fixed bottom-[18px]`} style={{zIndex: 4998, right: 32}}>
-            <div className={'flex border-[1px] rounded-lg bg-white/50 drop-shadow-md h-[40px]'}>
+        <div className={`fixed bottom-[18px] w-full max-w-[684px]`} style={{zIndex: 4998}}>
+            <div className={'toolbar absolute bottom-0 flex border-[1px] rounded-lg bg-white/50 drop-shadow-md h-[40px]'} style={{right: 32}}>
                 { currentDepth === maxDepth
                     ?   <button className={'toolbarButton summary flex items-center justify-center text-sm font-medium w-[80px]'}>Summary</button>
                     :   <button className={'toolbarButton showAll flex items-center justify-center text-sm font-medium w-[80px]'}>Show All</button>
