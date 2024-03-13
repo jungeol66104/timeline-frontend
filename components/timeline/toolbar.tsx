@@ -21,7 +21,7 @@ const Toolbar = () => {
     }, []);
 
     return (
-        <div className={`fixed bottom-[18px] w-full max-w-[684px]`} style={{zIndex: 4998}}>
+        <div className={`fixed bottom-[18px] w-full max-w-[686px]`} style={{zIndex: 4998}}>
             {isSmallToolbar
                 ? <div className={'toolbar absolute bottom-0 flex border-[1px] rounded-lg bg-white/50 drop-shadow-md h-[40px]'} style={{right: 32}}>
                     <button className={'toolbarButton uppermost flex items-center justify-center w-[40px]'}>
