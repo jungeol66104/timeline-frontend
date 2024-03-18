@@ -8,17 +8,29 @@ const DynamicHead = ({type}: {type: string} ) => {
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvent = useSelector(selectCurrentEvent)
     const currentEvents = useSelector(selectCurrentEvents)
-    const title = type === "timeline" ? `${currentTimeline.name} - Timeline` : type === "event" ? `${currentEvent.name} - Timeline` : "Timeline | Finanace, History, Personalities, and More"
-    const description = type === "timeline" ? `Timeline of ${currentTimeline.name} | ${currentEvents.map(cEvent => cEvent.name).join(', ')}.` : type === "event" ? `${currentEvent.description}` : "A timeline that encompasses various topics. From the past to the present, the timeline redefines knowledge with rich content. Explore various aspects of the world, covering topics such as finance, history, personalities, and more."
-    const url = type === "timeline" ? `https://timeline.vg/timelines/${currentTimeline.id}` : type === "event" ? `https://timeline.vg/events/${currentEvent.id}` : "https://timeline.vg"
+
+    const title = type === "timeline"
+        ? `${currentTimeline.name} - Historical Timeline with Most Detailed Events and Dates`
+        : type === "event"
+            ? `${currentEvent.name} - Detailed Event, Fact, Specific Date, History, Timeline`
+            : "Timeline | Finanace, History, Personalities, and More"
+    const description = type === "timeline"
+        ? `Complete timeline of ${currentTimeline.name}. Check out the dynamic timeline that provides both summary with the major events and Vast amount of detailed events. | ${currentEvents.slice(0,7).map(cEvent => cEvent.date + ' ' + cEvent.name).join(', ')}.`
+        : type === "event"
+            ? `${currentEvent.description}`
+            : "A timeline that encompasses various topics. From the past to the present, the timeline redefines knowledge with rich content. Explore various aspects of the world, covering topics such as finance, history, personalities, and more."
+    const url = type === "timeline"
+        ? `https://timeline.vg/timelines/${currentTimeline.id}`
+        : type === "event"
+            ? `https://timeline.vg/events/${currentEvent.id}`
+            : "https://timeline.vg"
 
     return (
         <Head>
             <meta charSet="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name="description" content={description} />
-            <meta name="keywords" content="timeilnes, events, history, humanity, personalities" />
-            <meta name="author" content="Project Yaha" />
+            <meta name="author" content="timeline" />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
             <meta property="og:url" content={url} />
