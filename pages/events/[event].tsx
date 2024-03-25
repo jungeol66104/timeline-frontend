@@ -12,7 +12,7 @@ import {updateIs404} from "@/store/slices/appearanceSlice";
 export const getStaticPaths = async () => {
     const response = await api.get('/event', {headers: {lang: 'en'}})
     // const events: any[] = response.data.data.slice(0, 4000)
-    const events: any[] = response.data.data.slice(0, 10)
+    const events: any[] = response.data.data.slice(0, 11)
     const eventIds = events.map(event => event.id)
     const paths = eventIds.map(eventId => ({ params: {event: String(eventId) }}))
     return {
