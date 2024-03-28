@@ -9,13 +9,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
         const timelineIds = timelines.map(timeline => timeline.id)
         const urls = [...timelineIds.map(timelineId => `https://timeline.vg/timelines/${timelineId}`)]
 
-        // const eventResponse = await api.get('/event', {headers: {lang: 'en'}})
-        // const timelines: any[] = timelineResponse.data.data.slice(0,10)
-        // const events: any[] = eventResponse.data.data
-        // const events: any[] = eventResponse.data.data.slice(0,10)
-        // const eventIds = events.map(event => event.id)
-        // const urls = [...timelineIds.map(timelineId => `https://timeline.vg/timelines/${timelineId}`), ...eventIds.map(eventId => `https://timeline.vg/events/${eventId}`)]
-
         res.setHeader('Content-Type', 'text/xml')
         res.write(`<?xml version="1.0" encoding="UTF-8"?>
             <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

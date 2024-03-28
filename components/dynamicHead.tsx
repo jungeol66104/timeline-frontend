@@ -10,12 +10,12 @@ const DynamicHead = ({type}: {type: string} ) => {
     const currentEvents = useSelector(selectCurrentEvents)
 
     const title = type === "timeline"
-        ? `${currentTimeline.name} - Historical Timeline with Most Detailed Events and Dates`
+        ? `History of ${currentTimeline.name} | Timeline, Key Events, Facts, Dates`
         : type === "event"
-            ? `${currentEvent.name} - Detailed Event, Fact, Specific Date, History, Timeline`
-            : "Timeline | Finanace, History, Personalities, and More"
+            ? `${currentEvent.name} | Detailed Event, Fact, Specific Date, History, Timeline`
+            : "Timeline | History, Events, Celebrities, and More"
     const description = type === "timeline"
-        ? `Complete timeline of ${currentTimeline.name}. Check out the dynamic timeline that provides both summary with the major events and Vast amount of detailed events. | ${currentEvents.slice(0,7).map(cEvent => cEvent.date + ' ' + cEvent.name).join(', ')}.`
+        ? `${currentTimeline.name} Timeline. Check out the key events with specific dates in the history of ${currentTimeline.name}. ${currentEvents.slice(0,7).map(cEvent => cEvent.date + ' ' + cEvent.name).join(', ')}.`
         : type === "event"
             ? `${currentEvent.description}`
             : "A timeline that encompasses various topics. From the past to the present, the timeline redefines knowledge with rich content. Explore various aspects of the world, covering topics such as finance, history, personalities, and more."
