@@ -28,11 +28,6 @@ function App({ Component, ...rest }: AppProps) {
         };
     }, []);
 
-    useEffect(() => {
-        const currentUrl = window.location.href;
-        sessionStorage.setItem('latestUrl', JSON.stringify(currentUrl));
-    }, [router.asPath]);
-
     return (
         <Provider store={store}>
             <Layout>

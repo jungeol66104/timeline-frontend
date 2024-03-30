@@ -11,17 +11,17 @@ import Toolbar from "@/components/timeline/toolbar";
 
 const TimelineEvents = () => {
     const currentEvents = useSelector(selectCurrentEvents)
-    const currentEventsWithEffect = useSelector(selectCurrentEventsWithEffect)
     const isTopEnd = useSelector(selectIsTopEnd)
     const isBottomEnd = useSelector(selectIsBottomEnd)
 
     return (
-        <div className={'timelineEvents relative flex flex-col mx-4 max-w-[650px]'} style={{width: `calc(100% - 32px)`}}>
-            <TimelineTop isEnd={isTopEnd} />
+        <div className={'timelineEvents relative flex flex-col mx-4 max-w-[650px]'}
+             style={{width: `calc(100% - 32px)`}}>
+            <TimelineTop isEnd={isTopEnd}/>
             {currentEvents.map((event: TimelineEvent) => {
-                return <EventBox key={event.id} event={event} />
+                return <EventBox key={event.id} event={event}/>
             })}
-            <TimelineBottom isEnd={isBottomEnd} />
+            <TimelineBottom isEnd={isBottomEnd}/>
         </div>
     )
 }
