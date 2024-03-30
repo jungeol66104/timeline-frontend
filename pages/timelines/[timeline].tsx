@@ -1,25 +1,14 @@
-import React, {useEffect, useLayoutEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import React from "react";
 import api from "@/utils/api"
-import {sum, getEventHeights, getScrollWrapper} from "@/utils/global";
+import {sum, getEventHeights} from "@/utils/global";
 import {storeWrapper} from "@/store/store";
 import {TimelineEvent} from "@/store/slices/contentsSlice"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {
-    updateIsTopEnd,
-    updateIsBottomEnd,
-    updateMaxDepth,
-    updateTotalHeight,
-    updateIs404,
-    selectTotalHeight,
-    updateScrollTop
-} from "@/store/slices/appearanceSlice";
+import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight, updateIs404} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
 import Toolbar from "@/components/timeline/toolbar";
-import {useScrollForTimeline, useSetScroll} from "@/hooks/useScroll";
-// refactoring: clear
-
+import {useScrollForTimeline} from "@/hooks/useScroll";
 
 export const getStaticPaths = async () => {
     const response = await api.get('/timeline', {headers: {lang: 'en'}})
@@ -62,7 +51,6 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
 })
 
 const TimelinePage = () => {
-    useSetScroll()
     useScrollForTimeline()
 
     return (

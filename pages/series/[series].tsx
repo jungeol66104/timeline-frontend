@@ -1,21 +1,13 @@
 import api from "@/utils/api"
 import React from "react";
 import {storeWrapper} from "@/store/store";
-import {
-    selectCurrentSeries,
-    selectCurrentTimelines, SeriesTimeline,
-    updateCurrentSeries,
-    updateCurrentTimelines
-} from "@/store/slices/contentsSlice";
+import {selectCurrentSeries, SeriesTimeline, updateCurrentSeries} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
 import {updateCurrentPage, updateIs404, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
 import {useSelector} from "react-redux";
 import SeriesCard from "@/components/series/seriesCard";
 import SeriesBottom from "@/components/series/seriesBottom";
 import useOperateSeries from "@/hooks/useOperateSeries";
-import {useSetScroll} from "@/hooks/useScroll";
-// refactoring: clear
-
 
 export const getStaticPaths = async () => {
     const response = await api.get('/series', {headers: {lang: 'en'}})
@@ -48,7 +40,6 @@ const SeriesPage = () => {
     const timelines: SeriesTimeline[] = currentSeries.timelineList
 
     useOperateSeries()
-    useSetScroll()
 
     return (
         <>

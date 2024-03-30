@@ -2,7 +2,6 @@ import {useEffect} from "react";
 import {useStore} from "react-redux";
 import {useRouter} from "next/router";
 import {getScrollWrapper} from "@/utils/global";
-// add scrollTop to the logic
 
 const useStateToStorage = () => {
     const router = useRouter()

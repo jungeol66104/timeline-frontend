@@ -6,7 +6,6 @@ import Layout from '@/components/layout/layout'
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import * as gtag from "../utils/gtags"
-// refactoring; clear
 
 function App({ Component, ...rest }: AppProps) {
     const {store, props} = storeWrapper.useWrappedStore(rest)
