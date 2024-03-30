@@ -10,17 +10,17 @@ import {getScrollWrapper, sum} from "@/utils/global";
 import {selectCurrentEvents, selectPivotEvent} from "@/store/slices/contentsSlice";
 
 export const useSetScroll = () => {
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        const scrollWrapper = getScrollWrapper()
-        if (!scrollWrapper) return
-        const handleScroll = () => dispatch(updateScrollTop(scrollWrapper.scrollTop))
-        scrollWrapper.addEventListener('scroll', handleScroll)
-        return () => {
-            scrollWrapper.removeEventListener('scroll', handleScroll)
-        }
-    }, []);
+    // const dispatch = useDispatch()
+    //
+    // useEffect(() => {
+    //     const scrollWrapper = getScrollWrapper()
+    //     if (!scrollWrapper) return
+    //     const handleScroll = () => dispatch(updateScrollTop(scrollWrapper.scrollTop))
+    //     scrollWrapper.addEventListener('scroll', handleScroll)
+    //     return () => {
+    //         scrollWrapper.removeEventListener('scroll', handleScroll)
+    //     }
+    // }, []);
 }
 
 export const useScroll = () => {

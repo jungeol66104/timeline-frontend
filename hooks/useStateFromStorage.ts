@@ -16,6 +16,7 @@ const useStateFromStorage = () => {
                 let contentsSlice = state["contents"]
                 let appearanceSlice = state["appearance"]
                 appearanceSlice["lastAction"] = 'rehydrate'
+                appearanceSlice["scrollTop"] = current["scrollTop"]
                 dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice}})
             }
         }
