@@ -1,27 +1,8 @@
 import {useEffect, useLayoutEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {
-    selectAboveTimelineHeight,
-    selectLastAction,
-    selectPreviousTop, selectScrollTop,
-    selectTimelineEdgeHeight, updateScrollTop
-} from "@/store/slices/appearanceSlice";
+import {useSelector} from "react-redux";
+import {selectAboveTimelineHeight, selectLastAction, selectPreviousTop, selectScrollTop, selectTimelineEdgeHeight} from "@/store/slices/appearanceSlice";
 import {getScrollWrapper, sum} from "@/utils/global";
 import {selectCurrentEvents, selectPivotEvent} from "@/store/slices/contentsSlice";
-
-export const useSetScroll = () => {
-    // const dispatch = useDispatch()
-    //
-    // useEffect(() => {
-    //     const scrollWrapper = getScrollWrapper()
-    //     if (!scrollWrapper) return
-    //     const handleScroll = () => dispatch(updateScrollTop(scrollWrapper.scrollTop))
-    //     scrollWrapper.addEventListener('scroll', handleScroll)
-    //     return () => {
-    //         scrollWrapper.removeEventListener('scroll', handleScroll)
-    //     }
-    // }, []);
-}
 
 export const useScroll = () => {
     const scrollTop = useSelector(selectScrollTop)
@@ -56,7 +37,7 @@ export const useScrollForTimeline = () => {
             scrollWrapper.style.overflowY = 'hidden'
             scrollWrapper.scrollTop = eventBoxTops[order] + aboveTimelineHeight + timelineEdgeHeight - previousTop
             scrollWrapper.style.overflowY = 'scroll'
-        } else if (lastAction === 'zoom') {
+        } else if (lastAction === 'zoom' || previousTop === -1) {
             scrollWrapper.style.overflowY = 'hidden'
             scrollWrapper.scrollTop = 0
             scrollWrapper.style.overflowY = 'scroll'
