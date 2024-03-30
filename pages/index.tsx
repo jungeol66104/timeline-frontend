@@ -4,6 +4,7 @@ import {storeWrapper} from "@/store/store";
 import {selectCurrentSerieses, updateCurrentSerieses} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Swiper from "@/components/series/swiper";
+import {useSetScroll} from "@/hooks/useScroll";
 // refactoring: clear
 
 
@@ -22,6 +23,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async (cont
 
 export default function Home() {
     const currentSerieses = useSelector(selectCurrentSerieses)
+    useSetScroll()
 
     return (
         <>

@@ -13,6 +13,7 @@ import {useSelector} from "react-redux";
 import SeriesCard from "@/components/series/seriesCard";
 import SeriesBottom from "@/components/series/seriesBottom";
 import useOperateSeries from "@/hooks/useOperateSeries";
+import {useSetScroll} from "@/hooks/useScroll";
 // refactoring: clear
 
 
@@ -47,6 +48,7 @@ const SeriesPage = () => {
     const timelines: SeriesTimeline[] = currentSeries.timelineList
 
     useOperateSeries()
+    useSetScroll()
 
     return (
         <>

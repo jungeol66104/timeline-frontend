@@ -1,14 +1,23 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import api from "@/utils/api"
 import {sum, getEventHeights, getScrollWrapper} from "@/utils/global";
 import {storeWrapper} from "@/store/store";
 import {TimelineEvent} from "@/store/slices/contentsSlice"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight, updateIs404, selectTotalHeight} from "@/store/slices/appearanceSlice";
+import {
+    updateIsTopEnd,
+    updateIsBottomEnd,
+    updateMaxDepth,
+    updateTotalHeight,
+    updateIs404,
+    selectTotalHeight,
+    updateScrollTop
+} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
 import Toolbar from "@/components/timeline/toolbar";
+import {useScrollForTimeline, useSetScroll} from "@/hooks/useScroll";
 // refactoring: clear
 
 
@@ -53,50 +62,13 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
 })
 
 const TimelinePage = () => {
-    const dispatch = useDispatch()
-    const [isVisible, setIsVisible] = useState(true)
-
-    useEffect(() => {
-            if (typeof window === 'undefined') {
-                setIsVisible(true)
-                return
-            }
-
-        const currentUrl = window.location.href;
-        let statePacket = JSON.parse(sessionStorage.getItem('statePacket') || '{}')
-        if (statePacket.url === currentUrl) {
-            let state = statePacket.state
-            const scrollTop = JSON.parse(sessionStorage.getItem('scrollTop') || '0')
-            let appearanceSlice = state["appearance"]
-            appearanceSlice["lastAction"] = 'render'
-            appearanceSlice["scrollTop"] = scrollTop
-            let contentsSlice = state["contents"]
-            contentsSlice["currentEventsWithEffect"] = contentsSlice.currentEventsWithEffect.map((cEvent: TimelineEvent) => {
-                return {...cEvent, animation: 'none'}
-            })
-
-            setIsVisible(true)
-            dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice}})
-        }
-    }, []);
-
-    useEffect(() => {
-        const scrollWrapper = getScrollWrapper()
-        if (!scrollWrapper) return
-
-        const handleScroll = () => sessionStorage.setItem('scrollTop', scrollWrapper.scrollTop.toString())
-
-        scrollWrapper.addEventListener('scroll', handleScroll)
-        return () => {
-            scrollWrapper.removeEventListener('scroll', handleScroll)
-        }
-    }, []);
+    useSetScroll()
+    useScrollForTimeline()
 
     return (
         <>
             <DynamicHead type={'timeline'}/>
             <div className={`page timelinePage`}>
-                {!isVisible && <div className={'absolute bg-white h-full w-full z-[4999]'}></div>}
                 <Timeline/>
                 <Toolbar />
             </div>

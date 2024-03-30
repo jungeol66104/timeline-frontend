@@ -32,7 +32,6 @@ export const getClickOrTouch = () => {
 
 export const getScrollWrapper = () => {
     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
-    // const scrollWrapper: HTMLElement | null = typeof window !== 'undefined' ? document.documentElement : null
     return scrollWrapper
 }
 
