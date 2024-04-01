@@ -2,15 +2,15 @@ import React from "react";
 import api from "@/utils/api"
 import {sum, getEventHeights} from "@/utils/global";
 import {storeWrapper} from "@/store/store";
-import {TimelineEvent} from "@/store/slices/contentsSlice"
+import {TimelineEvent, updateCurrentSerieses} from "@/store/slices/contentsSlice"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
 import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight, updateIs404} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
 import Toolbar from "@/components/timeline/toolbar";
 import {useScrollForTimeline} from "@/hooks/useScroll";
-import SectionPrimary from "@/components/timeline/sectionPrimary";
-import SectionSecondary from "@/components/timeline/sectionSecondary";
+import TimelineSectionPrimary from "@/components/timeline/timelineSectionPrimary";
+import TimelineSectionSecondary from "@/components/timeline/timelineSectionSecondary";
 
 export const getStaticPaths = async () => {
     const response = await api.get('/timeline', {headers: {lang: 'en'}})
@@ -45,6 +45,10 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateCurrentEventsWithEffect(newCurrentEvents))
         store.dispatch(updateTotalHeight(newTotalHeight))
 
+        const responseTemporary = await api.get('/series', {headers: {lang: 'en'}})
+        let series = responseTemporary.data.data
+        store.dispatch(updateCurrentSerieses(series))
+
         return {props: {}, revalidate:10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);
@@ -61,8 +65,8 @@ const TimelinePage = () => {
             <div className={`page timelinePage`}>
                 {/*<Timeline/>*/}
                 {/*<Toolbar />*/}
-                <SectionPrimary />
-                <SectionSecondary />
+                <TimelineSectionPrimary />
+                {/*<TimelineSectionSecondary />*/}
             </div>
         </>
     )

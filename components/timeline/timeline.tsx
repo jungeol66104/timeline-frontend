@@ -8,7 +8,7 @@ const Timeline = () => {
     useOperateTimeline()
 
     return (
-        <div className='timeline relative w-full max-w-[670px]'>
+        <div className='timeline relative w-full'>
             <TimelineFrame />
             <TimelineEvents />
         </div>

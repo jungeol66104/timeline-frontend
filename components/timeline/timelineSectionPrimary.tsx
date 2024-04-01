@@ -2,12 +2,15 @@ import React from 'react'
 import TimelineInformation from "@/components/timeline/timelineInformation";
 import Timeline from "@/components/timeline/timeline";
 import Toolbar from "@/components/timeline/toolbar";
+import TimelineListRelated from "@/components/timeline/timelineListRelated";
 // timelineInformation, timeline, toolbar, relatedTimelines
 
-const sectionPrimary = () => {
+const timelineSectionPrimary = () => {
     return (
-        <div>
+        <div className={'w-full max-w-[650px] p-4 ml-[125px]'}>
             <TimelineInformation />
+            <hr/>
+            <TimelineListRelated />
             <hr/>
             <Timeline />
             <Toolbar />
@@ -15,4 +18,4 @@ const sectionPrimary = () => {
     );
 };
 
-export default sectionPrimary;
+export default timelineSectionPrimary;
