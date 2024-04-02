@@ -34,11 +34,12 @@ const TimelineInformation = () => {
                 <div className={''}>
                     <p className={`text-sm ${!showMore && 'line-clamp-5'}`}>
                         Muhammad bin Salman, born in 1985, is a prominent Saudi Arabian royal and politician, known for his ambitious reform agenda and his role as Crown Prince since 2017.
-                        He has spearheaded the Vision 2030 program aimed at diversifying the Saudi economy and modernizing society.
-                        While praised for his efforts, he has also faced criticism for alleged human rights abuses and his involvement in controversial incidents, such as the murder of journalist Jamal Khashoggi in 2018.
-                        Nonetheless, he remains a significant figure both domestically and internationally, shaping Saudi Arabia&apos;s future trajectory and its relations with the global community.
+                        <br/><br/>He has spearheaded the Vision 2030 program aimed at diversifying the Saudi economy and modernizing society.
+                        <br/><br/>While praised for his efforts, he has also faced criticism for alleged human rights abuses and his involvement in controversial incidents, such as the murder of journalist Jamal Khashoggi in 2018.
+                        <br/><br/>Nonetheless, he remains a significant figure both domestically and internationally, shaping Saudi Arabia&apos;s future trajectory and its relations with the global community.
                     </p>
                     <button onClick={() => setShowMore(!showMore)} className={'text-sm text-blue-700 hover:underline'}>Show more</button>
+                    {/*<Link className={'text-sm text-blue-700 hover:underline'} href={`/information/${currentTimeline.id}`}>Show more</Link>*/}
                 </div>
 
             </div>
