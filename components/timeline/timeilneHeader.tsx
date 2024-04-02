@@ -14,51 +14,44 @@ const TimelineHeader = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
     const isBaseImage = getIsBaseImage(currentTimeline.image)
 
-    let isSwipe = false
 
-    useEffect(() => {
-        const shareButton = shareButtonRef.current
-        const timelineLink = timelineLinkRef.current
-        const scrollWrapper = getScrollWrapper()
-        if (!shareButton || !timelineLink || !scrollWrapper) return
-
-        const handleClickShareButton = async () => {
-            if (isSwipe) return
-            if ('share' in navigator && getClickOrTouch() === 'touchend') {
-                const title = document.title;
-                const text = document.title;
-                const url = location.href;
-                try {
-                    await navigator.share({url , text, title});
-                    return
-                } catch (error) {
-                    console.error('Error fetching for web share api: ', error)
-                    return
-                }
-            } else dispatch(updateIsShare())
-            return
-        }
-        const handleClickTimelineLink = (e: MouseEvent | TouchEvent) => {
-            if (isSwipe) return
-            e.stopPropagation()
-            sessionStorage.clear()
-        }
-
-        shareButton.addEventListener('click', handleClickShareButton)
-        shareButton.addEventListener('touchend', handleClickShareButton)
-        timelineLink.addEventListener('click', handleClickTimelineLink)
-        timelineLink.addEventListener('touchend', handleClickTimelineLink)
-        scrollWrapper.addEventListener('touchmove', () => isSwipe = true)
-        scrollWrapper.addEventListener('touchend', () => isSwipe = false)
-        return () => {
-            shareButton.removeEventListener('click', handleClickShareButton)
-            shareButton.removeEventListener('touchend', handleClickShareButton)
-            timelineLink.removeEventListener('click', handleClickTimelineLink)
-            timelineLink.removeEventListener('touchend', handleClickTimelineLink)
-            scrollWrapper.removeEventListener('touchmove', () => isSwipe = true)
-            scrollWrapper.removeEventListener('touchend', () => isSwipe = false)
-        }
-    }, []);
+    // useEffect(() => {
+    //     const shareButton = shareButtonRef.current
+    //     const timelineLink = timelineLinkRef.current
+    //     const scrollWrapper = getScrollWrapper()
+    //     if (!shareButton || !timelineLink || !scrollWrapper) return
+    //
+    //     const handleClickShareButton = async () => {
+    //         if ('share' in navigator && getClickOrTouch() === 'touchend') {
+    //             const title = document.title;
+    //             const text = document.title;
+    //             const url = location.href;
+    //             try {
+    //                 await navigator.share({url , text, title});
+    //                 return
+    //             } catch (error) {
+    //                 console.error('Error fetching for web share api: ', error)
+    //                 return
+    //             }
+    //         } else dispatch(updateIsShare())
+    //         return
+    //     }
+    //     const handleClickTimelineLink = (e: MouseEvent | TouchEvent) => {
+    //         e.stopPropagation()
+    //         sessionStorage.clear()
+    //     }
+    //
+    //     shareButton.addEventListener('click', handleClickShareButton)
+    //     shareButton.addEventListener('touchend', handleClickShareButton)
+    //     timelineLink.addEventListener('click', handleClickTimelineLink)
+    //     timelineLink.addEventListener('touchend', handleClickTimelineLink)
+    //     return () => {
+    //         shareButton.removeEventListener('click', handleClickShareButton)
+    //         shareButton.removeEventListener('touchend', handleClickShareButton)
+    //         timelineLink.removeEventListener('click', handleClickTimelineLink)
+    //         timelineLink.removeEventListener('touchend', handleClickTimelineLink)
+    //     }
+    // }, []);
 
 
     return (

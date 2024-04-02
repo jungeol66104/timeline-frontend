@@ -9,6 +9,8 @@ import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
 import Toolbar from "@/components/timeline/toolbar";
 import {useScrollForTimeline} from "@/hooks/useScroll";
+import SectionPrimary from "@/components/timeline/sectionPrimary";
+import SectionSecondary from "@/components/timeline/sectionSecondary";
 
 export const getStaticPaths = async () => {
     const response = await api.get('/timeline', {headers: {lang: 'en'}})
@@ -57,8 +59,10 @@ const TimelinePage = () => {
         <>
             <DynamicHead type={'timeline'}/>
             <div className={`page timelinePage`}>
-                <Timeline/>
-                <Toolbar />
+                {/*<Timeline/>*/}
+                {/*<Toolbar />*/}
+                <SectionPrimary />
+                <SectionSecondary />
             </div>
         </>
     )
