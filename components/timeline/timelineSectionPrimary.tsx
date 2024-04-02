@@ -7,11 +7,11 @@ import TimelineListRelated from "@/components/timeline/timelineListRelated";
 
 const timelineSectionPrimary = () => {
     return (
-        <div className={'w-full max-w-[650px] p-4 ml-[125px]'}>
+        <div className={'w-full max-w-[650px] p-4 '}>
             <TimelineInformation />
             <hr/>
-            <TimelineListRelated />
-            <hr/>
+            {/*<TimelineListRelated />*/}
+            {/*<hr/>*/}
             <Timeline />
             <Toolbar />
         </div>
