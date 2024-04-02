@@ -83,6 +83,10 @@ export interface initialContentsState {
     pivotEvent: TimelineEvent
 }
 
+export interface Timeline {
+
+}
+
 export interface TimelineEvent {
     id: number
     date: string

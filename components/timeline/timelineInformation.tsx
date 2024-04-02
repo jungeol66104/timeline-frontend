@@ -15,13 +15,15 @@ const TimelineInformation = () => {
             <div className={'text-md text-gray-500'}>{currentTimeline.description}</div>
             <div className={'mt-2.5 flex gap-2.5'}>
                 <div className={''}>
-                    <span className={'text-md line-clamp-5'}>
-                        The Asian Financial Crisis was a major economic event that occurred primarily in East and Southeast Asian countries during the late 1990s. The crisis originated in Thailand in July 1997 when the Thai baht was floated after being pegged to the US dollar.
-                        This sudden devaluation triggered a domino effect across the region, leading to severe financial instability and economic downturns in countries such as Indonesia, South Korea, Malaysia, and the Philippines.
+                    <span className={'text-sm line-clamp-5'}>
+                        Muhammad bin Salman, born in 1985, is a prominent Saudi Arabian royal and politician, known for his ambitious reform agenda and his role as Crown Prince since 2017.
+                        He has spearheaded the Vision 2030 program aimed at diversifying the Saudi economy and modernizing society.
+                        While praised for his efforts, he has also faced criticism for alleged human rights abuses and his involvement in controversial incidents, such as the murder of journalist Jamal Khashoggi in 2018.
+                        Nonetheless, he remains a significant figure both domestically and internationally, shaping Saudi Arabia's future trajectory and its relations with the global community.
                     </span>
-                    <button className={'text-blue-700 hover:underline'}>Show more</button>
+                    <button className={'text-sm text-blue-700 hover:underline'}>Show more</button>
                 </div>
-                <div className={'w-[144px] h-[144px] top-0 right-0 mb-[0.5px] shrink-0'}>
+                <div className={'w-[100px] h-[100px] top-0 right-0 mb-[0.5px] shrink-0'}>
                     {isBaseImage
                         ?   <>
                                 <div className={'relative w-full h-full rounded-sm bg-gray-500 text-white flex items-center justify-center text-sm font-medium'}>

@@ -39,7 +39,7 @@ const EventContent = ({event, highestEvent, contentOrder, isToggle} : {event: Ti
                         <div className={'text-xs font-semibold text-gray-500 line-clamp-1 text-ellipsis'}>{event.date}</div>
                         <div className={'mt-0.5 text-md font-bold'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.name}</div>
                     </div>
-                    <div className={'text-sm font-medium whitespace-pre-wrap break-words line-clamp-3'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.description}</div>
+                    <div className={'text-sm whitespace-pre-wrap break-words line-clamp-3'} style={{transition: 'all 0.3s', opacity: !isToggle && contentOrder > 0 ? 0 : 1}}>{event.description}</div>
                 </div>
             </Link>
         </div>
