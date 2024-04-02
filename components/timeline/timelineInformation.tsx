@@ -19,7 +19,7 @@ const TimelineInformation = () => {
                         Muhammad bin Salman, born in 1985, is a prominent Saudi Arabian royal and politician, known for his ambitious reform agenda and his role as Crown Prince since 2017.
                         He has spearheaded the Vision 2030 program aimed at diversifying the Saudi economy and modernizing society.
                         While praised for his efforts, he has also faced criticism for alleged human rights abuses and his involvement in controversial incidents, such as the murder of journalist Jamal Khashoggi in 2018.
-                        Nonetheless, he remains a significant figure both domestically and internationally, shaping Saudi Arabia's future trajectory and its relations with the global community.
+                        Nonetheless, he remains a significant figure both domestically and internationally, shaping Saudi Arabia&aposs future trajectory and its relations with the global community.
                     </span>
                     <button className={'text-sm text-blue-700 hover:underline'}>Show more</button>
                 </div>

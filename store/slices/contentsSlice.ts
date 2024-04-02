@@ -84,7 +84,10 @@ export interface initialContentsState {
 }
 
 export interface Timeline {
-
+    id: number
+    name: string
+    description: string
+    image: string
 }
 
 export interface TimelineEvent {
