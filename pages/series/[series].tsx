@@ -31,7 +31,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({par
         return {props: {}, revalidate: 10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);
-        return {props: {}}
+        return {props: {}, revalidate: 10}
     }
 })
 
