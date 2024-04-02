@@ -59,10 +59,10 @@ const TimelinePage = () => {
         <>
             <DynamicHead type={'timeline'}/>
             <div className={`page timelinePage`}>
-                {/*<Timeline/>*/}
-                {/*<Toolbar />*/}
-                <SectionPrimary />
-                <SectionSecondary />
+                <Timeline/>
+                <Toolbar />
+                {/*<SectionPrimary />*/}
+                {/*<SectionSecondary />*/}
             </div>
         </>
     )
