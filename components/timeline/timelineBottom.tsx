@@ -1,5 +1,4 @@
 import React from 'react';
-import TimelineHeader from "@/components/timeline/timeilneHeader";
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 

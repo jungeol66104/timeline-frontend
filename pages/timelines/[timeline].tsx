@@ -1,13 +1,10 @@
 import React from "react";
 import api from "@/utils/api"
-import {sum, getEventHeights} from "@/utils/global";
 import {storeWrapper} from "@/store/store";
 import {TimelineEvent, updateCurrentSerieses} from "@/store/slices/contentsSlice"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight, updateIs404} from "@/store/slices/appearanceSlice";
+import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateIs404} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
-import Timeline from "@/components/timeline/timeline";
-import Toolbar from "@/components/timeline/toolbar";
 import {useScrollForTimeline} from "@/hooks/useScroll";
 import TimelineSectionPrimary from "@/components/timeline/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timeline/timelineSectionSecondary";
@@ -18,10 +15,7 @@ export const getStaticPaths = async () => {
     // const timelines: any[] = response.data.data.slice(0, 10)
     const timelineIds = timelines.map(timeline => timeline.id)
     const paths = timelineIds.map(timelineId => ({ params: {timeline: String(timelineId)}}))
-    return {
-        paths,
-        fallback: 'blocking'
-    }
+    return {paths, fallback: 'blocking'}
 }
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
@@ -36,14 +30,12 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         newCurrentEvents = newCurrentEvents.map(cEvent => {
             return {...cEvent, isToggle: false, toggleEvents: [], animation: 'none'}
         })
-        const newTotalHeight = sum(getEventHeights(newCurrentEvents))
         store.dispatch(updateCurrentTimeline(newCurrentTimeline))
         store.dispatch(updateMaxDepth(newMaxDepth))
         store.dispatch(updateIsTopEnd(newIsTopEnd))
         store.dispatch(updateIsBottomEnd(newIsBottomEnd))
         store.dispatch(updateCurrentEvents(newCurrentEvents))
         store.dispatch(updateCurrentEventsWithEffect(newCurrentEvents))
-        store.dispatch(updateTotalHeight(newTotalHeight))
 
         const responseTemporary = await api.get('/series', {headers: {lang: 'en'}})
         let series = responseTemporary.data.data
@@ -63,10 +55,8 @@ const TimelinePage = () => {
         <>
             <DynamicHead type={'timeline'}/>
             <div className={`page timelinePage`}>
-                {/*<Timeline/>*/}
-                {/*<Toolbar />*/}
                 <TimelineSectionPrimary />
-                {/*<TimelineSectionSecondary />*/}
+                <TimelineSectionSecondary />
             </div>
         </>
     )

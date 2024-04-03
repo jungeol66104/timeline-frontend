@@ -30,6 +30,12 @@ export const getClickOrTouch = () => {
     return clickOrTouchend
 }
 
+export const getIsTouchable = () => {
+    let isTouchable = false
+    if (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement) isTouchable = true
+    return isTouchable
+}
+
 export const getScrollWrapper = () => {
     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
     return scrollWrapper

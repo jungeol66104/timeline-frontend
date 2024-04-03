@@ -1,10 +1,9 @@
 import React from "react";
 import api from "@/utils/api"
-import {sum, getEventHeights, mapStrToNum, getIsBaseImage, formatDate} from "@/utils/global";
 import {storeWrapper} from "@/store/store";
 import {selectCurrentTimeline, TimelineEvent, updateCurrentSerieses} from "@/store/slices/contentsSlice"
 import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateTotalHeight, updateIs404} from "@/store/slices/appearanceSlice";
+import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateIs404} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Timeline from "@/components/timeline/timeline";
 import Toolbar from "@/components/timeline/toolbar";
@@ -15,6 +14,7 @@ import {useSelector} from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
 import TimelineImage from "@/components/timelineImage";
+import TimelineListRelated from "@/components/timeline/timelineListRelated";
 
 export const getStaticPaths = async () => {
     const response = await api.get('/timeline', {headers: {lang: 'en'}})
@@ -36,14 +36,12 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         newCurrentEvents = newCurrentEvents.map(cEvent => {
             return {...cEvent, isToggle: false, toggleEvents: [], animation: 'none'}
         })
-        const newTotalHeight = sum(getEventHeights(newCurrentEvents))
         store.dispatch(updateCurrentTimeline(newCurrentTimeline))
         store.dispatch(updateMaxDepth(newMaxDepth))
         store.dispatch(updateIsTopEnd(newIsTopEnd))
         store.dispatch(updateIsBottomEnd(newIsBottomEnd))
         store.dispatch(updateCurrentEvents(newCurrentEvents))
         store.dispatch(updateCurrentEventsWithEffect(newCurrentEvents))
-        store.dispatch(updateTotalHeight(newTotalHeight))
 
         const responseTemporary = await api.get('/series', {headers: {lang: 'en'}})
         let series = responseTemporary.data.data
@@ -60,8 +58,8 @@ const InformationPage = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     return (
-        <div className={'page'}>
-            <div className={'w-full max-w-[650px] p-4 '}>
+        <div className={'page informationPage'}>
+            <div className={'w-full max-w-[600px] p-4'}>
                 <div className={'flex flex-col gap-2.5'}>
                     <div className={'relative flex flex-col items-center gap-5'}>
                         <TimelineImage timeline={currentTimeline} size={190} />
@@ -86,6 +84,7 @@ const InformationPage = () => {
                         </p>
                     </div>
                 </div>
+            <TimelineListRelated />
             </div>
         </div>
     )

@@ -1,12 +1,10 @@
 import {useSelector} from "react-redux";
 import {selectCurrentEvents, TimelineEvent} from "@/store/slices/contentsSlice";
 import EventBox from "@/components/timeline/eventBox";
-import {selectCurrentEventsWithEffect} from "@/store/slices/contentsSlice";
 import React from "react";
 import {selectIsBottomEnd, selectIsTopEnd} from "@/store/slices/appearanceSlice";
 import TimelineTop from "@/components/timeline/timelineTop";
 import TimelineBottom from "@/components/timeline/timelineBottom";
-import Toolbar from "@/components/timeline/toolbar";
 // refactoring: clear
 
 const TimelineEvents = () => {

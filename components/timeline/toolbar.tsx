@@ -11,19 +11,19 @@ const Toolbar = () => {
     const currentDepth = useSelector(selectCurrentDepth)
     const isSmallToolbar = maxDepth === 0
 
-    useLayoutEffect(() => {
-        const toolbar : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.toolbar') : null
-        if (!toolbar) return
-
-        if (getClickOrTouch() === 'touchend' && window.innerWidth <= 850) {
-            toolbar.style.right = '16px'
-        }
-    }, []);
+    // useLayoutEffect(() => {
+    //     const toolbar : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.toolbar') : null
+    //     if (!toolbar) return
+    //
+    //     if (getClickOrTouch() === 'touchend' && window.innerWidth <= 850) {
+    //         toolbar.style.right = '16px'
+    //     }
+    // }, []);
 
     return (
         <div className={`fixed bottom-[18px] w-full`} style={{zIndex: 4998}}>
             {isSmallToolbar
-                ? <div className={'toolbar absolute bottom-0 flex border-[0.1px] border-gray-300 rounded-lg bg-white drop-shadow-md h-[40px]'} style={{left:577}}>
+                ? <div className={'toolbar absolute bottom-0 flex border-[0.1px] border-gray-300 rounded-lg bg-white drop-shadow-md h-[40px]'} style={{left:528}}>
                     <button className={'toolbarButton uppermost flex items-center justify-center w-[40px]'}>
                         <div><Image src={NorthSVG} alt={'uppermost'} height={20} width={20}/></div>
                     </button>

@@ -10,14 +10,14 @@ const TimelineListTrending = () => {
 
     return (
         <div>
-            <h3 className={'text-[20px] font-bold py-3'}>Trending</h3>
+            <h3 className={'text-[20px] font-bold py-3'}>Recently Added</h3>
             {nl.map((timeline, i) => {
                 const isBaseImage = getIsBaseImage(timeline.image)
 
                 return (
                     <div key={i} className={'cursor-pointer py-2 flex justify-between hover:underline'}>
                         <div>
-                            <div className={'font-medium'}>{timeline.name}</div>
+                            <div className={'font-medium line-clamp-1'}>{timeline.name}</div>
                             <div className={'line-clamp-1 text-sm text-gray-500'}>{timeline.description}</div>
                         </div>
                         <div className={'w-[44px] h-[44px] top-0 right-0 mb-[0.5px] shrink-0'}>
@@ -39,7 +39,7 @@ const TimelineListTrending = () => {
                 )
             })
             }
-            <button className={'text-blue-700 hover:underline py-2'}>Show more</button>
+            <button className={'text-sm text-blue-700 hover:underline py-2'}>Show more</button>
         </div>
     );
 };

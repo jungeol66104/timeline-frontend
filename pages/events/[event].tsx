@@ -33,7 +33,7 @@ const EventPage = () => {
         <>
             <DynamicHead type={'event'}/>
             <div className={'page eventPage'}>
-                <div className={'w-full max-w-[670px] mt-5 mb-5 z-40 flex flex-col gap-10 px-[20px]'}>
+                <div className={'w-full max-w-[600px] p-4 flex flex-col gap-10'}>
                     <Event />
                     <RelatedTimeline />
                 </div>

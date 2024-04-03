@@ -14,10 +14,7 @@ export const getStaticPaths = async () => {
     const serieses: any[] = response.data.data
     const seriesIds = serieses.map(series => series.id)
     const paths = seriesIds.map(seriesId => ({ params: {series: String(seriesId) }}))
-    return {
-        paths,
-        fallback: 'blocking'
-    }
+    return {paths, fallback: 'blocking'}
 }
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({params}) => {
