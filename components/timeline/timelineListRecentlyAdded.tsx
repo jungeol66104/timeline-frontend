@@ -4,7 +4,7 @@ import {selectCurrentSerieses, SeriesTimeline} from "@/store/slices/contentsSlic
 import Image from "next/image";
 import {getIsBaseImage, mapStrToNum} from "@/utils/global";
 
-const TimelineListTrending = () => {
+const TimelineListRecentlyAdded = () => {
     const serieses = useSelector(selectCurrentSerieses)
     const nl: SeriesTimeline[] = serieses[2]["timelines"].slice(5,)
 
@@ -44,4 +44,4 @@ const TimelineListTrending = () => {
     );
 };
 
-export default TimelineListTrending;
+export default TimelineListRecentlyAdded;

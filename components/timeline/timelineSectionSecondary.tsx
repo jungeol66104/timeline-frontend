@@ -1,6 +1,6 @@
 import React from 'react';
 import TimelineListPopular from "@/components/timeline/timelineListPopular";
-import TimelineListTrending from "@/components/timeline/timelineListTrending";
+import TimelineListRecentlyAdded from "@/components/timeline/timelineListRecentlyAdded";
 
 const TimelineSectionSecondary = () => {
     return (
@@ -8,7 +8,7 @@ const TimelineSectionSecondary = () => {
             <hr/>
             <TimelineListPopular />
             <hr/>
-            <TimelineListTrending />
+            <TimelineListRecentlyAdded />
             <hr/>
         </div>
     );

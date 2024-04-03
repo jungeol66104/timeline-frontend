@@ -1,5 +1,5 @@
-import {configureStore, Middleware} from '@reduxjs/toolkit';
-import {createWrapper, HYDRATE} from "next-redux-wrapper";
+import {configureStore} from '@reduxjs/toolkit';
+import {createWrapper} from "next-redux-wrapper";
 import rootReducer from "@/store/rootReducer";
 // refactoring: clear
 
@@ -10,5 +10,4 @@ const makeStore = () => {
         middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
     })
 }
-
 export const storeWrapper = createWrapper(makeStore);

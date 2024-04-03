@@ -2,7 +2,7 @@ import React from "react";
 import api from "@/utils/api"
 import {storeWrapper} from "@/store/store";
 import {TimelineEvent, updateCurrentSerieses} from "@/store/slices/contentsSlice"
-import {updateCurrentEvents, updateCurrentEventsWithEffect, updateCurrentTimeline} from "@/store/slices/contentsSlice";
+import {updateCurrentEvents, updateCurrentTimeline} from "@/store/slices/contentsSlice";
 import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateIs404} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import {useScrollForTimeline} from "@/hooks/useScroll";
@@ -27,15 +27,11 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         const newIsTopEnd = response.data.data.isTopEnd
         const newIsBottomEnd = response.data.data.isBottomEnd
         let newCurrentEvents = response.data.data.events as TimelineEvent[]
-        newCurrentEvents = newCurrentEvents.map(cEvent => {
-            return {...cEvent, isToggle: false, toggleEvents: [], animation: 'none'}
-        })
         store.dispatch(updateCurrentTimeline(newCurrentTimeline))
         store.dispatch(updateMaxDepth(newMaxDepth))
         store.dispatch(updateIsTopEnd(newIsTopEnd))
         store.dispatch(updateIsBottomEnd(newIsBottomEnd))
         store.dispatch(updateCurrentEvents(newCurrentEvents))
-        store.dispatch(updateCurrentEventsWithEffect(newCurrentEvents))
 
         const responseTemporary = await api.get('/series', {headers: {lang: 'en'}})
         let series = responseTemporary.data.data

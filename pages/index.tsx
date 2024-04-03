@@ -24,7 +24,7 @@ export default function Home() {
     return (
         <>
             <DynamicHead type={'index'}/>
-            <div className={'page indexPage py-5 gap-5'}>
+            <div className={'page indexPage py-4 gap-4'}>
                 {currentSerieses.map((series, i) => {
                     return <Swiper key={i} series={series}/>
                 })}

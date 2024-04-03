@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
-// refactoring: clear
 
 // values before any dispatch
 const initialState = {

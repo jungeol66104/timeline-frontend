@@ -1,11 +1,4 @@
-import {TimelineEvent} from "@/store/slices/contentsSlice";
 import crypto from 'crypto'
-// refactoring: clear
-
-// variables
-const eventContentHeight = 124
-const overlapBottomHeight = 6
-const eventListHeaderHeight = 38
 
 // math
 export const sum = (array: number[]) => {
@@ -15,14 +8,6 @@ export const sum = (array: number[]) => {
 }
 
 // timeline
-// normally used for getting positions of certain events by calculating height of each event
-export const getEventHeights = (events: TimelineEvent[])=> {
-    return events.map(event => {
-        if (event.isToggle && event.toggleEvents) return (eventListHeaderHeight + (event.toggleEvents.length + 1) * eventContentHeight)
-        else return (eventContentHeight + (event.overlap as number) * overlapBottomHeight)
-    }) as number[]
-}
-
 // check if the device is mobile or PC
 export const getClickOrTouch = () => {
     let clickOrTouchend = 'click'
@@ -54,11 +39,7 @@ export const debounce = (callback: any, delay: number) => {
 
 export const formatDate = (date: string | undefined) => {
     if (!date) return
-
-    const months = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
     const [datePart, timePart] = date.split(" ");
     const [year, month, day] = datePart.split("-");
