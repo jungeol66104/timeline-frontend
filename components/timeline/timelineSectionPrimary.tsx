@@ -3,19 +3,28 @@ import TimelineInformation from "@/components/timeline/timelineInformation";
 import Timeline from "@/components/timeline/timeline";
 import Toolbar from "@/components/timeline/toolbar";
 import TimelineListRelated from "@/components/timeline/timelineListRelated";
+import {useSelector} from "react-redux";
+import {selectIsTopEnd} from "@/store/slices/appearanceSlice";
 // timelineInformation, timeline, toolbar, relatedTimelines
 
-const timelineSectionPrimary = () => {
+const TimelineSectionPrimary = () => {
+    const isTopEnd = useSelector(selectIsTopEnd)
+
     return (
-        <div className={'w-full min-w-[360px] max-w-[600px] p-4'}>
-            <TimelineInformation />
-            <hr/>
-            <TimelineListRelated />
-            <hr/>
+        <div className={'relative w-full max-w-[600px] p-4'}>
+            {isTopEnd
+                ?   <>
+                        <TimelineInformation />
+                        <hr/>
+                        <TimelineListRelated />
+                        <hr/>
+                    </>
+                :   <></>
+            }
             <Timeline />
             <Toolbar />
         </div>
     );
 };
 
-export default timelineSectionPrimary;
+export default TimelineSectionPrimary;
