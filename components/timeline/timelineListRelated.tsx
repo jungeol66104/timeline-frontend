@@ -10,7 +10,7 @@ const TimelineListRelated = () => {
     }, []);
 
     return (
-        <div className={'flex flex-col my-3'}>
+        <div className={'flex flex-col py-3'}>
             <h3 className={'text-[20px] font-bold mb-3'}>Related</h3>
             <div className={`flex gap-2 w-full ${showTouchable ? 'overflow-x-scroll hideScrollbar' : 'flex-wrap'}`}>
                 <div className={'whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Saudi Arabia</div>

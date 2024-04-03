@@ -59,7 +59,7 @@ const InformationPage = () => {
 
     return (
         <div className={'page informationPage'}>
-            <div className={'w-full max-w-[600px] p-4'}>
+            <div className={'h-full w-full max-w-[600px] p-4'}>
                 <div className={'flex flex-col gap-2.5'}>
                     <div className={'relative flex flex-col items-center gap-5'}>
                         <TimelineImage timeline={currentTimeline} size={190} />
@@ -84,7 +84,7 @@ const InformationPage = () => {
                         </p>
                     </div>
                 </div>
-            <TimelineListRelated />
+                <TimelineListRelated />
             </div>
         </div>
     )
