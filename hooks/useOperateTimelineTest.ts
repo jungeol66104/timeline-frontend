@@ -50,7 +50,7 @@ const useOperateTimelineTest = () => {
             let eventBoxTops = eventBoxHeights.map((_, i) => sum(eventBoxHeights.slice(0,i)))
             let order = scrollDirection === 'down' ? currentEvents.length - 1 : 0
             let top = eventBoxTops[order] + 60 - scrollWrapper.scrollTop
-            if (isTopEnd) top += 245
+            if (isTopEnd) top += 246
             let targetEvent = {...currentEvents[order], top: top}
             if (scrollDirection === 'uppermost') targetEvent = {...targetEvent, top: -1, ephemerisTime: "0"}
             return targetEvent
