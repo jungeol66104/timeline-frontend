@@ -1,4 +1,5 @@
 import crypto from 'crypto'
+import React from "react";
 
 // math
 export const sum = (array: number[]) => {
@@ -54,4 +55,14 @@ export const mapStrToNum = (inputString : string) => {
     const combinedHash = hash1 + hash2;
     let hashedNumber = BigInt('0x' + combinedHash); // Use BigInt to handle large numbers
     return Number((hashedNumber % BigInt(4)) + BigInt(1));
+}
+
+export const ratioToImageSizeType = (imageUrl: string, callback: (aspectRatio: string) => void): void => {
+    const img = new Image();
+    img.onload = () => {
+        const ratio = img.naturalWidth / img.naturalHeight;
+        const imageSizeType = ratio === 1 ? 'square' : ratio > 1 ? 'horizontal' : 'vertical'
+        callback(imageSizeType);
+    }
+    img.src = imageUrl;
 }
