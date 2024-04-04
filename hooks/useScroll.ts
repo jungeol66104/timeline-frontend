@@ -1,6 +1,6 @@
 import {useEffect, useLayoutEffect} from 'react';
 import {useSelector} from "react-redux";
-import {selectAboveTimelineHeight, selectLastAction, selectPreviousTop, selectScrollTop, selectTimelineEdgeHeight} from "@/store/slices/appearanceSlice";
+import {selectAboveTimelineHeight, selectIsTopEnd, selectLastAction, selectPreviousTop, selectScrollTop, selectTimelineEdgeHeight} from "@/store/slices/appearanceSlice";
 import {getScrollWrapper, sum} from "@/utils/global";
 import {selectCurrentEvents, selectPivotEvent} from "@/store/slices/contentsSlice";
 
@@ -21,9 +21,8 @@ export const useScrollForTimeline = () => {
     const currentEvents = useSelector(selectCurrentEvents)
     const pivotEvent = useSelector(selectPivotEvent)
     const previousTop = useSelector(selectPreviousTop)
-    const aboveTimelineHeight = useSelector(selectAboveTimelineHeight)
-    const timelineEdgeHeight = useSelector(selectTimelineEdgeHeight)
     const lastAction = useSelector(selectLastAction)
+    const isTopEnd = useSelector(selectIsTopEnd)
 
     useEffect(() => {
         const scrollWrapper = getScrollWrapper()
@@ -35,7 +34,7 @@ export const useScrollForTimeline = () => {
             let eventBoxTops = eventBoxHeights.map((_, i) => sum(eventBoxHeights.slice(0,i)))
             let order = currentEvents.findIndex(cEvent => cEvent.id === pivotEvent.id)
             scrollWrapper.style.overflowY = 'hidden'
-            scrollWrapper.scrollTop = eventBoxTops[order] + 60 - previousTop
+            scrollWrapper.scrollTop = isTopEnd ? eventBoxTops[order] + 252 - previousTop : eventBoxTops[order] + 60 - previousTop
             scrollWrapper.style.overflowY = 'scroll'
         } else if (lastAction === 'zoom' || previousTop === -1) {
             scrollWrapper.style.overflowY = 'hidden'
