@@ -3,8 +3,8 @@ import {selectCurrentEvents, TimelineEvent} from "@/store/slices/contentsSlice";
 import EventBox from "@/components/timeline/eventBox";
 import React from "react";
 import {selectIsBottomEnd, selectIsTopEnd} from "@/store/slices/appearanceSlice";
-import TimelineTop from "@/components/timeline/timelineTop";
-import TimelineBottom from "@/components/timeline/timelineBottom";
+import EventTop from "@/components/timeline/eventTop";
+import EventBottom from "@/components/timeline/eventBottom";
 // refactoring: clear
 
 const TimelineEvents = () => {
@@ -14,11 +14,11 @@ const TimelineEvents = () => {
 
     return (
         <div className={'timelineEvents relative flex flex-col w-full'}>
-            <TimelineTop isEnd={isTopEnd}/>
+            <EventTop isEnd={isTopEnd}/>
             {currentEvents.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event}/>
             })}
-            <TimelineBottom isEnd={isBottomEnd}/>
+            <EventBottom isEnd={isBottomEnd}/>
         </div>
     )
 }

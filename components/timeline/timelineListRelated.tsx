@@ -2,11 +2,11 @@ import React, {useLayoutEffect, useState} from 'react';
 import {getIsTouchable} from "@/utils/global";
 
 const TimelineListRelated = () => {
-    const [showTouchable, setShowTouchable] = useState(true)
+    const [showTouchable, setShowTouchable] = useState(false)
 
     useLayoutEffect(() => {
         const isTouchable = getIsTouchable()
-        if (!isTouchable) setShowTouchable(false)
+        if (isTouchable) setShowTouchable(true)
     }, []);
 
     return (
