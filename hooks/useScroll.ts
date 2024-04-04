@@ -33,8 +33,7 @@ export const useScrollForTimeline = () => {
             let eventBoxHeights = Array.from(eventBoxes).map(eventBox => eventBox.clientHeight)
             let eventBoxTops = eventBoxHeights.map((_, i) => sum(eventBoxHeights.slice(0,i)))
             let order = currentEvents.findIndex(cEvent => cEvent.id === pivotEvent.id)
-            console.log(isTopEnd)
-            let newScrollTop = isTopEnd ? eventBoxTops[order] + 60 + 246 - previousTop : eventBoxTops[order] + 60 - previousTop
+            let newScrollTop = isTopEnd ? eventBoxTops[order] + 60 + 248 - previousTop : eventBoxTops[order] + 60 - previousTop
             scrollWrapper.style.overflowY = 'hidden'
             scrollWrapper.scrollTop = newScrollTop
             scrollWrapper.style.overflowY = 'scroll'
