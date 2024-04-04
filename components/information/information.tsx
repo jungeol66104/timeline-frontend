@@ -9,18 +9,16 @@ const Information = () => {
 
     return (
         <div className={'h-full w-full max-w-[600px] p-4'}>
-            <div className={'flex flex-col gap-2.5'}>
+            <div className={'flex flex-col'}>
                 <div className={'relative flex flex-col items-center gap-4'}>
                     <TimelineImage timeline={currentTimeline} size={190}/>
                     <div className={'flex flex-col items-center'}>
                         <h1 className={'text-2xl font-bold text-center'}>{currentTimeline.name}</h1>
                         <div className={'text-md text-gray-500 text-center'}>{currentTimeline.description}</div>
-                        <div className={'mt-2 text-gray-500 font-medium text-sm'}>
-                            <span>by Timeline · January 14, 2024</span>
-                        </div>
+                        <div className={'my-1 text-gray-500 font-medium text-sm'}><span>by Timeline · January 14, 2024</span></div>
                     </div>
                 </div>
-                <div className={''}>
+                <div className={'mt-[6px]'}>
                     <p className={`text-md`}>
                         Muhammad bin Salman, born in 1985, is a prominent Saudi Arabian royal and politician,
                         known for his ambitious reform agenda and his role as Crown Prince since 2017.

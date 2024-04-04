@@ -6,6 +6,7 @@ import {updateCurrentEvents, updateCurrentTimeline} from "@/store/slices/content
 import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateIs404} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Information from "@/components/information/information";
+import TimelineSectionSecondary from "@/components/timeline/timelineSectionSecondary";
 
 export const getStaticPaths = async () => {
     const response = await api.get('/timeline', {headers: {lang: 'en'}})
@@ -47,6 +48,7 @@ const InformationPage = () => {
             <DynamicHead type={'timeline'}/>
             <div className={'page informationPage'}>
                 <Information />
+                {/*<TimelineSectionSecondary />*/}
             </div>
         </>
     )
