@@ -8,10 +8,6 @@ const SwiperPagination = ({swiperContainerRef} : {swiperContainerRef: React.RefO
     const [isTouch, setIsTouch] = useState(true)
 
     useEffect(() => {
-        if (getClickOrTouch() === 'click') setIsTouch(false)
-    }, []);
-
-    useEffect(() => {
         const swiperContainer = swiperContainerRef.current
         if (!swiperContainer) return
 
@@ -29,6 +25,7 @@ const SwiperPagination = ({swiperContainerRef} : {swiperContainerRef: React.RefO
 
     useEffect(() => {
         const swiperContainer = swiperContainerRef.current
+        if (getClickOrTouch() !== 'click') return
         if (!swiperContainer) return
 
         const handleResize = () => {
@@ -70,7 +67,6 @@ const SwiperPagination = ({swiperContainerRef} : {swiperContainerRef: React.RefO
             <button onClick={() => handleClick('prev')} className={`flex items-center justify-center w-8 h-8 max-[525px]:w-6 max-[525px]:h-6 rounded-full border-[1px] border-gray-200 bg-white ${scrollPosition === 'start' ? 'opacity-30' : 'hover:bg-gray-100'}`}><Image src={'/svg/before.svg'} alt={'before'} height={20} width={20} className={'opacity-80'} /></button>
             <button onClick={() => handleClick('next')} className={`flex items-center justify-center w-8 h-8 max-[525px]:w-6 max-[525px]:h-6 rounded-full border-[1px] border-gray-200 bg-white ${scrollPosition === 'end' ? 'opacity-30' : 'hover:bg-gray-100'}`}><Image src={'/svg/after.svg'} alt={'after'} height={20} width={20} className={'opacity-80'} /></button>
         </div>
-    );
-};
-
+    )
+}
 export default SwiperPagination;

@@ -59,6 +59,20 @@ html, body, #__next, .layout, .page {
     }
 }
 
+/* timeline */
+/* Hide scrollbar for Chrome, Safari and Opera */
+.relatedSwiper::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.relatedSwiper {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
+
 /* series */
 .hideScrollbar::-webkit-scrollbar {
     visibility: hidden;
