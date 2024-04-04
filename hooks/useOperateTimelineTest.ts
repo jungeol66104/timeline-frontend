@@ -49,7 +49,8 @@ const useOperateTimelineTest = () => {
             let eventBoxHeights = Array.from(eventBoxes).map(eventBox => eventBox.clientHeight)
             let eventBoxTops = eventBoxHeights.map((_, i) => sum(eventBoxHeights.slice(0,i)))
             let order = scrollDirection === 'down' ? currentEvents.length - 1 : 0
-            let top = eventBoxTops[order] + aboveTimelineHeight + timelineEdgeHeight - scrollWrapper.scrollTop
+            let top = eventBoxTops[order] + 60 - scrollWrapper.scrollTop
+            if (isTopEnd) top += 250
             let targetEvent = {...currentEvents[order], top: top}
             if (scrollDirection === 'uppermost') targetEvent = {...targetEvent, top: -1, ephemerisTime: "0"}
             return targetEvent
@@ -89,9 +90,7 @@ const useOperateTimelineTest = () => {
             let targetEvent = getScrollTargetEvent(scrollDirection)
 
             fetchEvents(currentDepth, targetEvent).then(({fetchedEvents, pivotEvent, isTopEnd, isBottomEnd}) => {
-                let previousTop = isTopEnd ? targetEvent.top - 250 : targetEvent.top
-
-                dispatch(updatePreviousTop(previousTop))
+                dispatch(updatePreviousTop(targetEvent.top))
                 dispatch(updatePivotEvent(pivotEvent))
                 dispatch(updatePreviousEvents(currentEvents))
                 dispatch(updateCurrentEvents(fetchedEvents))

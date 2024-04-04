@@ -35,7 +35,7 @@ export const useScrollForTimeline = () => {
             let eventBoxTops = eventBoxHeights.map((_, i) => sum(eventBoxHeights.slice(0,i)))
             let order = currentEvents.findIndex(cEvent => cEvent.id === pivotEvent.id)
             scrollWrapper.style.overflowY = 'hidden'
-            scrollWrapper.scrollTop = eventBoxTops[order] + aboveTimelineHeight + timelineEdgeHeight - previousTop
+            scrollWrapper.scrollTop = eventBoxTops[order] + 60 - previousTop
             scrollWrapper.style.overflowY = 'scroll'
         } else if (lastAction === 'zoom' || previousTop === -1) {
             scrollWrapper.style.overflowY = 'hidden'
