@@ -1,9 +1,9 @@
 import React from "react";
 import api from "@/utils/api"
+import probe from "probe-image-size"
 import {storeWrapper} from "@/store/store";
-import {TimelineEvent, updateCurrentSerieses} from "@/store/slices/contentsSlice"
-import {updateCurrentEvents, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateIs404} from "@/store/slices/appearanceSlice";
+import {TimelineEvent, updateCurrentEvents, updateCurrentSerieses, updateCurrentTimeline} from "@/store/slices/contentsSlice"
+import {updateIs404, updateIsBottomEnd, updateIsTopEnd, updateMaxDepth} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import {useScrollForTimeline} from "@/hooks/useScroll";
 import TimelineSectionPrimary from "@/components/timeline/timelineSectionPrimary";
@@ -22,16 +22,17 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
     try {
         const response = await api.get(`/timeline/${Number(params?.timeline)}?timelineId=${Number(params?.timeline)}&depth=0&time=0`, {headers: {lang: 'en'}})
         if (response.data.code === 69999) store.dispatch(updateIs404(true))
-        const newCurrentTimeline = response.data.data.timelineInfo
-        const newMaxDepth = response.data.data.maxDepth
-        const newIsTopEnd = response.data.data.isTopEnd
-        const newIsBottomEnd = response.data.data.isBottomEnd
-        let newCurrentEvents = response.data.data.events as TimelineEvent[]
-        store.dispatch(updateCurrentTimeline(newCurrentTimeline))
-        store.dispatch(updateMaxDepth(newMaxDepth))
-        store.dispatch(updateIsTopEnd(newIsTopEnd))
-        store.dispatch(updateIsBottomEnd(newIsBottomEnd))
-        store.dispatch(updateCurrentEvents(newCurrentEvents))
+        const currentTimeline = response.data.data.timelineInfo
+        const maxDepth = response.data.data.maxDepth
+        const isTopEnd = response.data.data.isTopEnd
+        const isBottomEnd = response.data.data.isBottomEnd
+        let currentEvents = response.data.data.events as TimelineEvent[]
+        currentTimeline.imageSize = await probe(currentTimeline.image)
+        store.dispatch(updateCurrentTimeline(currentTimeline))
+        store.dispatch(updateMaxDepth(maxDepth))
+        store.dispatch(updateIsTopEnd(isTopEnd))
+        store.dispatch(updateIsBottomEnd(isBottomEnd))
+        store.dispatch(updateCurrentEvents(currentEvents))
 
         const responseTemporary = await api.get('/series', {headers: {lang: 'en'}})
         let series = responseTemporary.data.data
@@ -52,7 +53,7 @@ const TimelinePage = () => {
             <DynamicHead type={'timeline'}/>
             <div className={`page timelinePage`}>
                 <TimelineSectionPrimary />
-                {/*<TimelineSectionSecondary />*/}
+                <TimelineSectionSecondary />
             </div>
         </>
     )

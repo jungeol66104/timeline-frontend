@@ -20,16 +20,7 @@ const Information = () => {
                 </div>
                 <div className={'mt-[6px]'}>
                     <p className={`text-md`}>
-                        Muhammad bin Salman, born in 1985, is a prominent Saudi Arabian royal and politician,
-                        known for his ambitious reform agenda and his role as Crown Prince since 2017.
-                        <br/><br/>He has spearheaded the Vision 2030 program aimed at diversifying the Saudi
-                        economy and modernizing society.
-                        <br/><br/>While praised for his efforts, he has also faced criticism for alleged human
-                        rights abuses and his involvement in controversial incidents, such as the murder of
-                        journalist Jamal Khashoggi in 2018.
-                        <br/><br/>Nonetheless, he remains a significant figure both domestically and
-                        internationally, shaping Saudi Arabia&apos;s future trajectory and its relations with
-                        the global community.
+                        Muhammad Ali, born Cassius Marcellus Clay Jr., was a legendary heavyweight boxer and activist. Renowned for his boxing skills and charismatic personality, he won numerous titles and awards. Ali&apos;s refusal to be drafted into the military during the Vietnam War and his advocacy for civil rights made him an iconic figure in history.
                     </p>
                 </div>
             </div>

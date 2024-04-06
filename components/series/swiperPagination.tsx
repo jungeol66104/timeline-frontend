@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Image from "next/image";
-import {getClickOrTouch, sum} from "@/utils/global";
+import {getClickOrTouch, getIsTouchable, sum} from "@/utils/global";
 
 const SwiperPagination = ({swiperContainerRef} : {swiperContainerRef: React.RefObject<HTMLDivElement>}) => {
     const [showPagination, setShowPagination] = useState(false)
@@ -25,7 +25,7 @@ const SwiperPagination = ({swiperContainerRef} : {swiperContainerRef: React.RefO
 
     useEffect(() => {
         const swiperContainer = swiperContainerRef.current
-        if (getClickOrTouch() !== 'click') return
+        if (getIsTouchable()) return
         if (!swiperContainer) return
 
         const handleResize = () => {
@@ -63,7 +63,7 @@ const SwiperPagination = ({swiperContainerRef} : {swiperContainerRef: React.RefO
     }
 
     return (
-        <div className={`flex gap-2.5 ${(!showPagination || isTouch) && 'hidden'}`}>
+        <div className={`flex gap-2.5 ${(!showPagination) && 'hidden'}`}>
             <button onClick={() => handleClick('prev')} className={`flex items-center justify-center w-8 h-8 max-[525px]:w-6 max-[525px]:h-6 rounded-full border-[1px] border-gray-200 bg-white ${scrollPosition === 'start' ? 'opacity-30' : 'hover:bg-gray-100'}`}><Image src={'/svg/before.svg'} alt={'before'} height={20} width={20} className={'opacity-80'} /></button>
             <button onClick={() => handleClick('next')} className={`flex items-center justify-center w-8 h-8 max-[525px]:w-6 max-[525px]:h-6 rounded-full border-[1px] border-gray-200 bg-white ${scrollPosition === 'end' ? 'opacity-30' : 'hover:bg-gray-100'}`}><Image src={'/svg/after.svg'} alt={'after'} height={20} width={20} className={'opacity-80'} /></button>
         </div>

@@ -24,7 +24,7 @@ html, body, #__next, .layout, .page {
     scrollbar-gutter: stable;
     overflow-y: scroll;
 }
-.indexPage {
+.indexPage, .seriesPage {
     flex-direction: column;
 }
 
@@ -37,7 +37,14 @@ html, body, #__next, .layout, .page {
         align-items: center;
     }
 }
-@media (min-width: 850px) {
+@media (max-width: 908px) {
+    .timelinePage, .eventPage {
+        flex-direction: column;
+        justify-content: start;
+    }
+}
+
+@media (min-width: 1033px) {
     .timelinePage, .eventPage, .informationPage {
         justify-content: start;
         padding-left: 125px;

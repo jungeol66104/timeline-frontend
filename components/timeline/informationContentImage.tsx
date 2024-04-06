@@ -5,8 +5,10 @@ import {getIsBaseImage, mapStrToNum, ratioToImageSizeType} from "@/utils/global"
 import Image from "next/image";
 
 
-const InformationContentImage = ({timeline, imageSizeType}: {timeline: Timeline, imageSizeType: string}) => {
+const InformationContentImage = ({timeline}: {timeline: Timeline}) => {
     const isBaseImage = getIsBaseImage(timeline.image)
+    let imageSizeType = 'square'
+    if (timeline.imageSize) imageSizeType = ratioToImageSizeType(timeline.imageSize)
 
     return (
         <div className={`relative float-right ${imageSizeType === 'horizontal' ? 'w-[120px] h-[100px] min-[432px]:w-[144px] min-[432px]:h-[120px]' : imageSizeType === 'vertical' ? 'w-[100px] h-[120px] min-[432px]:w-[100px] min-[432px]:h-[120px]' : 'w-[100px] h-[100px] min-[432px]:w-[120px] min-[432px]:h-[120px]'} ml-2.5 shrink-0`}>
