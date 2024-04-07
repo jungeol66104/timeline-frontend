@@ -1,9 +1,8 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React from 'react';
 import InformationContentImage from "@/components/timeline/informationContentImage";
 import Link from "next/link";
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {ratioToImageSizeType} from "@/utils/global";
 
 const InformationContent = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)

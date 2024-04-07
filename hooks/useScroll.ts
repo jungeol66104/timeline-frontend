@@ -28,7 +28,7 @@ export const useScrollForTimeline = () => {
         const eventBoxes = typeof window !== 'undefined' ? document.querySelectorAll('.eventBox') : null
         if (!scrollWrapper || !eventBoxes) return
 
-        if (lastAction === 'scroll') {
+        if (lastAction === 'scroll' && previousTop !== -99999) {
             let eventBoxHeights = Array.from(eventBoxes).map(eventBox => eventBox.clientHeight)
             let eventBoxTops = eventBoxHeights.map((_, i) => sum(eventBoxHeights.slice(0,i)))
             let order = currentEvents.findIndex(cEvent => cEvent.id === pivotEvent.id)
@@ -38,7 +38,7 @@ export const useScrollForTimeline = () => {
             scrollWrapper.style.overflowY = 'hidden'
             scrollWrapper.scrollTop = newScrollTop
             scrollWrapper.style.overflowY = 'scroll'
-        } else if (lastAction === 'zoom') {
+        } else {
             scrollWrapper.style.overflowY = 'hidden'
             scrollWrapper.scrollTop = 0
             scrollWrapper.style.overflowY = 'scroll'

@@ -7,25 +7,27 @@ import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateIs404} from "@/
 import DynamicHead from "@/components/dynamicHead";
 import Information from "@/components/information/information";
 import TimelineSectionSecondary from "@/components/timeline/timelineSectionSecondary";
+import probe from "probe-image-size";
 
 export const getStaticPaths = async () => {
-    const response = await api.get('/timeline', {headers: {lang: 'en'}})
-    const timelines: any[] = response.data.data.slice(0, 1)
-    const timelineIds = timelines.map(timeline => timeline.id)
-    const paths = timelineIds.map(timelineId => ({ params: {information: String(timelineId)}}))
-    return {paths, fallback: 'blocking'}
+    // const response = await api.get('/timeline', {headers: {lang: 'en'}})
+    // const timelines: any[] = response.data.data.slice(0, 1)
+    // const timelineIds = timelines.map(timeline => timeline.id)
+    // const paths = timelineIds.map(timelineId => ({ params: {information: String(timelineId)}}))
+    return {paths: [], fallback: 'blocking'}
 }
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
     try {
         const response = await api.get(`/timeline/${Number(params?.information)}?timelineId=${Number(params?.information)}&depth=0&time=0`, {headers: {lang: 'en'}})
         if (response.data.code === 69999) store.dispatch(updateIs404(true))
-        const newCurrentTimeline = response.data.data.timelineInfo
+        const currentTimeline = response.data.data.timelineInfo
         const newMaxDepth = response.data.data.maxDepth
         const newIsTopEnd = response.data.data.isTopEnd
         const newIsBottomEnd = response.data.data.isBottomEnd
         let newCurrentEvents = response.data.data.events as TimelineEvent[]
-        store.dispatch(updateCurrentTimeline(newCurrentTimeline))
+        currentTimeline.imageSize = await probe(currentTimeline.image)
+        store.dispatch(updateCurrentTimeline(currentTimeline))
         store.dispatch(updateMaxDepth(newMaxDepth))
         store.dispatch(updateIsTopEnd(newIsTopEnd))
         store.dispatch(updateIsBottomEnd(newIsBottomEnd))

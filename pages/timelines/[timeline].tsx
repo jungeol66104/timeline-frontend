@@ -22,12 +22,13 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
     try {
         const response = await api.get(`/timeline/${Number(params?.timeline)}?timelineId=${Number(params?.timeline)}&depth=0&time=0`, {headers: {lang: 'en'}})
         if (response.data.code === 69999) store.dispatch(updateIs404(true))
+        const data = response.data.data
         const currentTimeline = response.data.data.timelineInfo
         const maxDepth = response.data.data.maxDepth
         const isTopEnd = response.data.data.isTopEnd
         const isBottomEnd = response.data.data.isBottomEnd
         let currentEvents = response.data.data.events as TimelineEvent[]
-        currentTimeline.imageSize = await probe(currentTimeline.image)
+        currentTimeline.imageSize = await probe(data.timelineInfo.image)
         store.dispatch(updateCurrentTimeline(currentTimeline))
         store.dispatch(updateMaxDepth(maxDepth))
         store.dispatch(updateIsTopEnd(isTopEnd))

@@ -53,7 +53,7 @@ const useOperateTimelineTest = () => {
             let firstEventBoxOffsetTop = getFirstEventBox()?.offsetTop as number
             let top = eventBoxTops[order] + firstEventBoxOffsetTop + timelineOffsetTop - scrollWrapper.scrollTop
             let targetEvent = {...currentEvents[order], top: top}
-            if (scrollDirection === 'uppermost') targetEvent = {...targetEvent, top: -1, ephemerisTime: "0"}
+            if (scrollDirection === 'uppermost') targetEvent = {...targetEvent, top: -99999, ephemerisTime: "0"}
             return targetEvent
         }
         const fetchEvents = async (depth: number, targetEvent: TimelineEvent) => {

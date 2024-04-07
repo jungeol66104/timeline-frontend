@@ -16,7 +16,7 @@ const RelatedTimeline = () => {
 
                     return (
                         <Link key={i} href={`/timelines/${tI.id}`} className={'h-[65px] w-fit max-w-[300px] bg-white shadow-md rounded-lg border-[1px] flex gap-2.5 items-center px-2.5'}>
-                            <div className={'shrink-0 w-[45px] h-[45px]'}>
+                            <div className={'relative shrink-0 w-[45px] h-[45px]'}>
                                 {isBaseImage
                                     ?   <>
                                             <div className={'relative w-full h-full rounded-md bg-gray-500 text-white flex items-center justify-center text-lg font-medium'}>
@@ -24,7 +24,7 @@ const RelatedTimeline = () => {
                                                 <Image src={`/images/base-image/base-image${mapStrToNum(tI.name)}.jpg`} alt={'base-image'} width={45} height={45} priority={true} className={'rounded-md'} />
                                             </div>
                                         </>
-                                    :   <Image src={tI.image} alt={tI.name} width={45} height={45} className={'rounded-md'}/>
+                                    :   <Image src={tI.image} alt={tI.name} className={'rounded-md'} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}}/>
                                 }
                             </div>
                             <div>

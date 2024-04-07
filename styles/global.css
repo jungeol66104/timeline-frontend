@@ -41,6 +41,7 @@ html, body, #__next, .layout, .page {
     .timelinePage, .eventPage {
         flex-direction: column;
         justify-content: start;
+        align-items: center;
     }
 }
 
