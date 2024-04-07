@@ -1,7 +1,7 @@
 import {useEffect, useLayoutEffect} from 'react';
 import {useSelector} from "react-redux";
-import {selectIsTopEnd, selectLastAction, selectPreviousTop, selectScrollTop} from "@/store/slices/appearanceSlice";
-import {getScrollWrapper, sum} from "@/utils/global";
+import {selectLastAction, selectPreviousTop, selectScrollTop} from "@/store/slices/appearanceSlice";
+import {getScrollWrapper, getFirstEventBox, sum, getTimeline} from "@/utils/global";
 import {selectCurrentEvents, selectPivotEvent} from "@/store/slices/contentsSlice";
 
 export const useScroll = () => {
@@ -19,25 +19,26 @@ export const useScroll = () => {
 
 export const useScrollForTimeline = () => {
     const currentEvents = useSelector(selectCurrentEvents)
-    const pivotEvent = useSelector(selectPivotEvent)
+    const pivotEvent = useSelector(selectPivotEvent) || {id: 0}
     const previousTop = useSelector(selectPreviousTop)
     const lastAction = useSelector(selectLastAction)
-    const isTopEnd = useSelector(selectIsTopEnd)
 
     useEffect(() => {
         const scrollWrapper = getScrollWrapper()
         const eventBoxes = typeof window !== 'undefined' ? document.querySelectorAll('.eventBox') : null
         if (!scrollWrapper || !eventBoxes) return
 
-        if (lastAction === 'scroll' && previousTop > -1) {
+        if (lastAction === 'scroll') {
             let eventBoxHeights = Array.from(eventBoxes).map(eventBox => eventBox.clientHeight)
             let eventBoxTops = eventBoxHeights.map((_, i) => sum(eventBoxHeights.slice(0,i)))
             let order = currentEvents.findIndex(cEvent => cEvent.id === pivotEvent.id)
-            let newScrollTop = isTopEnd ? eventBoxTops[order] + 60 + 250 - previousTop : eventBoxTops[order] + 60 - previousTop
+            let timelineOffsetTop = getTimeline()?.offsetTop as number
+            let firstEventBoxOffsetTop = getFirstEventBox()?.offsetTop as number
+            let newScrollTop = eventBoxTops[order] + firstEventBoxOffsetTop + timelineOffsetTop - previousTop
             scrollWrapper.style.overflowY = 'hidden'
             scrollWrapper.scrollTop = newScrollTop
             scrollWrapper.style.overflowY = 'scroll'
-        } else if (lastAction === 'zoom' || previousTop === -1) {
+        } else if (lastAction === 'zoom') {
             scrollWrapper.style.overflowY = 'hidden'
             scrollWrapper.scrollTop = 0
             scrollWrapper.style.overflowY = 'scroll'

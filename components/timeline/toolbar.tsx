@@ -10,14 +10,14 @@ const Toolbar = () => {
     const isSmallToolbar = maxDepth === 0
 
     return (
-        <div className={`sticky bottom-[18px] w-full`} style={{zIndex: 4998}}>
+        <div className={`sticky bottom-0 w-full`} style={{zIndex: 4998}}>
             {isSmallToolbar
-                ? <div className={'toolbar absolute right-0 bottom-0 flex border-[0.1px] border-gray-300 rounded-lg bg-white drop-shadow-md h-[40px] w-[40px]'}>
+                ? <div className={'toolbar absolute right-0 bottom-[20px] flex border-[0.1px] border-gray-300 rounded-lg bg-white drop-shadow-md h-[40px] w-[40px]'}>
                     <button className={'toolbarButton uppermost flex items-center justify-center w-[40px]'}>
                         <div><Image src={NorthSVG} alt={'uppermost'} height={20} width={20}/></div>
                     </button>
                 </div>
-                : <div className={'toolbar absolute right-0 bottom-0 flex border-[0.1px] border-gray-300 rounded-lg bg-white drop-shadow-md h-[40px] w-[120px]'}>
+                : <div className={'toolbar absolute right-0 bottom-[20px] flex border-[0.1px] border-gray-300 rounded-lg bg-white drop-shadow-md h-[40px] w-[120px]'}>
                     {currentDepth === maxDepth
                         ?   <button className={'toolbarButton summary flex items-center justify-center text-sm font-medium w-[80px]'}>Summary</button>
                             :   <button className={'toolbarButton showAll flex items-center justify-center text-sm font-medium w-[80px]'}>Show All</button>

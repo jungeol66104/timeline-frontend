@@ -26,6 +26,16 @@ export const getScrollWrapper = () => {
     return scrollWrapper
 }
 
+export const getTimeline = () => {
+    const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
+    return timeline
+}
+
+export const getFirstEventBox = () => {
+    const eventBox: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.eventBox') : null
+    return eventBox
+}
+
 export const getIsBaseImage = (url: string | null | undefined) => {
     if (typeof url !== "string") return true
     return url.includes("https://cdn.timeline.vg/base-image.png")
@@ -56,17 +66,8 @@ export const mapStrToNum = (inputString : string) => {
     return Number((hashedNumber % BigInt(4)) + BigInt(1));
 }
 
-// export const ratioToImageSizeType = (imageUrl: string, callback: (aspectRatio: string) => void): void => {
-//     const img = new Image();
-//     img.onload = () => {
-//         const ratio = img.naturalWidth / img.naturalHeight;
-//         const imageSizeType = ratio === 1 ? 'square' : ratio > 1 ? 'horizontal' : 'vertical'
-//         callback(imageSizeType);
-//     }
-//     img.src = imageUrl;
-// }
-
 export const ratioToImageSizeType = (imageSize: {width: number, height: number}) => {
     const ratio = imageSize.width / imageSize.height
     return ratio === 1 ? 'square' : ratio > 1 ? 'horizontal' : 'vertical'
 }
+

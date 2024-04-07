@@ -46,21 +46,22 @@ const TimelineListRelated = () => {
         const swiperContainer = swiperContainerRef.current
         if (!swiperContainer) return
 
-        const swiperContainerChildren = Array.from(swiperContainer.children)
-        const childWidths = swiperContainerChildren.map(child => child.clientWidth)
-        const childLefts = swiperContainerChildren.map((_, i) => sum(childWidths.slice(0,i)))
+        const containerWidth = swiperContainer.clientWidth
+        const containerScrollWidth = swiperContainer.scrollWidth
+        const containerScrollLeft = swiperContainer.scrollLeft
+
+        const containerChildren = Array.from(swiperContainer.children as unknown as HTMLDivElement[])
+        const childLefts = containerChildren.map(child => child.offsetLeft)
+        const childRights = containerChildren.map(child => containerWidth - child.offsetLeft - child.offsetWidth)
 
         if (direction === 'prev') {
-            let targetIndexForPrev = childLefts.findIndex(left => left >= swiperContainer.scrollLeft)
-            if (targetIndexForPrev % 2 !== 0) targetIndexForPrev += 1
-            swiperContainerChildren[targetIndexForPrev].scrollIntoView({inline: "end", behavior: 'smooth', block: 'nearest'})
+            const order = childRights.findIndex(right => right <= containerScrollWidth - containerScrollLeft)
+            containerChildren[order].scrollIntoView({inline: "end", behavior: 'smooth', block: 'nearest'})
         } else {
-            let targetIndexForNext = childLefts.findLastIndex(left => left < swiperContainer.scrollLeft + swiperContainer.clientWidth)
-            if (targetIndexForNext % 2 !== 0) targetIndexForNext -= 1
-            swiperContainerChildren[targetIndexForNext].scrollIntoView({inline: "start", behavior: 'smooth', block: 'nearest'})
+            const order = childLefts.findLastIndex(left => left <= containerWidth + containerScrollLeft)
+            containerChildren[order].scrollIntoView({inline: "start", behavior: 'smooth', block: 'nearest'})
         }
     }
-
     return (
         <div className={'flex flex-col'}>
             <div className={'flex items-center justify-between'}>
