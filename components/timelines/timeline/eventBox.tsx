@@ -1,7 +1,7 @@
 import React from "react";
 import {TimelineEvent} from "@/store/slices/contentsSlice";
-import EventNode from "@/components/timeline/eventNode";
-import EventContent from "@/components/timeline/eventContent";
+import EventNode from "@/components/timelines/timeline/eventNode";
+import EventContent from "@/components/timelines/timeline/eventContent";
 // refactoring: clear
 
 const EventBox = ({event} : {event: TimelineEvent}) => {

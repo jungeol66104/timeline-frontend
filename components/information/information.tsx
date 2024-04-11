@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import TimelineImage from "@/components/timelineImage";
-import TimelineListRelated from "@/components/timeline/timelineListRelated";
+import RelatedTimelines from "@/components/timelines/relatedTimelines";
 
 const Information = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
@@ -24,7 +24,7 @@ const Information = () => {
                     </p>
                 </div>
             </div>
-            <TimelineListRelated/>
+            <RelatedTimelines/>
         </div>
     );
 };

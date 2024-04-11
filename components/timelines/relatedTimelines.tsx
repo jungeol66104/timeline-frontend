@@ -1,11 +1,17 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {getClickOrTouch, getIsTouchable, sum} from "@/utils/global";
 import Image from "next/image";
+import {useSelector} from "react-redux";
+import {selectIsTopEnd} from "@/store/slices/appearanceSlice";
+import {selectRelatedTimelines} from "@/store/slices/contentsSlice";
+import Link from "next/link";
 
-const TimelineListRelated = () => {
+const RelatedTimelines = () => {
     const swiperContainerRef = useRef<HTMLDivElement>(null)
     const [scrollPosition, setScrollPosition] = useState('start');
     const [showButtons, setShowButtons] = useState(false)
+    const isTopEnd = useSelector(selectIsTopEnd)
+    const relatedTimelines = useSelector(selectRelatedTimelines)
 
     useEffect(() => {
         const swiperContainer = swiperContainerRef.current
@@ -63,7 +69,7 @@ const TimelineListRelated = () => {
         }
     }
     return (
-        <div className={'flex flex-col'}>
+        <div className={`flex flex-col ${!isTopEnd && 'hidden'}`}>
             <div className={'flex items-center justify-between'}>
                 <h3 className={'text-[20px] py-3 font-bold'}>Related</h3>
                 <div className={`flex gap-2.5 ${!showButtons && 'hidden'}`}>
@@ -72,14 +78,17 @@ const TimelineListRelated = () => {
                 </div>
             </div>
             <div ref={swiperContainerRef} className={`relatedSwiper flex gap-2 pb-3 w-full overflow-x-scroll`}>
-                <div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Saudi Arabia</div>
-                <div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>King Saud University</div>
-                <div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Neom City</div>
-                <div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Saudi Aramco</div>
-                <div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Public Investment Fund</div>
+                {relatedTimelines.map(relatedTimeline => {
+                    return <Link key={relatedTimeline.id} href={`/timelines/${relatedTimeline.id}`} className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>{relatedTimeline.name}</Link>
+                })}
+                {/*<div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Saudi Arabia</div>*/}
+                {/*<div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>King Saud University</div>*/}
+                {/*<div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Neom City</div>*/}
+                {/*<div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Saudi Aramco</div>*/}
+                {/*<div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Public Investment Fund</div>*/}
             </div>
         </div>
     );
 };
 
-export default TimelineListRelated;
+export default RelatedTimelines;

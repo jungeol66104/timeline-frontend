@@ -1,19 +1,14 @@
 import React from "react";
+import probe from "probe-image-size";
 import api from "@/utils/api"
 import {storeWrapper} from "@/store/store";
-import {TimelineEvent, updateCurrentSerieses} from "@/store/slices/contentsSlice"
-import {updateCurrentEvents, updateCurrentTimeline} from "@/store/slices/contentsSlice";
+import {updateCurrentEvents, updateCurrentTimeline, updatePopularTimelines, updateRecentTimelines, updateRelatedTimelines} from "@/store/slices/contentsSlice";
 import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateIs404} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Information from "@/components/information/information";
-import TimelineSectionSecondary from "@/components/timeline/timelineSectionSecondary";
-import probe from "probe-image-size";
+import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
 
 export const getStaticPaths = async () => {
-    // const response = await api.get('/timeline', {headers: {lang: 'en'}})
-    // const timelines: any[] = response.data.data.slice(0, 1)
-    // const timelineIds = timelines.map(timeline => timeline.id)
-    // const paths = timelineIds.map(timelineId => ({ params: {information: String(timelineId)}}))
     return {paths: [], fallback: 'blocking'}
 }
 
@@ -21,22 +16,16 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
     try {
         const response = await api.get(`/timeline/${Number(params?.information)}?timelineId=${Number(params?.information)}&depth=0&time=0`, {headers: {lang: 'en'}})
         if (response.data.code === 69999) store.dispatch(updateIs404(true))
-        const currentTimeline = response.data.data.timelineInfo
-        const newMaxDepth = response.data.data.maxDepth
-        const newIsTopEnd = response.data.data.isTopEnd
-        const newIsBottomEnd = response.data.data.isBottomEnd
-        let newCurrentEvents = response.data.data.events as TimelineEvent[]
-        currentTimeline.imageSize = await probe(currentTimeline.image)
-        store.dispatch(updateCurrentTimeline(currentTimeline))
-        store.dispatch(updateMaxDepth(newMaxDepth))
-        store.dispatch(updateIsTopEnd(newIsTopEnd))
-        store.dispatch(updateIsBottomEnd(newIsBottomEnd))
-        store.dispatch(updateCurrentEvents(newCurrentEvents))
-
-        const responseTemporary = await api.get('/series', {headers: {lang: 'en'}})
-        let series = responseTemporary.data.data
-        store.dispatch(updateCurrentSerieses(series))
-
+        const data = response.data.data
+        data.timelineInfo.imageSize = await probe(data.timelineInfo.image)
+        store.dispatch(updateCurrentTimeline(data.timelineInfo))
+        store.dispatch(updateRelatedTimelines(data.relatedTimelines))
+        store.dispatch(updateRecentTimelines(data.recentTimelines))
+        store.dispatch(updatePopularTimelines(data.popularTimelines))
+        store.dispatch(updateMaxDepth(data.maxDepth))
+        store.dispatch(updateIsTopEnd(data.isTopEnd))
+        store.dispatch(updateIsBottomEnd(data.isBottomEnd))
+        store.dispatch(updateCurrentEvents(data.events))
         return {props: {}, revalidate:10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);
