@@ -1,6 +1,4 @@
 import React from 'react';
-import TimelineListPopular from "@/components/timeline/timelineListPopular";
-import TimelineListRecentlyAdded from "@/components/timeline/timelineListRecentlyAdded";
 import {useSelector} from "react-redux";
 import {selectIsBottomEnd} from "@/store/slices/appearanceSlice";
 import {selectPopularTimelines, selectRecentTimelines} from "@/store/slices/contentsSlice";

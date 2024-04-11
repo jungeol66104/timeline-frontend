@@ -3,8 +3,8 @@ import React from "react";
 import {storeWrapper} from "@/store/store";
 import {updateCurrentEvent} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
-import Event from "@/components/event/event"
-import RelatedTimeline from "@/components/event/relatedTimeline";
+import Event from "@/components/events/event"
+import RelatedTimeline from "@/components/events/relatedTimeline";
 import {updateIs404} from "@/store/slices/appearanceSlice";
 
 export const getStaticPaths = async () => {
