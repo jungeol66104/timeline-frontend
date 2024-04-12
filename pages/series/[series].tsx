@@ -3,11 +3,12 @@ import React from "react";
 import {storeWrapper} from "@/store/store";
 import {selectCurrentSeries, SeriesTimeline, updateCurrentSeries} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
-import {updateCurrentPage, updateIs404, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
-import {useSelector} from "react-redux";
+import {selectAllTimelinesType, updateAllTimelinesType, updateCurrentPage, updateIs404, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
+import {useDispatch, useSelector} from "react-redux";
 import SeriesCard from "@/components/series/seriesCard";
 import SeriesBottom from "@/components/series/seriesBottom";
 import useOperateSeries from "@/hooks/useOperateSeries";
+import AllTimelinesTypeButtons from "@/components/series/allTimelinesTypeButtons";
 
 export const getStaticPaths = async () => {
     const response = await api.get('/series', {headers: {lang: 'en'}})
@@ -33,6 +34,8 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({par
 })
 
 const SeriesPage = () => {
+    const dispatch = useDispatch()
+    const allTimelinesType = useSelector(selectAllTimelinesType)
     const currentSeries = useSelector(selectCurrentSeries)
     const timelines: SeriesTimeline[] = currentSeries.timelineList
 
@@ -41,18 +44,19 @@ const SeriesPage = () => {
     return (
         <>
             <DynamicHead type={'series'}/>
-            <div className={'page seriesPage pt-5 items-center'}>
-                <div className={'seriesHeader w-full pl-4'}>
+            <div className={'page seriesPage items-center'}>
+                <div className={'seriesHeader flex flex-col gap-2.5 w-full py-4 pl-4'}>
                     <div className={'flex items-center justify-between'}>
                         <div className={'text-2xl font-bold'}>{currentSeries.name}</div>
                     </div>
+                    <AllTimelinesTypeButtons />
                 </div>
-                <div className={'seriesBody w-full mt-2.5 px-4 grid grid-cols-5 gap-4'}>
+                <div className={'seriesBody w-full px-4 grid grid-cols-5 gap-4'}>
                     {timelines.map((timeline, i) => {
                         return <SeriesCard key={i} timeline={timeline}/>
                     })}
                 </div>
-                <SeriesBottom />
+                <SeriesBottom/>
             </div>
         </>
     )

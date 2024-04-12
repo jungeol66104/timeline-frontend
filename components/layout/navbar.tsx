@@ -1,5 +1,5 @@
 import React from "react";
-import TimelineInformationHeader from "@/components/layout/timelineInformationHeader";
+import InformationHeader from "@/components/layout/informationHeader";
 import Link from "next/link";
 import ComputerSearchBar from "@/components/layout/search/ComputerSearchBar";
 import ShareButton from "@/components/layout/share/shareButton";
@@ -27,7 +27,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
-            <TimelineInformationHeader/>
+            <InformationHeader/>
         </>
     )
 }
