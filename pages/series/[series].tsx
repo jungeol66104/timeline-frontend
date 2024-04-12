@@ -56,6 +56,7 @@ const SeriesPage = () => {
                         return <SeriesCard key={i} timeline={timeline}/>
                     })}
                 </div>
+
                 <SeriesBottom/>
             </div>
         </>
