@@ -49,7 +49,7 @@ const SeriesPage = () => {
                     <div className={'flex items-center justify-between'}>
                         <div className={'text-2xl font-bold'}>{currentSeries.name}</div>
                     </div>
-                    <AllTimelinesTypeButtons />
+                    {/*<AllTimelinesTypeButtons />*/}
                 </div>
                 <div className={'seriesBody w-full px-4 grid grid-cols-5 gap-4'}>
                     {timelines.map((timeline, i) => {
