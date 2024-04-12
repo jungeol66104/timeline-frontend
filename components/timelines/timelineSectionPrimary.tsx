@@ -9,9 +9,7 @@ const TimelineSectionPrimary = () => {
     return (
         <div className={'relative w-full max-w-[600px] p-4 max-[908px]:pb-0'}>
             <TimelineInformation />
-            <hr/>
             <RelatedTimelines />
-            <hr/>
             <Timeline />
             <Toolbar />
         </div>

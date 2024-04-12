@@ -9,12 +9,13 @@ const TimelineInformation = () => {
     const isTopEnd = useSelector(selectIsTopEnd)
 
     return (
-        <div className={`timelineInformation mb-3 ${!isTopEnd && 'hidden'}`}>
+        <div className={`timelineInformation ${!isTopEnd && 'hidden'}`}>
             <div>
                 <h1 className={'text-2xl font-bold'}>{currentTimeline.name}</h1>
                 <div className={'text-md text-gray-500'}>{currentTimeline.description}</div>
             </div>
-            <InformationContent />
+            <InformationContent/>
+            <hr/>
         </div>
     )
 }

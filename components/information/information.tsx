@@ -18,12 +18,11 @@ const Information = () => {
                         <div className={'my-1 text-gray-500 font-medium text-sm'}><span>by Timeline · January 14, 2024</span></div>
                     </div>
                 </div>
-                <div className={'mt-[6px]'}>
-                    <p className={`text-md`}>
-                        Muhammad Ali, born Cassius Marcellus Clay Jr., was a legendary heavyweight boxer and activist. Renowned for his boxing skills and charismatic personality, he won numerous titles and awards. Ali&apos;s refusal to be drafted into the military during the Vietnam War and his advocacy for civil rights made him an iconic figure in history.
-                    </p>
+                <div className={'mt-[6px] mb-3'}>
+                    <p className={`text-md`}>{currentTimeline.content}</p>
                 </div>
             </div>
+            <hr />
             <RelatedTimelines/>
         </div>
     );

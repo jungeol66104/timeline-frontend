@@ -1,11 +1,11 @@
 import React from 'react';
+import Link from "next/link";
 import Image from "next/image";
 import {getIsBaseImage, mapStrToNum} from "@/utils/global";
-import Link from "next/link";
 
 const TimelineListTemplate = ({title, timelines}: {title: string, timelines: any[]}) => {
     return (
-        <div>
+        <div className={'mb-3'}>
             <h3 className={'text-[20px] font-bold py-3'}>{title}</h3>
             {timelines.map((timeline, i) => {
                 const isBaseImage = getIsBaseImage(timeline.image)

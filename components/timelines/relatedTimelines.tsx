@@ -81,12 +81,8 @@ const RelatedTimelines = () => {
                 {relatedTimelines.map(relatedTimeline => {
                     return <Link key={relatedTimeline.id} href={`/timelines/${relatedTimeline.id}`} className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>{relatedTimeline.name}</Link>
                 })}
-                {/*<div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Saudi Arabia</div>*/}
-                {/*<div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>King Saud University</div>*/}
-                {/*<div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Neom City</div>*/}
-                {/*<div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Saudi Aramco</div>*/}
-                {/*<div className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>Public Investment Fund</div>*/}
             </div>
+            <hr />
         </div>
     );
 };

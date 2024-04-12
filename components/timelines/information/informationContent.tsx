@@ -8,7 +8,7 @@ const InformationContent = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     return (
-        <div className={'mt-2.5'}>
+        <div className={'mt-2.5 mb-3'}>
             <InformationContentImage timeline={currentTimeline}/>
             <div className={'h-[120px]'}>
                 <p className={`text-sm line-clamp-5`}>{currentTimeline.content}</p>

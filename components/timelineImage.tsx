@@ -11,11 +11,11 @@ const TimelineImage = ({timeline, size} : {timeline: Timeline, size: number}) =>
     return (
         <div className={`relative shrink-0 ${imageSizeType === 'horizontal' ? 'w-[240px] h-[200px]' : imageSizeType === 'vertical' ? 'w-[200px] h-[240px]' : 'w-[200px] h-[200px]'}`}>
             {isBaseImage
-                ? <><div className={'relative w-full h-full rounded-sm bg-gray-500 text-white flex items-center justify-center text-sm font-medium'}>
-                        <span className={'absolute'}>{timeline.name.charAt(0).toUpperCase()}</span>
-                        <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} width={250} height={250} priority={true} className={'rounded-md'}/>
+                ? <><div className={'relative w-full h-full rounded-lg bg-gray-500 text-white flex items-center justify-center'}>
+                        <div className={'absolute text-md font-medium text-center opacity-50'}>No Image</div>
+                        <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} width={250} height={250} priority={true} className={'rounded-lg'}/>
                     </div></>
-                : <Image className={'rounded-md shrink-0'} src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}}/>
+                : <Image className={'rounded-lg shrink-0'} src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}}/>
             }
         </div>
     );
