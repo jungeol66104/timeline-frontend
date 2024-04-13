@@ -18,7 +18,7 @@ const useOperateSeries = () => {
             try {
                 const response = await api.get(`/series/${currentSeries.id}?pageNum=${currentPage + 1}&pageSize=20`, {headers: {lang: 'en'}})
                 const newSeries = response.data.data
-                return {...currentSeries, timelineList: [...currentSeries.timelineList, ...newSeries.timelineList]}
+                return {...currentSeries, timelineList: [...new Set([...currentSeries.timelineList, ...newSeries.timelineList])]}
             } catch (error) {
                 console.error('Error fetching data in useEffect: ', error);
                 return

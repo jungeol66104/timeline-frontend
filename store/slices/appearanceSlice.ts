@@ -1,18 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
-// refactoring: needed (separation logic maybe?)
 
 // values before any dispatch
 const initialState = {
     aboveTimelineHeight: 70,
-    eventBoxHeight: 124,
-    overlapBottom: 6,
     timelineEdgeHeight: 60,
     maxDepth: 1,
     currentDepth: 0,
     isTopEnd: true,
     isBottomEnd: true,
     currentPage: 1,
+    allTimelinesType: 'recent',
     lastAction: 'render',
     scrollTop: 0,
     previousTop: 0,
@@ -39,6 +37,9 @@ const appearanceSlice = createSlice({
         updateCurrentPage: (state, action) => {
             state.currentPage = action.payload
         },
+        updateAllTimelinesType: (state, action) => {
+            state.allTimelinesType = action.payload
+        },
         updateMaxDepth: (state, action) => {
             state.maxDepth = action.payload
         },
@@ -50,9 +51,6 @@ const appearanceSlice = createSlice({
         },
         updateLastAction: (state, action) => {
             state.lastAction = action.payload
-        },
-        updateTotalHeight: (state, action) => {
-            state.totalHeight = action.payload
         },
         updateIsTimelineInfo: state => {
             state.isTimelineInfo = !state.isTimelineInfo
@@ -66,23 +64,21 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, updateCurrentDepth, updateMaxDepth, updateCurrentPage, updateScrollTop, updatePreviousTop, updateLastAction, updateTotalHeight, updateIsTimelineInfo} = appearanceSlice.actions;
+export const {updateAllTimelinesType, updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, updateCurrentDepth, updateMaxDepth, updateCurrentPage, updatePreviousTop, updateLastAction} = appearanceSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
 export const selectAboveTimelineHeight = (state: RootState) => state.appearance.aboveTimelineHeight
-export const selectEventBoxHeight = (state: RootState) => state.appearance.eventBoxHeight
-export const selectOverlapBottom = (state: RootState) => state.appearance.overlapBottom
 export const selectTimelineEdgeHeight = (state: RootState) => state.appearance.timelineEdgeHeight
 export const selectIsTopEnd = (state: RootState) => state.appearance.isTopEnd
 export const selectIsBottomEnd = (state: RootState) => state.appearance.isBottomEnd
 export const selectCurrentDepth = (state: RootState) => state.appearance.currentDepth
 export const selectMaxDepth = (state: RootState) => state.appearance.maxDepth
 export const selectCurrentPage = (state: RootState) => state.appearance.currentPage
+export const selectAllTimelinesType = (state: RootState) => state.appearance.allTimelinesType
 export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectPreviousTop = (state: RootState) => state.appearance.previousTop
 export const selectLastAction = (state: RootState) => state.appearance.lastAction
-export const selectTotalHeight = (state: RootState) => state.appearance.totalHeight
 export const selectIsShare = (state: RootState) => state.appearance.isShare
 export const selectIs404 = (state: RootState) => state.appearance.is404
 
@@ -91,19 +87,17 @@ export interface initialAppearanceState {
     // fixed
     aboveTimelineHeight: number
     timelineEdgeHeight: number
-    eventBoxHeight: number
-    overlapBottom: number
-    // timeline info
+    // info
     maxDepth: number
     currentDepth: number
     isTopEnd: boolean
     isBottomEnd: boolean
     currentPage: number
+    allTimelinesType: 'popular' | 'recent'
     // for effects
     scrollTop: number
     lastAction: string
     previousTop: number
-    totalHeight: number
     isTimelineInfo: boolean
     isShare: boolean
     is404: boolean

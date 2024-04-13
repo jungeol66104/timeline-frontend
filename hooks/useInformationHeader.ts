@@ -3,31 +3,38 @@ import {useRouter} from "next/router";
 import {useSelector} from "react-redux";
 import {selectIsTopEnd} from "@/store/slices/appearanceSlice";
 import {getScrollWrapper} from "@/utils/global";
+import {selectCurrentSeries, selectCurrentTimeline} from "@/store/slices/contentsSlice";
 
 const useInformationHeader = () => {
     const router = useRouter();
     const isTimeline = router.pathname.startsWith('/timelines')
+    const isSeries = router.pathname.startsWith('/series')
+    const showInformationHeader = isTimeline || isSeries
+    const currentTimeline = useSelector(selectCurrentTimeline)
+    const currentSeries = useSelector(selectCurrentSeries)
     const isTopEnd = useSelector(selectIsTopEnd)
 
     useEffect(() => {
         const scrollWrapper = getScrollWrapper()
-        const timelineInformationHeader : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineInformationHeader') : null
-        if (!scrollWrapper || !timelineInformationHeader) return
+        const informationHeader : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.informationHeader') : null
+        const informationHeaderName : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.informationHeaderName') : null
+        if (!scrollWrapper || !informationHeader || !informationHeaderName) return
 
         const handleScroll = () => {
-            if ((scrollWrapper.scrollTop > 50 || !isTopEnd) && isTimeline) {
-                if(!timelineInformationHeader.classList.contains("flex")) {
-                    timelineInformationHeader.classList.remove("hidden");
-                    timelineInformationHeader.classList.add("flex");
+            if ((scrollWrapper.scrollTop > 50 || !isTopEnd) && showInformationHeader) {
+                if(!informationHeader.classList.contains("flex")) {
+                    informationHeader.classList.remove("hidden");
+                    informationHeader.classList.add("flex");
                 }
             } else {
-                if (!timelineInformationHeader.classList.contains("hidden")) {
-                    timelineInformationHeader.classList.remove("flex");
-                    timelineInformationHeader.classList.add("hidden");
+                if (!informationHeader.classList.contains("hidden")) {
+                    informationHeader.classList.remove("flex");
+                    informationHeader.classList.add("hidden");
                 }
             }
         }
 
+        informationHeaderName.innerHTML = isTimeline ? currentTimeline.name : currentSeries.name
         handleScroll()
         scrollWrapper.addEventListener("scroll", handleScroll)
         return () => {

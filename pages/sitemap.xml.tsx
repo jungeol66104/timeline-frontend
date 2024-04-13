@@ -3,8 +3,8 @@ import api from "@/utils/api";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     if (res) {
-        const timelineResponse = await api.get('/timeline', {headers: {lang: 'en'}})
-        const timelines: any[] = timelineResponse.data.data
+        const response = await api.get('/timeline/all?searchType=0&pageNum=1&pageSize=all', {headers: {lang: 'en'}})
+        const timelines: any[] = response.data.data
         const timelineIds = timelines.map(timeline => timeline.id)
         const urls = [...timelineIds.map(timelineId => `https://timeline.vg/timelines/${timelineId}`)]
 

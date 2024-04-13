@@ -1,5 +1,3 @@
-/* refactoring: clear */
-
 /* font */
 @import url('./font.css');
 
@@ -23,26 +21,39 @@ html, body, #__next, .layout, .page {
 .page {
     position: relative;
     display: flex;
-    flex-direction: column;
     scrollbar-gutter: stable;
     overflow-y: scroll;
 }
+.indexPage, .seriesPage {
+    flex-direction: column;
+}
 
 /* layout responsive */
-@media (min-width: 670px) {
+/*@media (min-width: 600px) {*/
+/*    .timelinePage, .eventPage, .informationPage {*/
+/*        justify-content: center;*/
+/*    }*/
+/*    .timelineInformationHeader {*/
+/*        align-items: center;*/
+/*    }*/
+/*}*/
+@media (max-width: 908px) {
     .timelinePage, .eventPage {
+        flex-direction: column;
+        justify-content: start;
         align-items: center;
     }
     .timelineInformationHeader {
         align-items: center;
     }
 }
-@media (min-width: 850px) {
-    .timelinePage, .eventPage {
-        align-items: start;
+
+@media (min-width: 1033px) {
+    .timelinePage, .eventPage, .informationPage {
+        justify-content: start;
         padding-left: 125px;
     }
-    .timelineInformationHeader {
+    .informationHeader {
         align-items: start;
         padding-left: 125px;
     }
@@ -58,6 +69,20 @@ html, body, #__next, .layout, .page {
         padding-left: 125px;
     }
 }
+
+/* timeline */
+/* Hide scrollbar for Chrome, Safari and Opera */
+.relatedSwiper::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.relatedSwiper {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
 
 /* series */
 .hideScrollbar::-webkit-scrollbar {

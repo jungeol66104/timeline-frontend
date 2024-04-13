@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
-// refactoring: clear
 
 // values before any dispatch
 const initialState = {
-    currentTimeline: {id: 1, name: '', description: '', image: ''},
+    currentTimeline: {id: 1, name: '', description: '', image: '', content: null},
     currentTimelines: [],
+    relatedTimelines: [],
+    recentTimelines: [],
+    popularTimelines: [],
     currentEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, importance: 0, depth: 0, timelineInfo: [], overlap: 0, isToggle: false, toggleEvents: []},
     currentEvents: [],
-    currentEventsWithEffect: [],
     previousEvents: [],
     currentSerieses: [],
     currentSeries: {},
@@ -26,6 +27,15 @@ const contentsSlice = createSlice({
         updateCurrentTimelines: (state, action) => {
             state.currentTimelines = action.payload
         },
+        updateRelatedTimelines: (state, action) => {
+            state.relatedTimelines = action.payload
+        },
+        updateRecentTimelines: (state, action) => {
+            state.recentTimelines = action.payload
+        },
+        updatePopularTimelines: (state, action) => {
+            state.popularTimelines = action.payload
+        },
         updateCurrentEvent: (state, action) => {
             state.currentEvent = action.payload
         },
@@ -35,17 +45,8 @@ const contentsSlice = createSlice({
         updateCurrentEvents: (state, action) => {
             state.currentEvents = action.payload
         },
-        updateCurrentEventsWithEffect: (state, action) => {
-            state.currentEventsWithEffect = action.payload
-        },
         updatePreviousEvents: (state, action) => {
             state.previousEvents = action.payload
-        },
-        updateIsToggle: (state, action) => {
-            state.currentEvents[action.payload].isToggle =  !state.currentEvents[action.payload].isToggle
-        },
-        updateToggleEvents: (state, action) => {
-            state.currentEvents[action.payload.order].toggleEvents = action.payload.toggleEvents
         },
         updateCurrentSerieses: (state, action) => {
             state.currentSerieses = action.payload
@@ -56,31 +57,42 @@ const contentsSlice = createSlice({
     },
 });
 export default contentsSlice.reducer;
-export const {updatePivotEvent, updateCurrentTimeline, updateCurrentTimelines, updateCurrentEvent, updateCurrentEvents, updateCurrentEventsWithEffect, updatePreviousEvents, updateIsToggle, updateToggleEvents, updateCurrentSerieses, updateCurrentSeries } = contentsSlice.actions;
+export const {updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines ,updatePivotEvent, updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents, updatePreviousEvents, updateCurrentSerieses, updateCurrentSeries } = contentsSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
 export const selectCurrentTimeline = (state: RootState) => state.contents.currentTimeline
-export const selectCurrentTimelines = (state: RootState) => state.contents.currentTimelines
+export const selectRelatedTimelines = (state: RootState) => state.contents.relatedTimelines
+export const selectPopularTimelines = (state: RootState) => state.contents.popularTimelines
+export const selectRecentTimelines = (state: RootState) => state.contents.recentTimelines
 export const selectCurrentEvent = (state: RootState) => state.contents.currentEvent
-export const selectPivotEvent = (state: RootState) => state.contents.pivotEvent
 export const selectCurrentEvents = (state: RootState) => state.contents.currentEvents
-export const selectCurrentEventsWithEffect = (state: RootState) => state.contents.currentEventsWithEffect
-export const selectPreviousEvents = (state: RootState) => state.contents.previousEvents
 export const selectCurrentSeries = (state: RootState) => state.contents.currentSeries
 export const selectCurrentSerieses = (state: RootState) => state.contents.currentSerieses
+export const selectPivotEvent = (state: RootState) => state.contents.pivotEvent
 
 // types
 export interface initialContentsState {
-    currentTimeline: {id: number, name: string, description: string, image: string}
+    currentTimeline: Timeline
     currentTimelines: any[]
+    relatedTimelines: any[],
+    recentTimelines: any[],
+    popularTimelines: any[],
     currentEvent: TimelineEvent,
     currentEvents: TimelineEvent[],
-    currentEventsWithEffect: TimelineEvent[],
     previousEvents: TimelineEvent[],
     currentSerieses: any[]
     currentSeries: any
     pivotEvent: TimelineEvent
+}
+
+export interface Timeline {
+    id: number
+    name: string
+    description: string
+    content: string | null
+    image: string
+    imageSize?: {width: number, height: number}
 }
 
 export interface TimelineEvent {
@@ -93,13 +105,8 @@ export interface TimelineEvent {
     overlap?: number
     depth?: number
     distance?: number
-    animation?: string
-    isToggle?: boolean
-    toggleEvents?: any[]
     order?: number
     top?: number
-    boxTop?: number
-    fadeout?: boolean
     prev?: boolean
     blank?: boolean
     new?: boolean

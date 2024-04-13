@@ -3,19 +3,12 @@ import React from "react";
 import {storeWrapper} from "@/store/store";
 import {updateCurrentEvent} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
-import Event from "@/components/event/event"
-import RelatedTimeline from "@/components/event/relatedTimeline";
+import Event from "@/components/events/event"
+import RelatedTimeline from "@/components/events/relatedTimeline";
 import {updateIs404} from "@/store/slices/appearanceSlice";
 
 export const getStaticPaths = async () => {
-    const response = await api.get('/event', {headers: {lang: 'en'}})
-    const events: any[] = response.data.data.slice(0, 11)
-    const eventIds = events.map(event => event.id)
-    const paths = eventIds.map(eventId => ({ params: {event: String(eventId) }}))
-    return {
-        paths,
-        fallback: 'blocking'
-    }
+    return {paths: [], fallback: 'blocking'}
 }
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({params}) => {
@@ -36,7 +29,7 @@ const EventPage = () => {
         <>
             <DynamicHead type={'event'}/>
             <div className={'page eventPage'}>
-                <div className={'w-full max-w-[670px] mt-5 mb-5 z-40 flex flex-col gap-10 px-[20px]'}>
+                <div className={'w-full max-w-[600px] p-4 flex flex-col gap-10'}>
                     <Event />
                     <RelatedTimeline />
                 </div>

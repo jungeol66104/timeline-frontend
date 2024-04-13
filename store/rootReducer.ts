@@ -3,7 +3,6 @@ import {HYDRATE} from "next-redux-wrapper";
 import contentsSlice, {initialContentsState} from "@/store/slices/contentsSlice";
 import appearanceSlice, {initialAppearanceState} from "@/store/slices/appearanceSlice";
 import searchSlice, {initialSearchState} from "@/store/slices/searchSlice";
-// refactoring: clear
 
 // integrates all slices
 const rootReducer: Reducer = (state: initialState, action: AnyAction): CombinedState<initialState> => {
