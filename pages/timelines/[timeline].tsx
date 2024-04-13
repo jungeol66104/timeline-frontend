@@ -9,15 +9,6 @@ import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimar
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
 import {useScrollForTimeline} from "@/hooks/useScroll";
 
-// export const getStaticPaths = async () => {
-//     const response = await api.get('/timeline/all?searchType=0&pageNum=1&pageSize=all', {headers: {lang: 'en'}})
-//     const timelines: any[] = response.data.data
-//     // const timelines: any[] = response.data.data.slice(0, 10)
-//     const timelineIds = timelines.map(timeline => timeline.id)
-//     const paths = timelineIds.map(timelineId => ({ params: {timeline: String(timelineId)}}))
-//     return {paths, fallback: 'blocking'}
-// }
-
 export const getStaticPaths = async () => {
     return {paths: [], fallback: 'blocking'}
 }
