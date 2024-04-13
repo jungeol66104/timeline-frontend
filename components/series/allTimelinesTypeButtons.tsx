@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
 import {selectAllTimelinesType, updateAllTimelinesType} from "@/store/slices/appearanceSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {TimelineEvent, updateCurrentTimelines} from "@/store/slices/contentsSlice";
+import api from "@/utils/api";
 
 const AllTimelinesTypeButtons = () => {
     const dispatch = useDispatch()
@@ -10,13 +12,29 @@ const AllTimelinesTypeButtons = () => {
         const typeButtons: NodeListOf<HTMLButtonElement> | null = typeof window !== 'undefined' ? document.querySelectorAll('.typeButton') : null
         if (!typeButtons) return
 
+        const fetchTimelines = async (type: string) => {
+            const typeNum = type === 'recent' ? 0 : 1
+            try {
+                const response = await api.get(`/timeline/all?searchType=${typeNum}&pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
+                return response.data.data.events as TimelineEvent[]
+            } catch (error) {
+                console.error('Error fetching data in useEffect: ', error)
+                return []
+            }
+        }
         const handleClick = async (e: MouseEvent) => {
             const typeButton = e.currentTarget as HTMLButtonElement
             const classNames = typeButton.classList
             if (classNames.contains('recent')) {
-                dispatch(updateAllTimelinesType('recent'))
+                fetchTimelines('recent').then((fetchedTimelines) => {
+                    dispatch(updateCurrentTimelines(fetchedTimelines))
+                    dispatch(updateAllTimelinesType('recent'))
+                })
             } else {
-                dispatch(updateAllTimelinesType('popular'))
+                fetchTimelines('popular').then((fetchedTimelines) => {
+                    dispatch(updateCurrentTimelines(fetchedTimelines))
+                    dispatch(updateAllTimelinesType('popular'))
+                })
             }
         }
         typeButtons?.forEach(typeButton => typeButton.addEventListener('click', handleClick))

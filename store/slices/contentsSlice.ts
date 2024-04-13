@@ -57,7 +57,7 @@ const contentsSlice = createSlice({
     },
 });
 export default contentsSlice.reducer;
-export const {updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines ,updatePivotEvent, updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents, updatePreviousEvents, updateCurrentSerieses, updateCurrentSeries } = contentsSlice.actions;
+export const {updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines ,updatePivotEvent, updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents, updatePreviousEvents, updateCurrentSerieses, updateCurrentSeries } = contentsSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors

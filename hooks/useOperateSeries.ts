@@ -2,7 +2,7 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import api from "@/utils/api";
 import {debounce, getScrollWrapper} from "@/utils/global";
-import {selectCurrentSeries, SeriesTimeline, updateCurrentSeries} from "@/store/slices/contentsSlice";
+import {selectCurrentSeries, updateCurrentSeries} from "@/store/slices/contentsSlice";
 import {selectCurrentPage, updateCurrentPage, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
 
 const useOperateSeries = () => {
