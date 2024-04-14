@@ -21,6 +21,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async (cont
 export default function Home() {
     const currentSerieses = useSelector(selectCurrentSerieses)
 
+
     return (
         <>
             <DynamicHead type={'index'}/>
