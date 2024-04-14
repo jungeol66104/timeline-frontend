@@ -38,10 +38,10 @@ export const useScrollForTimeline = () => {
             scrollWrapper.style.overflowY = 'hidden'
             scrollWrapper.scrollTop = newScrollTop
             scrollWrapper.style.overflowY = 'scroll'
-        } else {
+        } else if (lastAction === 'zoom' || previousTop === -99999){
             scrollWrapper.style.overflowY = 'hidden'
             scrollWrapper.scrollTop = 0
             scrollWrapper.style.overflowY = 'scroll'
         }
-    }, [pivotEvent])
+    }, [pivotEvent, previousTop, lastAction, currentEvents])
 }
