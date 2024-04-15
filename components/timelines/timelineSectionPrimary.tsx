@@ -15,7 +15,6 @@ const TimelineSectionPrimary = () => {
             <Timeline />
             <Toolbar />
         </div>
-    );
-};
-
+    )
+}
 export default TimelineSectionPrimary;
