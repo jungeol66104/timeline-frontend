@@ -4,6 +4,8 @@ import Image from "next/image";
 import {getIsBaseImage, mapStrToNum} from "@/utils/global";
 
 const TimelineListTemplate = ({title, timelines}: {title: string, timelines: any[]}) => {
+    const href = title === 'Recently Added' ? '/series/recent' : '/series/popular'
+
     return (
         <div className={'mb-3'}>
             <h3 className={'text-[20px] font-bold py-3'}>{title}</h3>
@@ -27,10 +29,9 @@ const TimelineListTemplate = ({title, timelines}: {title: string, timelines: any
                             }
                         </div>
                     </Link>
-                )
-            })
+                )})
             }
-            <Link href={'/series/3'} className={'text-sm text-blue-700 hover:underline py-2'}>Show more</Link>
+            <Link href={href} className={'text-sm text-blue-700 hover:underline py-2'}>Show more</Link>
         </div>
     );
 };
