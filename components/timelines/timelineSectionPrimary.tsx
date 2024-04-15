@@ -17,4 +17,5 @@ const TimelineSectionPrimary = () => {
         </div>
     )
 }
+
 export default TimelineSectionPrimary;
