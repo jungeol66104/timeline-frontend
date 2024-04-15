@@ -11,7 +11,7 @@ const TimelineSectionPrimary = () => {
         <div className={'relative h-fit w-full max-w-[600px] px-4 pt-4 pb-0'}>
             <TimelineInformation />
             <RelatedTimelines />
-            <RecentNews />
+            {/*<RecentNews />*/}
             <Timeline />
             <Toolbar />
         </div>

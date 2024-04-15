@@ -16,12 +16,21 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({params}) => {
     try {
-        const response = await api.get(`/series/${Number(params?.series)}?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
-        if (response.data.code === 69999) store.dispatch(updateIs404(true))
-        let newCurrentSeries = response.data.data
-        store.dispatch(updateCurrentSeries({...newCurrentSeries, id: Number(params?.series)}))
+        let series: {id: number, name: string, description: string, timelineList: any[], totalPage:number} = {id: 0, name: "", description: "", timelineList: [], totalPage: 0}
+        if (isNaN(Number(params?.series))) {
+            const requestType = params?.series === 'recent' ? 0 : 1
+            const allTimelinesType = params?.series
+            const response = await api.get(`/timeline?requestType=${requestType}&pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
+            series = {...response.data.data, name: "All Timelines", description: "", id: 0}
+            store.dispatch(updateAllTimelinesType(allTimelinesType))
+        } else {
+            const response = await api.get(`/series/${Number(params?.series)}?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
+            if (response.data.code === 69999) store.dispatch(updateIs404(true))
+            series = {...response.data.data, id: Number(params?.series)}
+        }
+        store.dispatch(updateCurrentSeries(series))
         store.dispatch(updateCurrentPage(1))
-        store.dispatch(updateIsBottomEnd(newCurrentSeries.totalPage === 1))
+        store.dispatch(updateIsBottomEnd(series.totalPage === 1))
         return {props: {}, revalidate: 10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);
@@ -45,7 +54,7 @@ const SeriesPage = () => {
                     <div className={'flex items-center justify-between'}>
                         <div className={'text-2xl font-bold'}>{currentSeries.name}</div>
                     </div>
-                    {/*<AllTimelinesTypeButtons />*/}
+                    {currentSeries.id === 0 &&  <AllTimelinesTypeButtons />}
                 </div>
                 <div className={'seriesBody w-full px-4 grid grid-cols-5 gap-4'}>
                     {timelines.map((timeline, i) => {
