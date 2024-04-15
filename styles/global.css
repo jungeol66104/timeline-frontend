@@ -24,40 +24,49 @@ html, body, #__next, .layout, .page {
     scrollbar-gutter: stable;
     overflow-y: scroll;
 }
+
 .indexPage, .seriesPage {
     flex-direction: column;
 }
 
 /* layout responsive */
-/*@media (min-width: 600px) {*/
-/*    .timelinePage, .eventPage, .informationPage {*/
-/*        justify-content: center;*/
-/*    }*/
-/*    .timelineInformationHeader {*/
-/*        align-items: center;*/
-/*    }*/
-/*}*/
-@media (max-width: 908px) {
-    .timelinePage, .eventPage {
+/* timeline, information */
+@media (min-width: 0px) and (max-width: 928px) {
+    .timelinePage, .informationPage, .informationHeader {
         flex-direction: column;
         justify-content: start;
         align-items: center;
     }
-    .timelineInformationHeader {
-        align-items: center;
+}
+@media (min-width: 928px) and (max-width: 1208px) {
+    .timelinePage, .informationPage, .informationHeader {
+        flex-direction: row;
+        justify-content: center;
     }
 }
-
-@media (min-width: 1033px) {
-    .timelinePage, .eventPage, .informationPage {
+@media (min-width: 1208px) {
+    .timelinePage, .informationPage, .informationHeader {
         justify-content: start;
         padding-left: 125px;
     }
-    .informationHeader {
-        align-items: start;
+}
+
+/* event */
+@media (min-width: 0px) and (max-width: 928px) {
+    .eventPage {
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+    }
+}
+@media (min-width: 928px) {
+    .eventPage {
+        justify-content: start;
         padding-left: 125px;
     }
 }
+
+/* index, series */
 @media (min-width: 996px) {
     .indexPage, .seriesPage {
         align-items: center;
@@ -81,8 +90,6 @@ html, body, #__next, .layout, .page {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
-
-
 
 /* series */
 .hideScrollbar::-webkit-scrollbar {

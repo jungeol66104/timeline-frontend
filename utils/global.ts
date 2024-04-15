@@ -71,3 +71,11 @@ export const ratioToImageSizeType = (imageSize: {width: number, height: number})
     return ratio === 1 ? 'square' : ratio > 1 ? 'horizontal' : 'vertical'
 }
 
+export const getDateToday = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`
+}
+
