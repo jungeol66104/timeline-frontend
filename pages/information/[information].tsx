@@ -39,7 +39,7 @@ const InformationPage = () => {
             <DynamicHead type={'timeline'}/>
             <div className={'page informationPage'}>
                 <Information />
-                {/*<TimelineSectionSecondary />*/}
+                <TimelineSectionSecondary />
             </div>
         </>
     )

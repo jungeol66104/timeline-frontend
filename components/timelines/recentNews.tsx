@@ -29,14 +29,15 @@ const RecentNews = () => {
 
                 return (
                     <Link key={article.id} href={'/'} className={`px-3 py-2 mb-3 border-[1px] ${isToday ? 'border-red-300' : 'border-gray-300'} rounded-lg hover:bg-gray-100 ${!isToggle && i !== 0 && 'hidden'}`}>
-                        <div className={`flex gap-1 items-center ${!isToday && 'hidden'}`}>
-                            <span className={'font-semibold text-sm text-red-700'}>Today</span>
-                            <div className={'h-1.5 w-1.5 rounded-full bg-red-700'}></div>
-                        </div>
+                        {isToday
+                            ?   <div className={`flex gap-1.5 items-center`}><span className={'font-semibold text-sm text-red-700'}>Today</span><div className={'h-1.5 w-1.5 rounded-full bg-red-700'}></div></div>
+                            :   <div className={'flex justify-center items-center h-5 w-fit font-semibold text-xs text-gray-500'}><span>{article.publishedAt}</span></div>
+                        }
                         <div className={'font-medium min-h-[48px]'}>{article.title}</div>
-                        <div className={'mt-1 flex gap-1 text-xs text-gray-500'}><span className={'font-medium'}>{article.publishedAt}</span>·<span>{article.source}</span>·<span>{article.author}</span></div>
+                        <div className={'mt-1 flex gap-1 text-xs text-gray-500'}><span>{article.source}</span>·<span>{article.author}</span></div>
                     </Link>
-                )})
+                )
+            })
             }
             <hr/>
         </div>

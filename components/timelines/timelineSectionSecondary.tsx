@@ -11,7 +11,7 @@ const TimelineSectionSecondary = () => {
 
 
     return (
-        <div className={`w-full min-w-[300px] max-w-[350px] ml-2 p-4 max-[908px]:max-w-[600px] max-[908px]:ml-0 max-[908px]:py-0 ${!isBottomEnd && 'max-[908px]:hidden'}`}>
+        <div className={`w-full min-w-[300px] max-w-[350px] ml-2 p-4 max-[928px]:max-w-[600px] max-[928px]:ml-0 max-[928px]:py-0 ${!isBottomEnd && 'max-[928px]:hidden'}`}>
             <hr/>
             <TimelineListTemplate title={'Popular'} timelines={popularTimelines} />
             <hr/>
