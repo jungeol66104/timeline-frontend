@@ -29,26 +29,27 @@ html, body, #__next, .layout, .page {
 }
 
 /* layout responsive */
-/*@media (min-width: 600px) {*/
-/*    .timelinePage, .eventPage, .informationPage {*/
-/*        justify-content: center;*/
-/*    }*/
-/*    .timelineInformationHeader {*/
-/*        align-items: center;*/
-/*    }*/
-/*}*/
-@media (max-width: 908px) {
-    .timelinePage, .eventPage {
+/* timeline, event, information */
+@media (min-width: 0px) and (max-width: 928px){
+    .timelinePage, .eventPage, .informationPage {
         flex-direction: column;
         justify-content: start;
         align-items: center;
     }
-    .timelineInformationHeader {
+    .informationHeader {
         align-items: center;
     }
 }
-
-@media (min-width: 1033px) {
+@media (min-width: 928px) and (max-width: 1208px){
+    .timelinePage, .eventPage, .informationPage {
+        flex-direction: row;
+        justify-content: center;
+    }
+    .informationHeader {
+        align-items: center;
+    }
+}
+@media (min-width: 1208px) {
     .timelinePage, .eventPage, .informationPage {
         justify-content: start;
         padding-left: 125px;
@@ -58,6 +59,8 @@ html, body, #__next, .layout, .page {
         padding-left: 125px;
     }
 }
+
+/* index, series */
 @media (min-width: 996px) {
     .indexPage, .seriesPage {
         align-items: center;

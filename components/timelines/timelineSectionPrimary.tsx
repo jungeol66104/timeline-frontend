@@ -3,6 +3,7 @@ import TimelineInformation from "@/components/timelines/information/timelineInfo
 import Timeline from "@/components/timelines/timeline/timeline";
 import Toolbar from "@/components/timelines/timeline/toolbar";
 import RelatedTimelines from "@/components/timelines/relatedTimelines";
+import RecentNews from "@/components/timelines/recentNews";
 // timelineInformation, timeline, toolbar, relatedTimelines
 
 const TimelineSectionPrimary = () => {
@@ -10,6 +11,7 @@ const TimelineSectionPrimary = () => {
         <div className={'relative w-full max-w-[600px] p-4 max-[908px]:pb-0'}>
             <TimelineInformation />
             <RelatedTimelines />
+            <RecentNews />
             <Timeline />
             <Toolbar />
         </div>

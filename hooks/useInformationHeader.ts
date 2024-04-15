@@ -8,7 +8,8 @@ import {selectCurrentSeries, selectCurrentTimeline} from "@/store/slices/content
 const useInformationHeader = () => {
     const router = useRouter();
     const isTimeline = router.pathname.startsWith('/timelines')
-    const isSeries = router.pathname.startsWith('/series')
+    const isSeries = false
+    // const isSeries = router.pathname.startsWith('/series')
     const showInformationHeader = isTimeline || isSeries
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentSeries = useSelector(selectCurrentSeries)
