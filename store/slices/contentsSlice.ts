@@ -8,6 +8,7 @@ const initialState = {
     relatedTimelines: [],
     recentTimelines: [],
     popularTimelines: [],
+    relatedNews: [],
     currentEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, importance: 0, depth: 0, timelineInfo: [], overlap: 0, isToggle: false, toggleEvents: []},
     currentEvents: [],
     previousEvents: [],
@@ -36,6 +37,9 @@ const contentsSlice = createSlice({
         updatePopularTimelines: (state, action) => {
             state.popularTimelines = action.payload
         },
+        updateRelatedNews: (state, action) => {
+            state.relatedNews = action.payload
+        },
         updateCurrentEvent: (state, action) => {
             state.currentEvent = action.payload
         },
@@ -57,7 +61,7 @@ const contentsSlice = createSlice({
     },
 });
 export default contentsSlice.reducer;
-export const {updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines ,updatePivotEvent, updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents, updatePreviousEvents, updateCurrentSerieses, updateCurrentSeries } = contentsSlice.actions;
+export const {updateRelatedNews, updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines ,updatePivotEvent, updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents, updatePreviousEvents, updateCurrentSerieses, updateCurrentSeries } = contentsSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
@@ -70,6 +74,7 @@ export const selectCurrentEvents = (state: RootState) => state.contents.currentE
 export const selectCurrentSeries = (state: RootState) => state.contents.currentSeries
 export const selectCurrentSerieses = (state: RootState) => state.contents.currentSerieses
 export const selectPivotEvent = (state: RootState) => state.contents.pivotEvent
+export const selectRelatedNews = (state: RootState) => state.contents.relatedNews
 
 // types
 export interface initialContentsState {
@@ -78,6 +83,7 @@ export interface initialContentsState {
     relatedTimelines: any[],
     recentTimelines: any[],
     popularTimelines: any[],
+    relatedNews: any[],
     currentEvent: TimelineEvent,
     currentEvents: TimelineEvent[],
     previousEvents: TimelineEvent[],
