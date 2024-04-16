@@ -26,15 +26,19 @@ const RecentNews = () => {
             {recentNews.map((article, i) => {
                 const isToday = article.live
 
+                const handleClick = () => {
+                    window.open(article.url, '_blank', );
+                }
+
                 return (
-                    <Link key={article.id} href={'/'} className={`px-3 py-2 mb-3 border-[1px] ${isToday ? 'border-red-300' : 'border-gray-300'} rounded-lg hover:bg-gray-100 ${!isToggle && i !== 0 && 'hidden'}`}>
+                    <div key={article.id} onClick={handleClick} className={`cursor-pointer px-3 py-2 mb-3 border-[1px] ${isToday ? 'border-red-300' : 'border-gray-300'} rounded-lg hover:bg-gray-100 ${!isToggle && i !== 0 && 'hidden'}`}>
                         {isToday
                             ?   <div className={`flex gap-1.5 items-center`}><span className={'font-semibold text-sm text-red-700'}>Today</span><div className={'h-1.5 w-1.5 rounded-full bg-red-700'}></div></div>
                             :   <div className={'flex justify-center items-center h-5 w-fit font-semibold text-xs text-gray-500'}><span>{formatArticleDate(article.date)}</span></div>
                         }
                         <div className={'font-medium min-h-[48px]'}>{article.title}</div>
                         <div className={'mt-1 flex gap-1 text-xs text-gray-500'}><span>{article.platform}</span>·<span>{article.author}</span></div>
-                    </Link>
+                    </div>
                 )
             })
             }
