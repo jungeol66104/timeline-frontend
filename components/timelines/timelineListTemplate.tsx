@@ -7,13 +7,13 @@ const TimelineListTemplate = ({title, timelines}: {title: string, timelines: any
     const href = title === 'Recently Added' ? '/series/recent' : '/series/popular'
 
     return (
-        <div className={'mb-3'}>
+        <div className={'relative mb-3'}>
             <h3 className={'text-[20px] font-bold py-3'}>{title}</h3>
             {timelines.map((timeline, i) => {
                 const isBaseImage = getIsBaseImage(timeline.image)
 
                 return (
-                    <Link key={i} href={`/timelines/${timeline.id}`} className={'py-2 flex justify-between hover:underline'}>
+                    <Link key={i} href={`/timelines/${timeline.id}`} className={'relative py-2 flex justify-between hover:underline'}>
                         <div>
                             <div className={'font-medium line-clamp-1'}>{timeline.name}</div>
                             <div className={'line-clamp-1 text-sm text-gray-500'}>{timeline.description}</div>
