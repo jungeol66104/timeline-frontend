@@ -5,7 +5,6 @@ import {useSelector} from "react-redux";
 import {selectIsTopEnd} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimeline, selectRelatedNews} from "@/store/slices/contentsSlice";
 import {formatArticleDate} from "@/utils/global";
-import {length} from "axios";
 
 const RecentNews = () => {
     let currentTimeline = useSelector(selectCurrentTimeline)
