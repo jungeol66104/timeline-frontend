@@ -20,7 +20,7 @@ const RecentNews = () => {
     return (
         <div className={`flex flex-col ${(!isTopEnd || recentNews.length <= 0) && 'hidden'}`}>
             <div className={'flex items-center justify-between'}>
-                <h3 className={'text-[20px] py-3 font-bold'}>Recent News</h3>
+                <h3 className={'text-[20px] py-3 font-bold'}>News</h3>
                 <button onClick={handleClick} className={`flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white hover:bg-gray-100`}><Image src={'/svg/before.svg'} alt={'before'} height={20} width={20} className={`opacity-80 ${isToggle ? 'rotate-90' : '-rotate-90'}`}/></button>
             </div>
             {recentNews.map((article, i) => {
