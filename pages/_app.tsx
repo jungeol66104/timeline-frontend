@@ -6,7 +6,6 @@ import Layout from '@/components/layout/layout'
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import * as gtag from "../utils/gtags"
-import HotjarScript from "@/components/hotjarScript";
 
 function App({ Component, ...rest }: AppProps) {
     const {store, props} = storeWrapper.useWrappedStore(rest)

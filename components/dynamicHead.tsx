@@ -2,7 +2,6 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import Head from 'next/head'
 import {selectCurrentEvent, selectCurrentEvents, selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import HotjarScript from "@/components/hotjarScript";
 // refactoring: needed (make perfect description for the page)
 
 const DynamicHead = ({type}: {type: string} ) => {
