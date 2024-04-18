@@ -1,6 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 import {GA_TRACKING_ID} from "@/utils/gtags";
-import HotjarScript from "@/components/hotjarScript";
 import React from "react";
 // refactoring: needed (look around if there is anything that I can implement)
 
