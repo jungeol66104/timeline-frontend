@@ -3,7 +3,7 @@ import {Provider} from "react-redux";
 import type { AppProps } from 'next/app'
 import {storeWrapper} from '@/store/store'
 import Layout from '@/components/layout/layout'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import * as gtag from "../utils/gtags"
 
