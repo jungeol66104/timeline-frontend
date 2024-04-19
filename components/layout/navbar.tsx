@@ -1,11 +1,12 @@
 import React from "react";
-import InformationHeader from "@/components/layout/informationHeader";
+import InformationBar from "@/components/layout/informationBar";
 import Link from "next/link";
 import ComputerSearchBar from "@/components/layout/search/ComputerSearchBar";
 import ShareButton from "@/components/layout/share/shareButton";
 import FeedbackButton from "@/components/layout/feedbackButton";
 import MenuButton from "@/components/layout/menuButton";
 import SearchButton from "@/components/layout/search/searchButton";
+import CategoryBar from "@/components/layout/categoryBar";
 // refactoring: clear
 
 const Navbar = () => {
@@ -27,7 +28,8 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
-            <InformationHeader/>
+            <CategoryBar />
+            <InformationBar/>
         </>
     )
 }

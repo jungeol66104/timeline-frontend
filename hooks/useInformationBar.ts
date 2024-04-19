@@ -5,7 +5,7 @@ import {selectIsTopEnd} from "@/store/slices/appearanceSlice";
 import {getScrollWrapper} from "@/utils/global";
 import {selectCurrentSeries, selectCurrentTimeline} from "@/store/slices/contentsSlice";
 
-const useInformationHeader = () => {
+const useInformationBar = () => {
     const router = useRouter();
     const isTimeline = router.pathname.startsWith('/timelines')
     const isSeries = false
@@ -44,4 +44,4 @@ const useInformationHeader = () => {
     });
 };
 
-export default useInformationHeader;
+export default useInformationBar;
