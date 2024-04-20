@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
-import SwiperCard from "@/components/series/swiperCard";
-import SwiperPagination from "@/components/series/swiperPagination";
-import MoreButton from "@/components/series/moreButton";
+import SwiperCard from "@/_deprecated/swiperCard";
+import SwiperPagination from "@/_deprecated/swiperPagination";
+import MoreButton from "@/_deprecated/moreButton";
 import {Series} from "@/store/slices/contentsSlice";
 
 

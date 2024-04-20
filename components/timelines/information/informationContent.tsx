@@ -1,5 +1,5 @@
 import React from 'react';
-import InformationContentImage from "@/components/timelines/information/informationContentImage";
+import InformationContentImage from "@/components/images/informationContentImage";
 import Link from "next/link";
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";

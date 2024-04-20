@@ -1,16 +1,17 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import TimelineImage from "@/components/timelineImage";
+import TimelineImage from "@/components/images/timelineImage";
 import RelatedTimelines from "@/components/timelines/relatedTimelines";
+import BackToTimelineButton from "@/components/backToTimelineButton";
 
 const Information = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     return (
-        <div className={'flex flex-col justify-between h-fit w-full max-w-[600px] p-4 max-[928px]:pb-0 min-[928px]:min-h-[819px] min-[928px]:h-full'}>
+        <div className={'relative flex flex-col justify-between h-fit w-full max-w-[600px] p-4 max-[928px]:pb-0 min-[928px]:min-h-[819px] min-[928px]:h-full'}>
             <div className={'h-full flex flex-col justify-between'}>
-                <div className={'flex flex-col'}>
+                <div className={'flex flex-col items-center'}>
                     <div className={'relative flex flex-col items-center gap-4'}>
                         <TimelineImage timeline={currentTimeline} size={190}/>
                         <div className={'flex flex-col items-center'}>
@@ -22,6 +23,7 @@ const Information = () => {
                     <div className={'mt-[6px] mb-3'}>
                         <p className={`text-md`}>{currentTimeline.content}</p>
                     </div>
+                    {/*<BackToTimelineButton />*/}
                 </div>
                 <hr />
             </div>
