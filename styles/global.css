@@ -52,14 +52,14 @@ html, body, #__next, .layout, .page {
 }
 
 /* event */
-@media (min-width: 0px) and (max-width: 928px) {
+@media (min-width: 0px) and (max-width: 850px) {
     .indexPage, .categoryBar, .eventPage {
         flex-direction: column;
         justify-content: start;
         align-items: center;
     }
 }
-@media (min-width: 928px) {
+@media (min-width: 850px) {
     .indexPage, .categoryBar, .eventPage {
         justify-content: start;
         padding-left: 125px;
