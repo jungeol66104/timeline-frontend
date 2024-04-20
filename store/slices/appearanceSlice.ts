@@ -10,7 +10,10 @@ const initialState = {
     isTopEnd: true,
     isBottomEnd: true,
     currentPage: 1,
+    totalPage: 1,
     allTimelinesType: 'recent',
+    tagNum: 0,
+    currentTopic: 'popular',
     lastAction: 'render',
     scrollTop: 0,
     previousTop: 0,
@@ -37,8 +40,17 @@ const appearanceSlice = createSlice({
         updateCurrentPage: (state, action) => {
             state.currentPage = action.payload
         },
+        updateTotalPage: (state, action) => {
+            state.totalPage = action.payload
+        },
         updateAllTimelinesType: (state, action) => {
             state.allTimelinesType = action.payload
+        },
+        updateTagNum: (state, action) => {
+            state.tagNum = action.payload
+        },
+        updateCurrentTopic: (state, action) => {
+            state.currentTopic = action.payload
         },
         updateMaxDepth: (state, action) => {
             state.maxDepth = action.payload
@@ -64,7 +76,7 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateAllTimelinesType, updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, updateCurrentDepth, updateMaxDepth, updateCurrentPage, updatePreviousTop, updateLastAction} = appearanceSlice.actions;
+export const {updateTagNum, updateTotalPage, updateCurrentTopic , updateAllTimelinesType, updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, updateCurrentDepth, updateMaxDepth, updateCurrentPage, updatePreviousTop, updateLastAction} = appearanceSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
@@ -75,7 +87,10 @@ export const selectIsBottomEnd = (state: RootState) => state.appearance.isBottom
 export const selectCurrentDepth = (state: RootState) => state.appearance.currentDepth
 export const selectMaxDepth = (state: RootState) => state.appearance.maxDepth
 export const selectCurrentPage = (state: RootState) => state.appearance.currentPage
+export const selectTotalPage = (state: RootState) => state.appearance.totalPage
 export const selectAllTimelinesType = (state: RootState) => state.appearance.allTimelinesType
+export const selectTagNum = (state: RootState) => state.appearance.tagNum
+export const selectCurrentTopic = (state: RootState) => state.appearance.currentTopic
 export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectPreviousTop = (state: RootState) => state.appearance.previousTop
 export const selectLastAction = (state: RootState) => state.appearance.lastAction
@@ -93,7 +108,10 @@ export interface initialAppearanceState {
     isTopEnd: boolean
     isBottomEnd: boolean
     currentPage: number
+    totalPage: number
     allTimelinesType: 'popular' | 'recent'
+    tagNum: number
+    currentTopic: string
     // for effects
     scrollTop: number
     lastAction: string

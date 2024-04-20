@@ -6,7 +6,7 @@ import ShareButton from "@/components/layout/share/shareButton";
 import FeedbackButton from "@/components/layout/feedbackButton";
 import MenuButton from "@/components/layout/menuButton";
 import SearchButton from "@/components/layout/search/searchButton";
-import CategoryBar from "@/components/layout/categoryBar";
+import TopicBar from "@/components/layout/topicBar";
 // refactoring: clear
 
 const Navbar = () => {
@@ -28,7 +28,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
-            <CategoryBar />
+            <TopicBar />
             <InformationBar/>
         </>
     )
