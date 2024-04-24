@@ -13,7 +13,7 @@ import useOperateIndex from "@/hooks/useOperateIndex";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({query}) => {
     try {
-        const tagNum = Number(query.tagNum) || 0
+        const tagNum = Number(query.tagNum)
         const response = await api.get(`/timeline?requestType=${tagNum}&pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
         const data = response.data.data
         store.dispatch(updateCurrentTimelines(data.timelineList))
@@ -31,7 +31,6 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 
 export default function Home() {
     const currentTimelines = useSelector(selectCurrentTimelines)
-    const content = 'Mohammed bin Salman, also known as MBS, is the Crown Prince and Prime Minister of Saudi Arabia. He has implemented social and economic reforms, including improving women\'s rights and diversifying the economy. However, his government has been criticized for human rights abuses and repression of political dissidents.'
 
     useOperateIndex()
 
@@ -50,7 +49,7 @@ export default function Home() {
                                     <div className={'flex gap-1'}>
                                         <div>
                                             <div className={'text-sm text-gray-500 line-clamp-1'}>{timeline.description}</div>
-                                            <p className={'mt-1 text-sm line-clamp-3'}>{content}</p>
+                                            <p className={'mt-1 text-sm line-clamp-3'}>{timeline.content}</p>
                                         </div>
                                         <div className={'relative w-[84px] h-[84px] shrink-0'}>
                                             {isBaseImage
