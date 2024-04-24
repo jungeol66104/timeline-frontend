@@ -25,7 +25,7 @@ html, body, #__next, .layout, .page {
     overflow-y: scroll;
 }
 
-.indexPage, .seriesPage {
+.seriesPage {
     flex-direction: column;
 }
 
@@ -52,15 +52,15 @@ html, body, #__next, .layout, .page {
 }
 
 /* event */
-@media (min-width: 0px) and (max-width: 928px) {
-    .eventPage {
+@media (min-width: 0px) and (max-width: 850px) {
+    .indexPage, .categoryBar, .eventPage {
         flex-direction: column;
         justify-content: start;
         align-items: center;
     }
 }
-@media (min-width: 928px) {
-    .eventPage {
+@media (min-width: 850px) {
+    .indexPage, .categoryBar, .eventPage {
         justify-content: start;
         padding-left: 125px;
     }
@@ -68,12 +68,12 @@ html, body, #__next, .layout, .page {
 
 /* index, series */
 @media (min-width: 996px) {
-    .indexPage, .seriesPage {
+    .seriesPage {
         align-items: center;
     }
 }
 @media (min-width: 1125px) {
-    .indexPage, .seriesPage {
+    .seriesPage {
         align-items: start;
         padding-left: 125px;
     }

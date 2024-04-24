@@ -6,7 +6,7 @@ import TimelineListTemplate from "@/components/timelines/timelineListTemplate";
 import {useRouter} from "next/router";
 import {getScrollWrapper} from "@/utils/global";
 
-const TimelineSectionSecondary = () => {
+const SectionSecondary = () => {
     const router = useRouter();
     const isInformation = router.pathname.startsWith('/information')
     const popularTimelines = useSelector(selectPopularTimelines)
@@ -57,4 +57,4 @@ const TimelineSectionSecondary = () => {
     );
 };
 
-export default TimelineSectionSecondary;
+export default SectionSecondary;

@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 
-const EventBottom = ({isEnd}:{isEnd: boolean}) => {
+const TimelineBottom = ({isEnd}:{isEnd: boolean}) => {
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     return (
@@ -18,4 +18,4 @@ const EventBottom = ({isEnd}:{isEnd: boolean}) => {
     );
 };
 
-export default EventBottom;
+export default TimelineBottom;

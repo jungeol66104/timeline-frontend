@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EventTop = ({isEnd} : {isEnd: boolean}) => {
+const TimelineTop = ({isEnd} : {isEnd: boolean}) => {
     return (
         <div className={'timelineEventsTop flex items-center w-full'}>
             {isEnd
@@ -13,4 +13,4 @@ const EventTop = ({isEnd} : {isEnd: boolean}) => {
     );
 };
 
-export default EventTop;
+export default TimelineTop;

@@ -5,10 +5,10 @@ import {selectCurrentSeries, SeriesTimeline, updateCurrentSeries} from "@/store/
 import DynamicHead from "@/components/dynamicHead";
 import {selectAllTimelinesType, updateAllTimelinesType, updateCurrentPage, updateIs404, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
 import {useDispatch, useSelector} from "react-redux";
-import SeriesCard from "@/components/series/seriesCard";
-import SeriesBottom from "@/components/series/seriesBottom";
-import useOperateSeries from "@/hooks/useOperateSeries";
-import AllTimelinesTypeButtons from "@/components/series/allTimelinesTypeButtons";
+import SeriesCard from "@/_deprecated/seriesCard";
+import SeriesBottom from "@/_deprecated/seriesBottom";
+import useOperateSeries from "@/_deprecated/useOperateSeries";
+import AllTimelinesTypeButtons from "@/_deprecated/allTimelinesTypeButtons";
 
 export const getStaticPaths = async () => {
     return {paths: [], fallback: 'blocking'}

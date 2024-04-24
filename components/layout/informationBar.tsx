@@ -1,8 +1,8 @@
 import React from 'react';
-import useInformationHeader from "@/hooks/useInformationHeader";
+import useInformationBar from "@/hooks/useInformationBar";
 
-const InformationHeader = () => {
-    useInformationHeader()
+const InformationBar = () => {
+    useInformationBar()
 
     return (
         <div className={'informationHeader fixed top-[60px] pt-[5px] pb-[3px] w-full flex-col hidden bg-white border-b-[1px]'} style={{zIndex: 4999}}>
@@ -11,4 +11,4 @@ const InformationHeader = () => {
     );
 };
 
-export default InformationHeader;
+export default InformationBar;

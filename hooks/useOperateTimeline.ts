@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {debounce, getScrollWrapper, sum} from "@/utils/global";
+import {debounce, getScrollWrapper, getFirstEventBox, sum, getTimeline} from "@/utils/global";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updatePivotEvent, updatePreviousEvents} from "@/store/slices/contentsSlice";
 import {
@@ -49,9 +49,11 @@ const useOperateTimeline = () => {
             let eventBoxHeights = Array.from(eventBoxes).map(eventBox => eventBox.clientHeight)
             let eventBoxTops = eventBoxHeights.map((_, i) => sum(eventBoxHeights.slice(0,i)))
             let order = scrollDirection === 'down' ? currentEvents.length - 1 : 0
-            let top = eventBoxTops[order] + aboveTimelineHeight + timelineEdgeHeight - scrollWrapper.scrollTop
+            let timelineOffsetTop = getTimeline()?.offsetTop as number
+            let firstEventBoxOffsetTop = getFirstEventBox()?.offsetTop as number
+            let top = eventBoxTops[order] + firstEventBoxOffsetTop + timelineOffsetTop - scrollWrapper.scrollTop
             let targetEvent = {...currentEvents[order], top: top}
-            if (scrollDirection === 'uppermost') targetEvent = {...targetEvent, top: -1, ephemerisTime: "0"}
+            if (scrollDirection === 'uppermost') targetEvent = {...targetEvent, top: -99999, ephemerisTime: "0"}
             return targetEvent
         }
         const fetchEvents = async (depth: number, targetEvent: TimelineEvent) => {
@@ -98,15 +100,14 @@ const useOperateTimeline = () => {
                 dispatch(updateLastAction('scroll'))
             })
         }
-
         const handleClick = async (e: MouseEvent) => {
             const toolbarButton = e.currentTarget as HTMLButtonElement
             const classNames = toolbarButton.classList
-                if (classNames.contains('uppermost')) {
-                    operateScroll('uppermost')
-                } else {
-                    operateZoom(classNames)
-                }
+            if (classNames.contains('uppermost')) {
+                operateScroll('uppermost')
+            } else {
+                operateZoom(classNames)
+            }
         }
         const handleScroll = async () => {
             const scrollWrapper = getScrollWrapper()
@@ -125,4 +126,4 @@ const useOperateTimeline = () => {
     });
 };
 
-export default useOperateTimeline;
+export default useOperateTimeline

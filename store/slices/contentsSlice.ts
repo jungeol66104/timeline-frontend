@@ -4,8 +4,8 @@ import {RootState} from "@/store/rootReducer";
 // values before any dispatch
 const initialState = {
     currentTimeline: {id: 1, name: '', description: '', image: '', content: null},
-    currentTimelines: [],
     relatedTimelines: [],
+    currentTimelines: [],
     recentTimelines: [],
     popularTimelines: [],
     relatedNews: [],
@@ -66,6 +66,8 @@ export const {updateRelatedNews, updateCurrentTimelines, updatePopularTimelines 
 // reduces repetition inside components when selecting the specific state
 // selectors
 export const selectCurrentTimeline = (state: RootState) => state.contents.currentTimeline
+export const selectRelatedNews = (state: RootState) => state.contents.relatedNews
+export const selectCurrentTimelines = (state: RootState) => state.contents.currentTimelines
 export const selectRelatedTimelines = (state: RootState) => state.contents.relatedTimelines
 export const selectPopularTimelines = (state: RootState) => state.contents.popularTimelines
 export const selectRecentTimelines = (state: RootState) => state.contents.recentTimelines
@@ -74,7 +76,6 @@ export const selectCurrentEvents = (state: RootState) => state.contents.currentE
 export const selectCurrentSeries = (state: RootState) => state.contents.currentSeries
 export const selectCurrentSerieses = (state: RootState) => state.contents.currentSerieses
 export const selectPivotEvent = (state: RootState) => state.contents.pivotEvent
-export const selectRelatedNews = (state: RootState) => state.contents.relatedNews
 
 // types
 export interface initialContentsState {

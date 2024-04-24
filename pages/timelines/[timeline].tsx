@@ -6,7 +6,7 @@ import {updateCurrentEvents, updateCurrentTimeline, updatePopularTimelines, upda
 import {updateIs404, updateIsBottomEnd, updateIsTopEnd, updateMaxDepth} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
-import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
+import SectionSecondary from "@/components/sectionSecondary";
 import {useScrollForTimeline} from "@/hooks/useScroll";
 
 export const getStaticPaths = async () => {
@@ -43,7 +43,7 @@ const TimelinePage = () => {
             <DynamicHead type={'timeline'}/>
             <div className={`page timelinePage`}>
                 <TimelineSectionPrimary />
-                <TimelineSectionSecondary />
+                <SectionSecondary />
             </div>
         </>
     )
