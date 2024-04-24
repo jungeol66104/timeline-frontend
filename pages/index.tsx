@@ -13,7 +13,7 @@ import useOperateIndex from "@/hooks/useOperateIndex";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({query}) => {
     try {
-        const tagNum = Number(query.tagNum)
+        const tagNum = Number(query.tagNum || 1)
         const response = await api.get(`/timeline?requestType=${tagNum}&pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
         const data = response.data.data
         store.dispatch(updateCurrentTimelines(data.timelineList))
