@@ -64,7 +64,7 @@ export default function Home() {
                                         </div>
                                     </div>
                                 </div>
-                                <hr/>
+                                <hr className={'border-gray-200'}/>
                             </Link>
                         )
                     })}
