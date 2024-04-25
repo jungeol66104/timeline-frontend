@@ -45,7 +45,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
     return (
         <div className={'layout relative'}>
             <Navbar />
-            {!loading
+            {loading
                 ?   isIndexPage
                     ?   <IndexSkeleton />
                     :   <div></div>
