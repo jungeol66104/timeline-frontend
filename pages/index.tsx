@@ -37,7 +37,7 @@ export default function Home() {
     return (
         <>
             <DynamicHead type={'index'}/>
-            <div className={'page indexPage pt-[44px]'}>
+            <div className={'page indexPage pt-[46.67px]'}>
                 <div className={'relative h-fit w-full max-w-[600px] px-4 pt-1 pb-0'}>
                     {currentTimelines.map(timeline => {
                         const isBaseImage = getIsBaseImage(timeline.image)
@@ -59,7 +59,7 @@ export default function Home() {
                                                         <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} fill={true} priority={true} className={'rounded-md bg-gray-500'}/>
                                                     </div>
                                                 </>
-                                                : <Image src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}} className={'rounded-md'} />
+                                                : <Image src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}} className={'rounded-md bg-gray-200'} />
                                             }
                                         </div>
                                     </div>

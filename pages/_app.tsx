@@ -30,10 +30,11 @@ function App({ Component, ...rest }: AppProps) {
     return (
         <Provider store={store}>
             <Layout>
-                {loading
-                    ? <div></div>
-                    : <Component {...props.pageProps} />
-                }
+                {/*{loading*/}
+                {/*    ? <div></div>*/}
+                {/*    : <Component {...props.pageProps} />*/}
+                {/*}*/}
+                <Component {...props.pageProps} />
             </Layout>
         </Provider>
     )
