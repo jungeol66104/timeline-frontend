@@ -37,7 +37,7 @@ export default function Home() {
     return (
         <>
             <DynamicHead type={'index'}/>
-            <div className={'page indexPage pt-[44px]'}>
+            <div className={'page indexPage pt-[46.67px]'}>
                 <div className={'relative h-fit w-full max-w-[600px] px-4 pt-1 pb-0'}>
                     {currentTimelines.map(timeline => {
                         const isBaseImage = getIsBaseImage(timeline.image)
