@@ -10,7 +10,7 @@ const TagBar = () => {
     const currentTag = useSelector(selectCurrentTopic)
 
     return (
-        <div className={`hidden categoryBar fixed flex pt-2 pb-1.5 h-fit w-full border-b-[1px] bg-white z-[4999] ${!isIndex && 'hidden'} overflow-x-auto`}>
+        <div className={`categoryBar fixed flex pt-2 pb-1.5 h-fit w-full border-b-[1px] bg-white z-[4999] ${!isIndex && 'hidden'} overflow-x-auto`}>
             <div className={'w-full flex gap-2 px-4'}>
                 {/*<Link href={'/'} className={`h-[32px] w-fit px-3 flex items-center justify-center rounded-3xl border-[1px] ${currentTag === 'Hot' ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}><span>&#x1F525; Hot</span></Link>*/}
                 {/*<Link href={'/'} className={`h-[32px] w-fit px-3 flex items-center justify-center rounded-3xl border-[1px] ${currentTag === 'Staff Picks' ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}><span>Staff Picks</span></Link>*/}
