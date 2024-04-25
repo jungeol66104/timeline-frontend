@@ -15,12 +15,17 @@ import IndexSkeleton from "@/components/index/indexSkeleton";
 const Layout = ({ children } : {children: ReactNode}) => {
     const is404 = useSelector(selectIs404)
     const router = useRouter()
-    const isIndexPage = router.pathname === '/';
+    const [isIndexPage, setIsIndexPage] = useState(true);
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        const start = ()=> {setLoading(true)}
-        const end = () => {setLoading(false)}
+        const start = (url: string)=> {
+            setLoading(true)
+            setIsIndexPage(url.split('?')[0] === '/')
+        }
+        const end = () => {
+            setLoading(false)
+        }
 
         router.events.on("routeChangeStart", start)
         router.events.on("routeChangeComplete", end)
