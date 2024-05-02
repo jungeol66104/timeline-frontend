@@ -62,7 +62,7 @@ html, body, #__next, .layout, .page {
     }
     .tagWrapper {
         padding-left: 141px;
-        padding-right: 16px;
+        padding-right: calc(100vw - 721px)
     }
 }
 
