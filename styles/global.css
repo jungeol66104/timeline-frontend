@@ -49,7 +49,7 @@ html, body, #__next, .layout, .page {
 
 /* event */
 @media (min-width: 0px) and (max-width: 850px) {
-    .indexPage, .tagBar, .eventPage {
+    .indexPage, .eventPage {
         flex-direction: column;
         justify-content: start;
         align-items: center;
