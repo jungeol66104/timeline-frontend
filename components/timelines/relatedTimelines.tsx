@@ -58,7 +58,7 @@ const RelatedTimelines = () => {
 
         const containerChildren = Array.from(swiperContainer.children as unknown as HTMLDivElement[])
         const childLefts = containerChildren.map(child => child.offsetLeft)
-        const childRights = containerChildren.map(child => containerWidth - child.offsetLeft - child.offsetWidth)
+        const childRights = containerChildren.map(child => containerScrollWidth - child.offsetLeft - child.offsetWidth)
 
         if (direction === 'prev') {
             const order = childRights.findIndex(right => right <= containerScrollWidth - containerScrollLeft)

@@ -12,7 +12,9 @@ const TagButton = ({tagNum}: {tagNum: number}) => {
     const hiddenTagNums = [5, 7, 11, 12, 13]
 
     return (
-        <Link href={`/?tagNum=${tagNum}`} className={`${hiddenTagNums.includes(tagNum) && 'hidden'} h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] ${currentTagNum === tagNum ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}>{tagAppearance}</Link>
+        <>
+            {!hiddenTagNums.includes(tagNum) && <Link href={`/?tagNum=${tagNum}`} className={`h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] ${currentTagNum === tagNum ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}>{tagAppearance}</Link>}
+        </>
     );
 };
 

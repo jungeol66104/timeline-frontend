@@ -67,10 +67,10 @@ html, body, #__next, .layout, .page {
 }
 
 /* index */
-.tagBar::-webkit-scrollbar {
+.tagWrapper::-webkit-scrollbar {
     display: none;
 }
-.tagBar {
+.tagWrapper {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
