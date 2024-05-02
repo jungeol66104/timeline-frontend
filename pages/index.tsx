@@ -33,7 +33,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 export default function Home() {
     const currentTimelines = useSelector(selectCurrentTimelines)
 
-    // useOperateIndex()
+    useOperateIndex()
 
     return (
         <>

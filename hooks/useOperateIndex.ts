@@ -18,7 +18,9 @@ const useOperateIndex = () => {
 
         const fetchTimelines = async () => {
             try {
-                const response = await api.get(`/timeline?requestType=${tagNum}&pageNum=${currentPage + 1}&pageSize=20`, {headers: {lang: 'en'}})
+                const type = tagNum < 4 ? 'features' : 'tags'
+                const id = tagNum < 4 ? tagNum : tagNum - 3
+                const response = await api.get(`/timeline/${type}/${id}?pageNum=${currentPage + 1}&pageSize=20`, {headers: {lang: 'en'}})
                 return response.data.data
             } catch (error) {
                 console.error('Error fetching data in useEffect: ', error);
