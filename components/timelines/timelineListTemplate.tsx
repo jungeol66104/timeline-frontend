@@ -4,7 +4,7 @@ import Image from "next/image";
 import {getIsBaseImage, mapStrToNum} from "@/utils/global";
 
 const TimelineListTemplate = ({title, timelines}: {title: string, timelines: any[]}) => {
-    const href = title === 'Recently Added' ? '/?tagNum=0' : '/?tagNum=1'
+    const href = title === 'Recently Added' ? '/?tagNum=1' : '/?tagNum=2'
 
     return (
         <div className={'relative mb-3'}>
