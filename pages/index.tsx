@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {storeWrapper} from "@/store/store";
 import {selectCurrentTimelines, updateCurrentTimelines} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
-import {updateCurrentPage, updateCurrentTopic, updateIsBottomEnd, updateTagNum, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {updateCurrentPage, updateIsBottomEnd, updateTagNum, updateTotalPage} from "@/store/slices/appearanceSlice";
 import Image from "next/image";
 import {getIsBaseImage, mapStrToNum} from "@/utils/global";
 import React from "react";
@@ -13,12 +13,13 @@ import useOperateIndex from "@/hooks/useOperateIndex";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({query}) => {
     try {
-        const tagNum = Number(query.tagNum || 1)
-        const response = await api.get(`/timeline?requestType=${tagNum}&pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
+        const tagNum = Number(query.tagNum || 3)
+        const type = tagNum < 4 ? 'features' : 'tags'
+        const id = tagNum < 4 ? tagNum : tagNum - 3
+        const response = await api.get(`/timeline/${type}/${id}?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
         const data = response.data.data
         store.dispatch(updateCurrentTimelines(data.timelineList))
         store.dispatch(updateTagNum(tagNum))
-        store.dispatch(updateCurrentTopic(tagNum === 0 ? 'Recently Added' : 'Popular'))
         store.dispatch(updateCurrentPage(1))
         store.dispatch(updateTotalPage(data.totalPage))
         store.dispatch(updateIsBottomEnd(data.totalPage === 1))
@@ -32,7 +33,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 export default function Home() {
     const currentTimelines = useSelector(selectCurrentTimelines)
 
-    useOperateIndex()
+    // useOperateIndex()
 
     return (
         <>
@@ -56,10 +57,10 @@ export default function Home() {
                                                 ? <>
                                                     <div className={'absolute bottom-[1px] right-0 w-[80px] h-[80px] rounded-md text-white flex items-center justify-center'}>
                                                         {/*<span className={'absolute'}>{timeline.name.charAt(0).toUpperCase()}</span>*/}
-                                                        <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} fill={true} priority={true} className={'rounded-md bg-gray-500'}/>
+                                                        <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} fill={true} priority={true} className={'rounded-md bg-gray-100'}/>
                                                     </div>
                                                 </>
-                                                : <Image src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}} className={'rounded-md bg-gray-200'} />
+                                                : <Image src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}} className={'rounded-md bg-gray-100'} />
                                             }
                                         </div>
                                     </div>

@@ -15,9 +15,9 @@ const InformationContentImage = ({timeline}: {timeline: Timeline}) => {
             {isBaseImage
                 ? <><div className={'relative w-full h-full rounded-md flex items-center justify-center'}>
                         {/*<span className={'absolute text-white text-sm font-medium'}>{timeline.name.charAt(0).toUpperCase()}</span>*/}
-                        <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} width={144} height={144} priority={true} className={'rounded-md bg-gray-500'}/>
+                        <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} width={144} height={144} priority={true} className={'rounded-md bg-gray-100'}/>
                     </div></>
-                : <Image className={'rounded-md shrink-0'} src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}}/>
+                : <Image className={'rounded-md bg-gray-100 shrink-0'} src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}}/>
             }
         </div>
     );

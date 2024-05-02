@@ -1,21 +1,28 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import {useRouter} from "next/router";
-import Link from "next/link";
-import {useSelector} from "react-redux";
-import {selectCurrentTopic} from "@/store/slices/appearanceSlice";
+import {getTags} from "@/utils/global";
+import TagButton from "@/components/layout/tagButton";
 
 const TagBar = () => {
     const router = useRouter()
     const isIndex = router.pathname === '/'
-    const currentTag = useSelector(selectCurrentTopic)
+
+    useLayoutEffect(() => {
+        const hasQueryParams = Object.keys(router.query).length > 0;
+        const tagBar: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.tagBar') : null
+        if (!tagBar || hasQueryParams) return
+
+        tagBar.scrollLeft = 226.14
+    });
 
     return (
-        <div className={`categoryBar fixed flex pt-2 pb-1.5 h-fit w-full border-b-[1px] bg-white z-[4999] ${!isIndex && 'hidden'} overflow-x-auto`}>
-            <div className={'w-full flex gap-2 px-4'}>
-                {/*<Link href={'/'} className={`h-[32px] w-fit px-3 flex items-center justify-center rounded-3xl border-[1px] ${currentTag === 'Hot' ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}><span>&#x1F525; Hot</span></Link>*/}
-                {/*<Link href={'/'} className={`h-[32px] w-fit px-3 flex items-center justify-center rounded-3xl border-[1px] ${currentTag === 'Staff Picks' ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}><span>Staff Picks</span></Link>*/}
-                <Link href={'/?tagNum=1'} className={`h-[32px] w-fit px-3 flex items-center justify-center rounded-3xl border-[1px] ${currentTag === 'Popular' ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}><span>Popular</span></Link>
-                <Link href={'/?tagNum=0'} className={`h-[32px] w-fit px-3 flex items-center justify-center rounded-3xl border-[1px] ${currentTag === 'Recently Added' ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}><span>Recently Added</span></Link>
+        <div className={`tagBar fixed flex pt-2 pb-1.5 h-fit w-full border-b-[1px] bg-white z-[4999] ${!isIndex && 'hidden'} overflow-x-auto`}>
+            <div className={'tagWrapper shrink-0 flex gap-2 px-4'}>
+                {getTags().map((tag, i) => {
+                    return (
+                        <TagButton key={i} tagNum={i+1} />
+                    )
+                })}
             </div>
         </div>
     );
