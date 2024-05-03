@@ -13,9 +13,9 @@ const TimelineImage = ({timeline, size} : {timeline: Timeline, size: number}) =>
             {isBaseImage
                 ? <><div className={'relative w-full h-full rounded-lg bg-gray-500 text-white flex items-center justify-center'}>
                         <div className={'absolute text-md font-medium text-center opacity-50'}>No Image</div>
-                        <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} width={250} height={250} priority={true} className={'rounded-lg'}/>
+                        <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} width={250} height={250} priority={true} className={'rounded-lg bg-gray-100'}/>
                     </div></>
-                : <Image className={'rounded-lg shrink-0'} src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}}/>
+                : <Image className={'rounded-lg bg-gray-100 shrink-0'} src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}}/>
             }
         </div>
     );

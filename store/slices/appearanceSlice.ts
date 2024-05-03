@@ -89,7 +89,7 @@ export const selectMaxDepth = (state: RootState) => state.appearance.maxDepth
 export const selectCurrentPage = (state: RootState) => state.appearance.currentPage
 export const selectTotalPage = (state: RootState) => state.appearance.totalPage
 export const selectAllTimelinesType = (state: RootState) => state.appearance.allTimelinesType
-export const selectTagNum = (state: RootState) => state.appearance.tagNum
+export const selectCurrentTagNum = (state: RootState) => state.appearance.tagNum
 export const selectCurrentTopic = (state: RootState) => state.appearance.currentTopic
 export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectPreviousTop = (state: RootState) => state.appearance.previousTop

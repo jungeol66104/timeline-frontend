@@ -79,4 +79,14 @@ export const formatArticleDate = (articleDate: string) => {
     return `${year}-${month}-${day}`
 }
 
+export const getTags = () => {
+    return ["Recently Added", "Popular", "Hot", "Staff Picks", "Politics", "Biography", "History", "Sports", "Movies", "Music", "Company", "Institution", "Finance", "Business", "Economics", "Technology", "Science", "Health"]
+
+}
+
+export const getCurrentTag = (tagNum: number) => {
+    const index = tagNum - 1
+    const tags = ["Recently Added", "Popular", "Hot", "Staff Picks", "Politics", "Biography", "History", "Sports", "Movies", "Music", "Company", "Institution", "Finance", "Business", "Economics", "Technology", "Science", "Health"]
+    return tags[index]
+}
 

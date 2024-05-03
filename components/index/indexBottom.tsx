@@ -1,9 +1,11 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import {selectCurrentTopic, selectIsBottomEnd} from "@/store/slices/appearanceSlice";
+import {selectIsBottomEnd, selectCurrentTagNum} from "@/store/slices/appearanceSlice";
+import {getCurrentTag} from "@/utils/global";
 
 const IndexBottom = () => {
-    const currentTopic = useSelector(selectCurrentTopic)
+    const tagNum = useSelector(selectCurrentTagNum)
+    const currentTopic = getCurrentTag(tagNum)
     const isBottomEnd = useSelector(selectIsBottomEnd)
 
     return (

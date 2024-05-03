@@ -3,13 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 import api from "@/utils/api";
 import {debounce, getScrollWrapper} from "@/utils/global";
 import {selectCurrentTimelines, updateCurrentTimelines} from "@/store/slices/contentsSlice";
-import {selectCurrentPage, selectTagNum, selectTotalPage, updateCurrentPage, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
+import {selectCurrentPage, selectCurrentTagNum, selectTotalPage, updateCurrentPage, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
 
 const useOperateIndex = () => {
     const dispatch = useDispatch()
     const currentTimelines = useSelector(selectCurrentTimelines)
     const currentPage = useSelector(selectCurrentPage)
-    const tagNum = useSelector(selectTagNum)
+    const tagNum = useSelector(selectCurrentTagNum)
     const totalPage = useSelector(selectTotalPage)
 
     useEffect(() => {
@@ -18,7 +18,9 @@ const useOperateIndex = () => {
 
         const fetchTimelines = async () => {
             try {
-                const response = await api.get(`/timeline?requestType=${tagNum}&pageNum=${currentPage + 1}&pageSize=20`, {headers: {lang: 'en'}})
+                const type = tagNum < 4 ? 'features' : 'tags'
+                const id = tagNum < 4 ? tagNum : tagNum - 3
+                const response = await api.get(`/timeline/${type}/${id}?pageNum=${currentPage + 1}&pageSize=20`, {headers: {lang: 'en'}})
                 return response.data.data
             } catch (error) {
                 console.error('Error fetching data in useEffect: ', error);
