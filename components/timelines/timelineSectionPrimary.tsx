@@ -4,6 +4,7 @@ import Timeline from "@/components/timelines/timeline/timeline";
 import Toolbar from "@/components/timelines/timeline/toolbar";
 import RelatedTimelines from "@/components/timelines/relatedTimelines";
 import RecentNews from "@/components/timelines/recentNews";
+import TimelineTopAd from "@/components/timelines/timelineTopAd";
 // timelineInformation, timeline, toolbar, relatedTimelines
 
 const TimelineSectionPrimary = () => {
