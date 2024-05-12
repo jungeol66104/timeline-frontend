@@ -9,9 +9,7 @@ const Toolbar = () => {
     const currentEvents = useSelector(selectCurrentEvents)
     const isSummary = useSelector(selectIsSummary)
     const isSmall = isSummary && currentEvents.length < 41
-
-    useLayoutEffect(() => {
-    }, [isSummary]);
+    console.log(isSummary)
 
     return (
         <div className={`sticky bottom-0 w-full`} style={{zIndex: 4998}}>

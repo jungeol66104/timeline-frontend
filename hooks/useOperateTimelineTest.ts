@@ -35,7 +35,7 @@ const useOperateTimeline = () => {
             }
         }
 
-        const operateZoom = async (classNames: DOMTokenList) => {
+        const operateZoom = (classNames: DOMTokenList) => {
             const isSummary = classNames.contains('summary')
 
             fetchEvents(isSummary).then((data) => {
@@ -65,7 +65,7 @@ const useOperateTimeline = () => {
             if (classNames.contains('uppermost')) {
                 scrollWrapper.scrollTo({top: 0, behavior: 'smooth'})
             } else {
-                await operateZoom(classNames)
+                operateZoom(classNames)
                 scrollWrapper.scrollTo({top: 0})
             }
         }
