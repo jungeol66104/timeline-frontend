@@ -20,12 +20,12 @@ const useOperateTimeline = () => {
         const toolbarButtons: NodeListOf<HTMLButtonElement> | null = typeof window !== 'undefined' ? document.querySelectorAll('.toolbarButton') : null
         if (!scrollWrapper || !toolbarButtons) return
 
-        const fetchEvents = async (isSummary: boolean) => {
+        const fetchEvents = async (targetIsSummary: boolean) => {
             setIsLoading(true)
             try {
                 let response
-                if (isSummary === currentIsSummary) response = await api.get(`/timeline/${currentTimeline.id}/paged?pageNum=${currentPage + 1}&pageSize=41&isSummary=${currentIsSummary}`, {headers: {lang: 'en'}})
-                else response = await api.get(`/timeline/${currentTimeline.id}/paged?pageNum=1&pageSize=41&isSummary=${isSummary}`, {headers: {lang: 'en'}})
+                if (targetIsSummary === currentIsSummary) response = await api.get(`/timeline/${currentTimeline.id}/paged?pageNum=${currentPage + 1}&pageSize=41&isSummary=${currentIsSummary}`, {headers: {lang: 'en'}})
+                else response = await api.get(`/timeline/${currentTimeline.id}/paged?pageNum=1&pageSize=41&isSummary=${targetIsSummary}`, {headers: {lang: 'en'}})
                 return response.data.data
             } catch (error) {
                 console.error('Error fetching data in useEffect: ', error)
@@ -36,15 +36,15 @@ const useOperateTimeline = () => {
         }
 
         const operateZoom = (classNames: DOMTokenList) => {
-            const isSummary = !classNames.contains('summary')
+            const targetIsSummary = classNames.contains('summary')
 
-            fetchEvents(isSummary).then((data) => {
+            fetchEvents(targetIsSummary).then((data) => {
                 dispatch(updateCurrentEvents(data.events))
                 dispatch(updateCurrentPage(1))
                 dispatch(updateTotalPage(data.totalPages))
                 dispatch(updateIsBottomEnd(data.totalPages === 1))
                 dispatch(updateLastAction('zoom'))
-                dispatch(updateIsSummary(isSummary))
+                dispatch(updateIsSummary(targetIsSummary))
             })
         }
 
