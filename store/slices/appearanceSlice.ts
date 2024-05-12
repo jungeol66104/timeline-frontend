@@ -110,7 +110,7 @@ export interface initialAppearanceState {
     // info
     maxDepth: number
     currentDepth: number
-    isSummary: true
+    isSummary: boolean
     isTopEnd: boolean
     isBottomEnd: boolean
     currentPage: number
