@@ -11,20 +11,20 @@ const Toolbar = () => {
     const isSummary = useSelector(selectIsSummary)
     const isSmall = currentEvents.length < 41 && isSummary
 
-    // useLayoutEffect(() => {
-    //     const button = buttonRef.current
-    //     if (!button) return
-    //
-    //     if (isSummary) {
-    //         button.classList.add('showAll');
-    //         button.classList.remove('summary');
-    //         button.textContent = 'Show All';
-    //     } else {
-    //         button.classList.add('summary');
-    //         button.classList.remove('showAll');
-    //         button.textContent = 'Summary';
-    //     }
-    // }, [isSummary]);
+    useLayoutEffect(() => {
+        const button = buttonRef.current
+        if (!button) return
+
+        if (isSummary) {
+            button.classList.add('showAll');
+            button.classList.remove('summary');
+            button.textContent = 'Show All';
+        } else {
+            button.classList.add('summary');
+            button.classList.remove('showAll');
+            button.textContent = 'Summary';
+        }
+    }, [isSummary]);
 
     return (
         <div className={`sticky bottom-0 w-full`} style={{zIndex: 4998}}>
@@ -35,7 +35,8 @@ const Toolbar = () => {
                         </button>
                     </div>
                 :   <div className={'toolbar absolute right-0 bottom-[20px] flex border-[0.1px] border-gray-300 rounded-lg bg-white drop-shadow-md h-[40px] w-[120px]'}>
-                        <button ref={buttonRef} className={`toolbarButton ${isSummary ? 'showALl' : 'summary'} flex items-center justify-center text-sm font-medium w-[80px]`}>{isSummary ? 'Show All' : 'Summary'}</button>
+                        {/*<button ref={buttonRef} className={`toolbarButton ${isSummary ? 'showALl' : 'summary'} flex items-center justify-center text-sm font-medium w-[80px]`}>{isSummary ? 'Show All' : 'Summary'}</button>*/}
+                        <button ref={buttonRef} className={`toolbarButton showALl flex items-center justify-center text-sm font-medium w-[80px]`}>Show All</button>
                         <div className={'border-r-[1px]'}></div>
                         <button className={'toolbarButton uppermost flex items-center justify-center w-[40px]'}>
                             <div><Image src={NorthSVG} alt={'uppermost'} height={20} width={20}/></div>
