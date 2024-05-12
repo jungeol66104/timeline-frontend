@@ -22,7 +22,6 @@ const Information = () => {
                     <div className={'mt-[6px] mb-3'}>
                         <p className={`text-md`}>{currentTimeline.content}</p>
                     </div>
-                    {/*<BackToTimelineButton />*/}
                 </div>
                 <hr />
             </div>

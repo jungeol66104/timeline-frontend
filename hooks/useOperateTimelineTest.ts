@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvents, selectCurrentTimeline, updateCurrentEvents} from "@/store/slices/contentsSlice";
 import {selectCurrentPage, selectIsBottomEnd, selectIsSummary, updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateLastAction} from "@/store/slices/appearanceSlice";
@@ -13,6 +13,7 @@ const useOperateTimeline = () => {
     const currentPage = useSelector(selectCurrentPage)
     const currentIsSummary = useSelector(selectIsSummary)
     const isBottomEnd = useSelector(selectIsBottomEnd)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         const scrollWrapper = getScrollWrapper()
@@ -20,6 +21,7 @@ const useOperateTimeline = () => {
         if (!scrollWrapper || !toolbarButtons) return
 
         const fetchEvents = async (isSummary: boolean) => {
+            setIsLoading(true)
             try {
                 let response
                 if (isSummary === currentIsSummary) response = await api.get(`/timeline/${currentTimeline.id}/paged?pageNum=${currentPage + 1}&pageSize=41&isSummary=${currentIsSummary}`, {headers: {lang: 'en'}})
@@ -28,6 +30,8 @@ const useOperateTimeline = () => {
             } catch (error) {
                 console.error('Error fetching data in useEffect: ', error)
                 return
+            } finally {
+                setIsLoading(false)
             }
         }
 
@@ -55,6 +59,7 @@ const useOperateTimeline = () => {
         }
 
         const handleClick = async (e: MouseEvent) => {
+            if (isLoading) return
             const toolbarButton = e.currentTarget as HTMLButtonElement
             const classNames = toolbarButton.classList
             if (classNames.contains('uppermost')) {
