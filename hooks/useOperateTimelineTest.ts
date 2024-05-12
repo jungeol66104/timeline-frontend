@@ -47,10 +47,10 @@ const useOperateTimeline = () => {
             })
         }
 
-        const operateScroll = async () => {
+        const operateScroll = () => {
             if (isBottomEnd) return
 
-            await fetchEvents(currentIsSummary).then((data) => {
+            fetchEvents(currentIsSummary).then((data) => {
                 dispatch(updateCurrentEvents([...currentEvents, ...data.events]))
                 dispatch(updateCurrentPage(currentPage + 1))
                 dispatch(updateIsBottomEnd(data.totalPages === currentPage + 1))
@@ -75,7 +75,7 @@ const useOperateTimeline = () => {
             if (!scrollWrapper) return
 
             let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - scrollWrapper.clientHeight - 200
-            if (scrollDown) await operateScroll()
+            if (scrollDown) operateScroll()
         }
 
         toolbarButtons?.forEach(toolbarButton => toolbarButton.addEventListener('click', handleClick))
