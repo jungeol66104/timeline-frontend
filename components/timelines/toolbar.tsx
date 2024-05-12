@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {useSelector} from "react-redux";
 import Image from "next/image";
 import NorthSVG from "@/public/svg/north.svg";
@@ -10,6 +10,7 @@ const Toolbar = () => {
     const currentEvents = useSelector(selectCurrentEvents)
     const isSummary = useSelector(selectIsSummary)
     const isSmall = currentEvents.length < 41 && isSummary
+    const [buttonText,setButtonText] = useState('Show All')
 
     useEffect(() => {
         const button = buttonRef.current
@@ -18,11 +19,11 @@ const Toolbar = () => {
         if (isSummary) {
             button.classList.add('showAll');
             button.classList.remove('summary');
-            button.textContent = 'Show All';
+            setButtonText('Show All')
         } else {
             button.classList.add('summary');
             button.classList.remove('showAll');
-            button.textContent = 'Summary';
+            setButtonText('Summary')
         }
     }, [isSummary]);
 
@@ -36,7 +37,7 @@ const Toolbar = () => {
                     </div>
                 :   <div className={'toolbar absolute right-0 bottom-[20px] flex border-[0.1px] border-gray-300 rounded-lg bg-white drop-shadow-md h-[40px] w-[120px]'}>
                         {/*<button ref={buttonRef} className={`toolbarButton ${isSummary ? 'showALl' : 'summary'} flex items-center justify-center text-sm font-medium w-[80px]`}>{isSummary ? 'Show All' : 'Summary'}</button>*/}
-                        <button ref={buttonRef} className={`toolbarButton showALl flex items-center justify-center text-sm font-medium w-[80px]`}>Show All</button>
+                        <button ref={buttonRef} className={`toolbarButton showALl flex items-center justify-center text-sm font-medium w-[80px]`}>{buttonText}</button>
                         <div className={'border-r-[1px]'}></div>
                         <button className={'toolbarButton uppermost flex items-center justify-center w-[40px]'}>
                             <div><Image src={NorthSVG} alt={'uppermost'} height={20} width={20}/></div>
