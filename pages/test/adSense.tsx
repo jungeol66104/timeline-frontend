@@ -7,7 +7,6 @@ import {updateIs404, updateIsBottomEnd, updateIsTopEnd, updateMaxDepth} from "@/
 import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelineSectionSecondary";
-import {useScrollForTimeline} from "@/hooks/useScroll";
 import AdSenseTimelineTop from "@/components/test/adSenseTimelineTop";
 import SectionSecondaryTest from "@/components/test/sectionSecondaryTest";
 
@@ -35,8 +34,6 @@ export const getServerSideProps = storeWrapper.getStaticProps((store) => async (
 })
 
 const TimelinePage = () => {
-    useScrollForTimeline()
-
     return (
         <>
             <DynamicHead type={'timeline'}/>

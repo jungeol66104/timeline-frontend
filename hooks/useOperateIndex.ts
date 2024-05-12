@@ -36,7 +36,9 @@ const useOperateIndex = () => {
                 dispatch(updateIsBottomEnd(data.totalPage === currentPage + 1))
             })
         }
+
         const handleScroll = async () => {
+            console.log('hi')
             const scrollWrapper = getScrollWrapper()
             if (!scrollWrapper) return
 
@@ -45,9 +47,9 @@ const useOperateIndex = () => {
         }
 
         if (scrollWrapper.scrollHeight === scrollWrapper.clientHeight) handleScroll()
-        scrollWrapper.addEventListener('scroll', () => debounce(handleScroll, 100))
+        window.addEventListener('scroll', () => debounce(handleScroll, 100))
         return () => {
-            scrollWrapper.removeEventListener('scroll', () => debounce(handleScroll, 100))
+            window.removeEventListener('scroll', () => debounce(handleScroll, 100))
         };
     });
 }
