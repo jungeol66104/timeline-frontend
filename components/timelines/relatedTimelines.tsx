@@ -1,17 +1,15 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {getClickOrTouch, getIsTouchable, sum} from "@/utils/global";
-import Image from "next/image";
+import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from "react-redux";
-import {selectIsTopEnd} from "@/store/slices/appearanceSlice";
-import {selectRelatedTimelines} from "@/store/slices/contentsSlice";
 import Link from "next/link";
+import Image from "next/image";
+import {selectRelatedTimelines} from "@/store/slices/contentsSlice";
+import {getIsTouchable} from "@/utils/global";
 
 const RelatedTimelines = () => {
     const swiperContainerRef = useRef<HTMLDivElement>(null)
+    const relatedTimelines = useSelector(selectRelatedTimelines)
     const [scrollPosition, setScrollPosition] = useState('start');
     const [showButtons, setShowButtons] = useState(false)
-    const isTopEnd = useSelector(selectIsTopEnd)
-    const relatedTimelines = useSelector(selectRelatedTimelines)
 
     useEffect(() => {
         const swiperContainer = swiperContainerRef.current
@@ -69,7 +67,7 @@ const RelatedTimelines = () => {
         }
     }
     return (
-        <div className={`flex flex-col ${!isTopEnd && 'hidden'}`}>
+        <div className={`flex flex-col`}>
             <div className={'flex items-center justify-between'}>
                 <h3 className={'text-[20px] py-3 font-bold'}>Related</h3>
                 <div className={`flex gap-2.5 ${!showButtons && 'hidden'}`}>

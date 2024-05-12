@@ -23,6 +23,7 @@ export const getIsTouchable = () => {
 
 export const getScrollWrapper = () => {
     const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
+    // const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
     return scrollWrapper
 }
 
@@ -81,7 +82,6 @@ export const formatArticleDate = (articleDate: string) => {
 
 export const getTags = () => {
     return ["Recently Added", "Popular", "Hot", "Staff Picks", "Politics", "Biography", "History", "Sports", "Movies", "Music", "Company", "Institution", "Finance", "Business", "Economics", "Technology", "Science", "Health"]
-
 }
 
 export const getCurrentTag = (tagNum: number) => {

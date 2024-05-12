@@ -6,9 +6,10 @@ import {updateCurrentEvents, updateCurrentTimeline, updatePopularTimelines, upda
 import {updateIs404, updateIsBottomEnd, updateIsTopEnd, updateMaxDepth} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
-import SectionSecondary from "@/components/sectionSecondary";
+import TimelineSectionSecondary from "@/components/timelineSectionSecondary";
 import {useScrollForTimeline} from "@/hooks/useScroll";
-import AdSense970x250 from "@/components/adSense970x250";
+import AdSenseTimelineTop from "@/components/test/adSenseTimelineTop";
+import SectionSecondaryTest from "@/components/test/sectionSecondaryTest";
 
 
 export const getServerSideProps = storeWrapper.getStaticProps((store) => async () => {
@@ -34,17 +35,17 @@ export const getServerSideProps = storeWrapper.getStaticProps((store) => async (
 })
 
 const TimelinePage = () => {
-    // useScrollForTimeline()
+    useScrollForTimeline()
 
     return (
         <>
             <DynamicHead type={'timeline'}/>
-            <AdSense970x250 />
-            <hr />
-            <div className={`page timelinePage flex-col`}>
-                <div className={'flex'}>
+            <div className={`page flex-col`}>
+                <AdSenseTimelineTop />
+                <hr />
+                <div className={'timelineTest relative w-full flex'}>
                     <TimelineSectionPrimary />
-                    <SectionSecondary />
+                    <SectionSecondaryTest />
                 </div>
             </div>
         </>

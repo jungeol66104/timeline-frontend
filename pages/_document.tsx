@@ -1,7 +1,6 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 import {GA_TRACKING_ID} from "@/utils/gtags";
 import React from "react";
-// refactoring: needed (look around if there is anything that I can implement)
 
 export default function Document() {
   return (
@@ -42,8 +41,8 @@ export default function Document() {
             />
         </Head>
         <body>
-        <Main/>
-        <NextScript/>
+            <Main/>
+            <NextScript/>
         </body>
     </Html>
   )

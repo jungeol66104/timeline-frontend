@@ -3,10 +3,10 @@ import probe from "probe-image-size"
 import api from "@/utils/api"
 import {storeWrapper} from "@/store/store";
 import {updateCurrentEvents, updateCurrentTimeline, updatePopularTimelines, updateRecentTimelines, updateRelatedNews, updateRelatedTimelines} from "@/store/slices/contentsSlice"
-import {updateIs404, updateIsBottomEnd, updateIsTopEnd, updateMaxDepth} from "@/store/slices/appearanceSlice";
+import {updateCurrentPage, updateIs404, updateIsBottomEnd, updateIsSummary, updateTotalPage} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
-import SectionSecondary from "@/components/sectionSecondary";
+import TimelineSectionSecondary from "@/components/timelineSectionSecondary";
 import {useScrollForTimeline} from "@/hooks/useScroll";
 
 export const getStaticPaths = async () => {
@@ -15,7 +15,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
     try {
-        const response = await api.get(`/timeline/${Number(params?.timeline)}?timelineId=${Number(params?.timeline)}&depth=0&time=0`, {headers: {lang: 'en'}})
+        const response = await api.get(`/timeline/${Number(params?.timeline)}/paged?pageNum=1&pageSize=41&isSummary=true`, {headers: {lang: 'en'}})
         if (response.data.code === 69999) store.dispatch(updateIs404(true))
         const data = response.data.data
         data.timelineInfo.imageSize = await probe(data.timelineInfo.image)
@@ -24,10 +24,11 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateRecentTimelines(data.recentTimelines))
         store.dispatch(updatePopularTimelines(data.popularTimelines))
         store.dispatch(updateRelatedNews(data.relatedNews))
-        store.dispatch(updateMaxDepth(data.maxDepth))
-        store.dispatch(updateIsTopEnd(data.isTopEnd))
-        store.dispatch(updateIsBottomEnd(data.isBottomEnd))
         store.dispatch(updateCurrentEvents(data.events))
+        store.dispatch(updateIsSummary(true))
+        store.dispatch(updateCurrentPage(1))
+        store.dispatch(updateTotalPage(data.totalPages))
+        store.dispatch(updateIsBottomEnd(data.totalPages === 1))
         return {props: {}, revalidate:10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);
@@ -36,14 +37,12 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
 })
 
 const TimelinePage = () => {
-    useScrollForTimeline()
-
     return (
         <>
             <DynamicHead type={'timeline'}/>
             <div className={`page timelinePage`}>
                 <TimelineSectionPrimary />
-                <SectionSecondary />
+                <TimelineSectionSecondary />
             </div>
         </>
     )

@@ -8,7 +8,6 @@ import Custom404 from "@/pages/404";
 import useStateToStorage from "@/hooks/useStateToStorage";
 import useStateFromStorage from "@/hooks/useStateFromStorage";
 import {useScroll} from "@/hooks/useScroll";
-import BackToTimelineButton from "@/components/backToTimelineButton";
 import {useRouter} from "next/router";
 import IndexSkeleton from "@/components/index/indexSkeleton";
 
@@ -23,9 +22,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
             setLoading(true)
             setIsIndexPage(url.split('?')[0] === '/')
         }
-        const end = () => {
-            setLoading(false)
-        }
+        const end = () => setLoading(false)
 
         router.events.on("routeChangeStart", start)
         router.events.on("routeChangeComplete", end)

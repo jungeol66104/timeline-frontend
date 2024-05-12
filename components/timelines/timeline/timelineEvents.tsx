@@ -1,20 +1,18 @@
+import React from "react";
 import {useSelector} from "react-redux";
 import {selectCurrentEvents, TimelineEvent} from "@/store/slices/contentsSlice";
 import EventBox from "@/components/timelines/timeline/eventBox";
-import React from "react";
-import {selectIsBottomEnd, selectIsTopEnd} from "@/store/slices/appearanceSlice";
+import {selectIsBottomEnd} from "@/store/slices/appearanceSlice";
 import TimelineTop from "@/components/timelines/timeline/timelineTop";
 import TimelineBottom from "@/components/timelines/timeline/timelineBottom";
-// refactoring: clear
 
 const TimelineEvents = () => {
     const currentEvents = useSelector(selectCurrentEvents)
-    const isTopEnd = useSelector(selectIsTopEnd)
     const isBottomEnd = useSelector(selectIsBottomEnd)
 
     return (
         <div className={'timelineEvents relative flex flex-col w-full'}>
-            <TimelineTop isEnd={isTopEnd}/>
+            <TimelineTop />
             {currentEvents.map((event: TimelineEvent) => {
                 return <EventBox key={event.id} event={event}/>
             })}

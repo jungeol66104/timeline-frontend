@@ -1,11 +1,9 @@
 import React from 'react'
-import TimelineInformation from "@/components/timelines/information/timelineInformation";
+import TimelineInformation from "@/components/timelines/timelineInformation";
 import Timeline from "@/components/timelines/timeline/timeline";
-import Toolbar from "@/components/timelines/timeline/toolbar";
+import Toolbar from "@/components/timelines/toolbar";
 import RelatedTimelines from "@/components/timelines/relatedTimelines";
 import RecentNews from "@/components/timelines/recentNews";
-import TimelineTopAd from "@/components/timelines/timelineTopAd";
-// timelineInformation, timeline, toolbar, relatedTimelines
 
 const TimelineSectionPrimary = () => {
     return (
@@ -18,5 +16,4 @@ const TimelineSectionPrimary = () => {
         </div>
     )
 }
-
 export default TimelineSectionPrimary;
