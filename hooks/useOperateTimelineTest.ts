@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvents, selectCurrentTimeline, updateCurrentEvents} from "@/store/slices/contentsSlice";
-import {selectCurrentPage, selectIsBottomEnd, selectIsSummary, updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateLastAction} from "@/store/slices/appearanceSlice";
+import {selectCurrentPage, selectIsBottomEnd, selectIsSummary, updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateLastAction, updateTotalPage} from "@/store/slices/appearanceSlice";
 import {debounce, getScrollWrapper} from "@/utils/global";
 import api from "@/utils/api";
 
@@ -36,11 +36,12 @@ const useOperateTimeline = () => {
         }
 
         const operateZoom = (classNames: DOMTokenList) => {
-            const isSummary = classNames.contains('summary')
+            const isSummary = !classNames.contains('summary')
 
             fetchEvents(isSummary).then((data) => {
                 dispatch(updateCurrentEvents(data.events))
                 dispatch(updateCurrentPage(1))
+                dispatch(updateTotalPage(data.totalPages))
                 dispatch(updateIsBottomEnd(data.totalPages === 1))
                 dispatch(updateLastAction('zoom'))
                 dispatch(updateIsSummary(isSummary))
