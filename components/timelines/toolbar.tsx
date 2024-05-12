@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useRef} from 'react';
+import React, {useEffect, useLayoutEffect, useRef} from 'react';
 import {useSelector} from "react-redux";
 import Image from "next/image";
 import NorthSVG from "@/public/svg/north.svg";
@@ -11,7 +11,7 @@ const Toolbar = () => {
     const isSummary = useSelector(selectIsSummary)
     const isSmall = currentEvents.length < 41 && isSummary
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const button = buttonRef.current
         if (!button) return
 
