@@ -80,10 +80,10 @@ const useOperateTimeline = () => {
         }
 
         toolbarButtons?.forEach(toolbarButton => toolbarButton.addEventListener('click', handleClick))
-        scrollWrapper.addEventListener('scroll', () => debounce(handleScroll, 100))
+        window.addEventListener('scroll', () => debounce(handleScroll, 100))
         return () => {
             toolbarButtons?.forEach(toolbarButton => toolbarButton.removeEventListener('click', handleClick))
-            scrollWrapper.removeEventListener('scroll', () => debounce(handleScroll, 100))
+            window.removeEventListener('scroll', () => debounce(handleScroll, 100))
         };
     });
 };
