@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import {useSelector} from "react-redux";
 import Image from "next/image";
 import NorthSVG from "@/public/svg/north.svg";
@@ -9,6 +9,9 @@ const Toolbar = () => {
     const currentEvents = useSelector(selectCurrentEvents)
     const isSummary = useSelector(selectIsSummary)
     const isSmall = isSummary && currentEvents.length < 41
+
+    useLayoutEffect(() => {
+    }, [isSummary]);
 
     return (
         <div className={`sticky bottom-0 w-full`} style={{zIndex: 4998}}>
