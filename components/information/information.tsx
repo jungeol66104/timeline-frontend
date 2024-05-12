@@ -3,7 +3,6 @@ import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import TimelineImage from "@/components/images/timelineImage";
 import RelatedTimelines from "@/components/timelines/relatedTimelines";
-import BackToTimelineButton from "@/components/backToTimelineButton";
 
 const Information = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
