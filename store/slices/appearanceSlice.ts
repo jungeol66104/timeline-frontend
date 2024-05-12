@@ -9,6 +9,7 @@ const initialState = {
     currentDepth: 0,
     isTopEnd: true,
     isBottomEnd: true,
+    isSummary: true,
     currentPage: 1,
     totalPage: 1,
     allTimelinesType: 'recent',
@@ -30,6 +31,9 @@ const appearanceSlice = createSlice({
     reducers: {
         updateIsTopEnd: (state, action) => {
             state.isTopEnd = action.payload
+        },
+        updateIsSummary: (state, action) => {
+            state.isSummary = action.payload
         },
         updateIsBottomEnd: (state, action) => {
             state.isBottomEnd = action.payload
@@ -76,12 +80,13 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateTagNum, updateTotalPage, updateCurrentTopic , updateAllTimelinesType, updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, updateCurrentDepth, updateMaxDepth, updateCurrentPage, updatePreviousTop, updateLastAction} = appearanceSlice.actions;
+export const {updateIsSummary, updateTagNum, updateTotalPage, updateCurrentTopic , updateAllTimelinesType, updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, updateCurrentDepth, updateMaxDepth, updateCurrentPage, updatePreviousTop, updateLastAction} = appearanceSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
 export const selectAboveTimelineHeight = (state: RootState) => state.appearance.aboveTimelineHeight
 export const selectTimelineEdgeHeight = (state: RootState) => state.appearance.timelineEdgeHeight
+export const selectIsSummary = (state: RootState) => state.appearance.isSummary
 export const selectIsTopEnd = (state: RootState) => state.appearance.isTopEnd
 export const selectIsBottomEnd = (state: RootState) => state.appearance.isBottomEnd
 export const selectCurrentDepth = (state: RootState) => state.appearance.currentDepth
@@ -105,6 +110,7 @@ export interface initialAppearanceState {
     // info
     maxDepth: number
     currentDepth: number
+    isSummary: boolean
     isTopEnd: boolean
     isBottomEnd: boolean
     currentPage: number

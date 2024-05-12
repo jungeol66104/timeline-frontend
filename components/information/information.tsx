@@ -3,7 +3,6 @@ import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import TimelineImage from "@/components/images/timelineImage";
 import RelatedTimelines from "@/components/timelines/relatedTimelines";
-import BackToTimelineButton from "@/components/backToTimelineButton";
 
 const Information = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
@@ -23,7 +22,6 @@ const Information = () => {
                     <div className={'mt-[6px] mb-3'}>
                         <p className={`text-md`}>{currentTimeline.content}</p>
                     </div>
-                    {/*<BackToTimelineButton />*/}
                 </div>
                 <hr />
             </div>

@@ -28,35 +28,42 @@ html, body, #__next, .layout, .page {
 /* layout responsive */
 /* timeline, information */
 @media (min-width: 0px) and (max-width: 928px) {
-    .timelinePage, .informationPage, .informationHeader {
+    .timelinePage, .informationPage, .informationHeader, .timelineTest {
         flex-direction: column;
         justify-content: start;
         align-items: center;
     }
+    .adsTimelineTopWrapper {
+
+    }
 }
 @media (min-width: 928px) and (max-width: 1125px) {
-    .timelinePage, .informationPage, .informationHeader {
+    .timelinePage, .informationPage, .informationHeader, .timelineTest {
         flex-direction: row;
         justify-content: center;
     }
 }
 @media (min-width: 1125px) {
-    .timelinePage, .informationPage, .informationHeader {
+    .timelinePage, .informationPage, .informationHeader, .timelineTest {
         justify-content: start;
+        padding-left: 125px;
+    }
+    .adsenseTimelineTop {
+        /*justify-content: start;*/
         padding-left: 125px;
     }
 }
 
 /* event */
 @media (min-width: 0px) and (max-width: 850px) {
-    .indexPage, .eventPage {
+    .indexPage, .eventPage, .textPage {
         flex-direction: column;
         justify-content: start;
         align-items: center;
     }
 }
 @media (min-width: 850px) {
-    .indexPage, .eventPage {
+    .indexPage, .eventPage, .textPage {
         justify-content: start;
         padding-left: 125px;
     }

@@ -17,5 +17,4 @@ const TimelineBottom = ({isEnd}:{isEnd: boolean}) => {
         </div>
     );
 };
-
 export default TimelineBottom;

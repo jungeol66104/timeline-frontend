@@ -36,10 +36,10 @@ const useOperateIndex = () => {
                 dispatch(updateIsBottomEnd(data.totalPage === currentPage + 1))
             })
         }
-
         const handleScroll = async () => {
             const scrollWrapper = getScrollWrapper()
             if (!scrollWrapper) return
+
             let scrollDown = scrollWrapper.scrollTop > scrollWrapper.scrollHeight - scrollWrapper.clientHeight - 150
             if (scrollDown) await operateScroll()
         }

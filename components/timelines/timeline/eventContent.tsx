@@ -1,6 +1,5 @@
 import {TimelineEvent} from "@/store/slices/contentsSlice";
 import Link from "next/link";
-// refactoring: clear
 
 const EventContent = ({event} : {event: TimelineEvent}) => {
     return (
