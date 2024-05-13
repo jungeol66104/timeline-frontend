@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
+import Image from "next/image";
 
-const AdSenseTimelineSide = () => {
+const AdsTimelineTop = () => {
     const adRef = useRef<HTMLModElement>(null);
 
     useEffect(() => {
@@ -8,9 +9,10 @@ const AdSenseTimelineSide = () => {
         if (insElement && !insElement.firstChild && window && (window as any).adsbygoogle) (window as any).adsbygoogle.push({})
     }, []);
 
+
     return (
-        <div className={'adsenseTimelineSide w-full h-fit bg-[#F2F2F259]'}>
-            <div className={'adsenseTimelineTopWrapper p-4 w-full max-w-[1002px] flex flex-col items-center gap-2.5'}>
+        <div className={'adsTimelineTop w-full h-fit flex bg-[#F2F2F259]'}>
+            <div className={'adsTimelineTopWrapper p-4 w-full max-w-[1002px] flex flex-col items-center gap-2.5'}>
                 <div className={'text-xs font-semibold text-gray-400'}>ADVERTISEMENT</div>
                 <style>
                     {`
@@ -23,7 +25,7 @@ const AdSenseTimelineSide = () => {
                 </style>
                 <ins
                     ref={adRef}
-                    className="adsbygoogle timeline_page_top bg-red-700"
+                    className="adsbygoogle timeline_page_top"
                     data-ad-client="ca-pub-9076277653795477"
                     data-ad-slot="2143912951">
                     {/*<div className={'relative w-[300px] h-[250px] overflow-hidden'}><Image src={'/images/970x250.jpg'} alt={'base-image'} fill={true}/></div>*/}
@@ -33,18 +35,4 @@ const AdSenseTimelineSide = () => {
     );
 };
 
-export default AdSenseTimelineSide;
-
-
-// <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9076277653795477"
-//         crossorigin="anonymous"></script>
-// <!-- timeline_page_side -->
-// <ins class="adsbygoogle"
-//      style="display:block"
-//      data-ad-client="ca-pub-9076277653795477"
-//      data-ad-slot="3370354398"
-//      data-ad-format="auto"
-//      data-full-width-responsive="true"></ins>
-// <script>
-//     (adsbygoogle = window.adsbygoogle || []).push({});
-// </script>
+export default AdsTimelineTop;

@@ -5,6 +5,7 @@ import {selectPopularTimelines, selectRecentTimelines} from "@/store/slices/cont
 import TimelineListTemplate from "@/components/timelines/timelineListTemplate";
 import {useRouter} from "next/router";
 import {getScrollWrapper} from "@/utils/global";
+import AdsTimelineBetweenSecondary from "@/components/ads/adsTimelineBetweenSecondary";
 
 const TimelineSectionSecondary = () => {
     const router = useRouter();
@@ -49,6 +50,8 @@ const TimelineSectionSecondary = () => {
             <div className={'secondaryWrapper relative p-4 max-[852px]:py-0 w-full h-fit min-w-[332px] max-w-[352px] max-[852px]:max-w-[630px]'}>
                 <hr className={`${isInformation && 'max-[852px]:hidden'}`}/>
                 <TimelineListTemplate title={'Popular'} timelines={popularTimelines} />
+                <hr/>
+                <AdsTimelineBetweenSecondary />
                 <hr/>
                 <TimelineListTemplate title={'Recently Added'} timelines={recentTimelines} />
                 <hr/>

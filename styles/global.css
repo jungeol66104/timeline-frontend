@@ -4,6 +4,9 @@
 * {
     font-family: 'Inter', sans-serif;
 }
+hr {
+    border-color: #E5E7EB;
+}
 
 /* tailwind basic setting */
 @tailwind base;

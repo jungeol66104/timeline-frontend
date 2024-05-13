@@ -7,7 +7,7 @@ import {updateCurrentPage, updateIs404, updateIsBottomEnd, updateIsSummary, upda
 import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
-import AdSenseTimelineTop from "@/components/test/adSenseTimelineTop";
+import AdsTimelineTop from "@/components/ads/adsTimelineTop";
 
 export const getStaticPaths = async () => {
     return {paths: [], fallback: 'blocking'}
@@ -41,7 +41,7 @@ const TimelinePage = () => {
         <>
             <DynamicHead type={'timeline'}/>
             <div className={`page timelinePage`}>
-                <AdSenseTimelineTop />
+                <AdsTimelineTop />
                 <hr/>
                 <div className={'timelinePageWrapper w-full flex'}>
                     <TimelineSectionPrimary />
