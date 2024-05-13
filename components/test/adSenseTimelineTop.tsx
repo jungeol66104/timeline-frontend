@@ -25,7 +25,7 @@ const AdSenseTimelineTop = () => {
                 </style>
                 <ins
                     ref={adRef}
-                    className="adsbygoogle timeline_page_top bg-red-700"
+                    className="adsbygoogle timeline_page_top"
                     data-ad-client="ca-pub-9076277653795477"
                     data-ad-slot="2143912951">
                     {/*<div className={'relative w-[300px] h-[250px] overflow-hidden'}><Image src={'/images/970x250.jpg'} alt={'base-image'} fill={true}/></div>*/}
