@@ -9,7 +9,6 @@ const AdsTimelineTop = () => {
         if (insElement && !insElement.firstChild && window && (window as any).adsbygoogle) (window as any).adsbygoogle.push({})
     }, []);
 
-
     return (
         <div className={'adsTimelineTop w-full h-fit flex bg-[#F2F2F259]'}>
             <div className={'adsTimelineTopWrapper p-4 w-full max-w-[1002px] flex flex-col items-center gap-2.5'}>

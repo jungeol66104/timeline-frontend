@@ -9,42 +9,24 @@ const AdsTimelineSide = () => {
     }, []);
 
     return (
-        <div className={'adsenseTimelineSide w-full h-fit bg-[#F2F2F259]'}>
-            <div className={'adsenseTimelineTopWrapper p-4 w-full max-w-[1002px] flex flex-col items-center gap-2.5'}>
+        <div className={'adsTimelineSide w-full max-[852px]:hidden h-fit flex justify-center bg-[#F2F2F259] border-x-[1px] border-b-[1px] border-x-[#E5E7EB]'}>
+            <div className={'adsTimelineTopWrapper p-4 w-full max-w-[352px] flex flex-col items-center gap-2.5'}>
                 <div className={'text-xs font-semibold text-gray-400'}>ADVERTISEMENT</div>
                 <style>
                     {`
-                        .timeline_page_top {display: block; width: 300px; height: 100px;}
-                        @media(max-width: 300px) {.timeline_page_top {display:none;}}
-                        @media(min-width: 468px) {.timeline_page_top {width: 468px; height: 60px;}}
-                        @media(min-width: 728px) {.timeline_page_top {width: 728px; height: 90px;}}
-                        @media(min-width: 970px) {.timeline_page_top {width: 970px; height: 250px;}}
+                        .timeline_page_side {display: block; width: 300px; height: 600px;}
+                        @media(max-width: 852px) {.timeline_page_side {display:none;}}
                     `}
                 </style>
                 <ins
                     ref={adRef}
-                    className="adsbygoogle timeline_page_top bg-red-700"
+                    className="adsbygoogle timeline_page_side bg-red-700"
                     data-ad-client="ca-pub-9076277653795477"
-                    data-ad-slot="2143912951">
+                    data-ad-slot="3370354398">
                     {/*<div className={'relative w-[300px] h-[250px] overflow-hidden'}><Image src={'/images/970x250.jpg'} alt={'base-image'} fill={true}/></div>*/}
                 </ins>
             </div>
         </div>
     );
 };
-
 export default AdsTimelineSide;
-
-
-// <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9076277653795477"
-//         crossorigin="anonymous"></script>
-// <!-- timeline_page_side -->
-// <ins class="adsbygoogle"
-//      style="display:block"
-//      data-ad-client="ca-pub-9076277653795477"
-//      data-ad-slot="3370354398"
-//      data-ad-format="auto"
-//      data-full-width-responsive="true"></ins>
-// <script>
-//     (adsbygoogle = window.adsbygoogle || []).push({});
-// </script>
