@@ -1,17 +1,11 @@
 import React from 'react';
-import EventListTemplate from "@/components/index/eventListTemplate";
-import {useSelector} from "react-redux";
-import {selectIsBottomEnd} from "@/store/slices/appearanceSlice";
+import AdsIndexSide from "@/components/ads/adsIndexSide";
 
 const IndexSectionSecondary = () => {
-    const isBottomEnd = useSelector(selectIsBottomEnd)
-
     return (
-        <div className={`relative w-full min-w-[300px] max-w-[350px] max-[928px]:max-w-[600px] ${!isBottomEnd && 'max-[928px]:hidden'} ml-2 max-[928px]:ml-0`}>
-            <div className={'secondaryWrapper relative w-full h-fit min-w-[300px] max-w-[350px] p-4 max-[928px]:max-w-[600px] max-[928px]:py-0'}>
-                <hr/>
-                <EventListTemplate />
-                <hr/>
+        <div className={`relative ml-[20px] max-[872px]:ml-0 w-full min-w-[332px] max-w-[352px] max-[852px]:hidden`}>
+            <div className={'secondaryWrapper relative p-4 max-[852px]:py-0 w-full h-fit min-w-[332px] max-w-[352px] max-[852px]:max-w-[630px]'}>
+                <AdsIndexSide/>
             </div>
         </div>
     );

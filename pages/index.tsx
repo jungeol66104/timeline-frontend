@@ -6,6 +6,7 @@ import {updateCurrentPage, updateIsBottomEnd, updateTagNum, updateTotalPage} fro
 import DynamicHead from "@/components/dynamicHead";
 import IndexSectionPrimary from "@/components/index/indexSectionPrimary";
 import useOperateIndex from "@/hooks/useOperateIndex";
+import IndexSectionSecondary from "@/components/index/indexSectionSecondary";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({query}) => {
     try {
@@ -33,7 +34,10 @@ export default function Home() {
         <>
             <DynamicHead type={'index'}/>
             <div className={'page indexPage pt-[46.67px]'}>
-                <IndexSectionPrimary />
+                <div className={'indexPageWrapper w-full flex'}>
+                    <IndexSectionPrimary />
+                    <IndexSectionSecondary />
+                </div>
             </div>
         </>
     )
