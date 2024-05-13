@@ -7,10 +7,10 @@ import RecentNews from "@/components/timelines/recentNews";
 
 const TimelineSectionPrimary = () => {
     return (
-        <div className={'relative h-fit w-full max-w-[600px] px-4 pt-4 pb-0'}>
+        <div className={'relative px-4 pt-4 pb-0 w-full min-[852px]:min-w-[500px] max-w-[630px]'}>
             <TimelineInformation />
             <RelatedTimelines />
-            <RecentNews />
+            {/*<RecentNews />*/}
             <Timeline />
             <Toolbar />
         </div>

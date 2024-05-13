@@ -6,7 +6,7 @@ import {updateCurrentEvents, updateCurrentTimeline, updatePopularTimelines, upda
 import {updateIs404, updateIsBottomEnd, updateIsTopEnd, updateMaxDepth} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
-import TimelineSectionSecondary from "@/components/timelineSectionSecondary";
+import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
 import AdSenseTimelineTop from "@/components/test/adSenseTimelineTop";
 import SectionSecondaryTest from "@/components/test/sectionSecondaryTest";
 
