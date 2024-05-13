@@ -10,7 +10,7 @@ const IndexSectionPrimary = () => {
     const currentTimelines = useSelector(selectCurrentTimelines)
 
     return (
-        <div className={'relative h-fit w-full max-w-[600px] px-4 pt-1 pb-0'}>
+        <div className={'relative px-4 pt-1 pb-0 h-fit w-full max-w-[630px] min-[852px]:min-w-[500px]'}>
             {currentTimelines.map(timeline => {
                 const isBaseImage = getIsBaseImage(timeline.image)
 

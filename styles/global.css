@@ -31,26 +31,31 @@ body {
 }
 
 /* layout responsive */
-/* timeline, information */
+/* index, timeline, information */
 @media (min-width: 0px) and (max-width: 852px) {
-    .timelinePageWrapper, .adsTimelineTop {
+    .timelinePageWrapper, .adsTimelineTop, .indexPageWrapper {
         flex-direction: column;
         align-items: center;
     }
 }
 @media (min-width: 852px) and (max-width: 1127px) {
-    .timelinePageWrapper, .adsTimelineTop {
+    .timelinePageWrapper, .adsTimelineTop, .indexPageWrapper {
         flex-direction: row;
         justify-content: center;
     }
 }
 @media (min-width: 1127px) {
-    .timelinePageWrapper, .adsTimelineTop {
+    .timelinePageWrapper, .adsTimelineTop, .indexPageWrapper {
         flex-direction: row;
         justify-content: start;
         padding-left: 125px;
     }
+    .tagWrapper {
+        padding-left: 141px;
+        padding-right: calc(100vw - 1128px);
+    }
 }
+
 @media (min-width: 0px) and (max-width: 928px) {
     .informationPage, .informationHeader {
         flex-direction: column;
@@ -73,20 +78,16 @@ body {
 
 /* index, event, text */
 @media (min-width: 0px) and (max-width: 850px) {
-    .indexPage, .eventPage, .textPage {
+    .eventPage, .textPage {
         flex-direction: column;
         justify-content: start;
         align-items: center;
     }
 }
 @media (min-width: 850px) {
-    .indexPage, .eventPage, .textPage {
+    .eventPage, .textPage {
         justify-content: start;
         padding-left: 125px;
-    }
-    .tagWrapper {
-        padding-left: 141px;
-        padding-right: calc(100vw - 728px);
     }
 }
 
