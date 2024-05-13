@@ -6,6 +6,7 @@ import TimelineListTemplate from "@/components/timelines/timelineListTemplate";
 import {useRouter} from "next/router";
 import {getScrollWrapper} from "@/utils/global";
 import AdsTimelineBetweenSecondary from "@/components/ads/adsTimelineBetweenSecondary";
+import AdsTimelineSide from "@/components/ads/adsTimelineSide";
 
 const TimelineSectionSecondary = () => {
     const router = useRouter();
@@ -55,6 +56,7 @@ const TimelineSectionSecondary = () => {
                 <hr/>
                 <TimelineListTemplate title={'Recently Added'} timelines={recentTimelines} />
                 <hr/>
+                <AdsTimelineSide />
             </div>
         </div>
     );

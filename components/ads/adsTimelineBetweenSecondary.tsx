@@ -9,7 +9,6 @@ const AdsTimelineBetweenSecondary = () => {
         if (insElement && !insElement.firstChild && window && (window as any).adsbygoogle) (window as any).adsbygoogle.push({})
     }, []);
 
-
     return (
         <div className={'adsTimelineBetweenSecondary w-full h-fit flex justify-center bg-[#F2F2F259] border-x-[1px] border-x-[#E5E7EB]'}>
             <div className={'adsTimelineBetweenSecondaryWrapper p-4 w-full max-w-[352px] flex flex-col items-center gap-2.5'}>
@@ -17,6 +16,7 @@ const AdsTimelineBetweenSecondary = () => {
                 <style>
                     {`
                         .timeline_page_between_secondary {display: block; width: 300px; height: 250px;}
+                        @media(max-width: 300px) {.timeline_page_between_secondary {display:none;}}
                     `}
                 </style>
                 <ins
