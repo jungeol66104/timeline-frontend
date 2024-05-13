@@ -1,7 +1,6 @@
 import React, {useEffect, useRef} from 'react';
-import Image from "next/image";
 
-const AdSenseTimelineTop = () => {
+const AdSenseTimelineSide = () => {
     const adRef = useRef<HTMLModElement>(null);
 
     useEffect(() => {
@@ -9,10 +8,9 @@ const AdSenseTimelineTop = () => {
         if (insElement && !insElement.firstChild && window && (window as any).adsbygoogle) (window as any).adsbygoogle.push({})
     }, []);
 
-
     return (
-        <div className={'adsTimelineTop w-full h-fit flex bg-[#F2F2F259]'}>
-            <div className={'adsTimelineTopWrapper p-4 w-full max-w-[1002px] flex flex-col items-center gap-2.5'}>
+        <div className={'adsenseTimelineSide w-full h-fit bg-[#F2F2F259]'}>
+            <div className={'adsenseTimelineTopWrapper p-4 w-full max-w-[1002px] flex flex-col items-center gap-2.5'}>
                 <div className={'text-xs font-semibold text-gray-400'}>ADVERTISEMENT</div>
                 <style>
                     {`
@@ -35,4 +33,18 @@ const AdSenseTimelineTop = () => {
     );
 };
 
-export default AdSenseTimelineTop;
+export default AdSenseTimelineSide;
+
+
+// <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9076277653795477"
+//         crossorigin="anonymous"></script>
+// <!-- timeline_page_side -->
+// <ins class="adsbygoogle"
+//      style="display:block"
+//      data-ad-client="ca-pub-9076277653795477"
+//      data-ad-slot="3370354398"
+//      data-ad-format="auto"
+//      data-full-width-responsive="true"></ins>
+// <script>
+//     (adsbygoogle = window.adsbygoogle || []).push({});
+// </script>

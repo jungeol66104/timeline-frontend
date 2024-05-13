@@ -12,7 +12,6 @@
 
 /* layout */
 html, body, #__next, .layout, .page {
-    /*height: 100%;*/
     width: 100%;
 }
 body {
@@ -25,40 +24,51 @@ body {
 .page {
     position: relative;
     display: flex;
-    /*scrollbar-gutter: stable;*/
-    /*overflow-y: scroll;*/
+    flex-direction: column;
 }
 
 /* layout responsive */
 /* timeline, information */
+@media (min-width: 0px) and (max-width: 852px) {
+    .timelinePageWrapper, .adsTimelineTop {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+@media (min-width: 852px) and (max-width: 1127px) {
+    .timelinePageWrapper, .adsTimelineTop {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+@media (min-width: 1127px) {
+    .timelinePageWrapper, .adsTimelineTop {
+        flex-direction: row;
+        justify-content: start;
+        padding-left: 125px;
+    }
+}
 @media (min-width: 0px) and (max-width: 928px) {
-    .timelinePage, .informationPage, .informationHeader, .timelineTest {
+    .informationPage, .informationHeader {
         flex-direction: column;
         justify-content: start;
         align-items: center;
     }
-    .adsTimelineTopWrapper {
-
-    }
 }
 @media (min-width: 928px) and (max-width: 1125px) {
-    .timelinePage, .informationPage, .informationHeader, .timelineTest {
+    .informationPage, .informationHeader {
         flex-direction: row;
         justify-content: center;
     }
 }
 @media (min-width: 1125px) {
-    .timelinePage, .informationPage, .informationHeader, .timelineTest {
+    .informationPage, .informationHeader {
         justify-content: start;
-        padding-left: 125px;
-    }
-    .adsenseTimelineTop {
-        /*justify-content: start;*/
         padding-left: 125px;
     }
 }
 
-/* event */
+/* index, event, text */
 @media (min-width: 0px) and (max-width: 850px) {
     .indexPage, .eventPage, .textPage {
         flex-direction: column;
@@ -73,7 +83,7 @@ body {
     }
     .tagWrapper {
         padding-left: 141px;
-        padding-right: calc(100vw - 708px);
+        padding-right: calc(100vw - 728px);
     }
 }
 
@@ -88,12 +98,9 @@ body {
 
 
 /* timeline */
-/* Hide scrollbar for Chrome, Safari and Opera */
 .relatedSwiper::-webkit-scrollbar {
     display: none;
 }
-
-/* Hide scrollbar for IE, Edge and Firefox */
 .relatedSwiper {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */

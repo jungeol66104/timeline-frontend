@@ -6,7 +6,7 @@ import {updateCurrentEvents, updateCurrentTimeline, updatePopularTimelines, upda
 import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateIs404} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import Information from "@/components/information/information";
-import TimelineSectionSecondary from "@/components/timelineSectionSecondary";
+import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
 
 export const getStaticPaths = async () => {
     return {paths: [], fallback: 'blocking'}
@@ -39,7 +39,7 @@ const InformationPage = () => {
             <DynamicHead type={'timeline'}/>
             <div className={'page informationPage'}>
                 <Information />
-                <TimelineSectionSecondary />
+                {/*<TimelineSectionSecondary />*/}
             </div>
         </>
     )

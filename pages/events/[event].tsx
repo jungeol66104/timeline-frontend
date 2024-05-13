@@ -6,7 +6,7 @@ import DynamicHead from "@/components/dynamicHead";
 import Event from "@/components/events/event"
 import RelatedTimeline from "@/components/events/relatedTimeline";
 import {updateIs404} from "@/store/slices/appearanceSlice";
-import TimelineSectionSecondary from "@/components/timelineSectionSecondary";
+import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
 
 export const getStaticPaths = async () => {
     return {paths: [], fallback: 'blocking'}

@@ -23,7 +23,7 @@ const Information = () => {
                         <p className={`text-md`}>{currentTimeline.content}</p>
                     </div>
                 </div>
-                <hr />
+                {/*<hr />*/}
             </div>
             <RelatedTimelines/>
         </div>
