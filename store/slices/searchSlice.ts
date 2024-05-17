@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
 
-// values before any dispatch
 const initialState = {
     isSearch: false,
     searchValue: '',
@@ -10,7 +9,6 @@ const initialState = {
     searchedEvents: []
 } as initialSearchState
 
-// part of the store as a whole, related with search feature
 const searchSlice = createSlice({
     name: 'search',
     initialState,
@@ -35,7 +33,6 @@ const searchSlice = createSlice({
 export default searchSlice.reducer;
 export const { updateIsSearch, updateSearchValue, updateTab, updateSearchedTimelines, updateSearchedEvents } = searchSlice.actions;
 
-// reduces repetition inside components when selecting the specific state
 // selectors
 export const selectIsSearch = (state: RootState) => state.search.isSearch
 export const selectSearchValue = (state: RootState) => state.search.searchValue

@@ -33,8 +33,8 @@ export default function Home() {
     return (
         <>
             <DynamicHead type={'index'}/>
-            <div className={'page indexPage pt-[46.67px]'}>
-                <div className={'indexPageWrapper w-full flex'}>
+            <div className={'page indexPage sticky top-0 h-full'}>
+                <div className={'indexPageWrapper relative w-full flex'}>
                     <IndexSectionPrimary />
                     <IndexSectionSecondary />
                 </div>

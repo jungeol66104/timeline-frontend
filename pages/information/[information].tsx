@@ -2,11 +2,11 @@ import React from "react";
 import probe from "probe-image-size";
 import api from "@/utils/api"
 import {storeWrapper} from "@/store/store";
-import {updateCurrentEvents, updateCurrentTimeline, updatePopularTimelines, updateRecentTimelines, updateRelatedTimelines} from "@/store/slices/contentsSlice";
-import {updateIsTopEnd, updateIsBottomEnd, updateMaxDepth, updateIs404} from "@/store/slices/appearanceSlice";
+import {updateCurrentEvents, updateCurrentTimeline, updatePopularTimelines, updateRecentTimelines, updateRelatedNews, updateRelatedTimelines} from "@/store/slices/contentsSlice";
+import {updateIsBottomEnd, updateIs404, updateIsSummary, updateCurrentPage, updateTotalPage} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
-import Information from "@/components/information/information";
-import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
+import InformationSectionSecondary from "@/components/information/informationSectionSecondary";
+import InformationSectionPrimary from "@/components/information/informationSectionPrimary";
 
 export const getStaticPaths = async () => {
     return {paths: [], fallback: 'blocking'}
@@ -14,7 +14,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
     try {
-        const response = await api.get(`/timeline/${Number(params?.information)}?timelineId=${Number(params?.information)}&depth=0&time=0`, {headers: {lang: 'en'}})
+        const response = await api.get(`/timeline/${Number(params?.information)}/paged?pageNum=1&pageSize=41&isSummary=true`, {headers: {lang: 'en'}})
         if (response.data.code === 69999) store.dispatch(updateIs404(true))
         const data = response.data.data
         data.timelineInfo.imageSize = await probe(data.timelineInfo.image)
@@ -22,10 +22,12 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateRelatedTimelines(data.relatedTimelines))
         store.dispatch(updateRecentTimelines(data.recentTimelines))
         store.dispatch(updatePopularTimelines(data.popularTimelines))
-        store.dispatch(updateMaxDepth(data.maxDepth))
-        store.dispatch(updateIsTopEnd(data.isTopEnd))
-        store.dispatch(updateIsBottomEnd(data.isBottomEnd))
+        store.dispatch(updateRelatedNews(data.relatedNews))
         store.dispatch(updateCurrentEvents(data.events))
+        store.dispatch(updateIsSummary(true))
+        store.dispatch(updateCurrentPage(1))
+        store.dispatch(updateTotalPage(data.totalPages))
+        store.dispatch(updateIsBottomEnd(data.totalPages === 1))
         return {props: {}, revalidate:10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);
@@ -38,8 +40,10 @@ const InformationPage = () => {
         <>
             <DynamicHead type={'timeline'}/>
             <div className={'page informationPage'}>
-                <Information />
-                {/*<TimelineSectionSecondary />*/}
+                <div className={'informationPageWrapper w-full flex'}>
+                    <InformationSectionPrimary />
+                    <InformationSectionSecondary />
+                </div>
             </div>
         </>
     )

@@ -82,7 +82,6 @@ const appearanceSlice = createSlice({
 export default appearanceSlice.reducer;
 export const {updateIsSummary, updateTagNum, updateTotalPage, updateCurrentTopic , updateAllTimelinesType, updateIs404, updateIsShare, updateIsTopEnd, updateIsBottomEnd, updateCurrentDepth, updateMaxDepth, updateCurrentPage, updatePreviousTop, updateLastAction} = appearanceSlice.actions;
 
-// reduces repetition inside components when selecting the specific state
 // selectors
 export const selectAboveTimelineHeight = (state: RootState) => state.appearance.aboveTimelineHeight
 export const selectTimelineEdgeHeight = (state: RootState) => state.appearance.timelineEdgeHeight

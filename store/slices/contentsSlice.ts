@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
 
-// values before any dispatch
 const initialState = {
     currentTimeline: {id: 1, name: '', description: '', image: '', content: null},
     relatedTimelines: [],
@@ -17,7 +16,6 @@ const initialState = {
     pivotEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, importance: 0, depth: 0, timelineInfo: [], overlap: 0, isToggle: false, toggleEvents: []},
 } as initialContentsState
 
-// part of the store as a whole, related with actual contents
 const contentsSlice = createSlice({
     name: 'contents',
     initialState,
@@ -61,7 +59,7 @@ const contentsSlice = createSlice({
     },
 });
 export default contentsSlice.reducer;
-export const {updateRelatedNews, updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines ,updatePivotEvent, updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents, updatePreviousEvents, updateCurrentSerieses, updateCurrentSeries } = contentsSlice.actions;
+export const {updateRelatedNews, updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines ,updatePivotEvent, updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents, updatePreviousEvents} = contentsSlice.actions;
 
 // reduces repetition inside components when selecting the specific state
 // selectors
@@ -74,7 +72,6 @@ export const selectRecentTimelines = (state: RootState) => state.contents.recent
 export const selectCurrentEvent = (state: RootState) => state.contents.currentEvent
 export const selectCurrentEvents = (state: RootState) => state.contents.currentEvents
 export const selectCurrentSeries = (state: RootState) => state.contents.currentSeries
-export const selectCurrentSerieses = (state: RootState) => state.contents.currentSerieses
 export const selectPivotEvent = (state: RootState) => state.contents.pivotEvent
 
 // types
@@ -119,22 +116,4 @@ export interface TimelineEvent {
     new?: boolean
     createdDT?: string
     updatedDT?: string
-}
-
-export interface Series {
-    id: number
-    name: string
-    description: string
-    timelineList: SeriesTimeline[]
-    timelines: SeriesTimeline[]
-    hasMore: boolean
-    totalCount: number
-    totalPage: number
-}
-
-export interface SeriesTimeline {
-    id: number
-    name: string
-    description: string
-    image: string
 }
