@@ -4,10 +4,8 @@ import {selectIsBottomEnd} from "@/store/slices/appearanceSlice";
 import {selectPopularTimelines, selectRecentTimelines} from "@/store/slices/contentsSlice";
 import TimelineListTemplate from "@/components/timelines/timelineListTemplate";
 import {useRouter} from "next/router";
-import AdsTimelineBetweenSecondary from "@/components/ads/adsTimelineBetweenSecondary";
-import AdsTimelineSide from "@/components/ads/adsTimelineSide";
 
-const TimelineSectionSecondary = () => {
+const InformationSectionSecondary = () => {
     const router = useRouter();
     const isInformation = router.pathname.startsWith('/information')
     const popularTimelines = useSelector(selectPopularTimelines)
@@ -19,13 +17,10 @@ const TimelineSectionSecondary = () => {
             <hr className={`${isInformation && 'max-[852px]:hidden'}`}/>
             <TimelineListTemplate title={'Popular'} timelines={popularTimelines} />
             <hr/>
-            <AdsTimelineBetweenSecondary />
-            <hr/>
             <TimelineListTemplate title={'Recently Added'} timelines={recentTimelines} />
             <hr/>
-            <AdsTimelineSide />
         </div>
     );
 };
 
-export default TimelineSectionSecondary;
+export default InformationSectionSecondary;

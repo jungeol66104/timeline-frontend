@@ -7,12 +7,11 @@ import FeedbackButton from "@/components/layout/feedbackButton";
 import MenuButton from "@/components/layout/menuButton";
 import SearchButton from "@/components/layout/search/searchButton";
 import TagBar from "@/components/layout/tagBar";
-// refactoring: clear
 
-const Navbar = () => {
+const Navbar = ({isLoading} : {isLoading: boolean}) => {
     return (
         <>
-            <nav className={'navbar fixed top-0 left-0 h-[60px] w-full bg-white shadow-md flex items-center justify-between'} style={{zIndex: 5000}}>
+            <nav className={'navbar sticky top-0 left-0 h-[60px] w-full bg-white shadow-md flex items-center justify-between'} style={{zIndex: 5000}}>
                 <div className={'flex items-center gap-5'}>
                     <Link onClick={() => sessionStorage.clear()} href={'/'} className={`w-fit font-black text-2xl transform transition-opacity ease-in-out duration-300 ml-4`}>Timeline</Link>
                     <ComputerSearchBar />
@@ -29,7 +28,7 @@ const Navbar = () => {
                 </div>
             </nav>
             <TagBar />
-            <InformationBar/>
+            {!isLoading && <InformationBar/>}
         </>
     )
 }

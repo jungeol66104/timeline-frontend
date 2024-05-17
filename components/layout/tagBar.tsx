@@ -82,7 +82,7 @@ const TagBar = () => {
     }
 
     return (
-        <div className={`tagBar fixed h-fit w-full border-b-[1px] bg-white z-[4999] ${!isIndex && 'hidden'}`}>
+        <div className={`tagBar sticky top-[60px] h-fit w-full border-b-[1px] bg-white z-[4999] ${!isIndex && 'hidden'}`}>
             <div className={`fixed top-[60px] left-0 pt-[1px] pl-4 pr-6 h-[45.67px] ${scrollPosition === 'start' ? 'pointer-events-none opacity-0' : 'opacity-100'} transition-opacity flex items-center ${!showButtons && 'hidden'}`} style={{backgroundImage: "linear-gradient(to right, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 0))"}}><button onClick={() => handleClick('prev')} className={`flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white hover:bg-gray-100`}><Image src={'/svg/before.svg'} alt={'before'} height={20} width={20} className={'opacity-80'}/></button></div>
             <div className={`fixed top-[60px] right-0 pt-[1px] pl-6 pr-4 h-[45.67px] ${scrollPosition === 'end' ? 'pointer-events-none opacity-0' : 'opacity-100'} transition-opacity flex items-center ${!showButtons && 'hidden'}`} style={{backgroundImage: "linear-gradient(to left, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 0))"}}><button onClick={() => handleClick('next')} className={`flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white hover:bg-gray-100`}><Image src={'/svg/after.svg'} alt={'after'} height={20} width={20} className={'opacity-80'}/></button></div>
             <div ref={swiperContainerRef} className={'tagWrapper shrink-0 flex gap-2 pt-2 pb-1.5 px-4 overflow-x-scroll'}>

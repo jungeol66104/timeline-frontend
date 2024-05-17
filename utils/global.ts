@@ -22,7 +22,6 @@ export const getIsTouchable = () => {
 }
 
 export const getScrollWrapper = () => {
-    // const scrollWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.page') : null
     const scrollWrapper: Element | null = typeof window !== 'undefined' ? document.documentElement : null
     return scrollWrapper
 }
@@ -86,7 +85,7 @@ export const getTags = () => {
 
 export const getCurrentTag = (tagNum: number) => {
     const index = tagNum - 1
-    const tags = ["Recently Added", "Popular", "Hot", "Staff Picks", "Politics", "Biography", "History", "Sports", "Movies", "Music", "Company", "Institution", "Finance", "Business", "Economics", "Technology", "Science", "Health"]
+    const tags = getTags()
     return tags[index]
 }
 

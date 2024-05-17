@@ -3,7 +3,7 @@ import React from 'react';
 const PrivacyPage = () => {
     return (
         <div className={'page textPage'}>
-            <div className={'relative h-fit w-full max-w-[600px] p-4 flex flex-col gap-5'}>
+            <div className={'relative h-fit w-full max-w-[630px] p-4 flex flex-col gap-5'}>
                 <div>
                     <h1 className={'text-2xl font-bold'}>Privacy Policy</h1>
                     <div className={'text-md text-gray-500'}>Last updated: May 09, 2024</div>

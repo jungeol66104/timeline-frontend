@@ -9,6 +9,7 @@ const AdsIndexSide = () => {
     }, []);
 
     return (
+        // <div className={'adsIndexSide sticky top-[122.67px] w-full max-[852px]:hidden h-fit flex justify-center bg-[#F2F2F259] border-[1px] border-x-[#E5E7EB]'}>
         <div className={'adsIndexSide w-full max-[852px]:hidden h-fit flex justify-center bg-[#F2F2F259] border-[1px] border-x-[#E5E7EB]'}>
             <div className={'adsIndexSideWrapper p-4 w-full max-w-[352px] flex flex-col items-center gap-2.5'}>
                 <div className={'text-xs font-semibold text-gray-400'}>ADVERTISEMENT</div>

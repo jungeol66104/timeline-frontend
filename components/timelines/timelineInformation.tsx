@@ -10,7 +10,7 @@ const TimelineInformation = () => {
     return (
         <div className={`timelineInformation`}>
             <div>
-                <h1 className={'text-2xl font-bold'}>{currentTimeline.name}</h1>
+                <h1 className={'timelineInformationName text-2xl font-bold'}>{currentTimeline.name}</h1>
                 <div className={'text-md text-gray-500'}>{currentTimeline.description}</div>
             </div>
             <div className={'mt-2.5 mb-3'}>

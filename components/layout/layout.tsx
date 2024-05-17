@@ -15,14 +15,14 @@ const Layout = ({ children } : {children: ReactNode}) => {
     const is404 = useSelector(selectIs404)
     const router = useRouter()
     const [isIndexPage, setIsIndexPage] = useState(true);
-    const [loading, setLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         const start = (url: string)=> {
-            setLoading(true)
+            setIsLoading(true)
             setIsIndexPage(url.split('?')[0] === '/')
         }
-        const end = () => setLoading(false)
+        const end = () => setIsLoading(false)
 
         router.events.on("routeChangeStart", start)
         router.events.on("routeChangeComplete", end)
@@ -41,8 +41,8 @@ const Layout = ({ children } : {children: ReactNode}) => {
     if (is404) return <Custom404 />
     return (
         <div className={'layout relative'}>
-            <Navbar />
-            {loading
+            <Navbar isLoading={isLoading}/>
+            {isLoading
                 ?   isIndexPage
                     ?   <IndexSkeleton />
                     :   <div></div>

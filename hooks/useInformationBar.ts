@@ -8,12 +8,7 @@ import {selectCurrentSeries, selectCurrentTimeline} from "@/store/slices/content
 const useInformationBar = () => {
     const router = useRouter();
     const isTimeline = router.pathname.startsWith('/timelines')
-    const isSeries = false
-    // const isSeries = router.pathname.startsWith('/series')
-    const showInformationHeader = isTimeline || isSeries
     const currentTimeline = useSelector(selectCurrentTimeline)
-    const currentSeries = useSelector(selectCurrentSeries)
-    const isTopEnd = useSelector(selectIsTopEnd)
 
     useEffect(() => {
         const scrollWrapper = getScrollWrapper()
@@ -22,7 +17,7 @@ const useInformationBar = () => {
         if (!scrollWrapper || !informationHeader || !informationHeaderName) return
 
         const handleScroll = () => {
-            if ((scrollWrapper.scrollTop > 50 || !isTopEnd) && showInformationHeader) {
+            if (scrollWrapper.scrollTop > 50 && isTimeline) {
                 if(!informationHeader.classList.contains("flex")) {
                     informationHeader.classList.remove("hidden");
                     informationHeader.classList.add("flex");
@@ -35,7 +30,7 @@ const useInformationBar = () => {
             }
         }
 
-        informationHeaderName.innerHTML = isTimeline ? currentTimeline.name : currentSeries.name
+        informationHeaderName.innerHTML = currentTimeline.name
         handleScroll()
         scrollWrapper.addEventListener("scroll", handleScroll)
         return () => {
