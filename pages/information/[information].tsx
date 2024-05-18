@@ -38,7 +38,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
 const InformationPage = () => {
     return (
         <>
-            <DynamicHead type={'timeline'}/>
+            <DynamicHead type={'information'}/>
             <div className={'page informationPage'}>
                 <div className={'informationPageWrapper w-full flex'}>
                     <InformationSectionPrimary />
