@@ -6,7 +6,7 @@ const IndexSkeleton = () => {
     const skeletonArray = Array(10).fill(0)
 
     return (
-        <div className={'page indexPage pt-[46.67px] animate-pulse'}>
+        <div className={'page indexPage animate-pulse'}>
             <div className={`fixed top-[60px] left-0 flex pt-2 pb-1.5 h-[46.67px] shrink-0 w-full border-b-[1px] border-gray-100 bg-white overflow-x-auto z-[4900]`}>
                 <div className={'tagWrapper h-full w-full flex gap-2 px-4 text-sm overflow-hidden'}>
                     {getTags().map((tag, i) => {
