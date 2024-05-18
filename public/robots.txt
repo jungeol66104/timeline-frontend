@@ -3,10 +3,4 @@ Disallow: /events/
 Disallow: /series/
 Disallow: /information/
 
-User-agent: GPTBot
-Disallow: /
-
-User-agent: Google-Extended
-Disallow: /
-
 Sitemap: https://timeline.vg/sitemap.xml

@@ -27,7 +27,7 @@ const DynamicHead = ({type}: {type: string} ) => {
     return (
         <Head>
             <meta charSet="UTF-8" />
-            {(type !== "index" && type !== "timeline") && <meta name="robots" content="noindex" />}
+            {/*{(type !== "index" && type !== "timeline") && <meta name="robots" content="noindex" />}*/}
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name="description" content={description} />
             <meta name="author" content="timeline" />
