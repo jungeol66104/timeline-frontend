@@ -4,6 +4,7 @@ import ShareButton from "@/components/layout/share/shareButton";
 import FeedbackButton from "@/components/layout/feedbackButton";
 import LogInButton from "@/components/layout/account/logInButton";
 import SignUpButton from "@/components/layout/account/signUpButton";
+import CreateTimelineButton from "@/components/layout/createTimelineButton";
 
 const ProfileButton = () => {
     const profileButtonRef = useRef<HTMLButtonElement>(null)
@@ -34,6 +35,7 @@ const ProfileButton = () => {
                 <div className={'absolute top-[28px] right-0 w-[110px] bg-white border-[1px] rounded-md shadow-md'}>
                     <LogInButton />
                     <SignUpButton />
+                    <div className={'min-[850px]:hidden'}><CreateTimelineButton /></div>
                     <ShareButton />
                     <FeedbackButton />
                 </div>
