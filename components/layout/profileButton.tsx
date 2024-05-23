@@ -24,8 +24,10 @@ const ProfileButton = () => {
 
     return (
         <div className={'relative mr-4 flex justify-center items-center shrink-0'}>
-            {/*<button ref={profileButtonRef} onClick={handleClick}><Image src={'/svg/menu.svg'} alt={'menu'} width={24} height={24} /></button>*/}
-            <button ref={profileButtonRef} onClick={handleClick}><Image className={'rounded-full'} src={'/images/profile.jpg'} alt={'profile'} width={30} height={30} /></button>
+            <button ref={profileButtonRef} onClick={handleClick}>
+                <Image className={'pc flex items-center max-[850px]:hidden rounded-full'} src={'/images/profile.jpg'} alt={'profile'} width={28} height={28} />
+                <Image className={'mobile hidden max-[850px]:flex rounded-full'} src={'/images/profile.jpg'} alt={'profile'} width={28} height={28} />
+            </button>
             {isToggle &&
                 <div className={'absolute top-6 right-0 w-[110px] bg-white border-[1px] rounded-md shadow-md'}>
                     <ShareButton />

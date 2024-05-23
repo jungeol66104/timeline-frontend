@@ -10,7 +10,6 @@ const createTimelineButton = () => {
             </div>
             <div className={'mobile hidden relative mr-4 justify-center items-center shrink-0 max-[850px]:flex'}>
                 <button className={'border-[1.5px] border-black rounded-full'}><Image src={'/svg/add.svg'} alt={'create'} width={24} height={24}/></button>
-                {/*<button className={'rounded-full'}><Image src={'/svg/add.svg'} alt={'create'} width={26} height={26}/></button>*/}
             </div>
         </Link>
     );
