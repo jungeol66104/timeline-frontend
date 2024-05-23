@@ -37,8 +37,8 @@ const ShareButton = () => {
     });
 
     return (
-        <button ref={shareButtonRef} className={'cursor-pointer w-[69px] max-[850px]:w-full text-left'}>
-            <div className={'px-3 py-1.5 h-[36px] rounded-3xl bg-white hover:bg-gray-100 font-semibold max-[850px]:rounded-t-md max-[850px]:rounded-b-none'}>Share</div>
+        <button ref={shareButtonRef} className={'block cursor-pointer w-full text-left'}>
+            <div className={'px-3 py-1.5 h-[36px] bg-white hover:bg-gray-100 font-semibold'}>Share</div>
         </button>
     );
 };

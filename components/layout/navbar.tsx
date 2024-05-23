@@ -25,7 +25,7 @@ const Navbar = ({isLoading} : {isLoading: boolean}) => {
                     </div>
                     <div className={'mobile hidden items-center max-[850px]:flex'}>
                         <SearchButton />
-                        {/*<CreateTimelineButton />*/}
+                        <CreateTimelineButton />
                         <ProfileButton />
                     </div>
                 </div>

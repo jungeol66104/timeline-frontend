@@ -11,6 +11,7 @@ import {useScroll} from "@/hooks/useScroll";
 import {useRouter} from "next/router";
 import IndexSkeleton from "@/components/index/indexSkeleton";
 import TestToolbar from "@/components/testToolbar";
+import Footer from "@/components/layout/footer";
 
 const Layout = ({ children } : {children: ReactNode}) => {
     const is404 = useSelector(selectIs404)
@@ -47,11 +48,14 @@ const Layout = ({ children } : {children: ReactNode}) => {
                 ?   isIndexPage
                     ?   <IndexSkeleton />
                     :   <div></div>
-                :   <>{children}</>
+                :   <>
+                        {children}
+                        <Footer />
+                    </>
             }
             <Share />
             <Overlay />
-            <TestToolbar />
+            {/*<TestToolbar />*/}
         </div>
     )
 }
