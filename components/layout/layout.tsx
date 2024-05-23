@@ -10,6 +10,7 @@ import useStateFromStorage from "@/hooks/useStateFromStorage";
 import {useScroll} from "@/hooks/useScroll";
 import {useRouter} from "next/router";
 import IndexSkeleton from "@/components/index/indexSkeleton";
+import TestToolbar from "@/components/testToolbar";
 
 const Layout = ({ children } : {children: ReactNode}) => {
     const is404 = useSelector(selectIs404)
@@ -50,6 +51,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
             }
             <Share />
             <Overlay />
+            <TestToolbar />
         </div>
     )
 }
