@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import api from "@/utils/api";
+import api from "@/pages/api/api";
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     if (res) {

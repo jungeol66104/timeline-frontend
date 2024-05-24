@@ -1,4 +1,4 @@
-import api from "@/utils/api"
+import api from "@/pages/api/api"
 import React from "react";
 import {storeWrapper} from "@/store/store";
 import {updateCurrentEvent} from "@/store/slices/contentsSlice";

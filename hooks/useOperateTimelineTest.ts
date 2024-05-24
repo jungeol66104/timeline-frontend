@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvents, selectCurrentTimeline, updateCurrentEvents} from "@/store/slices/contentsSlice";
 import {selectCurrentPage, selectIsBottomEnd, selectIsSummary, updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateLastAction, updateTotalPage} from "@/store/slices/appearanceSlice";
 import {debounce, getScrollWrapper} from "@/utils/global";
-import api from "@/utils/api";
+import api from "@/pages/api/api";
 
 const useOperateTimeline = () => {
 

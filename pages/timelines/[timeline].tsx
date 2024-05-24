@@ -1,6 +1,6 @@
 import React from "react";
 import probe from "probe-image-size"
-import api from "@/utils/api"
+import api from "@/pages/api/api"
 import {storeWrapper} from "@/store/store";
 import {updateCurrentEvents, updateCurrentTimeline, updatePopularTimelines, updateRecentTimelines, updateRelatedNews, updateRelatedTimelines} from "@/store/slices/contentsSlice"
 import {updateCurrentPage, updateIs404, updateIsBottomEnd, updateIsSummary, updateTotalPage} from "@/store/slices/appearanceSlice";

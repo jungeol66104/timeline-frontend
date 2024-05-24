@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import api from "@/utils/api";
+import api from "@/pages/api/api";
 import {selectSearchValue, updateSearchedEvents, updateSearchedTimelines} from "@/store/slices/searchSlice";
 import {useDispatch, useSelector} from "react-redux";
 import useDebounce from "@/hooks/useDebounce";

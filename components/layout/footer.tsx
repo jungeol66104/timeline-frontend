@@ -14,7 +14,6 @@ const Footer = () => {
                 <div className={'text-[10px] text-[#6A6A6A]'}> Terms of Service | Privacy | Contact: project.yaha@gmail.com | Web Hosting: Vercel | Server Hosting: AWS</div>
             </div>
         </footer>
-    );
-};
-
+    )
+}
 export default Footer;
