@@ -27,7 +27,7 @@ const ProfileButton = () => {
         <div className={'relative mr-4 flex justify-center items-center shrink-0'}>
             <button ref={profileButtonRef} onClick={handleClick}><Image className={'rounded-full'} src={'/images/profile.jpg'} alt={'profile'} width={28} height={28} /></button>
             {isToggle &&
-                <div className={'absolute top-[30px] right-0 p-2 bg-white border-[1px] rounded-md shadow-md'}>
+                <div className={'absolute top-[30px] right-0 p-1 bg-white border-[1px] rounded-md shadow-md'}>
                     <div className={'min-[850px]:hidden'}><CreateTimelineButton /></div>
                     <hr className={'min-[850px]:hidden'}/>
                     <SignInButton />
