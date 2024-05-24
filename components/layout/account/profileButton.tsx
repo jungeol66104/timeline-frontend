@@ -2,8 +2,7 @@ import React, {useRef, useState} from 'react';
 import Image from "next/image";
 import ShareButton from "@/components/layout/share/shareButton";
 import FeedbackButton from "@/components/layout/feedbackButton";
-import LogInButton from "@/components/layout/account/logInButton";
-import SignUpButton from "@/components/layout/account/signUpButton";
+import SignInButton from "@/components/layout/account/signInButton";
 import CreateTimelineButton from "@/components/layout/createTimelineButton";
 
 const ProfileButton = () => {
@@ -24,18 +23,14 @@ const ProfileButton = () => {
         })
     }
 
-
     return (
         <div className={'relative mr-4 flex justify-center items-center shrink-0'}>
-            <button ref={profileButtonRef} onClick={handleClick}>
-                <Image className={'pc flex items-center max-[850px]:hidden rounded-full'} src={'/images/profile.jpg'} alt={'profile'} width={28} height={28} />
-                <Image className={'mobile hidden max-[850px]:flex rounded-full'} src={'/images/profile.jpg'} alt={'profile'} width={28} height={28} />
-            </button>
+            <button ref={profileButtonRef} onClick={handleClick}><Image className={'rounded-full'} src={'/images/profile.jpg'} alt={'profile'} width={28} height={28} /></button>
             {isToggle &&
-                <div className={'absolute top-[28px] right-0 w-[110px] bg-white border-[1px] rounded-md shadow-md'}>
-                    <LogInButton />
-                    <SignUpButton />
+                <div className={'absolute top-[30px] right-0 p-2 bg-white border-[1px] rounded-md shadow-md'}>
                     <div className={'min-[850px]:hidden'}><CreateTimelineButton /></div>
+                    <hr className={'min-[850px]:hidden'}/>
+                    <SignInButton />
                     <ShareButton />
                     <FeedbackButton />
                 </div>
