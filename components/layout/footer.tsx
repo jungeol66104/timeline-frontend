@@ -9,7 +9,7 @@ const Footer = () => {
     return (
         <footer className={`${isHidden && 'hidden'} bg-gray-100 flex flex-col`}>
             <div className={'px-4 py-6 flex flex-col gap-2.5 w-full max-w-[630px]'}>
-                <div className={'text-sm text-[#222222]'}>© 2024 Timeline</div>
+                <div className={'text-xs text-[#222222]'}>© 2024 Timeline</div>
                 <hr/>
                 <div className={'text-[10px] text-[#6A6A6A]'}> Terms of Service | Privacy | Contact: project.yaha@gmail.com | Web Hosting: Vercel | Server Hosting: AWS</div>
             </div>
