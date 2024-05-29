@@ -24,6 +24,12 @@ export const getScrollWrapper = () => {
     return scrollWrapper
 }
 
+export const getBody  = () => {
+    const body: HTMLElement | null = typeof window !== 'undefined' ? document.body : null
+    return body
+}
+
+
 export const getIsBaseImage = (url: string | null | undefined) => {
     if (typeof url !== "string") return true
     return url.includes("https://cdn.timeline.vg/base-image.png")

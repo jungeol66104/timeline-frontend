@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectIsShare, selectTimelineModalType, updateIsShare, updateTimelineModalType} from "@/store/slices/appearanceSlice";
+import {getBody} from "@/utils/global";
 
 const Overlay = () => {
     const dispatch = useDispatch()
@@ -10,7 +11,13 @@ const Overlay = () => {
 
     const handleClick = () => {
         if (isShare) dispatch(updateIsShare())
-        else if (timelineModalType !== 'none') dispatch(updateTimelineModalType('none'))
+        else if (timelineModalType !== 'none') {
+            const body = getBody()
+            if (!body) return
+
+            dispatch(updateTimelineModalType('none'))
+            body.style.overflow = 'scroll'
+        }
     }
 
     return (

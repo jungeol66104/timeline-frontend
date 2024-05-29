@@ -2,7 +2,6 @@ import React from "react";
 import TimelineFrame from "@/components/timelines/timeline/timelineFrame";
 import TimelineEvents from "@/components/timelines/timeline/timelineEvents";
 import useOperateTimelineTest from "@/hooks/useOperateTimeline";
-import TimelineModal from "@/components/timelines/timelineModal/timelineModal";
 import TimelineModalEvent from "@/components/timelines/timelineModal/timelineModalEvent";
 
 const Timeline = () => {
