@@ -8,6 +8,7 @@ import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
 import AdsTimelineTop from "@/components/ads/adsTimelineTop";
+import TimelineModal from "@/components/timelines/timelineModal/timelineModal";
 
 export const getStaticPaths = async () => {
     return {paths: [], fallback: 'blocking'}

@@ -1,9 +1,8 @@
 import React from 'react';
 import useInformationBar from "@/hooks/useInformationBar";
-import useInformationBarTest from "@/hooks/useInformationBarTest";
 
 const InformationBar = () => {
-    useInformationBarTest()
+    useInformationBar()
 
     return (
         <div className={'informationHeader hidden fixed top-[60px] pt-[5px] pb-[3px] w-full flex-col bg-white border-b-[1px]'} style={{zIndex: 4999}}>

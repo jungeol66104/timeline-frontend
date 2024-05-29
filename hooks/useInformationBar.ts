@@ -1,42 +1,39 @@
 import {useEffect} from 'react';
-import {useRouter} from "next/router";
 import {useSelector} from "react-redux";
-import {selectIsTopEnd} from "@/store/slices/appearanceSlice";
-import {getScrollWrapper} from "@/utils/global";
-import {selectCurrentSeries, selectCurrentTimeline} from "@/store/slices/contentsSlice";
+import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 
 const useInformationBar = () => {
-    const router = useRouter();
-    const isTimeline = router.pathname.startsWith('/timelines')
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     useEffect(() => {
-        const scrollWrapper = getScrollWrapper()
+        const timelineInformationName : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineInformationName') : null
         const informationHeader : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.informationHeader') : null
         const informationHeaderName : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.informationHeaderName') : null
-        if (!scrollWrapper || !informationHeader || !informationHeaderName) return
-
-        const handleScroll = () => {
-            if (scrollWrapper.scrollTop > 50 && isTimeline) {
-                if(!informationHeader.classList.contains("flex")) {
-                    informationHeader.classList.remove("hidden");
-                    informationHeader.classList.add("flex");
-                }
-            } else {
-                if (!informationHeader.classList.contains("hidden")) {
-                    informationHeader.classList.remove("flex");
-                    informationHeader.classList.add("hidden");
-                }
-            }
+        if(!informationHeader || !informationHeaderName) return
+        if (!timelineInformationName) {
+            informationHeader.classList.remove("flex");
+            informationHeader.classList.add("hidden");
+            return
         }
 
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!informationHeader.classList.contains("hidden")) {
+                        informationHeader.classList.remove("flex");
+                        informationHeader.classList.add("hidden");
+                    }
+                } else {
+                    if(!informationHeader.classList.contains("flex")) {
+                        informationHeader.classList.remove("hidden");
+                        informationHeader.classList.add("flex");
+                    }
+                }
+            });
+        }, {rootMargin: '-60px 0px 0px 0px'});
+
         informationHeaderName.innerHTML = currentTimeline.name
-        handleScroll()
-        scrollWrapper.addEventListener("scroll", handleScroll)
-        return () => {
-            scrollWrapper.removeEventListener("scroll", handleScroll)
-        };
+        observer.observe(timelineInformationName);
     });
 };
-
 export default useInformationBar;

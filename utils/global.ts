@@ -1,10 +1,8 @@
 import crypto from 'crypto'
 
-// math
-export const sum = (array: number[]) => {
-    let sum = 0
-    array.forEach(l => sum += l)
-    return sum
+export const capitalize = (string: string) => {
+    if (!string) return string;
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 // timeline
@@ -24,16 +22,6 @@ export const getIsTouchable = () => {
 export const getScrollWrapper = () => {
     const scrollWrapper: Element | null = typeof window !== 'undefined' ? document.documentElement : null
     return scrollWrapper
-}
-
-export const getTimeline = () => {
-    const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
-    return timeline
-}
-
-export const getFirstEventBox = () => {
-    const eventBox: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.eventBox') : null
-    return eventBox
 }
 
 export const getIsBaseImage = (url: string | null | undefined) => {
