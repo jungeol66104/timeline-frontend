@@ -10,13 +10,15 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
     const handleClick = async () => {
         try {
             const body = getBody()
-            if (!body) return
+            const timelineModalEvent: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineModalEvent') : null
+            if (!body || !timelineModalEvent) return
 
             const response = await api.get(`/event/${Number(event.id)}`, {headers: {lang: 'en'}})
             const currentEvent = response.data.data
             dispatch(updateCurrentEvent(currentEvent))
             dispatch(updateTimelineModalType('event'))
             body.style.overflow = 'hidden'
+            timelineModalEvent.focus()
             return
         } catch (error) {
             console.error('Error fetching data in useEffect: ', error)
