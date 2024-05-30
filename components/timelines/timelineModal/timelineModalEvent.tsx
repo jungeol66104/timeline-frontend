@@ -2,8 +2,8 @@ import React from 'react';
 import Image from 'next/image'
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
-import {selectIsEdit, selectScrollTop, selectTimelineModalType, updateIsEdit, updateTimelineModalType} from "@/store/slices/appearanceSlice";
-import {formatDate, getBody, getScrollWrapper} from "@/utils/global";
+import {selectIsEdit, selectTimelineModalType, updateIsEdit, updateTimelineModalType} from "@/store/slices/appearanceSlice";
+import {formatDate, getBody} from "@/utils/global";
 import EventDescriptionTiptap from "@/components/timelines/timelineModal/eventDescriptionTiptap";
 
 const TimelineModalEvent = () => {

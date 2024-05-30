@@ -1,9 +1,9 @@
 import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {updateScrollTop, updateTimelineModalType} from "@/store/slices/appearanceSlice";
+import {updateTimelineModalType} from "@/store/slices/appearanceSlice";
 import InformationContentImage from "@/components/images/informationContentImage";
-import {getBody, getScrollWrapper} from "@/utils/global";
+import {getBody} from "@/utils/global";
 
 const TimelineInformation = () => {
     const dispatch = useDispatch()
@@ -12,15 +12,10 @@ const TimelineInformation = () => {
     const handleClick = async () => {
         try {
             const body = getBody()
-            const scrollWrapper = getScrollWrapper()
-            if (!body || !scrollWrapper) return
+            if (!body) return
 
-            const scrollTop = scrollWrapper.scrollTop
-            dispatch(updateScrollTop(scrollTop))
             dispatch(updateTimelineModalType('information'))
             body.style.overflow = 'hidden'
-            body.style.position = 'fixed'
-            body.style.inset = `-${scrollTop}px 0 0 0`
             return
         } catch (error) {
             console.error('Error fetching data in useEffect: ', error)
