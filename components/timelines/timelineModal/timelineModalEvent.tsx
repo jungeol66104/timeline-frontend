@@ -2,8 +2,8 @@ import React from 'react';
 import Image from 'next/image'
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
-import {selectIsEdit, selectTimelineModalType, updateIsEdit, updateTimelineModalType} from "@/store/slices/appearanceSlice";
-import {formatDate, getBody} from "@/utils/global";
+import {selectIsEdit, selectScrollTop, selectTimelineModalType, updateIsEdit, updateTimelineModalType} from "@/store/slices/appearanceSlice";
+import {formatDate, getBody, getScrollWrapper} from "@/utils/global";
 import EventDescriptionTiptap from "@/components/timelines/timelineModal/eventDescriptionTiptap";
 
 const TimelineModalEvent = () => {
@@ -11,14 +11,18 @@ const TimelineModalEvent = () => {
     const timelineModalType = useSelector(selectTimelineModalType)
     const currentEvent = useSelector(selectCurrentEvent)
     const isEdit = useSelector(selectIsEdit)
+    const scrollTop = useSelector(selectScrollTop)
 
     const handleClick = () => {
         const body = getBody()
-        if (!body) return
+        const scrollWrapper = getScrollWrapper()
+        if (!body || !scrollWrapper) return
 
         dispatch(updateIsEdit(false))
         dispatch(updateTimelineModalType('none'))
         body.style.overflow = 'auto'
+        body.style.position = 'static'
+        scrollWrapper.scrollTop = scrollTop
     }
 
     const bottom = timelineModalType === 'event' ? 0 : '-100%'
