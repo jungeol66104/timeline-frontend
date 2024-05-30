@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import probe from "probe-image-size"
 import api from "@/pages/api/api"
 import {storeWrapper} from "@/store/store";
@@ -8,7 +8,6 @@ import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
 import AdsTimelineTop from "@/components/ads/adsTimelineTop";
-import {debounce} from "@/utils/global";
 
 export const getStaticPaths = async () => {
     return {paths: [], fallback: 'blocking'}
@@ -38,18 +37,6 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
 })
 
 const TimelinePage = () => {
-    // const preventScroll = (event: Event) => {
-    //     event.preventDefault()
-    //     console.log('hi')
-    // }
-    //
-    // useEffect(() => {
-    //     window.addEventListener('scroll', preventScroll)
-    //     return () => {
-    //         window.removeEventListener('scroll', preventScroll)
-    //     };
-    // });
-
     return (
         <>
             <DynamicHead type={'timeline'}/>
