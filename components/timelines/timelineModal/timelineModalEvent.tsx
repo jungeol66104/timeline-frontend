@@ -22,7 +22,7 @@ const TimelineModalEvent = () => {
         dispatch(updateTimelineModalType('none'))
         body.style.overflow = 'auto'
         body.style.position = 'static'
-        scrollWrapper.scrollTop = scrollTop
+        // scrollWrapper.scrollTop = scrollTop
     }
 
     const bottom = timelineModalType === 'event' ? 0 : '-100%'

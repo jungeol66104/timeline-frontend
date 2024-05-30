@@ -21,8 +21,9 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
             dispatch(updateTimelineModalType('event'))
 
             body.style.overflow = 'hidden'
-            body.style.position = 'fixed'
-            body.style.inset = `-${scrollTop}px 0 0 0`
+            // body.style.position = 'fixed'
+            // body.style.inset = `-${scrollTop}px 0 0 0`
+            scrollWrapper.scrollTop = scrollTop
             return
         } catch (error) {
             console.error('Error fetching data in useEffect: ', error)
