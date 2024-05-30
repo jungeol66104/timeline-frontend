@@ -16,7 +16,7 @@ const TimelineModalInformation = () => {
         const body = getBody()
         if (!body) return
 
-        dispatch(updateIsEdit())
+        dispatch(updateIsEdit(false))
         dispatch(updateTimelineModalType('none'))
         body.style.overflow = 'auto'
     }
@@ -34,7 +34,7 @@ const TimelineModalInformation = () => {
                     <div className={'text-md text-gray-500'}>{currentTimeline.description}</div>
                     <div className={'my-1 flex gap-1 text-gray-500 font-medium text-sm'}><span>by Timeline · January 14, 2024</span></div>
                     <div className={'flex justify-end'}>
-                        <button onClick={() => dispatch(updateIsEdit())}
+                        <button onClick={() => dispatch(updateIsEdit(true))}
                                 className={`flex items-center gap-2.5 pl-1.5 pr-3 h-[30px] max-[850px]:h-[36px] font-semibold border-[0.1px] border-gray-300 bg-white hover:bg-gray-100 drop-shadow-sm rounded-md`}>
                             <div className={'w-5 shrink-0'}><Image src={'/svg/edit.svg'} alt={'editEvent'} width={20} height={20}/></div>
                             <div className={'text-sm font-semibold max-[850px]:w-full'}>Edit</div>

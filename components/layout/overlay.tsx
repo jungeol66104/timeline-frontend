@@ -15,7 +15,7 @@ const Overlay = () => {
             const body = getBody()
             if (!body) return
 
-            dispatch(updateIsEdit())
+            dispatch(updateIsEdit(false))
             dispatch(updateTimelineModalType('none'))
             body.style.overflow = 'auto'
         }

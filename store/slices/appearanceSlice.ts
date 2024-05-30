@@ -41,8 +41,8 @@ const appearanceSlice = createSlice({
         updateIsShare: (state) => {
             state.isShare = !state.isShare
         },
-        updateIsEdit: (state) => {
-            state.isEdit = !state.isEdit
+        updateIsEdit: (state, action) => {
+            state.isEdit = action.payload
         },
         updateTimelineModalType: (state, action) => {
             state.timelineModalType = action.payload
