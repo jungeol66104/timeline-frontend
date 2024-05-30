@@ -2,21 +2,23 @@ import React from 'react';
 import Image from 'next/image'
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
-import {selectTimelineModalType, updateTimelineModalType} from "@/store/slices/appearanceSlice";
+import {selectIsEdit, selectTimelineModalType, updateIsEdit, updateTimelineModalType} from "@/store/slices/appearanceSlice";
 import {formatDate, getBody} from "@/utils/global";
-import Tiptap from "@/components/tiptap";
+import EventDescriptionTiptap from "@/components/timelines/timelineModal/eventDescriptionTiptap";
 
 const TimelineModalEvent = () => {
     const dispatch = useDispatch()
     const timelineModalType = useSelector(selectTimelineModalType)
     const currentEvent = useSelector(selectCurrentEvent)
+    const isEdit = useSelector(selectIsEdit)
 
     const handleClick = () => {
         const body = getBody()
         if (!body) return
 
+        dispatch(updateIsEdit())
         dispatch(updateTimelineModalType('none'))
-        body.style.overflow = 'scroll'
+        body.style.overflow = 'auto'
     }
 
     const bottom = timelineModalType === 'event' ? 0 : '-100%'
@@ -34,16 +36,18 @@ const TimelineModalEvent = () => {
                         by<span>Timeline</span>·<span>{formatDate(currentEvent.createdDT)}</span>
                     </div>
                     <div className={'flex justify-end'}>
-                        <button className={`flex items-center gap-2.5 pl-1.5 pr-3 h-[30px] max-[850px]:h-[36px] font-semibold min-[850px]:border-[0.1px] border-gray-300 bg-white hover:bg-gray-100 drop-shadow-sm rounded-md`}>
+                        <button onClick={() => dispatch(updateIsEdit())} className={`flex items-center gap-2.5 pl-1.5 pr-3 h-[30px] max-[850px]:h-[36px] font-semibold border-[0.1px] border-gray-300 bg-white hover:bg-gray-100 drop-shadow-sm rounded-md`}>
                             <div className={'w-5 shrink-0'}><Image src={'/svg/edit.svg'} alt={'editEvent'} width={20} height={20}/></div>
                             <div className={'text-sm font-semibold max-[850px]:w-full'}>Edit</div>
                         </button>
                     </div>
                 </div>
                 <hr/>
-                <p className={'mt-[6px]'}>{currentEvent.description}</p>
+                {isEdit
+                    ?   <EventDescriptionTiptap />
+                    :   <p className={'mt-3'}>{currentEvent.description}</p>
+                }
             </div>
-            {/*<Tiptap />*/}
         </div>
 
     );

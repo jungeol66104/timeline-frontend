@@ -2,7 +2,7 @@ import {TimelineEvent, updateCurrentEvent} from "@/store/slices/contentsSlice";
 import api from "@/pages/api/api";
 import {useDispatch} from "react-redux";
 import {updateTimelineModalType} from "@/store/slices/appearanceSlice";
-import {getBody, getScrollWrapper} from "@/utils/global";
+import {getBody} from "@/utils/global";
 
 const EventContent = ({event} : {event: TimelineEvent}) => {
     const dispatch = useDispatch()
@@ -10,15 +10,13 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
     const handleClick = async () => {
         try {
             const body = getBody()
-            const timelineModalEvent: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineModalEvent') : null
-            if (!body || !timelineModalEvent) return
+            if (!body) return
 
             const response = await api.get(`/event/${Number(event.id)}`, {headers: {lang: 'en'}})
             const currentEvent = response.data.data
             dispatch(updateCurrentEvent(currentEvent))
             dispatch(updateTimelineModalType('event'))
             body.style.overflow = 'hidden'
-            timelineModalEvent.focus()
             return
         } catch (error) {
             console.error('Error fetching data in useEffect: ', error)

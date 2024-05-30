@@ -10,6 +10,7 @@ const initialState = {
     tagNum: 0,
     scrollTop: 0,
     isShare: false,
+    isEdit: false,
     timelineModalType: 'none',
     is404: false
 } as initialAppearanceState
@@ -40,6 +41,9 @@ const appearanceSlice = createSlice({
         updateIsShare: (state) => {
             state.isShare = !state.isShare
         },
+        updateIsEdit: (state) => {
+            state.isEdit = !state.isEdit
+        },
         updateTimelineModalType: (state, action) => {
             state.timelineModalType = action.payload
         },
@@ -49,7 +53,7 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateTimelineModalType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
+export const {updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateTimelineModalType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
 
 // selectors
 export const selectIsSummary = (state: RootState) => state.appearance.isSummary
@@ -59,6 +63,7 @@ export const selectTotalPage = (state: RootState) => state.appearance.totalPage
 export const selectCurrentTagNum = (state: RootState) => state.appearance.tagNum
 export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectIsShare = (state: RootState) => state.appearance.isShare
+export const selectIsEdit = (state: RootState) => state.appearance.isEdit
 export const selectTimelineModalType = (state: RootState) => state.appearance.timelineModalType
 export const selectIs404 = (state: RootState) => state.appearance.is404
 
@@ -73,6 +78,7 @@ export interface initialAppearanceState {
     // for effects
     scrollTop: number
     isShare: boolean
+    isEdit: boolean
     timelineModalType: 'none' | 'information' | 'event'
     is404: boolean
 }
