@@ -11,18 +11,14 @@ const TimelineModalEvent = () => {
     const timelineModalType = useSelector(selectTimelineModalType)
     const currentEvent = useSelector(selectCurrentEvent)
     const isEdit = useSelector(selectIsEdit)
-    const scrollTop = useSelector(selectScrollTop)
 
     const handleClick = () => {
         const body = getBody()
-        const scrollWrapper = getScrollWrapper()
-        if (!body || !scrollWrapper) return
+        if (!body) return
 
         dispatch(updateIsEdit(false))
         dispatch(updateTimelineModalType('none'))
         body.style.overflow = 'auto'
-        body.style.position = 'static'
-        // scrollWrapper.scrollTop = scrollTop
     }
 
     const bottom = timelineModalType === 'event' ? 0 : '-100%'
