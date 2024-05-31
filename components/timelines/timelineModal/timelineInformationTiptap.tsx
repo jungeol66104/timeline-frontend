@@ -2,7 +2,9 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
+import ContributionButton from "@/components/timelines/timelineModal/contributionButton";
+import EditButton from "@/components/timelines/timelineModal/editButton";
 
 const TimelineInformationTiptap = () => {
     const dispatch = useDispatch()
@@ -31,7 +33,14 @@ const TimelineInformationTiptap = () => {
 
 
     return (
-        <EditorContent editor={editor} />
+        <div>
+            <div className={'tiptapMenubar sticky top-3 w-full flex justify-between py-3'}>
+                <ContributionButton/>
+                <EditButton/>
+            </div>
+            <hr/>
+            <EditorContent editor={editor}/>
+        </div>
     )
 }
 export default TimelineInformationTiptap

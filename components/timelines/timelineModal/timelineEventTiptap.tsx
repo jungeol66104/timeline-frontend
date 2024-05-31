@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvent, updateCurrentEvent} from "@/store/slices/contentsSlice";
 import {useEffect} from "react";
 
-const EventDescriptionTiptap = () => {
+const TimelineEventTiptap = () => {
     const dispatch = useDispatch()
     const currentEvent = useSelector(selectCurrentEvent)
 
@@ -34,4 +34,4 @@ const EventDescriptionTiptap = () => {
         <EditorContent editor={editor} />
     )
 }
-export default EventDescriptionTiptap
+export default TimelineEventTiptap

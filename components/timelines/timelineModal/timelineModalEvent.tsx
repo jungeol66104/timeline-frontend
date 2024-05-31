@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
 import {selectIsEdit, selectTimelineModalType, updateIsEdit, updateTimelineModalType} from "@/store/slices/appearanceSlice";
 import {formatDate, getBody} from "@/utils/global";
-import EventDescriptionTiptap from "@/components/timelines/timelineModal/eventDescriptionTiptap";
+import TimelineEventTiptap from "@/components/timelines/timelineModal/timelineEventTiptap";
 
 const TimelineModalEvent = () => {
     const dispatch = useDispatch()
@@ -44,7 +44,7 @@ const TimelineModalEvent = () => {
                 </div>
                 <hr/>
                 {isEdit
-                    ?   <EventDescriptionTiptap />
+                    ?   <TimelineEventTiptap />
                     :   <p className={'mt-3'}>{currentEvent.description}</p>
                 }
             </div>
