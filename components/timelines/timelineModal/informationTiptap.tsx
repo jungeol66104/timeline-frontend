@@ -4,11 +4,9 @@ import {useEditor, EditorContent} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
 import {selectCurrentTimeline, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import ContributionButton from "@/components/timelines/timelineModal/contributionButton";
-import EditButton from "@/components/timelines/timelineModal/editButton";
 import TiptapMenubar from "@/components/timelines/timelineModal/tiptapMenubar";
 
-const TimelineInformationTiptap = () => {
+const InformationTiptap = () => {
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
 
@@ -37,4 +35,4 @@ const TimelineInformationTiptap = () => {
         </div>
     )
 }
-export default TimelineInformationTiptap
+export default InformationTiptap

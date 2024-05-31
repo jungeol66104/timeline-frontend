@@ -2,20 +2,18 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvent, updateCurrentEvent} from "@/store/slices/contentsSlice";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
+import Image from "@tiptap/extension-image";
+import TiptapMenubar from "@/components/timelines/timelineModal/tiptapMenubar";
 
-const TimelineEventTiptap = () => {
+const EventTiptap = () => {
     const dispatch = useDispatch()
     const currentEvent = useSelector(selectCurrentEvent)
 
     const editor = useEditor({
-        extensions: [
-            StarterKit,
-        ],
+        extensions: [StarterKit, Image],
         editorProps: {
-          attributes: {
-              class: 'mt-3'
-          }
+          attributes: {class: 'mt-3'}
         },
         onUpdate: ({ editor }) => {
             dispatch(updateCurrentEvent({...currentEvent, description: editor.getText()}))
@@ -31,7 +29,11 @@ const TimelineEventTiptap = () => {
 
 
     return (
-        <EditorContent editor={editor} />
+        <div>
+            <TiptapMenubar editor={editor}/>
+            <hr/>
+            <EditorContent editor={editor}/>
+        </div>
     )
 }
-export default TimelineEventTiptap
+export default EventTiptap

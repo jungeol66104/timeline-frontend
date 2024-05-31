@@ -4,7 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
 import {selectIsEdit, selectTimelineModalType, updateIsEdit, updateTimelineModalType} from "@/store/slices/appearanceSlice";
 import {formatDate, getBody} from "@/utils/global";
-import TimelineEventTiptap from "@/components/timelines/timelineModal/timelineEventTiptap";
+import EventTiptap from "@/components/timelines/timelineModal/eventTiptap";
+import EventView from "@/components/timelines/timelineModal/eventView";
 
 const TimelineModalEvent = () => {
     const dispatch = useDispatch()
@@ -32,24 +33,14 @@ const TimelineModalEvent = () => {
                 <div className={'w-full pb-3'}>
                     <span className={'text-md font-semibold'}>{currentEvent.date}</span>
                     <h1 className={'text-2xl font-bold'}>{currentEvent.name}</h1>
-                    <div className={'my-1 flex gap-1 text-gray-500 font-medium text-sm'}>
-                        by<span>Timeline</span>·<span>{formatDate(currentEvent.createdDT)}</span>
-                    </div>
-                    <div className={'flex justify-end'}>
-                        <button onClick={() => dispatch(updateIsEdit(true))} className={`flex items-center gap-2.5 pl-1.5 pr-3 h-[30px] max-[850px]:h-[36px] font-semibold border-[0.1px] border-gray-300 bg-white hover:bg-gray-100 drop-shadow-sm rounded-md`}>
-                            <div className={'w-5 shrink-0'}><Image src={'/svg/edit.svg'} alt={'editEvent'} width={20} height={20}/></div>
-                            <div className={'text-sm font-semibold max-[850px]:w-full'}>Edit</div>
-                        </button>
-                    </div>
+                    <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>{formatDate(currentEvent.updatedDT)}</div>
+                    {isEdit
+                        ?   <EventTiptap />
+                        :   <EventView />
+                    }
                 </div>
-                <hr/>
-                {isEdit
-                    ?   <TimelineEventTiptap />
-                    :   <p className={'mt-3'}>{currentEvent.description}</p>
-                }
             </div>
         </div>
-
-    );
-};
-export default TimelineModalEvent;
+    )
+}
+export default TimelineModalEvent

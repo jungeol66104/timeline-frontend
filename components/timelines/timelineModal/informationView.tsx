@@ -1,12 +1,11 @@
 import React from 'react';
-import TimelineInformationTiptap from "@/components/timelines/timelineModal/timelineInformationTiptap";
+import InformationTiptap from "@/components/timelines/timelineModal/informationTiptap";
 import {useSelector} from "react-redux";
-import {selectIsEdit} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import EditButton from "@/components/timelines/timelineModal/editButton";
 import ContributionButton from "@/components/timelines/timelineModal/contributionButton";
 
-const TimelineInformationView = () => {
+const InformationView = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     return (
@@ -21,4 +20,4 @@ const TimelineInformationView = () => {
     );
 };
 
-export default TimelineInformationView;
+export default InformationView;
