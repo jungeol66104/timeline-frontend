@@ -33,8 +33,8 @@ const TimelineModalInformation = () => {
             <div className={'p-4 w-full h-full overflow-y-scroll'}>
                 <div className={'w-full'}>
                     <h1 className={'timelineInformationName text-2xl font-bold'}>{currentTimeline.name}</h1>
-                    <div className={'text-md text-gray-500'}>{currentTimeline.description}</div>
-                    <div className={'my-1 flex gap-1 text-gray-500 font-medium text-sm'}><span>January 14, 2024</span></div>
+                    <div className={'text-md'}>{currentTimeline.description}</div>
+                    <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>Last Updated: January 14, 2024</div>
                     {isEdit
                         ?   <TimelineInformationTiptap />
                         :   <TimelineInformationView />

@@ -11,7 +11,6 @@ const EditButton = () => {
             <div className={'w-5 shrink-0'}><Image src={'/svg/edit.svg'} alt={'editEvent'} width={20} height={20}/></div>
             <div className={'text-sm font-semibold'}>Edit</div>
         </button>
-    );
-};
-
+    )
+}
 export default EditButton;

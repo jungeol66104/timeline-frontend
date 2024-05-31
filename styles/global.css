@@ -1,5 +1,6 @@
 /* font */
 @import url('./font.css');
+@import url('./icons.css');
 
 * {
     font-family: 'Inter', sans-serif;
@@ -22,7 +23,6 @@ body {
     scrollbar-gutter: stable;
 }
 .page {
-    /*position: relative;*/
     display: flex;
     flex-direction: column;
 }
