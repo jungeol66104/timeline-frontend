@@ -31,9 +31,9 @@ const TimelineModalEvent = () => {
             </div>
             <div className={'p-4 w-full h-full overflow-y-scroll'}>
                 <div className={'w-full pb-3'}>
-                    <span className={'text-md font-semibold'}>{currentEvent.date}</span>
+                    <span className={'text-md font-medium'}>{currentEvent.date}</span>
                     <h1 className={'text-2xl font-bold'}>{currentEvent.name}</h1>
-                    <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>{formatDate(currentEvent.updatedDT)}</div>
+                    <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>Last Updated: {formatDate(currentEvent.updatedDT)}</div>
                     {isEdit
                         ?   <EventTiptap />
                         :   <EventView />
