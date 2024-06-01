@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import TimelineImage from "@/components/images/timelineImage";
-import BackToTimelineButton from "@/components/information/backToTimelineButton";
+import BackToTimelineButton from "@/_deprecated/information/backToTimelineButton";
 
 const Information = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)

@@ -10,7 +10,6 @@ import useStateFromStorage from "@/hooks/useStateFromStorage";
 import {useScroll} from "@/hooks/useScroll";
 import {useRouter} from "next/router";
 import IndexSkeleton from "@/components/index/indexSkeleton";
-import TestToolbar from "@/components/testToolbar";
 import Footer from "@/components/layout/footer";
 
 const Layout = ({ children } : {children: ReactNode}) => {
@@ -55,7 +54,6 @@ const Layout = ({ children } : {children: ReactNode}) => {
             }
             <Share />
             <Overlay />
-            {/*<TestToolbar />*/}
         </div>
     )
 }

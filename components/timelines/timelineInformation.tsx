@@ -4,6 +4,7 @@ import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {updateTimelineModalType} from "@/store/slices/appearanceSlice";
 import InformationContentImage from "@/components/images/informationContentImage";
 import {getBody} from "@/utils/global";
+import TimelineMenubar from "@/components/timelines/timelineMenubar";
 
 const TimelineInformation = () => {
     const dispatch = useDispatch()
@@ -29,13 +30,14 @@ const TimelineInformation = () => {
                 <h1 className={'timelineInformationName text-2xl font-bold'}>{currentTimeline.name}</h1>
                 <div className={'text-md text-gray-500'}>{currentTimeline.description}</div>
             </div>
-            <div className={'mt-2.5 mb-3'}>
+            <div className={'mt-2.5'}>
                 <InformationContentImage timeline={currentTimeline}/>
                 <div className={'h-[120px]'}>
                     <p className={`text-sm line-clamp-5`}>{currentTimeline.content}</p>
                     <button onClick={handleClick} className={'text-sm text-blue-700 hover:underline'}>Show more</button>
                 </div>
             </div>
+            <TimelineMenubar />
             <hr/>
         </div>
     )

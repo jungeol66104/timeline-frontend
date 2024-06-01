@@ -4,7 +4,7 @@ import Timeline from "@/components/timelines/timeline/timeline";
 import Toolbar from "@/components/timelines/toolbar";
 import RelatedTimelines from "@/components/timelines/relatedTimelines";
 import RecentNews from "@/components/timelines/recentNews";
-import Information from "@/components/information/information";
+import Information from "@/_deprecated/information/information";
 
 const InformationSectionPrimary = () => {
     return (

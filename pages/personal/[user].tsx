@@ -1,9 +1,4 @@
 import React from 'react';
-import {storeWrapper} from "@/store/store";
-import api from "@/pages/api/api";
-import {updateCurrentTimelines} from "@/store/slices/contentsSlice";
-import {updateCurrentPage, updateIsBottomEnd, updateTagNum, updateTotalPage} from "@/store/slices/appearanceSlice";
-
 
 // export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({query}) => {
 //     try {
@@ -25,11 +20,9 @@ import {updateCurrentPage, updateIsBottomEnd, updateTagNum, updateTotalPage} fro
 // })
 
 const ProfilePage = () => {
-
-
     return (
         <div>
-            
+            profile
         </div>
     );
 };
