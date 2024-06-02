@@ -8,8 +8,8 @@ const PersonalSectionPrimary = () => {
     const isBaseImage = true
 
     return (
-        <div className={'relative px-4 pt-4 pb-0 max-[852px]:py-0 flex flex-col gap-3 w-full min-h-full min-[852px]:min-w-[500px] max-w-[630px]'}>
-            <div className={`px-4 py-3 flex gap-10 w-fit`}>
+        <div className={'relative px-4 pt-3 pb-0 max-[852px]:py-0 flex flex-col gap-3 w-full min-h-full min-[852px]:min-w-[500px] max-w-[630px]'}>
+            <div className={`pb-3 flex gap-10 w-fit`}>
                 <div className={'w-[104px] h-[104px] rounded-full bg-gray-600'}></div>
                 <div className={'flex flex-col justify-between'}>
                     <div>
@@ -22,7 +22,7 @@ const PersonalSectionPrimary = () => {
                     </button>
                 </div>
             </div>
-            <div>
+            <div className={'hidden'}>
                 <div className={'text-2xl font-bold pb-3'}>Contribution</div>
                 <hr/>
                 <div className={'w-full'}>
