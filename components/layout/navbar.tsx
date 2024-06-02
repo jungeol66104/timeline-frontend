@@ -7,7 +7,7 @@ import FeedbackButton from "@/components/layout/feedbackButton";
 import MenuButton from "@/components/layout/menuButton";
 import SearchButton from "@/components/layout/search/searchButton";
 import TagBar from "@/components/layout/tagBar";
-import ProfileButton from "@/components/layout/account/profileButton";
+import ProfileMenuButton from "@/components/layout/personal/profileMenuButton";
 import CreateTimelineButton from "@/components/layout/createTimelineButton";
 
 const Navbar = ({isLoading} : {isLoading: boolean}) => {
@@ -21,11 +21,11 @@ const Navbar = ({isLoading} : {isLoading: boolean}) => {
                 <div className={'flex items-center ml-2'}>
                     <div className={'pc flex items-center gap-5 pr-1.5 max-[850px]:hidden'}>
                         <CreateTimelineButton />
-                        <ProfileButton />
+                        <ProfileMenuButton />
                     </div>
                     <div className={'mobile hidden items-center max-[850px]:flex'}>
                         <SearchButton />
-                        <ProfileButton />
+                        <ProfileMenuButton />
                     </div>
                 </div>
             </nav>

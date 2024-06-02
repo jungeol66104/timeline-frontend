@@ -2,7 +2,6 @@ import React, {RefObject, useEffect, useRef} from 'react';
 import {useDispatch} from "react-redux";
 import {getClickOrTouch} from "@/utils/global";
 import {updateIsShare} from "@/store/slices/appearanceSlice";
-import Image from "next/image";
 
 const ShareButton = () => {
     const shareButtonRef : RefObject<HTMLButtonElement> = useRef(null)
@@ -39,8 +38,8 @@ const ShareButton = () => {
 
     return (
         <button ref={shareButtonRef} className={'w-full text-left h-[36px] flex items-center gap-1.5 pl-1.5 pr-3 py-1.5 rounded-md bg-white hover:bg-gray-100'}>
-            <div className={'w-5 shrink-0'}><Image src={'/svg/share.svg'} alt={'share'} width={20} height={20}/></div>
-                <div className={'text-sm font-semibold'}>Share</div>
+            <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xe80d;</div>
+            <div className={'text-sm font-semibold'}>Share</div>
         </button>
     );
 };

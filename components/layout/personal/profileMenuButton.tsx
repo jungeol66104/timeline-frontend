@@ -2,21 +2,25 @@ import React, {useRef, useState} from 'react';
 import Image from "next/image";
 import ShareButton from "@/components/layout/share/shareButton";
 import FeedbackButton from "@/components/layout/feedbackButton";
-import SignInButton from "@/components/layout/account/signInButton";
+import SignInButton from "@/components/layout/personal/signInButton";
 import CreateTimelineButton from "@/components/layout/createTimelineButton";
+import {useSession} from "next-auth/react";
+import ProfileButton from "@/components/layout/personal/profileButton";
 
-const ProfileButton = () => {
-    const profileButtonRef = useRef<HTMLButtonElement>(null)
+const ProfileMenuButton = () => {
+    const profileMenuButtonRef = useRef<HTMLButtonElement>(null)
     const [isToggle, setIsToggle] = useState(false)
 
+    const {data : session} = useSession()
+
     const handleClick = (e: React.MouseEvent) => {
-        const profileButton = profileButtonRef.current
-        if (!profileButton) return
+        const profileMenuButton = profileMenuButtonRef.current
+        if (!profileMenuButton) return
         e.stopPropagation()
         setIsToggle(true)
 
         document.addEventListener('click', function hideMenu (e: MouseEvent) {
-            if (!profileButton.contains(e.target as Node)) {
+            if (!profileMenuButton.contains(e.target as Node)) {
                 setIsToggle(false)
                 document.removeEventListener('click', hideMenu)
             }
@@ -25,11 +29,12 @@ const ProfileButton = () => {
 
     return (
         <div className={'relative mr-4 flex justify-center items-center shrink-0'}>
-            <button ref={profileButtonRef} onClick={handleClick}><Image className={'rounded-full'} src={'/images/profile.jpg'} alt={'profile'} width={28} height={28} /></button>
+            <button ref={profileMenuButtonRef} onClick={handleClick}><Image className={'rounded-full'} src={'/images/profile.jpg'} alt={'profile'} width={28} height={28} /></button>
             {isToggle &&
-                <div className={'absolute top-[30px] right-0 p-1 bg-white border-[1px] rounded-md shadow-md'}>
+                <div className={'absolute top-[30px] right-0 p-1.5 w-[150px] bg-white border-[1px] rounded-md shadow-md'}>
+                    <ProfileButton />
                     <div className={'min-[850px]:hidden'}><CreateTimelineButton /></div>
-                    <hr className={'min-[850px]:hidden'}/>
+                    <hr className={'min-[850px]:hidden my-2'}/>
                     <SignInButton />
                     <ShareButton />
                     <FeedbackButton />
@@ -39,4 +44,4 @@ const ProfileButton = () => {
     );
 };
 
-export default ProfileButton;
+export default ProfileMenuButton;
