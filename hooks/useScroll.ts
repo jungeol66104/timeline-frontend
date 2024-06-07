@@ -1,6 +1,6 @@
 import {useEffect, useLayoutEffect} from 'react';
-import {useSelector} from "react-redux";
-import {selectScrollTop, selectTimelineModalType} from "@/store/slices/appearanceSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {selectScrollTop, selectTimelineModalType, updateScrollTop} from "@/store/slices/appearanceSlice";
 import {getScrollWrapper} from "@/utils/global";
 
 export const useScroll = () => {
@@ -14,18 +14,26 @@ export const useScroll = () => {
 }
 
 export const useDisableScroll = () => {
+    const dispatch = useDispatch()
+    const scrollTop = useSelector(selectScrollTop)
     const timelineModalType = useSelector(selectTimelineModalType)
 
-    useEffect(() => {
-        if (timelineModalType === 'none') return
+    useLayoutEffect(() => {
+        const scrollWrapper = getScrollWrapper()
+        const layout: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.layout') : null
+        if (!scrollWrapper || !layout) return
 
-        const preventDefaultScroll = (event: Event) => {
-            event.preventDefault();
+        if (timelineModalType === 'none') {
+            layout.style.position = ''
+            layout.style.top = ''
+            scrollWrapper.scrollTop = scrollTop
+        }
+        else {
+            const initialScrollTop = scrollWrapper.scrollTop
+            layout.style.position = 'fixed'
+            layout.style.top = `${-initialScrollTop}px`
+            dispatch(updateScrollTop(initialScrollTop))
         }
 
-        window.addEventListener('touchmove', preventDefaultScroll, {passive: false})
-        return () => {
-            window.removeEventListener('touchmove', preventDefaultScroll)
-        }
     }, [timelineModalType]);
 }

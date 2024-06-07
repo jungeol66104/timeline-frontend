@@ -79,6 +79,6 @@ export interface initialAppearanceState {
     scrollTop: number
     isShare: boolean
     isEdit: boolean
-    timelineModalType: 'none' | 'information' | 'event'
+    timelineModalType: 'none' | 'share' | 'signIn' | 'information' | 'event'
     is404: boolean
 }

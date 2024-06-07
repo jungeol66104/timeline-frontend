@@ -16,7 +16,6 @@ const TimelineInformation = () => {
             if (!body) return
 
             dispatch(updateTimelineModalType('information'))
-            body.style.overflow = 'hidden'
             return
         } catch (error) {
             console.error('Error fetching data in useEffect: ', error)

@@ -19,7 +19,6 @@ const TimelineModalEvent = () => {
 
         dispatch(updateIsEdit(false))
         dispatch(updateTimelineModalType('none'))
-        body.style.overflow = 'auto'
     }
 
     const bottom = timelineModalType === 'event' ? 0 : '-100%'

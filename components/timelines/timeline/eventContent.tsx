@@ -16,8 +16,6 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
             const currentEvent = response.data.data
             dispatch(updateCurrentEvent(currentEvent))
             dispatch(updateTimelineModalType('event'))
-
-            body.style.overflow = 'hidden'
             return
         } catch (error) {
             console.error('Error fetching data in useEffect: ', error)

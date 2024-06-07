@@ -1,24 +1,24 @@
 import '@/styles/global.css'
+import * as gtag from "../utils/gtags"
 import React from "react";
-import {Provider} from "react-redux";
 import type { AppProps } from 'next/app'
+import {Provider} from "react-redux";
+import {SessionProvider} from "next-auth/react";
 import {storeWrapper} from '@/store/store'
 import Layout from '@/components/layout/layout'
-import * as gtag from "../utils/gtags"
-import {SessionProvider} from "next-auth/react";
 
 function App({ Component, ...rest }: AppProps) {
     const {store, props} = storeWrapper.useWrappedStore(rest)
     gtag.useGtag()
 
     return (
-        <SessionProvider session={props.session}>
-            <Provider store={store}>
+        <Provider store={store}>
+            <SessionProvider session={props.session}>
                 <Layout>
                     <Component {...props.pageProps} />
                 </Layout>
-            </Provider>
-        </SessionProvider>
+            </SessionProvider>
+        </Provider>
     )
 }
 export default App

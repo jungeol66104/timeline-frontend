@@ -1,9 +1,16 @@
 import React from 'react';
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
+import {updateTimelineModalType} from "@/store/slices/appearanceSlice";
+import {useDispatch} from "react-redux";
 
 const SignInButton = () => {
-    const {data : session} = useSession();
+    const {data : session} = useSession()
+    const dispatch = useDispatch();
+
+    // const handleClick = () => {
+    //    dispatch(updateTimelineModalType('signIn'))
+    // }
 
     const handleClick = () => {
         if (session) signOut()

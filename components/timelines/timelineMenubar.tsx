@@ -1,12 +1,12 @@
 import React from 'react';
 import ContributionButton from "@/components/timelines/timelineModal/contributionButton";
-import EditButton from "@/components/timelines/timelineModal/editButton";
+import EditTimelineButton from "@/components/timelines/editTimelineButton";
 
 const TimelineMenubar = () => {
     return (
         <div className={'w-full flex justify-between py-3'}>
             <ContributionButton/>
-            <EditButton/>
+            <EditTimelineButton/>
         </div>
     );
 };
