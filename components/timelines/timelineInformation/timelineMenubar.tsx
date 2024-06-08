@@ -11,7 +11,7 @@ const TimelineMenubar = () => {
 
     return (
         // <div className={'sticky top-[90px] py-3 w-full flex justify-between bg-white'}>
-        <div className={' py-3 w-full flex justify-between bg-white'}>
+        <div className={'relative py-3 w-full flex justify-between bg-white'} style={{zIndex: 50}}>
             {isTimelineEdit
                 ?   <>
                         <AddEventButton />
