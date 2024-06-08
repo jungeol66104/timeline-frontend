@@ -1,5 +1,5 @@
 import React from 'react';
-import ContributionButton from "@/components/timelines/timelineModal/contributionButton";
+import ContributionButton from "@/components/timelines/contributionButton";
 import EditButton from "@/components/timelines/timelineModal/editButton";
 import {useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";

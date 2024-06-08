@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import EditButton from "@/components/timelines/timelineModal/editButton";
-import ContributionButton from "@/components/timelines/timelineModal/contributionButton";
+import ContributionButton from "@/components/timelines/contributionButton";
 
 const InformationView = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)

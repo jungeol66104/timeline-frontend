@@ -4,14 +4,11 @@ import ShareButton from "@/components/layout/share/shareButton";
 import FeedbackButton from "@/components/layout/feedbackButton";
 import SignInButton from "@/components/layout/personal/signInButton";
 import CreateTimelineButton from "@/components/layout/createTimelineButton";
-import {useSession} from "next-auth/react";
 import ProfileButton from "@/components/layout/personal/profileButton";
 
 const ProfileMenuButton = () => {
     const profileMenuButtonRef = useRef<HTMLButtonElement>(null)
     const [isToggle, setIsToggle] = useState(false)
-
-    const {data : session} = useSession()
 
     const handleClick = (e: React.MouseEvent) => {
         const profileMenuButton = profileMenuButtonRef.current

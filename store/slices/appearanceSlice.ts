@@ -11,6 +11,7 @@ const initialState = {
     scrollTop: 0,
     isShare: false,
     isEdit: false,
+    isTimelineEdit: false,
     timelineModalType: 'none',
     is404: false
 } as initialAppearanceState
@@ -44,6 +45,9 @@ const appearanceSlice = createSlice({
         updateIsEdit: (state, action) => {
             state.isEdit = action.payload
         },
+        updateIsTimelineEdit: (state, action) => {
+            state.isTimelineEdit = action.payload
+        },
         updateTimelineModalType: (state, action) => {
             state.timelineModalType = action.payload
         },
@@ -53,7 +57,7 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateTimelineModalType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
+export const {updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateIsTimelineEdit, updateTimelineModalType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
 
 // selectors
 export const selectIsSummary = (state: RootState) => state.appearance.isSummary
@@ -64,6 +68,7 @@ export const selectCurrentTagNum = (state: RootState) => state.appearance.tagNum
 export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectIsShare = (state: RootState) => state.appearance.isShare
 export const selectIsEdit = (state: RootState) => state.appearance.isEdit
+export const selectIsTimelineEdit = (state: RootState) => state.appearance.isTimelineEdit
 export const selectTimelineModalType = (state: RootState) => state.appearance.timelineModalType
 export const selectIs404 = (state: RootState) => state.appearance.is404
 
@@ -79,6 +84,7 @@ export interface initialAppearanceState {
     scrollTop: number
     isShare: boolean
     isEdit: boolean
+    isTimelineEdit: boolean
     timelineModalType: 'none' | 'share' | 'signIn' | 'information' | 'event'
     is404: boolean
 }
