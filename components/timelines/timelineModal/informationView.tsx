@@ -1,5 +1,4 @@
 import React from 'react';
-import InformationTiptap from "@/components/timelines/timelineModal/informationTiptap";
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import EditButton from "@/components/timelines/timelineModal/editButton";
@@ -10,7 +9,7 @@ const InformationView = () => {
 
     return (
         <div>
-            <div className={'tiptapMenubar sticky top-3 w-full flex justify-between py-3'}>
+            <div className={'viewMenubar sticky top-3 w-full flex justify-between py-3'}>
                 <ContributionButton/>
                 <EditButton/>
             </div>

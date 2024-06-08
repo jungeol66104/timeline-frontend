@@ -1,4 +1,4 @@
-import {useEffect, useLayoutEffect} from 'react';
+import {useLayoutEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectScrollTop, selectTimelineModalType, updateScrollTop} from "@/store/slices/appearanceSlice";
 import {getScrollWrapper} from "@/utils/global";
