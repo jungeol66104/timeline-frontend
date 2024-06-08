@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch} from "react-redux";
 import {updateIsEdit} from "@/store/slices/appearanceSlice";
 
-const completeButton = () => {
+const CompleteButton = () => {
     const dispatch = useDispatch()
 
     const handleSave = () => {
@@ -17,4 +17,4 @@ const completeButton = () => {
     )
 };
 
-export default completeButton;
+export default CompleteButton;
