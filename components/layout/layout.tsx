@@ -41,7 +41,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
 
     if (is404) return <Custom404 />
     return (
-        <div className={'layout relative'}>
+        <div className={'layout relative pt-[60px]'}>
             <Navbar isLoading={isLoading}/>
             {isLoading
                 ?   isIndexPage
