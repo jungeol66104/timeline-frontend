@@ -26,7 +26,7 @@ const ProfilePage = () => {
             <div className={'page h-full'}>
                 <div className={'pageWrapper relative w-full h-full flex max-[852px]:flex-col-reverse'}>
                     <PersonalSectionPrimary />
-                    {/*<PersonalSectionSecondary />*/}
+                    <PersonalSectionSecondary />
                 </div>
             </div>
         </>

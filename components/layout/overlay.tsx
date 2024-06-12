@@ -1,12 +1,12 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectIsShare, selectTimelineModalType, updateIsEdit, updateIsShare, updateTimelineModalType} from "@/store/slices/appearanceSlice";
+import {selectIsShare, selectModalType, updateIsEdit, updateIsShare, updateModalType} from "@/store/slices/appearanceSlice";
 import {getBody} from "@/utils/global";
 
 const Overlay = () => {
     const dispatch = useDispatch()
     const isShare = useSelector(selectIsShare)
-    const timelineModalType = useSelector(selectTimelineModalType)
+    const timelineModalType = useSelector(selectModalType)
     const overlay = isShare || timelineModalType !== 'none'
 
     const handleClick = () => {
@@ -16,7 +16,7 @@ const Overlay = () => {
             if (!body) return
 
             dispatch(updateIsEdit(false))
-            dispatch(updateTimelineModalType('none'))
+            dispatch(updateModalType('none'))
         }
     }
 

@@ -2,14 +2,14 @@ import React from 'react';
 import Image from 'next/image'
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {selectIsEdit, selectTimelineModalType, updateIsEdit, updateTimelineModalType} from "@/store/slices/appearanceSlice";
+import {selectIsEdit, selectModalType, updateIsEdit, updateModalType} from "@/store/slices/appearanceSlice";
 import {formatDate, getBody} from "@/utils/global";
 import InformationTiptap from "@/components/timelines/timelineModal/informationTiptap";
 import InformationView from "@/components/timelines/timelineModal/informationView";
 
 const TimelineModalInformation = () => {
     const dispatch = useDispatch()
-    const timelineModalType = useSelector(selectTimelineModalType)
+    const timelineModalType = useSelector(selectModalType)
     const currentTimeline = useSelector(selectCurrentTimeline)
     const isEdit = useSelector(selectIsEdit)
 
@@ -18,7 +18,7 @@ const TimelineModalInformation = () => {
         if (!body) return
 
         dispatch(updateIsEdit(false))
-        dispatch(updateTimelineModalType('none'))
+        dispatch(updateModalType('none'))
     }
 
     const bottom = timelineModalType === 'information' ? 0 : '-100%'

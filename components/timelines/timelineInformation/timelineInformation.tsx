@@ -1,7 +1,7 @@
 import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {updateTimelineModalType} from "@/store/slices/appearanceSlice";
+import {updateModalType} from "@/store/slices/appearanceSlice";
 import InformationContentImage from "@/components/images/informationContentImage";
 import {getBody} from "@/utils/global";
 import TimelineMenubar from "@/components/timelines/timelineInformation/timelineMenubar";
@@ -15,7 +15,7 @@ const TimelineInformation = () => {
             const body = getBody()
             if (!body) return
 
-            dispatch(updateTimelineModalType('information'))
+            dispatch(updateModalType('information'))
             return
         } catch (error) {
             console.error('Error fetching data in useEffect: ', error)

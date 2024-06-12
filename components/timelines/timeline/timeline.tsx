@@ -1,7 +1,7 @@
 import TimelineFrame from "@/components/timelines/timeline/timelineFrame";
 import TimelineEvents from "@/components/timelines/timeline/timelineEvents";
 import useOperateTimeline from "@/hooks/useOperateTimeline";
-import TimelineModalEvent from "@/components/timelines/timelineModal/timelineModalEvent";
+import TimelineModalEvent from "@/components/modal/eventModal/timelineModalEvent";
 import TimelineModalInformation from "@/components/timelines/timelineModal/timelineModalInformation";
 import {useDisableScroll} from "@/hooks/useScroll";
 

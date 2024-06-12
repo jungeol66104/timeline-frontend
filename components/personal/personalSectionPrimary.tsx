@@ -2,57 +2,65 @@ import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import {mapStrToNum} from "@/utils/global";
+import EditButton from "@/components/personal/editButton";
+import {useSelector} from "react-redux";
+import {selectIsEdit} from "@/store/slices/appearanceSlice";
+import PersonalSaveButton from "@/components/personal/personalSaveButton";
+import DeleteAccountButton from "@/components/personal/deleteAccountButton";
 
 const PersonalSectionPrimary = () => {
-    const contributions = []
+    const contributions = [
+        {order: 1, date: '2024-01-01', title:'Event Title', diff: '10', user: 'Nickname', comment: 'comment', type: 'Event'},
+        {order: 1, date: '2024-01-01', title:'Event Title', diff: '10', user: 'Nickname', comment: 'comment', type: 'Event'},
+        {order: 1, date: '2024-01-01', title:'Event Title', diff: '10', user: 'Nickname', comment: 'comment', type: 'Event'},
+        {order: 1, date: '2024-01-01', title:'Event Title', diff: '10', user: 'Nickname', comment: 'comment', type: 'Event'},
+        {order: 1, date: '2024-01-01', title:'Event Title', diff: '10', user: 'Nickname', comment: 'comment', type: 'Event'},
+    ]
     const isBaseImage = true
 
+    const isEdit = useSelector(selectIsEdit)
+
     return (
-        <div className={'relative px-4 pt-3 pb-0 max-[852px]:py-0 flex flex-col gap-3 w-full min-h-full min-[852px]:min-w-[500px] max-w-[630px]'}>
-            <div className={`pt-3 pb-3 flex gap-10 w-fit`}>
-                <div className={'w-[104px] h-[104px] rounded-full bg-gray-600'}></div>
-                <div className={'flex flex-col justify-between'}>
+        <div className={'relative p-4 pb-0 flex flex-col gap-10 w-full min-h-full min-[852px]:min-w-[500px] max-w-[630px]'}>
+            <div className={`w-fit h-full flex gap-10`}>
+                <div className={'w-[104px] h-[104px] rounded-full bg-gray-600 shrink-0'}></div>
+                <div className={'flex flex-col gap-4'}>
                     <div>
-                        <div className={'text-[20px] font-bold'}>Admin</div>
-                        <div>admin@gmail.com</div>
+                        <div className={'text-[20px] font-bold'}>Nickname</div>
+                        <div>nickname@gmail.com</div>
                     </div>
-                    <button className={`pl-1.5 pr-2.5 pb-[1px] flex items-center justify-center gap-1.5 h-[36px] w-fit border-[0.1px] border-gray-300 bg-white hover:bg-gray-100 drop-shadow-sm rounded-md`}>
-                        <div className={'material-symbols-outlined text-[18px]'}>&#xe92b;</div>
-                        <div className={'text-sm font-semibold'}>Delete Account</div>
-                    </button>
+                    {isEdit
+                        ?   <div className={'flex gap-3 max-[852px]:flex-col'}>
+                                <PersonalSaveButton />
+                                <DeleteAccountButton />
+                            </div>
+                        :   <EditButton/>
+                    }
                 </div>
             </div>
             <div>
                 <div className={'text-2xl font-bold pb-3'}>Contribution</div>
                 <hr/>
                 <div className={'w-full'}>
-                    <Link href={`/`} className={'w-full'}>
-                        <div className={'py-3'}>
-                            <div className={'flex items-center justify-between'}>
-                                <div className={'font-bold line-clamp-1'}>title</div>
-                                <div className={'text-xs font-semibold text-gray-500'}>Event</div>
-                            </div>
-                            <div className={'flex gap-1 justify-between'}>
-                                <div>
-                                    <div className={'text-sm text-gray-500 line-clamp-1'}>description</div>
-                                    <p className={'mt-1 text-sm line-clamp-3'}>content</p>
+                    {contributions.map((contribution, i) => {
+                        return (
+                            <div key={i}>
+                                <div className={'py-3 cursor-pointer'}>
+                                    <div className={'flex justify-between text-xs font-semibold'}>
+                                        <div>{contribution.order} · <span className={`text-gray-500`}>{contribution.date}</span></div>
+                                        <div className={'text-gray-600'}>{contribution.type}</div>
+                                    </div>
+                                    <div className={'mt-0.5 font-bold'}>{contribution.title}</div>
+                                    <div className={'mt-1 text-sm'}><span className={'font-semibold'}>(+{contribution.diff})</span> {contribution.comment}</div>
+                                    <div className={'py-1.5 flex items-center gap-1.5'}>
+                                        <div className={'w-[26px] h-[26px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[1px] border-white shrink-0'} style={{left: `${i * (26 - 7) + 10}px`}}>{contribution.user.substring(0, 2).toUpperCase()}</div>
+                                        <div className={'text-sm font-medium'}>{contribution.user}</div>
+                                    </div>
                                 </div>
-                                <div className={'relative w-[84px] h-[84px] shrink-0'}>
-                                    {isBaseImage
-                                        ? <>
-                                            <div className={'absolute bottom-[1px] right-0 w-[80px] h-[80px] rounded-md text-white flex items-center justify-center'}>
-                                                {/*<span className={'absolute'}>{timeline.name.charAt(0).toUpperCase()}</span>*/}
-                                                <Image src={`/images/base-image/base-image${mapStrToNum('khkhk')}.jpg`} alt={'base-image'} fill={true} priority={true} className={'rounded-md bg-gray-100'}/>
-                                            </div>
-                                        </>
-                                        // : <Image src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}} className={'rounded-md bg-gray-100'}/>
-                                        : <></>
-                                    }
-                                </div>
+                                <hr/>
                             </div>
-                        </div>
-                        <hr className={'border-gray-200'}/>
-                    </Link>
+                        )
+                    })}
                 </div>
             </div>
         </div>

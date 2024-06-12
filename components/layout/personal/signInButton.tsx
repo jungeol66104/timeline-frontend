@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
-import {updateTimelineModalType} from "@/store/slices/appearanceSlice";
+import {updateModalType} from "@/store/slices/appearanceSlice";
 import {useDispatch} from "react-redux";
 
 const SignInButton = () => {

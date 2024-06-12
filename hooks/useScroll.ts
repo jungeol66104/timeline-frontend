@@ -1,6 +1,6 @@
 import {useLayoutEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectScrollTop, selectTimelineModalType, updateScrollTop} from "@/store/slices/appearanceSlice";
+import {selectScrollTop, selectModalType, updateScrollTop} from "@/store/slices/appearanceSlice";
 import {getScrollWrapper} from "@/utils/global";
 
 export const useScroll = () => {
@@ -16,7 +16,7 @@ export const useScroll = () => {
 export const useDisableScroll = () => {
     const dispatch = useDispatch()
     const scrollTop = useSelector(selectScrollTop)
-    const timelineModalType = useSelector(selectTimelineModalType)
+    const timelineModalType = useSelector(selectModalType)
 
     useLayoutEffect(() => {
         const scrollWrapper = getScrollWrapper()

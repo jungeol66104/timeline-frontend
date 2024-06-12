@@ -16,7 +16,7 @@ const IndexSkeleton = () => {
                     })}
                 </div>
             </div>
-            <div className={'indexPageWrapper w-full flex'}>
+            <div className={'indexPageWrapper pageWrapper w-full flex'}>
                 <div className={'relative px-4 pt-1 pb-0 h-fit w-full max-w-[630px] min-[852px]:min-w-[500px]'}>
                     {skeletonArray.map((_, i) => {
                         return (
@@ -52,6 +52,7 @@ const IndexSkeleton = () => {
                         )
                     })}
                 </div>
+                <div className={'relative ml-[20px] max-[872px]:ml-0 p-4 max-[852px]:py-0 w-full min-w-[332px] max-w-[352px] max-[852px]:hidden'}></div>
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import ContributionButton from "@/components/timelines/contributionButton";
+import ContributorsButton from "@/components/common/contributorsButton";
 import EditTimelineButton from "@/components/timelines/timelineInformation/editTimelineButton";
 import {useSelector} from "react-redux";
 import {selectIsTimelineEdit} from "@/store/slices/appearanceSlice";
@@ -18,7 +18,7 @@ const TimelineMenubar = () => {
                         <CompleteButton />
                     </>
                 :   <>
-                        <ContributionButton/>
+                        <ContributorsButton/>
                         <EditTimelineButton/>
                     </>
             }

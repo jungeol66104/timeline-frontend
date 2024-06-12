@@ -6,14 +6,14 @@ import React, {useEffect} from "react";
 import Image from "@tiptap/extension-image";
 import TiptapMenubar from "@/components/timelines/timelineModal/tiptapMenubar";
 
-const EventTiptap = () => {
+const EventEdit = () => {
     const dispatch = useDispatch()
     const currentEvent = useSelector(selectCurrentEvent)
 
     const editor = useEditor({
         extensions: [StarterKit, Image],
         editorProps: {
-          attributes: {class: 'mt-3'}
+          attributes: {class: ''}
         },
         onUpdate: ({ editor }) => {
             dispatch(updateCurrentEvent({...currentEvent, description: editor.getText()}))
@@ -29,11 +29,11 @@ const EventTiptap = () => {
 
 
     return (
-        <div>
+        <div className={'flex flex-col gap-3'}>
             <TiptapMenubar editor={editor}/>
             <hr/>
             <EditorContent editor={editor}/>
         </div>
     )
 }
-export default EventTiptap
+export default EventEdit

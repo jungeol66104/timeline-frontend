@@ -1,7 +1,7 @@
 import {TimelineEvent, updateCurrentEvent} from "@/store/slices/contentsSlice";
 import api from "@/pages/api/api";
 import {useDispatch} from "react-redux";
-import {updateTimelineModalType} from "@/store/slices/appearanceSlice";
+import {updateModalType} from "@/store/slices/appearanceSlice";
 import {getBody} from "@/utils/global";
 
 const EventContent = ({event} : {event: TimelineEvent}) => {
@@ -15,7 +15,7 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
             const response = await api.get(`/event/${Number(event.id)}`, {headers: {lang: 'en'}})
             const currentEvent = response.data.data
             dispatch(updateCurrentEvent(currentEvent))
-            dispatch(updateTimelineModalType('event'))
+            dispatch(updateModalType('event'))
             return
         } catch (error) {
             console.error('Error fetching data in useEffect: ', error)

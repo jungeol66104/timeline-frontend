@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {signIn, signOut, useSession} from "next-auth/react";
 import {useSelector} from "react-redux";
-import {selectTimelineModalType} from "@/store/slices/appearanceSlice";
+import {selectModalType} from "@/store/slices/appearanceSlice";
 
 const SignIn = () => {
     const {data : session} = useSession();
-    const timelineModalType = useSelector(selectTimelineModalType)
+    const timelineModalType = useSelector(selectModalType)
 
     const handleClick = () => {
         if (session) signOut()

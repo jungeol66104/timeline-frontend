@@ -12,7 +12,9 @@ const initialState = {
     isShare: false,
     isEdit: false,
     isTimelineEdit: false,
-    timelineModalType: 'none',
+    modalType: 'none',
+    contentType: 'view',
+    historyType: 'list',
     is404: false
 } as initialAppearanceState
 
@@ -48,8 +50,14 @@ const appearanceSlice = createSlice({
         updateIsTimelineEdit: (state, action) => {
             state.isTimelineEdit = action.payload
         },
-        updateTimelineModalType: (state, action) => {
-            state.timelineModalType = action.payload
+        updateModalType: (state, action) => {
+            state.modalType = action.payload
+        },
+        updateContentType: (state, action) => {
+            state.contentType = action.payload
+        },
+        updateHistoryType: (state, action) => {
+            state.historyType = action.payload
         },
         updateIs404: (state, action) => {
             state.is404 = action.payload
@@ -57,7 +65,7 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateIsTimelineEdit, updateTimelineModalType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
+export const {updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateIsTimelineEdit, updateModalType, updateContentType, updateHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
 
 // selectors
 export const selectIsSummary = (state: RootState) => state.appearance.isSummary
@@ -69,7 +77,9 @@ export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectIsShare = (state: RootState) => state.appearance.isShare
 export const selectIsEdit = (state: RootState) => state.appearance.isEdit
 export const selectIsTimelineEdit = (state: RootState) => state.appearance.isTimelineEdit
-export const selectTimelineModalType = (state: RootState) => state.appearance.timelineModalType
+export const selectModalType = (state: RootState) => state.appearance.modalType
+export const selectContentType = (state: RootState) => state.appearance.contentType
+export const selectHistoryType = (state: RootState) => state.appearance.historyType
 export const selectIs404 = (state: RootState) => state.appearance.is404
 
 // types
@@ -85,6 +95,8 @@ export interface initialAppearanceState {
     isShare: boolean
     isEdit: boolean
     isTimelineEdit: boolean
-    timelineModalType: 'none' | 'share' | 'signIn' | 'information' | 'event'
+    modalType: 'none' | 'share' | 'information' | 'event'
+    contentType: 'view' | 'history' | 'edit'
+    historyType: 'list' | 'view' | 'diff'
     is404: boolean
 }
