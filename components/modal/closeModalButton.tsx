@@ -10,6 +10,7 @@ const CloseModalButton = () => {
         dispatch(updateHistoryType('list'))
     }
 
+
     return (
         <button onClick={handleClick} className={'absolute right-4 top-3 shrink-0 material-symbols-outlined text-[20px]'}>&#xe5cd;</button>
     );
