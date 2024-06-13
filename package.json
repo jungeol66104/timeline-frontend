@@ -24,7 +24,7 @@
     "eslint-config-next": "13.5.2",
     "gsap": "^3.12.2",
     "next": "^14.0.4",
-    "next-auth": "https://github.com/jungeol66104/timeline-auth.git",
+    "next-auth": "^4.24.7",
     "next-redux-wrapper": "^8.1.0",
     "postcss": "8.4.30",
     "probe-image-size": "^7.2.3",
