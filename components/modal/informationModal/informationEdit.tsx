@@ -4,9 +4,9 @@ import {useEditor, EditorContent} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
 import {selectCurrentTimeline, updateCurrentTimeline} from "@/store/slices/contentsSlice";
-import TiptapMenubar from "@/components/timelines/timelineModal/tiptapMenubar";
+import EditMenubar from "@/components/modal/editMenubar";
 
-const InformationTiptap = () => {
+const InformationEdit = () => {
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
 
@@ -29,10 +29,10 @@ const InformationTiptap = () => {
 
     return (
         <div>
-            <TiptapMenubar editor={editor} />
+            <EditMenubar editor={editor} />
             <hr/>
             <EditorContent editor={editor}/>
         </div>
     )
 }
-export default InformationTiptap
+export default InformationEdit

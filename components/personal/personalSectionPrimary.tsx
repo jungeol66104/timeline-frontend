@@ -7,6 +7,8 @@ import {useSelector} from "react-redux";
 import {selectIsEdit} from "@/store/slices/appearanceSlice";
 import PersonalSaveButton from "@/components/personal/personalSaveButton";
 import DeleteAccountButton from "@/components/personal/deleteAccountButton";
+import {useSession} from "next-auth/react";
+import {useRouter} from "next/router";
 
 const PersonalSectionPrimary = () => {
     const contributions = [
@@ -18,17 +20,26 @@ const PersonalSectionPrimary = () => {
     ]
     const isBaseImage = true
 
+    const {data: session} = useSession()
     const isEdit = useSelector(selectIsEdit)
+    const router = useRouter()
+    const query = router.query.user?.slice(1)
 
     return (
         <div className={'relative p-4 pb-0 flex flex-col gap-10 w-full min-h-full min-[852px]:min-w-[500px] max-w-[630px]'}>
             <div className={`w-fit h-full flex gap-10`}>
                 <div className={'w-[104px] h-[104px] rounded-full bg-gray-600 shrink-0'}></div>
                 <div className={'flex flex-col gap-4'}>
-                    <div>
-                        <div className={'text-[20px] font-bold'}>Nickname</div>
-                        <div>nickname@gmail.com</div>
-                    </div>
+                    {session && session.user
+                        ?
+                            <div>
+                                <div className={'text-[20px] font-bold'}>{session.user.name}</div>
+                                <div>{session.user.email}</div>
+                            </div>
+                        :   <div>
+                                <div className={'text-[20px] font-bold'}>{query}</div>
+                            </div>
+                    }
                     {isEdit
                         ?   <div className={'flex gap-3 max-[852px]:flex-col'}>
                                 <PersonalSaveButton />
@@ -45,7 +56,7 @@ const PersonalSectionPrimary = () => {
                     {contributions.map((contribution, i) => {
                         return (
                             <div key={i}>
-                                <div className={'py-3 cursor-pointer'}>
+                                <div className={'pt-3 pb-1.5 cursor-pointer'}>
                                     <div className={'flex justify-between text-xs font-semibold'}>
                                         <div>{contribution.order} · <span className={`text-gray-500`}>{contribution.date}</span></div>
                                         <div className={'text-gray-600'}>{contribution.type}</div>
@@ -66,4 +77,4 @@ const PersonalSectionPrimary = () => {
         </div>
     )
 }
-export default PersonalSectionPrimary;
+export default PersonalSectionPrimary

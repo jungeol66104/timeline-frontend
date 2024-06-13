@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvent, updateCurrentEvent} from "@/store/slices/contentsSlice";
 import React, {useEffect} from "react";
 import Image from "@tiptap/extension-image";
-import TiptapMenubar from "@/components/timelines/timelineModal/tiptapMenubar";
+import EditMenubar from "@/components/modal/editMenubar";
 
 const EventEdit = () => {
     const dispatch = useDispatch()
@@ -30,7 +30,7 @@ const EventEdit = () => {
 
     return (
         <div className={'flex flex-col gap-3'}>
-            <TiptapMenubar editor={editor}/>
+            <EditMenubar editor={editor}/>
             <hr/>
             <EditorContent editor={editor}/>
         </div>

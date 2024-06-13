@@ -4,8 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {selectIsEdit, selectModalType, updateIsEdit, updateModalType} from "@/store/slices/appearanceSlice";
 import {formatDate, getBody} from "@/utils/global";
-import InformationTiptap from "@/components/timelines/timelineModal/informationTiptap";
-import InformationView from "@/components/timelines/timelineModal/informationView";
+import InformationEdit from "@/components/modal/informationModal/informationEdit";
+import InformationView from "@/components/modal/informationModal/informationView";
 
 const TimelineModalInformation = () => {
     const dispatch = useDispatch()
@@ -34,7 +34,7 @@ const TimelineModalInformation = () => {
                     <div className={'text-md'}>{currentTimeline.description}</div>
                     <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>Last Updated: January 14, 2024</div>
                     {isEdit
-                        ?   <InformationTiptap />
+                        ?   <InformationEdit />
                         :   <InformationView />
                     }
                 </div>
