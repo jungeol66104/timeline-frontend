@@ -11,6 +11,7 @@ import {useScroll} from "@/hooks/useScroll";
 import {useRouter} from "next/router";
 import IndexSkeleton from "@/components/index/indexSkeleton";
 import Footer from "@/components/layout/footer";
+import {useSession} from "@/hooks/useSession";
 
 const Layout = ({ children } : {children: ReactNode}) => {
     const is404 = useSelector(selectIs404)
@@ -37,6 +38,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
 
     useStateFromStorage()
     useStateToStorage()
+    useSession()
     useScroll()
 
     if (is404) return <Custom404 />

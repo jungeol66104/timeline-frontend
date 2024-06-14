@@ -5,7 +5,6 @@ export const capitalize = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// timeline
 // check if the device is mobile or PC
 export const getClickOrTouch = () => {
     let clickOrTouchend = 'click'
@@ -28,7 +27,6 @@ export const getBody  = () => {
     const body: HTMLElement | null = typeof window !== 'undefined' ? document.body : null
     return body
 }
-
 
 export const getIsBaseImage = (url: string | null | undefined) => {
     if (typeof url !== "string") return true

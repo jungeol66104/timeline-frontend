@@ -38,7 +38,6 @@ const useOperateIndex = () => {
         }
 
         const handleScroll = async () => {
-            console.log('hi')
             const scrollWrapper = getScrollWrapper()
             if (!scrollWrapper) return
 

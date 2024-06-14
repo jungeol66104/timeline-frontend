@@ -1,14 +1,11 @@
 import React from 'react';
-import Link from "next/link";
-import Image from "next/image";
-import {mapStrToNum} from "@/utils/global";
 import EditButton from "@/components/personal/editButton";
 import {useSelector} from "react-redux";
 import {selectIsEdit} from "@/store/slices/appearanceSlice";
 import PersonalSaveButton from "@/components/personal/personalSaveButton";
 import DeleteAccountButton from "@/components/personal/deleteAccountButton";
-import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";
+import {selectIsSession, selectSession} from "@/store/slices/personalSlice";
 
 const PersonalSectionPrimary = () => {
     const contributions = [
@@ -20,32 +17,36 @@ const PersonalSectionPrimary = () => {
     ]
     const isBaseImage = true
 
-    const {data: session} = useSession()
-    const isEdit = useSelector(selectIsEdit)
     const router = useRouter()
     const query = router.query.user?.slice(1)
 
+    const session = useSelector(selectSession)
+    const isSession = useSelector(selectIsSession)
+    const isEdit = useSelector(selectIsEdit)
+
     return (
-        <div className={'relative p-4 pb-0 flex flex-col gap-10 w-full min-h-full min-[852px]:min-w-[500px] max-w-[630px]'}>
+        <div className={'relative p-4 pb-0 flex flex-col gap-10 w-full h-full min-[852px]:min-w-[500px] max-w-[630px]'}>
             <div className={`w-fit h-full flex gap-10`}>
                 <div className={'w-[104px] h-[104px] rounded-full bg-gray-600 shrink-0'}></div>
-                <div className={'flex flex-col gap-4'}>
-                    {session && session.user
+                <div className={'min-h-[104px] flex flex-col justify-center'}>
+                    {isSession && session.nickName === query
                         ?
-                            <div>
-                                <div className={'text-[20px] font-bold'}>{session.user.name}</div>
-                                <div>{session.user.email}</div>
+                            <div className={'flex flex-col gap-4'}>
+                                <div>
+                                    <div className={'text-[20px] font-bold'}>{session.nickName}</div>
+                                    <div>{session.email}</div>
+                                </div>
+                                {isEdit
+                                    ?   <div className={'flex gap-3 max-[852px]:flex-col'}>
+                                            <PersonalSaveButton />
+                                            <DeleteAccountButton />
+                                        </div>
+                                    :   <EditButton/>
+                                }
                             </div>
                         :   <div>
                                 <div className={'text-[20px] font-bold'}>{query}</div>
                             </div>
-                    }
-                    {isEdit
-                        ?   <div className={'flex gap-3 max-[852px]:flex-col'}>
-                                <PersonalSaveButton />
-                                <DeleteAccountButton />
-                            </div>
-                        :   <EditButton/>
                     }
                 </div>
             </div>
