@@ -1,6 +1,6 @@
 import React from 'react';
 import {getTags} from "@/utils/global";
-import TagButton from "@/components/layout/tagButton";
+import TagButton from "@/components/layout/navbar/tagButton";
 
 const IndexSkeleton = () => {
     const skeletonArray = Array(10).fill(0)

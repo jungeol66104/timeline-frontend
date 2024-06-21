@@ -1,8 +1,8 @@
 import React from 'react';
 import CompareButton from "@/components/modal/eventModal/compareButton";
-import RevertButton from "@/components/modal/eventModal/revertButton";
+import RevertButton from "@/components/common/revertButton";
 import {useDispatch} from "react-redux";
-import {updateHistoryType} from "@/store/slices/appearanceSlice";
+import {updateModalHistoryType} from "@/store/slices/appearanceSlice";
 
 const EventHistoryList = () => {
     const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const EventHistoryList = () => {
     ]
 
     const handleClick = () => {
-        dispatch(updateHistoryType('view'))
+        dispatch(updateModalHistoryType('view'))
     }
 
     return (

@@ -1,11 +1,15 @@
 import {useEffect} from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
+import {useRouter} from "next/router";
 
 const useInformationBar = () => {
+    const router = useRouter();
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     useEffect(() => {
+        if (!router.pathname.startsWith('/timelines')) return
+
         const timelineInformationName : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineInformationName') : null
         const informationHeader : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.informationHeader') : null
         const informationHeaderName : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.informationHeaderName') : null

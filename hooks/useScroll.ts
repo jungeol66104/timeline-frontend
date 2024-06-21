@@ -27,13 +27,11 @@ export const useDisableScroll = () => {
             layout.style.position = ''
             layout.style.top = ''
             scrollWrapper.scrollTop = scrollTop
-        }
-        else {
+        } else {
             const initialScrollTop = scrollWrapper.scrollTop
             layout.style.position = 'fixed'
             layout.style.top = `${-initialScrollTop}px`
             dispatch(updateScrollTop(initialScrollTop))
         }
-
     }, [timelineModalType]);
 }

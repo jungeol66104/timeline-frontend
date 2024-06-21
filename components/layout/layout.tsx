@@ -1,17 +1,16 @@
 import React, {ReactNode, useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import Navbar from "@/components/layout/navbar";
-import Share from "@/components/layout/share/share";
-import Overlay from "@/components/layout/overlay";
+import Navbar from "@/components/layout/navbar/navbar";
 import {selectIs404} from "@/store/slices/appearanceSlice";
 import Custom404 from "@/pages/404";
 import useStateToStorage from "@/hooks/useStateToStorage";
 import useStateFromStorage from "@/hooks/useStateFromStorage";
-import {useScroll} from "@/hooks/useScroll";
+import {useDisableScroll, useScroll} from "@/hooks/useScroll";
 import {useRouter} from "next/router";
 import IndexSkeleton from "@/components/index/indexSkeleton";
 import Footer from "@/components/layout/footer";
 import {useSession} from "@/hooks/useSession";
+import Modals from "@/components/layout/modals";
 
 const Layout = ({ children } : {children: ReactNode}) => {
     const is404 = useSelector(selectIs404)
@@ -39,6 +38,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
     useStateFromStorage()
     useStateToStorage()
     useSession()
+    useDisableScroll()
     useScroll()
 
     if (is404) return <Custom404 />
@@ -54,8 +54,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
                         <Footer />
                     </>
             }
-            <Share />
-            <Overlay />
+            <Modals />
         </div>
     )
 }

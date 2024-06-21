@@ -1,16 +1,22 @@
-import React from 'react'
-import TimelineInformation from "@/components/timelines/timelineInformation/timelineInformation";
-import Timeline from "@/components/timelines/timeline/timeline";
-import Toolbar from "@/components/timelines/toolbar";
-import RelatedTimelines from "@/components/timelines/relatedTimelines";
+import {useSelector} from "react-redux";
+import TimelineHeader from "@/components/timelines/timelineHeader/timelineHeader";
+import TimelineView from "@/components/timelines/timelineView/timelineView";
+import TimelineHistory from "@/components/timelines/timelineHistory/timelineHistory";
+import TimelineEdit from "@/components/timelines/timelineEdit/timelineEdit";
+import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
 
 const TimelineSectionPrimary = () => {
+    const timelineContentType = useSelector(selectTimelineContentType)
+
     return (
-        <div className={'relative px-4 pt-4 pb-0 w-full min-[852px]:min-w-[500px] max-w-[630px]'}>
-            <TimelineInformation />
-            <RelatedTimelines />
-            <Timeline />
-            <Toolbar />
+        <div className={'relative w-full max-w-[630px] min-[852px]:min-w-[500px]'}>
+            <TimelineHeader />
+            {timelineContentType === 'view'
+                ?   <TimelineView />
+                :   timelineContentType === 'history'
+                    ?   <TimelineHistory />
+                    :   <TimelineEdit />
+            }
         </div>
     )
 }

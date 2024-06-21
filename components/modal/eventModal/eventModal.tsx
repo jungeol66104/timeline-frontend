@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
-import {selectContentType, selectModalType, updateIsEdit, updateModalType} from "@/store/slices/appearanceSlice";
+import {selectModalContentType, selectModalType, updateIsEdit, updateModalType} from "@/store/slices/appearanceSlice";
 import {formatDate, getBody} from "@/utils/global";
 import EventEdit from "@/components/modal/eventModal/eventEdit";
 import EventView from "@/components/modal/eventModal/eventView";
@@ -9,11 +9,11 @@ import PrimaryMenubar from "@/components/common/primaryMenubar";
 import EventHistory from "@/components/modal/eventModal/eventHistory";
 import CloseModalButton from "@/components/modal/closeModalButton";
 
-const TimelineModalEvent = () => {
+const EventModal = () => {
     const dispatch = useDispatch()
     const currentEvent = useSelector(selectCurrentEvent)
     const modalType = useSelector(selectModalType)
-    const contentType = useSelector(selectContentType)
+    const contentType = useSelector(selectModalContentType)
 
     const bottom = modalType === 'event' ? 0 : '-100%'
     return (
@@ -33,12 +33,12 @@ const TimelineModalEvent = () => {
                     {contentType === 'view'
                         ?   <EventView />
                         :   contentType === 'history'
-                            ?   <EventHistory />
-                            :   <EventEdit />
+                        ?   <EventHistory />
+                        :   <EventEdit />
                     }
                 </div>
             </div>
         </div>
     )
 }
-export default TimelineModalEvent
+export default EventModal

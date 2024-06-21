@@ -7,7 +7,7 @@ import {formatDate, getBody} from "@/utils/global";
 import InformationEdit from "@/components/modal/informationModal/informationEdit";
 import InformationView from "@/components/modal/informationModal/informationView";
 
-const TimelineModalInformation = () => {
+const InformationModal = () => {
     const dispatch = useDispatch()
     const timelineModalType = useSelector(selectModalType)
     const currentTimeline = useSelector(selectCurrentTimeline)
@@ -43,4 +43,4 @@ const TimelineModalInformation = () => {
 
     );
 };
-export default TimelineModalInformation;
+export default InformationModal;

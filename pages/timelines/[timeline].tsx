@@ -1,4 +1,3 @@
-import React from "react";
 import probe from "probe-image-size"
 import api from "@/pages/api/api"
 import {storeWrapper} from "@/store/store";
@@ -40,7 +39,7 @@ const TimelinePage = () => {
     return (
         <>
             <DynamicHead type={'timeline'}/>
-            <div className={`page timelinePage`}>
+            <div className={`page`}>
                 <AdsTimelineTop />
                 <hr/>
                 <div className={'timelinePageWrapper pageWrapper w-full flex'}>

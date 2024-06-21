@@ -1,9 +1,9 @@
 import React, {useRef, useState} from 'react';
 import Image from "next/image";
-import ShareButton from "@/components/layout/share/shareButton";
-import FeedbackButton from "@/components/layout/feedbackButton";
+import ShareButton from "@/components/modal/shareModal/shareButton";
+import FeedbackButton from "@/components/layout/navbar/feedbackButton";
 import SignInButton from "@/components/layout/personal/signInButton";
-import CreateTimelineButton from "@/components/layout/createTimelineButton";
+import CreateTimelineButton from "@/components/layout/navbar/createTimelineButton";
 import ProfileButton from "@/components/layout/personal/profileButton";
 
 const ProfileMenuButton = () => {

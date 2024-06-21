@@ -1,12 +1,12 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {updateContentType} from "@/store/slices/appearanceSlice";
+import {updateModalContentType} from "@/store/slices/appearanceSlice";
 
 const SaveButton = () => {
     const dispatch = useDispatch()
 
     const handleSave = () => {
-        dispatch(updateContentType('view'))
+        dispatch(updateModalContentType('view'))
         return
     }
 

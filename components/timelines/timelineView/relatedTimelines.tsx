@@ -1,29 +1,20 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {useRouter} from "next/router";
-import {getIsTouchable, getTags} from "@/utils/global";
-import TagButton from "@/components/layout/tagButton";
+import React, {useEffect, useRef, useState} from 'react';
+import {useSelector} from "react-redux";
+import Link from "next/link";
 import Image from "next/image";
+import {selectRelatedTimelines} from "@/store/slices/contentsSlice";
+import {getIsTouchable} from "@/utils/global";
+import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
 
-const TagBar = () => {
-    const router = useRouter()
-    const isIndex = router.pathname === '/'
+const RelatedTimelines = () => {
     const swiperContainerRef = useRef<HTMLDivElement>(null)
+
+    const timelineContentType = useSelector(selectTimelineContentType)
+    const relatedTimelines = useSelector(selectRelatedTimelines)
+
     const [scrollPosition, setScrollPosition] = useState('start');
     const [showButtons, setShowButtons] = useState(false)
 
-    // set scrollLeft for homepage
-    useEffect(() => {
-        const hasQueryParams = Object.keys(router.query).length > 0;
-        const tagWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.tagWrapper') : null
-        if (!tagWrapper || hasQueryParams) return
-
-        tagWrapper.scroll({
-            left: 0,
-            behavior: 'smooth'
-        })
-    }, [router.query]);
-
-    // set scroll position
     useEffect(() => {
         const swiperContainer = swiperContainerRef.current
         if (!swiperContainer) return
@@ -40,7 +31,6 @@ const TagBar = () => {
         }
     });
 
-    // set showButtons
     useEffect(() => {
         const swiperContainer = swiperContainerRef.current
         if (!swiperContainer || getIsTouchable()) return
@@ -80,21 +70,22 @@ const TagBar = () => {
             containerChildren[order].scrollIntoView({inline: "start", behavior: 'smooth', block: 'nearest'})
         }
     }
-
     return (
-        <div className={`tagBar sticky top-[60px] h-fit w-full border-b-[1px] bg-white z-[4999] ${!isIndex && 'hidden'}`}>
-            <div className={`fixed top-[60px] left-0 pt-[1px] pl-4 pr-6 h-[45.67px] ${scrollPosition === 'start' ? 'pointer-events-none opacity-0' : 'opacity-100'} transition-opacity flex items-center ${!showButtons && 'hidden'}`} style={{backgroundImage: "linear-gradient(to right, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 0))"}}><button onClick={() => handleClick('prev')} className={`flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white hover:bg-gray-100`}><Image src={'/svg/before.svg'} alt={'before'} height={20} width={20} className={'opacity-80'}/></button></div>
-            <div className={`fixed top-[60px] right-0 pt-[1px] pl-6 pr-4 h-[45.67px] ${scrollPosition === 'end' ? 'pointer-events-none opacity-0' : 'opacity-100'} transition-opacity flex items-center ${!showButtons && 'hidden'}`} style={{backgroundImage: "linear-gradient(to left, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 0))"}}><button onClick={() => handleClick('next')} className={`flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white hover:bg-gray-100`}><Image src={'/svg/after.svg'} alt={'after'} height={20} width={20} className={'opacity-80'}/></button></div>
-            <div ref={swiperContainerRef} className={'tagWrapper shrink-0 flex gap-2 pt-2 pb-1.5 px-4 overflow-x-scroll'}>
-                {getTags().map((tag, i) => {
-                    return (
-                        <TagButton key={i} tagNum={i + 1}/>
-                    )
+        <div className={`py-3 px-4 flex flex-col gap-3 ${timelineContentType === 'edit' && 'opacity-30 pointer-events-none'}`}>
+            <div className={'flex items-center justify-between'}>
+                <h3 className={'text-[20px] font-bold'}>Related</h3>
+                <div className={`flex gap-2.5 ${!showButtons && 'hidden'}`}>
+                    <button onClick={() => handleClick('prev')} className={`flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white ${scrollPosition === 'start' ? 'opacity-30' : 'hover:bg-gray-100'}`}><Image src={'/svg/before.svg'} alt={'before'} height={20} width={20} className={'opacity-80'}/></button>
+                    <button onClick={() => handleClick('next')} className={`flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white ${scrollPosition === 'end' ? 'opacity-30' : 'hover:bg-gray-100'}`}><Image src={'/svg/after.svg'} alt={'after'} height={20} width={20} className={'opacity-80'}/></button>
+                </div>
+            </div>
+            <div ref={swiperContainerRef} className={`relatedSwiper flex gap-2 w-full overflow-x-scroll`}>
+                {relatedTimelines.map(relatedTimeline => {
+                    return <Link key={relatedTimeline.id} href={`/timelines/${relatedTimeline.id}`} className={'h-[30px] whitespace-nowrap py-1 px-2 border-[1px] border-gray-300 rounded-md cursor-pointer text-blue-700 text-sm hover:bg-gray-100'}>{relatedTimeline.name}</Link>
                 })}
             </div>
         </div>
     );
 };
 
-
-export default TagBar;
+export default RelatedTimelines;

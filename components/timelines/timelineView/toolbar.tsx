@@ -29,7 +29,7 @@ const Toolbar = () => {
     }, [isSummary]);
 
     return (
-        <div className={`sticky bottom-0 w-full`} style={{zIndex: 4998}}>
+        <div className={`sticky bottom-0`} style={{zIndex: 4998, width: 'calc(100% - 16px)'}}>
             {isSmall
                 ? <div className={'toolbar absolute right-0 bottom-[20px] flex border-[0.1px] border-gray-300 rounded-lg bg-white drop-shadow-md h-[40px] w-[40px]'}>
                     <button className={'toolbarButton uppermost flex items-center justify-center w-[40px]'}>

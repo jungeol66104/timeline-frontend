@@ -12,9 +12,11 @@ const initialState = {
     isShare: false,
     isEdit: false,
     isTimelineEdit: false,
+    timelineContentType: 'view',
+    timelineHistoryType: 'list',
     modalType: 'none',
-    contentType: 'view',
-    historyType: 'list',
+    modalContentType: 'view',
+    modalHistoryType: 'list',
     is404: false
 } as initialAppearanceState
 
@@ -50,14 +52,20 @@ const appearanceSlice = createSlice({
         updateIsTimelineEdit: (state, action) => {
             state.isTimelineEdit = action.payload
         },
+        updateTimelineContentType: (state, action) => {
+            state.timelineContentType = action.payload
+        },
+        updateTimelineHistoryType: (state, action) => {
+            state.timelineHistoryType = action.payload
+        },
         updateModalType: (state, action) => {
             state.modalType = action.payload
         },
-        updateContentType: (state, action) => {
-            state.contentType = action.payload
+        updateModalContentType: (state, action) => {
+            state.modalContentType = action.payload
         },
-        updateHistoryType: (state, action) => {
-            state.historyType = action.payload
+        updateModalHistoryType: (state, action) => {
+            state.modalHistoryType = action.payload
         },
         updateIs404: (state, action) => {
             state.is404 = action.payload
@@ -65,7 +73,7 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateIsTimelineEdit, updateModalType, updateContentType, updateHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
+export const {updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateIsTimelineEdit, updateTimelineHistoryType, updateTimelineContentType, updateModalType, updateModalContentType, updateModalHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
 
 // selectors
 export const selectIsSummary = (state: RootState) => state.appearance.isSummary
@@ -77,9 +85,11 @@ export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectIsShare = (state: RootState) => state.appearance.isShare
 export const selectIsEdit = (state: RootState) => state.appearance.isEdit
 export const selectIsTimelineEdit = (state: RootState) => state.appearance.isTimelineEdit
+export const selectTimelineContentType = (state: RootState) => state.appearance.timelineContentType
+export const selectTimelineHistoryType = (state: RootState) => state.appearance.timelineHistoryType
 export const selectModalType = (state: RootState) => state.appearance.modalType
-export const selectContentType = (state: RootState) => state.appearance.contentType
-export const selectHistoryType = (state: RootState) => state.appearance.historyType
+export const selectModalContentType = (state: RootState) => state.appearance.modalContentType
+export const selectModalHistoryType = (state: RootState) => state.appearance.modalHistoryType
 export const selectIs404 = (state: RootState) => state.appearance.is404
 
 // types
@@ -95,8 +105,10 @@ export interface initialAppearanceState {
     isShare: boolean
     isEdit: boolean
     isTimelineEdit: boolean
+    timelineContentType: 'view' | 'history' | 'edit'
+    timelineHistoryType: 'list' | 'view' | 'diff'
     modalType: 'none' | 'share' | 'information' | 'event'
-    contentType: 'view' | 'history' | 'edit'
-    historyType: 'list' | 'view' | 'diff'
+    modalContentType: 'view' | 'history' | 'edit'
+    modalHistoryType: 'list' | 'view' | 'diff'
     is404: boolean
 }

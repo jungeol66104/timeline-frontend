@@ -1,4 +1,4 @@
-import {updateContentType, updateHistoryType, updateModalType} from "@/store/slices/appearanceSlice";
+import {updateModalContentType, updateModalHistoryType, updateModalType} from "@/store/slices/appearanceSlice";
 import {useDispatch} from "react-redux";
 
 const CloseModalButton = () => {
@@ -6,8 +6,8 @@ const CloseModalButton = () => {
 
     const handleClick = () => {
         dispatch(updateModalType('none'))
-        dispatch(updateContentType('view'))
-        dispatch(updateHistoryType('list'))
+        dispatch(updateModalContentType('view'))
+        dispatch(updateModalHistoryType('list'))
     }
 
     return (
