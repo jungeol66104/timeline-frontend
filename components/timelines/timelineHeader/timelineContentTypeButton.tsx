@@ -1,21 +1,13 @@
 import {useDispatch, useSelector} from "react-redux";
-import {selectModalContentType, selectModalType, selectTimelineContentType, updateModalContentType, updateModalHistoryType, updateTimelineContentType, updateTimelineHistoryType} from "@/store/slices/appearanceSlice";
+import {selectTimelineContentType, updateTimelineContentType, updateTimelineHistoryType} from "@/store/slices/appearanceSlice";
 
-const ContentTypeButton = () => {
+const TimelineContentTypeButton = () => {
     const dispatch = useDispatch()
-    const modalType = useSelector(selectModalType)
-    const timelineContentType = useSelector(selectTimelineContentType)
-    const modalContentType = useSelector(selectModalContentType)
-    const contentType = modalType === 'none' ? timelineContentType : modalContentType
+    const contentType = useSelector(selectTimelineContentType)
 
     const handleClick = (contentType: string) => {
-        if (modalType === 'none') {
-            if (contentType === 'history') dispatch(updateTimelineHistoryType('list'))
-            dispatch(updateTimelineContentType(contentType))
-        } else {
-            if (contentType === 'history') dispatch(updateModalHistoryType('list'))
-            dispatch(updateModalContentType(contentType))
-        }
+        if (contentType === 'history') dispatch(updateTimelineHistoryType('list'))
+        dispatch(updateTimelineContentType(contentType))
     }
 
     return (
@@ -27,4 +19,4 @@ const ContentTypeButton = () => {
     );
 };
 
-export default ContentTypeButton;
+export default TimelineContentTypeButton;

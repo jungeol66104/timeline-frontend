@@ -26,9 +26,14 @@ const ProfileMenuButton = () => {
 
     return (
         <div className={'relative mr-4 flex justify-center items-center shrink-0'}>
-            <button ref={profileMenuButtonRef} onClick={handleClick}><Image className={'rounded-full'} src={'/images/profile.jpg'} alt={'profile'} width={28} height={28} /></button>
+            <button ref={profileMenuButtonRef} onClick={handleClick} className={`pl-2.5 pr-1.5 h-[40px] flex justify-center items-center gap-2 rounded-full border-[1px] border-gray-300 hover:shadow-md`}>
+                <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xe5d2;</div>
+                <div className={'h-[28px] w-[28px]'}>
+                    <Image className={'rounded-full'} src={'/images/profile.jpg'} alt={'profile'} width={28} height={28}/>
+                </div>
+            </button>
             {isToggle &&
-                <div className={'absolute top-[30px] right-0 p-1.5 w-[150px] bg-white border-[1px] rounded-md shadow-md'}>
+                <div className={'absolute top-[42px] right-0 p-1.5 w-[150px] bg-white border-[1px] rounded-md shadow-md'}>
                     <ProfileButton />
                     <div className={'min-[850px]:hidden'}><CreateTimelineButton /></div>
                     <hr className={'min-[850px]:hidden my-2'}/>

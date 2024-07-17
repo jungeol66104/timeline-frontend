@@ -5,8 +5,8 @@ export const capitalize = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// check if the device is mobile or PC
 export const getClickOrTouch = () => {
+    // check if the device is mobile or PC
     let clickOrTouchend = 'click'
     if (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement) clickOrTouchend = 'touchend'
     return clickOrTouchend

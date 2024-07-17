@@ -16,7 +16,7 @@ const Navbar = ({isLoading} : {isLoading: boolean}) => {
                     <ComputerSearchBar />
                 </div>
                 <div className={'flex items-center ml-2'}>
-                    <div className={'pc flex items-center gap-5 pr-1.5 max-[850px]:hidden'}>
+                    <div className={'pc flex items-center gap-4 pr-1.5 max-[850px]:hidden'}>
                         <CreateTimelineButton />
                         <ProfileMenuButton />
                     </div>

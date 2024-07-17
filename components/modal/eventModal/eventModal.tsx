@@ -1,8 +1,8 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
-import {selectModalContentType, selectModalType, updateIsEdit, updateModalType} from "@/store/slices/appearanceSlice";
-import {formatDate, getBody} from "@/utils/global";
+import {selectModalContentType, selectModalType} from "@/store/slices/appearanceSlice";
+import {formatDate} from "@/utils/global";
 import EventEdit from "@/components/modal/eventModal/eventEdit";
 import EventView from "@/components/modal/eventModal/eventView";
 import PrimaryMenubar from "@/components/common/primaryMenubar";
@@ -10,7 +10,6 @@ import EventHistory from "@/components/modal/eventModal/eventHistory";
 import CloseModalButton from "@/components/modal/closeModalButton";
 
 const EventModal = () => {
-    const dispatch = useDispatch()
     const currentEvent = useSelector(selectCurrentEvent)
     const modalType = useSelector(selectModalType)
     const contentType = useSelector(selectModalContentType)
@@ -22,6 +21,7 @@ const EventModal = () => {
                 <h2 className={'text-md font-semibold'}>Event</h2>
                 <CloseModalButton />
             </div>
+
             <div className={'p-4 w-full h-full overflow-y-scroll'}>
                 <div className={'pb-3 w-full flex flex-col gap-3'}>
                     <div>
@@ -32,9 +32,9 @@ const EventModal = () => {
                     <PrimaryMenubar />
                     {contentType === 'view'
                         ?   <EventView />
-                        :   contentType === 'history'
-                        ?   <EventHistory />
-                        :   <EventEdit />
+                        :   contentType === 'edit'
+                            ?   <EventEdit />
+                            :   <EventHistory />
                     }
                 </div>
             </div>

@@ -5,6 +5,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
 import {selectCurrentTimeline, updateCurrentTimeline} from "@/store/slices/contentsSlice";
 import EditMenubar from "@/components/modal/editMenubar";
+import ModalImage from "@/components/modal/modalImage";
 
 const InformationEdit = () => {
     const dispatch = useDispatch()
@@ -13,7 +14,7 @@ const InformationEdit = () => {
     const editor = useEditor({
         extensions: [StarterKit, Image],
         editorProps: {
-            attributes: {class: 'mt-3'}
+            attributes: {class: ''}
         },
         onUpdate: ({ editor }) => {
             dispatch(updateCurrentTimeline({...currentTimeline, content: editor.getText()}))
@@ -29,9 +30,12 @@ const InformationEdit = () => {
 
     return (
         <div>
-            <EditMenubar editor={editor} />
+            <EditMenubar editor={editor}/>
             <hr/>
-            <EditorContent editor={editor}/>
+            <div className={'flex flex-col items-center gap-3'}>
+                <ModalImage src={currentTimeline.image} alt={currentTimeline.name} imageSize={currentTimeline.imageSize} />
+                <EditorContent editor={editor}/>
+            </div>
         </div>
     )
 }

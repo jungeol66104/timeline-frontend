@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
 
 const initialState = {
@@ -8,12 +8,12 @@ const initialState = {
     recentTimelines: [],
     popularTimelines: [],
     relatedNews: [],
-    currentEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, importance: 0, depth: 0, timelineInfo: [], overlap: 0, isToggle: false, toggleEvents: []},
+    currentEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, importance: 0, depth: 0, timelineInfo: []},
     currentEvents: [],
     previousEvents: [],
     currentSerieses: [],
     currentSeries: {},
-    pivotEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, importance: 0, depth: 0, timelineInfo: [], overlap: 0, isToggle: false, toggleEvents: []},
+    pivotEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, importance: 0, depth: 0, timelineInfo: []},
 } as initialContentsState
 
 const contentsSlice = createSlice({
@@ -61,18 +61,15 @@ const contentsSlice = createSlice({
 export default contentsSlice.reducer;
 export const {updateRelatedNews, updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines ,updatePivotEvent, updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents, updatePreviousEvents} = contentsSlice.actions;
 
-// reduces repetition inside components when selecting the specific state
 // selectors
-export const selectCurrentTimeline = (state: RootState) => state.contents.currentTimeline
-export const selectRelatedNews = (state: RootState) => state.contents.relatedNews
 export const selectCurrentTimelines = (state: RootState) => state.contents.currentTimelines
+export const selectCurrentTimeline = (state: RootState) => state.contents.currentTimeline
 export const selectRelatedTimelines = (state: RootState) => state.contents.relatedTimelines
 export const selectPopularTimelines = (state: RootState) => state.contents.popularTimelines
 export const selectRecentTimelines = (state: RootState) => state.contents.recentTimelines
-export const selectCurrentEvent = (state: RootState) => state.contents.currentEvent
 export const selectCurrentEvents = (state: RootState) => state.contents.currentEvents
-export const selectCurrentSeries = (state: RootState) => state.contents.currentSeries
-export const selectPivotEvent = (state: RootState) => state.contents.pivotEvent
+export const selectCurrentEvent = (state: RootState) => state.contents.currentEvent
+export const selectRelatedNews = (state: RootState) => state.contents.relatedNews
 
 // types
 export interface initialContentsState {
@@ -108,11 +105,9 @@ export interface TimelineEvent {
     timelines?: {id: number, name: string, description: string, image: string}[]
     overlap?: number
     depth?: number
-    distance?: number
     order?: number
     top?: number
     prev?: boolean
-    blank?: boolean
     new?: boolean
     createdDT?: string
     updatedDT?: string
