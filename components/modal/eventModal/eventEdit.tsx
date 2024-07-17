@@ -30,7 +30,7 @@ const EventEdit = () => {
 
     return (
         <div className={'flex flex-col gap-3'}>
-            <EditMenubar editor={editor}/>
+            <EditMenubar editor={editor} src={'https://cdn.timeline.vg/base-image.png'}/>
             <hr/>
             <EditorContent editor={editor}/>
         </div>
