@@ -91,7 +91,7 @@ export interface Timeline {
     description: string
     content: string | null
     image: string
-    imageSize: {width: number, height: number}
+    imageSize?: {width: number, height: number}
 }
 
 export interface TimelineEvent {

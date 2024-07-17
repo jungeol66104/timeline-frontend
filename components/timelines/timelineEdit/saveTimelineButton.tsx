@@ -1,6 +1,5 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {updateIsTimelineEdit} from "@/store/slices/appearanceSlice";
 
 const SaveTimelineButton = () => {
     const dispatch = useDispatch()
@@ -8,7 +7,6 @@ const SaveTimelineButton = () => {
     const handleSave = () => {
 
 
-        dispatch(updateIsTimelineEdit(false))
         return
     }
 
