@@ -10,7 +10,7 @@ const ModalImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize
     const isBaseImage = getIsBaseImage(src)
     let height, width, ImageComponent;
 
-    if (isBaseImage) {
+    if (isBaseImage || imageSize === undefined) {
             height = 0
             width = 0
             ImageComponent = <></>

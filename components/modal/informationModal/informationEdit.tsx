@@ -30,7 +30,7 @@ const InformationEdit = () => {
 
     return (
         <div>
-            <EditMenubar editor={editor}/>
+            <EditMenubar editor={editor} src={currentTimeline.image}/>
             <hr/>
             <div className={'flex flex-col items-center gap-3'}>
                 <ModalImage src={currentTimeline.image} alt={currentTimeline.name} imageSize={currentTimeline.imageSize} />
