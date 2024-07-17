@@ -1,7 +1,7 @@
 import TimelineEditMenubar from "@/components/timelines/timelineEdit/timelineEditMenubar";
 import TimelineInformation from "@/components/timelines/timelineView/timelineInformation";
 import Timeline from "@/components/timelines/timeline/timeline";
-import Toolbar from "@/components/timelines/timelineView/toolbar";
+import Toolbar from "@/components/timelines/toolbar";
 
 const TimelineEdit = () => {
     return (

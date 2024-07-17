@@ -65,7 +65,7 @@ const useOperateTimeline = () => {
                 scrollWrapper.scrollTo({top: 0, behavior: 'smooth'})
             } else {
                 operateZoom(classNames)
-                scrollWrapper.scrollTo({top: 0})
+                // scrollWrapper.scrollTo({top: 0})
             }
         }
 

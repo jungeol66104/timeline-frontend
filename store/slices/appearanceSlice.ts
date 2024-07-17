@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
 
-// values before any dispatch
 const initialState = {
     isSummary: true,
     isBottomEnd: true,
@@ -20,7 +19,6 @@ const initialState = {
     is404: false
 } as initialAppearanceState
 
-// part of the store as a whole, related with the app's appearance such as timelineToolbar and effects
 const appearanceSlice = createSlice({
     name: 'appearance',
     initialState,
