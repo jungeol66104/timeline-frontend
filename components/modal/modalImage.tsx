@@ -8,18 +8,14 @@ const ModalImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize
     const contentType = useSelector(selectModalContentType)
 
     const isBaseImage = getIsBaseImage(src)
-    let height, width, ImageComponent;
-    if (isBaseImage || imageSize === undefined) {
-        height = 0, width = 0
+    let ImageComponent;
+    if (isBaseImage) {
         ImageComponent = <></>
     } else {
-        height = imageSize.height > 400 ? 400 : imageSize.height
-        width = imageSize.width * height / imageSize.height
         ImageComponent = <Image className={'max-h-[400px] w-auto'} src={src} alt={alt} height={imageSize.height} width={imageSize.width} />
     }
 
     return (
-        // <div className={`relative ${!isBaseImage && 'mt-3'}`} style={{width: width, height: height}}>
         <div className={`relative ${!isBaseImage && 'mt-3'}`}>
             {ImageComponent}
             {contentType === 'edit' && !isBaseImage &&
