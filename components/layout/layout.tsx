@@ -47,12 +47,9 @@ const Layout = ({ children } : {children: ReactNode}) => {
             <Navbar isLoading={isLoading}/>
             {isLoading
                 ?   isIndexPage
-                    ?   <IndexSkeleton />
-                    :   <div></div>
-                :   <>
-                        {children}
-                        <Footer />
-                    </>
+                ?   <IndexSkeleton />
+                :   <div></div>
+                :   <>{children}<Footer /></>
             }
             <Modals />
         </div>

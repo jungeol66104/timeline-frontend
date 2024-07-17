@@ -14,7 +14,7 @@ const InformationEdit = () => {
     const editor = useEditor({
         extensions: [StarterKit, Image],
         editorProps: {
-            attributes: {class: ''}
+            attributes: {class: 'outline-none'}
         },
         onUpdate: ({ editor }) => {
             dispatch(updateCurrentTimeline({...currentTimeline, content: editor.getText()}))

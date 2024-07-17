@@ -7,6 +7,7 @@ import {getIsBaseImage} from "@/utils/global";
 const ModalImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize: any}) => {
     const contentType = useSelector(selectModalContentType)
     const isBaseImage = getIsBaseImage(src)
+    console.log(imageSize)
 
     return (
         <div className={`relative ${!isBaseImage && 'mt-3'}`}>
