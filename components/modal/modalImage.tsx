@@ -9,7 +9,7 @@ const ModalImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize
 
     const isBaseImage = getIsBaseImage(src)
     let ImageComponent;
-    if (isBaseImage) {
+    if (isBaseImage || imageSize === undefined) {
         ImageComponent = <></>
     } else {
         ImageComponent = <Image className={'max-h-[400px] w-auto'} src={src} alt={alt} height={imageSize.height} width={imageSize.width} />
