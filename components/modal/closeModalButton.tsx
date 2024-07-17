@@ -1,5 +1,6 @@
 import {updateModalContentType, updateModalHistoryType, updateModalType} from "@/store/slices/appearanceSlice";
 import {useDispatch} from "react-redux";
+import {updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 
 const CloseModalButton = () => {
     const dispatch = useDispatch()

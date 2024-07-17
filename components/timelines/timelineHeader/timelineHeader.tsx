@@ -6,7 +6,7 @@ const TimelineHeader = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     return (
-        <div className={'pt-4 px-4'}>
+        <div className={'pt-4 px-4 z-50'}>
             <div>
                 <h1 className={'timelineInformationName text-2xl font-bold'}>{currentTimeline.name}</h1>
                 <div className={'text-md'}>{currentTimeline.description}</div>

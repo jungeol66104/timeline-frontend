@@ -1,4 +1,4 @@
-import {TimelineEvent, updateCurrentEvent} from "@/store/slices/contentsSlice";
+import {TimelineEvent, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import api from "@/pages/api/api";
 import {useDispatch, useSelector} from "react-redux";
 import {selectTimelineContentType, updateModalType} from "@/store/slices/appearanceSlice";
@@ -18,6 +18,7 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
             const response = await api.get(`/event/${Number(event.id)}`, {headers: {lang: 'en'}})
             const currentEvent = response.data.data
             dispatch(updateCurrentEvent(currentEvent))
+            dispatch(updateCurrentEventDraft(currentEvent))
             dispatch(updateModalType('event'))
             return
         } catch (error) {

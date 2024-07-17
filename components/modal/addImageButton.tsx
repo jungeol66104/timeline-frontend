@@ -1,11 +1,11 @@
 import React, {ChangeEvent} from 'react';
 import {getIsBaseImage} from "@/utils/global";
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentTimeline, updateCurrentTimeline} from "@/store/slices/contentsSlice";
+import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 
 const AddImageButton = ({src}: {src: string}) => {
     const dispatch = useDispatch()
-    const currentTimeline = useSelector(selectCurrentTimeline)
+    const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
     const isBaseImage = getIsBaseImage(src)
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +20,7 @@ const AddImageButton = ({src}: {src: string}) => {
                 const image = new Image()
                 image.onload = () => {
                     const imageSize = {width: image.width, height: image.height}
-                    dispatch(updateCurrentTimeline({...currentTimeline, image: newSrc, imageSize: imageSize}))
+                    dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: newSrc, imageSize: imageSize}))
                 }
                 image.src = newSrc as string
             }

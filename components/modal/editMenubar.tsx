@@ -1,9 +1,6 @@
 import React from 'react';
-import SaveButton from "@/components/common/saveButton";
+import SaveModalButton from "@/components/common/saveModalButton";
 import CommentButton from "@/components/modal/commentButton";
-import {getIsBaseImage} from "@/utils/global";
-import {useSelector} from "react-redux";
-import {selectModalType} from "@/store/slices/appearanceSlice";
 import AddImageButton from "@/components/modal/addImageButton";
 
 const EditMenubar = ({editor, src}:{editor: any, src: string}) => {
@@ -12,7 +9,7 @@ const EditMenubar = ({editor, src}:{editor: any, src: string}) => {
             <AddImageButton src={src} />
             <div className={'flex gap-3'}>
                 <CommentButton />
-                <SaveButton/>
+                <SaveModalButton/>
             </div>
         </div>
 );

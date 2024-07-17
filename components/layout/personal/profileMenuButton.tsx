@@ -25,7 +25,7 @@ const ProfileMenuButton = () => {
     }
 
     return (
-        <div className={'relative mr-4 flex justify-center items-center shrink-0'}>
+        <div className={'relative mr-4'}>
             <button ref={profileMenuButtonRef} onClick={handleClick} className={`pl-2.5 pr-1.5 h-[40px] flex justify-center items-center gap-2 rounded-full border-[1px] border-gray-300 hover:shadow-md`}>
                 <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xe5d2;</div>
                 <div className={'h-[28px] w-[28px]'}>
