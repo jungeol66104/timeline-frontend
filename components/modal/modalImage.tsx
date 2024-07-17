@@ -9,19 +9,18 @@ const ModalImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize
 
     const isBaseImage = getIsBaseImage(src)
     let height, width, ImageComponent;
-
     if (isBaseImage || imageSize === undefined) {
-            height = 0
-            width = 0
-            ImageComponent = <></>
+        height = 0, width = 0
+        ImageComponent = <></>
     } else {
         height = imageSize.height > 400 ? 400 : imageSize.height
         width = imageSize.width * height / imageSize.height
-        ImageComponent = <Image src={src} alt={alt} fill style={{objectFit: "contain"}}/>
+        ImageComponent = <Image className={'max-h-[400px] w-auto'} src={src} alt={alt} height={imageSize.height} width={imageSize.width} />
     }
 
     return (
-        <div className={`relative ${!isBaseImage && 'mt-3'}`} style={{width: width, height: height}}>
+        // <div className={`relative ${!isBaseImage && 'mt-3'}`} style={{width: width, height: height}}>
+        <div className={`relative ${!isBaseImage && 'mt-3'}`}>
             {ImageComponent}
             {contentType === 'edit' && !isBaseImage &&
                 <div className={`absolute top-4 right-4 flex items-center h-[36px] border-[0.1px] border-gray-300 drop-shadow-sm rounded-md opacity-70`}>
