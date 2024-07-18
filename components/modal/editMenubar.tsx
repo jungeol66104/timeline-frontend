@@ -1,5 +1,5 @@
 import React from 'react';
-import SaveModalButton from "@/components/common/saveModalButton";
+import SaveModalButton from "@/components/modal/saveModalButton";
 import CommentButton from "@/components/modal/commentButton";
 import AddImageButton from "@/components/modal/addImageButton";
 
