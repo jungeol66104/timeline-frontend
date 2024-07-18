@@ -5,8 +5,8 @@ const initialState = {
     currentTimeline: {id: 1, name: '', description: '', image: '', content: null, imageSize: {width: 0, height: 0}},
     currentTimelineDraft: {id: 1, name: '', description: '', image: '', content: null, imageSize: {width: 0, height: 0}},
     currentTimelines: [],
-    currentEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, importance: 0, depth: 0, timelineInfo: []},
-    currentEventDraft: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, importance: 0, depth: 0, timelineInfo: []},
+    currentEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, keynote: 0, importance: 0, depth: 0, timelineInfo: []},
+    currentEventDraft: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, keynote: 0, importance: 0, depth: 0, timelineInfo: []},
     currentEvents: [],
     currentEventsDraft: [],
     relatedNews: [],
@@ -40,6 +40,10 @@ const contentsSlice = createSlice({
         updateCurrentEventsDraft: (state, action) => {
             state.currentEventsDraft = action.payload
         },
+        updateDraftKeynote: (state, action) => {
+            const event = state.currentEventsDraft.find(event => event.id === action.payload);
+            if (event) event.keynote = event.keynote === 1 ? 0 : 1
+        },
         updateRelatedNews: (state, action) => {
             state.relatedNews = action.payload
         },
@@ -55,7 +59,7 @@ const contentsSlice = createSlice({
     },
 });
 export default contentsSlice.reducer;
-export const {updateCurrentEventsDraft, updateCurrentTimelineDraft, updateCurrentEventDraft, updateRelatedNews, updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines , updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents} = contentsSlice.actions;
+export const {updateDraftKeynote, updateCurrentEventsDraft, updateCurrentTimelineDraft, updateCurrentEventDraft, updateRelatedNews, updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines , updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents} = contentsSlice.actions;
 
 // selectors
 export const selectCurrentTimeline = (state: RootState) => state.contents.currentTimeline
@@ -100,6 +104,9 @@ export interface TimelineEvent {
     ephemerisTime: number | string
     name: string
     description: string
+    image?: string
+    imageSize?: {width: number, height: number}
+    keynote?: number
     timelines?: {id: number, name: string, description: string, image: string}[]
     depth?: number
     order?: number

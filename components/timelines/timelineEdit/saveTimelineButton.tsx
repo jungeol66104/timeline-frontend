@@ -1,12 +1,16 @@
 import React from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {selectCurrentEventsDraft, updateCurrentEvents} from "@/store/slices/contentsSlice";
+import {updateTimelineContentType} from "@/store/slices/appearanceSlice";
 
 const SaveTimelineButton = () => {
     const dispatch = useDispatch()
+    const currentEventsDraft = useSelector(selectCurrentEventsDraft)
 
     const handleSave = () => {
-
-
+        dispatch(updateCurrentEvents(currentEventsDraft))
+        // send to db
+        dispatch(updateTimelineContentType('view'))
         return
     }
 

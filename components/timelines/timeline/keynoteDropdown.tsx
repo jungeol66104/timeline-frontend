@@ -1,20 +1,23 @@
 import React, {useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectIsSummary, updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {selectIsSummary, selectTimelineContentType, updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateTotalPage} from "@/store/slices/appearanceSlice";
 import api from "@/pages/api/api";
-import {selectCurrentTimeline, updateCurrentEvents} from "@/store/slices/contentsSlice";
+import {selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
+import {fetchEvents} from "@/pages/api/global";
 
 const KeynoteDropdown = () => {
     const keynoteDropdownRef = useRef<HTMLButtonElement>(null)
     const [isToggle, setIsToggle] = useState(false)
 
     const dispatch = useDispatch()
-    const isKeynote = useSelector(selectIsSummary)
     const currentTimeline = useSelector(selectCurrentTimeline)
+    const isKeynote = useSelector(selectIsSummary)
+    const timelineContentType = useSelector(selectTimelineContentType)
+    const isEdit = timelineContentType === 'edit'
 
     const handleToggle = (e: React.MouseEvent) => {
         const keynoteDropdown = keynoteDropdownRef.current
-        if (!keynoteDropdown) return
+        if (!keynoteDropdown || isEdit) return
         e.stopPropagation()
         setIsToggle(true)
 
@@ -29,18 +32,11 @@ const KeynoteDropdown = () => {
     const handleClick = (type: string) => {
         const targetIsKeynote = type === 'keynote'
 
-        const fetchEvents = async (targetIsKeynote: boolean) => {
-            try {
-                const response = await api.get(`/timeline/${currentTimeline.id}/paged?pageNum=1&pageSize=41&isSummary=${targetIsKeynote}`, {headers: {lang: 'en'}})
-                return response.data.data
-            } catch (error) {
-                console.error('Error fetching data in KeynoteDropdown: ', error)
-                return
-            }
-        }
-
-        fetchEvents(targetIsKeynote).then((data) => {
-            dispatch(updateCurrentEvents(data.events))
+        fetchEvents(currentTimeline.id, 1, targetIsKeynote).then((data) => {
+            const events = data.events
+            events.forEach((event: TimelineEvent) => event.keynote = 1)
+            dispatch(updateCurrentEvents(events))
+            dispatch(updateCurrentEventsDraft(events))
             dispatch(updateCurrentPage(1))
             dispatch(updateTotalPage(data.totalPages))
             dispatch(updateIsBottomEnd(data.totalPages === 1))
@@ -50,7 +46,7 @@ const KeynoteDropdown = () => {
 
     return (
         <div className={'relative'}>
-            <button ref={keynoteDropdownRef} onClick={handleToggle} className={`pl-3 pr-1 w-fit h-[30px] flex items-center gap-1 bg-white border-[1px] border-gray-300 rounded-md`}>
+            <button ref={keynoteDropdownRef} onClick={handleToggle} className={`${isEdit ? 'opacity-50 pointer-events-none' : 'hover:bg-gray-100'} pl-3 pr-1 w-fit h-[30px] flex items-center gap-1 bg-white border-[1px] border-gray-300 rounded-md`}>
                 <span className={'text-sm font-semibold'}>{isKeynote ? 'Keynote' : 'All'}</span>
                 <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xe5c5;</div>
             </button>

@@ -1,18 +1,12 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import {selectCurrentEvent} from "@/store/slices/contentsSlice";
-import {selectModalContentType, selectModalType} from "@/store/slices/appearanceSlice";
-import {formatDate} from "@/utils/global";
-import EventEdit from "@/components/modal/eventModal/eventEdit";
-import EventView from "@/components/modal/eventModal/eventView";
-import PrimaryMenubar from "@/components/common/primaryMenubar";
-import EventHistory from "@/components/modal/eventModal/eventHistory";
+import {selectModalType} from "@/store/slices/appearanceSlice";
 import CloseModalButton from "@/components/modal/closeModalButton";
+import EventModalHead from "@/components/modal/eventModal/eventModalHead";
+import EventModalBody from "@/components/modal/eventModal/eventModalBody";
 
 const EventModal = () => {
-    const currentEvent = useSelector(selectCurrentEvent)
     const modalType = useSelector(selectModalType)
-    const contentType = useSelector(selectModalContentType)
 
     const bottom = modalType === 'event' ? 0 : '-100%'
     return (
@@ -21,22 +15,9 @@ const EventModal = () => {
                 <h2 className={'text-md font-semibold'}>Event</h2>
                 <CloseModalButton />
             </div>
-
-            <div className={'p-4 w-full h-full overflow-y-scroll'}>
-                <div className={'pb-3 w-full flex flex-col gap-3'}>
-                    <div>
-                        <span className={'text-md font-medium'}>{currentEvent.date}</span>
-                        <h1 className={'text-2xl font-bold'}>{currentEvent.name}</h1>
-                        <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>Last Updated: {formatDate(currentEvent.updatedDT)}</div>
-                    </div>
-                    <PrimaryMenubar />
-                    {contentType === 'view'
-                        ?   <EventView />
-                        :   contentType === 'edit'
-                            ?   <EventEdit />
-                            :   <EventHistory />
-                    }
-                </div>
+            <div className={'p-4 w-full h-full flex flex-col gap-3 overflow-y-scroll'}>
+                <EventModalHead />
+                <EventModalBody />
             </div>
         </div>
     )

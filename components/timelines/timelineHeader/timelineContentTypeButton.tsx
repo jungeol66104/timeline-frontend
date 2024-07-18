@@ -1,12 +1,27 @@
 import {useDispatch, useSelector} from "react-redux";
-import {selectTimelineContentType, updateTimelineContentType, updateTimelineHistoryType} from "@/store/slices/appearanceSlice";
+import {selectTimelineContentType, updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateTimelineContentType, updateTimelineHistoryType, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {fetchEvents} from "@/pages/api/global";
+import {selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
 
 const TimelineContentTypeButton = () => {
     const dispatch = useDispatch()
+    const currentTimeline = useSelector(selectCurrentTimeline)
     const contentType = useSelector(selectTimelineContentType)
 
     const handleClick = (contentType: string) => {
         if (contentType === 'history') dispatch(updateTimelineHistoryType('list'))
+        else if (contentType === 'edit') {
+            fetchEvents(currentTimeline.id, 1, false).then((data) => {
+                const events = data.events
+                events.forEach((event: TimelineEvent) => event.keynote = 1)
+                dispatch(updateCurrentEvents(events))
+                dispatch(updateCurrentEventsDraft(events))
+                dispatch(updateCurrentPage(1))
+                dispatch(updateTotalPage(data.totalPages))
+                dispatch(updateIsBottomEnd(data.totalPages === 1))
+                dispatch(updateIsSummary(false))
+            })
+        }
         dispatch(updateTimelineContentType(contentType))
     }
 

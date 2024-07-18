@@ -1,38 +1,41 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEvent, updateCurrentEvent} from "@/store/slices/contentsSlice";
+import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import React, {useEffect} from "react";
 import Image from "@tiptap/extension-image";
 import EditMenubar from "@/components/modal/editMenubar";
+import ModalImage from "@/components/modal/modalImage";
 
 const EventEdit = () => {
     const dispatch = useDispatch()
-    const currentEvent = useSelector(selectCurrentEvent)
+    const currentEventDraft = useSelector(selectCurrentEventDraft)
 
     const editor = useEditor({
         extensions: [StarterKit, Image],
         editorProps: {
-          attributes: {class: ''}
+          attributes: {class: 'outline-none'}
         },
         onUpdate: ({ editor }) => {
-            dispatch(updateCurrentEvent({...currentEvent, description: editor.getText()}))
+            dispatch(updateCurrentEventDraft({...currentEventDraft, description: editor.getText()}))
         },
-        content: `<p>${currentEvent.description}</p>`,
+        content: `<p>${currentEventDraft.description}</p>`,
     })
 
     useEffect(() => {
       if (!editor) return
 
-        editor.commands.setContent(`<p>${currentEvent.description}</p>`)
-    }, [currentEvent])
-
+        editor.commands.setContent(`<p>${currentEventDraft.description}</p>`)
+    }, [currentEventDraft])
 
     return (
-        <div className={'flex flex-col gap-3'}>
+        <div>
             <EditMenubar editor={editor} src={'https://cdn.timeline.vg/base-image.png'}/>
             <hr/>
-            <EditorContent editor={editor}/>
+            <div className={'flex flex-col items-center gap-3'}>
+                <ModalImage src={currentEventDraft.image || 'https://cdn.timeline.vg/base-image.png'} alt={currentEventDraft.name} imageSize={currentEventDraft.imageSize}/>
+                <EditorContent editor={editor}/>
+            </div>
         </div>
     )
 }

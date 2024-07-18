@@ -5,7 +5,7 @@ import {selectModalContentType, selectModalType, updateIsEdit, updateModalType} 
 import {formatDate, getBody} from "@/utils/global";
 import EventEdit from "@/components/modal/eventModal/eventEdit";
 import EventView from "@/components/modal/eventModal/eventView";
-import PrimaryMenubar from "@/components/common/primaryMenubar";
+import ModalMenubar from "@/components/modal/modalMenubar";
 import EventHistory from "@/components/modal/eventModal/eventHistory";
 import CloseModalButton from "@/components/modal/closeModalButton";
 
@@ -29,7 +29,7 @@ const EventModal = () => {
                         <h1 className={'text-2xl font-bold'}>{currentEvent.name}</h1>
                         <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>Last Updated: {formatDate(currentEvent.updatedDT)}</div>
                     </div>
-                    <PrimaryMenubar />
+                    <ModalMenubar />
                     {contentType === 'view'
                         ?   <EventView />
                         :   contentType === 'history'

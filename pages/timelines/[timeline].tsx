@@ -1,7 +1,8 @@
 import probe from "probe-image-size"
 import api from "@/pages/api/api"
 import {storeWrapper} from "@/store/store";
-import {updateCurrentEvents, updateCurrentTimeline, updateCurrentTimelineDraft, updatePopularTimelines, updateRecentTimelines, updateRelatedNews, updateRelatedTimelines} from "@/store/slices/contentsSlice"
+import {TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updatePopularTimelines, updateRecentTimelines, updateRelatedNews, updateRelatedTimelines
+} from "@/store/slices/contentsSlice"
 import {updateCurrentPage, updateIs404, updateIsBottomEnd, updateIsSummary, updateTotalPage} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
@@ -24,7 +25,10 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateRecentTimelines(data.recentTimelines))
         store.dispatch(updatePopularTimelines(data.popularTimelines))
         store.dispatch(updateRelatedNews(data.relatedNews))
-        store.dispatch(updateCurrentEvents(data.events))
+        const events = data.events
+        events.forEach((event: TimelineEvent) => event.keynote = 1)
+        store.dispatch(updateCurrentEvents(events))
+        store.dispatch(updateCurrentEventsDraft(events))
         store.dispatch(updateIsSummary(true))
         store.dispatch(updateCurrentPage(1))
         store.dispatch(updateTotalPage(data.totalPages))

@@ -32,7 +32,7 @@ const ContributorsButton = () => {
                 </div>
             </button>
             {isToggle &&
-                <div className={'overflow-y-scroll absolute top-[38px] left-0 p-1.5 w-[242.88px] bg-white border-[1px] rounded-md shadow-md'}>
+                <div className={'overflow-y-scroll absolute top-[38px] left-0 p-1.5 w-[250px] bg-white border-[1px] rounded-md shadow-md'}>
                     {contributors.map((contributor, i) => {
                         const initial = contributor.substring(0, 2).toUpperCase();
 

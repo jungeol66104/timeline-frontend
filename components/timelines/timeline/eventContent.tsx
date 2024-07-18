@@ -31,8 +31,8 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
         <div className={`eventContent relative w-full border-[0.1px] border-gray-300 rounded-xl shadow-md`}>
             <div className={`${timelineContentType !== 'edit' && 'hidden'}`}>
                 <div className={`p-2.5 flex items-center justify-between`}>
-                    <KeynoteToggle />
-                    <DetachButton />
+                    <KeynoteToggle event={event} />
+                    <DetachButton event={event} />
                 </div>
                 <hr />
             </div>

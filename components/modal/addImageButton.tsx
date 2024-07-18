@@ -1,11 +1,14 @@
 import React, {ChangeEvent} from 'react';
 import {getIsBaseImage} from "@/utils/global";
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentEventDraft, selectCurrentTimelineDraft, updateCurrentEventDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
+import {selectModalType} from "@/store/slices/appearanceSlice";
 
 const AddImageButton = ({src}: {src: string}) => {
     const dispatch = useDispatch()
+    const modalType = useSelector(selectModalType)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
+    const currentEventDraft = useSelector(selectCurrentEventDraft)
     const isBaseImage = getIsBaseImage(src)
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +23,8 @@ const AddImageButton = ({src}: {src: string}) => {
                 const image = new Image()
                 image.onload = () => {
                     const imageSize = {width: image.width, height: image.height}
-                    dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: newSrc, imageSize: imageSize}))
+                    if (modalType === 'information') dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: newSrc, imageSize: imageSize}))
+                    else dispatch(updateCurrentEventDraft({...currentEventDraft, image: newSrc, imageSize: imageSize}))
                 }
                 image.src = newSrc as string
             }
