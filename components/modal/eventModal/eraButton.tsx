@@ -1,10 +1,10 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 
 const EraButton = () => {
     const dispatch = useDispatch();
-    const currentEventDraft = useSelector(selectCurrentEvent)
+    const currentEventDraft = useSelector(selectCurrentEventDraft)
     const isCE = !currentEventDraft.date.endsWith('BCE')
 
     const handleClick = (era: string) => {

@@ -1,19 +1,19 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectModalType, updateModalContentType} from "@/store/slices/appearanceSlice";
-import {selectCurrentEventsDraft, selectCurrentTimelineDraft, updateCurrentEvent, updateCurrentTimeline} from "@/store/slices/contentsSlice";
+import {selectCurrentEventDraft, selectCurrentTimelineDraft, updateCurrentEvent, updateCurrentTimeline, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 
 const SaveModalButton = () => {
     const dispatch = useDispatch()
     const modalType = useSelector(selectModalType)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
-    const currentEventDraft = useSelector(selectCurrentEventsDraft)
+    const currentEventDraft = useSelector(selectCurrentEventDraft)
 
     const handleSave = () => {
         if (modalType === 'information') dispatch(updateCurrentTimeline(currentTimelineDraft))
         else if (modalType === 'event') {
             dispatch(updateCurrentEvent(currentEventDraft))
-            // also update currentEvents
+            dispatch(updateEventInCurrentEvents(currentEventDraft))
         }
         // also save to db
 

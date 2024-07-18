@@ -27,7 +27,10 @@ const InformationDescriptionEdit = () => {
     }, [currentTimelineDraft])
 
     return (
-        <div className={'absolute'}><EditorContent editor={editor}/></div>
+        <>
+            <div className={'absolute'}><EditorContent editor={editor}/></div>
+            <div className={`invisible w-fit text-md`}>{currentTimelineDraft.description}</div>
+        </>
     );
 };
 

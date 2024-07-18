@@ -37,6 +37,10 @@ const contentsSlice = createSlice({
         updateCurrentEvents: (state, action) => {
             state.currentEvents = action.payload
         },
+        updateEventInCurrentEvents: (state, action) => {
+            const eventIndex = state.currentEvents.findIndex(event => event.id === action.payload.id)
+            if (eventIndex !== -1) state.currentEvents =  state.currentEvents = [...state.currentEvents.slice(0, eventIndex), action.payload, ...state.currentEvents.slice(eventIndex + 1)];
+        },
         updateCurrentEventsDraft: (state, action) => {
             state.currentEventsDraft = action.payload
         },
@@ -59,7 +63,7 @@ const contentsSlice = createSlice({
     },
 });
 export default contentsSlice.reducer;
-export const {updateDraftKeynote, updateCurrentEventsDraft, updateCurrentTimelineDraft, updateCurrentEventDraft, updateRelatedNews, updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines , updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents} = contentsSlice.actions;
+export const {updateEventInCurrentEvents, updateDraftKeynote, updateCurrentEventsDraft, updateCurrentTimelineDraft, updateCurrentEventDraft, updateRelatedNews, updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines , updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents} = contentsSlice.actions;
 
 // selectors
 export const selectCurrentTimeline = (state: RootState) => state.contents.currentTimeline
