@@ -11,7 +11,10 @@ const SaveModalButton = () => {
 
     const handleSave = () => {
         if (modalType === 'information') dispatch(updateCurrentTimeline(currentTimelineDraft))
-        else if (modalType === 'event') dispatch(updateCurrentEvent(currentEventDraft))
+        else if (modalType === 'event') {
+            dispatch(updateCurrentEvent(currentEventDraft))
+            // also update currentEvents
+        }
         // also save to db
 
         dispatch(updateModalContentType('view'))

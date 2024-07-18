@@ -14,7 +14,7 @@ const EventEdit = () => {
     const editor = useEditor({
         extensions: [StarterKit, Image],
         editorProps: {
-          attributes: {class: 'outline-none'}
+          attributes: {class: 'w-full outline-none'}
         },
         onUpdate: ({ editor }) => {
             dispatch(updateCurrentEventDraft({...currentEventDraft, description: editor.getText()}))
@@ -32,9 +32,9 @@ const EventEdit = () => {
         <div>
             <EditMenubar editor={editor} src={'https://cdn.timeline.vg/base-image.png'}/>
             <hr/>
-            <div className={'flex flex-col items-center gap-3'}>
+            <div className={'w-full flex flex-col items-center gap-3'}>
                 <ModalImage src={currentEventDraft.image || 'https://cdn.timeline.vg/base-image.png'} alt={currentEventDraft.name} imageSize={currentEventDraft.imageSize}/>
-                <EditorContent editor={editor}/>
+                <div className={'w-full'}><EditorContent editor={editor}/></div>
             </div>
         </div>
     )

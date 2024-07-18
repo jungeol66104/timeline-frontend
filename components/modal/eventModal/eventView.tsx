@@ -9,9 +9,9 @@ const EventView = () => {
     return (
         <div>
             <hr/>
-            <div className={'flex flex-col items-center'}>
+            <div className={'w-full flex flex-col items-center'}>
                 <ModalImage src={currentEvent.image || 'https://cdn.timeline.vg/base-image.png'} alt={currentEvent.name} imageSize={currentEvent.imageSize}/>
-                <p className={'mt-3'}>{currentEvent.description}</p>
+                <p className={'mt-3 w-full'}>{currentEvent.description}</p>
             </div>
         </div>
     )
