@@ -11,16 +11,16 @@ const TimelineContentTypeButton = () => {
     const handleClick = (contentType: string) => {
         if (contentType === 'history') dispatch(updateTimelineHistoryType('list'))
         else if (contentType === 'edit') {
-            fetchEvents(currentTimeline.id, 1, false).then((data) => {
-                const events = data.events
-                events.forEach((event: TimelineEvent) => event.keynote = 1)
-                dispatch(updateCurrentEvents(events))
-                dispatch(updateCurrentEventsDraft(events))
-                dispatch(updateCurrentPage(1))
-                dispatch(updateTotalPage(data.totalPages))
-                dispatch(updateIsBottomEnd(data.totalPages === 1))
-                dispatch(updateIsSummary(false))
-            })
+            // fetchEvents(currentTimeline.id, 1, false).then((data) => {
+            //     const events = data.events
+            //     events.forEach((event: TimelineEvent) => event.keynote = 1)
+            //     dispatch(updateCurrentEvents(events))
+            //     dispatch(updateCurrentEventsDraft(events))
+            //     dispatch(updateCurrentPage(1))
+            //     dispatch(updateTotalPage(data.totalPages))
+            //     dispatch(updateIsBottomEnd(data.totalPages === 1))
+            //     dispatch(updateIsSummary(false))
+            // })
         }
         dispatch(updateTimelineContentType(contentType))
     }

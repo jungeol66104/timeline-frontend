@@ -1,6 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
-import {getTodayDate} from "@/utils/global";
 
 const initialState = {
     currentTimeline: {id: 1, name: '', description: '', image: '', content: null, imageSize: {width: 0, height: 0}},
