@@ -21,12 +21,6 @@ const EventDateEdit = () => {
         content: `<p>${dateWithoutBCE}</p>`,
     })
 
-    useEffect(() => {
-        if (!editor) return
-
-        editor.commands.setContent(`<p>${dateWithoutBCE}</p>`)
-    }, [currentEventDraft])
-
     return (
         <>
             <div className={'absolute'}><EditorContent editor={editor}/></div>

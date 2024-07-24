@@ -2,7 +2,7 @@ import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline, selectCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import {selectTimelineContentType, updateModalType} from "@/store/slices/appearanceSlice";
-import InformationContentImage from "@/components/images/informationContentImage";
+import TimelineContentImage from "@/components/timelines/timelineView/timelineContentImage";
 
 const TimelineInformation = () => {
     const dispatch = useDispatch()
@@ -25,7 +25,7 @@ const TimelineInformation = () => {
     return (
         <div className={`timelineInformation`}>
             <div className={'py-3 px-4'}>
-                <InformationContentImage timeline={timeline}/>
+                <TimelineContentImage src={timeline.image} alt={timeline.name} imageSize={timeline.imageSize}/>
                 <div className={'h-[120px]'}>
                     <p className={`text-sm line-clamp-5`}>{timeline.content}</p>
                     <button onClick={handleClick} className={'text-sm text-blue-700 hover:underline'}>Show more</button>

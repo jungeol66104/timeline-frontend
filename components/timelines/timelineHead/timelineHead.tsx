@@ -2,8 +2,8 @@ import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import TimelineMenubar from "@/components/timelines/timelineHead/timelineMenubar";
 import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
-import TimelineNameEdit from "@/components/timelines/timelineHead/timelineNameEdit";
-import TimelineDescriptionEdit from "@/components/timelines/timelineHead/timelineDescriptionEdit";
+import TimelineNameEdit from "@/components/timelines/timelineEdit/timelineNameEdit";
+import TimelineDescriptionEdit from "@/components/timelines/timelineEdit/timelineDescriptionEdit";
 
 const TimelineHead = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)

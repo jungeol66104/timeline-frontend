@@ -3,16 +3,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import {EditorContent, useEditor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Image from "@tiptap/extension-image";
+import Placeholder from "@tiptap/extension-placeholder";
 
 const TimelineNameEdit = () => {
     const dispatch = useDispatch()
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
 
     const editor = useEditor({
-        extensions: [StarterKit, Image],
+        extensions: [StarterKit, Placeholder.configure({placeholder: 'New Timeline Title'})],
         editorProps: {
-            attributes: {class: 'outline-none text-2xl font-bold'}
+            attributes: {class: 'outline-none text-2xl font-bold min-w-[100px]'}
         },
         onUpdate: ({ editor }) => {
             dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, name: editor.getText()}))
@@ -21,10 +21,10 @@ const TimelineNameEdit = () => {
     })
 
     useEffect(() => {
-        if (!editor) return
-
-        editor.commands.setContent(`<p>${currentTimelineDraft.name}</p>`)
-    }, [currentTimelineDraft])
+        if (editor && editor.getHTML() !== `<p>${currentTimelineDraft.name}</p>`) {
+            editor.commands.setContent(`<p>${currentTimelineDraft.name}</p>`, false);
+        }
+    }, [currentTimelineDraft, editor]);
 
     return (
         <>

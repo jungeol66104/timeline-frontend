@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEventDraft, updateCurrentEventDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import {EditorContent, useEditor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
@@ -19,12 +19,6 @@ const EventNameEdit = () => {
         },
         content: `<p>${currentEventDraft.name}</p>`,
     })
-
-    useEffect(() => {
-        if (!editor) return
-
-        editor.commands.setContent(`<p>${currentEventDraft.name}</p>`)
-    }, [currentEventDraft])
 
     return (
         <>

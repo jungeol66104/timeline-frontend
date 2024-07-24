@@ -2,8 +2,8 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
-import TimelineNameEdit from "@/components/timelines/timelineHead/timelineNameEdit";
-import TimelineDescriptionEdit from "@/components/timelines/timelineHead/timelineDescriptionEdit";
+import TimelineNameEdit from "@/components/timelines/timelineEdit/timelineNameEdit";
+import TimelineDescriptionEdit from "@/components/timelines/timelineEdit/timelineDescriptionEdit";
 import TimelineMenubar from "@/components/timelines/timelineHead/timelineMenubar";
 
 const InformationModalHead = () => {
@@ -23,7 +23,7 @@ const InformationModalHead = () => {
                     :   <div className={`w-fit text-md`}>{currentTimeline.description}</div>
                 }
             </div>
-            <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>Last Updated: January 14, 2024</div>
+            <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>{timelineContentType === 'new' ? 'Created:' : 'Last Updated:'} January 14, 2024</div>
             <TimelineMenubar/>
         </div>
     );

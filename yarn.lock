@@ -323,6 +323,11 @@
   resolved "https://registry.npmjs.org/@tiptap/extension-paragraph/-/extension-paragraph-2.4.0.tgz"
   integrity sha512-+yse0Ow67IRwcACd9K/CzBcxlpr9OFnmf0x9uqpaWt1eHck1sJnti6jrw5DVVkyEBHDh/cnkkV49gvctT/NyCw==
 
+"@tiptap/extension-placeholder@^2.5.5":
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-placeholder/-/extension-placeholder-2.5.5.tgz#1883994be2e4dfb5b7a271dd39bbdd3e680b6521"
+  integrity sha512-SwWLYdyrMeoVUQdivkIJ4kkAcb38pykxSetlrXitfUmnkwv0/fi+p76Rickf+roudWPsfzqvgvJ4gT6OAOJrGA==
+
 "@tiptap/extension-strike@^2.4.0":
   version "2.4.0"
   resolved "https://registry.npmjs.org/@tiptap/extension-strike/-/extension-strike-2.4.0.tgz"
