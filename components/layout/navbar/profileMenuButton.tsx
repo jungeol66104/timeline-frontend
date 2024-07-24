@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import Image from "next/image";
-import ShareButton from "@/components/modal/shareModal/shareButton";
+import ShareButton from "@/components/layout/modals/shareModal/shareButton";
 import FeedbackButton from "@/components/layout/navbar/feedbackButton";
 import SignInButton from "@/components/layout/navbar/signInButton";
 import CreateTimelineButton from "@/components/layout/navbar/createTimelineButton";

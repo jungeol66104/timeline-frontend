@@ -5,7 +5,7 @@ import {selectIsEdit} from "@/store/slices/appearanceSlice";
 import PersonalSaveButton from "@/components/private/personalSaveButton";
 import DeleteAccountButton from "@/components/private/deleteAccountButton";
 import {useRouter} from "next/router";
-import {selectIsSession, selectSession} from "@/store/slices/personalSlice";
+import {selectIsSession, selectSession} from "@/store/slices/privateSlice";
 
 const PersonalSectionPrimary = () => {
     const contributions = [

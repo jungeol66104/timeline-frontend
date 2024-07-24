@@ -1,6 +1,6 @@
 import React from 'react';
 import {useRouter} from "next/router";
-import {selectIsSession} from "@/store/slices/personalSlice";
+import {selectIsSession} from "@/store/slices/privateSlice";
 import {useSelector} from "react-redux";
 
 const SignInButton = () => {

@@ -10,7 +10,6 @@ const initialState = {
     currentEventDraft: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, keynote: 0, timelineInfo: []},
     currentEvents: [],
     currentEventsDraft: [],
-    newEvent: {id: 0, name: '', description: '', date: '', ephemerisTime: 0, keynote: 0, timelineInfo: []},
     relatedNews: [],
     relatedTimelines: [],
     recentTimelines: [],
@@ -41,17 +40,18 @@ const contentsSlice = createSlice({
         },
         updateEventInCurrentEvents: (state, action) => {
             const eventIndex = state.currentEvents.findIndex(event => event.id === action.payload.id)
-            if (eventIndex !== -1) state.currentEvents =  state.currentEvents = [...state.currentEvents.slice(0, eventIndex), action.payload, ...state.currentEvents.slice(eventIndex + 1)];
+            if (eventIndex !== -1) state.currentEvents = [...state.currentEvents.slice(0, eventIndex), action.payload, ...state.currentEvents.slice(eventIndex + 1)];
         },
         updateCurrentEventsDraft: (state, action) => {
             state.currentEventsDraft = action.payload
         },
+        updateEventInCurrentEventsDraft: (state, action) => {
+            const eventIndex = state.currentEventsDraft.findIndex(event => event.id === action.payload.id)
+            if (eventIndex !== -1) state.currentEventsDraft = [...state.currentEventsDraft.slice(0, eventIndex), action.payload, ...state.currentEventsDraft.slice(eventIndex + 1)];
+        },
         updateDraftKeynote: (state, action) => {
             const event = state.currentEventsDraft.find(event => event.id === action.payload);
             if (event) event.keynote = event.keynote === 1 ? 0 : 1
-        },
-        updateNewEvent: (state, action) => {
-            state.newEvent = action.payload
         },
         updateRelatedNews: (state, action) => {
             state.relatedNews = action.payload
@@ -68,7 +68,7 @@ const contentsSlice = createSlice({
     },
 });
 export default contentsSlice.reducer;
-export const {updateNewEvent, updateEventInCurrentEvents, updateDraftKeynote, updateCurrentEventsDraft, updateCurrentTimelineDraft, updateCurrentEventDraft, updateRelatedNews, updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines , updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents} = contentsSlice.actions;
+export const {updateEventInCurrentEventsDraft, updateEventInCurrentEvents, updateDraftKeynote, updateCurrentEventsDraft, updateCurrentTimelineDraft, updateCurrentEventDraft, updateRelatedNews, updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines , updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents} = contentsSlice.actions;
 
 // selectors
 export const selectCurrentTimeline = (state: RootState) => state.contents.currentTimeline
@@ -78,7 +78,6 @@ export const selectCurrentEvent = (state: RootState) => state.contents.currentEv
 export const selectCurrentEventDraft = (state: RootState) => state.contents.currentEventDraft
 export const selectCurrentEvents = (state: RootState) => state.contents.currentEvents
 export const selectCurrentEventsDraft = (state: RootState) => state.contents.currentEventsDraft
-export const selectNewEvent = (state: RootState) => state.contents.newEvent
 export const selectRelatedNews = (state: RootState) => state.contents.relatedNews
 export const selectRelatedTimelines = (state: RootState) => state.contents.relatedTimelines
 export const selectPopularTimelines = (state: RootState) => state.contents.popularTimelines
@@ -93,7 +92,6 @@ export interface initialContentsState {
     currentEventDraft: TimelineEvent,
     currentEvents: TimelineEvent[],
     currentEventsDraft: TimelineEvent[],
-    newEvent: TimelineEvent,
     relatedNews: any[],
     relatedTimelines: any[],
     recentTimelines: any[],

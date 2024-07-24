@@ -1,27 +1,25 @@
 import React, {useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectIsSummary, selectTimelineContentType, updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {selectIsSummary, updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateTotalPage} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
 import {fetchEvents} from "@/pages/api/global";
 
-const KeynoteDropdown = () => {
-    const keynoteDropdownRef = useRef<HTMLButtonElement>(null)
+const KeynoteButton = () => {
+    const keynoteButtonRef = useRef<HTMLButtonElement>(null)
     const [isToggle, setIsToggle] = useState(false)
 
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
-    const timelineContentType = useSelector(selectTimelineContentType)
     const isKeynote = useSelector(selectIsSummary)
-    const isBlock = timelineContentType === 'edit' || timelineContentType === 'new'
 
     const handleToggle = (e: React.MouseEvent) => {
-        const keynoteDropdown = keynoteDropdownRef.current
-        if (!keynoteDropdown || isBlock) return
+        const keynoteButton = keynoteButtonRef.current
+        if (!keynoteButton) return
         e.stopPropagation()
         setIsToggle(true)
 
         document.addEventListener('click', function hideMenu (e: MouseEvent) {
-            if (!keynoteDropdown.contains(e.target as Node)) {
+            if (!keynoteButton.contains(e.target as Node)) {
                 setIsToggle(false)
                 document.removeEventListener('click', hideMenu)
             }
@@ -45,7 +43,7 @@ const KeynoteDropdown = () => {
 
     return (
         <div className={'relative'}>
-            <button ref={keynoteDropdownRef} onClick={handleToggle} className={`${isBlock ? 'opacity-50 pointer-events-none' : 'hover:bg-gray-100'} pl-3 pr-1 w-fit h-[30px] flex items-center gap-1 bg-white border-[1px] border-gray-300 rounded-md`}>
+            <button ref={keynoteButtonRef} onClick={handleToggle} className={`hover:bg-gray-100 pl-3 pr-1 w-fit h-[30px] flex items-center gap-1 bg-white border-[1px] border-gray-300 rounded-md`}>
                 <span className={'text-sm font-semibold'}>{isKeynote ? 'Keynote' : 'All'}</span>
                 <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xe5c5;</div>
             </button>
@@ -59,4 +57,4 @@ const KeynoteDropdown = () => {
     );
 };
 
-export default KeynoteDropdown;
+export default KeynoteButton;

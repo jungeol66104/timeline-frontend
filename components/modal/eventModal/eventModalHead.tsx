@@ -25,7 +25,7 @@ const EventModalHead = () => {
                     :   <h1 className={`w-fit text-2xl font-bold`}>{currentEvent.name}</h1>
                 }
             </div>
-            <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>{contentType === 'new' ? 'Created:' : 'Last Updated:'} {formatDate(currentEvent.updatedDT)}</div>
+            <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>{contentType === 'new' ? 'Created:' : 'Last Updated:'}  January 14, 2024</div>
             <ModalMenubar/>
         </div>
     );

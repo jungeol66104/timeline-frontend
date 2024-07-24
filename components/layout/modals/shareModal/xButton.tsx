@@ -1,5 +1,5 @@
 import React from 'react';
-import ShareButtonTemplate from "@/components/modal/shareModal/shareElementButtonTemplate";
+import ShareButtonTemplate from "@/components/layout/modals/shareModal/shareElementButtonTemplate";
 
 const XButton = () => {
     const handleClick = () => {

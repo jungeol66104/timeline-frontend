@@ -1,10 +1,10 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectIsShare} from "@/store/slices/appearanceSlice";
-import LinkCopyButton from "@/components/modal/shareModal/linkCopyButton";
-import KakaotalkButton from "@/components/modal/shareModal/kakaotalkButton";
-import XButton from "@/components/modal/shareModal/xButton";
-import FacebookButton from "@/components/modal/shareModal/facebookButton";
+import LinkCopyButton from "@/components/layout/modals/shareModal/linkCopyButton";
+import KakaotalkButton from "@/components/layout/modals/shareModal/kakaotalkButton";
+import XButton from "@/components/layout/modals/shareModal/xButton";
+import FacebookButton from "@/components/layout/modals/shareModal/facebookButton";
 
 
 const Share = () => {

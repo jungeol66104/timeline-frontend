@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from "next/link";
-import {selectSession} from "@/store/slices/personalSlice";
+import {selectSession} from "@/store/slices/privateSlice";
 import {useSelector} from "react-redux";
 
 const ProfileButton = () => {

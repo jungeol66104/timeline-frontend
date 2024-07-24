@@ -1,5 +1,5 @@
-import Share from "@/components/modal/shareModal/share";
-import Overlay from "@/components/layout/overlay";
+import Share from "@/components/layout/modals/shareModal/share";
+import Overlay from "@/components/layout/modals/overlay";
 import InformationModal from "@/components/modal/informationModal/informationModal";
 import EventModal from "@/components/modal/eventModal/eventModal";
 
