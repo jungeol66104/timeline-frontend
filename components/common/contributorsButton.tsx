@@ -1,7 +1,7 @@
 import React, {useRef, useState} from "react";
 import Link from "next/link";
 
-const ContributorsDropdown = () => {
+const ContributorsButton = () => {
     // dummy data
     const contributors = ['Mike Tyson', 'Jake Paul', 'Joon Nam', 'Timeline Staffs', 'Donggeun Suh']
 
@@ -48,4 +48,4 @@ const ContributorsDropdown = () => {
         </div>
     )
 }
-export default ContributorsDropdown;
+export default ContributorsButton;

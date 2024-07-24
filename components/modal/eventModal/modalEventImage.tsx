@@ -3,8 +3,8 @@ import Image from "next/image";
 import {useSelector} from "react-redux";
 import {selectModalContentType} from "@/store/slices/appearanceSlice";
 import {getIsBaseImage} from "@/utils/global";
-import ReplaceImageButton from "@/components/modal/replaceImageButton";
-import RemoveImageButton from "@/components/modal/removeImageButton";
+import ReplaceImageButton from "@/components/common/replaceImageButton";
+import RemoveImageButton from "@/components/common/removeImageButton";
 
 const ModalEventImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize: any}) => {
     const modalContentType = useSelector(selectModalContentType)

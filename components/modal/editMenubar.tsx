@@ -1,7 +1,7 @@
 import React from 'react';
 import SaveModalButton from "@/components/modal/saveModalButton";
 import NoteButton from "@/components/modal/noteButton";
-import AddImageButton from "@/components/modal/addImageButton";
+import AddImageButton from "@/components/common/addImageButton";
 
 const EditMenubar = ({editor, src}:{editor: any, src: string}) => {
     return (

@@ -1,8 +1,7 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useEditor, EditorContent} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import Image from '@tiptap/extension-image'
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import EditMenubar from "@/components/modal/editMenubar";
 import ModalEventImage from "@/components/modal/eventModal/modalEventImage";
@@ -12,7 +11,7 @@ const InformationEdit = () => {
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
 
     const editor = useEditor({
-        extensions: [StarterKit, Image],
+        extensions: [StarterKit],
         editorProps: {
             attributes: {class: 'outline-none'}
         },
@@ -22,19 +21,13 @@ const InformationEdit = () => {
         content: `<p>${currentTimelineDraft.content}</p>`,
     })
 
-    useEffect(() => {
-        if (!editor) return
-
-        editor.commands.setContent(`<p>${currentTimelineDraft.content}</p>`)
-    }, [currentTimelineDraft])
-
     return (
         <div>
             <EditMenubar editor={editor} src={currentTimelineDraft.image}/>
             <hr/>
             <div className={'flex flex-col items-center gap-3'}>
-                <ModalEventImage src={currentTimelineDraft.image} alt={currentTimelineDraft.name} imageSize={currentTimelineDraft.imageSize} />
-                <EditorContent editor={editor}/>
+                <ModalEventImage src={currentTimelineDraft.image} alt={currentTimelineDraft.name} imageSize={currentTimelineDraft.imageSize}/>
+                <div className={'w-full'}><EditorContent editor={editor}/></div>
             </div>
         </div>
     )

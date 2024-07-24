@@ -1,4 +1,4 @@
-import ContributorsDropdown from "@/components/common/contributorsDropdown";
+import ContributorsButton from "@/components/common/contributorsButton";
 import ModalContentTypeButton from "@/components/modal/modalContentTypeButton";
 import {useSelector} from "react-redux";
 import {selectModalContentType, selectTimelineContentType} from "@/store/slices/appearanceSlice";
@@ -13,7 +13,7 @@ const ModalMenubar = () => {
             <div className={'w-full flex gap-3'}>
                 {modalContentType === 'new' || timelineContentType === 'new'
                     ?   <UsernameButton />
-                    :   <ContributorsDropdown/>
+                    :   <ContributorsButton/>
                 }
             </div>
             {modalContentType !== 'new' && <ModalContentTypeButton/>}

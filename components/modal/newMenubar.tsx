@@ -1,7 +1,7 @@
 import React from 'react';
-import AddImageButton from "@/components/modal/addImageButton";
 import {useSelector} from "react-redux";
 import {selectModalType} from "@/store/slices/appearanceSlice";
+import AddImageButton from "@/components/common/addImageButton";
 import CreateEventButton from "@/components/modal/eventModal/eventNew/createEventButton";
 
 const EditMenubar = ({editor, src}:{editor: any, src: string}) => {
