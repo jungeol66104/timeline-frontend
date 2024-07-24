@@ -5,7 +5,7 @@ import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/c
 import React, {useEffect} from "react";
 import Image from "@tiptap/extension-image";
 import EditMenubar from "@/components/modal/editMenubar";
-import ModalImage from "@/components/modal/modalImage";
+import ModalEventImage from "@/components/modal/eventModal/modalEventImage";
 
 const EventEdit = () => {
     const dispatch = useDispatch()
@@ -33,7 +33,7 @@ const EventEdit = () => {
             <EditMenubar editor={editor} src={'https://cdn.timeline.vg/base-image.png'}/>
             <hr/>
             <div className={'w-full flex flex-col items-center gap-3'}>
-                <ModalImage src={currentEventDraft.image || 'https://cdn.timeline.vg/base-image.png'} alt={currentEventDraft.name} imageSize={currentEventDraft.imageSize}/>
+                <ModalEventImage src={currentEventDraft.image || 'https://cdn.timeline.vg/base-image.png'} alt={currentEventDraft.name} imageSize={currentEventDraft.imageSize}/>
                 <div className={'w-full'}><EditorContent editor={editor}/></div>
             </div>
         </div>

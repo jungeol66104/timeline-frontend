@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import ModalImage from "@/components/modal/modalImage";
+import ModalEventImage from "@/components/modal/eventModal/modalEventImage";
 
 const InformationView = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
@@ -10,7 +10,7 @@ const InformationView = () => {
         <div>
             <hr/>
             <div className={'flex flex-col items-center'}>
-                <ModalImage src={currentTimeline.image} alt={currentTimeline.name} imageSize={currentTimeline.imageSize} />
+                <ModalEventImage src={currentTimeline.image} alt={currentTimeline.name} imageSize={currentTimeline.imageSize} />
                 <p className={'mt-3'}>{currentTimeline.content}</p>
             </div>
         </div>

@@ -13,7 +13,7 @@ const InformationModalHead = () => {
 
     return (
         <div className={'z-10'}>
-            <div>
+            <div className={'relative'}>
                 {isTimelineEditable
                     ?   <TimelineNameEdit />
                     :   <h1 className={'timelineInformationName text-2xl font-bold'}>{currentTimeline.name}</h1>

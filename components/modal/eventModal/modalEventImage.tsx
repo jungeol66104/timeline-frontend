@@ -6,8 +6,8 @@ import {getIsBaseImage} from "@/utils/global";
 import ReplaceImageButton from "@/components/modal/replaceImageButton";
 import RemoveImageButton from "@/components/modal/removeImageButton";
 
-const ModalImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize: any}) => {
-    const contentType = useSelector(selectModalContentType)
+const ModalEventImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize: any}) => {
+    const modalContentType = useSelector(selectModalContentType)
     const isBaseImage = getIsBaseImage(src)
 
     return (
@@ -16,7 +16,7 @@ const ModalImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize
                 ?   <></>
                 :   <Image className={'max-h-[400px] w-auto'} src={src} alt={alt} priority height={imageSize.height} width={imageSize.width} />
             }
-            {contentType === 'edit' && !isBaseImage &&
+            {modalContentType === 'edit' && !isBaseImage &&
                 <div className={`absolute top-4 right-4 flex items-center h-[36px] border-[0.1px] border-gray-300 drop-shadow-sm rounded-md opacity-70`}>
                     <ReplaceImageButton />
                     <RemoveImageButton />
@@ -26,4 +26,4 @@ const ModalImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize
     );
 };
 
-export default ModalImage;
+export default ModalEventImage;
