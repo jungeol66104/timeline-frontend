@@ -1,7 +1,7 @@
 import ContributorsDropdown from "@/components/common/contributorsDropdown";
 import ModalContentTypeButton from "@/components/modal/modalContentTypeButton";
 import {useSelector} from "react-redux";
-import {selectModalContentType, selectModalType, selectTimelineContentType} from "@/store/slices/appearanceSlice";
+import {selectModalContentType, selectTimelineContentType} from "@/store/slices/appearanceSlice";
 import UsernameButton from "@/components/common/usernameButton";
 
 const ModalMenubar = () => {

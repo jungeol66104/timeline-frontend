@@ -15,14 +15,16 @@ const EventModalHead = () => {
 
     return (
         <div className={'z-10'}>
-            {isEventEditable
-                ?   <div className={'flex gap-1.5'}><EventDateEdit /><EraButton/></div>
-                :   <div className={`w-fit text-md font-medium`}>{currentEvent.date}</div>
-            }
-            {isEventEditable
-                ?   <EventNameEdit />
-                :   <h1 className={`w-fit text-2xl font-bold`}>{currentEvent.name}</h1>
-            }
+            <div>
+                {isEventEditable
+                    ?   <div className={'flex gap-1.5'}><EventDateEdit /><EraButton/></div>
+                    :   <div className={`w-fit text-md font-medium`}>{currentEvent.date}</div>
+                }
+                {isEventEditable
+                    ?   <EventNameEdit />
+                    :   <h1 className={`w-fit text-2xl font-bold`}>{currentEvent.name}</h1>
+                }
+            </div>
             <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>{contentType === 'new' ? 'Created:' : 'Last Updated:'} {formatDate(currentEvent.updatedDT)}</div>
             <ModalMenubar/>
         </div>
