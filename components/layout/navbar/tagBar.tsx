@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useRouter} from "next/router";
 import {getIsTouchable, getTags} from "@/utils/global";
 import TagButton from "@/components/layout/navbar/tagButton";
@@ -17,11 +17,28 @@ const TagBar = () => {
         const tagWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.tagWrapper') : null
         if (!tagWrapper || hasQueryParams) return
 
+        const isTouchable = getIsTouchable()
+        const left = isTouchable ? 314.42 : 260
+
         tagWrapper.scroll({
-            left: 260,
+            left: left,
             behavior: 'smooth'
         })
     }, [router.query]);
+
+    useEffect(() => {
+        const hasQueryParams = Object.keys(router.query).length > 0;
+        const tagWrapper: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.tagWrapper') : null
+        if (!tagWrapper || hasQueryParams) return
+
+        const isTouchable = getIsTouchable()
+        const left = isTouchable ? 314.42 : 260
+
+        tagWrapper.scroll({
+            left: left,
+            behavior: 'smooth'
+        })
+    }, []);
 
     // set scroll position
     useEffect(() => {
