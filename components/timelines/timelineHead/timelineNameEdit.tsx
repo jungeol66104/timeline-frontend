@@ -1,0 +1,37 @@
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
+import {EditorContent, useEditor} from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Image from "@tiptap/extension-image";
+
+const TimelineNameEdit = () => {
+    const dispatch = useDispatch()
+    const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
+
+    const editor = useEditor({
+        extensions: [StarterKit, Image],
+        editorProps: {
+            attributes: {class: 'outline-none text-2xl font-bold'}
+        },
+        onUpdate: ({ editor }) => {
+            dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, name: editor.getText()}))
+        },
+        content: `<p>${currentTimelineDraft.name}</p>`,
+    })
+
+    useEffect(() => {
+        if (!editor) return
+
+        editor.commands.setContent(`<p>${currentTimelineDraft.name}</p>`)
+    }, [currentTimelineDraft])
+
+    return (
+        <>
+            <div className={'absolute'}><EditorContent editor={editor}/></div>
+            <h1 className={`timelineInformationName invisible w-fit text-2xl font-bold min-h-[32px]`}>{currentTimelineDraft.name}</h1>
+        </>
+    );
+};
+
+export default TimelineNameEdit;

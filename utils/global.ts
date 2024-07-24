@@ -81,3 +81,11 @@ export const getCurrentTag = (tagNum: number) => {
     return tags[index]
 }
 
+export const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed in JS
+    const day = String(today.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+}

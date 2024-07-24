@@ -1,19 +1,22 @@
-import ContributorsButton from "@/components/common/contributorsButton";
+import ContributorsDropdown from "@/components/common/contributorsDropdown";
 import ModalContentTypeButton from "@/components/modal/modalContentTypeButton";
 import {useSelector} from "react-redux";
-import {selectModalType} from "@/store/slices/appearanceSlice";
-import ConnectedTimelinesButton from "@/components/modal/eventModal/ConnectedTimelinesButton";
+import {selectModalContentType, selectModalType, selectTimelineContentType} from "@/store/slices/appearanceSlice";
+import UsernameButton from "@/components/common/usernameButton";
 
 const ModalMenubar = () => {
-    const modalType = useSelector(selectModalType)
+    const timelineContentType = useSelector(selectTimelineContentType);
+    const modalContentType = useSelector(selectModalContentType)
 
     return (
         <div className={'mt-3 w-full flex justify-between z-10'}>
             <div className={'w-full flex gap-3'}>
-                <ContributorsButton/>
-                {modalType === 'event' && <ConnectedTimelinesButton />}
+                {modalContentType === 'new' || timelineContentType === 'new'
+                    ?   <UsernameButton />
+                    :   <ContributorsDropdown/>
+                }
             </div>
-            <ModalContentTypeButton/>
+            {modalContentType !== 'new' && <ModalContentTypeButton/>}
         </div>
     );
 };

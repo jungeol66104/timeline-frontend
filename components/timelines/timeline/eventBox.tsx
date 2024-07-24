@@ -11,4 +11,5 @@ const EventBox = ({event} : {event: TimelineEvent}) => {
         </div>
     )
 }
-export default EventBox
+
+export default EventBox;

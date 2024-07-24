@@ -1,24 +1,23 @@
-import {TimelineEvent, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
-import api from "@/pages/api/api";
 import {useDispatch, useSelector} from "react-redux";
+import {TimelineEvent, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import {selectTimelineContentType, updateModalType} from "@/store/slices/appearanceSlice";
-import {getBody} from "@/utils/global";
 import KeynoteToggle from "@/components/timelines/timeline/keynoteToggle";
 import DetachButton from "@/components/timelines/timeline/detachButton";
+import api from "@/pages/api/api";
 
 const EventContent = ({event} : {event: TimelineEvent}) => {
     const dispatch = useDispatch()
     const timelineContentType = useSelector(selectTimelineContentType)
+    const isEditable = timelineContentType === 'edit' || timelineContentType === 'new'
 
     const handleClick = async () => {
         try {
-            const body = getBody()
-            if (!body) return
-
-            const response = await api.get(`/event/${Number(event.id)}`, {headers: {lang: 'en'}})
-            const currentEvent = response.data.data
-            dispatch(updateCurrentEvent(currentEvent))
-            dispatch(updateCurrentEventDraft(currentEvent))
+            if (timelineContentType === 'edit') {
+                const response = await api.get(`/event/${Number(event.id)}`, {headers: {lang: 'en'}})
+                const currentEvent = response.data.data
+                dispatch(updateCurrentEvent(currentEvent))
+                dispatch(updateCurrentEventDraft(currentEvent))
+            }
             dispatch(updateModalType('event'))
             return
         } catch (error) {
@@ -29,7 +28,7 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
 
     return (
         <div className={`eventContent relative w-full border-[0.1px] border-gray-300 rounded-xl shadow-md`}>
-            <div className={`${timelineContentType !== 'edit' && 'hidden'}`}>
+            <div className={`${!isEditable && 'hidden'}`}>
                 <div className={`p-2.5 flex items-center justify-between`}>
                     <KeynoteToggle event={event} />
                     <DetachButton event={event} />
@@ -46,4 +45,5 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
         </div>
     )
 }
-export default EventContent
+
+export default EventContent;

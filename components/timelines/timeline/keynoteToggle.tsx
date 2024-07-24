@@ -1,6 +1,6 @@
 import React from 'react';
-import {selectCurrentEventsDraft, TimelineEvent, updateDraftKeynote} from "@/store/slices/contentsSlice";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
+import {TimelineEvent, updateDraftKeynote} from "@/store/slices/contentsSlice";
 
 const KeynoteToggle = ({event} : {event: TimelineEvent}) => {
     const dispatch = useDispatch()

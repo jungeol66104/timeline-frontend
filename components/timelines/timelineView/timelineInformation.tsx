@@ -4,7 +4,7 @@ import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {updateModalType} from "@/store/slices/appearanceSlice";
 import InformationContentImage from "@/components/images/informationContentImage";
 import {getBody} from "@/utils/global";
-import TimelineMenubar from "@/components/timelines/timelineHeader/timelineMenubar";
+import TimelineMenubar from "@/components/timelines/timelineHead/timelineMenubar";
 
 const TimelineInformation = () => {
     const dispatch = useDispatch()

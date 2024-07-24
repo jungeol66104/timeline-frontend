@@ -22,4 +22,5 @@ const EventModal = () => {
         </div>
     )
 }
-export default EventModal
+
+export default EventModal;

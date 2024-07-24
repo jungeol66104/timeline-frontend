@@ -1,8 +1,7 @@
 import probe from "probe-image-size"
 import api from "@/pages/api/api"
 import {storeWrapper} from "@/store/store";
-import {TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updatePopularTimelines, updateRecentTimelines, updateRelatedNews, updateRelatedTimelines
-} from "@/store/slices/contentsSlice"
+import {TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updatePopularTimelines, updateRecentTimelines, updateRelatedNews, updateRelatedTimelines} from "@/store/slices/contentsSlice"
 import {updateCurrentPage, updateIs404, updateIsBottomEnd, updateIsSummary, updateTotalPage} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";

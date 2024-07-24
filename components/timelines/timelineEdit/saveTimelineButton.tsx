@@ -10,6 +10,8 @@ const SaveTimelineButton = () => {
     const handleSave = () => {
         dispatch(updateCurrentEvents(currentEventsDraft))
         // send to db
+        // if timelineContentType new, route to '/@user/timelines/id'
+        // else route to '/timelines/id'
         dispatch(updateTimelineContentType('view'))
         return
     }

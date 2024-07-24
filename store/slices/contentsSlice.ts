@@ -1,14 +1,16 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
+import {getTodayDate} from "@/utils/global";
 
 const initialState = {
     currentTimeline: {id: 1, name: '', description: '', image: '', content: null, imageSize: {width: 0, height: 0}},
     currentTimelineDraft: {id: 1, name: '', description: '', image: '', content: null, imageSize: {width: 0, height: 0}},
     currentTimelines: [],
-    currentEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, keynote: 0, importance: 0, depth: 0, timelineInfo: []},
-    currentEventDraft: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, keynote: 0, importance: 0, depth: 0, timelineInfo: []},
+    currentEvent: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, keynote: 0, timelineInfo: []},
+    currentEventDraft: {id: 1, name: '', description: '', date: '', ephemerisTime: 0, keynote: 0, timelineInfo: []},
     currentEvents: [],
     currentEventsDraft: [],
+    newEvent: {id: 0, name: '', description: '', date: '', ephemerisTime: 0, keynote: 0, timelineInfo: []},
     relatedNews: [],
     relatedTimelines: [],
     recentTimelines: [],
@@ -48,6 +50,9 @@ const contentsSlice = createSlice({
             const event = state.currentEventsDraft.find(event => event.id === action.payload);
             if (event) event.keynote = event.keynote === 1 ? 0 : 1
         },
+        updateNewEvent: (state, action) => {
+            state.newEvent = action.payload
+        },
         updateRelatedNews: (state, action) => {
             state.relatedNews = action.payload
         },
@@ -63,7 +68,7 @@ const contentsSlice = createSlice({
     },
 });
 export default contentsSlice.reducer;
-export const {updateEventInCurrentEvents, updateDraftKeynote, updateCurrentEventsDraft, updateCurrentTimelineDraft, updateCurrentEventDraft, updateRelatedNews, updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines , updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents} = contentsSlice.actions;
+export const {updateNewEvent, updateEventInCurrentEvents, updateDraftKeynote, updateCurrentEventsDraft, updateCurrentTimelineDraft, updateCurrentEventDraft, updateRelatedNews, updateCurrentTimelines, updatePopularTimelines ,updateRecentTimelines, updateRelatedTimelines , updateCurrentTimeline, updateCurrentEvent, updateCurrentEvents} = contentsSlice.actions;
 
 // selectors
 export const selectCurrentTimeline = (state: RootState) => state.contents.currentTimeline
@@ -73,6 +78,7 @@ export const selectCurrentEvent = (state: RootState) => state.contents.currentEv
 export const selectCurrentEventDraft = (state: RootState) => state.contents.currentEventDraft
 export const selectCurrentEvents = (state: RootState) => state.contents.currentEvents
 export const selectCurrentEventsDraft = (state: RootState) => state.contents.currentEventsDraft
+export const selectNewEvent = (state: RootState) => state.contents.newEvent
 export const selectRelatedNews = (state: RootState) => state.contents.relatedNews
 export const selectRelatedTimelines = (state: RootState) => state.contents.relatedTimelines
 export const selectPopularTimelines = (state: RootState) => state.contents.popularTimelines
@@ -87,6 +93,7 @@ export interface initialContentsState {
     currentEventDraft: TimelineEvent,
     currentEvents: TimelineEvent[],
     currentEventsDraft: TimelineEvent[],
+    newEvent: TimelineEvent,
     relatedNews: any[],
     relatedTimelines: any[],
     recentTimelines: any[],
@@ -112,10 +119,8 @@ export interface TimelineEvent {
     imageSize?: {width: number, height: number}
     keynote?: number
     timelines?: {id: number, name: string, description: string, image: string}[]
-    depth?: number
     order?: number
     top?: number
-    prev?: boolean
     new?: boolean
     createdDT?: string
     updatedDT?: string
