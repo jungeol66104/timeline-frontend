@@ -1,9 +1,8 @@
+import React from "react";
+import {useDispatch, useSelector} from "react-redux";
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
-import React, {useEffect} from "react";
-import Image from "@tiptap/extension-image";
 import EditMenubar from "@/components/modal/editMenubar";
 import EventModalImage from "@/components/modal/eventModal/eventModalImage";
 
@@ -12,7 +11,7 @@ const EventEdit = () => {
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
     const editor = useEditor({
-        extensions: [StarterKit, Image],
+        extensions: [StarterKit],
         editorProps: {
           attributes: {class: 'w-full outline-none'}
         },
@@ -21,12 +20,6 @@ const EventEdit = () => {
         },
         content: `<p>${currentEventDraft.description}</p>`,
     })
-
-    useEffect(() => {
-      if (!editor) return
-
-        editor.commands.setContent(`<p>${currentEventDraft.description}</p>`)
-    }, [currentEventDraft])
 
     return (
         <div>
@@ -39,4 +32,5 @@ const EventEdit = () => {
         </div>
     )
 }
-export default EventEdit
+
+export default EventEdit;
