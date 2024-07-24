@@ -1,10 +1,10 @@
 import ContributorsButton from "@/components/common/contributorsButton";
-import ModalContentTypeButton from "@/components/modal/modalContentTypeButton";
+import EventModalContentTypeButton from "@/components/modal/eventModal/eventModalContentTypeButton";
 import {useSelector} from "react-redux";
 import {selectModalContentType, selectTimelineContentType} from "@/store/slices/appearanceSlice";
 import UsernameButton from "@/components/common/usernameButton";
 
-const ModalMenubar = () => {
+const EventModalMenubar = () => {
     const timelineContentType = useSelector(selectTimelineContentType);
     const modalContentType = useSelector(selectModalContentType)
 
@@ -16,9 +16,9 @@ const ModalMenubar = () => {
                     :   <ContributorsButton/>
                 }
             </div>
-            {modalContentType !== 'new' && <ModalContentTypeButton/>}
+            {modalContentType !== 'new' && <EventModalContentTypeButton/>}
         </div>
     );
 };
 
-export default ModalMenubar;
+export default EventModalMenubar;

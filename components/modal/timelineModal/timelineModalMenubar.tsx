@@ -1,11 +1,10 @@
 import React from 'react';
-import ContributorsButton from "@/components/common/contributorsButton";
-import TimelineContentTypeButton from "@/components/timelines/timelineHead/timelineContentTypeButton";
 import {useSelector} from "react-redux";
 import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
+import ContributorsButton from "@/components/common/contributorsButton";
 import UsernameButton from "@/components/common/usernameButton";
 
-const TimelineMenubar = () => {
+const TimelineModalMenubar = () => {
     const timelineContentType = useSelector(selectTimelineContentType);
 
     return (
@@ -14,8 +13,7 @@ const TimelineMenubar = () => {
                 ?   <UsernameButton />
                 :   <ContributorsButton/>
             }
-            {timelineContentType !== 'new' && <TimelineContentTypeButton />}
         </div>
     )
 }
-export default TimelineMenubar
+export default TimelineModalMenubar

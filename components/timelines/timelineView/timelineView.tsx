@@ -6,7 +6,7 @@ import TimelineContent from "@/components/timelines/timelineView/timelineContent
 
 const TimelineView = () => {
     return (
-        <>
+        <div>
             <hr className={'mt-3 mx-4'}/>
             <TimelineContent/>
             <hr className={'mx-4'}/>
@@ -14,7 +14,7 @@ const TimelineView = () => {
             <hr className={'mx-4'}/>
             <Timeline/>
             <Toolbar/>
-        </>
+        </div>
     );
 };
 

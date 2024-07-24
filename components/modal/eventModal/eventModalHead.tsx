@@ -1,6 +1,6 @@
 import React from 'react';
 import {formatDate} from "@/utils/global";
-import ModalMenubar from "@/components/modal/modalMenubar";
+import EventModalMenubar from "@/components/modal/eventModal/eventModalMenubar";
 import {useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
 import {selectModalContentType} from "@/store/slices/appearanceSlice";
@@ -26,7 +26,7 @@ const EventModalHead = () => {
                 }
             </div>
             <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>{contentType === 'new' ? 'Created:' : 'Last Updated:'}  January 14, 2024</div>
-            <ModalMenubar/>
+            <EventModalMenubar/>
         </div>
     );
 };

@@ -4,7 +4,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import EditMenubar from "@/components/modal/editMenubar";
-import EventModalImage from "@/components/modal/eventModal/eventModalImage";
+import EventModalImage from "@/components/modal/eventModal/eventView/eventModalImage";
 
 const EventEdit = () => {
     const dispatch = useDispatch()

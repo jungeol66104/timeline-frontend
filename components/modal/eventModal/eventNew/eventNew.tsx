@@ -3,7 +3,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
-import EventModalImage from "@/components/modal/eventModal/eventModalImage";
+import EventModalImage from "@/components/modal/eventModal/eventView/eventModalImage";
 import NewMenubar from "@/components/modal/newMenubar";
 import Placeholder from "@tiptap/extension-placeholder";
 

@@ -4,12 +4,12 @@ import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
 import TimelineNameEdit from "@/components/timelines/timelineEdit/timelineNameEdit";
 import TimelineDescriptionEdit from "@/components/timelines/timelineEdit/timelineDescriptionEdit";
-import TimelineMenubar from "@/components/timelines/timelineHead/timelineMenubar";
+import TimelineModalMenubar from "@/components/modal/timelineModal/timelineModalMenubar";
 
 const InformationModalHead = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
     const timelineContentType = useSelector(selectTimelineContentType)
-    const isTimelineEditable = timelineContentType === 'new'
+    const isTimelineEditable = timelineContentType === 'edit' || timelineContentType === 'new'
 
     return (
         <div className={'z-10'}>
@@ -24,7 +24,7 @@ const InformationModalHead = () => {
                 }
             </div>
             <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>{timelineContentType === 'new' ? 'Created:' : 'Last Updated:'} January 14, 2024</div>
-            <TimelineMenubar/>
+            <TimelineModalMenubar />
         </div>
     );
 };

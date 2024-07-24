@@ -1,17 +1,17 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
-import InformationView from "@/components/modal/informationModal/informationView";
-import InformationEdit from "@/components/modal/informationModal/informationEdit";
-import InformationNew from "@/components/modal/informationModal/informationNew";
+import TimelineModalView from "@/components/modal/timelineModal/timelineModalView";
+import TimelineModalEdit from "@/components/modal/timelineModal/timelineModalEdit";
+import InformationNew from "@/components/modal/timelineModal/informationNew";
 
 const InformationModalBody = () => {
     const timelineContentType = useSelector(selectTimelineContentType)
 
     return (
         <div>
-            {timelineContentType === 'view' && <InformationView />}
-            {timelineContentType === 'edit' && <InformationEdit />}
+            {timelineContentType === 'view' && <TimelineModalView />}
+            {timelineContentType === 'edit' && <TimelineModalEdit />}
             {timelineContentType === 'new' && <InformationNew />}
         </div>
     );

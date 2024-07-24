@@ -2,10 +2,10 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useEditor, EditorContent} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import Placeholder from "@tiptap/extension-placeholder";
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import NewMenubar from "@/components/modal/newMenubar";
-import TimelineModalImage from "@/components/modal/informationModal/timelineModalImage";
-import Placeholder from "@tiptap/extension-placeholder";
+import TimelineModalImage from "@/components/modal/timelineModal/timelineModalImage";
 
 const InformationNew = () => {
     const dispatch = useDispatch()

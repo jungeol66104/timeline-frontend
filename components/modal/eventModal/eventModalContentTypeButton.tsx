@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {selectModalContentType, updateModalContentType, updateModalHistoryType} from "@/store/slices/appearanceSlice";
 
-const ModalContentTypeButton = () => {
+const EventModalContentTypeButton = () => {
     const dispatch = useDispatch()
     const contentType = useSelector(selectModalContentType)
 
@@ -19,4 +19,4 @@ const ModalContentTypeButton = () => {
     );
 };
 
-export default ModalContentTypeButton;
+export default EventModalContentTypeButton;

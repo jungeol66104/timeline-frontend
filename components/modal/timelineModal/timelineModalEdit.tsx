@@ -4,14 +4,15 @@ import {useEditor, EditorContent} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import EditMenubar from "@/components/modal/editMenubar";
-import EventModalImage from "@/components/modal/eventModal/eventModalImage";
+import TimelineModalImage from "@/components/modal/timelineModal/timelineModalImage";
+import Placeholder from "@tiptap/extension-placeholder";
 
-const InformationEdit = () => {
+const TimelineModalEdit = () => {
     const dispatch = useDispatch()
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
 
     const editor = useEditor({
-        extensions: [StarterKit],
+        extensions: [StarterKit, Placeholder.configure({placeholder: "Timeline content"})],
         editorProps: {
             attributes: {class: 'outline-none'}
         },
@@ -26,10 +27,10 @@ const InformationEdit = () => {
             <EditMenubar editor={editor} src={currentTimelineDraft.image}/>
             <hr/>
             <div className={'flex flex-col items-center gap-3'}>
-                <EventModalImage src={currentTimelineDraft.image} alt={currentTimelineDraft.name} imageSize={currentTimelineDraft.imageSize}/>
+                <TimelineModalImage src={currentTimelineDraft.image} alt={currentTimelineDraft.name} imageSize={currentTimelineDraft.imageSize}/>
                 <div className={'w-full'}><EditorContent editor={editor}/></div>
             </div>
         </div>
     )
 }
-export default InformationEdit
+export default TimelineModalEdit

@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
-import TimelineHead from "@/components/timelines/timelineHead/timelineHead";
+import TimelineHead from "@/components/timelines/timelineHead";
 import TimelineView from "@/components/timelines/timelineView/timelineView";
 import TimelineEdit from "@/components/timelines/timelineEdit/timelineEdit";
 import TimelineHistory from "@/components/timelines/timelineHistory/timelineHistory";

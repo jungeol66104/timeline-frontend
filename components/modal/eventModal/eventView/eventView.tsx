@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
-import EventModalImage from "@/components/modal/eventModal/eventModalImage";
+import EventModalImage from "@/components/modal/eventModal/eventView/eventModalImage";
 
 const EventView = () => {
     const currentEvent = useSelector(selectCurrentEvent)

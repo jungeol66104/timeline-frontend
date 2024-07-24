@@ -2,10 +2,10 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectModalType} from "@/store/slices/appearanceSlice";
 import CloseModalButton from "@/components/modal/closeModalButton";
-import InformationModalHead from "@/components/modal/informationModal/informationModalHead";
-import InformationModalBody from "@/components/modal/informationModal/informationModalBody";
+import InformationModalHead from "@/components/modal/timelineModal/informationModalHead";
+import InformationModalBody from "@/components/modal/timelineModal/informationModalBody";
 
-const InformationModal = () => {
+const TimelineModal = () => {
     const modalType = useSelector(selectModalType)
 
     const bottom = modalType === 'information' ? 0 : '-100%'
@@ -23,4 +23,4 @@ const InformationModal = () => {
     );
 };
 
-export default InformationModal;
+export default TimelineModal;
