@@ -5,13 +5,14 @@ import StarterKit from '@tiptap/starter-kit'
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import NewMenubar from "@/components/modal/newMenubar";
 import TimelineModalImage from "@/components/modal/informationModal/timelineModalImage";
+import Placeholder from "@tiptap/extension-placeholder";
 
 const InformationNew = () => {
     const dispatch = useDispatch()
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
 
     const editor = useEditor({
-        extensions: [StarterKit],
+        extensions: [StarterKit, Placeholder.configure({placeholder: "New timeline content"})],
         editorProps: {
             attributes: {class: 'outline-none'}
         },

@@ -4,7 +4,7 @@ import {selectCurrentTimeline, selectCurrentTimelineDraft} from "@/store/slices/
 import {selectTimelineContentType, updateModalType} from "@/store/slices/appearanceSlice";
 import TimelineContentImage from "@/components/timelines/timelineView/timelineContentImage";
 
-const TimelineInformation = () => {
+const TimelineContent = () => {
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
@@ -27,6 +27,9 @@ const TimelineInformation = () => {
             <div className={'py-3 px-4'}>
                 <TimelineContentImage src={timeline.image} alt={timeline.name} imageSize={timeline.imageSize}/>
                 <div className={'h-[120px]'}>
+                    {isTimelineEditable && currentTimelineDraft.content === '' &&
+                        <p className={`text-sm line-clamp-5`}>Click &#39;Show more&#39; below to write or fix contents displayed here.</p>
+                    }
                     <p className={`text-sm line-clamp-5`}>{timeline.content}</p>
                     <button onClick={handleClick} className={'text-sm text-blue-700 hover:underline'}>Show more</button>
                 </div>
@@ -34,4 +37,4 @@ const TimelineInformation = () => {
         </div>
     )
 }
-export default TimelineInformation
+export default TimelineContent

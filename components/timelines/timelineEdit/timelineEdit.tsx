@@ -1,5 +1,5 @@
 import TimelineEditMenubar from "@/components/timelines/timelineEdit/timelineEditMenubar";
-import TimelineInformation from "@/components/timelines/timelineView/timelineInformation";
+import TimelineContent from "@/components/timelines/timelineView/timelineContent";
 import Timeline from "@/components/timelines/timeline/timeline";
 import Toolbar from "@/components/timelines/toolbar";
 
@@ -8,7 +8,7 @@ const TimelineEdit = () => {
         <div>
             <TimelineEditMenubar />
             <hr className={'mx-4'}/>
-            <TimelineInformation/>
+            <TimelineContent/>
             <hr className={'mx-4'}/>
             <Timeline/>
             <Toolbar/>

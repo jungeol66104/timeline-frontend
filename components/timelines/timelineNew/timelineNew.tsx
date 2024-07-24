@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 import {selectCurrentEventsDraft} from "@/store/slices/contentsSlice";
-import TimelineInformation from "@/components/timelines/timelineView/timelineInformation";
+import TimelineContent from "@/components/timelines/timelineView/timelineContent";
 import Timeline from "@/components/timelines/timeline/timeline";
 import EmptyTimeline from "@/components/timelines/timelineNew/emptyTimeline";
 import Toolbar from "@/components/timelines/toolbar";
@@ -13,7 +13,7 @@ const TimelineNew = () => {
         <div>
             <TimelineNewMenubar />
             <hr className={'mx-4'}/>
-            <TimelineInformation/>
+            <TimelineContent/>
             <hr className={'mx-4'}/>
             {currentEventsDraft.length > 0
                 ?   <Timeline/>

@@ -4,7 +4,7 @@ import {useEditor, EditorContent} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import EditMenubar from "@/components/modal/editMenubar";
-import ModalEventImage from "@/components/modal/eventModal/modalEventImage";
+import EventModalImage from "@/components/modal/eventModal/eventModalImage";
 
 const InformationEdit = () => {
     const dispatch = useDispatch()
@@ -26,7 +26,7 @@ const InformationEdit = () => {
             <EditMenubar editor={editor} src={currentTimelineDraft.image}/>
             <hr/>
             <div className={'flex flex-col items-center gap-3'}>
-                <ModalEventImage src={currentTimelineDraft.image} alt={currentTimelineDraft.name} imageSize={currentTimelineDraft.imageSize}/>
+                <EventModalImage src={currentTimelineDraft.image} alt={currentTimelineDraft.name} imageSize={currentTimelineDraft.imageSize}/>
                 <div className={'w-full'}><EditorContent editor={editor}/></div>
             </div>
         </div>

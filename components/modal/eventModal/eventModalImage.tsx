@@ -6,7 +6,7 @@ import {getIsBaseImage} from "@/utils/global";
 import ReplaceImageButton from "@/components/common/replaceImageButton";
 import RemoveImageButton from "@/components/common/removeImageButton";
 
-const ModalEventImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize: any}) => {
+const EventModalImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize: any}) => {
     const modalContentType = useSelector(selectModalContentType)
     const isBaseImage = getIsBaseImage(src)
 
@@ -26,4 +26,4 @@ const ModalEventImage = ({src, alt, imageSize} : {src: string, alt: string, imag
     );
 };
 
-export default ModalEventImage;
+export default EventModalImage;

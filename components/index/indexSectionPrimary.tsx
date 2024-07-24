@@ -1,10 +1,10 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import {selectCurrentTimelines} from "@/store/slices/contentsSlice";
-import {getIsBaseImage, mapStrToNum} from "@/utils/global";
 import Link from "next/link";
 import Image from "next/image";
+import {selectCurrentTimelines} from "@/store/slices/contentsSlice";
 import IndexBottom from "@/components/index/indexBottom";
+import {getIsBaseImage, mapStrToNum} from "@/utils/global";
 
 const IndexSectionPrimary = () => {
     const currentTimelines = useSelector(selectCurrentTimelines)
@@ -27,8 +27,7 @@ const IndexSectionPrimary = () => {
                                     {isBaseImage
                                         ? <>
                                             <div className={'absolute bottom-[1px] right-0 w-[80px] h-[80px] rounded-md text-white flex items-center justify-center'}>
-                                                {/*<span className={'absolute'}>{timeline.name.charAt(0).toUpperCase()}</span>*/}
-                                                <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} fill={true} priority={true} className={'rounded-md bg-gray-100'}/>
+                                                <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} fill priority className={'rounded-md bg-gray-100'}/>
                                             </div>
                                         </>
                                         : <Image src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}} className={'rounded-md bg-gray-100'}/>

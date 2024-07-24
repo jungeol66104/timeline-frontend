@@ -12,7 +12,7 @@ const TimelineNameEdit = () => {
     const editor = useEditor({
         extensions: [StarterKit, Placeholder.configure({placeholder: 'New Timeline Title'})],
         editorProps: {
-            attributes: {class: 'outline-none text-2xl font-bold min-w-[100px]'}
+            attributes: {class: 'outline-none text-2xl font-bold'}
         },
         onUpdate: ({ editor }) => {
             dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, name: editor.getText()}))

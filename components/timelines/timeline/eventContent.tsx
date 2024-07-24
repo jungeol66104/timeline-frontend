@@ -4,11 +4,14 @@ import {selectTimelineContentType, updateModalType} from "@/store/slices/appeara
 import KeynoteToggle from "@/components/timelines/timeline/keynoteToggle";
 import DetachButton from "@/components/timelines/timeline/detachButton";
 import api from "@/pages/api/api";
+import {getIsBaseImage} from "@/utils/global";
+import EventContentImage from "@/components/timelines/timeline/eventContentImage";
 
 const EventContent = ({event} : {event: TimelineEvent}) => {
     const dispatch = useDispatch()
     const timelineContentType = useSelector(selectTimelineContentType)
     const isEditable = timelineContentType === 'edit' || timelineContentType === 'new'
+    const isBaseImage = getIsBaseImage(event.image)
 
     const handleClick = async () => {
         try {
@@ -35,12 +38,13 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
                 </div>
                 <hr />
             </div>
-            <div onClick={handleClick} className={`cursor-pointer p-2.5 min-h-[112px] flex flex-col gap-1 bg-white rounded-xl`}>
-                <div className={'flex flex-col'}>
-                    <div className={'text-xs font-semibold text-gray-500 line-clamp-1 text-ellipsis'}>{event.date}</div>
-                    <div className={'mt-0.5 text-md font-bold'}>{event.name}</div>
+            <div onClick={handleClick} className={`cursor-pointer p-2.5 min-h-[112px] flex flex-col bg-white rounded-xl`}>
+                <div className={'text-xs font-semibold text-gray-500 line-clamp-1 text-ellipsis'}>{event.date}</div>
+                <div className={'mt-0.5 text-md font-bold'}>{event.name}</div>
+                <div className={'mt-1 flex justify-between gap-1'}>
+                    <div className={`text-sm whitespace-pre-wrap break-words ${isBaseImage ? 'line-clamp-3' : 'line-clamp-4'}`}>{event.description}</div>
+                    <EventContentImage src={event.image} alt={event.name} />
                 </div>
-                <div className={'text-sm whitespace-pre-wrap break-words line-clamp-3'}>{event.description}</div>
             </div>
         </div>
     )

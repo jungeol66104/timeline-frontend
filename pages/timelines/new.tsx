@@ -16,7 +16,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         const popularResponse = await api.get(`/timeline/features/2?pageNum=1&pageSize=5`, {headers: {lang: 'en'}})
         if (popularResponse.data.code === 69999) store.dispatch(updateIs404(true))
         const popularTimelines = popularResponse.data.data.timelineList
-        const data: any = {events: [], recentTimelines: recentTimelines, popularTimelines: popularTimelines, timelineInfo: {id: 0, name: "", description: '', content: "Click 'Show more' below to write or fix content written in this space.", image: 'https://cdn.timeline.vg/base-image.png'},}
+        const data: any = {events: [], recentTimelines: recentTimelines, popularTimelines: popularTimelines, timelineInfo: {id: 0, name: "", description: '', content: "", image: 'https://cdn.timeline.vg/base-image.png'},}
         data.timelineInfo.imageSize = await probe(data.timelineInfo.image)
         store.dispatch(updateCurrentTimeline(data.timelineInfo))
         store.dispatch(updateCurrentTimelineDraft(data.timelineInfo))

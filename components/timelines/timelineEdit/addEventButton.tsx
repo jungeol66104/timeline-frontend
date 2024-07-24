@@ -7,7 +7,7 @@ const AddEventButton = () => {
     const dispatch = useDispatch()
 
     const handleClick = () => {
-        const newEvent = {id: 0, name: 'New Event Title', description: 'New event description.', date: getTodayDate(), ephemerisTime: 0, keynote: 1, timelineInfo: [], updatedDt: getTodayDate()}
+        const newEvent = {id: 0, name: '', description: '', date: '', ephemerisTime: 0, keynote: 1, timelineInfo: [], updatedDt: getTodayDate()}
         dispatch(updateCurrentEvent(newEvent))
         dispatch(updateCurrentEventDraft(newEvent))
         dispatch(updateModalContentType('new'))
