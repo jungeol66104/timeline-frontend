@@ -18,7 +18,7 @@ const TagBar = () => {
         if (!tagWrapper || hasQueryParams) return
 
         tagWrapper.scroll({
-            left: 0,
+            left: 180,
             behavior: 'smooth'
         })
     }, [router.query]);
