@@ -16,14 +16,11 @@ const TimelineSectionSecondary = () => {
     const isBottomEnd = useSelector(selectIsBottomEnd)
 
     return (
-        <div className={`relative ml-[20px] max-[872px]:ml-0 p-4 max-[852px]:py-0 w-full min-w-[332px] max-w-[352px] max-[852px]:max-w-[630px] ${!isBottomEnd && 'max-[852px]:hidden'} flex flex-col gap-4`}>
-            {/*<hr className={`${isInformation && 'max-[852px]:hidden'}`}/>*/}
+        // <div className={`relative ml-[20px] max-[872px]:ml-0 max-[872px]:mb-4 p-4 max-[852px]:py-0 w-full min-w-[332px] max-w-[352px] max-[852px]:max-w-[630px] ${!isBottomEnd && 'max-[852px]:hidden'} flex flex-col gap-4`}>
+        <div className={`relative ml-[20px] max-[872px]:ml-0 p-4 w-full min-w-[332px] max-w-[352px] max-[852px]:max-w-[630px] ${!isBottomEnd && 'max-[852px]:hidden'} flex flex-col gap-4`}>
             <TimelineListTemplateTest title={'Popular'} timelines={popularTimelines} />
-            {/*<hr/>*/}
             <AdsTimelineBetweenSecondary />
-            {/*<hr/>*/}
             <TimelineListTemplateTest title={'Recently Added'} timelines={recentTimelines} />
-            {/*<hr/>*/}
             <AdsTimelineSide />
         </div>
     );
