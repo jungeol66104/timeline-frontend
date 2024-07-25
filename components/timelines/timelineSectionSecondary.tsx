@@ -6,6 +6,7 @@ import TimelineListTemplate from "@/components/timelines/timelineListTemplate";
 import {useRouter} from "next/router";
 import AdsTimelineBetweenSecondary from "@/components/ads/adsTimelineBetweenSecondary";
 import AdsTimelineSide from "@/components/ads/adsTimelineSide";
+import TimelineListTemplateTest from "@/components/timelines/timelineListTemplateTest";
 
 const TimelineSectionSecondary = () => {
     const router = useRouter();
@@ -15,14 +16,14 @@ const TimelineSectionSecondary = () => {
     const isBottomEnd = useSelector(selectIsBottomEnd)
 
     return (
-        <div className={`relative ml-[20px] max-[872px]:ml-0 p-4 max-[852px]:py-0 w-full min-w-[332px] max-w-[352px] max-[852px]:max-w-[630px] ${!isBottomEnd && 'max-[852px]:hidden'}`}>
-            <hr className={`${isInformation && 'max-[852px]:hidden'}`}/>
-            <TimelineListTemplate title={'Popular'} timelines={popularTimelines} />
-            <hr/>
+        <div className={`relative ml-[20px] max-[872px]:ml-0 p-4 max-[852px]:py-0 w-full min-w-[332px] max-w-[352px] max-[852px]:max-w-[630px] ${!isBottomEnd && 'max-[852px]:hidden'} flex flex-col gap-4`}>
+            {/*<hr className={`${isInformation && 'max-[852px]:hidden'}`}/>*/}
+            <TimelineListTemplateTest title={'Popular'} timelines={popularTimelines} />
+            {/*<hr/>*/}
             <AdsTimelineBetweenSecondary />
-            <hr/>
-            <TimelineListTemplate title={'Recently Added'} timelines={recentTimelines} />
-            <hr/>
+            {/*<hr/>*/}
+            <TimelineListTemplateTest title={'Recently Added'} timelines={recentTimelines} />
+            {/*<hr/>*/}
             <AdsTimelineSide />
         </div>
     );
