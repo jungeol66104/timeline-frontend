@@ -1,5 +1,5 @@
 import React from "react";
-import InformationBar from "@/components/layout/navbar/informationBar";
+import TimelineNameBar from "@/components/layout/navbar/timelineNameBar";
 import Link from "next/link";
 import ComputerSearchBar from "@/components/layout/search/ComputerSearchBar";
 import SearchButton from "@/components/layout/navbar/searchButton";
@@ -27,7 +27,7 @@ const Navbar = ({isLoading} : {isLoading: boolean}) => {
                 </div>
             </nav>
             <TagBar />
-            {!isLoading && <InformationBar/>}
+            {!isLoading && <TimelineNameBar/>}
         </>
     )
 }

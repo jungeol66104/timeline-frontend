@@ -22,7 +22,7 @@ const EventNameEdit = () => {
 
     return (
         <>
-            <div className={'absolute'}><EditorContent editor={editor}/></div>
+            <div className={'absolute pr-4'}><EditorContent editor={editor}/></div>
             <h1 className={`invisible w-fit text-2xl font-bold min-h-[32px]`}>{currentEventDraft.name}</h1>
         </>
     );

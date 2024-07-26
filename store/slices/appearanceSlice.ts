@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
 
 const initialState = {
+    showTimelineNameBar: false,
     isSummary: true,
     isBottomEnd: true,
     currentPage: 1,
@@ -23,6 +24,9 @@ const appearanceSlice = createSlice({
     name: 'appearance',
     initialState,
     reducers: {
+        updateShowTimelineNameBar: (state, action) => {
+            state.showTimelineNameBar = action.payload
+        },
         updateIsSummary: (state, action) => {
             state.isSummary = action.payload
         },
@@ -71,9 +75,10 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateTimelineType, updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateTimelineHistoryType, updateTimelineContentType, updateModalType, updateModalContentType, updateModalHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
+export const {updateShowTimelineNameBar, updateTimelineType, updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateTimelineHistoryType, updateTimelineContentType, updateModalType, updateModalContentType, updateModalHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
 
 // selectors
+export const selectShowTimelineNameBar = (state: RootState) => state.appearance.showTimelineNameBar
 export const selectIsSummary = (state: RootState) => state.appearance.isSummary
 export const selectIsBottomEnd = (state: RootState) => state.appearance.isBottomEnd
 export const selectCurrentPage = (state: RootState) => state.appearance.currentPage
@@ -92,9 +97,10 @@ export const selectIs404 = (state: RootState) => state.appearance.is404
 
 // types
 export interface initialAppearanceState {
+    showTimelineNameBar: boolean
+    isSummary: boolean // change expression to isKeynote
     isBottomEnd: boolean
     tagNum: number
-    isSummary: boolean // change expression to isKeynote
     currentPage: number
     totalPage: number
     scrollTop: number

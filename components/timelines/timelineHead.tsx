@@ -12,7 +12,7 @@ const TimelineHead = () => {
 
     return (
         <div className={'pt-4 px-4 z-50'}>
-            <div>
+            <div className={'relative'}>
                 {isTimelineEditable
                     ?   <TimelineNameEdit />
                     :   <h1 className={`timelineInformationName w-fit text-2xl font-bold`}>{currentTimeline.name}</h1>

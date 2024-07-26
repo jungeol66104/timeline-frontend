@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectIsBottomEnd} from "@/store/slices/appearanceSlice";
 import {selectPopularTimelines, selectRecentTimelines} from "@/store/slices/contentsSlice";
-import TimelineListTemplate from "@/components/timelines/timelineListTemplate";
+import TimelineListTemplate from "@/_deprecated/timelineListTemplate";
 import {useRouter} from "next/router";
 import AdsTimelineBetweenSecondary from "@/components/ads/adsTimelineBetweenSecondary";
 import AdsTimelineSide from "@/components/ads/adsTimelineSide";

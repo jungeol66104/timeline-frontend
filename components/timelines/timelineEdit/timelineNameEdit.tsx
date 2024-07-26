@@ -27,10 +27,10 @@ const TimelineNameEdit = () => {
     }, [currentTimelineDraft, editor]);
 
     return (
-        <>
+        <div>
             <div className={'absolute'}><EditorContent editor={editor}/></div>
             <h1 className={`timelineInformationName invisible w-fit text-2xl font-bold min-h-[32px]`}>{currentTimelineDraft.name}</h1>
-        </>
+        </div>
     );
 };
 
