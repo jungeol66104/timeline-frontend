@@ -1,6 +1,6 @@
 import React from 'react';
-import RevertButton from "@/components/common/revertButton";
-import ViewButton from "@/components/common/viewButton";
+import RevertButton from "@/components/common/contribution/revertButton";
+import ViewButton from "@/components/common/contribution/viewButton";
 
 const Contribution = () => {
     return (

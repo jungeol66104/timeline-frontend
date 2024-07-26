@@ -1,6 +1,6 @@
 import React from 'react';
 import CompareButton from "@/components/modal/eventModal/eventHistory/compareButton";
-import RevertButton from "@/components/common/revertButton";
+import RevertButton from "@/components/common/contribution/revertButton";
 import {useDispatch} from "react-redux";
 import {updateModalHistoryType} from "@/store/slices/appearanceSlice";
 

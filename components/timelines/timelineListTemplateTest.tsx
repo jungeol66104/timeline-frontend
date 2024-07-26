@@ -14,7 +14,7 @@ const TimelineListTemplateTest = ({title, timelines}: {title: string, timelines:
                     const isBaseImage = getIsBaseImage(timeline.image)
 
                     return (
-                        <Link key={i} href={`/timelines/${timeline.id}`} className={'relative py-2 flex justify-between hover:underline'}>
+                        <Link key={i} href={`/timelines/${timeline.id}`} className={'relative py-2 flex gap-2 justify-between hover:underline'}>
                             <div>
                                 <div className={'font-medium line-clamp-1'}>{timeline.name}</div>
                                 <div className={'line-clamp-1 text-sm text-gray-500'}>{timeline.description}</div>
