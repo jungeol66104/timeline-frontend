@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import Image from "next/image";
-import ShareButton from "@/components/layout/modals/shareModal/shareButton";
+import ShareButton from "@/components/layout/navbar/shareButton";
 import FeedbackButton from "@/components/layout/navbar/feedbackButton";
 import SignInButton from "@/components/layout/navbar/signInButton";
 import CreateTimelineButton from "@/components/layout/navbar/createTimelineButton";
@@ -33,11 +33,12 @@ const ProfileMenuButton = () => {
                 </div>
             </button>
             {isToggle &&
-                <div className={'absolute top-[42px] right-0 p-1.5 w-[150px] bg-white border-[1px] rounded-md shadow-md'}>
-                    <ProfileButton />
+                <div className={'absolute top-[42px] right-0 px-1.5 py-1 w-[230px] bg-white border-[1px] rounded-2xl shadow-md'}>
                     <div className={'min-[850px]:hidden'}><CreateTimelineButton /></div>
-                    <hr className={'min-[850px]:hidden my-2'}/>
+                    <hr className={'min-[850px]:hidden my-1'}/>
+                    <ProfileButton />
                     <SignInButton />
+                    <hr className={'min-[850px]:hidden my-1'}/>
                     <ShareButton />
                     <FeedbackButton />
                 </div>

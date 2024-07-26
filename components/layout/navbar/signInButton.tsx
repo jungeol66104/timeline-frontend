@@ -18,16 +18,16 @@ const SignInButton = () => {
     }
 
     return (
-        <button onClick={handleClick} className={'h-[36px] w-full flex items-center gap-1.5 pl-1.5 pr-3 py-1.5 rounded-md bg-white hover:bg-gray-100'}>
+        <button onClick={handleClick} className={'h-[36px] w-full flex items-center gap-2 px-2.5 rounded-md bg-white hover:bg-gray-100'}>
             {isSession
-                ? <>
-                    <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xe9ba;</div>
-                    <div className={'text-sm font-semibold'}>Sign Out</div>
-                </>
-                : <>
-                    <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xea77;</div>
-                    <div className={'text-sm font-semibold'}>Sign In</div>
-                </>
+                ?   <>
+                        <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xe9ba;</div>
+                        <div className={'text-sm font-semibold'}>Sign Out</div>
+                    </>
+                :   <>
+                        <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xea77;</div>
+                        <div className={'text-sm font-semibold'}>Sign In</div>
+                    </>
             }
         </button>
     );
