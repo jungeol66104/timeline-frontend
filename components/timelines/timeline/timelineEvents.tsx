@@ -1,6 +1,6 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {useSelector} from "react-redux";
-import {selectIsBottomEnd, selectModalType, selectTimelineContentType} from "@/store/slices/appearanceSlice";
+import {selectIsBottomEnd, selectTimelineContentType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvents, selectCurrentEventsDraft, TimelineEvent} from "@/store/slices/contentsSlice";
 import EventBox from "@/components/timelines/timeline/eventBox";
 import TimelineTop from "@/components/timelines/timeline/timelineTop";

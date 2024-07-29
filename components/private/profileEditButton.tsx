@@ -2,7 +2,7 @@ import React from 'react';
 import {updateIsEdit} from "@/store/slices/appearanceSlice";
 import {useDispatch} from "react-redux";
 
-const EditButton = () => {
+const ProfileEditButton = () => {
     const dispatch = useDispatch()
 
     return (
@@ -12,4 +12,4 @@ const EditButton = () => {
         </button>
     )
 }
-export default EditButton;
+export default ProfileEditButton;

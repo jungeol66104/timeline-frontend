@@ -1,10 +1,8 @@
 import React from 'react';
 import UsernameButton from "@/components/common/usernameButton";
-import OpenEventButton from "@/components/common/contribution/openEventButton";
 import UndoButton from "@/components/common/contribution/undoButton";
-import OpenTimelineButton from "@/components/common/contribution/openTimelineButton";
 
-const ConnectionContribution = () => {
+const ConnectionContribution = ({type}: {type: string}) => {
     return (
         <div className={'py-3 border-b-[1px] border-[#E5E7EB]'}>
             <div className={'flex items-center justify-between'}>
@@ -12,16 +10,14 @@ const ConnectionContribution = () => {
                 <div className={'text-[10px] font-semibold'}>CONNECTION</div>
             </div>
             <div>
-                <span className={'font-bold'}>Commissioning of the original church by Constantine I</span>
-                <span> connected to </span>
-                <span className={'font-bold'}>Hagia Sophia</span>
+                <span className={'font-bold hover:underline cursor-pointer'}>Commissioning of the original church by Constantine I</span>
+                <span className={'text-sm'}> connected to </span>
+                <span className={'font-bold hover:underline cursor-pointer'}>Hagia Sophia</span>
             </div>
             <div className={'mt-3 flex items-center justify-between'}>
                 <UsernameButton name={'Nickname'}/>
                 <div className={'flex items-center gap-2.5'}>
-                    <UndoButton />
-                    <OpenEventButton />
-                    <OpenTimelineButton />
+                    {type === 'timeline' || type === 'event' && <UndoButton/>}
                 </div>
             </div>
         </div>

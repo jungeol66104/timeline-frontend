@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch} from "react-redux";
 import {updateIsEdit} from "@/store/slices/appearanceSlice";
 
-const SaveButton = () => {
+const ProfileSaveButton = () => {
     const dispatch = useDispatch()
 
     const handleSave = () => {
@@ -17,4 +17,4 @@ const SaveButton = () => {
     )
 };
 
-export default SaveButton;
+export default ProfileSaveButton;

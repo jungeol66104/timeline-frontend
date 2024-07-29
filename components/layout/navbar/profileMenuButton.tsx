@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import Image from "next/image";
 import ShareButton from "@/components/layout/navbar/shareButton";
 import FeedbackButton from "@/components/layout/navbar/feedbackButton";
-import SignInButton from "@/components/layout/navbar/signInButton";
+import SignInAndOutButton from "@/components/layout/navbar/signInAndOutButton";
 import CreateTimelineButton from "@/components/layout/navbar/createTimelineButton";
 import ProfileButton from "@/components/layout/navbar/profileButton";
 
@@ -37,7 +37,7 @@ const ProfileMenuButton = () => {
                     <div className={'min-[850px]:hidden'}><CreateTimelineButton /></div>
                     <hr className={'min-[850px]:hidden my-1'}/>
                     <ProfileButton />
-                    <SignInButton />
+                    <SignInAndOutButton />
                     <hr className={'min-[850px]:hidden my-1'}/>
                     <ShareButton />
                     <FeedbackButton />

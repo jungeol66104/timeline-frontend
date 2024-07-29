@@ -17,7 +17,7 @@ const EventModalHead = () => {
         <div className={'z-10'}>
             <div className={'relative'}>
                 {isEventEditable
-                    ?   <div className={'flex gap-1.5'}><EventDateEdit /><EraButton/></div>
+                    ?   <EventDateEdit />
                     :   <div className={`w-fit text-md font-medium`}>{currentEvent.date}</div>
                 }
                 {isEventEditable

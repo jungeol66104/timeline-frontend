@@ -3,7 +3,7 @@ import {useRouter} from "next/router";
 import {selectIsSession} from "@/store/slices/privateSlice";
 import {useSelector} from "react-redux";
 
-const SignInButton = () => {
+const SignInAndOutButton = () => {
     const router = useRouter()
     const isSession = useSelector(selectIsSession)
 
@@ -33,4 +33,4 @@ const SignInButton = () => {
     );
 };
 
-export default SignInButton;
+export default SignInAndOutButton;
