@@ -28,7 +28,7 @@ const EventDateEdit = () => {
             }
         },
         onUpdate: ({ editor }) => {
-            const allowedCharacters = /^[0-9 -bB]*$/;
+            const allowedCharacters = /^(?:[0-9\s-]|BCE)*$/;
             let content = editor.getText();
 
             console.log(allowedCharacters)
@@ -50,7 +50,7 @@ const EventDateEdit = () => {
         <>
             <div className={'z-20 absolute'}><EditorContent editor={editor}/></div>
             <div className={`invisible w-fit text-md font-medium min-h-[24px] min-w-[100px]`}>{currentEventDraft.date}</div>
-            <div className={'text-[10px] text-red-700'}>Digits, dash, BCE allowed.</div>
+            <div className={'flex items-center gap-1 text-[10px] text-red-700'}><span className={'material-symbols-outlined text-[12px]'}>&#xe000;</span><span>Digits, dash, BCE allowed.</span></div>
         </>
     );
 };
