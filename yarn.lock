@@ -3172,6 +3172,11 @@ thenify-all@^1.0.0:
   dependencies:
     any-promise "^1.0.0"
 
+timecraftjs@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/timecraftjs/-/timecraftjs-2.0.0.tgz#810a85b342eedd979b394580a21dc738b8f8f631"
+  integrity sha512-bcqi8qVWEJ5k9pL3LQpxKOP6Y0s+LljLRl4SGcndT2zR0sJxFY0JyiDeGwAB9adMo0+1N5hpSb1M4Yq1myMthA==
+
 tippy.js@^6.3.7:
   version "6.3.7"
   resolved "https://registry.npmjs.org/tippy.js/-/tippy.js-6.3.7.tgz"

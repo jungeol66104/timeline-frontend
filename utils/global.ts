@@ -89,3 +89,30 @@ export const getTodayDate = () => {
 
     return `${year}-${month}-${day}`;
 }
+
+export const validateDate = (date: string) => {
+    const pattern = /^(\d{1,4})(-\d{1,2})?(-\d{1,2})?( (BCE|BC|CE|AD))?$/;
+    return pattern.test(date);
+}
+
+export const transformDate = (date: string) => {
+    let month = '01';
+    let day = '01';
+    let era = 'AD';
+
+    const parts = date.split(' ');
+
+    if (parts.length > 1) {
+        date = parts[0];
+        era = parts[1];
+        if (era === 'CE') era = 'AD';
+        else if (era === 'BCE') era = 'BC';
+    }
+
+    const dateParts = date.split('-');
+    const year = dateParts[0];
+    if (dateParts.length > 1) month = dateParts[1].padStart(2, '0');
+    if (dateParts.length > 2) day = dateParts[2].padStart(2, '0');
+
+    return `${year} ${era} ${month}-${day} 00:00`;
+}

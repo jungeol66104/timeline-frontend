@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import {EditorContent, useEditor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
+// @ts-ignore
+import { Spice } from "timecraftjs";
+import {transformDate, validateDate} from "@/utils/global";
 
 const EventDateEdit = () => {
     const dispatch = useDispatch()
     const currentEventDraft = useSelector(selectCurrentEventDraft)
+    const [spiceInstance, setSpiceInstance] = useState<any>(null);
+    const [spiceError, setSpiceError] = useState(false);
 
     const editor = useEditor({
         content: `<p>${currentEventDraft.date}</p>`,
@@ -31,12 +36,22 @@ const EventDateEdit = () => {
             const allowedCharacters = /^(?:[0-9\s-]|BCE)*$/;
             let content = editor.getText();
 
-            console.log(allowedCharacters)
-            console.log(content)
-            console.log(allowedCharacters.test(content))
             if (allowedCharacters.test(content)) {
-                dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content }));
+                if (validateDate(content)) {
+                    try {
+                        console.log(transformDate(content))
+                        const ephemerisTime = spiceInstance.str2et(transformDate(content));
+                        dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content, ephemerisTime: ephemerisTime}));
+                        setSpiceError(false);
 
+                    } catch {
+                        dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content }));
+                        setSpiceError(true);
+                    }
+                } else {
+                    dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content }));
+                    setSpiceError(true);
+                }
             } else {
                 editor.commands.deleteRange({
                     from: editor.state.selection.from - 1,
@@ -46,11 +61,27 @@ const EventDateEdit = () => {
         },
     })
 
+
+    useEffect(() => {
+        const initializeSpice = async () => {
+            try {
+                const spiceInstance = await new Spice().init();
+                const kernelBuffer = await fetch("../kernels/naif0012.tls").then((res) => res.arrayBuffer())
+                spiceInstance.loadKernel(kernelBuffer);
+                setSpiceInstance(spiceInstance);
+            } catch (error) {
+                console.error('Error initializing Spice:', error);
+            }
+        };
+
+        initializeSpice()
+    }, []);
+
     return (
         <>
             <div className={'z-20 absolute'}><EditorContent editor={editor}/></div>
             <div className={`invisible w-fit text-md font-medium min-h-[24px] min-w-[100px]`}>{currentEventDraft.date}</div>
-            <div className={'flex items-center gap-1 text-[10px] text-red-700'}><span className={'material-symbols-outlined text-[12px]'}>&#xe000;</span><span>Digits, dash, BCE allowed.</span></div>
+            {spiceError && <div className={'flex items-center gap-1 text-[10px] text-red-700'}><span className={'material-symbols-outlined text-[12px]'}>&#xe000;</span><span>Invalid date format. Keep YYYY-MM-DD Era(optional) format.</span></div>}
         </>
     );
 };
