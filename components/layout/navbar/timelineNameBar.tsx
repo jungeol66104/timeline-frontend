@@ -1,18 +1,22 @@
 import React from 'react';
 import useTimelineNameBar from "@/hooks/useTimelineNameBar";
 import {useSelector} from "react-redux";
-import {selectShowTimelineNameBar} from "@/store/slices/appearanceSlice";
-import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
+import {selectShowTimelineNameBar, selectTimelineContentType} from "@/store/slices/appearanceSlice";
+import {selectCurrentTimeline, selectCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 
 const TimelineNameBar = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
+    const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
+    const timelineContentType = useSelector(selectTimelineContentType)
     const showTimelineNameBar = useSelector(selectShowTimelineNameBar)
+
+    const timelineName = timelineContentType === 'new' || timelineContentType === 'edit' ? currentTimelineDraft.name : currentTimeline.name
 
     useTimelineNameBar()
 
     return (
         <div className={`informationHeader ${!showTimelineNameBar && 'hidden'} flex fixed top-[60px] pt-[5px] pb-[3px] w-full h-[30px] flex-col bg-white border-b-[1px]`} style={{zIndex: 4999}}>
-            <span className={'informationHeaderName pl-4 w-full max-w-[630px] min-[852px]:max-w-[1002px] text-sm font-semibold'}>{currentTimeline.name}</span>
+            <span className={'informationHeaderName pl-4 w-full max-w-[630px] min-[852px]:max-w-[1002px] text-sm font-semibold'}>{timelineName}</span>
         </div>
     );
 };

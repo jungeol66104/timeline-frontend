@@ -111,7 +111,7 @@ export interface initialAppearanceState {
     timelineType: 'public' | 'private'
     timelineContentType: 'view' | 'history' | 'edit' | 'new'
     timelineHistoryType: 'list' | 'view' | 'diff'
-    modalType: 'none' | 'share' | 'information' | 'event'
+    modalType: 'none' | 'share' | 'information' | 'event' | 'center'
     modalContentType: 'view' | 'history' | 'edit' | 'new'
     modalHistoryType: 'list' | 'view' | 'diff'
 }

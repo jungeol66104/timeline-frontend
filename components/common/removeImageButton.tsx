@@ -9,9 +9,11 @@ const RemoveImageButton = () => {
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
+    const isTimeline = modalType === 'information' || modalType === 'none'
+
     const handleClick = () => {
         const baseImage = 'https://cdn.timeline.vg/base-image.png'
-        if (modalType === 'information') dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: baseImage, imageSize: {width: 0, height: 0}}))
+        if (isTimeline) dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: baseImage, imageSize: {width: 0, height: 0}}))
         else dispatch(updateCurrentEventDraft({...currentEventDraft, image: baseImage, imageSize: {width: 0, height: 0}}))
     }
 

@@ -25,6 +25,9 @@ const AddImageButton = ({src}: {src: string}) => {
                 const image = new Image()
                 image.onload = () => {
                     const imageSize = {width: image.width, height: image.height}
+
+
+
                     if (isTimeline) dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: newSrc, imageSize: imageSize}))
                     else dispatch(updateCurrentEventDraft({...currentEventDraft, image: newSrc, imageSize: imageSize}))
                 }
