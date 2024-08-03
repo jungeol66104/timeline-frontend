@@ -5,6 +5,7 @@ import FeedbackButton from "@/components/layout/navbar/feedbackButton";
 import SignInAndOutButton from "@/components/layout/navbar/signInAndOutButton";
 import CreateTimelineButton from "@/components/layout/navbar/createTimelineButton";
 import ProfileButton from "@/components/layout/navbar/profileButton";
+import AboutButton from "@/components/layout/navbar/aboutButton";
 
 const ProfileMenuButton = () => {
     const profileMenuButtonRef = useRef<HTMLButtonElement>(null)
@@ -38,7 +39,9 @@ const ProfileMenuButton = () => {
                     <hr className={'min-[850px]:hidden my-1'}/>
                     <ProfileButton />
                     <SignInAndOutButton />
-                    <hr className={'min-[850px]:hidden my-1'}/>
+                    <hr className={'my-1'}/>
+                    <AboutButton />
+                    <hr className={'my-1'}/>
                     <ShareButton />
                     <FeedbackButton />
                 </div>

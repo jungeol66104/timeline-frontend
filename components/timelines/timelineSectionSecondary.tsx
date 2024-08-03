@@ -2,15 +2,11 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectIsBottomEnd} from "@/store/slices/appearanceSlice";
 import {selectPopularTimelines, selectRecentTimelines} from "@/store/slices/contentsSlice";
-import TimelineListTemplate from "@/_deprecated/timelineListTemplate";
-import {useRouter} from "next/router";
 import AdsTimelineBetweenSecondary from "@/components/ads/adsTimelineBetweenSecondary";
 import AdsTimelineSide from "@/components/ads/adsTimelineSide";
 import TimelineListTemplateTest from "@/components/timelines/timelineListTemplateTest";
 
 const TimelineSectionSecondary = () => {
-    const router = useRouter();
-    const isInformation = router.pathname.startsWith('/information')
     const popularTimelines = useSelector(selectPopularTimelines)
     const recentTimelines = useSelector(selectRecentTimelines).slice(0,5)
     const isBottomEnd = useSelector(selectIsBottomEnd)
