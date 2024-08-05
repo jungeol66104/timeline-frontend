@@ -61,19 +61,32 @@ const AboutSectionPrimary = () => {
             <hr className={'mx-4'}/>
             <div className={'px-4 py-10 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>Key concepts</h2>
-                {/*<p className={'w-full text-lg font-medium'}>*/}
-                {/*    Click buttons or interact directly to understand how timeline works.*/}
-                {/*</p>*/}
                 <div className={'w-full flex flex-col gap-3'}>
                     <div className={'flex gap-2 flex-wrap'}>
-                        <button className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}><span>Contributors</span></button>
-                        <button className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}><span>Edit</span></button>
-                        <button className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}><span>Show More</span></button>
-                        <button className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}><span>Keynote</span></button>
-                        <button className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}><span>Event</span></button>
+                        <button
+                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
+                            <span>Contributors</span></button>
+                        <button
+                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
+                            <span>Edit</span></button>
+                        <button
+                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
+                            <span>Show More</span></button>
+                        <button
+                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
+                            <span>Keynote</span></button>
+                        <button
+                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
+                            <span>Event</span></button>
                     </div>
-                    <TimelineDemo />
+                    <div className={'p-4 w-full bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl font-medium'}>
+                        &#x1F4A1; Click buttons above or interact directly with the timeline demo below to understand how timeline works.
+                    </div>
+                    <TimelineDemo/>
                 </div>
+                {/*<div className={'p-4 w-full bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl'}>*/}
+                {/*    &#x1F4A1; Timeline appreciates contributors of the wiki system.*/}
+                {/*</div>*/}
             </div>
         </div>
     );
