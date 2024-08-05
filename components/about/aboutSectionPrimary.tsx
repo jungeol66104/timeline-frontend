@@ -1,6 +1,7 @@
 import React from 'react';
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineDemo from "@/components/about/timelineDemo";
+import TimelineExampleCard from "@/components/about/timelineExampleCard";
 
 const AboutSectionPrimary = () => {
     return (
@@ -19,7 +20,8 @@ const AboutSectionPrimary = () => {
                     <button className={`px-5 h-[40px] flex justify-center items-center gap-2 font-semibold rounded-full border-[1px] border-black hover:bg-gray-100`}>Explore</button>
                 </div>
             </div>
-            <hr className={'mx-4'}/>
+            <div className={'min-[872px]:hidden px-4'}><TimelineExampleCard/></div>
+            <hr className={'mx-4 max-[872px]:hidden'}/>
             <div className={'px-4 py-10 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>Why timeline?</h2>
                 <div className={'flex flex-col gap-8'}>
