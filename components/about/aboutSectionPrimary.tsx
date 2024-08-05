@@ -1,5 +1,6 @@
 import React from 'react';
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
+import TimelineDemo from "@/components/about/timelineDemo";
 
 const AboutSectionPrimary = () => {
     return (
@@ -14,11 +15,11 @@ const AboutSectionPrimary = () => {
                     Have fun playing, sharing, learning at the same time!
                 </p>
                 <div className={'flex gap-3'}>
-                    <button className={`px-5 h-[40px] flex justify-center items-center gap-2 text-white rounded-full border-[1px] border-black bg-black`}>Start Timelining</button>
-                    <button className={`px-5 h-[40px] flex justify-center items-center gap-2 font-medium rounded-full border-[1px] border-black hover:bg-gray-100`}>Explore</button>
+                    <button className={`px-5 h-[40px] flex justify-center items-center gap-2 font-medium text-white rounded-full border-[1px] border-black bg-black`}>Start Timelining</button>
+                    <button className={`px-5 h-[40px] flex justify-center items-center gap-2 font-semibold rounded-full border-[1px] border-black hover:bg-gray-100`}>Explore</button>
                 </div>
             </div>
-            <hr/>
+            <hr className={'mx-4'}/>
             <div className={'px-4 py-10 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>Why timeline?</h2>
                 <div className={'flex flex-col gap-8'}>
@@ -36,7 +37,7 @@ const AboutSectionPrimary = () => {
                     </p>
                 </div>
             </div>
-            <hr/>
+            <hr className={'mx-4'}/>
             <div className={'px-4 py-10 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>What do we provide?</h2>
                 <div className={'flex flex-col gap-8'}>
@@ -57,7 +58,7 @@ const AboutSectionPrimary = () => {
                     </p>
                 </div>
             </div>
-            <hr/>
+            <hr className={'mx-4'}/>
             <div className={'px-4 py-10 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>Key concepts</h2>
                 {/*<p className={'w-full text-lg font-medium'}>*/}
@@ -71,7 +72,7 @@ const AboutSectionPrimary = () => {
                         <button className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}><span>Keynote</span></button>
                         <button className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}><span>Event</span></button>
                     </div>
-                    <div className={'w-full h-[500px] border-[1px] border-gray-300 rounded-md'} style={{maxHeight: 'calc(100vh - 100px)'}}></div>
+                    <TimelineDemo />
                 </div>
             </div>
         </div>
