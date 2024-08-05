@@ -1,6 +1,6 @@
 import React from 'react';
 import RevertButton from "@/components/common/contribution/revertButton";
-import UsernameButton from "@/components/common/usernameButton";
+import NicknameButton from "@/components/common/nicknameButton";
 import CompareRadioButtons from "@/components/common/contribution/compareRadioButtons";
 import OpenModalButton from "@/components/common/contribution/openModalButton";
 
@@ -18,7 +18,7 @@ const TimelineContribution = ({type}: {type: string}) => {
             <div className={'font-bold hover:underline cursor-pointer'}>Hagia Sophia</div>
             <div className={'text-sm'}>Added some new information.</div>
             <div className={'mt-3 flex items-center justify-between'}>
-                <UsernameButton name={'Nickname'}/>
+                <NicknameButton name={'Nickname'}/>
                 <div className={'flex items-center gap-2.5'}>
                     {type === 'timeline' && <RevertButton/>}
                     <OpenModalButton />

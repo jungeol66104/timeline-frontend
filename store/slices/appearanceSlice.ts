@@ -17,6 +17,7 @@ const initialState = {
     modalType: 'none',
     modalContentType: 'view',
     modalHistoryType: 'list',
+    demoKeyConcept: 'timeline',
     is404: false
 } as initialAppearanceState
 

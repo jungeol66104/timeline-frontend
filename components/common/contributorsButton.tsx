@@ -1,5 +1,7 @@
 import React, {useRef, useState} from "react";
 import Link from "next/link";
+import {useSelector} from "react-redux";
+import {selectDemoKeyConcept, selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const ContributorsButton = () => {
     // dummy data
@@ -7,6 +9,10 @@ const ContributorsButton = () => {
 
     const contributionButtonRef = useRef<HTMLButtonElement>(null)
     const [isToggle, setIsToggle] = useState(false)
+
+    const timelineType = useSelector(selectTimelineType);
+    const demoKeyConcept = useSelector(selectDemoKeyConcept);
+
 
     const handleClick = (e: React.MouseEvent) => {
         const profileMenuButton = contributionButtonRef.current
@@ -24,7 +30,7 @@ const ContributorsButton = () => {
 
     return (
         <div className={'relative'}>
-            <button ref={contributionButtonRef} onClick={handleClick} className={`flex items-center gap-2.5 px-3 max-[852px]:px-2 h-[36px] border-[0.1px] border-gray-300 bg-white hover:bg-gray-100 drop-shadow-sm rounded-md`}>
+            <button ref={contributionButtonRef} onClick={handleClick} className={`flex items-center gap-2.5 px-3 max-[852px]:px-2 h-[36px] border-[0.1px] border-gray-300 ${timelineType === 'demo' && demoKeyConcept === 'contributors' && 'outline outline-2 outline-blue-700'} bg-white hover:bg-gray-100 drop-shadow-sm rounded-md`}>
                 <div className={'text-sm font-semibold max-[852px]:hidden'}>Contributors</div>
                 <div className={'flex gap-1.5 justify-center items-center'}>
                     <div className={'w-[26px] h-[26px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[1px] border-white shrink-0'}>{contributors[0].substring(0, 2).toUpperCase()}</div>

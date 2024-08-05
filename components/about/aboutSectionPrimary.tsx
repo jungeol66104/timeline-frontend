@@ -2,6 +2,7 @@ import React from 'react';
 import TimelineDemo from "@/components/about/timelineDemo";
 import TimelineExampleCard from "@/components/about/timelineExampleCard";
 import KeyConceptBar from "@/components/about/keyConceptBar";
+import KeyConceptDescription from "@/components/about/keyConceptDescription";
 
 const AboutSectionPrimary = () => {
     return (
@@ -68,9 +69,7 @@ const AboutSectionPrimary = () => {
                 </p>
                 <div className={'w-full flex flex-col gap-3'}>
                     <KeyConceptBar />
-                    <div className={'p-4 w-full bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl font-medium'}>
-                        &#x1F4A1; Click buttons above or interact directly with the timeline demo below to understand how timeline works.
-                    </div>
+                    <KeyConceptDescription />
                     <TimelineDemo/>
                 </div>
             </div>

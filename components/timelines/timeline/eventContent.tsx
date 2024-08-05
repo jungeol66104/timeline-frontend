@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {TimelineEvent, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
-import {selectTimelineContentType, updateModalType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectTimelineContentType, selectTimelineType, updateModalType} from "@/store/slices/appearanceSlice";
 import KeynoteToggle from "@/components/timelines/timeline/keynoteToggle";
 import DetachButton from "@/components/timelines/timeline/detachButton";
 import EventContentImage from "@/components/timelines/timeline/eventContentImage";
@@ -9,6 +9,8 @@ import api from "@/pages/api/api";
 
 const EventContent = ({event} : {event: TimelineEvent}) => {
     const dispatch = useDispatch()
+    const timelineType = useSelector(selectTimelineType);
+    const demoKeyConcept = useSelector(selectDemoKeyConcept);
     const timelineContentType = useSelector(selectTimelineContentType)
     const isTimelineEditable = timelineContentType === 'edit' || timelineContentType === 'new'
     const isBaseImage = getIsBaseImage(event.image)
@@ -28,7 +30,7 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
     }
 
     return (
-        <div className={`eventContent relative w-full border-[0.1px] border-gray-300 rounded-xl shadow-md`}>
+        <div className={`eventContent relative w-full border-[0.1px] ${timelineType === 'demo' && demoKeyConcept === 'event' && 'outline outline-2 outline-blue-700'} border-gray-300 rounded-xl shadow-md`}>
             <div className={`${!isTimelineEditable && 'hidden'}`}>
                 <div className={`p-2.5 flex items-center justify-between`}>
                     <KeynoteToggle event={event} />

@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectTimelineContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import TimelineMenubar from "@/components/timelines/timelineMenubar";
 import TimelineNameEdit from "@/components/timelines/timelineEdit/timelineNameEdit";
 import TimelineDescriptionEdit from "@/components/timelines/timelineEdit/timelineDescriptionEdit";
@@ -9,13 +9,18 @@ const TimelineHead = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
     const timelineContentType = useSelector(selectTimelineContentType)
     const isTimelineEditable = timelineContentType === 'edit' || timelineContentType === 'new'
+    const timelineType = useSelector(selectTimelineType);
+    const demoKeyConcept = useSelector(selectDemoKeyConcept);
+
+    const showPrivateFlag = timelineType !== 'private' && !(timelineType === 'demo' && demoKeyConcept === 'private')
+
 
     return (
         <div className={'pt-4 px-4 z-50'}>
             <div className={'relative'}>
                 {isTimelineEditable
                     ?   <TimelineNameEdit />
-                    :   <h1 className={`timelineInformationName w-fit text-2xl font-bold`}>{currentTimeline.name}</h1>
+                    :   <h1 className={`timelineInformationName w-fit flex items-center gap-2`}><span className={'text-2xl font-bold'}>{currentTimeline.name}</span><span className={`px-1.5 py-1 text-[10px] text-gray-400 font-semibold border-[1px] border-gray-400 ${showPrivateFlag && 'hidden'} ${timelineType === 'demo' && demoKeyConcept === 'private' && 'outline outline-2 outline-blue-700'} rounded-full`}>PRIVATE</span></h1>
                 }
                 {isTimelineEditable
                     ?   <TimelineDescriptionEdit />

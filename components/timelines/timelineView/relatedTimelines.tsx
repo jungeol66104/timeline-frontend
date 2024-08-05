@@ -4,16 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import {selectRelatedTimelines} from "@/store/slices/contentsSlice";
 import {getIsTouchable} from "@/utils/global";
-import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
+import {selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const RelatedTimelines = () => {
     const swiperContainerRef = useRef<HTMLDivElement>(null)
-
-    const timelineContentType = useSelector(selectTimelineContentType)
-    const relatedTimelines = useSelector(selectRelatedTimelines)
-
     const [scrollPosition, setScrollPosition] = useState('start');
     const [showButtons, setShowButtons] = useState(false)
+
+    const timelineType = useSelector(selectTimelineType)
+    const relatedTimelines = useSelector(selectRelatedTimelines)
+
 
     useEffect(() => {
         const swiperContainer = swiperContainerRef.current
@@ -71,7 +71,7 @@ const RelatedTimelines = () => {
         }
     }
     return (
-        <div className={`py-3 px-4 flex flex-col gap-3 ${timelineContentType === 'edit' && 'opacity-30 pointer-events-none'}`}>
+        <div className={`py-3 px-4 flex flex-col gap-3 ${timelineType === 'demo' && 'hidden'}`}>
             <div className={'flex items-center justify-between'}>
                 <h3 className={'text-[20px] font-bold'}>Related</h3>
                 <div className={`flex gap-2.5 ${!showButtons && 'hidden'}`}>
