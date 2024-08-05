@@ -86,9 +86,18 @@ const AboutSectionPrimary = () => {
                     </div>
                     <TimelineDemo/>
                 </div>
-                {/*<div className={'p-4 w-full bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl'}>*/}
-                {/*    &#x1F4A1; Timeline appreciates contributors of the wiki system.*/}
-                {/*</div>*/}
+            </div>
+            <hr className={'mx-4'}/>
+            <div className={'px-4 py-10 flex flex-col gap-10'}>
+                <h2 className={'text-4xl font-bold'}>Dive right in!</h2>
+                <p className={'text-lg font-medium'}>
+                    Congratulations! You are completely ready to use our service.
+                    Click &apos;Start Timelining&apos; to create timeline right away and click &apos;Explore&apos; to see what other contributors have done.
+                </p>
+                <div className={'flex gap-3'}>
+                    <button className={`px-5 h-[40px] flex justify-center items-center gap-2 font-medium text-white rounded-full border-[1px] border-black bg-black`}>Start Timelining</button>
+                    <button className={`px-5 h-[40px] flex justify-center items-center gap-2 font-semibold rounded-full border-[1px] border-black hover:bg-gray-100`}>Explore</button>
+                </div>
             </div>
         </div>
     );
