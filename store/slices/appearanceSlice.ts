@@ -69,13 +69,16 @@ const appearanceSlice = createSlice({
         updateModalHistoryType: (state, action) => {
             state.modalHistoryType = action.payload
         },
+        updateDemoKeyConcept: (state, action) => {
+            state.demoKeyConcept = action.payload
+        },
         updateIs404: (state, action) => {
             state.is404 = action.payload
         },
     },
 });
 export default appearanceSlice.reducer;
-export const {updateShowTimelineNameBar, updateTimelineType, updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateTimelineHistoryType, updateTimelineContentType, updateModalType, updateModalContentType, updateModalHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
+export const {updateDemoKeyConcept, updateShowTimelineNameBar, updateTimelineType, updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateTimelineHistoryType, updateTimelineContentType, updateModalType, updateModalContentType, updateModalHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
 
 // selectors
 export const selectShowTimelineNameBar = (state: RootState) => state.appearance.showTimelineNameBar
@@ -93,6 +96,7 @@ export const selectTimelineHistoryType = (state: RootState) => state.appearance.
 export const selectModalType = (state: RootState) => state.appearance.modalType
 export const selectModalContentType = (state: RootState) => state.appearance.modalContentType
 export const selectModalHistoryType = (state: RootState) => state.appearance.modalHistoryType
+export const selectDemoKeyConcept = (state: RootState) => state.appearance.demoKeyConcept
 export const selectIs404 = (state: RootState) => state.appearance.is404
 
 // types
@@ -115,5 +119,5 @@ export interface initialAppearanceState {
     modalContentType: 'view' | 'history' | 'edit' | 'new'
     modalHistoryType: 'list' | 'view' | 'diff'
 
-    demoKeyConcept: ''
+    demoKeyConcept: 'timeline' | 'event' | 'showMore' | 'private' | 'contributors' | 'edit' | 'keynote'
 }

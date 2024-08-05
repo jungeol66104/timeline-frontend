@@ -1,6 +1,7 @@
 import React from 'react';
 import TimelineDemo from "@/components/about/timelineDemo";
 import TimelineExampleCard from "@/components/about/timelineExampleCard";
+import KeyConceptBar from "@/components/about/keyConceptBar";
 
 const AboutSectionPrimary = () => {
     return (
@@ -66,29 +67,7 @@ const AboutSectionPrimary = () => {
                     Click buttons above and interact directly with the timeline demo below to understand how timeline works.
                 </p>
                 <div className={'w-full flex flex-col gap-3'}>
-                    <div className={'flex gap-2 flex-wrap'}>
-                        <button
-                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
-                            <span>Timeline</span></button>
-                        <button
-                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
-                            <span>Event</span></button>
-                        <button
-                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
-                            <span>Show More</span></button>
-                        <button
-                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
-                            <span>Private</span></button>
-                        <button
-                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
-                            <span>Contributors</span></button>
-                        <button
-                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
-                            <span>Edit</span></button>
-                        <button
-                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
-                            <span>Keynote</span></button>
-                    </div>
+                    <KeyConceptBar />
                     <div className={'p-4 w-full bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl font-medium'}>
                         &#x1F4A1; Click buttons above or interact directly with the timeline demo below to understand how timeline works.
                     </div>
