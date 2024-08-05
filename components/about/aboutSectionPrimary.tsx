@@ -60,17 +60,18 @@ const AboutSectionPrimary = () => {
             <hr/>
             <div className={'px-4 py-10 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>Key concepts</h2>
-                <div className={'w-full flex flex-col gap-8'}>
-                    <p className={'w-full text-lg font-medium'}>
-                        Click buttons or interact directly to understand how timeline works.
-                    </p>
-                    <div className={'flex gap-2'}>
+                {/*<p className={'w-full text-lg font-medium'}>*/}
+                {/*    Click buttons or interact directly to understand how timeline works.*/}
+                {/*</p>*/}
+                <div className={'w-full flex flex-col gap-3'}>
+                    <div className={'flex gap-2 flex-wrap'}>
                         <button className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}><span>Contributors</span></button>
+                        <button className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}><span>Edit</span></button>
                         <button className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}><span>Show More</span></button>
                         <button className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}><span>Keynote</span></button>
                         <button className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}><span>Event</span></button>
                     </div>
-                    <div className={'w-full h-[420px] border-[1px] border-gray-300 rounded-md'} style={{maxHeight: 'calc(100vh - 100px)'}}></div>
+                    <div className={'w-full h-[500px] border-[1px] border-gray-300 rounded-md'} style={{maxHeight: 'calc(100vh - 100px)'}}></div>
                 </div>
             </div>
         </div>
