@@ -10,7 +10,7 @@ import {formatDate, getTodayDate} from "@/utils/global";
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
     try {
-        const data: any = {events: [{id: 0, date: getTodayDate(), name: 'Visit to Timeline', description: `In ${formatDate(getTodayDate())}, you've visited Timeline and playing around with the demo timeline.`, keynote: 1}], timelineInfo: {id: 0, name: "Timeline", description: 'Wiki service that supports creating and sharing timeline', content: "Timeline is the best service when dealing with timelines. It serves effortless timeline making tool and easy wiki system.", image: 'https://cdn.timeline.vg/base-image.png'},}
+        const data: any = {events: [{id: 0, date: getTodayDate(), name: 'Visit to Timeline', description: `In ${formatDate(getTodayDate())}, you've visited Timeline and played around with this demo timeline.`, keynote: 1}], timelineInfo: {id: 0, name: "Timeline", description: 'Wiki service that supports creating and sharing timeline', content: "Timeline is the best service when dealing with timelines. It serves effortless timeline making tool and easy wiki system.", image: 'https://cdn.timeline.vg/base-image.png'},}
         data.timelineInfo.imageSize = await probe(data.timelineInfo.image)
         store.dispatch(updateCurrentTimeline(data.timelineInfo))
         store.dispatch(updateCurrentTimelineDraft(data.timelineInfo))

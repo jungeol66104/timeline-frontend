@@ -65,9 +65,9 @@ const AboutSectionPrimary = () => {
             <div className={'px-4 py-10 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>Key concepts</h2>
                 <p className={'text-lg font-medium'}>
-                    Click buttons above and interact directly with the timeline demo below to understand how timeline works.
+                    Click buttons and interact directly with the timeline demo below to understand how timeline works.
                 </p>
-                <div className={'w-full flex flex-col gap-3'}>
+                <div className={'w-full flex flex-col gap-5'}>
                     <KeyConceptBar />
                     <KeyConceptDescription />
                     <TimelineDemo/>
