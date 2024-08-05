@@ -39,7 +39,7 @@ const AboutSectionPrimary = () => {
             </div>
             <hr className={'mx-4'}/>
             <div className={'px-4 py-10 flex flex-col gap-10'}>
-                <h2 className={'text-4xl font-bold'}>What do we provide?</h2>
+                <h2 className={'text-4xl font-bold'}>What do we serve?</h2>
                 <div className={'flex flex-col gap-8'}>
                     <h3 className={'text-2xl font-semibold'}>Simple timeline maker</h3>
                     <p className={'text-lg font-medium'}>
