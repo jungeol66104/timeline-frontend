@@ -108,7 +108,7 @@ export interface initialAppearanceState {
     isEdit: boolean // used in personal. alternate with local state
     is404: boolean
 
-    timelineType: 'public' | 'private'
+    timelineType: 'public' | 'private' | 'demo'
     timelineContentType: 'view' | 'history' | 'edit' | 'new'
     timelineHistoryType: 'list' | 'view' | 'diff'
     modalType: 'none' | 'share' | 'information' | 'event' | 'center'

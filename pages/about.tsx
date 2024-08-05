@@ -1,16 +1,15 @@
 import React from 'react';
+import probe from "probe-image-size";
+import {storeWrapper} from "@/store/store";
+import {updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateTimelineContentType, updateTimelineType, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {updateCurrentEvents, updateCurrentEventsDraft, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
 import AboutSectionPrimary from "@/components/about/aboutSectionPrimary";
 import AboutSectionSecondary from "@/components/about/aboutSectionSecondary";
-import {storeWrapper} from "@/store/store";
-import api from "@/pages/api/api";
-import {updateCurrentPage, updateIs404, updateIsBottomEnd, updateIsSummary, updateTimelineContentType, updateTotalPage} from "@/store/slices/appearanceSlice";
-import probe from "probe-image-size";
-import {updateCurrentEvents, updateCurrentEventsDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updatePopularTimelines, updateRecentTimelines} from "@/store/slices/contentsSlice";
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
     try {
-        const data: any = {events: [{}], timelineInfo: {id: 0, name: "", description: '', content: "", image: 'https://cdn.timeline.vg/base-image.png'},}
+        const data: any = {events: [{}], timelineInfo: {id: 0, name: "Timeline", description: 'Wiki service that supports creating and sharing timeline', content: "Timeline is the best service when dealing with timelines that provides effortless timeline making tool and easy wiki system.", image: 'https://cdn.timeline.vg/base-image.png'},}
         data.timelineInfo.imageSize = await probe(data.timelineInfo.image)
         store.dispatch(updateCurrentTimeline(data.timelineInfo))
         store.dispatch(updateCurrentTimelineDraft(data.timelineInfo))
@@ -20,7 +19,8 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateCurrentPage(1))
         store.dispatch(updateTotalPage(1))
         store.dispatch(updateIsBottomEnd(true))
-        store.dispatch(updateTimelineContentType('new'))
+        store.dispatch(updateTimelineType('demo'))
+        store.dispatch(updateTimelineContentType('view'))
         return {props: {}, revalidate:10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);

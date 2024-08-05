@@ -1,7 +1,7 @@
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import TimelineMenubar from "@/components/timelines/timelineMenubar";
 import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
+import TimelineMenubar from "@/components/timelines/timelineMenubar";
 import TimelineNameEdit from "@/components/timelines/timelineEdit/timelineNameEdit";
 import TimelineDescriptionEdit from "@/components/timelines/timelineEdit/timelineDescriptionEdit";
 
