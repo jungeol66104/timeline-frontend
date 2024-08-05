@@ -114,4 +114,6 @@ export interface initialAppearanceState {
     modalType: 'none' | 'share' | 'information' | 'event' | 'center'
     modalContentType: 'view' | 'history' | 'edit' | 'new'
     modalHistoryType: 'list' | 'view' | 'diff'
+
+    demoKeyConcept: ''
 }

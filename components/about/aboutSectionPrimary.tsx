@@ -1,5 +1,4 @@
 import React from 'react';
-import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineDemo from "@/components/about/timelineDemo";
 import TimelineExampleCard from "@/components/about/timelineExampleCard";
 
@@ -20,7 +19,7 @@ const AboutSectionPrimary = () => {
                     <button className={`px-5 h-[40px] flex justify-center items-center gap-2 font-semibold rounded-full border-[1px] border-black hover:bg-gray-100`}>Explore</button>
                 </div>
             </div>
-            <div className={'min-[872px]:hidden px-4'}><TimelineExampleCard/></div>
+            <div className={'min-[872px]:hidden px-4 py-3'}><TimelineExampleCard/></div>
             <hr className={'mx-4 max-[872px]:hidden'}/>
             <div className={'px-4 py-10 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>Why timeline?</h2>
@@ -63,8 +62,23 @@ const AboutSectionPrimary = () => {
             <hr className={'mx-4'}/>
             <div className={'px-4 py-10 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>Key concepts</h2>
+                <p className={'text-lg font-medium'}>
+                    Click buttons above and interact directly with the timeline demo below to understand how timeline works.
+                </p>
                 <div className={'w-full flex flex-col gap-3'}>
                     <div className={'flex gap-2 flex-wrap'}>
+                        <button
+                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
+                            <span>Timeline</span></button>
+                        <button
+                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
+                            <span>Event</span></button>
+                        <button
+                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
+                            <span>Show More</span></button>
+                        <button
+                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
+                            <span>Private</span></button>
                         <button
                             className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
                             <span>Contributors</span></button>
@@ -73,13 +87,7 @@ const AboutSectionPrimary = () => {
                             <span>Edit</span></button>
                         <button
                             className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
-                            <span>Show More</span></button>
-                        <button
-                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
                             <span>Keynote</span></button>
-                        <button
-                            className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold hover:bg-gray-100`}>
-                            <span>Event</span></button>
                     </div>
                     <div className={'p-4 w-full bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl font-medium'}>
                         &#x1F4A1; Click buttons above or interact directly with the timeline demo below to understand how timeline works.
