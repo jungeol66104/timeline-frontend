@@ -3,6 +3,8 @@ import TimelineDemo from "@/components/about/timelineDemo";
 import TimelineExampleCard from "@/components/about/timelineExampleCard";
 import KeyConceptBar from "@/components/about/keyConceptBar";
 import KeyConceptDescription from "@/components/about/keyConceptDescription";
+import StartTimeliningButton from "@/components/about/startTimeliningButton";
+import ExploreButton from "@/components/about/exploreButton";
 
 const AboutSectionPrimary = () => {
     return (
@@ -17,8 +19,8 @@ const AboutSectionPrimary = () => {
                     Have fun playing, sharing, learning at the same time!
                 </p>
                 <div className={'flex gap-3'}>
-                    <button className={`px-5 h-[40px] flex justify-center items-center gap-2 font-medium text-white rounded-full border-[1px] border-black bg-black`}>Start Timelining</button>
-                    <button className={`px-5 h-[40px] flex justify-center items-center gap-2 font-semibold rounded-full border-[1px] border-black hover:bg-gray-100`}>Explore</button>
+                    <StartTimeliningButton />
+                    <ExploreButton />
                 </div>
             </div>
             <div className={'min-[872px]:hidden px-4 py-3'}><TimelineExampleCard/></div>
@@ -81,8 +83,8 @@ const AboutSectionPrimary = () => {
                     Click &apos;Start Timelining&apos; to create timeline right away and click &apos;Explore&apos; to see what other contributors have done.
                 </p>
                 <div className={'flex gap-3'}>
-                    <button className={`px-5 h-[40px] flex justify-center items-center gap-2 font-medium text-white rounded-full border-[1px] border-black bg-black`}>Start Timelining</button>
-                    <button className={`px-5 h-[40px] flex justify-center items-center gap-2 font-semibold rounded-full border-[1px] border-black hover:bg-gray-100`}>Explore</button>
+                    <StartTimeliningButton/>
+                    <ExploreButton/>
                 </div>
             </div>
         </div>
