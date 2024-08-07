@@ -14,6 +14,7 @@ const TimelineExampleCard = () => {
     })
 
     var settings = {
+        className: 'h-fit',
         arrows: false,
         dots: false,
         fade: true,
@@ -21,7 +22,7 @@ const TimelineExampleCard = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 4000,
         pauseOnHover: true
     };
 
