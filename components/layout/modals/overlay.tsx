@@ -1,12 +1,13 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectIsShare, selectModalType, updateModalContentType, updateModalHistoryType, updateIsShare, updateModalType} from "@/store/slices/appearanceSlice";
+import {selectIsShare, selectModalType, updateModalContentType, updateModalHistoryType, updateIsShare, updateModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const Overlay = () => {
     const dispatch = useDispatch()
     const isShare = useSelector(selectIsShare)
+    const timelineType = useSelector(selectTimelineType)
     const timelineModalType = useSelector(selectModalType)
-    const overlay = isShare || timelineModalType !== 'none'
+    const overlay = isShare || (timelineModalType !== 'none' && timelineType !== 'demo')
 
     const handleClick = () => {
         if (isShare) dispatch(updateIsShare())

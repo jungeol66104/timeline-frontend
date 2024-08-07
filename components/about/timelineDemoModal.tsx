@@ -5,13 +5,13 @@ import CloseModalButton from "@/components/modal/closeModalButton";
 import InformationModalHead from "@/components/modal/timelineModal/informationModalHead";
 import InformationModalBody from "@/components/modal/timelineModal/informationModalBody";
 
-const TimelineModal = () => {
+const TimelineDemoModal = () => {
     const timelineType = useSelector(selectTimelineType)
     const modalType = useSelector(selectModalType)
 
-    const bottom = modalType === 'information' && timelineType !== 'demo' ? 0 : '-100%'
+    const bottom = modalType === 'information' && timelineType === 'demo' ? 0 : '-100%'
     return (
-        <div className={'timelineModalInformation fixed w-full max-w-lg h-full left-1/2 transform -translate-x-1/2 bg-white rounded-t-2xl flex flex-col items-center'} style={{zIndex: 5002, height: 'calc(100% - 61px)', bottom: bottom, transition: 'bottom 0.3s'}}>
+        <div className={'timelineModalInformation absolute w-full max-w-lg h-full left-1/2 transform -translate-x-1/2 bg-white rounded-t-2xl flex flex-col items-center'} style={{zIndex: 3000, height: 'calc(100%)', bottom: bottom, transition: 'bottom 0.3s'}}>
             <div className={'relative py-2.5 w-full border-b-[1px] text-center'}>
                 <h2 className={'text-md font-semibold'}>Timeline</h2>
                 <CloseModalButton />
@@ -24,4 +24,4 @@ const TimelineModal = () => {
     );
 };
 
-export default TimelineModal;
+export default TimelineDemoModal;

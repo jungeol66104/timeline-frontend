@@ -18,7 +18,8 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
     const handleClick = async () => {
         try {
             const response = await api.get(`/event/${Number(event.id)}`, {headers: {lang: 'en'}})
-            const currentEvent = response.data.data
+            let currentEvent = response.data.data
+            if (timelineType === 'demo') currentEvent = event
             dispatch(updateCurrentEvent(currentEvent))
             dispatch(updateCurrentEventDraft(currentEvent))
             dispatch(updateModalType('event'))
