@@ -27,7 +27,7 @@ const TimelineExampleCard = () => {
     };
 
     return (
-        <div className={'h-fit rounded-2xl hover:shadow-md'}>
+        <div className={'h-[403.33px] rounded-2xl hover:shadow-md'}>
             <Slider {...settings}>
                 {currentTimelines.map((timeline) => (
                     <Link key={timeline.id} href={`/timelines/${timeline.id}`} className={'relative flex flex-col bg-[#F2F2F259] border-[1px] border-[#E5E7EB] rounded-2xl'}>
