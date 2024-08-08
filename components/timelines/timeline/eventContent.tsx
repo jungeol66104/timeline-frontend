@@ -1,8 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
 import {TimelineEvent, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import {selectDemoKeyConcept, selectTimelineContentType, selectTimelineType, updateModalType} from "@/store/slices/appearanceSlice";
-import KeynoteToggle from "@/components/timelines/timeline/keynoteToggle";
-import DetachButton from "@/components/timelines/timeline/detachButton";
+import KeynoteCheckbox from "@/components/timelines/timeline/keynoteCheckbox";
+import DisconnectButton from "@/components/timelines/timeline/disconnectButton";
 import EventContentImage from "@/components/timelines/timeline/eventContentImage";
 import {getIsBaseImage} from "@/utils/global";
 import api from "@/pages/api/api";
@@ -34,8 +34,8 @@ const EventContent = ({event} : {event: TimelineEvent}) => {
         <div className={`eventContent relative w-full border-[0.1px] ${timelineType === 'demo' && demoKeyConcept === 'event' && 'outline outline-2 outline-blue-700'} border-gray-300 rounded-xl shadow-md`}>
             <div className={`${!isTimelineEditable && 'hidden'}`}>
                 <div className={`p-2.5 flex items-center justify-between`}>
-                    <KeynoteToggle event={event} />
-                    <DetachButton event={event} />
+                    <KeynoteCheckbox event={event} />
+                    <DisconnectButton event={event} />
                 </div>
                 <hr />
             </div>

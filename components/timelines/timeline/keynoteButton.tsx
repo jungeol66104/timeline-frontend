@@ -8,7 +8,6 @@ const KeynoteButton = () => {
     const keynoteButtonRef = useRef<HTMLButtonElement>(null)
     const [isToggle, setIsToggle] = useState(false)
 
-
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
     const isKeynote = useSelector(selectIsSummary)
@@ -34,7 +33,7 @@ const KeynoteButton = () => {
 
         fetchEvents(currentTimeline.id, 1, targetIsKeynote).then((data) => {
             const events = data.events
-            events.forEach((event: TimelineEvent) => event.keynote = 1)
+            events.forEach((event: TimelineEvent) => event.keynote = +targetIsKeynote)
             dispatch(updateCurrentEvents(events))
             dispatch(updateCurrentEventsDraft(events))
             dispatch(updateCurrentPage(1))
@@ -51,9 +50,9 @@ const KeynoteButton = () => {
                 <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xe5c5;</div>
             </button>
             {isToggle &&
-                <div className={`absolute top-[32px] right-0 p-1.5 w-[96px] flex flex-col items-start bg-white border-[1px] border-gray-300 rounded-md shadow-md`}>
-                    <button onClick={() => handleClick('all')} className={'w-full h-[30px] flex items-center gap-1.5 pl-1.5 pr-3 py-1.5 rounded-md bg-white hover:bg-gray-100 text-left text-sm font-semibold'}>All</button>
-                    <button onClick={() => handleClick('keynote')} className={'w-full h-[30px] flex items-center gap-1.5 pl-1.5 pr-3 py-1.5 rounded-md bg-white hover:bg-gray-100 text-left text-sm font-semibold'}>Keynote</button>
+                <div className={`absolute top-[32px] right-0 p-1 w-[96px] flex flex-col items-start bg-white border-[1px] border-gray-300 rounded-md shadow-md`}>
+                    <button onClick={() => handleClick('all')} className={'pl-2 pr-1 py-1.5 w-full h-[30px] flex items-center justify-between rounded-md bg-white hover:bg-gray-100 text-left text-sm font-semibold'}><span>All</span>{!isKeynote && <div className={'material-symbols-outlined font-semibold shrink-0 text-[14px]'}>&#xe5ca;</div>}</button>
+                    <button onClick={() => handleClick('keynote')} className={'pl-2 pr-1 py-1.5 w-full h-[30px] flex items-center justify-between rounded-md bg-white hover:bg-gray-100 text-left text-sm font-semibold'}><span>Keynote</span>{isKeynote && <div className={'material-symbols-outlined font-semibold shrink-0 text-[14px]'}>&#xe5ca;</div>}</button>
                 </div>
             }
         </div>

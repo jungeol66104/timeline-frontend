@@ -4,7 +4,7 @@ import TimelineEditMenubar from "@/components/timelines/timelineEdit/timelineEdi
 import TimelineContent from "@/components/timelines/timelineView/timelineContent";
 import Timeline from "@/components/timelines/timeline/timeline";
 import Toolbar from "@/components/timelines/toolbar";
-import EmptyTimeline from "@/components/timelines/timelineEdit/emptyTimeline";
+import EmptyTimeline from "@/components/timelines/timeline/emptyTimeline";
 
 const TimelineEdit = () => {
     const currentEventsDraft = useSelector(selectCurrentEventsDraft);

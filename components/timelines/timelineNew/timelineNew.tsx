@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import {selectCurrentEventsDraft} from "@/store/slices/contentsSlice";
 import TimelineContent from "@/components/timelines/timelineView/timelineContent";
 import Timeline from "@/components/timelines/timeline/timeline";
-import EmptyTimeline from "@/components/timelines/timelineEdit/emptyTimeline";
+import EmptyTimeline from "@/components/timelines/timeline/emptyTimeline";
 import Toolbar from "@/components/timelines/toolbar";
 import TimelineNewMenubar from "@/components/timelines/timelineNew/timelineNewMenubar";
 

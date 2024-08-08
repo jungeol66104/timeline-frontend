@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch} from "react-redux";
 import {TimelineEvent, updateDraftKeynote} from "@/store/slices/contentsSlice";
 
-const KeynoteToggle = ({event} : {event: TimelineEvent}) => {
+const KeynoteCheckbox = ({event} : {event: TimelineEvent}) => {
     const dispatch = useDispatch()
 
     const handleToggle = (id: number) => {
@@ -17,4 +17,4 @@ const KeynoteToggle = ({event} : {event: TimelineEvent}) => {
     );
 };
 
-export default KeynoteToggle;
+export default KeynoteCheckbox;

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {getIsBaseImage, mapStrToNum} from "@/utils/global";
 
-const TimelineListTemplateTest = ({title, timelines}: {title: string, timelines: any[]}) => {
+const TimelineListTemplate = ({title, timelines}: {title: string, timelines: any[]}) => {
     const href = title === 'Recently Added' ? '/?tagNum=1' : '/?tagNum=2'
 
     return (
@@ -38,4 +38,4 @@ const TimelineListTemplateTest = ({title, timelines}: {title: string, timelines:
     );
 };
 
-export default TimelineListTemplateTest;
+export default TimelineListTemplate;

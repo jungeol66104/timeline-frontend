@@ -1,7 +1,7 @@
 import {selectCurrentEventsDraft, TimelineEvent, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
 import {useDispatch, useSelector} from "react-redux";
 
-const DetachButton = ({event}:{event: TimelineEvent}) => {
+const DisconnectButton = ({event}:{event: TimelineEvent}) => {
     const dispatch = useDispatch()
     const currentEventsDraft = useSelector(selectCurrentEventsDraft)
 
@@ -15,4 +15,4 @@ const DetachButton = ({event}:{event: TimelineEvent}) => {
     );
 };
 
-export default DetachButton;
+export default DisconnectButton;

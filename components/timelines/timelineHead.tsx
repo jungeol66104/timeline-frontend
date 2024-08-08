@@ -8,19 +8,21 @@ import TimelineDescriptionEdit from "@/components/timelines/timelineEdit/timelin
 const TimelineHead = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
     const timelineContentType = useSelector(selectTimelineContentType)
-    const isTimelineEditable = timelineContentType === 'edit' || timelineContentType === 'new'
     const timelineType = useSelector(selectTimelineType);
     const demoKeyConcept = useSelector(selectDemoKeyConcept);
 
+    const isTimelineEditable = timelineContentType === 'edit' || timelineContentType === 'new'
     const showPrivateFlag = timelineType !== 'private' && !(timelineType === 'demo' && demoKeyConcept === 'private')
 
-
     return (
-        <div className={'pt-4 px-4 z-50'}>
+        <div className={'z-50 pt-4 px-4'}>
             <div className={'relative'}>
-                {isTimelineEditable
+                {isTimelineEditable && false
                     ?   <TimelineNameEdit />
-                    :   <h1 className={`timelineInformationName w-fit flex items-center gap-2`}><span className={'text-2xl font-bold'}>{currentTimeline.name}</span><span className={`px-1.5 py-1 text-[10px] text-gray-400 font-semibold border-[1px] border-gray-400 ${showPrivateFlag && 'hidden'} ${timelineType === 'demo' && demoKeyConcept === 'private' && 'outline outline-2 outline-blue-700'} rounded-full`}>PRIVATE</span></h1>
+                    :   <h1 className={`timelineInformationName w-fit flex items-center gap-2`}>
+                            <span className={'text-2xl font-bold'}>{currentTimeline.name}</span>
+                            <span className={`px-1.5 py-1 text-[10px] text-gray-400 font-semibold border-[1px] border-gray-400 ${showPrivateFlag && 'hidden'} ${timelineType === 'demo' && demoKeyConcept === 'private' && 'outline outline-2 outline-blue-700'} rounded-full`}>PRIVATE</span>
+                        </h1>
                 }
                 {isTimelineEditable
                     ?   <TimelineDescriptionEdit />

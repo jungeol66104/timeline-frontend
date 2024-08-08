@@ -4,7 +4,6 @@ import {useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const ContributorsButton = () => {
-    // dummy data
     const contributors = ['Mike Tyson', 'Jake Paul', 'Joon Nam', 'Timeline Staffs', 'Donggeun Suh']
 
     const contributionButtonRef = useRef<HTMLButtonElement>(null)
@@ -12,7 +11,6 @@ const ContributorsButton = () => {
 
     const timelineType = useSelector(selectTimelineType);
     const demoKeyConcept = useSelector(selectDemoKeyConcept);
-
 
     const handleClick = (e: React.MouseEvent) => {
         const profileMenuButton = contributionButtonRef.current
@@ -38,12 +36,12 @@ const ContributorsButton = () => {
                 </div>
             </button>
             {isToggle &&
-                <div className={'overflow-y-scroll absolute top-[38px] left-0 p-1.5 w-[250px] bg-white border-[1px] rounded-md shadow-md'}>
+                <div className={'overflow-y-scroll absolute top-[38px] left-0 px-1.5 py-1 w-[250px] bg-white border-[1px] rounded-md shadow-md'}>
                     {contributors.map((contributor, i) => {
                         const initial = contributor.substring(0, 2).toUpperCase();
 
                         return (
-                            <Link key={i} href={'/'} className={'p-1.5 flex w-full items-center gap-1.5'}>
+                            <Link key={i} href={`/@${contributor}`} className={'p-1.5 w-full flex items-center gap-2 rounded-md hover:bg-gray-100'}>
                                 <div className={'w-[26px] h-[26px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[1px] border-white shrink-0'}>{initial}</div>
                                 <div className={'text-sm font-medium'}>{contributor}</div>
                             </Link>

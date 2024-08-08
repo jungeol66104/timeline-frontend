@@ -4,8 +4,8 @@ import Link from "next/link";
 import ComputerSearchBar from "@/components/layout/search/ComputerSearchBar";
 import SearchButton from "@/components/layout/navbar/searchButton";
 import TagBar from "@/components/layout/navbar/tagBar";
-import ProfileMenuButton from "@/components/layout/navbar/profileMenuButton";
-import CreateTimelineButton from "@/components/layout/navbar/createTimelineButton";
+import ProfileMenuButton from "@/components/layout/navbar/menu/profileMenuButton";
+import CreateTimelineButton from "@/components/layout/navbar/menu/createTimelineButton";
 
 const Navbar = ({isLoading} : {isLoading: boolean}) => {
     return (
