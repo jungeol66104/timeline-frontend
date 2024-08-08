@@ -11,6 +11,7 @@ const initialState = {
     scrollTop: 0,
     isShare: false,
     isEdit: false,
+    isPopup: false,
     timelineType: 'public',
     timelineContentType: 'view',
     timelineHistoryType: 'list',
@@ -52,6 +53,9 @@ const appearanceSlice = createSlice({
         updateIsEdit: (state, action) => {
             state.isEdit = action.payload
         },
+        updateIsPopup: (state, action) => {
+            state.isPopup = action.payload
+        },
         updateTimelineType: (state, action) => {
             state.timelineType = action.payload
         },
@@ -79,7 +83,7 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateDemoKeyConcept, updateShowTimelineNameBar, updateTimelineType, updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateTimelineHistoryType, updateTimelineContentType, updateModalType, updateModalContentType, updateModalHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
+export const {updateIsPopup, updateDemoKeyConcept, updateShowTimelineNameBar, updateTimelineType, updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateTimelineHistoryType, updateTimelineContentType, updateModalType, updateModalContentType, updateModalHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
 
 // selectors
 export const selectShowTimelineNameBar = (state: RootState) => state.appearance.showTimelineNameBar
@@ -91,6 +95,7 @@ export const selectCurrentTagNum = (state: RootState) => state.appearance.tagNum
 export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectIsShare = (state: RootState) => state.appearance.isShare
 export const selectIsEdit = (state: RootState) => state.appearance.isEdit
+export const selectIsPopup = (state: RootState) => state.appearance.isPopup
 export const selectTimelineType = (state: RootState) => state.appearance.timelineType
 export const selectTimelineContentType = (state: RootState) => state.appearance.timelineContentType
 export const selectTimelineHistoryType = (state: RootState) => state.appearance.timelineHistoryType
@@ -111,12 +116,13 @@ export interface initialAppearanceState {
     scrollTop: number
     isShare: boolean
     isEdit: boolean // used in personal. alternate with local state
+    isPopup: boolean
     is404: boolean
 
     timelineType: 'public' | 'private' | 'demo'
     timelineContentType: 'view' | 'history' | 'edit' | 'new'
     timelineHistoryType: 'list' | 'view' | 'diff'
-    modalType: 'none' | 'share' | 'information' | 'event' | 'center'
+    modalType: 'none' | 'share' | 'information' | 'event'
     modalContentType: 'view' | 'history' | 'edit' | 'new'
     modalHistoryType: 'list' | 'view' | 'diff'
 

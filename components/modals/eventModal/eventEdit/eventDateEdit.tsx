@@ -7,6 +7,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 // @ts-ignore
 import { Spice } from "timecraftjs";
 import {transformDate, validateDate} from "@/utils/global";
+import GuideButton from "@/components/common/guideButton";
 
 const EventDateEdit = () => {
     const dispatch = useDispatch()
@@ -81,7 +82,10 @@ const EventDateEdit = () => {
         <>
             <div className={'z-20 absolute'}><EditorContent editor={editor}/></div>
             <div className={`invisible w-fit text-md font-medium min-h-[24px] min-w-[100px]`}>{currentEventDraft.date}</div>
-            {spiceError && <div className={'flex items-center gap-1 text-[10px] text-red-700'}><span className={'material-symbols-outlined text-[12px]'}>&#xe000;</span><span>Invalid date format. Keep YYYY-MM-DD BCE(optional) format.</span></div>}
+            <div className={'flex gap-2'}>
+                <GuideButton type={'date'} />
+                {spiceError && <div className={'flex items-center gap-1 text-red-700'}><span className={'material-symbols-outlined text-[12px]'}>&#xe000;</span><span className={'mt-[1px] text-[10px]'}>Keep YYYY-MM-DD BCE(optional) format.</span></div>}
+            </div>
         </>
     );
 };
