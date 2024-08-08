@@ -29,7 +29,7 @@ const ProfileMenuButton = () => {
         <div className={'relative mr-4'}>
             <button ref={profileMenuButtonRef} onClick={handleClick} className={`pl-2.5 pr-1.5 h-[40px] flex justify-center items-center gap-2 rounded-full border-[1px] border-gray-300 hover:shadow-md`}>
                 <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xe5d2;</div>
-                <div className={'relative h-[28px] w-[28px]'}><Image className={'border-[1px] border-gray-300 rounded-full'} src={'/images/profileTest.jpg'} alt={'profile'} fill priority/></div>
+                <div className={'relative h-[28px] w-[28px]'}><Image className={'border-[0.1px] border-gray-300 rounded-full'} src={'/images/profileTest.jpg'} alt={'profile'} fill priority/></div>
             </button>
             {isToggle &&
                 <div className={'absolute top-[42px] right-0 px-1.5 py-1 w-[230px] bg-white border-[1px] rounded-2xl shadow-md'}>

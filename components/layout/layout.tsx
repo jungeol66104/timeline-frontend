@@ -10,7 +10,7 @@ import {useRouter} from "next/router";
 import IndexSkeleton from "@/components/index/indexSkeleton";
 import Footer from "@/components/layout/footer";
 import {useSession} from "@/hooks/useSession";
-import Modals from "@/components/layout/modals/modals";
+import Modals from "@/components/modals/modals";
 
 const Layout = ({ children } : {children: ReactNode}) => {
     const is404 = useSelector(selectIs404)
