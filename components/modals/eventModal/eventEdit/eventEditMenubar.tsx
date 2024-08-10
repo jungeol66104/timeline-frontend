@@ -11,7 +11,7 @@ const EventEditMenubar = ({editor, src}:{editor: any, src: string}) => {
 
     return (
         <div className={'w-full flex justify-between pb-3'}>
-            <AddImageButton src={src}/>
+            <AddImageButton />
             <div className={'flex gap-3'}>
                 <ResetEditButton/>
                 {timelineType !== 'demo' && <NoteButton/>}
