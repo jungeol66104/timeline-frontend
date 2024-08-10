@@ -23,7 +23,7 @@ const EventEdit = () => {
 
     return (
         <div>
-            <EventEditMenubar editor={editor} src={'https://cdn.timeline.vg/base-image.png'}/>
+            <EventEditMenubar editor={editor} src={currentEventDraft.image || 'https://cdn.timeline.vg/base-image.png'}/>
             <hr/>
             <div className={'w-full flex flex-col items-center gap-3'}>
                 <EventModalImage src={currentEventDraft.image || 'https://cdn.timeline.vg/base-image.png'} alt={currentEventDraft.name} imageSize={currentEventDraft.imageSize}/>

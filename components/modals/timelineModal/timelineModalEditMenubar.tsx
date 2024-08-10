@@ -13,7 +13,6 @@ const TimelineModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
     const timelineType = useSelector(selectTimelineType)
     const timelineContentType = useSelector(selectTimelineContentType)
     const isTimelineEditable = timelineContentType === 'edit' || timelineContentType === 'new'
-
     const isBaseImage = getIsBaseImage(src)
 
     return (
