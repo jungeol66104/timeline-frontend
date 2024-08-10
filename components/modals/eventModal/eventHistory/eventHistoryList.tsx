@@ -5,7 +5,7 @@ import EventContributions from "@/components/modals/eventModal/eventHistory/even
 const EventHistoryList = () => {
     return (
         <div>
-            <div className={'pb-3'}><CompareButton/></div>
+            <div className={'pb-3 w-full flex justify-end'}><CompareButton/></div>
             <hr/>
             <EventContributions />
         </div>

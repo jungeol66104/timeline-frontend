@@ -1,22 +1,27 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectTimelineContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import TimelineNameEdit from "@/components/timelines/timelineEdit/timelineNameEdit";
 import TimelineDescriptionEdit from "@/components/timelines/timelineEdit/timelineDescriptionEdit";
 import TimelineModalMenubar from "@/components/modals/timelineModal/timelineModalMenubar";
 
-const InformationModalHead = () => {
+const TimelineModalHead = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
     const timelineContentType = useSelector(selectTimelineContentType)
+    const timelineType = useSelector(selectTimelineType);
+    const demoKeyConcept = useSelector(selectDemoKeyConcept);
+
     const isTimelineEditable = timelineContentType === 'edit' || timelineContentType === 'new'
 
     return (
         <div className={'z-10'}>
             <div className={'relative'}>
-                {isTimelineEditable
+                {timelineContentType === 'new' || (timelineType === 'private' && timelineContentType === 'edit')
                     ?   <TimelineNameEdit />
-                    :   <h1 className={'timelineInformationName text-2xl font-bold'}>{currentTimeline.name}</h1>
+                    :   <h1 className={`timelineInformationName w-fit flex items-center gap-2`}>
+                            <span className={'text-2xl font-bold'}>{currentTimeline.name}</span>
+                        </h1>
                 }
                 {isTimelineEditable
                     ?   <TimelineDescriptionEdit />
@@ -28,4 +33,4 @@ const InformationModalHead = () => {
         </div>
     );
 };
-export default InformationModalHead;
+export default TimelineModalHead;

@@ -1,10 +1,10 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectModalType} from "@/store/slices/appearanceSlice";
-import AddImageButton from "@/components/common/addImageButton";
+import AddImageButton from "@/components/common/edit/addImageButton";
 import CreateEventButton from "@/components/modals/eventModal/eventNew/createEventButton";
 
-const EditMenubar = ({editor, src}:{editor: any, src: string}) => {
+const NewMenubar = ({editor, src}:{editor: any, src: string}) => {
     const modalType = useSelector(selectModalType)
 
     return (
@@ -15,4 +15,4 @@ const EditMenubar = ({editor, src}:{editor: any, src: string}) => {
     );
 };
 
-export default EditMenubar;
+export default NewMenubar;

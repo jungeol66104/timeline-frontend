@@ -6,7 +6,7 @@ import {selectIsEdit} from "@/store/slices/appearanceSlice";
 import ProfileEditButton from "@/components/private/profileEditButton";
 import ProfileSaveButton from "@/components/private/profileSaveButton";
 import DeleteAccountButton from "@/components/private/deleteAccountButton";
-import AddImageButton from "@/components/common/addImageButton";
+import AddImageButton from "@/components/common/edit/addImageButton";
 
 const ProfileHead = () => {
     const router = useRouter()

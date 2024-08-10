@@ -51,8 +51,8 @@ const KeynoteButton = () => {
             </button>
             {isToggle &&
                 <div className={`absolute top-[32px] right-0 p-1 w-[97px] flex flex-col items-start bg-white border-[1px] border-gray-300 rounded-md shadow-md`}>
-                    <button onClick={() => handleClick('all')} className={'pl-2 pr-1 py-1.5 w-full h-[30px] flex items-center justify-between rounded-md bg-white hover:bg-gray-100 text-left text-sm font-semibold'}><span>All</span>{!isKeynote && <div className={'material-symbols-outlined font-semibold shrink-0 text-[14px]'}>&#xe5ca;</div>}</button>
-                    <button onClick={() => handleClick('keynote')} className={'pl-2 pr-1 py-1.5 w-full h-[30px] flex items-center justify-between rounded-md bg-white hover:bg-gray-100 text-left text-sm font-semibold'}><span>Keynote</span>{isKeynote && <div className={'material-symbols-outlined font-semibold shrink-0 text-[14px]'}>&#xe5ca;</div>}</button>
+                    <button onClick={() => handleClick('all')} className={'pl-2 pr-1 py-1.5 w-full h-[30px] flex items-center justify-between rounded-md bg-white hover:bg-gray-100 text-left text-sm font-semibold'}><span>All</span>{!isKeynote && <div className={'material-symbols-outlined font-semibold shrink-0 text-[12px]'}>&#xe5ca;</div>}</button>
+                    <button onClick={() => handleClick('keynote')} className={'pl-2 pr-1 py-1.5 w-full h-[30px] flex items-center justify-between rounded-md bg-white hover:bg-gray-100 text-left text-sm font-semibold'}><span>Keynote</span>{isKeynote && <div className={'material-symbols-outlined font-semibold shrink-0 text-[12px]'}>&#xe5ca;</div>}</button>
                 </div>
             }
         </div>

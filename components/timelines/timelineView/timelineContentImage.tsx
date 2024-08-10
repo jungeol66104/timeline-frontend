@@ -3,8 +3,8 @@ import Image from "next/image";
 import {getIsBaseImage, ratioToImageSizeType} from "@/utils/global";
 import {useSelector} from "react-redux";
 import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
-import AddImageButton from "@/components/common/addImageButton";
-import ImageEditButtons from "@/components/common/ImageEditButtons";
+import AddImageButton from "@/components/common/edit/addImageButton";
+import ImageEditButtons from "@/components/common/edit/ImageEditButtons";
 
 const TimelineContentImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize: any}) => {
     const timelineContentType = useSelector(selectTimelineContentType)

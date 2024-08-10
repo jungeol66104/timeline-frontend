@@ -1,6 +1,6 @@
 import React from 'react';
-import RemoveImageButton from "@/components/common/removeImageButton";
-import ReplaceImageButton from "@/components/common/replaceImageButton";
+import RemoveImageButton from "@/components/common/edit/removeImageButton";
+import ReplaceImageButton from "@/components/common/edit/replaceImageButton";
 
 const ImageEditButtons = () => {
     return (

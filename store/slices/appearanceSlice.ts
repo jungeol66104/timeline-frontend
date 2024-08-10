@@ -120,10 +120,11 @@ export interface initialAppearanceState {
     is404: boolean
 
     timelineType: 'public' | 'private' | 'demo'
-    timelineContentType: 'view' | 'history' | 'edit' | 'new'
+    timelineContentType: 'view' | 'history' | 'edit' | 'new' | 'discussion'
     timelineHistoryType: 'list' | 'view' | 'diff'
+
     modalType: 'none' | 'share' | 'information' | 'event'
-    modalContentType: 'view' | 'history' | 'edit' | 'new'
+    modalContentType: 'view' | 'history' | 'edit' | 'new' | 'discussion'
     modalHistoryType: 'list' | 'view' | 'diff'
 
     demoKeyConcept: 'timeline' | 'event' | 'showMore' | 'private' | 'contributors' | 'edit' | 'keynote'

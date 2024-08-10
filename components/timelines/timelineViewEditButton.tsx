@@ -1,19 +1,9 @@
 import {useDispatch, useSelector} from "react-redux";
-import {
-    selectDemoKeyConcept,
-    selectTimelineContentType,
-    selectTimelineType,
-    updateCurrentPage,
-    updateIsBottomEnd,
-    updateIsSummary,
-    updateTimelineContentType,
-    updateTimelineHistoryType,
-    updateTotalPage
-} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectTimelineContentType, selectTimelineType, updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateTimelineContentType, updateTimelineHistoryType, updateTotalPage} from "@/store/slices/appearanceSlice";
 import {fetchEvents} from "@/pages/api/global";
 import {selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
 
-const TimelineEditToggleButton = () => {
+const TimelineViewEditButton = () => {
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
     const contentType = useSelector(selectTimelineContentType)
@@ -46,4 +36,4 @@ const TimelineEditToggleButton = () => {
     );
 };
 
-export default TimelineEditToggleButton;
+export default TimelineViewEditButton;

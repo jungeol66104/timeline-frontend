@@ -7,7 +7,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 // @ts-ignore
 import { Spice } from "timecraftjs";
 import {transformDateTest} from "@/utils/global";
-import GuideButton from "@/components/common/guideButton";
+import GuideButton from "@/components/common/edit/guideButton";
 
 const EventDateEdit = () => {
     const dispatch = useDispatch()

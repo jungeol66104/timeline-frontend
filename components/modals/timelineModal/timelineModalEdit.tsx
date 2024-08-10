@@ -3,9 +3,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEditor, EditorContent} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
-import EditMenubar from "@/components/modals/eventModal/eventEdit/editMenubar";
 import TimelineModalImage from "@/components/modals/timelineModal/timelineModalImage";
 import Placeholder from "@tiptap/extension-placeholder";
+import TimelineModalEditMenubar from "@/components/modals/timelineModal/timelineModalEditMenubar";
 
 const TimelineModalEdit = () => {
     const dispatch = useDispatch()
@@ -24,7 +24,7 @@ const TimelineModalEdit = () => {
 
     return (
         <div>
-            <EditMenubar editor={editor} src={currentTimelineDraft.image}/>
+            <TimelineModalEditMenubar editor={editor} src={currentTimelineDraft.image}/>
             <hr/>
             <div className={'flex flex-col items-center gap-3'}>
                 <TimelineModalImage src={currentTimelineDraft.image} alt={currentTimelineDraft.name} imageSize={currentTimelineDraft.imageSize}/>

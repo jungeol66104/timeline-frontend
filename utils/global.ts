@@ -23,11 +23,6 @@ export const getScrollWrapper = () => {
     return scrollWrapper
 }
 
-export const getBody  = () => {
-    const body: HTMLElement | null = typeof window !== 'undefined' ? document.body : null
-    return body
-}
-
 export const getIsBaseImage = (url: string | null | undefined) => {
     if (typeof url !== "string") return true
     return url.includes("https://cdn.timeline.vg/base-image.png")
@@ -88,11 +83,6 @@ export const getTodayDate = () => {
     const day = String(today.getDate()).padStart(2, '0');
 
     return `${year}-${month}-${day}`;
-}
-
-export const validateDate = (date: string) => {
-    const pattern = /^(\d{1,4})(-\d{1,2})?(-\d{1,2})?( (BCE|BC|CE|AD))?$/;
-    return pattern.test(date);
 }
 
 export const transformDate = (date: string) => {

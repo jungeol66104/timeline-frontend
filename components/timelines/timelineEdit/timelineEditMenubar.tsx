@@ -3,7 +3,8 @@ import {useSelector} from "react-redux";
 import {selectTimelineType} from "@/store/slices/appearanceSlice";
 import AddEventButton from "@/components/timelines/timelineEdit/addEventButton";
 import SaveTimelineButton from "@/components/timelines/timelineEdit/saveTimelineButton";
-import ResetEditButton from "@/components/common/resetEditButton";
+import ResetEditButton from "@/components/common/edit/resetEditButton";
+import NoteButton from "@/components/common/edit/noteButton";
 
 const TimelineEditMenubar = () => {
     const timelineType = useSelector(selectTimelineType)
@@ -14,6 +15,7 @@ const TimelineEditMenubar = () => {
             <AddEventButton />
             <div className={'flex gap-3'}>
                 <ResetEditButton />
+                {timelineType !== 'demo' && <NoteButton/>}
                 <SaveTimelineButton />
             </div>
         </div>

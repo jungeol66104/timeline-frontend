@@ -7,7 +7,7 @@ import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/sl
 import NewMenubar from "@/components/modals/eventModal/eventNew/newMenubar";
 import TimelineModalImage from "@/components/modals/timelineModal/timelineModalImage";
 
-const InformationNew = () => {
+const TimelineModalNew = () => {
     const dispatch = useDispatch()
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
 
@@ -33,4 +33,4 @@ const InformationNew = () => {
         </div>
     )
 }
-export default InformationNew
+export default TimelineModalNew

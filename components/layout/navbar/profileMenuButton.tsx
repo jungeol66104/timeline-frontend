@@ -12,6 +12,7 @@ import {selectSession} from "@/store/slices/privateSlice";
 const ProfileMenuButton = () => {
     const profileMenuButtonRef = useRef<HTMLButtonElement>(null)
     const [isToggle, setIsToggle] = useState(false)
+
     const session = useSelector(selectSession)
 
     const handleClick = (e: React.MouseEvent) => {

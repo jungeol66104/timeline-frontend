@@ -3,7 +3,7 @@ import Image from "next/image";
 import {useSelector} from "react-redux";
 import {selectModalContentType} from "@/store/slices/appearanceSlice";
 import {getIsBaseImage} from "@/utils/global";
-import ImageEditButtons from "@/components/common/ImageEditButtons";
+import ImageEditButtons from "@/components/common/edit/ImageEditButtons";
 
 const EventModalImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize: any}) => {
     const modalContentType = useSelector(selectModalContentType)

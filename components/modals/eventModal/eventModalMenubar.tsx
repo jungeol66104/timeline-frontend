@@ -1,25 +1,35 @@
 import React from "react";
 import {useSelector} from "react-redux";
 import {selectSession} from "@/store/slices/privateSlice";
-import {selectModalContentType, selectTimelineContentType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectModalContentType, selectModalType, selectTimelineContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import NicknameButton from "@/components/common/nicknameButton";
 import ContributorsButton from "@/components/common/contributorsButton";
-import EventModalContentTypeButton from "@/components/modals/eventModal/eventModalContentTypeButton";
+import MoreButton from "@/components/common/more/moreButton";
+import EventViewEditButton from "@/components/modals/eventModal/eventViewEditButton";
+import TemporaryHistoryButton from "@/components/common/temporaryHistoryButton";
 
 const EventModalMenubar = () => {
     const session = useSelector(selectSession)
     const timelineContentType = useSelector(selectTimelineContentType);
     const modalContentType = useSelector(selectModalContentType)
+    const timelineType = useSelector(selectTimelineType);
+    const demoKeyConcept = useSelector(selectDemoKeyConcept)
 
     return (
         <div className={'mt-3 w-full flex justify-between z-10'}>
             <div className={'w-full flex gap-3'}>
-                {modalContentType === 'new' || timelineContentType === 'new'
-                    ?   <NicknameButton name={session.nickName || 'Nickname'}/>
-                    :   <ContributorsButton/>
+                {timelineContentType === 'new' || timelineType === 'private' || (timelineType === 'demo' && demoKeyConcept === 'private')
+                    ? <NicknameButton name={session.nickName || 'Nickname'}/>
+                    : <ContributorsButton/>
                 }
             </div>
-            {modalContentType !== 'new' && <EventModalContentTypeButton/>}
+            {modalContentType !== 'new' &&
+                <div className={'flex gap-3'}>
+                    <EventViewEditButton />
+                    {/*{timelineType === 'public' && <MoreButton/>}*/}
+                    {timelineType === 'public' && <TemporaryHistoryButton />}
+                </div>
+            }
         </div>
     );
 };

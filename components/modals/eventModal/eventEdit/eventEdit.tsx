@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
-import EditMenubar from "@/components/modals/eventModal/eventEdit/editMenubar";
+import EventEditMenubar from "@/components/modals/eventModal/eventEdit/eventEditMenubar";
 import EventModalImage from "@/components/modals/eventModal/eventView/eventModalImage";
 
 const EventEdit = () => {
@@ -23,7 +23,7 @@ const EventEdit = () => {
 
     return (
         <div>
-            <EditMenubar editor={editor} src={'https://cdn.timeline.vg/base-image.png'}/>
+            <EventEditMenubar editor={editor} src={'https://cdn.timeline.vg/base-image.png'}/>
             <hr/>
             <div className={'w-full flex flex-col items-center gap-3'}>
                 <EventModalImage src={currentEventDraft.image || 'https://cdn.timeline.vg/base-image.png'} alt={currentEventDraft.name} imageSize={currentEventDraft.imageSize}/>
