@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import TimelineModalImage from "@/components/modals/timelineModal/timelineModalImage";
+import TimelineModalImage from "@/components/modals/timelineModal/timelineModalView/timelineModalImage";
 
 const TimelineModalView = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)

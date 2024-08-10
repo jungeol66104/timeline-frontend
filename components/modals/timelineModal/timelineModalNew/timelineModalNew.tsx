@@ -4,8 +4,9 @@ import {useEditor, EditorContent} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from "@tiptap/extension-placeholder";
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
-import NewMenubar from "@/components/modals/eventModal/eventNew/newMenubar";
-import TimelineModalImage from "@/components/modals/timelineModal/timelineModalImage";
+import EventModalNewMenubar from "@/components/modals/eventModal/eventNew/eventModalNewMenubar";
+import TimelineModalImage from "@/components/modals/timelineModal/timelineModalView/timelineModalImage";
+import TimelineModalNewMenubar from "@/components/modals/timelineModal/timelineModalNew/timelineModalNewMenubar";
 
 const TimelineModalNew = () => {
     const dispatch = useDispatch()
@@ -24,7 +25,7 @@ const TimelineModalNew = () => {
 
     return (
         <div>
-            <NewMenubar editor={editor} src={currentTimelineDraft.image}/>
+            <TimelineModalNewMenubar editor={editor} src={currentTimelineDraft.image}/>
             <hr/>
             <div className={'flex flex-col items-center gap-3'}>
                 <TimelineModalImage src={currentTimelineDraft.image} alt={currentTimelineDraft.name} imageSize={currentTimelineDraft.imageSize}/>

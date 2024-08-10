@@ -3,9 +3,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEditor, EditorContent} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
-import TimelineModalImage from "@/components/modals/timelineModal/timelineModalImage";
+import TimelineModalImage from "@/components/modals/timelineModal/timelineModalView/timelineModalImage";
 import Placeholder from "@tiptap/extension-placeholder";
-import TimelineModalEditMenubar from "@/components/modals/timelineModal/timelineModalEditMenubar";
+import TimelineModalEditMenubar from "@/components/modals/timelineModal/timelineModalEdit/timelineModalEditMenubar";
 
 const TimelineModalEdit = () => {
     const dispatch = useDispatch()

@@ -1,20 +1,20 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectModalContentType} from "@/store/slices/appearanceSlice";
-import EventView from "@/components/modals/eventModal/eventView/eventView";
-import EventEdit from "@/components/modals/eventModal/eventEdit/eventEdit";
+import EventModalView from "@/components/modals/eventModal/eventView/eventModalView";
+import EventModalEdit from "@/components/modals/eventModal/eventEdit/eventModalEdit";
 import EventHistory from "@/components/modals/eventModal/eventHistory/eventHistory";
-import EventNew from "@/components/modals/eventModal/eventNew/eventNew";
+import EventModalNew from "@/components/modals/eventModal/eventNew/eventModalNew";
 
 const EventModalBody = () => {
-    const contentType = useSelector(selectModalContentType)
+    const modalContentType = useSelector(selectModalContentType)
 
     return (
         <div>
-            {contentType === 'view' && <EventView />}
-            {contentType === 'edit' && <EventEdit />}
-            {contentType === 'history' && <EventHistory />}
-            {contentType === 'new' && <EventNew />}
+            {modalContentType === 'view' && <EventModalView />}
+            {modalContentType === 'edit' && <EventModalEdit />}
+            {modalContentType === 'history' && <EventHistory />}
+            {modalContentType === 'new' && <EventModalNew />}
         </div>
     );
 };

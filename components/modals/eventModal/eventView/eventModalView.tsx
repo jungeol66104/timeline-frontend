@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
 import EventModalImage from "@/components/modals/eventModal/eventView/eventModalImage";
 
-const EventView = () => {
+const EventModalView = () => {
     const currentEvent = useSelector(selectCurrentEvent)
 
     return (
@@ -16,4 +16,4 @@ const EventView = () => {
         </div>
     )
 }
-export default EventView
+export default EventModalView

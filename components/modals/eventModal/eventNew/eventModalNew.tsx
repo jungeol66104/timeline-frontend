@@ -4,10 +4,10 @@ import StarterKit from '@tiptap/starter-kit'
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import EventModalImage from "@/components/modals/eventModal/eventView/eventModalImage";
-import NewMenubar from "@/components/modals/eventModal/eventNew/newMenubar";
+import EventModalNewMenubar from "@/components/modals/eventModal/eventNew/eventModalNewMenubar";
 import Placeholder from "@tiptap/extension-placeholder";
 
-const EventNew = () => {
+const EventModalNew = () => {
     const dispatch = useDispatch()
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
@@ -24,7 +24,7 @@ const EventNew = () => {
 
     return (
         <div>
-            <NewMenubar editor={editor} src={currentEventDraft.image || 'https://cdn.timeline.vg/base-image.png'}/>
+            <EventModalNewMenubar editor={editor} src={currentEventDraft.image || 'https://cdn.timeline.vg/base-image.png'}/>
             <hr/>
             <div className={'w-full flex flex-col items-center gap-3'}>
                 <EventModalImage src={currentEventDraft.image || 'https://cdn.timeline.vg/base-image.png'} alt={currentEventDraft.name} imageSize={currentEventDraft.imageSize}/>
@@ -33,4 +33,4 @@ const EventNew = () => {
         </div>
     )
 }
-export default EventNew
+export default EventModalNew
