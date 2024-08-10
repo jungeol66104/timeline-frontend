@@ -6,7 +6,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 // @ts-ignore
 import { Spice } from "timecraftjs";
-import {transformDate, validateDate} from "@/utils/global";
+import {transformDateTest} from "@/utils/global";
 import GuideButton from "@/components/common/guideButton";
 
 const EventDateEdit = () => {
@@ -34,22 +34,16 @@ const EventDateEdit = () => {
             }
         },
         onUpdate: ({ editor }) => {
-            const allowedCharacters = /^(?:[0-9\s-]|BCE)*$/;
+            const allowedCharacters = /^(?:[0-9\s-:]|BCE)*$/;
             let content = editor.getText();
 
             if (allowedCharacters.test(content)) {
-                if (validateDate(content)) {
-                    try {
-                        console.log(transformDate(content))
-                        const ephemerisTime = spiceInstance.str2et(transformDate(content));
-                        dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content, ephemerisTime: ephemerisTime}));
-                        setSpiceError(false);
-
-                    } catch {
-                        dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content }));
-                        setSpiceError(true);
-                    }
-                } else {
+                try {
+                    const ephemerisTime = spiceInstance.str2et(transformDateTest(content));
+                    console.log(ephemerisTime)
+                    dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content, ephemerisTime: ephemerisTime}));
+                    setSpiceError(false);
+                } catch {
                     dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content }));
                     setSpiceError(true);
                 }

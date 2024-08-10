@@ -13,7 +13,7 @@ const TimelineView = () => {
         <div>
             <hr className={'mt-3 mx-4'}/>
             <TimelineContent/>
-            <hr className={`mx-4 ${timelineType === 'demo' && 'hidden'}`}/>
+            <hr className={`mx-4 ${(timelineType === 'demo' || timelineType === 'private') && 'hidden'}`}/>
             <RelatedTimelines/>
             <hr className={'mx-4'}/>
             <Timeline/>

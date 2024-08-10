@@ -6,10 +6,13 @@ import SignInAndOutButton from "@/components/layout/navbar/menu/signInAndOutButt
 import CreateTimelineButton from "@/components/layout/navbar/menu/createTimelineButton";
 import ProfileButton from "@/components/layout/navbar/menu/profileButton";
 import AboutButton from "@/components/layout/navbar/menu/aboutButton";
+import {useSelector} from "react-redux";
+import {selectSession} from "@/store/slices/privateSlice";
 
 const ProfileMenuButton = () => {
     const profileMenuButtonRef = useRef<HTMLButtonElement>(null)
     const [isToggle, setIsToggle] = useState(false)
+    const session = useSelector(selectSession)
 
     const handleClick = (e: React.MouseEvent) => {
         const profileMenuButton = profileMenuButtonRef.current
@@ -29,7 +32,10 @@ const ProfileMenuButton = () => {
         <div className={'relative mr-4'}>
             <button ref={profileMenuButtonRef} onClick={handleClick} className={`pl-2.5 pr-1.5 h-[40px] flex justify-center items-center gap-2 rounded-full border-[1px] border-gray-300 hover:shadow-md`}>
                 <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xe5d2;</div>
-                <div className={'relative h-[28px] w-[28px]'}><Image className={'border-[0.1px] border-gray-300 rounded-full'} src={'/images/profileTest.jpg'} alt={'profile'} fill priority/></div>
+                {session.nickName
+                    ? <div className={'w-[28px] h-[28px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[0.1px] border-gray-300 shrink-0'}>{session.nickName.slice(0, 2).toUpperCase()}</div>
+                    : <div className={'relative h-[28px] w-[28px]'}><Image className={'border-[0.1px] border-gray-300 rounded-full'} src={'/images/profileTest.jpg'} alt={'profile'} fill priority/></div>
+                }
             </button>
             {isToggle &&
                 <div className={'absolute top-[42px] right-0 px-1.5 py-1 w-[230px] bg-white border-[1px] rounded-2xl shadow-md'}>

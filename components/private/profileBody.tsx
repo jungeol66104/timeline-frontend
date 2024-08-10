@@ -2,6 +2,7 @@ import React from 'react';
 import ProfileContributions from "@/components/private/profileContributions";
 import {useDispatch, useSelector} from "react-redux";
 import {selectProfileType, updateProfileType} from "@/store/slices/privateSlice";
+import ProfileMyTimelines from "@/components/private/profileMyTimelines";
 
 const ProfileBody = () => {
     const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const ProfileBody = () => {
                 <button onClick={() => dispatch(updateProfileType('contributions'))} className={`h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] ${profileType === 'contributions' ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}>Contributions</button>
             </div>
             <hr/>
-            {profileType === 'timelines' && <></>}
+            {profileType === 'timelines' && <ProfileMyTimelines />}
             {profileType === 'contributions' && <ProfileContributions/>}
         </div>
     );

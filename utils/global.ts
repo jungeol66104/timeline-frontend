@@ -114,5 +114,37 @@ export const transformDate = (date: string) => {
     if (dateParts.length > 1) month = dateParts[1].padStart(2, '0');
     if (dateParts.length > 2) day = dateParts[2].padStart(2, '0');
 
-    return `${year} ${era} ${month}-${day} 00:00`;
+    return `${year} ${era} ${month}-${day} 00:00:00`;
+}
+
+export const transformDateTest = (date: string) => {
+    let parts = date.split(' ');
+    if (parts.length > 3) parts = parts.slice(0, 3)
+    const era = parts.findIndex(part => part === 'BCE') !== -1 ? 'BC' : 'AD'
+    if (era === 'BC') parts.filter(part => part !== 'BCE')
+
+    const datePart = parts[0];
+    const dateParts = datePart.split('-')
+    const year = dateParts[0]
+    const month = dateParts[1] || '01'
+    const day = dateParts[2] || '01'
+
+    let hour = '00'
+    let minute = '00'
+    let second = '00'
+    if (parts.length === 2) {
+        const timePart = parts[1];
+        const timeParts = timePart.split(':')
+        hour = timeParts[0]
+        minute = timeParts[1] || minute
+        second = timeParts[2] || second
+    }
+
+    return `${year} ${era} ${month}-${day} ${hour}:${minute}:${second}`;
+}
+
+export const getIsTimelinePath = (path: string) => {
+    const timelineRegex = /^\/timelines\/[^\/]+$/;
+    const privateTimelineRegex = /^\/[^\/]+\/timelines\/[^\/]+$/;
+    return timelineRegex.test(path) || privateTimelineRegex.test(path);
 }

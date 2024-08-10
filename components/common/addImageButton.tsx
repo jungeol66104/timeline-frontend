@@ -38,7 +38,7 @@ const AddImageButton = ({src}: {src: string}) => {
     }
 
     return (
-        <label className={`${!isBaseImage && 'invisible'} cursor-pointer px-2 flex items-center justify-center h-[36px] bg-white hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md ${modalType === 'none' && 'opacity-70'}`}>
+        <label className={`${!isBaseImage && 'invisible'} cursor-pointer px-2 flex items-center justify-center w-fit h-[36px] bg-white hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md ${modalType === 'none' && 'opacity-70'}`}>
             <div className={'material-symbols-outlined text-[22px]'}>&#xe43e;</div>
             <input className={'hidden'} type={'file'} accept={'image/*'} onChange={handleChange} />
         </label>

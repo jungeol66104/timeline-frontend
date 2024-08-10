@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
 import {selectTimelineContentType, updateShowTimelineNameBar} from "@/store/slices/appearanceSlice";
+import {getIsTimelinePath} from "@/utils/global";
 
 const useTimelineNameBar = () => {
     const router = useRouter();
@@ -9,7 +10,8 @@ const useTimelineNameBar = () => {
     const timelineContentType = useSelector(selectTimelineContentType)
 
     useEffect(() => {
-        if (!router.pathname.startsWith('/timelines')) return
+        if (!getIsTimelinePath(router.pathname)) return
+        console.log(getIsTimelinePath(router.pathname))
 
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {

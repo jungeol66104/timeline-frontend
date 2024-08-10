@@ -17,8 +17,8 @@ const ComputerSearchBar = () => {
 
     const handleClick = (e: React.MouseEvent) => {
         const searchBody = searchBodyRef.current
-        const searchInput = searchInputRef.current
-        if (!searchBody || !searchInput) return
+        // const searchInput = searchInputRef.current
+        if (!searchBody) return
         e.stopPropagation()
         dispatch(updateIsSearch(true))
 

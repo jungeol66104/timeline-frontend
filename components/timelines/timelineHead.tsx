@@ -17,7 +17,7 @@ const TimelineHead = () => {
     return (
         <div className={'z-50 pt-4 px-4'}>
             <div className={'relative'}>
-                {timelineContentType === 'new'
+                {timelineContentType === 'new' || (timelineType === 'private' && timelineContentType === 'edit')
                     ?   <TimelineNameEdit />
                     :   <h1 className={`timelineInformationName w-fit flex items-center gap-2`}>
                             <span className={'text-2xl font-bold'}>{currentTimeline.name}</span>
