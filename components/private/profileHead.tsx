@@ -18,7 +18,7 @@ const ProfileHead = () => {
     return (
         <div className={`pt-6 pb-4 w-fit h-full flex gap-5`}>
             <div className={'w-[104px] h-[104px] flex items-center justify-center rounded-full bg-gray-100 border-[1px] border-gray-300 shrink-0'}>
-                <div className={''}><AddImageButton src={'https://cdn.timeline.vg/base-image.png'} /></div>
+                <div className={''}><AddImageButton /></div>
             </div>
             <div className={'min-h-[104px] flex flex-col justify-center'}>
                 {isSession && session.nickName === query
