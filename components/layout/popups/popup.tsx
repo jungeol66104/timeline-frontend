@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ClosePopupButton from "@/components/layout/closePopupButton";
+import ClosePopupButton from "@/components/layout/popups/closePopupButton";
 import {useDispatch} from "react-redux";
 import {updateIsPopup} from "@/store/slices/appearanceSlice";
 
-const PopUp = ({title, children}: {title: string, children: React.ReactNode}) => {
+const Popup = ({title, children}: {title: string, children: React.ReactNode}) => {
     const dispatch = useDispatch();
 
     const portal = typeof window !== 'undefined' ? document.getElementById('portal') : null
@@ -25,4 +25,4 @@ const PopUp = ({title, children}: {title: string, children: React.ReactNode}) =>
     );
 };
 
-export default PopUp;
+export default Popup;
