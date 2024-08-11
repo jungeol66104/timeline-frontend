@@ -12,6 +12,7 @@ const CreateEventButton = () => {
         // send currentEventDraft to db and get id
         // get event and update currentEvent & currentEvents
         dispatch(updateCurrentEvent(currentEventDraft));
+        dispatch(updateCurrentEvents([...currentEventsDraft, currentEventDraft]))
         dispatch(updateCurrentEventsDraft([...currentEventsDraft, currentEventDraft]))
         // update contentType to view
         dispatch(updateModalContentType('view'))
