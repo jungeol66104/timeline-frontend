@@ -24,7 +24,6 @@ const TimelineModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
             </div>
             <div className={'flex gap-3'}>
                 <ResetEditButton />
-                {timelineType !== 'demo' && <NoteButton/>}
                 <SaveTimelineButton />
             </div>
         </div>
