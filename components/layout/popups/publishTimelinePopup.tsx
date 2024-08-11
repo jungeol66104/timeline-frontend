@@ -1,7 +1,11 @@
 import React from 'react';
 import Popup from "@/components/layout/popups/popup";
+import {useDispatch} from "react-redux";
+import {updateIsPopup} from "@/store/slices/appearanceSlice";
 
 const PublishTimelinePopup = () => {
+    const dispatch = useDispatch()
+
     return (
         <Popup title={'Publish Timeline'}>
             <div className={'flex flex-col gap-5 font-medium'}>
@@ -17,7 +21,7 @@ const PublishTimelinePopup = () => {
                         <input type={'checkbox'} />
                         <span className={'text-sm'}>Also Create this timeline private.</span>
                     </label>
-                    <button className={`w-full h-[36px] text-center text-sm font-medium text-white border-[0.1px] border-gray-300 bg-black drop-shadow-sm rounded-md`}>Publish</button>
+                    <button onClick={() => dispatch(updateIsPopup(false))} className={`w-full h-[36px] text-center text-sm font-medium text-white border-[0.1px] border-gray-300 bg-black drop-shadow-sm rounded-md`}>Publish</button>
                 </div>
             </div>
         </Popup>
