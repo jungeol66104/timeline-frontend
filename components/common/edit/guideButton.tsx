@@ -1,5 +1,5 @@
 import React from 'react';
-import Popup from "@/components/layout/popup";
+import PopUp from "@/components/layout/popUp";
 import {useDispatch, useSelector} from "react-redux";
 import {selectIsPopup, updateIsPopup} from "@/store/slices/appearanceSlice";
 
@@ -14,7 +14,7 @@ const GuideButton = ({type}: {type: string}) => {
                 <span className={'mt-[1px] text-[10px]'}>Guide</span>
             </button>
             {isPopup &&
-                <Popup title={'Guide'}>
+                <PopUp title={'Guide'}>
                     <div className={'flex flex-col gap-5 font-medium'}>
                         <h1 className={'text-2xl font-bold'}>Date Format</h1>
                         <p>
@@ -104,7 +104,7 @@ const GuideButton = ({type}: {type: string}) => {
                             </table>
                         </div>
                     </div>
-                </Popup>
+                </PopUp>
             }
         </>
     );
