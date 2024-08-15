@@ -16,7 +16,7 @@ const TermsPage = () => {
                     </div>
                     <div className={'flex flex-col gap-8'}>
                         <p>Thank you for using Timeline!</p>
-                        <p>By accessing or using Timeline, you acknowledge that you have read, understood, and agree to be bound by these Terms of Use. If you do not agree to these Terms, please do not use our services.</p>
+                        <p>By accessing or using Timeline, you acknowledge that you have read, understood, and agree to be bound by these Terms of use. If you do not agree to these Terms, please do not use our services.</p>
                     </div>
 
                     {/* Who we are */}
@@ -37,10 +37,8 @@ const TermsPage = () => {
                         <div className={'flex flex-col gap-8'}>
                             <h3 className={'text-2xl font-semibold'}>What you can do</h3>
                             <ul className={'px-4 flex flex-col gap-2 list-disc'}>
-                                <li>Use our services under compliance of this Terms of Use.</li>
-                                <li>Give <Link href={'https://docs.google.com/forms/d/e/1FAIpQLScN4ooRXZylBgKtElHSJi7m739iHHSMNg4QfbAcDx0v0OjwnA/viewform?usp=sf_link'} target="_blank"
-                                               className={'text-blue-700 hover:underline'}>Feedback</Link> and you agree that we may use it without restriction or compensation to you.
-                                </li>
+                                <li>Use our services under compliance of this Terms of use.</li>
+                                <li>Give <Link href={'https://docs.google.com/forms/d/e/1FAIpQLScN4ooRXZylBgKtElHSJi7m739iHHSMNg4QfbAcDx0v0OjwnA/viewform?usp=sf_link'} target="_blank" className={'text-blue-700 hover:underline'}>Feedback</Link> and you agree that we may use it without restriction or compensation to you.</li>
                                 <li>Contact us at <Link href={'mailto:project.yaha@gmail.com'} className={'text-blue-700 hover:underline'}>project.yaha@gmail.com</Link> for any questions or help.</li>
                             </ul>
                         </div>
@@ -105,7 +103,7 @@ const TermsPage = () => {
                             <p>You are responsible for ensuring that your content does not violate any laws or the rights of others.</p>
                         </div>
                         <div className={'flex flex-col gap-8'}>
-                            <h3 className={'text-2xl font-semibold'}>Copyright Complaints</h3>
+                            <h3 className={'text-2xl font-semibold'}>Copyright complaints</h3>
                             <p>If you believe that any content on Timeline infringes your copyright or intellectual property rights, please notify us by sending a written notice to <Link href={'mailto:project.yaha@gmail.com'} className={'text-blue-700 hover:underline'}>project.yaha@gmail.com</Link>.</p>
                             <p>Your notice should include the following information.</p>
                             <ul className={'px-4 flex flex-col gap-2 list-disc'}>
@@ -126,7 +124,7 @@ const TermsPage = () => {
                         <div className={'flex flex-col gap-8'}>
                             <h3 className={'text-2xl font-semibold'}>Change of terms</h3>
                             <p>
-                                We may update these Terms of Use from time to time.
+                                We may update these Terms of use from time to time.
                                 Any changes will be effective immediately upon posting the revised terms on our website.
                             </p>
                             <p>
@@ -135,7 +133,7 @@ const TermsPage = () => {
                             </p>
                         </div>
                         <div className={'flex flex-col gap-8'}>
-                            <h3 className={'text-2xl font-semibold'}>Limitation of Liability</h3>
+                            <h3 className={'text-2xl font-semibold'}>Limitation of liability</h3>
                             <p>
                                 TIMELINE IS PROVIDED &apos;AS IS&apos; AND &apos;AS AVAILABLE&apos;.
                                 WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
@@ -145,7 +143,7 @@ const TermsPage = () => {
                             </p>
                         </div>
                         <div className={'flex flex-col gap-8'}>
-                            <h3 className={'text-2xl font-semibold'}>Dispute Resolution</h3>
+                            <h3 className={'text-2xl font-semibold'}>Dispute resolution</h3>
                             <p>
                                 If you have any issues or disputes related to Timeline, we ask that you contact us first to attempt to resolve the matter informally.
                                 To do this, you must send a written notice detailing the nature of the dispute, your contact information, and the resolution you seek.
@@ -154,39 +152,35 @@ const TermsPage = () => {
                                 This notice should be sent via email to <Link href={'mailto:project.yaha@gmail.com'} className={'text-blue-700 hover:underline'}>project.yaha@gmail.com</Link>.
                                 We will acknowledge receipt of your notice within seven business days and will make every effort to resolve the issue within 30 days.
                             </p>
-                            <p>
-                                If we are unable to reach a resolution through informal discussion, any unresolved disputes will be settled through binding arbitration, unless you and we agree
-                                otherwise.
-                            </p>
+                            <p>If we are unable to reach a resolution through informal discussion, any unresolved disputes will be settled through binding arbitration, unless you and we agree otherwise.</p>
                             <p>
                                 Arbitration will be conducted by a mutually agreed-upon organization, and the decision will be final.
                                 You agree to waive any right to a jury trial or to participate in a class action.
                             </p>
                         </div>
                         <div className={'flex flex-col gap-8'}>
-                            <h3 className={'text-2xl font-semibold'}>Governing Law</h3>
-                            <p>These Terms of Use and any disputes arising out of or related to them or your use of Timeline will be governed by and construed in accordance with the laws of the
-                                Republic of Korea, without regard to its conflict of law principles.</p>
-                            <p>Any legal actions or proceedings related to these Terms will be brought exclusively in the courts located in Seoul, South Korea, and you consent to the jurisdiction of
-                                such courts.</p>
+                            <h3 className={'text-2xl font-semibold'}>Governing law</h3>
+                            <p>These Terms of use and any disputes arising out of or related to them or your use of Timeline will be governed by and construed in accordance with the laws of the Republic of Korea, without regard to its conflict of law principles.</p>
+                            <p>Any legal actions or proceedings related to these Terms will be brought exclusively in the courts located in Seoul, South Korea, and you consent to the jurisdiction of such courts.</p>
                         </div>
                         <div className={'flex flex-col gap-8'}>
-                            <h3 className={'text-2xl font-semibold'}>Entire Agreement</h3>
-                            <p>These Terms of Use, along with our Privacy Policy, constitute the entire agreement between you and Timeline regarding your use of our services and supersede any prior agreements or understandings.</p>
+                            <h3 className={'text-2xl font-semibold'}>Entire agreement</h3>
+                            <p>These Terms of use, along with our Privacy Policy, constitute the entire agreement between you and Timeline regarding your use of our services and supersede any prior agreements or understandings.</p>
                         </div>
                     </div>
                 </div>
+
                 {/* Section Secondary */}
                 <div className={'relative ml-[20px] max-[872px]:ml-0 p-4 max-[852px]:py-0 w-full min-w-[332px] max-w-[352px] max-[852px]:hidden'}>
-                    <div className={'sticky top-[76px] p-3 flex flex-col gap-3 bg-[#F2F2F259] border-[1px] border-[#E5E7EB] rounded-2xl'}>
-                        <h3 className={'text-[20px] font-bold'}>Terms of use</h3>
-                        <div className={'flex flex-col gap-2'}>
-                            <div><div className={'font-bold line-clamp-1'}>Who we are</div></div>
-                            <div><div className={'line-clamp-1'}>Using our services</div></div>
-                            <div><div className={'line-clamp-1'}>Content of the services</div></div>
-                            <div><div className={'line-clamp-1'}>General</div></div>
-                        </div>
-                    </div>
+                    {/*<div className={'sticky top-[76px] p-3 flex flex-col gap-3 bg-[#F2F2F259] border-[1px] border-[#E5E7EB] rounded-2xl'}>*/}
+                    {/*    <h3 className={'text-[20px] font-bold'}>Terms of use</h3>*/}
+                    {/*    <div className={'flex flex-col gap-2'}>*/}
+                    {/*        <div><div className={'font-bold line-clamp-1'}>Who we are</div></div>*/}
+                    {/*        <div><div className={'line-clamp-1'}>Using our services</div></div>*/}
+                    {/*        <div><div className={'line-clamp-1'}>Content of the services</div></div>*/}
+                    {/*        <div><div className={'line-clamp-1'}>General</div></div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </div>

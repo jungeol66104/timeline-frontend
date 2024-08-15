@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import {selectShowTimelineNameBar, selectTimelineContentType} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimeline, selectCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 
-const TimelineNameBar = () => {
+const TimelineTitleBar = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
     const timelineContentType = useSelector(selectTimelineContentType)
@@ -21,4 +21,4 @@ const TimelineNameBar = () => {
     );
 };
 
-export default TimelineNameBar;
+export default TimelineTitleBar;

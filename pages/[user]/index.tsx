@@ -9,6 +9,9 @@ import {updateCurrentPage, updateIsBottomEnd, updateTagNum, updateTimelineType, 
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params}) => {
     try {
+        const user = params?.user
+        if (user && typeof user === 'string' && !user.startsWith('@')) return { notFound: true }
+
         const response = await api.get(`/timeline/tags/1?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
         const data = response.data.data
         store.dispatch(updateCurrentTimelines(data.timelineList))

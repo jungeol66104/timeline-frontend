@@ -6,7 +6,6 @@ import {updateCurrentPage, updateIs404, updateIsBottomEnd, updateIsSummary, upda
 import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
-import AdsTimelineTop from "@/components/ads/adsTimelineTop";
 
 export const getStaticPaths = async () => {
     return {paths: [], fallback: 'blocking'}

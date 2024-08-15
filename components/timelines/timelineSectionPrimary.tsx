@@ -15,6 +15,7 @@ const TimelineSectionPrimary = () => {
             {timelineContentType === 'view' && <TimelineView />}
             {timelineContentType === 'edit' && <TimelineEdit />}
             {timelineContentType === 'history' && <TimelineHistory />}
+
             {timelineContentType === 'new' && <TimelineNew />}
         </div>
     )

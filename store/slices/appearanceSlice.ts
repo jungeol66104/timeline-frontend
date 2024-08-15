@@ -12,14 +12,14 @@ const initialState = {
     isShare: false,
     isEdit: false,
     isPopup: false,
+    is404: false,
     timelineType: 'public',
     timelineContentType: 'view',
     timelineHistoryType: 'list',
     modalType: 'none',
     modalContentType: 'view',
     modalHistoryType: 'list',
-    demoKeyConcept: 'timeline',
-    is404: false
+    demoKeyConcept: 'timeline'
 } as initialAppearanceState
 
 const appearanceSlice = createSlice({
@@ -119,12 +119,12 @@ export interface initialAppearanceState {
     isPopup: boolean
     is404: boolean
 
-    timelineType: 'public' | 'private' | 'demo'
-    timelineContentType: 'view' | 'history' | 'edit' | 'new' | 'discussion'
+    timelineType: 'public' | 'private' | 'new' | 'demo'
+    timelineContentType: 'view' | 'edit' | 'history' | 'discussion' | 'new'
     timelineHistoryType: 'list' | 'view' | 'diff'
 
     modalType: 'none' | 'share' | 'information' | 'event'
-    modalContentType: 'view' | 'history' | 'edit' | 'new' | 'discussion'
+    modalContentType: 'view' | 'edit'  | 'history' | 'discussion' | 'new'
     modalHistoryType: 'list' | 'view' | 'diff'
 
     demoKeyConcept: 'timeline' | 'event' | 'showMore' | 'private' | 'contributors' | 'edit' | 'keynote'

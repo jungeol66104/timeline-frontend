@@ -1,11 +1,11 @@
 import React from "react";
-import TimelineNameBar from "@/components/layout/navbar/timelineNameBar";
+import TimelineTitleBar from "@/components/layout/navbar/timelineTitleBar";
 import Link from "next/link";
 import ComputerSearchBar from "@/components/layout/search/ComputerSearchBar";
 import SearchButton from "@/components/layout/navbar/searchButton";
 import TagBar from "@/components/layout/navbar/tagBar";
 import ProfileMenuButton from "@/components/layout/navbar/profileMenuButton";
-import CreateTimelineButton from "@/components/layout/navbar/menu/createTimelineButton";
+import CreateTimelineButton from "@/components/layout/menu/createTimelineButton";
 
 const Navbar = ({isLoading} : {isLoading: boolean}) => {
     return (
@@ -27,7 +27,7 @@ const Navbar = ({isLoading} : {isLoading: boolean}) => {
                 </div>
             </nav>
             <TagBar />
-            {!isLoading && <TimelineNameBar/>}
+            {!isLoading && <TimelineTitleBar/>}
         </>
     )
 }

@@ -10,32 +10,32 @@ import AddImageButton from "@/components/common/edit/addImageButton";
 
 const ProfileHead = () => {
     const router = useRouter()
-    const query = router.query.user?.slice(1)
+    const query = router.query.user?.slice(1) as string
     const session = useSelector(selectSession)
     const isSession = useSelector(selectIsSession)
     const isEdit = useSelector(selectIsEdit)
 
     return (
         <div className={`pt-6 pb-4 w-fit h-full flex gap-5`}>
-            <div className={'w-[104px] h-[104px] flex items-center justify-center rounded-full bg-gray-100 border-[1px] border-gray-300 shrink-0'}>
-                <div className={''}><AddImageButton /></div>
-            </div>
+            {isSession && session.nickName === query
+                ? <div className={'w-[104px] h-[104px] flex items-center justify-center rounded-full bg-gray-100 border-[1px] border-gray-300 shrink-0'}><AddImageButton/></div>
+                : <div className={'w-[104px] h-[104px] flex items-center justify-center rounded-full bg-gray-600 text-white text-5xl font-medium border-[1px] border-gray-300 shrink-0'}>{query.slice(0, 2).toUpperCase()}</div>
+            }
             <div className={'min-h-[104px] flex flex-col justify-center'}>
                 {isSession && session.nickName === query
-                    ?   <div className={'flex flex-col gap-3'}>
-                            <div>
-                                <div className={'text-[20px] font-bold'}>{session.nickName}</div>
-                                <div>{session.email}</div>
+                    ? <div className={'flex items-center justify-center'}>
+                        <div className={'text-[20px] font-bold'}>{session.nickName}</div>
+                        {isEdit
+                            ? <div className={'flex gap-3 max-[852px]:flex-col'}>
+                                <ProfileSaveButton/>
+                                <DeleteAccountButton/>
                             </div>
-                            {isEdit
-                                ?   <div className={'flex gap-3 max-[852px]:flex-col'}>
-                                        <ProfileSaveButton />
-                                        <DeleteAccountButton />
-                                    </div>
-                                :   <ProfileEditButton/>
-                            }
-                        </div>
-                    :   <div><div className={'text-[20px] font-bold'}>{query}</div></div>
+                            : <ProfileEditButton/>
+                        }
+                    </div>
+                    : <div>
+                        <div className={'text-[20px] font-bold'}>{query}</div>
+                    </div>
                 }
             </div>
         </div>

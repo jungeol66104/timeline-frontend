@@ -1,11 +1,11 @@
 import React, {useRef, useState} from 'react';
 import Image from "next/image";
-import ShareButton from "@/components/layout/navbar/menu/shareButton";
-import FeedbackButton from "@/components/layout/navbar/menu/feedbackButton";
-import SignInAndOutButton from "@/components/layout/navbar/menu/signInAndOutButton";
-import CreateTimelineButton from "@/components/layout/navbar/menu/createTimelineButton";
-import ProfileButton from "@/components/layout/navbar/menu/profileButton";
-import AboutButton from "@/components/layout/navbar/menu/aboutButton";
+import ShareButton from "@/components/layout/menu/shareButton";
+import FeedbackButton from "@/components/layout/menu/feedbackButton";
+import SignInAndOutButton from "@/components/layout/menu/signInAndOutButton";
+import CreateTimelineButton from "@/components/layout/menu/createTimelineButton";
+import ProfileButton from "@/components/layout/menu/profileButton";
+import AboutButton from "@/components/layout/menu/aboutButton";
 import {useSelector} from "react-redux";
 import {selectSession} from "@/store/slices/privateSlice";
 
