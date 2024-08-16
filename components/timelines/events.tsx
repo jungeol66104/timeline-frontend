@@ -1,8 +1,8 @@
 import React from 'react';
+import {useSelector} from "react-redux";
 import EventsMenubar from "@/components/timelines/eventsMenubar";
 import EventsPreview from "@/components/timelines/eventsPreview";
 import EventsBottom from "@/components/timelines/eventsBottom";
-import {useSelector} from "react-redux";
 import {selectIsBottomEnd} from "@/store/slices/appearanceSlice";
 
 const Events = () => {

@@ -12,7 +12,7 @@ const Footer = () => {
             <div className={'px-4 py-6 flex flex-col gap-2.5 w-full max-w-[630px]'}>
                 <div className={'text-xs text-[#222222]'}>© 2024 Timeline</div>
                 <hr/>
-                <div className={'flex gap-1 text-[10px] text-[#6A6A6A]'}>
+                <div className={'flex gap-1 flex-wrap text-[10px] text-[#6A6A6A]'}>
                     <Link href={'/policies/terms'} className={'text-blue-700 hover:underline'}>Terms of use</Link>
                     <span>|</span>
                     <Link href={'/policies/privacy'} className={'text-blue-700 hover:underline'}>Privacy</Link>

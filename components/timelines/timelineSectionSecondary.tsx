@@ -13,7 +13,7 @@ const TimelineSectionSecondary = () => {
     const timelineType = useSelector(selectTimelineType)
 
     return (
-        <div className={`${timelineType === 'private' && 'invisible'} relative ml-[20px] max-[872px]:ml-0 p-4 w-full min-w-[332px] max-w-[352px] max-[852px]:max-w-[630px] ${!isBottomEnd && 'max-[852px]:hidden'} flex flex-col gap-4`}>
+        <div className={`${timelineType === 'private' && 'invisible'} ${!isBottomEnd && 'max-[852px]:hidden'} relative ml-[20px] max-[872px]:ml-0 p-3 max-[630px]:pt-0 w-full min-w-[332px] max-w-[352px] max-[852px]:max-w-[630px] flex flex-col gap-4`}>
             <TimelinesList title={'Popular'} timelines={popularTimelines} />
             <AdsTimelineBetweenSecondary />
             <TimelinesList title={'Recently Added'} timelines={recentTimelines} />

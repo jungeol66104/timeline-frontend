@@ -12,7 +12,7 @@ const EventsBottom = () => {
 
     return (
         <div>
-            <div className={'pb-3 text-sm text-center italic'}>End of the Timeline<br/><b>{timeline.name}</b></div>
+            <div className={'pb-3 max-[630px]:pb-0 text-sm text-center italic'}>End of the Timeline<br/><b>{timeline.name}</b></div>
         </div>
     );
 };
