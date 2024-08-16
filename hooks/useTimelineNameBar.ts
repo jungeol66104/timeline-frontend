@@ -6,12 +6,12 @@ import {getIsTimelinePath} from "@/utils/global";
 
 const useTimelineNameBar = () => {
     const router = useRouter();
+
     const dispatch = useDispatch();
     const timelineContentType = useSelector(selectTimelineContentType)
 
     useEffect(() => {
         if (!getIsTimelinePath(router.pathname)) return
-        console.log(getIsTimelinePath(router.pathname))
 
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -21,9 +21,9 @@ const useTimelineNameBar = () => {
             });
         }, {rootMargin: '-60px 0px 0px 0px'});
 
-        const timelineInformationName : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineInformationName') : null
+        const timelineTitle : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineTitle') : null
 
-        if (timelineInformationName) observer.observe(timelineInformationName);
+        if (timelineTitle) observer.observe(timelineTitle);
         else dispatch(updateShowTimelineNameBar(false))
     }, [router.pathname, timelineContentType]);
 };
