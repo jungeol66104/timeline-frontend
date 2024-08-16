@@ -10,7 +10,7 @@ const InformationPreview = () => {
     const demoKeyConcept = useSelector(selectDemoKeyConcept);
 
     return (
-        <div className={'cursor-pointer p-3 hover:bg-gray-100 border-[1px] border-gray-300 rounded-lg'}>
+        <div className={'cursor-pointer p-3 hover:bg-gray-100 border-[1px] border-gray-300 rounded-2xl'}>
             <div className={'flex items-center gap-2'}>
                 <span className={'text-2xl font-bold'}>{currentTimeline.name}</span>
                 {timelineType === 'private' && <span className={`px-1.5 py-1 text-[10px] text-gray-400 font-semibold border-[1px] border-gray-400 rounded-full`}>PRIVATE</span>}
