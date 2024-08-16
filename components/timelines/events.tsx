@@ -9,7 +9,7 @@ const Events = () => {
     const isBottomEnd = useSelector(selectIsBottomEnd)
 
     return (
-        <div className={'p-2 pb-0 flex flex-col gap-3 border-[1px] border-gray-300 rounded-lg'}>
+        <div className={'p-3 pb-0 flex flex-col gap-3 border-[1px] border-gray-300 rounded-lg'}>
             <EventsMenubar />
             <EventsPreview />
             {isBottomEnd && <EventsBottom/>}
