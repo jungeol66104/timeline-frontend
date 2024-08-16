@@ -2,9 +2,9 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {selectDemoKeyConcept, selectTimelineContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
-import TimelineNameEdit from "@/components/timelines/timelineEdit/timelineNameEdit";
-import TimelineDescriptionEdit from "@/components/timelines/timelineEdit/timelineDescriptionEdit";
 import TimelineModalMenubar from "@/components/modals/timelineModal/timelineModalMenubar";
+import TimelineNameEdit from "@/components/modals/timelineModal/timelineModalEdit/timelineNameEdit";
+import TimelineDescriptionEdit from "@/components/modals/timelineModal/timelineModalEdit/timelineDescriptionEdit";
 
 const TimelineModalHead = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)

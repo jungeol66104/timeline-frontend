@@ -23,6 +23,11 @@ export const getScrollWrapper = () => {
     return scrollWrapper
 }
 
+export const getInnerWidth = () => {
+    const innerWidth: number | null = typeof window !== 'undefined' ? window.innerWidth : null
+    return innerWidth
+}
+
 export const getIsBaseImage = (url: string | null | undefined) => {
     if (typeof url !== "string") return true
     return url.includes("https://cdn.timeline.vg/base-image.png")

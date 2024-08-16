@@ -35,7 +35,7 @@ const EventPreview = ({event} : {event: TimelineEvent}) => {
                 <div className={'text-xs font-semibold text-gray-600 line-clamp-1'}>{event.date}</div>
                 <div className={'text-md font-bold'}>{event.name}</div>
                 <div className={'mt-1 flex justify-between gap-1'}>
-                    <EventPreviewImage event={event} />
+                    {!isBaseImage && <EventPreviewImage event={event}/>}
                     <div className={`text-sm whitespace-pre-wrap break-words ${isBaseImage ? 'line-clamp-3' : 'line-clamp-4'}`}>{event.description}</div>
                 </div>
             </div>
