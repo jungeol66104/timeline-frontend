@@ -26,7 +26,7 @@ const EventPreview = ({event} : {event: TimelineEvent}) => {
     }
 
     return (
-        <div className={'relative flex gap-2.5'}>
+        <div className={'relative flex gap-2'}>
             {/* node */}
             <div className='z-10 w-3 h-3 bg-white border-2 border-gray-600 rounded-full shrink-0'></div>
 

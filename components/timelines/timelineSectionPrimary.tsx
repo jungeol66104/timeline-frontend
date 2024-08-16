@@ -5,7 +5,7 @@ import Events from "@/components/timelines/events";
 
 const TimelineSectionPrimary = () => {
     return (
-        <div className={'px-1 py-4 w-full max-w-[630px] min-[852px]:min-w-[500px] flex flex-col gap-3'}>
+        <div className={'px-2 py-3 w-full max-w-[630px] min-[852px]:min-w-[500px] flex flex-col gap-3'}>
             <TimelineMenubar />
             <InformationPreview />
             <RelatedTimelines />
