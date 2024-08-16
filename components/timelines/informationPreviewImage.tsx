@@ -2,6 +2,7 @@ import React from 'react';
 import Image from "next/image";
 import {getIsBaseImage} from "@/utils/global";
 import {Timeline} from "@/store/slices/contentsSlice";
+import AddImageButton from "@/components/common/edit/addImageButton";
 
 const InformationPreviewImage = ({information}: {information: Timeline}) => {
     const src = information.image
@@ -15,8 +16,9 @@ const InformationPreviewImage = ({information}: {information: Timeline}) => {
 
     return (
         <>
-            <div className={`${isBaseImage && 'hidden'} max-[630px]:hidden float-right relative ml-2 h-[108px]`} style={{width: pcWidth}}>
-                <Image className={'rounded-md bg-gray-100'} src={src} alt={alt} fill priority style={{objectFit: "cover", objectPosition: "top"}}/>
+            <div className={`max-[630px]:hidden float-right relative ml-2 h-[108px]`} style={{width: pcWidth}}>
+                {isBaseImage && <div className={'p-1 w-full h-full flex items-start justify-end bg-gray-100 rounded-md border-[1px] border-gray-300'}><AddImageButton /></div>}
+                {!isBaseImage && <Image className={'rounded-md bg-gray-100'} src={src} alt={alt} fill priority style={{objectFit: "cover", objectPosition: "top"}}/>}
             </div>
             <div className={`${isBaseImage && 'hidden'} min-[630px]:hidden float-right relative ml-2 h-[80px]`} style={{width: mobileWidth}}>
                 <Image className={'rounded-md bg-gray-100'} src={src} alt={alt} fill priority style={{objectFit: "cover", objectPosition: "top"}}/>

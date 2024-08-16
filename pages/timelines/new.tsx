@@ -11,10 +11,10 @@ import api from "@/pages/api/api";
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
     try {
         const recentResponse = await api.get(`/timeline/features/1?pageNum=1&pageSize=5`, {headers: {lang: 'en'}})
-        if (recentResponse.data.code === 69999) store.dispatch(updateIs404(true))
+        if (recentResponse.data.code === 69999) return { notFound: true }
         const recentTimelines = recentResponse.data.data.timelineList
         const popularResponse = await api.get(`/timeline/features/2?pageNum=1&pageSize=5`, {headers: {lang: 'en'}})
-        if (popularResponse.data.code === 69999) store.dispatch(updateIs404(true))
+        if (popularResponse.data.code === 69999) return { notFound: true }
         const popularTimelines = popularResponse.data.data.timelineList
         const data: any = {events: [], recentTimelines: recentTimelines, popularTimelines: popularTimelines, timelineInfo: {id: 0, name: "", description: '', content: "", image: 'https://cdn.timeline.vg/base-image.png'},}
         data.timelineInfo.imageSize = await probe(data.timelineInfo.image)

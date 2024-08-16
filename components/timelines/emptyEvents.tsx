@@ -1,7 +1,7 @@
 import React from 'react';
 import AddEventButton from "@/components/timelines/events/addEventButton";
 
-const EmptyTimeline = () => {
+const EmptyEvents = () => {
     return (
         <div className='timeline relative py-10 px-4 w-full flex flex-col items-center justify-center gap-5'>
             <div className={'text-center'}>
@@ -13,4 +13,4 @@ const EmptyTimeline = () => {
     );
 };
 
-export default EmptyTimeline;
+export default EmptyEvents;
