@@ -1,5 +1,5 @@
 import React from 'react';
-import AddEventButton from "@/components/timelines/addEventButton";
+import AddEventButton from "@/components/timelines/events/addEventButton";
 import KeynoteButton from "@/components/timelines/keynoteButton";
 
 const EventsMenubar = () => {

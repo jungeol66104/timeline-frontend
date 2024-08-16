@@ -4,7 +4,7 @@ import api from "@/pages/api/api";
 import {updateModalType} from "@/store/slices/appearanceSlice";
 import {useDispatch} from "react-redux";
 import {getIsBaseImage} from "@/utils/global";
-import EventPreviewImage from "@/components/timelines/eventPreviewImage";
+import EventPreviewImage from "@/components/timelines/events/eventPreviewImage";
 
 const EventPreview = ({event} : {event: TimelineEvent}) => {
     const dispatch = useDispatch();

@@ -8,7 +8,7 @@ const Footer = () => {
     const isHidden = !isBottomEnd
 
     return (
-        <footer className={`${isHidden && 'hidden'} bg-[#F2F2F259] flex flex-col`}>
+        <footer className={`${isHidden && 'hidden'} flex flex-col bg-[#F2F2F259] border-t-[1px] border-[#E5E7EB]`}>
             <div className={'px-4 py-6 flex flex-col gap-2.5 w-full max-w-[630px]'}>
                 <div className={'text-xs text-[#222222]'}>© 2024 Timeline</div>
                 <hr/>

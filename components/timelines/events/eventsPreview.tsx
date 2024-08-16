@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectTimelineType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvents, selectCurrentEventsDraft, TimelineEvent} from "@/store/slices/contentsSlice";
-import EventPreview from "@/components/timelines/eventPreview";
+import EventPreview from "@/components/timelines/events/eventPreview";
 
 const EventsPreview = () => {
     const timelineType = useSelector(selectTimelineType)

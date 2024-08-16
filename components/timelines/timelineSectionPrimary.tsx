@@ -1,7 +1,7 @@
 import TimelineMenubar from "@/components/timelines/timelineMenubar";
 import InformationPreview from "@/components/timelines/informationPreview";
 import RelatedTimelines from "@/components/timelines/relatedTimelines";
-import Events from "@/components/timelines/events";
+import Events from "@/components/timelines/events/events";
 
 const TimelineSectionPrimary = () => {
     return (
