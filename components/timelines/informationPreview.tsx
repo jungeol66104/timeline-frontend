@@ -39,7 +39,15 @@ const InformationPreview = () => {
                 <div className={`min-[630px]:hidden line-clamp-1`}>{timeline.description === '' ? 'New timeline description' : timeline.description}</div>
             </div>
             <div>
-                <div onClick={handleImageClick} onMouseEnter={() => setImageHover(true)} onMouseLeave={() => setImageHover(false)}><InformationPreviewImage information={currentTimeline} /></div>
+                <div
+                    onClick={handleImageClick}
+                    onMouseEnter={() => setImageHover(true)}
+                    onMouseLeave={() => setImageHover(false)}
+                    onTouchStart={() => setImageHover(true)}
+                    onTouchEnd={() => setImageHover(false)}
+                >
+                    <InformationPreviewImage information={currentTimeline} />
+                </div>
                 <div className={'flex flex-col gap-1 max-[630px]:mt-1'}>
                     <div className={`max-[630px]:hidden line-clamp-1`}>{timeline.description === '' ? 'New timeline description' : timeline.description}</div>
                     <div className={'text-sm text-gray-600 line-clamp-4'}>{timeline.content === '' ? 'Click this timeline box to edit the title, description, content and image of the timeline!' : timeline.content}</div>
