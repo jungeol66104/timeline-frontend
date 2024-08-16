@@ -30,7 +30,7 @@ const InformationPreview = () => {
     }
 
     return (
-        <div onClick={handleClick} className={`${!imageHover && 'cursor-pointer hover:bg-gray-100'} p-3 border-[1px] border-gray-300 rounded-2xl`}>
+        <div onClick={handleClick} onTouchStart={() => setImageHover(false)} className={`${!imageHover && 'cursor-pointer hover:bg-gray-100'} p-3 border-[1px] border-gray-300 rounded-2xl`}>
             <div>
                 <div className={'flex items-center gap-2'}>
                     <span className={'text-2xl font-bold'}>{timeline.name === '' ? 'New Timeline' : timeline.name}</span>
@@ -44,7 +44,6 @@ const InformationPreview = () => {
                     onMouseEnter={() => setImageHover(true)}
                     onMouseLeave={() => setImageHover(false)}
                     onTouchStart={() => setImageHover(true)}
-                    onTouchEnd={() => setImageHover(false)}
                 >
                     <InformationPreviewImage information={currentTimeline} />
                 </div>
