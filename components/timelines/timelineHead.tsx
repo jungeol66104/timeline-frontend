@@ -28,7 +28,7 @@ const TimelineHead = () => {
                     ?   <TimelineDescriptionEdit />
                     :   <div className={`w-fit text-md`}>{currentTimeline.description}</div>
                 }
-                <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>{timelineContentType === 'new' ? 'Created:' : 'Last Updated:'} January 14, 2024</div>
+                <div className={'my-1 text-gray-400 text-sm'}>{timelineContentType === 'new' ? 'Created:' : 'Last Updated:'} January 14, 2024</div>
             </div>
             <TimelineMenubar/>
         </div>

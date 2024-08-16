@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectTimelineType} from "@/store/slices/appearanceSlice";
-import AddEventButton from "@/components/timelines/timelineEdit/addEventButton";
+import AddEventButton from "@/components/timelines/addEventButton";
 import SaveTimelineButton from "@/components/timelines/timelineEdit/saveTimelineButton";
 import ResetEditButton from "@/components/common/edit/resetEditButton";
 

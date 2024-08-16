@@ -1,5 +1,5 @@
 import React from 'react';
-import AddEventButton from "@/components/timelines/timelineEdit/addEventButton";
+import AddEventButton from "@/components/timelines/addEventButton";
 import CreateTimelineButton from "@/components/timelines/timelineNew/createTimelineButton";
 
 

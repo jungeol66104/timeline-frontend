@@ -5,18 +5,20 @@ import TimelineView from "@/components/timelines/timelineView/timelineView";
 import TimelineEdit from "@/components/timelines/timelineEdit/timelineEdit";
 import TimelineHistory from "@/components/timelines/timelineHistory/timelineHistory";
 import TimelineNew from "@/components/timelines/timelineNew/timelineNew";
+import TimelineMenubar from "@/components/timelines/timelineMenubar";
+import InformationPreview from "@/components/timelines/informationPreview";
+import Events from "@/components/timelines/events";
+import RelatedTimelines from "@/components/timelines/timelineView/relatedTimelines";
 
 const TimelineSectionPrimary = () => {
     const timelineContentType = useSelector(selectTimelineContentType)
 
     return (
-        <div className={'relative w-full max-w-[630px] min-[852px]:min-w-[500px]'}>
-            <TimelineHead />
-            {timelineContentType === 'view' && <TimelineView />}
-            {timelineContentType === 'edit' && <TimelineEdit />}
-            {timelineContentType === 'history' && <TimelineHistory />}
-
-            {timelineContentType === 'new' && <TimelineNew />}
+        <div className={'p-4 w-full max-w-[630px] min-[852px]:min-w-[500px] flex flex-col gap-3'}>
+            <TimelineMenubar />
+            <InformationPreview />
+            <RelatedTimelines />
+            <Events />
         </div>
     )
 }

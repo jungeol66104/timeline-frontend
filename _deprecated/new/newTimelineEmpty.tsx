@@ -1,4 +1,4 @@
-import AddEventButton from "@/components/timelines/timelineEdit/addEventButton";
+import AddEventButton from "@/components/timelines/addEventButton";
 
 const NewTimelineEmpty = () => {
     return (

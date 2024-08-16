@@ -1,4 +1,4 @@
-import AddEventButton from "@/components/timelines/timelineEdit/addEventButton";
+import AddEventButton from "@/components/timelines/addEventButton";
 import CreateButton from "@/_deprecated/new/createButton";
 
 const NewTimelineEditMenubar = () => {

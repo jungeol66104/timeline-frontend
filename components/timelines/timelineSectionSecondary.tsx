@@ -4,7 +4,7 @@ import {selectIsBottomEnd, selectTimelineType} from "@/store/slices/appearanceSl
 import {selectPopularTimelines, selectRecentTimelines} from "@/store/slices/contentsSlice";
 import AdsTimelineBetweenSecondary from "@/components/ads/adsTimelineBetweenSecondary";
 import AdsTimelineSide from "@/components/ads/adsTimelineSide";
-import TimelineListTemplate from "@/components/timelines/timelineListTemplate";
+import TimelinesList from "@/components/timelines/timelinesList";
 
 const TimelineSectionSecondary = () => {
     const popularTimelines = useSelector(selectPopularTimelines)
@@ -14,9 +14,9 @@ const TimelineSectionSecondary = () => {
 
     return (
         <div className={`${timelineType === 'private' && 'invisible'} relative ml-[20px] max-[872px]:ml-0 p-4 w-full min-w-[332px] max-w-[352px] max-[852px]:max-w-[630px] ${!isBottomEnd && 'max-[852px]:hidden'} flex flex-col gap-4`}>
-            <TimelineListTemplate title={'Popular'} timelines={popularTimelines} />
+            <TimelinesList title={'Popular'} timelines={popularTimelines} />
             <AdsTimelineBetweenSecondary />
-            <TimelineListTemplate title={'Recently Added'} timelines={recentTimelines} />
+            <TimelinesList title={'Recently Added'} timelines={recentTimelines} />
             <AdsTimelineSide />
         </div>
     );

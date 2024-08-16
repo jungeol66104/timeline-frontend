@@ -1,5 +1,5 @@
 import React from 'react';
-import AddEventButton from "@/components/timelines/timelineEdit/addEventButton";
+import AddEventButton from "@/components/timelines/addEventButton";
 
 const EmptyTimeline = () => {
     return (
