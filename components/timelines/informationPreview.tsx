@@ -29,6 +29,11 @@ const InformationPreview = () => {
         e.stopPropagation()
     }
 
+    const handleImageTouch = (e: React.TouchEvent) => {
+        e.stopPropagation()
+        setImageHover(true)
+    }
+
     return (
         <div onClick={handleClick} onTouchStart={() => setImageHover(false)} className={`${!imageHover && 'cursor-pointer hover:bg-gray-100'} p-3 border-[1px] border-gray-300 rounded-2xl`}>
             <div>
@@ -43,7 +48,7 @@ const InformationPreview = () => {
                     onClick={handleImageClick}
                     onMouseEnter={() => setImageHover(true)}
                     onMouseLeave={() => setImageHover(false)}
-                    onTouchStart={() => setImageHover(true)}
+                    onTouchStart={(e) => handleImageTouch(e)}
                 >
                     <InformationPreviewImage information={currentTimeline} />
                 </div>
