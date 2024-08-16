@@ -1,6 +1,6 @@
 import probe from "probe-image-size";
 import {storeWrapper} from "@/store/store";
-import {updateCurrentPage, updateIs404, updateIsBottomEnd, updateIsSummary, updateTimelineContentType, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {updateCurrentPage, updateIs404, updateIsBottomEnd, updateIsSummary, updateTimelineContentType, updateTimelineType, updateTotalPage} from "@/store/slices/appearanceSlice";
 import {updateCurrentEvents, updateCurrentEventsDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updatePopularTimelines, updateRecentTimelines} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
 import AdsTimelineTop from "@/components/ads/adsTimelineTop";
@@ -28,6 +28,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateCurrentPage(1))
         store.dispatch(updateTotalPage(1))
         store.dispatch(updateIsBottomEnd(true))
+        store.dispatch(updateTimelineType('new'))
         store.dispatch(updateTimelineContentType('new'))
         return {props: {}, revalidate:10}
     } catch (error) {

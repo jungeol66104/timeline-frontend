@@ -1,5 +1,5 @@
 import React from 'react';
-import RelatedTimelines from "@/components/timelines/timelineView/relatedTimelines";
+import RelatedTimelines from "@/components/timelines/relatedTimelines";
 import Timeline from "@/components/timelines/timeline/timeline";
 import Toolbar from "@/components/timelines/toolbar";
 import TimelineContent from "@/components/timelines/timelineView/timelineContent";
