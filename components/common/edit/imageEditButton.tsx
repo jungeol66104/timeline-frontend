@@ -4,7 +4,7 @@ import HistoryButton from "@/components/common/more/historyButton";
 import RemoveImageButtonTest from "@/components/common/edit/removeImageButtonTest";
 import ReplaceImageButtonTest from "@/components/common/edit/replaceImageButtonTest";
 
-const ImageEditButtonTest = () => {
+const ImageEditButton = () => {
     const imageEditButtonRef = useRef<HTMLButtonElement>(null)
     const [isToggle, setIsToggle] = useState(false)
 
@@ -35,4 +35,4 @@ const ImageEditButtonTest = () => {
     );
 };
 
-export default ImageEditButtonTest;
+export default ImageEditButton;

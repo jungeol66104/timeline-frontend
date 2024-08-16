@@ -20,9 +20,7 @@ const ResetEditButton = () => {
     }
 
     return (
-        <button onClick={handleClick} className={`px-3 max-[852px]:px-2 h-[36px] text-sm font-semibold bg-white hover:bg-gray-100 border-[0.1px] border-gray-300 rounded-md drop-shadow-sm `}>
-            Reset
-        </button>
+        <button onClick={handleClick} className={'material-symbols-outlined text-[20px] w-[36px] h-[36px] hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md'}>&#xe5d5;</button>
     );
 };
 

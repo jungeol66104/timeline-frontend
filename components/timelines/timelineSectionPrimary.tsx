@@ -1,4 +1,4 @@
-import TimelineMenubar from "@/components/timelines/timelineMenubar";
+import TimelineMenubar from "@/components/timelines/menubar/timelineMenubar";
 import InformationPreview from "@/components/timelines/informationPreview";
 import RelatedTimelines from "@/components/timelines/relatedTimelines";
 import Events from "@/components/timelines/events/events";

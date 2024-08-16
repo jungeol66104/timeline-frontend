@@ -4,7 +4,7 @@ import EventsMenubar from "@/components/timelines/events/eventsMenubar";
 import EventsPreview from "@/components/timelines/events/eventsPreview";
 import EventsBottom from "@/components/timelines/events/eventsBottom";
 import {selectIsBottomEnd, selectTimelineType} from "@/store/slices/appearanceSlice";
-import EmptyEvents from "@/components/timelines/emptyEvents";
+import EmptyEvents from "@/components/timelines/events/emptyEvents";
 
 const Events = () => {
     const timelineType = useSelector(selectTimelineType)

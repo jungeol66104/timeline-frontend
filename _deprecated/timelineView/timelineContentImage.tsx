@@ -4,7 +4,7 @@
 // import {useSelector} from "react-redux";
 // import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
 // import AddImageButton from "@/components/common/edit/addImageButton";
-// import ImageEditButtonTest from "@/components/common/edit/imageEditButtonTest";
+// import ImageEditButton from "@/components/common/edit/imageEditButtonTest";
 //
 // const TimelineContentImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize: any}) => {
 //     const timelineContentType = useSelector(selectTimelineContentType)
@@ -19,7 +19,7 @@
 //                 ?   <div className={'p-1 w-full h-full flex items-start justify-end bg-gray-300 rounded-md border-[1px] border-gray-300'}><AddImageButton /></div>
 //                 :   <Image className={'rounded-md bg-gray-100 shrink-0'} src={src} alt={alt} fill priority style={{objectFit: "cover", objectPosition: "top"}}/>
 //             }
-//             {isTimelineEditable && !isBaseImage && <ImageEditButtonTest />}
+//             {isTimelineEditable && !isBaseImage && <ImageEditButton />}
 //         </div>
 //     );
 // };

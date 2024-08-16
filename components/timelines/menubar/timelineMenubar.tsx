@@ -4,9 +4,9 @@ import ContributorsButton from "@/components/common/contributorsButton";
 import {selectDemoKeyConcept, selectTimelineType} from "@/store/slices/appearanceSlice";
 import NicknameButton from "@/components/common/nicknameButton";
 import {selectSession} from "@/store/slices/privateSlice";
-import PublishButton from "@/components/timelines/publishButton";
-import CreateTimelineButton from "@/components/timelines/createTimelineButton";
-import TimelineMoreButton from "@/components/timelines/timelineMoreButton";
+import PublishButton from "@/components/timelines/menubar/publishButton";
+import CreateTimelineButton from "@/components/timelines/menubar/createTimelineButton";
+import TimelineMoreButton from "@/components/timelines/menubar/timelineMoreButton";
 
 const TimelineMenubar = () => {
     const session = useSelector(selectSession)

@@ -4,7 +4,7 @@ import {selectDemoKeyConcept, selectTimelineContentType, selectTimelineType} fro
 import ContributorsButton from "@/components/common/contributorsButton";
 import NicknameButton from "@/components/common/nicknameButton";
 import {selectSession} from "@/store/slices/privateSlice";
-import TimelineViewEditButton from "@/_deprecated/timelineViewEditButton";
+import TimelineViewEditButton from "@/components/modals/timelineModal/timelineViewEditButton";
 import MoreButton from "@/components/common/more/moreButton";
 import TemporaryHistoryButton from "@/components/common/temporaryHistoryButton";
 
