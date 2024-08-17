@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType, updateCurrentPage, updateIsBottomEnd, updateIsKeynote, updateInformationContentType, updateInformationHistoryType, updateTotalPage} from "@/store/slices/appearanceSlice";
 import {fetchEvents} from "@/pages/api/global";
-import {selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentTimeline, TimelineEvent, updateCurrentEvents} from "@/store/slices/contentsSlice";
 
 const InformationViewEditButton = () => {
     const dispatch = useDispatch()
@@ -18,7 +18,6 @@ const InformationViewEditButton = () => {
             //     const events = data.events
             //     events.forEach((event: TimelineEvent) => event.keynote = 1)
             //     dispatch(updateCurrentEvents(events))
-            //     dispatch(updateCurrentEventsDraft(events))
             //     dispatch(updateCurrentPage(1))
             //     dispatch(updateTotalPage(data.totalPages))
             //     dispatch(updateIsBottomEnd(data.totalPages === 1))
