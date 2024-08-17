@@ -7,7 +7,7 @@ import {selectEventContentType, selectTimelineType} from "@/store/slices/appeara
 import ResetEditButton from "@/components/common/edit/resetEditButton";
 import {getIsBaseImage} from "@/utils/global";
 import ReplaceImageButtonTest from "@/components/common/edit/replaceImageButtonTest";
-import RemoveImageButtonTest from "@/components/common/edit/removeImageButtonTest";
+import RemoveImageButton from "@/components/common/edit/removeImageButton";
 import DisconnectButton from "@/components/modals/eventModal/eventEdit/disconnectButton";
 import KeynoteButton from "@/components/modals/eventModal/eventEdit/keynoteButton";
 
@@ -20,7 +20,7 @@ const EventModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
         <div className={'w-full flex justify-between pb-3'}>
             <div className={'flex gap-3'}>
                 {isBaseImage && <AddImageButton/>}
-                {!isBaseImage && <RemoveImageButtonTest/>}
+                {!isBaseImage && <RemoveImageButton/>}
                 {!isBaseImage && <ReplaceImageButtonTest/>}
                 {eventContentType === 'edit' && <ResetEditButton/>}
                 {eventContentType === 'edit' && <DisconnectButton/>}

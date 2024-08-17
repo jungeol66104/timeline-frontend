@@ -1,20 +1,28 @@
 import {useDispatch, useSelector} from "react-redux";
-import {updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentEvents, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import {selectDemoKeyConcept, selectTimelineType, updateEventContentType, updateModalType} from "@/store/slices/appearanceSlice";
 import {getTodayDate} from "@/utils/global";
 
 const AddEventButton = () => {
     const dispatch = useDispatch()
+    const currentEvents = useSelector(selectCurrentEvents)
     const timelineType = useSelector(selectTimelineType)
     const demoKeyConcept = useSelector(selectDemoKeyConcept)
 
-
     const handleClick = () => {
-        const newEvent = {id: 0, name: '', description: '', date: '', ephemerisTime: 0, keynote: 1, timelineInfo: [], updatedDt: getTodayDate()}
+
+        const getNewId = () => {
+            const negativeIds = currentEvents.map(event => event.id).filter(id => id < 0)
+            const mostNegativeId = Math.min(...negativeIds)
+            return mostNegativeId === Infinity ? -1 : mostNegativeId - 1
+        }
+
+        const newEvent = {id: getNewId(), name: '', description: '', date: '', ephemerisTime: 0, keynote: 1, timelineInfo: [], updatedDt: getTodayDate()}
+        console.log(newEvent)
         dispatch(updateCurrentEvent(newEvent))
         dispatch(updateCurrentEventDraft(newEvent))
-        dispatch(updateEventContentType('new'))
         dispatch(updateModalType('event'))
+        dispatch(updateEventContentType('new'))
     }
 
     return (

@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from "next/image";
-import {getIsBaseImage} from "@/utils/global";
 import {TimelineEvent} from "@/store/slices/contentsSlice";
 
 const EventPreviewImage = ({event}: {event: TimelineEvent}) => {

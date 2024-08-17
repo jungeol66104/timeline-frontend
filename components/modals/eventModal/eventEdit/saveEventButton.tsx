@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {updateEventContentType} from "@/store/slices/appearanceSlice";
-import {selectCurrentEventDraft, updateCurrentEvent, updateCurrentEventDraft, updateEventInCurrentEvents, updateEventInCurrentEventsDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentEventDraft, updateCurrentEvent, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 
 const SaveEventButton = () => {
     const dispatch = useDispatch()
@@ -9,9 +9,7 @@ const SaveEventButton = () => {
 
     const handleSave = () => {
         dispatch(updateCurrentEvent(currentEventDraft))
-        dispatch(updateCurrentEventDraft(currentEventDraft))
         dispatch(updateEventInCurrentEvents(currentEventDraft))
-        dispatch(updateEventInCurrentEventsDraft(currentEventDraft))
         // also save to db
         dispatch(updateEventContentType('view'))
         return

@@ -1,15 +1,14 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEventDraft, selectCurrentEventsDraft, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentEventDraft, selectCurrentEvents} from "@/store/slices/contentsSlice";
 
 const DisconnectButton = () => {
     const dispatch = useDispatch()
+    const currentEvents = useSelector(selectCurrentEvents)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
-    const currentEventsDraft = useSelector(selectCurrentEventsDraft)
 
     const handleClick = (id: number) => {
-        const newEventsDraft = currentEventsDraft.filter(event => event.id !== id)
-        dispatch(updateCurrentEventsDraft(newEventsDraft))
+
     }
 
     return (

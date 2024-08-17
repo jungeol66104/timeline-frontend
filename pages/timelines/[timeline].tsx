@@ -1,16 +1,14 @@
 import probe from "probe-image-size"
 import api from "@/pages/api/api"
 import {storeWrapper} from "@/store/store";
-import {TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updatePopularTimelines, updateRecentTimelines, updateRelatedNews, updateRelatedTimelines} from "@/store/slices/contentsSlice"
+import {TimelineEvent, updateCurrentEvents, updateCurrentTimeline, updateCurrentTimelineDraft, updatePopularTimelines, updateRecentTimelines, updateRelatedTimelines} from "@/store/slices/contentsSlice"
 import {updateCurrentPage, updateIsBottomEnd, updateIsKeynote, updateTotalPage} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
 import AdsTimelineTop from "@/components/ads/adsTimelineTop";
 
-export const getStaticPaths = async () => {
-    return {paths: [], fallback: 'blocking'}
-}
+export const getStaticPaths = async () => {return {paths: [], fallback: 'blocking'}}
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
     try {
@@ -23,11 +21,9 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateRelatedTimelines(data.relatedTimelines))
         store.dispatch(updateRecentTimelines(data.recentTimelines))
         store.dispatch(updatePopularTimelines(data.popularTimelines))
-        store.dispatch(updateRelatedNews(data.relatedNews))
         const events = data.events
         events.forEach((event: TimelineEvent) => event.keynote = 1)
         store.dispatch(updateCurrentEvents(events))
-        store.dispatch(updateCurrentEventsDraft(events))
         store.dispatch(updateIsKeynote(true))
         store.dispatch(updateCurrentPage(1))
         store.dispatch(updateTotalPage(data.totalPages))

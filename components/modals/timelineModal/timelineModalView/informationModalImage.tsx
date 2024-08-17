@@ -2,7 +2,7 @@ import React from 'react';
 import Image from "next/image";
 import {getIsBaseImage} from "@/utils/global";
 
-const TimelineModalImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize: any}) => {
+const InformationModalImage = ({src, alt, imageSize} : {src: string, alt: string, imageSize: any}) => {
     const isBaseImage = getIsBaseImage(src)
 
     return (
@@ -12,4 +12,4 @@ const TimelineModalImage = ({src, alt, imageSize} : {src: string, alt: string, i
     );
 };
 
-export default TimelineModalImage;
+export default InformationModalImage;

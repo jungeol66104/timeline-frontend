@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import InformationModalMenubar from "@/components/modals/timelineModal/informationModalMenubar";
-import TimelineNameEdit from "@/components/modals/timelineModal/timelineModalEdit/timelineNameEdit";
+import TimelineTitleEdit from "@/components/modals/timelineModal/timelineModalEdit/timelineTitleEdit";
 import TimelineDescriptionEdit from "@/components/modals/timelineModal/timelineModalEdit/timelineDescriptionEdit";
 
 const InformationModalHead = () => {
@@ -16,7 +16,7 @@ const InformationModalHead = () => {
         <div className={'z-10'}>
             <div className={'relative'}>
                 {informationContentType === 'new' || (timelineType === 'private' && informationContentType === 'edit') || (timelineType === 'demo' && informationContentType === 'edit')
-                    ?   <TimelineNameEdit />
+                    ?   <TimelineTitleEdit />
                     :   <h1 className={`w-fit flex items-center gap-2`}><span className={'text-2xl font-bold'}>{currentTimeline.name}</span></h1>
                 }
                 {informationContentType === 'edit' || informationContentType === 'new'

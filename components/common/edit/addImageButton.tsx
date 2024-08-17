@@ -1,15 +1,15 @@
 import React, {ChangeEvent} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEventDraft, selectCurrentTimelineDraft, updateCurrentEventDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentEventDraft, selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import {selectModalType} from "@/store/slices/appearanceSlice";
 
 const AddImageButton = () => {
     const dispatch = useDispatch()
     const modalType = useSelector(selectModalType)
+    const currentTimeline = useSelector(selectCurrentTimeline)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
-    const isTimeline = modalType === 'information' || modalType === 'none'
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files
@@ -24,8 +24,12 @@ const AddImageButton = () => {
                 image.onload = () => {
                     const imageSize = {width: image.width, height: image.height}
 
-                    if (isTimeline) dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: newSrc, imageSize: imageSize}))
-                    else dispatch(updateCurrentEventDraft({...currentEventDraft, image: newSrc, imageSize: imageSize}))
+                    if (modalType === 'none') {
+                        dispatch(updateCurrentTimeline({...currentTimeline, image: newSrc, imageSize: imageSize}))
+                        dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: newSrc, imageSize: imageSize}))
+                    } else if (modalType === 'information') {
+                        dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: newSrc, imageSize: imageSize}))
+                    } else dispatch(updateCurrentEventDraft({...currentEventDraft, image: newSrc, imageSize: imageSize}))
                 }
                 image.src = newSrc as string
             }

@@ -15,8 +15,11 @@ const EventPreview = ({event} : {event: TimelineEvent}) => {
 
     const handleClick = async () => {
         try {
+            // need refactoring after attaching api
             const response = await api.get(`/event/${Number(event.id)}`, {headers: {lang: 'en'}})
-            let currentEvent = timelineType === 'demo' ? event : response.data.data
+            let currentEvent;
+            if (timelineType === 'new' || timelineType === 'demo' || response.data.code === 69999) currentEvent = event
+            else currentEvent = response.data.data
             dispatch(updateCurrentEvent(currentEvent))
             dispatch(updateCurrentEventDraft(currentEvent))
             dispatch(updateModalType('event'))
@@ -36,7 +39,7 @@ const EventPreview = ({event} : {event: TimelineEvent}) => {
             <div onClick={handleClick} className={`cursor-pointer p-2.5 w-full flex flex-col hover:bg-gray-100 border-[1px] border-gray-300 shadow-sm rounded-xl ${timelineType === 'demo' && demoKeyConcept === 'event' && 'outline outline-2 outline-blue-700'}`}>
                 <div className={'text-xs font-semibold text-gray-600 line-clamp-1'}>{event.date}</div>
                 <div className={'text-md font-bold'}>{event.name}</div>
-                <div className={'mt-1 flex justify-between gap-1'}>
+                <div>
                     {!isBaseImage && <EventPreviewImage event={event}/>}
                     <div className={`text-sm whitespace-pre-wrap break-words ${isBaseImage ? 'line-clamp-3' : 'line-clamp-4'}`}>{event.description}</div>
                 </div>

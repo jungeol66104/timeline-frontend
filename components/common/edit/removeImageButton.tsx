@@ -13,14 +13,20 @@ const RemoveImageButton = () => {
 
     const handleClick = () => {
         const baseImage = 'https://cdn.timeline.vg/base-image.png'
-        if (isTimeline) dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: baseImage, imageSize: {width: 0, height: 0}}))
-        else dispatch(updateCurrentEventDraft({...currentEventDraft, image: baseImage, imageSize: {width: 0, height: 0}}))
+        if (isTimeline) dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: baseImage, imageSize: {width: 100, height: 100}}))
+        else dispatch(updateCurrentEventDraft({...currentEventDraft, image: baseImage, imageSize: {width: 100, height: 100}}))
     }
 
     return (
-        <button onClick={handleClick} className={'px-2 h-full flex items-center justify-center bg-white hover:bg-gray-100 rounded-r-md'}>
-            <div className={'material-symbols-outlined text-[22px]'}>&#xf022;</div>
-        </button>
+        <>
+            {modalType === 'information' || modalType === 'event'
+                ?   <button onClick={handleClick} className={'material-symbols-outlined text-[22px] w-[36px] h-[36px] hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md'}>&#xf022;</button>
+                :   <button onClick={handleClick} className={`w-full h-[36px] flex items-center gap-2 px-2.5 rounded-md bg-white hover:bg-gray-100 text-left`}>
+                        <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xf022;</div>
+                        <div className={'text-sm font-semibold'}>Remove</div>
+                    </button>
+            }
+        </>
     );
 };
 

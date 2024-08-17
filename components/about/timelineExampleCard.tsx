@@ -7,6 +7,7 @@ import {selectCurrentTimelines} from "@/store/slices/contentsSlice";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+// reviewed: 0817
 
 const TimelineExampleCard = () => {
     const currentTimelines = useSelector(selectCurrentTimelines).filter((timeline) => {
@@ -36,7 +37,6 @@ const TimelineExampleCard = () => {
                             <div className={'absolute z-10 w-full h-full bg-gradient-to-b from-[rgba(255,255,255,0)_43.75%] to-[rgb(250,249,244)_94.27%] rounded-t-3xl'}></div>
                             <div className={'flex gap-2 ml-3'}>
                                 <div className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold`}><span>&#x2728;  Staff Picks</span></div>
-                                {/*<div className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold`}><span>Technology</span></div>*/}
                             </div>
                         </div>
                         <div className={'px-4 py-3'}>

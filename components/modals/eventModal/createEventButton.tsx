@@ -1,19 +1,18 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentEventsDraft, updateCurrentEvent, updateCurrentEvents, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEvent, updateCurrentEvents} from "@/store/slices/contentsSlice";
 import {updateEventContentType} from "@/store/slices/appearanceSlice";
 
 const CreateEventButton = () => {
     const dispatch = useDispatch();
-    const currentEventsDraft = useSelector(selectCurrentEventsDraft);
+    const currentEvents = useSelector(selectCurrentEvents)
     const currentEventDraft = useSelector(selectCurrentEventDraft);
 
     const handleClick = () => {
         // send currentEventDraft to db and get id
         // get event and update currentEvent & currentEvents
         dispatch(updateCurrentEvent(currentEventDraft));
-        dispatch(updateCurrentEvents([...currentEventsDraft, currentEventDraft]))
-        dispatch(updateCurrentEventsDraft([...currentEventsDraft, currentEventDraft]))
+        dispatch(updateCurrentEvents([...currentEvents, currentEventDraft]))
         // update contentType to view
         dispatch(updateEventContentType('view'))
     }
