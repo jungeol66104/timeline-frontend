@@ -13,6 +13,7 @@ const InformationModalBody = () => {
             {informationContentType === 'view' && <InformationModalView />}
             {informationContentType === 'edit' && <TimelineModalEdit />}
             {informationContentType === 'history' && <TimelineModalHistory />}
+            {informationContentType === 'new' && <TimelineModalEdit />}
         </div>
     );
 };
