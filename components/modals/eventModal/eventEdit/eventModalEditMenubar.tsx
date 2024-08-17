@@ -8,9 +8,12 @@ import ResetEditButton from "@/components/common/edit/resetEditButton";
 import {getIsBaseImage} from "@/utils/global";
 import ReplaceImageButtonTest from "@/components/common/edit/replaceImageButtonTest";
 import RemoveImageButtonTest from "@/components/common/edit/removeImageButtonTest";
+import DisconnectButton from "@/components/modals/eventModal/eventEdit/disconnectButton";
+import KeynoteButton from "@/components/modals/eventModal/eventEdit/keynoteButton";
 
 const EventModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
-    const timelineType = useSelector(selectTimelineType)
+    const eventContentType = useSelector(selectEventContentType)
+
     const isBaseImage = getIsBaseImage(src)
 
     return (
@@ -19,10 +22,12 @@ const EventModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
                 {isBaseImage && <AddImageButton/>}
                 {!isBaseImage && <RemoveImageButtonTest/>}
                 {!isBaseImage && <ReplaceImageButtonTest/>}
+                {eventContentType === 'edit' && <ResetEditButton/>}
+                {eventContentType === 'edit' && <DisconnectButton/>}
             </div>
             <div className={'flex gap-3'}>
-                <ResetEditButton/>
-                <SaveEventButton/>
+                <KeynoteButton />
+                {eventContentType === 'edit' && <SaveEventButton/>}
             </div>
         </div>
     );

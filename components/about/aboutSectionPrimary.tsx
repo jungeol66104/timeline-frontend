@@ -1,10 +1,11 @@
 import React from 'react';
-import TimelineDemo from "@/components/about/timelineDemo";
+import StartTimeliningButton from "@/components/about/startTimeliningButton";
+import ExploreButton from "@/components/about/exploreButton";
 import TimelineExampleCard from "@/components/about/timelineExampleCard";
 import KeyConceptBar from "@/components/about/keyConceptBar";
 import KeyConceptDescription from "@/components/about/keyConceptDescription";
-import StartTimeliningButton from "@/components/about/startTimeliningButton";
-import ExploreButton from "@/components/about/exploreButton";
+import TimelineDemo from "@/components/about/timelineDemo";
+// reviewed: 0817
 
 const AboutSectionPrimary = () => {
     return (
@@ -15,8 +16,8 @@ const AboutSectionPrimary = () => {
                 </h1>
                 <p className={'text-lg font-medium'}>
                     We support organizing any kind of information in time sequence.
-                    Create timeline, keep it private or publish it to the wiki.
-                    Have fun playing, sharing, learning at the same time!
+                    Create timeline, keep it private or publish it to the wiki, or do both.
+                    Have fun playing, sharing and learning at the same time!
                 </p>
                 <div className={'flex gap-3'}>
                     <StartTimeliningButton />

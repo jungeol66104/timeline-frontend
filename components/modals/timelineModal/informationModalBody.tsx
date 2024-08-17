@@ -5,7 +5,7 @@ import TimelineModalView from "@/components/modals/timelineModal/timelineModalVi
 import TimelineModalEdit from "@/components/modals/timelineModal/timelineModalEdit/timelineModalEdit";
 import TimelineModalHistory from "@/components/modals/timelineModal/timelineModalHistory/timelineModalHistory";
 
-const TimelineModalBody = () => {
+const InformationModalBody = () => {
     const informationContentType = useSelector(selectInformationContentType)
 
     return (
@@ -17,4 +17,4 @@ const TimelineModalBody = () => {
     );
 };
 
-export default TimelineModalBody;
+export default InformationModalBody;

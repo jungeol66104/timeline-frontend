@@ -1,6 +1,6 @@
 import probe from "probe-image-size";
 import {storeWrapper} from "@/store/store";
-import {updateCurrentPage, updateIsBottomEnd, updateIsKeynote, updateInformationContentType, updateTimelineType, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {updateCurrentPage, updateIsBottomEnd, updateIsKeynote, updateInformationContentType, updateTimelineType, updateTotalPage, updateEventContentType} from "@/store/slices/appearanceSlice";
 import {updateCurrentEvents, updateCurrentEventsDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updatePopularTimelines, updateRecentTimelines} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
 import AdsTimelineTop from "@/components/ads/adsTimelineTop";
@@ -26,7 +26,8 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateTotalPage(1))
         store.dispatch(updateIsBottomEnd(true))
         store.dispatch(updateTimelineType('new'))
-        store.dispatch(updateInformationContentType('edit'))
+        store.dispatch(updateInformationContentType('new'))
+        store.dispatch(updateEventContentType('new'))
         return {props: {}, revalidate:10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);

@@ -21,7 +21,7 @@ const Events = () => {
             {isEmptyEvents && <EmptyEvents />}
             {!isEmptyEvents && <EventsMenubar />}
             {!isEmptyEvents && <EventsPreview />}
-            {isBottomEnd && <EventsBottom/>}
+            {!isEmptyEvents && isBottomEnd && <EventsBottom/>}
         </div>
     );
 };

@@ -4,11 +4,10 @@ import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType} 
 import ContributorsButton from "@/components/common/contributorsButton";
 import NicknameButton from "@/components/common/nicknameButton";
 import {selectSession} from "@/store/slices/privateSlice";
-import TimelineViewEditButton from "@/components/modals/timelineModal/timelineViewEditButton";
-import MoreButton from "@/components/common/more/moreButton";
+import InformationViewEditButton from "@/components/modals/timelineModal/informationViewEditButton";
 import TemporaryHistoryButton from "@/components/common/temporaryHistoryButton";
 
-const TimelineModalMenubar = () => {
+const InformationModalMenubar = () => {
     const session = useSelector(selectSession)
     const timelineType = useSelector(selectTimelineType);
     const timelineContentType = useSelector(selectInformationContentType);
@@ -22,12 +21,11 @@ const TimelineModalMenubar = () => {
             }
             {timelineContentType !== 'new' &&
                 <div className={'flex gap-3'}>
-                    {timelineType !== 'new' && <TimelineViewEditButton/>}
-                    {/*{timelineType === 'public' && <MoreButton />}*/}
+                    {timelineType !== 'new' && <InformationViewEditButton/>}
                     {timelineType === 'public' && <TemporaryHistoryButton />}
                 </div>
             }
         </div>
     )
 }
-export default TimelineModalMenubar
+export default InformationModalMenubar

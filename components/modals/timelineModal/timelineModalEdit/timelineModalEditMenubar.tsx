@@ -19,9 +19,9 @@ const TimelineModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
                 {isBaseImage && <AddImageButton/>}
                 {!isBaseImage && <RemoveImageButtonTest />}
                 {!isBaseImage && <ReplaceImageButtonTest />}
+                {timelineType !== 'new' && <ResetEditButton />}
             </div>
             <div className={'flex gap-3'}>
-                {timelineType !== 'new' && <ResetEditButton />}
                 {timelineType !== 'new' && <SaveTimelineButton/>}
             </div>
         </div>

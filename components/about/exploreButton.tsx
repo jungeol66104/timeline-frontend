@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from "next/link";
+// reviewed: 0817
 
 const ExploreButton = () => {
     return (

@@ -1,17 +1,18 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectDemoKeyConcept} from "@/store/slices/appearanceSlice";
+// reviewed: 0817
 
 const KeyConceptDescription = () => {
     const demoKeyConcept = useSelector(selectDemoKeyConcept)
 
     const descriptions = {
-        timeline: 'Timeline is the sum of events. But it also has its own title, description, content and image.',
-        event: 'Event is an element that comprises the timeline. It includes date, title, description, content and image. It is possible to edit events independent of the timeline.',
-        showMore: 'Show more button leads to detailed information about the timeline. Bigger image and full content are displayed. You can only edit the content of the timeline after clicking show more.',
-        edit: 'Edit button simply switches the timeline to edit mode. In the wiki, anybody can change anything about the timeline except the title. This applies the same to the event.',
+        timeline: 'Timeline is the sum of events with its own title, description, content and image.',
+        event: 'Event comprises the timeline. Each of the event has its own date, title, description, content and image. Clicking the event box leads to the detail.',
+        information: 'Clicking the information box leads to the detail about the timeline. Bigger image and full content are displayed.',
+        edit: 'In the wiki, anybody can edit anything about the timeline except the title. When you click information or event box, edit button is right there for you.',
         contributors: 'Anybody who contributes to the wiki becomes a contributor of that timeline.',
-        keynote: 'Keynote is the sum of important events. In edit mode, there is a keynote checkbox on each event. If checked, it shows up when you filter keynote events only.',
+        keynote: 'Keynote is the sum of important events. In event edit mode, you can include in or exclude from the keynote. You can filter out keynote events with keynote toggle.',
         private: 'You can make your timeline private, public or both. For private timeline, private flag is shown after the title of the timeline, publish button is included, contributors button is altered by owner button.',
     }
 

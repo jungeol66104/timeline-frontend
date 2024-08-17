@@ -1,6 +1,6 @@
 import Share from "@/components/modals/shareModal/share";
 import Overlay from "@/components/modals/overlay";
-import TimelineModal from "@/components/modals/timelineModal/timelineModal";
+import InformationModal from "@/components/modals/timelineModal/informationModal";
 import EventModal from "@/components/modals/eventModal/eventModal";
 
 const Modals = () => {
@@ -9,7 +9,7 @@ const Modals = () => {
         <>
             <Overlay />
             <Share />
-            <TimelineModal />
+            <InformationModal />
             <EventModal />
         </>
     )

@@ -2,10 +2,10 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import CloseModalButton from "@/components/modals/closeModalButton";
-import TimelineModalHead from "@/components/modals/timelineModal/timelineModalHead";
-import TimelineModalBody from "@/components/modals/timelineModal/timelineModalBody";
+import InformationModalHead from "@/components/modals/timelineModal/informationModalHead";
+import InformationModalBody from "@/components/modals/timelineModal/informationModalBody";
 
-const TimelineModal = () => {
+const InformationModal = () => {
     const timelineType = useSelector(selectTimelineType)
     const modalType = useSelector(selectModalType)
 
@@ -17,11 +17,11 @@ const TimelineModal = () => {
                 <CloseModalButton />
             </div>
             <div className={'p-4 w-full h-full flex flex-col gap-3 overflow-y-scroll'}>
-                <TimelineModalHead />
-                <TimelineModalBody />
+                <InformationModalHead />
+                <InformationModalBody />
             </div>
         </div>
     );
 };
 
-export default TimelineModal;
+export default InformationModal;

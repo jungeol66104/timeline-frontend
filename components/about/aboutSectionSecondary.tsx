@@ -1,5 +1,6 @@
 import React from 'react';
 import TimelineExampleCard from "@/components/about/timelineExampleCard";
+// reviewed: 0817
 
 const AboutSectionSecondary = () => {
     return (

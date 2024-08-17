@@ -5,13 +5,14 @@ import StarterKit from '@tiptap/starter-kit'
 import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import EventModalEditMenubar from "@/components/modals/eventModal/eventEdit/eventModalEditMenubar";
 import EventModalImage from "@/components/modals/eventModal/eventView/eventModalImage";
+import Placeholder from "@tiptap/extension-placeholder";
 
 const EventModalEdit = () => {
     const dispatch = useDispatch()
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
     const editor = useEditor({
-        extensions: [StarterKit],
+        extensions: [StarterKit, Placeholder.configure({placeholder: 'New event content'})],
         editorProps: {
           attributes: {class: 'w-full outline-none'}
         },

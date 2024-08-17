@@ -4,17 +4,16 @@ import {selectEventContentType} from "@/store/slices/appearanceSlice";
 import EventModalView from "@/components/modals/eventModal/eventView/eventModalView";
 import EventModalEdit from "@/components/modals/eventModal/eventEdit/eventModalEdit";
 import EventHistory from "@/components/modals/eventModal/eventHistory/eventHistory";
-import EventModalNew from "@/components/modals/eventModal/eventNew/eventModalNew";
 
 const EventModalBody = () => {
-    const modalContentType = useSelector(selectEventContentType)
+    const eventContentType = useSelector(selectEventContentType)
 
     return (
         <div>
-            {modalContentType === 'view' && <EventModalView />}
-            {modalContentType === 'edit' && <EventModalEdit />}
-            {modalContentType === 'history' && <EventHistory />}
-            {modalContentType === 'new' && <EventModalNew />}
+            {eventContentType === 'view' && <EventModalView />}
+            {eventContentType === 'edit' && <EventModalEdit />}
+            {eventContentType === 'history' && <EventHistory />}
+            {eventContentType === 'new' && <EventModalEdit />}
         </div>
     );
 };

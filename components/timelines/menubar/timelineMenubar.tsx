@@ -16,12 +16,14 @@ const TimelineMenubar = () => {
     return (
         <div className={'z-10 w-full flex justify-between'}>
             <div className={'flex items-center justify-center gap-3'}>
-                {timelineType === 'public' && <ContributorsButton/>}
-                {timelineType !== 'public' && <NicknameButton name={'Nickname'} />}
+                {(timelineType === 'private' || timelineType === 'new' || (timelineType === 'demo' && demoKeyConcept === 'private'))
+                    ?   <NicknameButton name={'Nickname'} />
+                    :   <ContributorsButton/>
+                }
                 <div className={'text-gray-400 text-sm'}>{timelineType === 'new' ? 'Created' : 'Last Updated'}: August 15, 2024</div>
             </div>
             {timelineType === 'public' && <TimelineMoreButton />}
-            {timelineType === 'private' && <PublishButton />}
+            {(timelineType === 'private' || (timelineType === 'demo' && demoKeyConcept === 'private')) && <PublishButton />}
             {timelineType === 'new' && <CreateTimelineButton />}
         </div>
     )

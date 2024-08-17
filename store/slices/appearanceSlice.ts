@@ -126,5 +126,5 @@ export interface initialAppearanceState {
     eventContentType: 'view' | 'edit'  | 'history' | 'discussion' | 'new'
     eventHistoryType: 'list' | 'view' | 'diff'
 
-    demoKeyConcept: 'timeline' | 'event' | 'showMore' | 'private' | 'contributors' | 'edit' | 'keynote'
+    demoKeyConcept: 'timeline' | 'information' | 'event' | 'edit' | 'contributors'  | 'keynote' | 'private'
 }

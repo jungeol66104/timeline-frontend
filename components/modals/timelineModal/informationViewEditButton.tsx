@@ -3,7 +3,7 @@ import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType, 
 import {fetchEvents} from "@/pages/api/global";
 import {selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
 
-const TimelineViewEditButton = () => {
+const InformationViewEditButton = () => {
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
     const contentType = useSelector(selectInformationContentType)
@@ -36,4 +36,4 @@ const TimelineViewEditButton = () => {
     );
 };
 
-export default TimelineViewEditButton;
+export default InformationViewEditButton;

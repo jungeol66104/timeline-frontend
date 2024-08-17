@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline, selectCurrentTimelineDraft} from "@/store/slices/contentsSlice";
-import {selectDemoKeyConcept, selectTimelineType, updateModalType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectTimelineType, updateInformationContentType, updateModalType} from "@/store/slices/appearanceSlice";
 import InformationPreviewImage from "@/components/timelines/informationPreviewImage";
 
 const InformationPreview = () => {
@@ -35,11 +35,11 @@ const InformationPreview = () => {
     }
 
     return (
-        <div onClick={handleClick} onTouchStart={() => setImageHover(false)} className={`${!imageHover && 'cursor-pointer hover:bg-gray-100'} p-3 border-[1px] border-gray-300 rounded-2xl`}>
+        <div onClick={handleClick} onTouchStart={() => setImageHover(false)} className={`${!imageHover && 'cursor-pointer hover:bg-gray-100'} p-3 border-[1px] border-gray-300 rounded-2xl ${timelineType === 'demo' && demoKeyConcept === 'information' && 'outline outline-2 outline-blue-700'}`}>
             <div>
                 <div className={'flex items-center gap-2'}>
                     <span className={'timelineTitle text-2xl font-bold'}>{timeline.name === '' ? 'New Timeline' : timeline.name}</span>
-                    {timelineType === 'private' && <span className={`px-1.5 py-1 text-[10px] text-gray-400 font-semibold border-[1px] border-gray-400 rounded-full`}>PRIVATE</span>}
+                    {(timelineType === 'private' || (timelineType === 'demo' && demoKeyConcept === 'private')) && <span className={`px-1.5 py-1 text-[10px] text-gray-400 font-semibold border-[1px] border-gray-400 rounded-full ${timelineType === 'demo' && demoKeyConcept === 'private' && 'outline outline-2 outline-blue-700'}`}>PRIVATE</span>}
                 </div>
                 <div className={`min-[630px]:hidden line-clamp-1`}>{timeline.description === '' ? 'New timeline description' : timeline.description}</div>
             </div>
