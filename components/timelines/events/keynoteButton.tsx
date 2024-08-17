@@ -1,13 +1,13 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
-import {selectDemoKeyConcept, selectIsSummary, updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectIsKeynote, updateCurrentPage, updateIsBottomEnd, updateIsKeynote, updateTotalPage} from "@/store/slices/appearanceSlice";
 import {fetchEvents} from "@/pages/api/global";
 
 const KeynoteButton = () => {
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
-    const isKeynote = useSelector(selectIsSummary)
+    const isKeynote = useSelector(selectIsKeynote)
     const demoKeyConcept = useSelector(selectDemoKeyConcept);
 
     const handleClick = () => {
@@ -21,7 +21,7 @@ const KeynoteButton = () => {
             dispatch(updateCurrentPage(1))
             dispatch(updateTotalPage(data.totalPages))
             dispatch(updateIsBottomEnd(data.totalPages === 1))
-            dispatch(updateIsSummary(targetIsKeynote))
+            dispatch(updateIsKeynote(targetIsKeynote))
         })
     }
 

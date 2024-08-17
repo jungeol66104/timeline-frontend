@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEventsDraft, updateCurrentEvents} from "@/store/slices/contentsSlice";
-import {updateTimelineContentType} from "@/store/slices/appearanceSlice";
+import {updateInformationContentType} from "@/store/slices/appearanceSlice";
 
 const SaveTimelineButton = () => {
     const dispatch = useDispatch()
@@ -12,7 +12,7 @@ const SaveTimelineButton = () => {
         // send to db
         // if timelineContentType new, route to '/@user/timelines/id'
         // else route to '/timelines/id'
-        dispatch(updateTimelineContentType('view'))
+        dispatch(updateInformationContentType('view'))
         return
     }
 

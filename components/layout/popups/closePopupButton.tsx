@@ -1,4 +1,4 @@
-import {updateIsPopup, updateModalContentType, updateModalHistoryType, updateModalType} from "@/store/slices/appearanceSlice";
+import {updateIsPopup, updateEventContentType, updateEventHistoryType, updateModalType} from "@/store/slices/appearanceSlice";
 import {useDispatch} from "react-redux";
 
 const ClosePopupButton = () => {

@@ -1,12 +1,12 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline, selectCurrentTimelineDraft} from "@/store/slices/contentsSlice";
-import {selectTimelineContentType} from "@/store/slices/appearanceSlice";
+import {selectInformationContentType} from "@/store/slices/appearanceSlice";
 
 const TimelineBottom = ({isEnd}:{isEnd: boolean}) => {
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
-    const timelineContentType = useSelector(selectTimelineContentType)
+    const timelineContentType = useSelector(selectInformationContentType)
     const timeline = timelineContentType === 'new' || timelineContentType === 'edit' ? currentTimelineDraft : currentTimeline
 
     return (

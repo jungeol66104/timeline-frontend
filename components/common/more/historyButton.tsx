@@ -1,17 +1,17 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectModalType, updateModalContentType, updateModalType, updateTimelineContentType} from "@/store/slices/appearanceSlice";
+import {selectModalType, updateEventContentType, updateModalType, updateInformationContentType} from "@/store/slices/appearanceSlice";
 
 const HistoryButton = () => {
     const dispatch = useDispatch()
     const modalType = useSelector(selectModalType)
 
     const handleClick = () => {
-        if (modalType === 'none') dispatch(updateTimelineContentType('history'))
-        else if (modalType === 'event') dispatch(updateModalContentType('history'))
+        if (modalType === 'none') dispatch(updateInformationContentType('history'))
+        else if (modalType === 'event') dispatch(updateEventContentType('history'))
         else if (modalType === 'information') {
             dispatch(updateModalType('none'))
-            dispatch(updateTimelineContentType('history'))
+            dispatch(updateInformationContentType('history'))
         }
     }
 

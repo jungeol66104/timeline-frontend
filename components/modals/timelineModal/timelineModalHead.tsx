@@ -1,14 +1,14 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {selectDemoKeyConcept, selectTimelineContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import TimelineModalMenubar from "@/components/modals/timelineModal/timelineModalMenubar";
 import TimelineNameEdit from "@/components/modals/timelineModal/timelineModalEdit/timelineNameEdit";
 import TimelineDescriptionEdit from "@/components/modals/timelineModal/timelineModalEdit/timelineDescriptionEdit";
 
 const TimelineModalHead = () => {
     const timelineType = useSelector(selectTimelineType);
-    const timelineContentType = useSelector(selectTimelineContentType)
+    const timelineContentType = useSelector(selectInformationContentType)
     const demoKeyConcept = useSelector(selectDemoKeyConcept);
     const currentTimeline = useSelector(selectCurrentTimeline)
 
@@ -19,7 +19,7 @@ const TimelineModalHead = () => {
                     ?   <TimelineNameEdit />
                     :   <h1 className={`w-fit flex items-center gap-2`}><span className={'text-2xl font-bold'}>{currentTimeline.name}</span></h1>
                 }
-                {timelineType === 'new' || timelineContentType === 'edit'
+                {timelineContentType === 'edit'
                     ?   <TimelineDescriptionEdit />
                     :   <div className={`w-fit text-md`}>{currentTimeline.description}</div>
                 }

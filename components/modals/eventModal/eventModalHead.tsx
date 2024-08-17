@@ -2,13 +2,13 @@ import React from 'react';
 import EventModalMenubar from "@/components/modals/eventModal/eventModalMenubar";
 import {useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
-import {selectModalContentType} from "@/store/slices/appearanceSlice";
+import {selectEventContentType} from "@/store/slices/appearanceSlice";
 import EventNameEdit from "@/components/modals/eventModal/eventEdit/eventNameEdit";
 import EventDateEdit from "@/components/modals/eventModal/eventEdit/eventDateEdit";
 
 const EventModalHead = () => {
     const currentEvent = useSelector(selectCurrentEvent)
-    const contentType = useSelector(selectModalContentType)
+    const contentType = useSelector(selectEventContentType)
     const isEventEditable = contentType === 'edit' || contentType === 'new'
 
     return (

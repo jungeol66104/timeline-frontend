@@ -1,14 +1,14 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectModalType, updateModalContentType, updateTimelineContentType} from "@/store/slices/appearanceSlice";
+import {selectModalType, updateEventContentType, updateInformationContentType} from "@/store/slices/appearanceSlice";
 
 const DiscussionButton = () => {
     const dispatch = useDispatch()
     const modalType = useSelector(selectModalType)
 
     const handleClick = () => {
-        if (modalType === 'none') dispatch(updateTimelineContentType('discussion'))
-        else if (modalType === 'event') dispatch(updateModalContentType('discussion'))
+        if (modalType === 'none') dispatch(updateInformationContentType('discussion'))
+        else if (modalType === 'event') dispatch(updateEventContentType('discussion'))
     }
 
     return (

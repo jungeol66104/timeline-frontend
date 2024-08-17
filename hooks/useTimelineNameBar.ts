@@ -1,14 +1,14 @@
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
-import {selectTimelineContentType, updateShowTimelineNameBar} from "@/store/slices/appearanceSlice";
+import {selectInformationContentType, updateShowTimelineTitleBar} from "@/store/slices/appearanceSlice";
 import {getIsTimelinePath} from "@/utils/global";
 
 const useTimelineNameBar = () => {
     const router = useRouter();
 
     const dispatch = useDispatch();
-    const timelineContentType = useSelector(selectTimelineContentType)
+    const timelineContentType = useSelector(selectInformationContentType)
 
     useEffect(() => {
         if (!getIsTimelinePath(router.pathname)) return
@@ -16,15 +16,15 @@ const useTimelineNameBar = () => {
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 const targetExists = document.body.contains(entry.target);
-                if (entry.isIntersecting || !targetExists) dispatch(updateShowTimelineNameBar(false))
-                else dispatch(updateShowTimelineNameBar(true))
+                if (entry.isIntersecting || !targetExists) dispatch(updateShowTimelineTitleBar(false))
+                else dispatch(updateShowTimelineTitleBar(true))
             });
         }, {rootMargin: '-60px 0px 0px 0px'});
 
         const timelineTitle : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineTitle') : null
 
         if (timelineTitle) observer.observe(timelineTitle);
-        else dispatch(updateShowTimelineNameBar(false))
+        else dispatch(updateShowTimelineTitleBar(false))
     }, [router.pathname, timelineContentType]);
 };
 

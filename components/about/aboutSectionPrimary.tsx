@@ -8,8 +8,8 @@ import ExploreButton from "@/components/about/exploreButton";
 
 const AboutSectionPrimary = () => {
     return (
-        <div className={'relative w-full max-w-[630px] min-[852px]:min-w-[500px]'}>
-            <div className={'px-4 flex flex-col py-10 gap-10'}>
+        <div className={'relative py-10 w-full max-w-[630px] min-[852px]:min-w-[500px] flex flex-col gap-10'}>
+            <div className={'px-4 flex flex-col gap-10'}>
                 <h1 className={'flex flex-col text-6xl font-bold'}>
                     <span>TIMELINE</span><span>YOUR</span><span>INTEREST.</span>
                 </h1>
@@ -24,8 +24,7 @@ const AboutSectionPrimary = () => {
                 </div>
             </div>
             <div className={'min-[872px]:hidden px-4 py-3'}><TimelineExampleCard/></div>
-            <hr className={'mx-4 max-[872px]:hidden'}/>
-            <div className={'px-4 py-10 flex flex-col gap-10'}>
+            <div className={'px-4 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>Why timeline?</h2>
                 <div className={'flex flex-col gap-8'}>
                     <p className={'text-lg font-medium'}>
@@ -42,8 +41,7 @@ const AboutSectionPrimary = () => {
                     </p>
                 </div>
             </div>
-            <hr className={'mx-4'}/>
-            <div className={'px-4 py-10 flex flex-col gap-10'}>
+            <div className={'px-4 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>What do we serve?</h2>
                 <div className={'flex flex-col gap-8'}>
                     <h3 className={'text-2xl font-semibold'}>Simple timeline maker</h3>
@@ -63,8 +61,7 @@ const AboutSectionPrimary = () => {
                     </p>
                 </div>
             </div>
-            <hr className={'mx-4'}/>
-            <div className={'px-4 py-10 flex flex-col gap-10'}>
+            <div className={'px-4 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>Key concepts</h2>
                 <p className={'text-lg font-medium'}>
                     Click buttons and interact directly with the timeline demo below to understand how timeline works.
@@ -75,8 +72,7 @@ const AboutSectionPrimary = () => {
                     <TimelineDemo/>
                 </div>
             </div>
-            <hr className={'mx-4'}/>
-            <div className={'px-4 py-10 flex flex-col gap-10'}>
+            <div className={'px-4 flex flex-col gap-10'}>
                 <h2 className={'text-4xl font-bold'}>Dive right in!</h2>
                 <p className={'text-lg font-medium'}>
                     Congratulations! You are completely ready to use our service.

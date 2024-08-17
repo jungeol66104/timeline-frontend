@@ -12,7 +12,7 @@ const TimelineModalEdit = () => {
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
 
     const editor = useEditor({
-        extensions: [StarterKit, Placeholder.configure({placeholder: "Timeline content"})],
+        extensions: [StarterKit, Placeholder.configure({placeholder: "New timeline content"})],
         editorProps: {
             attributes: {class: 'outline-none'}
         },

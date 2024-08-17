@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {selectTimelineContentType, updateCurrentPage, updateIsBottomEnd, updateIsSummary, updateTimelineContentType, updateTimelineHistoryType, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {selectInformationContentType, updateCurrentPage, updateIsBottomEnd, updateIsKeynote, updateInformationContentType, updateInformationHistoryType, updateTotalPage} from "@/store/slices/appearanceSlice";
 import {fetchEvents} from "@/pages/api/global";
 import {selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
 import React from "react";
@@ -7,10 +7,10 @@ import React from "react";
 const TimelineContentTypeButton = () => {
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
-    const contentType = useSelector(selectTimelineContentType)
+    const contentType = useSelector(selectInformationContentType)
 
     const handleClick = (contentType: string) => {
-        if (contentType === 'history') dispatch(updateTimelineHistoryType('list'))
+        if (contentType === 'history') dispatch(updateInformationHistoryType('list'))
         else if (contentType === 'edit') {
             // fetchEvents(currentTimeline.id, 1, false).then((data) => {
             //     const events = data.events
@@ -23,7 +23,7 @@ const TimelineContentTypeButton = () => {
             //     dispatch(updateIsSummary(false))
             // })
         }
-        dispatch(updateTimelineContentType(contentType))
+        dispatch(updateInformationContentType(contentType))
     }
 
     return (

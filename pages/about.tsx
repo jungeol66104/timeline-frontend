@@ -1,7 +1,7 @@
 import React from 'react';
 import probe from "probe-image-size";
 import {storeWrapper} from "@/store/store";
-import {updateCurrentPage, updateIs404, updateIsBottomEnd, updateTimelineContentType, updateTimelineType, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {updateCurrentPage, updateIs404, updateIsBottomEnd, updateInformationContentType, updateTimelineType, updateTotalPage} from "@/store/slices/appearanceSlice";
 import {updateCurrentEvent, updateCurrentEvents, updateCurrentEventsDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updateCurrentTimelines} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
 import AboutSectionPrimary from "@/components/about/aboutSectionPrimary";
@@ -26,7 +26,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateTotalPage(1))
         store.dispatch(updateIsBottomEnd(true))
         store.dispatch(updateTimelineType('demo'))
-        store.dispatch(updateTimelineContentType('view'))
+        store.dispatch(updateInformationContentType('view'))
         return {props: {}, revalidate:10}
     } catch (error) {
         console.error('Error fetching initial data during SSR:', error);

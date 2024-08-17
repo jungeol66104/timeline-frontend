@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentEventsDraft, updateCurrentEvent, updateCurrentEvents, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
-import {updateModalContentType} from "@/store/slices/appearanceSlice";
+import {updateEventContentType} from "@/store/slices/appearanceSlice";
 
 const CreateEventButton = () => {
     const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const CreateEventButton = () => {
         dispatch(updateCurrentEvents([...currentEventsDraft, currentEventDraft]))
         dispatch(updateCurrentEventsDraft([...currentEventsDraft, currentEventDraft]))
         // update contentType to view
-        dispatch(updateModalContentType('view'))
+        dispatch(updateEventContentType('view'))
     }
 
     return (

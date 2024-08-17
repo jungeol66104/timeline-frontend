@@ -1,6 +1,6 @@
 import {useDispatch} from "react-redux";
 import {updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
-import {updateModalContentType, updateModalType} from "@/store/slices/appearanceSlice";
+import {updateEventContentType, updateModalType} from "@/store/slices/appearanceSlice";
 import {getTodayDate} from "@/utils/global";
 
 const AddEventButton = () => {
@@ -10,7 +10,7 @@ const AddEventButton = () => {
         const newEvent = {id: 0, name: '', description: '', date: '', ephemerisTime: 0, keynote: 1, timelineInfo: [], updatedDt: getTodayDate()}
         dispatch(updateCurrentEvent(newEvent))
         dispatch(updateCurrentEventDraft(newEvent))
-        dispatch(updateModalContentType('new'))
+        dispatch(updateEventContentType('new'))
         dispatch(updateModalType('event'))
     }
 

@@ -17,7 +17,7 @@ const TimelineMenubar = () => {
         <div className={'z-10 w-full flex justify-between'}>
             <div className={'flex items-center justify-center gap-3'}>
                 {timelineType === 'public' && <ContributorsButton/>}
-                {timelineType === 'private' || timelineType === 'new' && <NicknameButton name={'Nickname'} />}
+                {timelineType !== 'public' && <NicknameButton name={'Nickname'} />}
                 <div className={'text-gray-400 text-sm'}>{timelineType === 'new' ? 'Created' : 'Last Updated'}: August 15, 2024</div>
             </div>
             {timelineType === 'public' && <TimelineMoreButton />}

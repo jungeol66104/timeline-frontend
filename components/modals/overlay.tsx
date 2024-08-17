@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectIsShare, selectModalType, updateModalContentType, updateModalHistoryType, updateIsShare, updateModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
+import {selectIsShare, selectModalType, updateEventContentType, updateEventHistoryType, updateIsShare, updateModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const Overlay = () => {
     const dispatch = useDispatch()
@@ -13,8 +13,8 @@ const Overlay = () => {
         if (isShare) dispatch(updateIsShare())
         else if (timelineModalType !== 'none') {
             dispatch(updateModalType('none'))
-            dispatch(updateModalContentType('view'))
-            dispatch(updateModalHistoryType('list'))
+            dispatch(updateEventContentType('view'))
+            dispatch(updateEventHistoryType('list'))
         }
     }
 

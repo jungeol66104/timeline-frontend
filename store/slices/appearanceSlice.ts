@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
 
 const initialState = {
-    showTimelineNameBar: false,
-    isSummary: true,
+    showTimelineTitleBar: false,
+    isKeynote: true,
     isBottomEnd: true,
     currentPage: 1,
     totalPage: 1,
@@ -14,11 +14,11 @@ const initialState = {
     isPopup: false,
     is404: false,
     timelineType: 'public',
-    timelineContentType: 'view',
-    timelineHistoryType: 'list',
     modalType: 'none',
-    modalContentType: 'view',
-    modalHistoryType: 'list',
+    informationContentType: 'view',
+    informationHistoryType: 'list',
+    eventContentType: 'view',
+    eventHistoryType: 'list',
     demoKeyConcept: 'timeline'
 } as initialAppearanceState
 
@@ -26,11 +26,11 @@ const appearanceSlice = createSlice({
     name: 'appearance',
     initialState,
     reducers: {
-        updateShowTimelineNameBar: (state, action) => {
-            state.showTimelineNameBar = action.payload
+        updateShowTimelineTitleBar: (state, action) => {
+            state.showTimelineTitleBar = action.payload
         },
-        updateIsSummary: (state, action) => {
-            state.isSummary = action.payload
+        updateIsKeynote: (state, action) => {
+            state.isKeynote = action.payload
         },
         updateIsBottomEnd: (state, action) => {
             state.isBottomEnd = action.payload
@@ -59,20 +59,20 @@ const appearanceSlice = createSlice({
         updateTimelineType: (state, action) => {
             state.timelineType = action.payload
         },
-        updateTimelineContentType: (state, action) => {
-            state.timelineContentType = action.payload
+        updateInformationContentType: (state, action) => {
+            state.informationContentType = action.payload
         },
-        updateTimelineHistoryType: (state, action) => {
-            state.timelineHistoryType = action.payload
+        updateInformationHistoryType: (state, action) => {
+            state.informationHistoryType = action.payload
         },
         updateModalType: (state, action) => {
             state.modalType = action.payload
         },
-        updateModalContentType: (state, action) => {
-            state.modalContentType = action.payload
+        updateEventContentType: (state, action) => {
+            state.eventContentType = action.payload
         },
-        updateModalHistoryType: (state, action) => {
-            state.modalHistoryType = action.payload
+        updateEventHistoryType: (state, action) => {
+            state.eventHistoryType = action.payload
         },
         updateDemoKeyConcept: (state, action) => {
             state.demoKeyConcept = action.payload
@@ -83,11 +83,11 @@ const appearanceSlice = createSlice({
     },
 });
 export default appearanceSlice.reducer;
-export const {updateIsPopup, updateDemoKeyConcept, updateShowTimelineNameBar, updateTimelineType, updateScrollTop, updateIsSummary, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateTimelineHistoryType, updateTimelineContentType, updateModalType, updateModalContentType, updateModalHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
+export const {updateIsPopup, updateDemoKeyConcept, updateShowTimelineTitleBar, updateTimelineType, updateScrollTop, updateIsKeynote, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateInformationHistoryType, updateInformationContentType, updateModalType, updateEventContentType, updateEventHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
 
 // selectors
-export const selectShowTimelineNameBar = (state: RootState) => state.appearance.showTimelineNameBar
-export const selectIsSummary = (state: RootState) => state.appearance.isSummary
+export const selectShowTimelineTitleBar = (state: RootState) => state.appearance.showTimelineTitleBar
+export const selectIsKeynote = (state: RootState) => state.appearance.isKeynote
 export const selectIsBottomEnd = (state: RootState) => state.appearance.isBottomEnd
 export const selectCurrentPage = (state: RootState) => state.appearance.currentPage
 export const selectTotalPage = (state: RootState) => state.appearance.totalPage
@@ -96,19 +96,19 @@ export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectIsShare = (state: RootState) => state.appearance.isShare
 export const selectIsEdit = (state: RootState) => state.appearance.isEdit
 export const selectIsPopup = (state: RootState) => state.appearance.isPopup
-export const selectTimelineType = (state: RootState) => state.appearance.timelineType
-export const selectTimelineContentType = (state: RootState) => state.appearance.timelineContentType
-export const selectTimelineHistoryType = (state: RootState) => state.appearance.timelineHistoryType
-export const selectModalType = (state: RootState) => state.appearance.modalType
-export const selectModalContentType = (state: RootState) => state.appearance.modalContentType
-export const selectModalHistoryType = (state: RootState) => state.appearance.modalHistoryType
-export const selectDemoKeyConcept = (state: RootState) => state.appearance.demoKeyConcept
 export const selectIs404 = (state: RootState) => state.appearance.is404
+export const selectTimelineType = (state: RootState) => state.appearance.timelineType
+export const selectModalType = (state: RootState) => state.appearance.modalType
+export const selectInformationContentType = (state: RootState) => state.appearance.informationContentType
+export const selectInformationHistoryType = (state: RootState) => state.appearance.informationHistoryType
+export const selectEventContentType = (state: RootState) => state.appearance.eventContentType
+export const selectEventHistoryType = (state: RootState) => state.appearance.eventHistoryType
+export const selectDemoKeyConcept = (state: RootState) => state.appearance.demoKeyConcept
 
 // types
 export interface initialAppearanceState {
-    showTimelineNameBar: boolean
-    isSummary: boolean // change expression to isKeynote
+    showTimelineTitleBar: boolean
+    isKeynote: boolean // change expression to isKeynote
     isBottomEnd: boolean
     tagNum: number
     currentPage: number
@@ -120,12 +120,11 @@ export interface initialAppearanceState {
     is404: boolean
 
     timelineType: 'public' | 'private' | 'new' | 'demo'
-    timelineContentType: 'view' | 'edit' | 'history' | 'discussion' | 'new'
-    timelineHistoryType: 'list' | 'view' | 'diff'
-
-    modalType: 'none' | 'share' | 'information' | 'event'
-    modalContentType: 'view' | 'edit'  | 'history' | 'discussion' | 'new'
-    modalHistoryType: 'list' | 'view' | 'diff'
+    modalType: 'none' | 'information' | 'event' | 'share'
+    informationContentType: 'view' | 'edit' | 'history' | 'discussion' | 'new'
+    informationHistoryType: 'list' | 'view' | 'diff'
+    eventContentType: 'view' | 'edit'  | 'history' | 'discussion' | 'new'
+    eventHistoryType: 'list' | 'view' | 'diff'
 
     demoKeyConcept: 'timeline' | 'event' | 'showMore' | 'private' | 'contributors' | 'edit' | 'keynote'
 }

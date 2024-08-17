@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {updateModalContentType} from "@/store/slices/appearanceSlice";
+import {updateEventContentType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, updateCurrentEvent, updateCurrentEventDraft, updateEventInCurrentEvents, updateEventInCurrentEventsDraft} from "@/store/slices/contentsSlice";
 
 const SaveEventButton = () => {
@@ -13,7 +13,7 @@ const SaveEventButton = () => {
         dispatch(updateEventInCurrentEvents(currentEventDraft))
         dispatch(updateEventInCurrentEventsDraft(currentEventDraft))
         // also save to db
-        dispatch(updateModalContentType('view'))
+        dispatch(updateEventContentType('view'))
         return
     }
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import useTimelineNameBar from "@/hooks/useTimelineNameBar";
 import {useSelector} from "react-redux";
-import {selectShowTimelineNameBar, selectTimelineContentType} from "@/store/slices/appearanceSlice";
+import {selectShowTimelineTitleBar, selectInformationContentType} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimeline, selectCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 
 const TimelineTitleBar = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
-    const timelineType = useSelector(selectTimelineContentType)
-    const showTimelineNameBar = useSelector(selectShowTimelineNameBar)
+    const timelineType = useSelector(selectInformationContentType)
+    const showTimelineNameBar = useSelector(selectShowTimelineTitleBar)
 
     const timelineName = timelineType === 'new' ? currentTimelineDraft.name : currentTimeline.name
 

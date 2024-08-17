@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentPage, selectIsBottomEnd, selectIsSummary, updateCurrentPage, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
+import {selectCurrentPage, selectIsBottomEnd, selectIsKeynote, updateCurrentPage, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvents, selectCurrentEventsDraft, selectCurrentTimeline, TimelineEvent, updateCurrentEvents, updateCurrentEventsDraft} from "@/store/slices/contentsSlice";
 import {debounce, getScrollWrapper} from "@/utils/global";
 import {fetchEvents} from "@/pages/api/global";
@@ -11,7 +11,7 @@ const useOperateTimeline = () => {
     const currentEvents = useSelector(selectCurrentEvents)
     const currentEventsDraft = useSelector(selectCurrentEventsDraft)
     const currentPage = useSelector(selectCurrentPage)
-    const currentIsKeynote = useSelector(selectIsSummary)
+    const currentIsKeynote = useSelector(selectIsKeynote)
     const isBottomEnd = useSelector(selectIsBottomEnd)
 
     useEffect(() => {

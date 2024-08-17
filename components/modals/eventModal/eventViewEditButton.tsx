@@ -1,14 +1,14 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectModalContentType, updateModalContentType, updateModalHistoryType} from "@/store/slices/appearanceSlice";
+import {selectEventContentType, updateEventContentType, updateEventHistoryType} from "@/store/slices/appearanceSlice";
 
 const EventViewEditButton = () => {
     const dispatch = useDispatch()
-    const contentType = useSelector(selectModalContentType)
+    const contentType = useSelector(selectEventContentType)
 
     const handleClick = (contentType: string) => {
-        if (contentType === 'history') dispatch(updateModalHistoryType('list'))
-        dispatch(updateModalContentType(contentType))
+        if (contentType === 'history') dispatch(updateEventHistoryType('list'))
+        dispatch(updateEventContentType(contentType))
     }
 
     return (

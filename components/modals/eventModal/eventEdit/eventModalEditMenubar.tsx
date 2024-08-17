@@ -3,7 +3,7 @@ import SaveEventButton from "@/components/modals/eventModal/eventEdit/saveEventB
 import NoteButton from "@/components/common/edit/noteButton";
 import AddImageButton from "@/components/common/edit/addImageButton";
 import {useSelector} from "react-redux";
-import {selectModalContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
+import {selectEventContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import ResetEditButton from "@/components/common/edit/resetEditButton";
 import {getIsBaseImage} from "@/utils/global";
 import ReplaceImageButtonTest from "@/components/common/edit/replaceImageButtonTest";
