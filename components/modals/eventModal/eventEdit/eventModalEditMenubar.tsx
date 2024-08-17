@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {selectEventContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import ResetEditButton from "@/components/common/edit/resetEditButton";
 import {getIsBaseImage} from "@/utils/global";
-import ReplaceImageButtonTest from "@/components/common/edit/replaceImageButtonTest";
+import ReplaceImageButton from "@/components/common/edit/replaceImageButton";
 import RemoveImageButton from "@/components/common/edit/removeImageButton";
 import DisconnectButton from "@/components/modals/eventModal/eventEdit/disconnectButton";
 import KeynoteButton from "@/components/modals/eventModal/eventEdit/keynoteButton";
@@ -21,7 +21,7 @@ const EventModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
             <div className={'flex gap-3'}>
                 {isBaseImage && <AddImageButton/>}
                 {!isBaseImage && <RemoveImageButton/>}
-                {!isBaseImage && <ReplaceImageButtonTest/>}
+                {!isBaseImage && <ReplaceImageButton/>}
                 {eventContentType === 'edit' && <ResetEditButton/>}
                 {eventContentType === 'edit' && <DisconnectButton/>}
             </div>

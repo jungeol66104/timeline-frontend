@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import DiscussionButton from "@/components/common/more/discussionButton";
 import HistoryButton from "@/components/common/more/historyButton";
 import RemoveImageButton from "@/components/common/edit/removeImageButton";
-import ReplaceImageButtonTest from "@/components/common/edit/replaceImageButtonTest";
+import ReplaceImageButton from "@/components/common/edit/replaceImageButton";
 
 const ImageEditButton = () => {
     const imageEditButtonRef = useRef<HTMLButtonElement>(null)
@@ -28,7 +28,7 @@ const ImageEditButton = () => {
             {isToggle &&
                 <div className={'absolute top-[38px] right-0 px-1.5 py-1 w-[156.33px] bg-white border-[1px] rounded-md drop-shadow-md'}>
                     <RemoveImageButton />
-                    <ReplaceImageButtonTest />
+                    <ReplaceImageButton />
                 </div>
             }
         </div>

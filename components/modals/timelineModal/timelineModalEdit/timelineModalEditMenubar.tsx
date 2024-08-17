@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {selectTimelineType} from "@/store/slices/appearanceSlice";
 import {getIsBaseImage} from "@/utils/global";
 import RemoveImageButton from "@/components/common/edit/removeImageButton";
-import ReplaceImageButtonTest from "@/components/common/edit/replaceImageButtonTest";
+import ReplaceImageButton from "@/components/common/edit/replaceImageButton";
 import SaveInformationButton from "@/components/modals/timelineModal/timelineModalEdit/saveInformationButton";
 
 const TimelineModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
@@ -18,7 +18,7 @@ const TimelineModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
             <div className={'flex gap-3'}>
                 {isBaseImage && <AddImageButton/>}
                 {!isBaseImage && <RemoveImageButton />}
-                {!isBaseImage && <ReplaceImageButtonTest />}
+                {!isBaseImage && <ReplaceImageButton />}
                 {timelineType !== 'new' && <ResetEditButton />}
             </div>
             <div className={'flex gap-3'}>

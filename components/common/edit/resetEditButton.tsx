@@ -1,13 +1,12 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEvent, selectCurrentEvents, selectCurrentTimeline, updateCurrentEventDraft, updateCurrentEventsDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentEvent, selectCurrentTimeline, updateCurrentEventDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import {selectModalType} from "@/store/slices/appearanceSlice";
 
 const ResetEditButton = () => {
     const dispatch = useDispatch();
     const modalType = useSelector(selectModalType)
     const currentTimeline = useSelector(selectCurrentTimeline);
-    const currentEvents = useSelector(selectCurrentEvents);
     const currentEvent = useSelector(selectCurrentEvent);
 
     const handleClick = () => {
@@ -15,7 +14,6 @@ const ResetEditButton = () => {
             dispatch(updateCurrentEventDraft(currentEvent));
         } else {
             dispatch(updateCurrentTimelineDraft(currentTimeline))
-            dispatch(updateCurrentEventsDraft(currentEvents))
         }
     }
 
