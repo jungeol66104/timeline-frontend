@@ -2,7 +2,7 @@ import React from 'react';
 import probe from "probe-image-size";
 import {storeWrapper} from "@/store/store";
 import {updateCurrentPage, updateIsBottomEnd, updateInformationContentType, updateTimelineType, updateTotalPage, updateEventContentType} from "@/store/slices/appearanceSlice";
-import {updateCurrentEvent, updateCurrentEvents, updateCurrentEventsDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updateCurrentTimelines} from "@/store/slices/contentsSlice";
+import {updateCurrentEvent, updateCurrentEvents, updateCurrentTimeline, updateCurrentTimelineDraft, updateCurrentTimelines} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
 import AboutSectionPrimary from "@/components/about/aboutSectionPrimary";
 import AboutSectionSecondary from "@/components/about/aboutSectionSecondary";
@@ -21,7 +21,6 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateCurrentTimelineDraft(data.timelineInfo))
         store.dispatch(updateCurrentEvents(data.events))
         store.dispatch(updateCurrentEvent(data.events[0]))
-        store.dispatch(updateCurrentEventsDraft(data.events))
         store.dispatch(updateCurrentPage(1))
         store.dispatch(updateTotalPage(1))
         store.dispatch(updateIsBottomEnd(true))
