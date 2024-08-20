@@ -36,14 +36,14 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
 
 const MaintenancePage = () => {
     return (
-        <div className={'py-10 flex flex-col items-center justify-center gap-10'}>
+        <div className={'px-3 py-10 flex flex-col items-center justify-center gap-10'}>
             <div className={'text-2xl font-black'}>Timeline</div>
             <h1 className={'text-4xl font-bold text-center'}>Timeline Wiki Update</h1>
             <div className={'max-w-[630px] flex flex-col items-center gap-10 text-lg font-medium'}>
-                <p>Thank you for visiting Timeline! We&apos;ll Be Right Back.</p>
-                <p className={'text-center'}>We expect to be back online before<br/><span className={'text-[16px] font-normal'}>September 01, 2024 00:00:00 (UTC)</span></p>
+                <p>Thank you for visiting Timeline! We&apos;ll be right back.</p>
+                <p className={'text-center'}>We expect to be back online before<br/><span className={'text-blue-700 text-[16px] font-normal'}>September 01, 2024 00:00:00 (UTC)</span></p>
                 <p>
-                    Our website is currently undergoing major update to bring you an even better experience.
+                    Timeline is currently undergoing major update to bring you an even better experience.
                     After this update, our service becomes a timeline wiki.
                     Not only viewing timelines, you will be able to create and edit your own private timeline, publish it to the wiki or do both.
                 </p>
