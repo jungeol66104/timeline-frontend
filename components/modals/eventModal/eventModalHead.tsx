@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import EventModalMenubar from "@/components/modals/eventModal/eventModalMenubar";
-import EventNameEdit from "@/components/modals/eventModal/eventEdit/eventNameEdit";
+import EventTitleEdit from "@/components/modals/eventModal/eventEdit/eventTitleEdit";
 import EventDateEdit from "@/components/modals/eventModal/eventEdit/eventDateEdit";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
 import {selectEventContentType} from "@/store/slices/appearanceSlice";
@@ -18,7 +18,7 @@ const EventModalHead = () => {
                     :   <div className={`w-fit text-md font-medium`}>{currentEvent.date}</div>
                 }
                 {eventContentType === 'edit' || eventContentType === 'new'
-                    ?   <EventNameEdit />
+                    ?   <EventTitleEdit />
                     :   <h1 className={`w-fit text-2xl font-bold`}>{currentEvent.name}</h1>
                 }
             </div>

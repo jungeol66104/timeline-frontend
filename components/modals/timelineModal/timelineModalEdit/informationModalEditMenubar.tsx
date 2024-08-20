@@ -9,7 +9,7 @@ import RemoveImageButton from "@/components/common/edit/removeImageButton";
 import ReplaceImageButton from "@/components/common/edit/replaceImageButton";
 import SaveInformationButton from "@/components/modals/timelineModal/timelineModalEdit/saveInformationButton";
 
-const TimelineModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
+const InformationModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
     const timelineType = useSelector(selectTimelineType)
     const isBaseImage = getIsBaseImage(src)
 
@@ -28,4 +28,4 @@ const TimelineModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
     );
 };
 
-export default TimelineModalEditMenubar;
+export default InformationModalEditMenubar;

@@ -3,7 +3,7 @@ import TimelineContribution from "@/components/common/contribution/timelineContr
 import KeynoteContribution from "@/components/common/contribution/keynoteContribution";
 import ConnectionContribution from "@/components/common/contribution/connectionContribution";
 
-const TimelineContributions = () => {
+const InformationContributions = () => {
     return (
         <div>
             <TimelineContribution type={'timeline'}/>
@@ -16,4 +16,4 @@ const TimelineContributions = () => {
     );
 };
 
-export default TimelineContributions;
+export default InformationContributions;

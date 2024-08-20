@@ -5,7 +5,7 @@ import {EditorContent, useEditor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from '@tiptap/extension-placeholder'
 
-const TimelineDescriptionEdit = () => {
+const InformationDescriptionEdit = () => {
     const dispatch = useDispatch()
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
 
@@ -30,4 +30,4 @@ const TimelineDescriptionEdit = () => {
     );
 };
 
-export default TimelineDescriptionEdit;
+export default InformationDescriptionEdit;

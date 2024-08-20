@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 import {EditorContent, useEditor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -8,10 +8,15 @@ import Placeholder from "@tiptap/extension-placeholder";
 import { Spice } from "timecraftjs";
 import {transformDateTest} from "@/utils/global";
 import GuideButton from "@/components/common/edit/guideButton";
+import {selectEventContentType} from "@/store/slices/appearanceSlice";
 
 const EventDateEdit = () => {
     const dispatch = useDispatch()
+    const eventContentType = useSelector(selectEventContentType)
+    const currentEvents = useSelector(selectCurrentEvents)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
+
+    const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
     const [spiceInstance, setSpiceInstance] = useState<any>(null);
     const [spiceError, setSpiceError] = useState(false);
 
@@ -40,11 +45,12 @@ const EventDateEdit = () => {
             if (allowedCharacters.test(content)) {
                 try {
                     const ephemerisTime = spiceInstance.str2et(transformDateTest(content));
-                    console.log(ephemerisTime)
                     dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content, ephemerisTime: ephemerisTime}));
+                    if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({ ...currentEventDraft, date: content, ephemerisTime: ephemerisTime}))
                     setSpiceError(false);
                 } catch {
                     dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content }));
+                    if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({ ...currentEventDraft, date: content}))
                     setSpiceError(true);
                 }
             } else {
@@ -55,7 +61,6 @@ const EventDateEdit = () => {
             }
         },
     })
-
 
     useEffect(() => {
         const initializeSpice = async () => {
@@ -74,8 +79,8 @@ const EventDateEdit = () => {
 
     return (
         <>
-            <div className={'z-20 absolute'}><EditorContent editor={editor}/></div>
-            <div className={`invisible w-fit text-md font-medium min-h-[24px] min-w-[100px]`}>{currentEventDraft.date}</div>
+            <div className={'absolute w-full'}><EditorContent editor={editor}/></div>
+            <div className={`invisible min-h-[24px] text-md font-medium break-words`}>{currentEventDraft.date}</div>
             <div className={'flex gap-2'}>
                 <GuideButton type={'date'} />
                 {spiceError && <div className={'flex items-center gap-1 text-red-700'}><span className={'material-symbols-outlined text-[12px]'}>&#xe000;</span><span className={'mt-[1px] text-[10px]'}>Keep YYYY-MM-DD BCE(optional) format.</span></div>}

@@ -2,8 +2,8 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectInformationContentType} from "@/store/slices/appearanceSlice";
 import InformationModalView from "@/components/modals/timelineModal/timelineModalView/informationModalView";
-import TimelineModalEdit from "@/components/modals/timelineModal/timelineModalEdit/timelineModalEdit";
-import TimelineModalHistory from "@/components/modals/timelineModal/timelineModalHistory/timelineModalHistory";
+import InformationModalEdit from "@/components/modals/timelineModal/timelineModalEdit/informationModalEdit";
+import InformationModalHistory from "@/components/modals/timelineModal/timelineModalHistory/informationModalHistory";
 
 const InformationModalBody = () => {
     const informationContentType = useSelector(selectInformationContentType)
@@ -11,9 +11,9 @@ const InformationModalBody = () => {
     return (
         <div>
             {informationContentType === 'view' && <InformationModalView />}
-            {informationContentType === 'edit' && <TimelineModalEdit />}
-            {informationContentType === 'history' && <TimelineModalHistory />}
-            {informationContentType === 'new' && <TimelineModalEdit />}
+            {informationContentType === 'edit' && <InformationModalEdit />}
+            {informationContentType === 'history' && <InformationModalHistory />}
+            {informationContentType === 'new' && <InformationModalEdit />}
         </div>
     );
 };

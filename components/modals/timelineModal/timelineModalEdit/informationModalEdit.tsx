@@ -5,9 +5,9 @@ import StarterKit from '@tiptap/starter-kit'
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import InformationModalImage from "@/components/modals/timelineModal/timelineModalView/informationModalImage";
 import Placeholder from "@tiptap/extension-placeholder";
-import TimelineModalEditMenubar from "@/components/modals/timelineModal/timelineModalEdit/timelineModalEditMenubar";
+import InformationModalEditMenubar from "@/components/modals/timelineModal/timelineModalEdit/informationModalEditMenubar";
 
-const TimelineModalEdit = () => {
+const InformationModalEdit = () => {
     const dispatch = useDispatch()
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
 
@@ -24,7 +24,7 @@ const TimelineModalEdit = () => {
 
     return (
         <div>
-            <TimelineModalEditMenubar editor={editor} src={currentTimelineDraft.image}/>
+            <InformationModalEditMenubar editor={editor} src={currentTimelineDraft.image}/>
             <hr/>
             <div className={'flex flex-col items-center gap-3'}>
                 <InformationModalImage src={currentTimelineDraft.image} alt={currentTimelineDraft.name} imageSize={currentTimelineDraft.imageSize}/>
@@ -33,4 +33,4 @@ const TimelineModalEdit = () => {
         </div>
     )
 }
-export default TimelineModalEdit
+export default InformationModalEdit
