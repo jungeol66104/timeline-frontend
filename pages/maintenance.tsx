@@ -38,8 +38,7 @@ const MaintenancePage = () => {
     return (
         <div className={'py-10 flex flex-col items-center justify-center gap-10'}>
             <div className={'text-2xl font-black'}>Timeline</div>
-            <hr className={'w-full max-w-[630px]'}/>
-            <h1 className={'text-4xl font-bold'}>Timeline Under Maintenance</h1>
+            <h1 className={'text-4xl font-bold text-center'}>Timeline Wiki Update</h1>
             <div className={'max-w-[630px] flex flex-col items-center gap-10 text-lg font-medium'}>
                 <p>Thank you for visiting Timeline! We&apos;ll Be Right Back.</p>
                 <p className={'text-center'}>We expect to be back online before<br/><span className={'text-[16px] font-normal'}>September 01, 2024 00:00:00 (UTC)</span></p>
