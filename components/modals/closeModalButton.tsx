@@ -1,13 +1,17 @@
-import {updateEventContentType, updateEventHistoryType, updateModalType} from "@/store/slices/appearanceSlice";
-import {useDispatch} from "react-redux";
+import {selectTimelineType, updateEventContentType, updateEventHistoryType, updateModalType} from "@/store/slices/appearanceSlice";
+import {useDispatch, useSelector} from "react-redux";
 
 const CloseModalButton = () => {
     const dispatch = useDispatch()
+    const timelineType = useSelector(selectTimelineType)
 
     const handleClick = () => {
         dispatch(updateModalType('none'))
-        dispatch(updateEventContentType('view'))
-        dispatch(updateEventHistoryType('list'))
+
+        if (timelineType !== 'new') {
+            dispatch(updateEventContentType('view'))
+            dispatch(updateEventHistoryType('list'))
+        }
     }
 
     return (

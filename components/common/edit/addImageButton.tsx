@@ -1,15 +1,27 @@
 import React, {ChangeEvent} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEventDraft, selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
-import {selectModalType} from "@/store/slices/appearanceSlice";
+import {
+    selectCurrentEventDraft,
+    selectCurrentEvents,
+    selectCurrentTimeline,
+    selectCurrentTimelineDraft,
+    updateCurrentEventDraft,
+    updateCurrentTimeline,
+    updateCurrentTimelineDraft,
+    updateEventInCurrentEvents
+} from "@/store/slices/contentsSlice";
+import {selectModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const AddImageButton = () => {
     const dispatch = useDispatch()
+    const timelineType = useSelector(selectTimelineType)
     const modalType = useSelector(selectModalType)
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
+    const currentEvents = useSelector(selectCurrentEvents)
 
+    const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files
@@ -29,7 +41,11 @@ const AddImageButton = () => {
                         dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: newSrc, imageSize: imageSize}))
                     } else if (modalType === 'information') {
                         dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: newSrc, imageSize: imageSize}))
-                    } else dispatch(updateCurrentEventDraft({...currentEventDraft, image: newSrc, imageSize: imageSize}))
+                        if (timelineType === 'new') dispatch(updateCurrentTimeline({...currentTimeline, image: newSrc, imageSize: imageSize}))
+                    } else if (modalType === 'event') {
+                        dispatch(updateCurrentEventDraft({...currentEventDraft, image: newSrc, imageSize: imageSize}))
+                        if (timelineType === 'new' && isCreated) dispatch(updateEventInCurrentEvents({...currentEventDraft, image: newSrc, imageSize: imageSize}))
+                    }
                 }
                 image.src = newSrc as string
             }

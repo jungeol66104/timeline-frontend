@@ -18,7 +18,6 @@ const AddEventButton = () => {
         }
 
         const newEvent = {id: getNewId(), name: '', description: '', date: '', ephemerisTime: 0, keynote: 1, timelineInfo: [], updatedDt: getTodayDate()}
-        console.log(newEvent)
         dispatch(updateCurrentEvent(newEvent))
         dispatch(updateCurrentEventDraft(newEvent))
         dispatch(updateModalType('event'))

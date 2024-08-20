@@ -6,23 +6,25 @@ import {fetchEvents} from "@/pages/api/global";
 
 const KeynoteToggle = () => {
     const dispatch = useDispatch()
-    const currentTimeline = useSelector(selectCurrentTimeline)
-    const isKeynote = useSelector(selectIsKeynote)
     const timelineType = useSelector(selectTimelineType)
     const demoKeyConcept = useSelector(selectDemoKeyConcept);
+    const isKeynote = useSelector(selectIsKeynote)
+    const currentTimeline = useSelector(selectCurrentTimeline)
 
     const handleClick = () => {
         const targetIsKeynote = !isKeynote
 
-        fetchEvents(currentTimeline.id, 1, targetIsKeynote).then((data) => {
-            const events = data.events
-            events.forEach((event: TimelineEvent) => event.keynote = +targetIsKeynote)
-            dispatch(updateCurrentEvents(events))
-            dispatch(updateCurrentPage(1))
-            dispatch(updateTotalPage(data.totalPages))
-            dispatch(updateIsBottomEnd(data.totalPages === 1))
-            dispatch(updateIsKeynote(targetIsKeynote))
-        })
+        if (timelineType === 'public' || timelineType === 'private') {
+            fetchEvents(currentTimeline.id, 1, targetIsKeynote).then((data) => {
+                const events = data.events
+                events.forEach((event: TimelineEvent) => event.keynote = +targetIsKeynote)
+                dispatch(updateCurrentEvents(events))
+                dispatch(updateCurrentPage(1))
+                dispatch(updateTotalPage(data.totalPages))
+                dispatch(updateIsBottomEnd(data.totalPages === 1))
+            })
+        }
+        dispatch(updateIsKeynote(targetIsKeynote))
     }
 
     return (

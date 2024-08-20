@@ -1,10 +1,11 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEvent, updateCurrentEvents} from "@/store/slices/contentsSlice";
-import {updateEventContentType} from "@/store/slices/appearanceSlice";
+import {selectTimelineType, updateEventContentType} from "@/store/slices/appearanceSlice";
 
 const CreateEventButton = () => {
     const dispatch = useDispatch();
+    const timelineType = useSelector(selectTimelineType)
     const currentEvents = useSelector(selectCurrentEvents)
     const currentEventDraft = useSelector(selectCurrentEventDraft);
 
@@ -13,8 +14,7 @@ const CreateEventButton = () => {
         // get event and update currentEvent & currentEvents
         dispatch(updateCurrentEvent(currentEventDraft));
         dispatch(updateCurrentEvents([...currentEvents, currentEventDraft]))
-        // update contentType to view
-        dispatch(updateEventContentType('view'))
+        if (timelineType !== 'new') dispatch(updateEventContentType('view'))
     }
 
     return (

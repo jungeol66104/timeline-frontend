@@ -7,12 +7,18 @@ import ContributorsButton from "@/components/common/contributorsButton";
 import EventViewEditButton from "@/components/modals/eventModal/eventViewEditButton";
 import TemporaryHistoryButton from "@/components/common/temporaryHistoryButton";
 import CreateEventButton from "@/components/modals/eventModal/createEventButton";
+import {selectCurrentEventDraft, selectCurrentEvents} from "@/store/slices/contentsSlice";
 
 const EventModalMenubar = () => {
     const session = useSelector(selectSession)
     const timelineType = useSelector(selectTimelineType);
     const eventContentType = useSelector(selectEventContentType)
     const demoKeyConcept = useSelector(selectDemoKeyConcept)
+    const currentEventDraft = useSelector(selectCurrentEventDraft)
+    const currentEvents = useSelector(selectCurrentEvents)
+
+    const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
+
 
     return (
         <div className={'pt-3 w-full flex justify-between'}>
@@ -25,7 +31,7 @@ const EventModalMenubar = () => {
             <div className={'flex gap-3'}>
                 {eventContentType !== 'new' && <EventViewEditButton />}
                 {eventContentType !== 'new' && timelineType === 'public' && <TemporaryHistoryButton />}
-                {eventContentType === 'new' && <CreateEventButton/>}
+                {eventContentType === 'new' && !isCreated && <CreateEventButton/>}
             </div>
         </div>
     );
