@@ -24,7 +24,7 @@ const EventModalEdit = () => {
             if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({...currentEventDraft, description: editor.getText()}))
         },
         content: `<p>${currentEventDraft.description}</p>`,
-    })
+    }, [currentEventDraft.description])
 
     return (
         <div>

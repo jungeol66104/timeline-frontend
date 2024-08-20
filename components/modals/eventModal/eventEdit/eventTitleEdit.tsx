@@ -1,10 +1,10 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
+import {selectEventContentType} from "@/store/slices/appearanceSlice";
 import {EditorContent, useEditor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-import {selectEventContentType} from "@/store/slices/appearanceSlice";
 
 const EventTitleEdit = () => {
     const dispatch = useDispatch()
@@ -22,7 +22,7 @@ const EventTitleEdit = () => {
             if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({...currentEventDraft, name: editor.getText()}))
         },
         content: `<p>${currentEventDraft.name}</p>`,
-    })
+    }, [currentEventDraft.name])
 
     return (
         <>

@@ -1,7 +1,7 @@
 import React from "react";
 import {useSelector} from "react-redux";
 import {selectSession} from "@/store/slices/privateSlice";
-import {selectDemoKeyConcept, selectEventContentType, selectInformationContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectEventContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import NicknameButton from "@/components/common/nicknameButton";
 import ContributorsButton from "@/components/common/contributorsButton";
 import EventViewEditButton from "@/components/modals/eventModal/eventViewEditButton";

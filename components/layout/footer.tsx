@@ -10,7 +10,7 @@ const Footer = () => {
 
     return (
         <footer className={`${isHidden && 'hidden'} flex flex-col bg-[#F2F2F259] border-t-[1px] border-[#E5E7EB]`}>
-            <div className={'px-4 py-6 flex flex-col gap-2.5 w-full max-w-[630px]'}>
+            <div className={'px-4 py-6 flex flex-col gap-2.5 w-full'}>
                 <div className={'text-xs text-[#222222]'}>© 2024 Timeline</div>
                 <hr/>
                 <div className={'flex gap-1 flex-wrap text-[10px] text-[#6A6A6A]'}>

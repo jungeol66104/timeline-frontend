@@ -5,12 +5,12 @@ import {getTodayDate} from "@/utils/global";
 
 const AddEventButton = () => {
     const dispatch = useDispatch()
-    const currentEvents = useSelector(selectCurrentEvents)
     const timelineType = useSelector(selectTimelineType)
+    const currentEvents = useSelector(selectCurrentEvents)
+
     const demoKeyConcept = useSelector(selectDemoKeyConcept)
 
     const handleClick = () => {
-
         const getNewId = () => {
             const negativeIds = currentEvents.map(event => event.id).filter(id => id < 0)
             const mostNegativeId = Math.min(...negativeIds)
