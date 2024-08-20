@@ -6,10 +6,11 @@ import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, u
 import EventModalEditMenubar from "@/components/modals/eventModal/eventEdit/eventModalEditMenubar";
 import EventModalImage from "@/components/modals/eventModal/eventView/eventModalImage";
 import Placeholder from "@tiptap/extension-placeholder";
-import {selectEventContentType} from "@/store/slices/appearanceSlice";
+import {selectEventContentType, selectModalType} from "@/store/slices/appearanceSlice";
 
 const EventModalEdit = () => {
     const dispatch = useDispatch()
+    const modalType = useSelector(selectModalType)
     const eventContentType = useSelector(selectEventContentType)
     const currentEvents = useSelector(selectCurrentEvents)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
@@ -24,7 +25,7 @@ const EventModalEdit = () => {
             if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({...currentEventDraft, description: editor.getText()}))
         },
         content: `<p>${currentEventDraft.description}</p>`,
-    }, [currentEventDraft])
+    }, [modalType])
 
     return (
         <div>

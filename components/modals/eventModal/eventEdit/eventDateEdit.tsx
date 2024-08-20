@@ -8,10 +8,11 @@ import Placeholder from "@tiptap/extension-placeholder";
 import { Spice } from "timecraftjs";
 import {transformDateTest} from "@/utils/global";
 import GuideButton from "@/components/common/edit/guideButton";
-import {selectEventContentType} from "@/store/slices/appearanceSlice";
+import {selectEventContentType, selectModalType} from "@/store/slices/appearanceSlice";
 
 const EventDateEdit = () => {
     const dispatch = useDispatch()
+    const modalType = useSelector(selectModalType)
     const eventContentType = useSelector(selectEventContentType)
     const currentEvents = useSelector(selectCurrentEvents)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
@@ -60,7 +61,7 @@ const EventDateEdit = () => {
                 });
             }
         },
-    }, [currentEventDraft])
+    }, [modalType])
 
     useEffect(() => {
         const initializeSpice = async () => {
@@ -75,7 +76,7 @@ const EventDateEdit = () => {
         };
 
         initializeSpice()
-    }, []);
+    });
 
     return (
         <>

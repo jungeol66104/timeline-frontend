@@ -1,13 +1,14 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
-import {selectEventContentType} from "@/store/slices/appearanceSlice";
+import {selectEventContentType, selectModalType} from "@/store/slices/appearanceSlice";
 import {EditorContent, useEditor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 
 const EventTitleEdit = () => {
     const dispatch = useDispatch()
+    const modalType = useSelector(selectModalType)
     const eventContentType = useSelector(selectEventContentType)
     const currentEvents = useSelector(selectCurrentEvents)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
@@ -22,7 +23,7 @@ const EventTitleEdit = () => {
             if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({...currentEventDraft, name: editor.getText()}))
         },
         content: `<p>${currentEventDraft.name}</p>`,
-    }, [currentEventDraft])
+    }, [modalType])
 
     return (
         <>
