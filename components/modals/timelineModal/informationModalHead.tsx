@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
+import {selectInformationContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import InformationModalMenubar from "@/components/modals/timelineModal/informationModalMenubar";
 import TimelineTitleEdit from "@/components/modals/timelineModal/timelineModalEdit/timelineTitleEdit";
 import TimelineDescriptionEdit from "@/components/modals/timelineModal/timelineModalEdit/timelineDescriptionEdit";
@@ -9,15 +9,14 @@ import TimelineDescriptionEdit from "@/components/modals/timelineModal/timelineM
 const InformationModalHead = () => {
     const timelineType = useSelector(selectTimelineType);
     const informationContentType = useSelector(selectInformationContentType)
-    const demoKeyConcept = useSelector(selectDemoKeyConcept);
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     return (
-        <div className={'z-10'}>
-            <div className={'relative'}>
+        <div className={'z-10 w-full'}>
+            <div className={'relative w-full'}>
                 {informationContentType === 'new' || (timelineType === 'private' && informationContentType === 'edit') || (timelineType === 'demo' && informationContentType === 'edit')
                     ?   <TimelineTitleEdit />
-                    :   <h1 className={`w-fit flex items-center gap-2`}><span className={'text-2xl font-bold'}>{currentTimeline.name}</span></h1>
+                    :   <h1 className={`w-full text-2xl font-bold`}>{currentTimeline.name}</h1>
                 }
                 {informationContentType === 'edit' || informationContentType === 'new'
                     ?   <TimelineDescriptionEdit />

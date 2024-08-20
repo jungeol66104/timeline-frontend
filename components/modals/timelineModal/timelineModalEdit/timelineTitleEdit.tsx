@@ -11,12 +11,8 @@ const TimelineTitleEdit = () => {
 
     const editor = useEditor({
         extensions: [StarterKit, Placeholder.configure({placeholder: 'New Timeline Title'})],
-        editorProps: {
-            attributes: {class: 'outline-none text-2xl font-bold'}
-        },
-        onUpdate: ({ editor }) => {
-            dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, name: editor.getText()}))
-        },
+        editorProps: {attributes: {class: 'outline-none text-2xl font-bold'}},
+        onUpdate: ({ editor }) => {dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, name: editor.getText()}))},
         content: `<p>${currentTimelineDraft.name}</p>`,
     })
 
@@ -27,10 +23,10 @@ const TimelineTitleEdit = () => {
     }, [currentTimelineDraft, editor]);
 
     return (
-        <div>
-            <div className={'absolute'}><EditorContent editor={editor}/></div>
-            <h1 className={`timelineInformationName invisible w-fit text-2xl font-bold min-h-[32px]`}>{currentTimelineDraft.name}</h1>
-        </div>
+        <>
+            <div className={'absolute w-full'}><EditorContent editor={editor}/></div>
+            <h1 className={`invisible min-h-[32px] text-2xl font-bold break-words`}>{currentTimelineDraft.name}</h1>
+        </>
     );
 };
 

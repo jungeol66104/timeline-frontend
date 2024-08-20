@@ -11,12 +11,8 @@ const TimelineDescriptionEdit = () => {
 
     const editor = useEditor({
         extensions: [StarterKit, Placeholder.configure({placeholder: 'New timeline description'})],
-        editorProps: {
-            attributes: {class: 'outline-none'}
-        },
-        onUpdate: ({ editor }) => {
-            dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, description: editor.getText()}))
-        },
+        editorProps: {attributes: {class: 'outline-none'}},
+        onUpdate: ({ editor }) => {dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, description: editor.getText()}))},
         content: `<p>${currentTimelineDraft.description}</p>`,
     })
 
@@ -28,8 +24,8 @@ const TimelineDescriptionEdit = () => {
 
     return (
         <>
-            <div className={'absolute'}><EditorContent editor={editor}/></div>
-            <div className={`invisible w-fit text-md min-h-[24px]`}>{currentTimelineDraft.description}</div>
+            <div className={'absolute w-full'}><EditorContent editor={editor}/></div>
+            <div className={`invisible min-h-[24px] text-md break-words`}>{currentTimelineDraft.description}</div>
         </>
     );
 };
