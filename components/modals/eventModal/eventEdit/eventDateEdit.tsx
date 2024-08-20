@@ -60,7 +60,7 @@ const EventDateEdit = () => {
                 });
             }
         },
-    }, [currentEventDraft.date])
+    }, [currentEventDraft])
 
     useEffect(() => {
         const initializeSpice = async () => {

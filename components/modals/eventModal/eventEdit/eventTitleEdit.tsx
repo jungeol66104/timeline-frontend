@@ -22,7 +22,7 @@ const EventTitleEdit = () => {
             if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({...currentEventDraft, name: editor.getText()}))
         },
         content: `<p>${currentEventDraft.name}</p>`,
-    }, [currentEventDraft.name])
+    }, [currentEventDraft])
 
     return (
         <>
