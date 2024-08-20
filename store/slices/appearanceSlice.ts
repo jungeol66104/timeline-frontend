@@ -13,6 +13,7 @@ const initialState = {
     isEdit: false,
     isPopup: false,
     is404: false,
+    isMaintenance: false,
     timelineType: 'public',
     modalType: 'none',
     informationContentType: 'view',
@@ -80,10 +81,13 @@ const appearanceSlice = createSlice({
         updateIs404: (state, action) => {
             state.is404 = action.payload
         },
+        updateIsMaintenance: (state, action) => {
+            state.isMaintenance = action.payload
+        },
     },
 });
 export default appearanceSlice.reducer;
-export const {updateIsPopup, updateDemoKeyConcept, updateShowTimelineTitleBar, updateTimelineType, updateScrollTop, updateIsKeynote, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateInformationHistoryType, updateInformationContentType, updateModalType, updateEventContentType, updateEventHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
+export const {updateIsMaintenance, updateIsPopup, updateDemoKeyConcept, updateShowTimelineTitleBar, updateTimelineType, updateScrollTop, updateIsKeynote, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateInformationHistoryType, updateInformationContentType, updateModalType, updateEventContentType, updateEventHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
 
 // selectors
 export const selectShowTimelineTitleBar = (state: RootState) => state.appearance.showTimelineTitleBar
@@ -97,6 +101,7 @@ export const selectIsShare = (state: RootState) => state.appearance.isShare
 export const selectIsEdit = (state: RootState) => state.appearance.isEdit
 export const selectIsPopup = (state: RootState) => state.appearance.isPopup
 export const selectIs404 = (state: RootState) => state.appearance.is404
+export const selectIsMaintenance = (state: RootState) => state.appearance.isMaintenance
 export const selectTimelineType = (state: RootState) => state.appearance.timelineType
 export const selectModalType = (state: RootState) => state.appearance.modalType
 export const selectInformationContentType = (state: RootState) => state.appearance.informationContentType
@@ -118,6 +123,7 @@ export interface initialAppearanceState {
     isEdit: boolean // used in personal. alternate with local state
     isPopup: boolean
     is404: boolean
+    isMaintenance: boolean
 
     timelineType: 'public' | 'private' | 'new' | 'demo'
     modalType: 'none' | 'information' | 'event' | 'share'

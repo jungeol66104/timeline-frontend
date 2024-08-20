@@ -1,7 +1,7 @@
 import React, {ReactNode, useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import Navbar from "@/components/layout/navbar/navbar";
-import {selectIs404} from "@/store/slices/appearanceSlice";
+import {selectIs404, selectIsMaintenance} from "@/store/slices/appearanceSlice";
 import Custom404 from "@/pages/404";
 import useStateToStorage from "@/hooks/useStateToStorage";
 import useStateFromStorage from "@/hooks/useStateFromStorage";
@@ -14,6 +14,7 @@ import Modals from "@/components/modals/modals";
 
 const Layout = ({ children } : {children: ReactNode}) => {
     const is404 = useSelector(selectIs404)
+    const isMaintenance = useSelector(selectIsMaintenance)
     const router = useRouter()
     const [isIndexPage, setIsIndexPage] = useState(true);
     const [isLoading, setIsLoading] = useState(false)
@@ -43,8 +44,8 @@ const Layout = ({ children } : {children: ReactNode}) => {
 
     if (is404) return <Custom404 />
     return (
-        <div className={'layout relative pt-[60px]'}>
-            <Navbar isLoading={isLoading}/>
+        <div className={`layout relative ${isMaintenance ? '' : 'pt-[60px]'}`}>
+            {!isMaintenance && <Navbar isLoading={isLoading}/>}
             {isLoading
                 ?   isIndexPage
                 ?   <IndexSkeleton />

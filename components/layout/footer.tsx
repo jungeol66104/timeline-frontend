@@ -1,11 +1,12 @@
 import React from 'react';
 import Link from "next/link";
 import {useSelector} from "react-redux";
-import {selectIsBottomEnd} from "@/store/slices/appearanceSlice";
+import {selectIsBottomEnd, selectIsMaintenance, updateIsMaintenance} from "@/store/slices/appearanceSlice";
 
 const Footer = () => {
     const isBottomEnd = useSelector(selectIsBottomEnd);
-    const isHidden = !isBottomEnd
+    const isMaintenance = useSelector(selectIsMaintenance)
+    const isHidden = !isBottomEnd || isMaintenance
 
     return (
         <footer className={`${isHidden && 'hidden'} flex flex-col bg-[#F2F2F259] border-t-[1px] border-[#E5E7EB]`}>
