@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const ContributorsButton = () => {
-    const contributors = ['Timeline Staffs', 'You']
+    const contributors = ['You']
     const contributorsButtonRef = useRef<HTMLButtonElement>(null)
     const contributorsMenuRef = useRef<HTMLDivElement>(null)
     const [isToggle, setIsToggle] = useState(false)
@@ -49,7 +49,12 @@ const ContributorsButton = () => {
                                         <div className={'text-sm font-medium'}>{contributor}</div>
                                     </Link>
                                 }
-                                {timelineType === 'demo' && <div></div>}
+                                {timelineType === 'demo' &&
+                                    <div key={i} className={'p-1.5 w-full flex items-center gap-2 rounded-md hover:bg-gray-100'}>
+                                        <div className={'w-[26px] h-[26px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[1px] border-white shrink-0'}>{initial}</div>
+                                        <div className={'text-sm font-medium'}>{contributor}</div>
+                                    </div>
+                                }
                             </>
                         )
                     })}

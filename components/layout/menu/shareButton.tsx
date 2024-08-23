@@ -1,11 +1,10 @@
 import React, {RefObject, useEffect, useRef} from 'react';
 import {useDispatch} from "react-redux";
 import {getClickOrTouch} from "@/utils/global";
-import {updateIsShare} from "@/store/slices/appearanceSlice";
+import {updatePopupType} from "@/store/slices/appearanceSlice";
 
 const ShareButton = () => {
     const shareButtonRef : RefObject<HTMLButtonElement> = useRef(null)
-
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -24,7 +23,7 @@ const ShareButton = () => {
                     console.error('Error fetching for web share api: ', error)
                     return
                 }
-            } else dispatch(updateIsShare())
+            } else dispatch(updatePopupType('share'))
             return
         }
 

@@ -1,19 +1,19 @@
 import React from 'react';
 import Popup from "@/components/layout/popups/popup";
 import {useDispatch, useSelector} from "react-redux";
-import {selectIsPopup, updateIsPopup} from "@/store/slices/appearanceSlice";
+import {selectPopupType, updatePopupType} from "@/store/slices/appearanceSlice";
 
-const DateGuideButton = ({type}: {type: string}) => {
+const DateGuideButton = () => {
     const dispatch = useDispatch()
-    const isPopup = useSelector(selectIsPopup)
+    const popupType = useSelector(selectPopupType);
 
     return (
         <>
-            <button onClick={() => dispatch(updateIsPopup(true))} className={'flex items-center gap-1 text-blue-700'}>
+            <button onClick={() => dispatch(updatePopupType('date'))} className={'flex items-center gap-1 text-blue-700'}>
                 <div className={'material-symbols-outlined text-[12px]'}>&#xe887;</div>
                 <span className={'mt-[1px] text-[10px]'}>Guide</span>
             </button>
-            {isPopup &&
+            {popupType === 'date' &&
                 <Popup title={'Guide'}>
                     <div className={'flex flex-col gap-5 font-medium'}>
                         <h1 className={'text-2xl font-bold'}>Date Format</h1>

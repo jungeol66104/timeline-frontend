@@ -10,7 +10,7 @@ import IndexSkeleton from "@/components/index/indexSkeleton";
 import Footer from "@/components/layout/footer";
 import {useSession} from "@/hooks/useSession";
 import Modals from "@/components/layout/modals";
-import PopupOverlay from "@/components/layout/popupOverlay";
+import Popups from "@/components/layout/popups/Popups";
 
 const Layout = ({ children } : {children: ReactNode}) => {
     const router = useRouter()
@@ -50,7 +50,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
             {!isLoading && children}
             {!isLoading && <Footer />}
             <Modals />
-            <PopupOverlay />
+            <Popups />
         </div>
     )
 }
