@@ -1,5 +1,5 @@
 import React from 'react';
-import NicknameButton from "@/components/common/nicknameButton";
+import UsernameButton from "@/components/common/usernameButton";
 import UndoButton from "@/components/common/contribution/undoButton";
 
 const ConnectionContribution = ({type}: {type: string}) => {
@@ -15,7 +15,7 @@ const ConnectionContribution = ({type}: {type: string}) => {
                 <span className={'font-bold hover:underline cursor-pointer'}>Hagia Sophia</span>
             </div>
             <div className={'mt-3 flex items-center justify-between'}>
-                <NicknameButton name={'Nickname'}/>
+                <UsernameButton name={'Nickname'}/>
                 <div className={'flex items-center gap-2.5'}>
                     {type === 'timeline' || type === 'event' && <UndoButton/>}
                 </div>

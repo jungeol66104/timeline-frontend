@@ -1,15 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {
-    selectCurrentEventDraft,
-    selectCurrentEvents,
-    selectCurrentTimeline,
-    selectCurrentTimelineDraft,
-    updateCurrentEventDraft,
-    updateCurrentTimeline,
-    updateCurrentTimelineDraft,
-    updateEventInCurrentEvents
-} from "@/store/slices/contentsSlice";
+import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 import {selectModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const AddImageButton = () => {

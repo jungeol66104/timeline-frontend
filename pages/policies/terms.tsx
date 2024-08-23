@@ -8,7 +8,7 @@ const TermsPage = () => {
                 {/* Section Primary */}
                 <div className={'relative h-fit w-full max-w-[630px] px-4 py-10 flex flex-col gap-10 text-lg font-medium'}>
                     <div className={'flex flex-col gap-10'}>
-                        <h1 className={'text-6xl font-bold'}>Terms of use</h1>
+                        <h1 className={'text-6xl max-[450px]:text-5xl font-bold'}>Terms of use</h1>
                         <div className={'text-[16px] font-normal'}>
                             <p>Last Updated: August 14, 2024</p>
                             <p>Effective: August 14, 2024</p>

@@ -2,10 +2,10 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import ContributorsButton from "@/components/common/contributorsButton";
-import NicknameButton from "@/components/common/nicknameButton";
+import UsernameButton from "@/components/common/usernameButton";
 import {selectSession} from "@/store/slices/privateSlice";
 import InformationViewEditButton from "@/components/modals/timelineModal/informationViewEditButton";
-import TemporaryHistoryButton from "@/components/common/temporaryHistoryButton";
+import TemporaryHistoryButton from "@/components/modals/temporaryHistoryButton";
 
 const InformationModalMenubar = () => {
     const session = useSelector(selectSession)
@@ -16,7 +16,7 @@ const InformationModalMenubar = () => {
     return (
         <div className={'pt-3 w-full flex justify-between'}>
             {timelineType === 'new' || timelineType === 'private' || (timelineType === 'demo' && demoKeyConcept === 'private')
-                ? <NicknameButton name={session.nickName || 'Nickname'}/>
+                ? <UsernameButton name={session.nickName || 'Nickname'}/>
                 : <ContributorsButton/>
             }
             {timelineContentType !== 'new' &&

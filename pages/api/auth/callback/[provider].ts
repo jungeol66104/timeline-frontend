@@ -36,4 +36,5 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(500).json({ error: 'Authentication failed' });
     }
 };
+
 export default handler;

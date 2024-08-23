@@ -15,15 +15,15 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         const response = await api.get(`/timeline/${Number(params?.timeline)}/paged?pageNum=1&pageSize=41&isSummary=true`, {headers: {lang: 'en'}})
         if (response.data.code === 69999) return { notFound: true }
         const data = response.data.data
+        const events = data.events
+        events.forEach((event: TimelineEvent) => event.keynote = 1)
         data.timelineInfo.imageSize = await probe(data.timelineInfo.image)
         store.dispatch(updateCurrentTimeline(data.timelineInfo))
         store.dispatch(updateCurrentTimelineDraft(data.timelineInfo))
+        store.dispatch(updateCurrentEvents(events))
         store.dispatch(updateRelatedTimelines(data.relatedTimelines))
         store.dispatch(updateRecentTimelines(data.recentTimelines))
         store.dispatch(updatePopularTimelines(data.popularTimelines))
-        const events = data.events
-        events.forEach((event: TimelineEvent) => event.keynote = 1)
-        store.dispatch(updateCurrentEvents(events))
         store.dispatch(updateIsKeynote(true))
         store.dispatch(updateCurrentPage(1))
         store.dispatch(updateTotalPage(data.totalPages))

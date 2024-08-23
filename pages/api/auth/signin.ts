@@ -13,7 +13,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const signInUrl = oauth2Client.generateAuthUrl({
         access_type: 'offline',
         scope: ['openid', 'email', 'profile'],
-        // scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'],
         state: redirectPath || '/'
     });
 

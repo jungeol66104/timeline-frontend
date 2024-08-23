@@ -1,8 +1,8 @@
 import React, {useRef, useState} from 'react';
 import DiscussionButton from "@/components/common/more/discussionButton";
 import HistoryButton from "@/components/common/more/historyButton";
-import RemoveImageButton from "@/components/common/edit/removeImageButton";
-import ReplaceImageButton from "@/components/common/edit/replaceImageButton";
+import RemoveImageButton from "@/components/common/removeImageButton";
+import ReplaceImageButton from "@/components/common/replaceImageButton";
 
 const ImageEditButton = () => {
     const imageEditButtonRef = useRef<HTMLButtonElement>(null)

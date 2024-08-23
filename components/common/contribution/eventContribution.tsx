@@ -1,6 +1,6 @@
 import React from 'react';
 import RevertButton from "@/components/common/contribution/revertButton";
-import NicknameButton from "@/components/common/nicknameButton";
+import UsernameButton from "@/components/common/usernameButton";
 import OpenModalButton from "@/components/common/contribution/openModalButton";
 import CompareRadioButtons from "@/components/common/contribution/compareRadioButtons";
 
@@ -19,7 +19,7 @@ const EventContribution = ({type}: {type: string}) => {
             <div className={'font-bold hover:underline cursor-pointer'}>Commissioning of the original church by Constantine I</div>
             <div className={'text-sm'}>Added some new information.</div>
             <div className={'mt-3 flex items-center justify-between'}>
-                <NicknameButton name={'Nickname'}/>
+                <UsernameButton name={'Nickname'}/>
                 <div className={'flex items-center gap-2.5'}>
                     {type === 'event' && <RevertButton/>}
                     <OpenModalButton/>

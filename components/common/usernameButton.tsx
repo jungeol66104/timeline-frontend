@@ -3,7 +3,7 @@ import Link from "next/link";
 import {useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectTimelineType} from "@/store/slices/appearanceSlice";
 
-const NicknameButton = ({name} : {name: string}) => {
+const UsernameButton = ({name} : {name: string}) => {
     const timelineType = useSelector(selectTimelineType);
     const demoKeyConcept = useSelector(selectDemoKeyConcept);
 
@@ -15,4 +15,4 @@ const NicknameButton = ({name} : {name: string}) => {
     );
 };
 
-export default NicknameButton;
+export default UsernameButton;

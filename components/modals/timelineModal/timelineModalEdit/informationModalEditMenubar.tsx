@@ -1,12 +1,11 @@
 import React from 'react';
-import NoteButton from "@/components/common/edit/noteButton";
-import AddImageButton from "@/components/common/edit/addImageButton";
-import ResetEditButton from "@/components/common/edit/resetEditButton";
+import AddImageButton from "@/components/common/addImageButton";
+import ResetEditButton from "@/components/modals/resetEditButton";
 import {useSelector} from "react-redux";
 import {selectTimelineType} from "@/store/slices/appearanceSlice";
 import {getIsBaseImage} from "@/utils/global";
-import RemoveImageButton from "@/components/common/edit/removeImageButton";
-import ReplaceImageButton from "@/components/common/edit/replaceImageButton";
+import RemoveImageButton from "@/components/common/removeImageButton";
+import ReplaceImageButton from "@/components/common/replaceImageButton";
 import SaveInformationButton from "@/components/modals/timelineModal/timelineModalEdit/saveInformationButton";
 
 const InformationModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {

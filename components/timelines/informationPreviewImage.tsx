@@ -2,7 +2,7 @@ import React from 'react';
 import Image from "next/image";
 import {getIsBaseImage} from "@/utils/global";
 import {Timeline} from "@/store/slices/contentsSlice";
-import AddImageButton from "@/components/common/edit/addImageButton";
+import AddImageButton from "@/components/common/addImageButton";
 
 const InformationPreviewImage = ({information}: {information: Timeline}) => {
     const src = information.image

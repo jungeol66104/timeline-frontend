@@ -1,5 +1,5 @@
 import React from 'react';
-import CompareButton from "@/components/common/compareButton";
+import CompareButton from "@/components/modals/compareButton";
 import RevertButton from "@/components/common/contribution/revertButton";
 import {useSelector} from "react-redux";
 import {selectEventHistoryType} from "@/store/slices/appearanceSlice";

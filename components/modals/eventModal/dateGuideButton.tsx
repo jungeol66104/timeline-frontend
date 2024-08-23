@@ -3,7 +3,7 @@ import Popup from "@/components/layout/popups/popup";
 import {useDispatch, useSelector} from "react-redux";
 import {selectIsPopup, updateIsPopup} from "@/store/slices/appearanceSlice";
 
-const GuideButton = ({type}: {type: string}) => {
+const DateGuideButton = ({type}: {type: string}) => {
     const dispatch = useDispatch()
     const isPopup = useSelector(selectIsPopup)
 
@@ -110,4 +110,4 @@ const GuideButton = ({type}: {type: string}) => {
     );
 };
 
-export default GuideButton;
+export default DateGuideButton;

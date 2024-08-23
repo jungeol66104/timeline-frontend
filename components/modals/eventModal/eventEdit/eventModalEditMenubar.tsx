@@ -1,12 +1,12 @@
 import React from 'react';
 import SaveEventButton from "@/components/modals/eventModal/eventEdit/saveEventButton";
-import AddImageButton from "@/components/common/edit/addImageButton";
+import AddImageButton from "@/components/common/addImageButton";
 import {useSelector} from "react-redux";
 import {selectEventContentType} from "@/store/slices/appearanceSlice";
-import ResetEditButton from "@/components/common/edit/resetEditButton";
+import ResetEditButton from "@/components/modals/resetEditButton";
 import {getIsBaseImage} from "@/utils/global";
-import ReplaceImageButton from "@/components/common/edit/replaceImageButton";
-import RemoveImageButton from "@/components/common/edit/removeImageButton";
+import ReplaceImageButton from "@/components/common/replaceImageButton";
+import RemoveImageButton from "@/components/common/removeImageButton";
 import DisconnectButton from "@/components/modals/eventModal/eventEdit/disconnectButton";
 import KeynoteButton from "@/components/modals/eventModal/eventEdit/keynoteButton";
 import {selectCurrentEventDraft, selectCurrentEvents} from "@/store/slices/contentsSlice";

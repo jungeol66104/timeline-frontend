@@ -6,11 +6,18 @@ import ProfileSectionSecondary from "@/components/private/profileSectionSecondar
 import api from "@/pages/api/api";
 import {updateCurrentTimelines} from "@/store/slices/contentsSlice";
 import {updateCurrentPage, updateIsBottomEnd, updateTagNum, updateTimelineType, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {updateSession} from "@/store/slices/privateSlice";
 
-export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params}) => {
+export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params, req}) => {
     try {
         const user = params?.user
         if (user && typeof user === 'string' && !user.startsWith('@')) return { notFound: true }
+
+        const jwt = req.cookies.timeline_jwt
+        if (jwt) {
+            const response = await api.get('/user/info', {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+            store.dispatch(updateSession(response.data.data))
+        }
 
         const response = await api.get(`/timeline/tags/1?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
         const data = response.data.data
