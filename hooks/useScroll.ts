@@ -1,6 +1,6 @@
 import {useLayoutEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectModalType, selectScrollTop, selectTimelineType, updateScrollTop} from "@/store/slices/appearanceSlice";
+import {selectModalType, selectPopupType, selectScrollTop, selectTimelineType, updateScrollTop} from "@/store/slices/appearanceSlice";
 import {getScrollWrapper} from "@/utils/global";
 
 export const useScroll = () => {
@@ -17,14 +17,14 @@ export const useDisableScroll = () => {
     const dispatch = useDispatch()
     const scrollTop = useSelector(selectScrollTop)
     const timelineType = useSelector(selectTimelineType)
-    const timelineModalType = useSelector(selectModalType)
+    const modalType = useSelector(selectModalType)
 
     useLayoutEffect(() => {
         const scrollWrapper = getScrollWrapper()
         const layout: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.layout') : null
         if (!scrollWrapper || !layout || timelineType === 'demo') return
 
-        if (timelineModalType === 'none') {
+        if (modalType === 'none') {
             layout.style.position = ''
             layout.style.top = ''
             scrollWrapper.scrollTop = scrollTop
@@ -34,7 +34,7 @@ export const useDisableScroll = () => {
             layout.style.top = `${-initialScrollTop}px`
             dispatch(updateScrollTop(initialScrollTop))
         }
-    }, [timelineModalType]);
+    }, [modalType]);
 }
 
 export const useDisableDemoScroll = () => {
@@ -65,4 +65,30 @@ export const useDisableDemoScroll = () => {
         }
         dispatch(updateScrollTop(scrollWrapper.scrollTop))
     }, [modalType]);
+}
+
+
+export const usePopupDisableScroll = () => {
+    const dispatch = useDispatch()
+    const scrollTop = useSelector(selectScrollTop)
+    const modalType = useSelector(selectModalType)
+    const popupType = useSelector(selectPopupType)
+
+    useLayoutEffect(() => {
+        const scrollWrapper = getScrollWrapper()
+        const layout: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.layout') : null
+        if (!scrollWrapper || !layout) return
+
+        if (modalType !== 'none') return
+        if (popupType === 'none') {
+            layout.style.position = ''
+            layout.style.top = ''
+            scrollWrapper.scrollTop = scrollTop
+        } else {
+            const initialScrollTop = scrollWrapper.scrollTop
+            layout.style.position = 'fixed'
+            layout.style.top = `${-initialScrollTop}px`
+            dispatch(updateScrollTop(initialScrollTop))
+        }
+    }, [popupType]);
 }

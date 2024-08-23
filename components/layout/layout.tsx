@@ -4,7 +4,7 @@ import Navbar from "@/components/layout/navbar/navbar";
 import {selectIsMaintenance} from "@/store/slices/appearanceSlice";
 import useStateToStorage from "@/hooks/useStateToStorage";
 import useStateFromStorage from "@/hooks/useStateFromStorage";
-import {useDisableScroll, useScroll} from "@/hooks/useScroll";
+import {useDisableScroll, usePopupDisableScroll, useScroll} from "@/hooks/useScroll";
 import {useRouter} from "next/router";
 import IndexSkeleton from "@/components/index/indexSkeleton";
 import Footer from "@/components/layout/footer";
@@ -39,17 +39,16 @@ const Layout = ({ children } : {children: ReactNode}) => {
     useStateToStorage()
     useSession()
     useDisableScroll()
+    usePopupDisableScroll()
+    // useScroll MUST COME LATER THAN OTHER SCROLL ADJUSTING HOOKS
     useScroll()
 
     return (
         <div className={`layout relative ${isMaintenance ? '' : 'pt-[60px]'}`}>
             {!isMaintenance && <Navbar isLoading={isLoading}/>}
-            {isLoading
-                ?   isIndexPage
-                ?   <IndexSkeleton />
-                :   <div></div>
-                :   <>{children}<Footer /></>
-            }
+            {isLoading && isIndexPage && <IndexSkeleton />}
+            {!isLoading && children}
+            {!isLoading && <Footer />}
             <Modals />
             <PopupOverlay />
         </div>

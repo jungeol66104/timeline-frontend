@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PopupOverlay = () => {
-    const overlay = true
+    const overlay = false
 
     const handleClick = () => {
 

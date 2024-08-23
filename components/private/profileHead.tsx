@@ -2,7 +2,7 @@ import React from 'react';
 import {useRouter} from "next/router";
 import {useSelector} from "react-redux";
 import {selectIsSession, selectSession} from "@/store/slices/privateSlice";
-import ProfileEditButton from "@/components/private/profileEditButton";
+import ProfileSettingsButton from "@/components/private/settings/profileSettingsButton";
 import AddImageButton from "@/components/common/addImageButton";
 
 const ProfileHead = () => {
@@ -22,7 +22,7 @@ const ProfileHead = () => {
                 {isSession && session.nickName === query
                     ?   <div className={'flex items-center gap-2'}>
                             <div className={'text-xl font-bold'}>{session.nickName}</div>
-                            <ProfileEditButton/>
+                            <ProfileSettingsButton/>
                         </div>
                     :   <div><div className={'text-[20px] font-bold'}>{query}</div></div>
                 }

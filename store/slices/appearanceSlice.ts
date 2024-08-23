@@ -74,13 +74,16 @@ const appearanceSlice = createSlice({
         updateDemoKeyConcept: (state, action) => {
             state.demoKeyConcept = action.payload
         },
+        updatePopupType: (state, action) => {
+            state.popupType = action.payload
+        },
         updateIsMaintenance: (state, action) => {
             state.isMaintenance = action.payload
         },
     },
 });
 export default appearanceSlice.reducer;
-export const {updateIsMaintenance, updateIsPopup, updateDemoKeyConcept, updateShowTimelineTitleBar, updateTimelineType, updateScrollTop, updateIsKeynote, updateTagNum, updateTotalPage , updateIsShare, updateInformationHistoryType, updateInformationContentType, updateModalType, updateEventContentType, updateEventHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
+export const {updatePopupType, updateIsMaintenance, updateIsPopup, updateDemoKeyConcept, updateShowTimelineTitleBar, updateTimelineType, updateScrollTop, updateIsKeynote, updateTagNum, updateTotalPage , updateIsShare, updateInformationHistoryType, updateInformationContentType, updateModalType, updateEventContentType, updateEventHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
 
 // selectors
 export const selectShowTimelineTitleBar = (state: RootState) => state.appearance.showTimelineTitleBar
@@ -100,6 +103,7 @@ export const selectInformationHistoryType = (state: RootState) => state.appearan
 export const selectEventContentType = (state: RootState) => state.appearance.eventContentType
 export const selectEventHistoryType = (state: RootState) => state.appearance.eventHistoryType
 export const selectDemoKeyConcept = (state: RootState) => state.appearance.demoKeyConcept
+export const selectPopupType = (state: RootState) => state.appearance.popupType
 
 // types
 export interface initialAppearanceState {
@@ -122,5 +126,5 @@ export interface initialAppearanceState {
     eventHistoryType: 'list' | 'view' | 'diff'
 
     demoKeyConcept: 'timeline' | 'information' | 'event' | 'edit' | 'contributors'  | 'keynote' | 'private'
-    popupType: 'none' | 'share'
+    popupType: 'none' | 'share' | 'settings' | 'date' | 'publish' | 'create'
 }
