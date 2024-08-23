@@ -10,9 +10,7 @@ const initialState = {
     tagNum: 0,
     scrollTop: 0,
     isShare: false,
-    isEdit: false,
     isPopup: false,
-    is404: false,
     isMaintenance: false,
     timelineType: 'public',
     modalType: 'none',
@@ -20,7 +18,8 @@ const initialState = {
     informationHistoryType: 'list',
     eventContentType: 'view',
     eventHistoryType: 'list',
-    demoKeyConcept: 'timeline'
+    demoKeyConcept: 'timeline',
+    popupType: 'none'
 } as initialAppearanceState
 
 const appearanceSlice = createSlice({
@@ -51,9 +50,6 @@ const appearanceSlice = createSlice({
         updateIsShare: (state) => {
             state.isShare = !state.isShare
         },
-        updateIsEdit: (state, action) => {
-            state.isEdit = action.payload
-        },
         updateIsPopup: (state, action) => {
             state.isPopup = action.payload
         },
@@ -78,16 +74,13 @@ const appearanceSlice = createSlice({
         updateDemoKeyConcept: (state, action) => {
             state.demoKeyConcept = action.payload
         },
-        updateIs404: (state, action) => {
-            state.is404 = action.payload
-        },
         updateIsMaintenance: (state, action) => {
             state.isMaintenance = action.payload
         },
     },
 });
 export default appearanceSlice.reducer;
-export const {updateIsMaintenance, updateIsPopup, updateDemoKeyConcept, updateShowTimelineTitleBar, updateTimelineType, updateScrollTop, updateIsKeynote, updateTagNum, updateTotalPage , updateIs404, updateIsShare, updateIsEdit, updateInformationHistoryType, updateInformationContentType, updateModalType, updateEventContentType, updateEventHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
+export const {updateIsMaintenance, updateIsPopup, updateDemoKeyConcept, updateShowTimelineTitleBar, updateTimelineType, updateScrollTop, updateIsKeynote, updateTagNum, updateTotalPage , updateIsShare, updateInformationHistoryType, updateInformationContentType, updateModalType, updateEventContentType, updateEventHistoryType, updateIsBottomEnd, updateCurrentPage} = appearanceSlice.actions;
 
 // selectors
 export const selectShowTimelineTitleBar = (state: RootState) => state.appearance.showTimelineTitleBar
@@ -98,9 +91,7 @@ export const selectTotalPage = (state: RootState) => state.appearance.totalPage
 export const selectCurrentTagNum = (state: RootState) => state.appearance.tagNum
 export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectIsShare = (state: RootState) => state.appearance.isShare
-export const selectIsEdit = (state: RootState) => state.appearance.isEdit
 export const selectIsPopup = (state: RootState) => state.appearance.isPopup
-export const selectIs404 = (state: RootState) => state.appearance.is404
 export const selectIsMaintenance = (state: RootState) => state.appearance.isMaintenance
 export const selectTimelineType = (state: RootState) => state.appearance.timelineType
 export const selectModalType = (state: RootState) => state.appearance.modalType
@@ -112,7 +103,6 @@ export const selectDemoKeyConcept = (state: RootState) => state.appearance.demoK
 
 // types
 export interface initialAppearanceState {
-    showTimelineTitleBar: boolean
     isKeynote: boolean // change expression to isKeynote
     isBottomEnd: boolean
     tagNum: number
@@ -120,10 +110,9 @@ export interface initialAppearanceState {
     totalPage: number
     scrollTop: number
     isShare: boolean
-    isEdit: boolean // used in personal. alternate with local state
-    isPopup: boolean
-    is404: boolean
+    showTimelineTitleBar: boolean
     isMaintenance: boolean
+    isPopup: boolean
 
     timelineType: 'public' | 'private' | 'new' | 'demo'
     modalType: 'none' | 'information' | 'event' | 'share'
@@ -133,4 +122,5 @@ export interface initialAppearanceState {
     eventHistoryType: 'list' | 'view' | 'diff'
 
     demoKeyConcept: 'timeline' | 'information' | 'event' | 'edit' | 'contributors'  | 'keynote' | 'private'
+    popupType: 'none' | 'share'
 }

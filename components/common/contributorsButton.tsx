@@ -4,11 +4,10 @@ import {useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const ContributorsButton = () => {
-    const contributors = ['Mike Tyson', 'Jake Paul', 'Joon Nam', 'Timeline Staffs', 'Donggeun Suh']
-
+    const contributors = ['Timeline Staffs', 'You']
     const contributorsButtonRef = useRef<HTMLButtonElement>(null)
+    const contributorsMenuRef = useRef<HTMLDivElement>(null)
     const [isToggle, setIsToggle] = useState(false)
-
     const timelineType = useSelector(selectTimelineType);
     const demoKeyConcept = useSelector(selectDemoKeyConcept);
 
@@ -19,7 +18,9 @@ const ContributorsButton = () => {
         setIsToggle(true)
 
         document.addEventListener('click', function hideMenu (e: MouseEvent) {
-            if (!contributorsButton.contains(e.target as Node)) {
+            const contributorsMenu = contributorsMenuRef.current
+            if (!contributorsMenu) return
+            if (!contributorsMenu.contains(e.target as Node)) {
                 setIsToggle(false)
                 document.removeEventListener('click', hideMenu)
             }
@@ -36,15 +37,20 @@ const ContributorsButton = () => {
                 </div>
             </button>
             {isToggle &&
-                <div className={'overflow-y-scroll absolute top-[38px] left-0 px-1.5 py-1 w-[250px] bg-white border-[1px] rounded-md shadow-md'}>
+                <div ref={contributorsMenuRef} className={'overflow-y-scroll absolute top-[38px] left-0 px-1.5 py-1 w-[250px] bg-white border-[1px] rounded-md shadow-md'}>
                     {contributors.map((contributor, i) => {
                         const initial = contributor.substring(0, 2).toUpperCase();
 
                         return (
-                            <Link key={i} href={`/@${contributor}`} className={'p-1.5 w-full flex items-center gap-2 rounded-md hover:bg-gray-100'}>
-                                <div className={'w-[26px] h-[26px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[1px] border-white shrink-0'}>{initial}</div>
-                                <div className={'text-sm font-medium'}>{contributor}</div>
-                            </Link>
+                            <>
+                                {timelineType !== 'demo' &&
+                                    <Link key={i} href={`/@${contributor}`} className={'p-1.5 w-full flex items-center gap-2 rounded-md hover:bg-gray-100'}>
+                                        <div className={'w-[26px] h-[26px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[1px] border-white shrink-0'}>{initial}</div>
+                                        <div className={'text-sm font-medium'}>{contributor}</div>
+                                    </Link>
+                                }
+                                {timelineType === 'demo' && <div></div>}
+                            </>
                         )
                     })}
                 </div>
@@ -52,4 +58,5 @@ const ContributorsButton = () => {
         </div>
     )
 }
+
 export default ContributorsButton;

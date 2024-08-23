@@ -1,8 +1,7 @@
 import React, {ReactNode, useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import Navbar from "@/components/layout/navbar/navbar";
-import {selectIs404, selectIsMaintenance} from "@/store/slices/appearanceSlice";
-import Custom404 from "@/pages/404";
+import {selectIsMaintenance} from "@/store/slices/appearanceSlice";
 import useStateToStorage from "@/hooks/useStateToStorage";
 import useStateFromStorage from "@/hooks/useStateFromStorage";
 import {useDisableScroll, useScroll} from "@/hooks/useScroll";
@@ -11,13 +10,13 @@ import IndexSkeleton from "@/components/index/indexSkeleton";
 import Footer from "@/components/layout/footer";
 import {useSession} from "@/hooks/useSession";
 import Modals from "@/components/layout/modals";
+import PopupOverlay from "@/components/layout/popupOverlay";
 
 const Layout = ({ children } : {children: ReactNode}) => {
-    const is404 = useSelector(selectIs404)
-    const isMaintenance = useSelector(selectIsMaintenance)
     const router = useRouter()
     const [isIndexPage, setIsIndexPage] = useState(true);
     const [isLoading, setIsLoading] = useState(false)
+    const isMaintenance = useSelector(selectIsMaintenance)
 
     useEffect(() => {
         const start = (url: string)=> {
@@ -42,7 +41,6 @@ const Layout = ({ children } : {children: ReactNode}) => {
     useDisableScroll()
     useScroll()
 
-    if (is404) return <Custom404 />
     return (
         <div className={`layout relative ${isMaintenance ? '' : 'pt-[60px]'}`}>
             {!isMaintenance && <Navbar isLoading={isLoading}/>}
@@ -53,10 +51,12 @@ const Layout = ({ children } : {children: ReactNode}) => {
                 :   <>{children}<Footer /></>
             }
             <Modals />
+            <PopupOverlay />
         </div>
     )
 }
-export default Layout
+
+export default Layout;
 
 declare global {
     interface Window {
