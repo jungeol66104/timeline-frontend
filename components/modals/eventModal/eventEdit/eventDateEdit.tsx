@@ -83,7 +83,7 @@ const EventDateEdit = () => {
             <div className={'absolute w-full'}><EditorContent editor={editor}/></div>
             <div className={`invisible min-h-[24px] text-md font-medium break-words`}>{currentEventDraft.date}</div>
             <div className={'flex gap-2'}>
-                <DateGuideButton type={'date'} />
+                <DateGuideButton />
                 {spiceError && <div className={'flex items-center gap-1 text-red-700'}><span className={'material-symbols-outlined text-[12px]'}>&#xe000;</span><span className={'mt-[1px] text-[10px]'}>Keep YYYY-MM-DD BCE(optional) format.</span></div>}
             </div>
         </>
