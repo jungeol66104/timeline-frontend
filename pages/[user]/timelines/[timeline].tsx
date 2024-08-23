@@ -2,7 +2,7 @@ import probe from "probe-image-size"
 import api from "@/pages/api/api"
 import {storeWrapper} from "@/store/store";
 import {TimelineEvent, updateCurrentEvents, updateCurrentTimeline, updateCurrentTimelineDraft, updatePopularTimelines, updateRecentTimelines, updateRelatedTimelines} from "@/store/slices/contentsSlice"
-import {updateCurrentPage, updateIs404, updateIsBottomEnd, updateIsKeynote, updateTimelineType, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {updateCurrentPage, updateIsBottomEnd, updateIsKeynote, updateTimelineType, updateTotalPage} from "@/store/slices/appearanceSlice";
 import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
@@ -14,7 +14,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
     try {
         const response = await api.get(`/timeline/${Number(params?.timeline)}/paged?pageNum=1&pageSize=41&isSummary=true`, {headers: {lang: 'en'}})
-        if (response.data.code === 69999) store.dispatch(updateIs404(true))
+        if (response.data.code === 69999) return { notFound: true }
         const data = response.data.data
         data.timelineInfo.imageSize = await probe(data.timelineInfo.image)
         store.dispatch(updateCurrentTimeline(data.timelineInfo))
