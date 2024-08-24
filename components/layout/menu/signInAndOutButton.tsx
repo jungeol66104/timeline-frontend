@@ -13,7 +13,7 @@ const SignInAndOutButton = () => {
             router.push(`/api/auth/signout?redirectPath=${encodeURIComponent(redirectPath)}`);
         }
         else {
-            router.push(`/api/auth/signin?redirectPath=${encodeURIComponent(redirectPath)}`);
+            window.open(`/api/auth/signin?redirectPath=${encodeURIComponent(redirectPath)}`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
         }
     }
 

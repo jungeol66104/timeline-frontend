@@ -7,13 +7,14 @@ import CreateTimelineButton from "@/components/layout/menu/createTimelineButton"
 import ProfileButton from "@/components/layout/menu/profileButton";
 import AboutButton from "@/components/layout/menu/aboutButton";
 import {useSelector} from "react-redux";
-import {selectSession} from "@/store/slices/privateSlice";
+import {selectIsSession, selectSession} from "@/store/slices/privateSlice";
 
 const ProfileMenuButton = () => {
     const profileMenuButtonRef = useRef<HTMLButtonElement>(null)
     const [isToggle, setIsToggle] = useState(false)
 
     const session = useSelector(selectSession)
+    const isSession = useSelector(selectIsSession)
 
     const handleClick = (e: React.MouseEvent) => {
         const profileMenuButton = profileMenuButtonRef.current
@@ -42,7 +43,7 @@ const ProfileMenuButton = () => {
                 <div className={'absolute top-[42px] right-0 px-1.5 py-1 w-[230px] bg-white border-[1px] rounded-2xl shadow-md'}>
                     <div className={'min-[850px]:hidden'}><CreateTimelineButton /></div>
                     <hr className={'min-[850px]:hidden my-1'}/>
-                    <ProfileButton />
+                    {isSession && <ProfileButton/>}
                     <SignInAndOutButton />
                     <hr className={'my-1'}/>
                     <AboutButton />

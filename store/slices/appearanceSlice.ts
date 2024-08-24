@@ -126,5 +126,5 @@ export interface initialAppearanceState {
     eventHistoryType: 'list' | 'view' | 'diff'
 
     demoKeyConcept: 'timeline' | 'information' | 'event' | 'edit' | 'contributors'  | 'keynote' | 'private'
-    popupType: 'none' | 'share' | 'settings' | 'date' | 'publish' | 'create'
+    popupType: 'none' | 'share' | 'settings' | 'date' | 'publish' | 'create' | 'signIn'
 }

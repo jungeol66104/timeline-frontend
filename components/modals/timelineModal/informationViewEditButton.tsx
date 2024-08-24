@@ -1,30 +1,19 @@
 import {useDispatch, useSelector} from "react-redux";
-import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType, updateCurrentPage, updateIsBottomEnd, updateIsKeynote, updateInformationContentType, updateInformationHistoryType, updateTotalPage} from "@/store/slices/appearanceSlice";
-import {fetchEvents} from "@/pages/api/global";
-import {selectCurrentTimeline, TimelineEvent, updateCurrentEvents} from "@/store/slices/contentsSlice";
+import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType, updateInformationContentType, updatePopupType} from "@/store/slices/appearanceSlice";
+import {selectIsSession} from "@/store/slices/privateSlice";
 
 const InformationViewEditButton = () => {
     const dispatch = useDispatch()
-    const currentTimeline = useSelector(selectCurrentTimeline)
+    const isSession = useSelector(selectIsSession)
     const contentType = useSelector(selectInformationContentType)
-
     const timelineType = useSelector(selectTimelineType);
     const demoKeyConcept = useSelector(selectDemoKeyConcept);
 
     const handleClick = (contentType: string) => {
-        if (contentType === 'history') dispatch(updateInformationHistoryType('list'))
-        else if (contentType === 'edit') {
-            // fetchEvents(currentTimeline.id, 1, false).then((data) => {
-            //     const events = data.events
-            //     events.forEach((event: TimelineEvent) => event.keynote = 1)
-            //     dispatch(updateCurrentEvents(events))
-            //     dispatch(updateCurrentPage(1))
-            //     dispatch(updateTotalPage(data.totalPages))
-            //     dispatch(updateIsBottomEnd(data.totalPages === 1))
-            //     dispatch(updateIsSummary(false))
-            // })
-        }
-        dispatch(updateInformationContentType(contentType))
+        if (contentType === 'edit') {
+            if (isSession) dispatch(updateInformationContentType(contentType))
+            else dispatch(updatePopupType('signIn'))
+        } else dispatch(updateInformationContentType(contentType))
     }
 
     return (
