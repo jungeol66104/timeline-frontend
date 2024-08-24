@@ -4,16 +4,22 @@ import type { NextRequest } from 'next/server';
 const maintenanceMode = false;
 
 export const middleware = (req: NextRequest) => {
-    if (
-        req.nextUrl.pathname.startsWith('/_next/') || // Static files served by Next.js
-        req.nextUrl.pathname.startsWith('/api/') || // API routes
-        /\.(ico|png|jpg|jpeg|svg|css|js|map)$/.test(req.nextUrl.pathname) // Static assets
-    ) return NextResponse.next();
+    const url = req.nextUrl.clone();
+
+    if (req.nextUrl.pathname.startsWith('/_next/') || req.nextUrl.pathname.startsWith('/api/') || /\.(ico|png|jpg|jpeg|svg|css|js|map)$/.test(req.nextUrl.pathname)) {
+        return NextResponse.next();
+    }
 
     if (maintenanceMode) {
-        const url = req.nextUrl.clone();
         url.pathname = '/maintenance';
         return NextResponse.rewrite(url);
     }
+
+    const jwt = req.cookies.get('timeline_jwt');
+    if (!jwt && url.pathname.startsWith('/timelines/new')) {
+        url.pathname = '/';
+        return NextResponse.redirect(url);
+    }
+
     return NextResponse.next();
 }

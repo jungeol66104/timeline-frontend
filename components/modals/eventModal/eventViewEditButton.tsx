@@ -1,17 +1,32 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectDemoKeyConcept, selectEventContentType, selectTimelineType, updateEventContentType, updateEventHistoryType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectEventContentType, selectTimelineType, updateEventContentType, updateEventHistoryType, updateInformationContentType} from "@/store/slices/appearanceSlice";
+import {getSession} from "@/utils/global";
+import {selectIsSession, updateSession} from "@/store/slices/privateSlice";
 
 const EventViewEditButton = () => {
     const dispatch = useDispatch()
+    const isSession = useSelector(selectIsSession)
     const timelineType = useSelector(selectTimelineType)
     const eventContentType = useSelector(selectEventContentType)
     const demoKeyConcept = useSelector(selectDemoKeyConcept)
 
-
     const handleClick = (contentType: string) => {
-        if (contentType === 'history') dispatch(updateEventHistoryType('list'))
-        dispatch(updateEventContentType(contentType))
+        if (contentType === 'edit') {
+            if (isSession) dispatch(updateEventContentType(contentType))
+            else {
+                window.open(`/api/auth/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
+
+                window.addEventListener('message', (event) => {
+                    if (event.origin !== window.location.origin) return;
+                    if (event.data.type === 'SIGNIN_SUCCESS') {
+                        const session = getSession();
+                        dispatch(updateSession(session));
+                        dispatch(updateEventContentType(contentType))
+                    }
+                });
+            }
+        } else dispatch(updateEventContentType(contentType))
     }
 
     return (

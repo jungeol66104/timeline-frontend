@@ -42,5 +42,3 @@ export default function Home() {
         </>
     )
 }
-
-declare function loadPyodide(): Promise<any>;

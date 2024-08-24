@@ -6,7 +6,6 @@ import api from "@/pages/api/api";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const code = req.query.code as string
-        const redirectPath = req.query.state as string
 
         const oauth2Client = new google.auth.OAuth2(
             process.env.GOOGLE_CLIENT_ID,
@@ -30,7 +29,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             expires: expires
         }));
 
-        res.redirect(decodeURIComponent(redirectPath));
+        res.send(`
+            <script>
+                window.opener.postMessage({ type: 'SIGNIN_SUCCESS' }, window.location.origin);
+                window.close();
+            </script>
+        `);
     } catch (error) {
         console.error('Error during authentication callback:', error);
         res.status(500).json({ error: 'Authentication failed' });

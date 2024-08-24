@@ -1,19 +1,27 @@
 import React from 'react';
 import {useRouter} from "next/router";
-import {selectIsSession} from "@/store/slices/privateSlice";
-import {useSelector} from "react-redux";
+import {selectIsSession, updateSession} from "@/store/slices/privateSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {getSession} from "@/utils/global";
 
-const SignInAndOutButton = () => {
+const SignInOutButton = () => {
     const router = useRouter()
+    const dispatch = useDispatch();
     const isSession = useSelector(selectIsSession)
 
     const handleClick = async () => {
         const redirectPath = router.asPath;
-        if (isSession) {
-            router.push(`/api/auth/signout?redirectPath=${encodeURIComponent(redirectPath)}`);
-        }
+        if (isSession) router.push(`/api/auth/signout?redirectPath=${encodeURIComponent(redirectPath)}`);
         else {
-            window.open(`/api/auth/signin?redirectPath=${encodeURIComponent(redirectPath)}`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
+            window.open(`/api/auth/signin?redirectPath=${encodeURIComponent(redirectPath)}`, 'google-signin-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
+
+            window.addEventListener('message', (event) => {
+                if (event.origin !== window.location.origin) return;
+                if (event.data.type === 'SIGNIN_SUCCESS') {
+                    const session = getSession();
+                    dispatch(updateSession(session));
+                }
+            });
         }
     }
 
@@ -33,4 +41,4 @@ const SignInAndOutButton = () => {
     );
 };
 
-export default SignInAndOutButton;
+export default SignInOutButton;

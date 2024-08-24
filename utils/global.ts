@@ -1,4 +1,6 @@
 import crypto from 'crypto'
+import axios from "axios";
+import {updateSession} from "@/store/slices/privateSlice";
 
 export const capitalize = (string: string) => {
     if (!string) return string;
@@ -21,11 +23,6 @@ export const getIsTouchable = () => {
 export const getScrollWrapper = () => {
     const scrollWrapper: Element | null = typeof window !== 'undefined' ? document.documentElement : null
     return scrollWrapper
-}
-
-export const getInnerWidth = () => {
-    const innerWidth: number | null = typeof window !== 'undefined' ? window.innerWidth : null
-    return innerWidth
 }
 
 export const getIsBaseImage = (url: string | null | undefined) => {
@@ -91,28 +88,6 @@ export const getTodayDate = () => {
 }
 
 export const transformDate = (date: string) => {
-    let month = '01';
-    let day = '01';
-    let era = 'AD';
-
-    const parts = date.split(' ');
-
-    if (parts.length > 1) {
-        date = parts[0];
-        era = parts[1];
-        if (era === 'CE') era = 'AD';
-        else if (era === 'BCE') era = 'BC';
-    }
-
-    const dateParts = date.split('-');
-    const year = dateParts[0];
-    if (dateParts.length > 1) month = dateParts[1].padStart(2, '0');
-    if (dateParts.length > 2) day = dateParts[2].padStart(2, '0');
-
-    return `${year} ${era} ${month}-${day} 00:00:00`;
-}
-
-export const transformDateTest = (date: string) => {
     let parts = date.split(' ');
     if (parts.length > 3) parts = parts.slice(0, 3)
     const era = parts.findIndex(part => part === 'BCE') !== -1 ? 'BC' : 'AD'
@@ -142,4 +117,14 @@ export const getIsTimelinePath = (path: string) => {
     const timelineRegex = /^\/timelines\/[^\/]+$/;
     const privateTimelineRegex = /^\/[^\/]+\/timelines\/[^\/]+$/;
     return timelineRegex.test(path) || privateTimelineRegex.test(path);
+}
+
+export const getSession = async () => {
+    try {
+        const response = await axios.get('http://localhost:3000/api/auth/session')
+        return response.data
+    } catch (error) {
+        console.error('Error fetching data in useEffect: ', error)
+        return
+    }
 }

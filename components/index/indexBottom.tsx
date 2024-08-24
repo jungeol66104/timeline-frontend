@@ -5,7 +5,7 @@ import {getCurrentTag} from "@/utils/global";
 
 const IndexBottom = () => {
     const tagNum = useSelector(selectCurrentTagNum)
-    const currentTopic = getCurrentTag(tagNum)
+    const currentTopic = getCurrentTag(tagNum) || ''
     const isBottomEnd = useSelector(selectIsBottomEnd)
 
     return (

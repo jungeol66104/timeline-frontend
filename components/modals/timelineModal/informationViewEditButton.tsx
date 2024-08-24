@@ -1,18 +1,32 @@
 import {useDispatch, useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType, updateInformationContentType, updatePopupType} from "@/store/slices/appearanceSlice";
-import {selectIsSession} from "@/store/slices/privateSlice";
+import {selectIsSession, selectSession, updateSession} from "@/store/slices/privateSlice";
+import {getSession} from "@/utils/global";
 
 const InformationViewEditButton = () => {
     const dispatch = useDispatch()
-    const isSession = useSelector(selectIsSession)
+    const session = useSelector(selectSession)
+    const isSession = Object.keys(session).length !== 0
     const contentType = useSelector(selectInformationContentType)
     const timelineType = useSelector(selectTimelineType);
     const demoKeyConcept = useSelector(selectDemoKeyConcept);
 
-    const handleClick = (contentType: string) => {
+    const handleClick = async (contentType: string) => {
         if (contentType === 'edit') {
             if (isSession) dispatch(updateInformationContentType(contentType))
-            else dispatch(updatePopupType('signIn'))
+            else {
+                window.open(`/api/auth/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
+
+                window.addEventListener('message', (event) => {
+                    if (event.origin !== window.location.origin) return;
+                    if (event.data.type === 'SIGNIN_SUCCESS') {
+                        getSession().then((session) => {
+                            dispatch(updateSession(session));
+                            dispatch(updateInformationContentType(contentType))
+                        })
+                    }
+                });
+            }
         } else dispatch(updateInformationContentType(contentType))
     }
 

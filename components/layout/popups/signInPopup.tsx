@@ -1,17 +1,19 @@
 import React from 'react';
 import Popup from "@/components/layout/popups/popup";
-import {useRouter} from "next/router";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectIsSession} from "@/store/slices/privateSlice";
+import {updatePopupType} from "@/store/slices/appearanceSlice";
 
 
 const SignInPopup = () => {
-    const router = useRouter()
+    const dispatch = useDispatch()
     const isSession = useSelector(selectIsSession)
 
     const handleClick = async () => {
-        const redirectPath = router.asPath;
-        if (!isSession) router.push(`/api/auth/signin?redirectPath=${encodeURIComponent(redirectPath)}`);
+        if (!isSession) {
+            window.open(`/api/auth/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width / 2 - 244}, scrollbars=yes`);
+            dispatch(updatePopupType('none'))
+        }
     }
 
     return (
