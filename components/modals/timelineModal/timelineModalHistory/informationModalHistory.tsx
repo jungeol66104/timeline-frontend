@@ -5,7 +5,7 @@ import InformationContributions from "@/components/modals/timelineModal/timeline
 const InformationModalHistory = () => {
     return (
         <div>
-            <div className={'sticky top-0 pb-3 flex items-center justify-end bg-white'}>
+            <div className={'pb-3 flex items-center justify-end bg-white'}>
                 <CompareButton/>
             </div>
             <hr />

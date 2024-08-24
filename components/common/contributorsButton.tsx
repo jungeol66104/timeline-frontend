@@ -58,6 +58,9 @@ const ContributorsButton = () => {
                             </>
                         )
                     })}
+                    <div className={'mt-1 mb-0.5 p-3 w-full bg-[#F2F2F259] text-sm font-medium border-[1px] border-gray-300 rounded-lg'}>
+                        &#x1F4A1; Contributor button above takes you to the profile page in practice.
+                    </div>
                 </div>
             }
         </div>

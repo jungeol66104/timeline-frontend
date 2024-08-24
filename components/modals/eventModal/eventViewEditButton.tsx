@@ -13,16 +13,17 @@ const EventViewEditButton = () => {
 
     const handleClick = (contentType: string) => {
         if (contentType === 'edit') {
-            if (isSession) dispatch(updateEventContentType(contentType))
+            if (isSession || timelineType === 'new' || timelineType === 'demo') dispatch(updateEventContentType(contentType))
             else {
                 window.open(`/api/auth/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
 
                 window.addEventListener('message', (event) => {
                     if (event.origin !== window.location.origin) return;
                     if (event.data.type === 'SIGNIN_SUCCESS') {
-                        const session = getSession();
-                        dispatch(updateSession(session));
-                        dispatch(updateEventContentType(contentType))
+                        getSession().then((session) => {
+                            dispatch(updateSession(session));
+                            dispatch(updateEventContentType(contentType))
+                        })
                     }
                 });
             }

@@ -13,7 +13,7 @@ const InformationViewEditButton = () => {
 
     const handleClick = async (contentType: string) => {
         if (contentType === 'edit') {
-            if (isSession) dispatch(updateInformationContentType(contentType))
+            if (isSession || timelineType === 'new' || timelineType === 'demo') dispatch(updateInformationContentType(contentType))
             else {
                 window.open(`/api/auth/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
 
