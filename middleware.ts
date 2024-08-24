@@ -16,7 +16,11 @@ export const middleware = (req: NextRequest) => {
     }
 
     const jwt = req.cookies.get('timeline_jwt');
-    if (!jwt && url.pathname.startsWith('/timelines/new')) {
+    const patterns = [
+        /^\/timelines\/new/,
+        /^\/[^\/]+\/timelines\/[^\/]+$/
+    ]
+    if (!jwt && patterns.some(pattern => pattern.test(url.pathname))) {
         url.pathname = '/';
         return NextResponse.redirect(url);
     }

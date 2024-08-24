@@ -18,8 +18,9 @@ const SignInOutButton = () => {
             window.addEventListener('message', (event) => {
                 if (event.origin !== window.location.origin) return;
                 if (event.data.type === 'SIGNIN_SUCCESS') {
-                    const session = getSession();
-                    dispatch(updateSession(session));
+                    getSession().then((session) => {
+                        dispatch(updateSession(session));
+                    })
                 }
             });
         }
