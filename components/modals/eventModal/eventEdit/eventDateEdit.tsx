@@ -45,6 +45,7 @@ const EventDateEdit = () => {
 
             if (allowedCharacters.test(content)) {
                 try {
+                    console.log(transformDate(content));
                     const ephemerisTime = spiceInstance.str2et(transformDate(content));
                     dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content, ephemerisTime: ephemerisTime}));
                     if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({ ...currentEventDraft, date: content, ephemerisTime: ephemerisTime}))
@@ -74,9 +75,8 @@ const EventDateEdit = () => {
                 console.error('Error initializing Spice:', error);
             }
         };
-
         initializeSpice()
-    });
+    },[]);
 
     return (
         <>

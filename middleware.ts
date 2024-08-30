@@ -6,7 +6,7 @@ const maintenanceMode = true;
 export const middleware = (req: NextRequest) => {
     const url = req.nextUrl.clone();
 
-    if (req.nextUrl.pathname.startsWith('/_next/') || req.nextUrl.pathname.startsWith('/api/') || /\.(ico|png|jpg|jpeg|svg|css|js|map)$/.test(req.nextUrl.pathname)) {
+    if (req.nextUrl.pathname.startsWith('/_next/') || req.nextUrl.pathname.startsWith('/api/') || /\.(ico|png|jpg|jpeg|svg|css|js|map|tls)$/.test(req.nextUrl.pathname)) {
         return NextResponse.next();
     }
 
