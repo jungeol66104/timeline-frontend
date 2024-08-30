@@ -15,7 +15,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         const data: any = {
             events: [
                 {id: 0, date: '2024-09-07', ephemerisTime: 778939269.1825322, name: 'Timeline becomes timeline wiki', description: `In September 07, 2024, our major update ends and serves timeline wiki.`, keynote: 1},
-                {id: 1, date: '2024-09-01', ephemerisTime: 778420869.1826185, name: 'Event excluded from the keynote', description: `This event is not as important as the event above. Thus, it is excluded from the keynote. You can include it into the keynote in event edit mode.`, keynote: 0}
+                {id: 1, date: '2024-09-01', ephemerisTime: 778420869.1826185, name: 'Event excluded from the keynote', description: `This event is not as important as the event below. Thus, it is excluded from the keynote. You can include it into the keynote in event edit mode.`, keynote: 0}
             ],
             timelineInfo: {id: 0, name: "Timeline", description: 'Wiki service that supports creating and sharing timeline', content: "Timeline is the best service when dealing with timelines. It serves effortless timeline making tool and easy wiki system.", image: 'https://cdn.timeline.vg/base-image.png'}
         }

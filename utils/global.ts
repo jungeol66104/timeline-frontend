@@ -91,7 +91,7 @@ export const transformDate = (date: string) => {
     let parts = date.split(' ');
     if (parts.length > 3) parts = parts.slice(0, 3)
     const era = parts.findIndex(part => part === 'BCE') !== -1 ? 'BC' : 'AD'
-    if (era === 'BC') parts.filter(part => part !== 'BCE')
+    if (era === 'BC') parts = parts.filter(part => part !== 'BCE')
 
     const datePart = parts[0];
     const dateParts = datePart.split('-')
