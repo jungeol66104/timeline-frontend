@@ -7,6 +7,7 @@ import {selectSession} from "@/store/slices/privateSlice";
 import PublishButton from "@/components/timelines/menubar/publishButton";
 import CreateTimelineButton from "@/components/timelines/menubar/createTimelineButton";
 import TimelineMoreButton from "@/components/timelines/menubar/timelineMoreButton";
+import {formatDate, getTodayDate} from "@/utils/global";
 
 const TimelineMenubar = () => {
     const session = useSelector(selectSession)
@@ -20,7 +21,7 @@ const TimelineMenubar = () => {
                     ?   <UsernameButton name={'Nickname'} />
                     :   <ContributorsButton/>
                 }
-                <div className={'text-gray-400 text-sm'}>{timelineType === 'new' ? 'Created' : 'Last Updated'}: August 15, 2024</div>
+                <div className={'text-gray-400 text-sm'}>{timelineType === 'new' ? 'Created' : 'Last Updated'}: {formatDate(getTodayDate())}</div>
             </div>
             {timelineType === 'public' && <TimelineMoreButton />}
             {(timelineType === 'private' || (timelineType === 'demo' && demoKeyConcept === 'private')) && <PublishButton />}
