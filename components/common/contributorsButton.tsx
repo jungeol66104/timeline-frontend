@@ -33,7 +33,7 @@ const ContributorsButton = () => {
                 <div className={'text-sm font-semibold max-[852px]:hidden'}>Contributors</div>
                 <div className={'flex gap-1.5 justify-center items-center'}>
                     <div className={'w-[26px] h-[26px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[1px] border-white shrink-0'}>{contributors[0].substring(0, 2).toUpperCase()}</div>
-                    <span className={'text-sm font-semibold'}>+4</span>
+                    {timelineType !== 'demo' && <span className={'text-sm font-semibold'}>+4</span>}
                 </div>
             </button>
             {isToggle &&

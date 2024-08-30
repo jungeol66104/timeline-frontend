@@ -13,7 +13,9 @@ const CreateEventButton = () => {
         // send currentEventDraft to db and get id
         // get event and update currentEvent & currentEvents
         dispatch(updateCurrentEvent(currentEventDraft));
-        dispatch(updateCurrentEvents([...currentEvents, currentEventDraft]))
+        const events = [...currentEvents, currentEventDraft]
+        events.sort((a, b) => Number(a.ephemerisTime) - Number(b.ephemerisTime))
+        dispatch(updateCurrentEvents(events))
         if (timelineType !== 'new') dispatch(updateEventContentType('view'))
     }
 

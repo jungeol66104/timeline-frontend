@@ -8,8 +8,9 @@ const EventsPreview = () => {
     const currentEvents = useSelector(selectCurrentEvents)
     const isKeynote = useSelector(selectIsKeynote)
 
-    const events = isKeynote ? currentEvents.filter((event) => event.keynote === 1) : currentEvents
-
+    let events = isKeynote ? currentEvents.filter((event) => event.keynote === 1) : currentEvents
+    events = [...events]
+    events.sort((a, b) => Number(a.ephemerisTime) - Number(b.ephemerisTime))
     const isEmptyKeynote = events.length === 0
 
     return (

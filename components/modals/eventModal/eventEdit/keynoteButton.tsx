@@ -1,13 +1,16 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEventDraft, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentEventDraft, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 
 const KeynoteButton = () => {
     const dispatch = useDispatch();
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
     const handleClick = () => {
-        dispatch(updateCurrentEventDraft({...currentEventDraft, keynote: !currentEventDraft.keynote}))
+        const targetKeynote = currentEventDraft.keynote === 0 ? 1 : 0;
+
+        dispatch(updateCurrentEventDraft({...currentEventDraft, keynote: targetKeynote}));
+        dispatch(updateEventInCurrentEvents({...currentEventDraft, keynote: targetKeynote}))
     }
 
     return (
