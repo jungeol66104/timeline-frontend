@@ -2,6 +2,7 @@ import {useEffect} from "react";
 import {useStore} from "react-redux";
 import {useRouter} from "next/router";
 import {getScrollWrapper} from "@/utils/global";
+import {initialState} from "@/store/rootReducer";
 
 const useStateToStorage = () => {
     const router = useRouter()
@@ -13,7 +14,10 @@ const useStateToStorage = () => {
             const scrollWrapper = getScrollWrapper()
             if (!scrollWrapper) return
 
-            let state = store.getState()
+            let state = store.getState() as initialState
+            // IMPORTANT: remove personal information
+            state = {...state, private: {session: {}, profileType: state.private.profileType}}
+
             const current = JSON.parse(sessionStorage.getItem('current') || JSON.stringify({"url": "initialUrl", "scrollTop": 0, "state": {}}))
             const history = JSON.parse(sessionStorage.getItem('history') || JSON.stringify({"0": {"url": "initialUrl", "scrollTop": 0, "state": {}}, "1": {"url": "initialUrl", "scrollTop": 0, "state": {}}, "2": {"url": "initialUrl", "scrollTop": 0, "state": {}}}))
             const historyUrls = Object.values(history).map(packet => (packet as { url: string })["url"])

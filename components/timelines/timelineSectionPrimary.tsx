@@ -1,19 +1,20 @@
-import React from 'react'
-import TimelineInformation from "@/components/timelines/timelineInformation";
-import Timeline from "@/components/timelines/timeline/timeline";
-import Toolbar from "@/components/timelines/toolbar";
+import TimelineMenubar from "@/components/timelines/menubar/timelineMenubar";
+import InformationPreview from "@/components/timelines/informationPreview";
 import RelatedTimelines from "@/components/timelines/relatedTimelines";
-import RecentNews from "@/components/timelines/recentNews";
+import Events from "@/components/timelines/events/events";
+import Toolbar from "@/components/timelines/toolbar";
 
 const TimelineSectionPrimary = () => {
+
     return (
-        <div className={'relative px-4 pt-4 pb-0 w-full min-[852px]:min-w-[500px] max-w-[630px]'}>
-            <TimelineInformation />
+        <div className={'p-3 w-full max-w-[630px] min-[852px]:min-w-[500px] flex flex-col gap-3'}>
+            <TimelineMenubar />
+            <InformationPreview/>
             <RelatedTimelines />
-            {/*<RecentNews />*/}
-            <Timeline />
+            <Events />
             <Toolbar />
         </div>
     )
 }
+
 export default TimelineSectionPrimary;

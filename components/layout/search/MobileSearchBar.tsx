@@ -3,7 +3,6 @@ import Image from "next/image";
 import {useDispatch, useSelector} from "react-redux";
 import {selectIsSearch, selectSearchValue, updateIsSearch, updateSearchValue} from "@/store/slices/searchSlice";
 import useSearch from "@/hooks/useSearch";
-import SearchTab from "@/components/layout/search/searchTab";
 import SearchList from "@/components/layout/search/searchList";
 
 const MobileSearchBar = () => {
@@ -23,16 +22,18 @@ const MobileSearchBar = () => {
     }, [isSearch]);
 
     return (
-        <div ref={searchBodyRef} className={`absolute top-[10px] right-1.5 max-w-[480px]`} style={{width: `calc(100% - 12px)`}}>
+        <div ref={searchBodyRef} className={`absolute top-[10px] right-1.5 max-w-[480px]`} style={{zIndex: 4999, width: `calc(100% - 16px)`}}>
             <div className={`h-[40px] w-full px-2.5 flex gap-2.5 items-center border-gray-200 ${isSearch ? 'bg-white rounded-t-lg border-t-[1px] border-x-[1px]' : 'bg-gray-100 rounded-lg border-[1px]'}`}>
                 <div className={'w-6 h-6'}><Image src={'/svg/search.svg'} alt={'search'} width={24} height={24} className={`cursor-pointer  ${isSearch ? '': "opacity-30" }`} /></div>
                 <div className={'flex w-full'}>
                     <input ref={searchInputRef} className={'bg-transparent w-full'} onChange={(e) => dispatch(updateSearchValue(e.target.value))} value={searchValue} placeholder={'Search timelines'} style={{outline: 'none'}}/>
-                    <button className={'w-[24px] h-[24px] shrink-0 flex items-center justify-center rounded-full bg-white'}><Image onClick={() => dispatch(updateIsSearch(false))} src={'/svg/close.svg'} alt={'close'} width={24} height={24} /></button>
+                    <div className={'flex items-center gap-2'}>
+                        {isSearch && searchValue !== '' && <button onClick={() => dispatch(updateSearchValue(''))} className={'w-4 h-4 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full'}><div className={'material-symbols-outlined text-[12px] font-light'}>&#xe5cd;</div></button>}
+                        <button onClick={() => dispatch(updateIsSearch(false))} className={'material-symbols-outlined text-[24px] shrink-0 flex items-center justify-center rounded-full bg-white'}>&#xe5cd;</button>
+                    </div>
                 </div>
             </div>
             <div className={`absolute top-[40px] left-0 h-fit w-full pb-2.5 px-2.5 bg-white shadow-md rounded-b-lg border-[1px] border-gray-200 ${isSearch ? '' : 'hidden'}`}>
-                {/*<SearchTab />*/}
                 <SearchList />
             </div>
         </div>

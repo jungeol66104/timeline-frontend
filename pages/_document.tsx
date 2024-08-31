@@ -1,6 +1,6 @@
+import React from "react";
 import { Html, Head, Main, NextScript } from 'next/document'
 import {GA_TRACKING_ID} from "@/utils/gtags";
-import React from "react";
 
 export default function Document() {
   return (
@@ -40,8 +40,9 @@ export default function Document() {
             />
         </Head>
         <body>
-            <Main/>
-            <NextScript/>
+        <Main/>
+        <NextScript/>
+        <div id={'portal'}></div>
         </body>
     </Html>
   )

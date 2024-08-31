@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import api from "@/utils/api";
+import api from "@/pages/api/api";
 import {debounce, getScrollWrapper} from "@/utils/global";
 import {selectCurrentTimelines, updateCurrentTimelines} from "@/store/slices/contentsSlice";
 import {selectCurrentPage, selectCurrentTagNum, selectTotalPage, updateCurrentPage, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
@@ -38,7 +38,6 @@ const useOperateIndex = () => {
         }
 
         const handleScroll = async () => {
-            console.log('hi')
             const scrollWrapper = getScrollWrapper()
             if (!scrollWrapper) return
 

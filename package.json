@@ -10,14 +10,21 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.6",
+    "@tiptap/extension-image": "^2.4.0",
+    "@tiptap/extension-placeholder": "^2.5.5",
+    "@tiptap/pm": "^2.4.0",
+    "@tiptap/react": "^2.4.0",
+    "@tiptap/starter-kit": "^2.4.0",
     "@types/node": "20.6.3",
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
     "@types/redux-logger": "^3.0.11",
     "autoprefixer": "10.4.16",
-    "axios": "^1.6.0",
+    "axios": "^1.7.2",
+    "cookie": "^0.6.0",
     "eslint": "8.49.0",
     "eslint-config-next": "13.5.2",
+    "googleapis": "^140.0.0",
     "gsap": "^3.12.2",
     "next": "^14.0.4",
     "next-redux-wrapper": "^8.1.0",
@@ -27,11 +34,15 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.49.3",
     "react-redux": "^8.1.2",
+    "react-slick": "^0.30.2",
     "redux-logger": "^3.0.6",
+    "slick-carousel": "^1.8.1",
     "tailwindcss": "3.3.3",
+    "timecraftjs": "^2.0.0",
     "typescript": "5.2.2"
   },
   "devDependencies": {
+    "@types/cookie": "^0.6.0",
     "@types/gtag.js": "^0.0.18",
     "@types/probe-image-size": "^7.2.4"
   }

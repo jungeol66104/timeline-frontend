@@ -1,8 +1,7 @@
-import {useEffect, useLayoutEffect} from 'react';
-import {useSelector} from "react-redux";
-import {selectLastAction, selectPreviousTop, selectScrollTop} from "@/store/slices/appearanceSlice";
-import {getScrollWrapper, getFirstEventBox, sum, getTimeline} from "@/utils/global";
-import {selectCurrentEvents, selectPivotEvent} from "@/store/slices/contentsSlice";
+import {useLayoutEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {selectModalType, selectPopupType, selectScrollTop, selectTimelineType, updateScrollTop} from "@/store/slices/appearanceSlice";
+import {getScrollWrapper} from "@/utils/global";
 
 export const useScroll = () => {
     const scrollTop = useSelector(selectScrollTop)
@@ -10,38 +9,86 @@ export const useScroll = () => {
     useLayoutEffect(() => {
         const scrollWrapper = getScrollWrapper()
         if (!scrollWrapper) return
-        // trick for stopping momentum scroll error in webkit based browsers
-        // scrollWrapper.style.overflowY = 'hidden'
         scrollWrapper.scrollTop = scrollTop
-        // scrollWrapper.style.overflowY = 'scroll'
     });
 }
 
-// export const useScrollForTimeline = () => {
-//     const currentEvents = useSelector(selectCurrentEvents)
-//     const pivotEvent = useSelector(selectPivotEvent) || {id: 0}
-//     const previousTop = useSelector(selectPreviousTop)
-//     const lastAction = useSelector(selectLastAction)
-//
-//     useEffect(() => {
-//         const scrollWrapper = getScrollWrapper()
-//         const eventBoxes = typeof window !== 'undefined' ? document.querySelectorAll('.eventBox') : null
-//         if (!scrollWrapper || !eventBoxes) return
-//
-//         if (lastAction === 'scroll' && previousTop !== -99999) {
-//             let eventBoxHeights = Array.from(eventBoxes).map(eventBox => eventBox.clientHeight)
-//             let eventBoxTops = eventBoxHeights.map((_, i) => sum(eventBoxHeights.slice(0,i)))
-//             let order = currentEvents.findIndex(cEvent => cEvent.id === pivotEvent.id)
-//             let timelineOffsetTop = getTimeline()?.offsetTop as number
-//             let firstEventBoxOffsetTop = getFirstEventBox()?.offsetTop as number
-//             let newScrollTop = eventBoxTops[order] + firstEventBoxOffsetTop + timelineOffsetTop - previousTop
-//             scrollWrapper.style.overflowY = 'hidden'
-//             scrollWrapper.scrollTop = newScrollTop
-//             scrollWrapper.style.overflowY = 'scroll'
-//         } else if (lastAction === 'zoom' || previousTop === -99999){
-//             scrollWrapper.style.overflowY = 'hidden'
-//             scrollWrapper.scrollTop = 0
-//             scrollWrapper.style.overflowY = 'scroll'
-//         }
-//     }, [pivotEvent, previousTop, lastAction, currentEvents])
-// }
+export const useDisableScroll = () => {
+    const dispatch = useDispatch()
+    const scrollTop = useSelector(selectScrollTop)
+    const timelineType = useSelector(selectTimelineType)
+    const modalType = useSelector(selectModalType)
+
+    useLayoutEffect(() => {
+        const scrollWrapper = getScrollWrapper()
+        const layout: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.layout') : null
+        if (!scrollWrapper || !layout || timelineType === 'demo') return
+
+        if (modalType === 'none') {
+            layout.style.position = ''
+            layout.style.top = ''
+            scrollWrapper.scrollTop = scrollTop
+        } else {
+            const initialScrollTop = scrollWrapper.scrollTop
+            layout.style.position = 'fixed'
+            layout.style.top = `${-initialScrollTop}px`
+            dispatch(updateScrollTop(initialScrollTop))
+        }
+    }, [modalType]);
+}
+
+export const useDisableDemoScroll = () => {
+    const dispatch = useDispatch()
+    const [demoScrollTop, setDemoScrollTop] = useState(0)
+    const timelineType = useSelector(selectTimelineType)
+    const modalType = useSelector(selectModalType)
+
+    const getDemoScrollWrapper = () => {
+        return typeof window !== 'undefined' ? document.querySelector('.demoScrollWrapper') : null
+    }
+
+    useLayoutEffect(() => {
+        const scrollWrapper = getScrollWrapper()
+        const demoScrollWrapper = getDemoScrollWrapper()
+        const demoLayout: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.demoLayout') : null
+        if (!scrollWrapper || !demoScrollWrapper || !demoLayout || timelineType !== 'demo') return
+
+        if (modalType === 'none') {
+            demoLayout.style.position = ''
+            demoLayout.style.top = ''
+            demoScrollWrapper.scrollTop = demoScrollTop
+        } else {
+            const initialDemoScrollTop = demoScrollWrapper.scrollTop
+            demoLayout.style.position = 'sticky'
+            demoLayout.style.top = `${-initialDemoScrollTop}px`
+            setDemoScrollTop(initialDemoScrollTop)
+        }
+        dispatch(updateScrollTop(scrollWrapper.scrollTop))
+    }, [modalType]);
+}
+
+
+export const usePopupDisableScroll = () => {
+    const dispatch = useDispatch()
+    const scrollTop = useSelector(selectScrollTop)
+    const modalType = useSelector(selectModalType)
+    const popupType = useSelector(selectPopupType)
+
+    useLayoutEffect(() => {
+        const scrollWrapper = getScrollWrapper()
+        const layout: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.layout') : null
+        if (!scrollWrapper || !layout) return
+
+        if (modalType !== 'none') return
+        if (popupType === 'none') {
+            layout.style.position = ''
+            layout.style.top = ''
+            scrollWrapper.scrollTop = scrollTop
+        } else {
+            const initialScrollTop = scrollWrapper.scrollTop
+            layout.style.position = 'fixed'
+            layout.style.top = `${-initialScrollTop}px`
+            dispatch(updateScrollTop(initialScrollTop))
+        }
+    }, [popupType]);
+}

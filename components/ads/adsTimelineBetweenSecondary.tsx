@@ -10,7 +10,7 @@ const AdsTimelineBetweenSecondary = () => {
     }, []);
 
     return (
-        <div className={'adsTimelineBetweenSecondary w-full h-fit flex justify-center bg-[#F2F2F259] border-x-[1px] border-x-[#E5E7EB]'}>
+        <div className={'adsTimelineBetweenSecondary w-full h-fit flex justify-center bg-[#F2F2F259] border-[1px] border-[#E5E7EB] rounded-2xl'}>
             <div className={'adsTimelineBetweenSecondaryWrapper p-4 w-full max-w-[352px] flex flex-col items-center gap-2.5'}>
                 <div className={'text-xs font-semibold text-gray-400'}>ADVERTISEMENT</div>
                 <style>

@@ -1,15 +1,14 @@
 import crypto from 'crypto'
+import axios from "axios";
+import {updateSession} from "@/store/slices/privateSlice";
 
-// math
-export const sum = (array: number[]) => {
-    let sum = 0
-    array.forEach(l => sum += l)
-    return sum
+export const capitalize = (string: string) => {
+    if (!string) return string;
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// timeline
-// check if the device is mobile or PC
 export const getClickOrTouch = () => {
+    // check if the device is mobile or PC
     let clickOrTouchend = 'click'
     if (navigator.maxTouchPoints || 'ontouchstart' in document.documentElement) clickOrTouchend = 'touchend'
     return clickOrTouchend
@@ -24,16 +23,6 @@ export const getIsTouchable = () => {
 export const getScrollWrapper = () => {
     const scrollWrapper: Element | null = typeof window !== 'undefined' ? document.documentElement : null
     return scrollWrapper
-}
-
-export const getTimeline = () => {
-    const timeline: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timeline') : null
-    return timeline
-}
-
-export const getFirstEventBox = () => {
-    const eventBox: HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.eventBox') : null
-    return eventBox
 }
 
 export const getIsBaseImage = (url: string | null | undefined) => {
@@ -89,3 +78,53 @@ export const getCurrentTag = (tagNum: number) => {
     return tags[index]
 }
 
+export const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed in JS
+    const day = String(today.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+}
+
+export const transformDate = (date: string) => {
+    let parts = date.split(' ');
+    if (parts.length > 3) parts = parts.slice(0, 3)
+    const era = parts.findIndex(part => part === 'BCE') !== -1 ? 'BC' : 'AD'
+    if (era === 'BC') parts = parts.filter(part => part !== 'BCE')
+
+    const datePart = parts[0];
+    const dateParts = datePart.split('-')
+    const year = dateParts[0]
+    const month = dateParts[1] || '01'
+    const day = dateParts[2] || '01'
+
+    let hour = '00'
+    let minute = '00'
+    let second = '00'
+    if (parts.length === 2) {
+        const timePart = parts[1];
+        const timeParts = timePart.split(':')
+        hour = timeParts[0]
+        minute = timeParts[1] || minute
+        second = timeParts[2] || second
+    }
+
+    return `${year} ${era} ${month}-${day} ${hour}:${minute}:${second}`;
+}
+
+export const getIsTimelinePath = (path: string) => {
+    const timelineRegex = /^\/timelines\/[^\/]+$/;
+    const privateTimelineRegex = /^\/[^\/]+\/timelines\/[^\/]+$/;
+    return timelineRegex.test(path) || privateTimelineRegex.test(path);
+}
+
+export const getSession = async () => {
+    try {
+        const response = await axios.get('http://localhost:3000/api/auth/session')
+        return response.data
+    } catch (error) {
+        console.error('Error fetching data in useEffect: ', error)
+        return
+    }
+}

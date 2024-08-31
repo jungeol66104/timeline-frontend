@@ -2,6 +2,7 @@ import {AnyAction, CombinedState, combineReducers, Reducer} from 'redux';
 import {HYDRATE} from "next-redux-wrapper";
 import contentsSlice, {initialContentsState} from "@/store/slices/contentsSlice";
 import appearanceSlice, {initialAppearanceState} from "@/store/slices/appearanceSlice";
+import privateSlice, {initialPrivateState} from "@/store/slices/privateSlice";
 import searchSlice, {initialSearchState} from "@/store/slices/searchSlice";
 
 const rootReducer: Reducer = (state: initialState, action: AnyAction): CombinedState<initialState> => {
@@ -14,6 +15,7 @@ const rootReducer: Reducer = (state: initialState, action: AnyAction): CombinedS
             return combineReducers({
                 appearance: appearanceSlice,
                 contents: contentsSlice,
+                private: privateSlice,
                 search: searchSlice
             })(state, action)
     }
@@ -24,6 +26,7 @@ export default rootReducer;
 export interface initialState {
     appearance: initialAppearanceState
     contents: initialContentsState
+    private: initialPrivateState
     search: initialSearchState
 }
 export type RootState = initialState

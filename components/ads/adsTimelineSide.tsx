@@ -9,8 +9,7 @@ const AdsTimelineSide = () => {
     }, []);
 
     return (
-        // <div className={'adsTimelineSide sticky top-[76px] mt-4 w-full max-[852px]:hidden h-fit flex justify-center bg-[#F2F2F259] border-[1px] border-[#E5E7EB]'}>
-        <div className={'adsTimelineSide mt-4 w-full max-[852px]:hidden h-fit flex justify-center bg-[#F2F2F259] border-[1px] border-[#E5E7EB]'}>
+        <div className={'adsTimelineSide w-full max-[852px]:hidden h-fit flex justify-center bg-[#F2F2F259] border-[1px] border-[#E5E7EB] rounded-2xl'}>
             <div className={'adsTimelineSideWrapper p-4 w-full max-w-[352px] flex flex-col items-center gap-2.5'}>
                 <div className={'text-xs font-semibold text-gray-400'}>ADVERTISEMENT</div>
                 <style>

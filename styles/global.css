@@ -1,6 +1,8 @@
 /* font */
 @import url('./font.css');
+@import url('./icons.css');
 
+/* global */
 * {
     font-family: 'Inter', sans-serif;
 }
@@ -13,6 +15,15 @@ hr {
 @tailwind components;
 @tailwind utilities;
 
+/* tiptap */
+p.is-editor-empty:first-child::before {
+    color: #d1d5db;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
 /* layout */
 html, body, #__next, .layout, .page {
     width: 100%;
@@ -22,53 +33,31 @@ body {
     scrollbar-gutter: stable;
 }
 .page {
-    /*position: relative;*/
     display: flex;
     flex-direction: column;
 }
 
 /* layout responsive */
-/* index, timeline, information */
 @media (min-width: 0px) and (max-width: 852px) {
-    .indexPageWrapper, .timelinePageWrapper, .informationPageWrapper, .adsTimelineTop, .informationHeader {
+    .pageWrapper, .adsTimelineTop, .informationHeader, footer {
         flex-direction: column;
         align-items: center;
     }
+    .eventModal, .informationModal {
+        max-width: 630px;
+    }
 }
-@media (min-width: 852px) and (max-width: 1127px) {
-    .indexPageWrapper, .timelinePageWrapper, .informationPageWrapper, .adsTimelineTop, .informationHeader {
+@media (min-width: 852px) {
+    .pageWrapper, .adsTimelineTop, .informationHeader, footer {
         flex-direction: row;
         justify-content: center;
     }
-}
-@media (min-width: 1127px) {
-    .indexPageWrapper, .timelinePageWrapper, .informationPageWrapper, .adsTimelineTop, .informationHeader {
-        flex-direction: row;
-        justify-content: start;
-        padding-left: 125px;
-    }
-    .tagWrapper {
-        padding-left: 141px;
-        padding-right: calc(100% - 1108px);
+    .eventModal, .informationModal {
+        max-width: 1002px;
     }
 }
 
-/* event, text */
-@media (min-width: 0px) and (max-width: 850px) {
-    .eventPage, .textPage {
-        flex-direction: column;
-        justify-content: start;
-        align-items: center;
-    }
-}
-@media (min-width: 850px) {
-    .eventPage, .textPage {
-        justify-content: start;
-        padding-left: 125px;
-    }
-}
-
-/* index */
+/* scrollbar */
 .tagWrapper::-webkit-scrollbar {
     display: none;
 }
@@ -76,12 +65,22 @@ body {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
-
-/* timeline */
 .relatedSwiper::-webkit-scrollbar {
     display: none;
 }
 .relatedSwiper {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
+/* diff */
+ins.diff, del.diff {
+    position: relative;
+    text-decoration: none;
+}
+ins.diff {
+    background-color: rgba(0, 255, 0, 0.3);
+}
+del.diff {
+    background-color: rgba(255, 0, 0, 0.3);
 }

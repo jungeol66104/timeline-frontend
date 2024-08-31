@@ -1,5 +1,5 @@
-import React from "react";
-import api from "@/utils/api";
+import React, {useEffect, useState} from "react";
+import api from "@/pages/api/api";
 import {storeWrapper} from "@/store/store";
 import {updateCurrentTimelines} from "@/store/slices/contentsSlice";
 import {updateCurrentPage, updateIsBottomEnd, updateTagNum, updateTotalPage} from "@/store/slices/appearanceSlice";
@@ -10,7 +10,7 @@ import IndexSectionSecondary from "@/components/index/indexSectionSecondary";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({query}) => {
     try {
-        const tagNum = Number(query.tagNum || 3)
+        const tagNum = Number(query.tagNum || 4)
         const type = tagNum < 4 ? 'features' : 'tags'
         const id = tagNum < 4 ? tagNum : tagNum - 3
         const response = await api.get(`/timeline/${type}/${id}?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
@@ -33,8 +33,8 @@ export default function Home() {
     return (
         <>
             <DynamicHead type={'index'}/>
-            <div className={'page indexPage sticky top-0 h-full'}>
-                <div className={'indexPageWrapper relative w-full flex'}>
+            <div className={'page indexPage h-full'}>
+                <div className={'indexPageWrapper pageWrapper relative w-full flex'}>
                     <IndexSectionPrimary />
                     <IndexSectionSecondary />
                 </div>

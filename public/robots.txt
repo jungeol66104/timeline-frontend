@@ -1,6 +1,3 @@
 User-agent: *
-Disallow: /events/
-Disallow: /series/
-Disallow: /information/
 
 Sitemap: https://timeline.vg/sitemap.xml
