@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 
-const ReplaceImageButton = () => {
+const ReplaceImageButton = ({isMenu = false}: {isMenu?: boolean}) => {
     const dispatch = useDispatch()
     const timelineType = useSelector(selectTimelineType)
     const modalType = useSelector(selectModalType)
@@ -44,10 +44,21 @@ const ReplaceImageButton = () => {
         }
     }
     return (
-        <label className={'cursor-pointer w-9 h-9 flex items-center justify-center bg-white hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md'}>
-            <div className={'material-symbols-outlined text-[20px]'}>&#xf824;</div>
-            <input className={'hidden'} type={'file'} accept={'.png,.jpg,.jpeg'} onChange={handleChange}/>
-        </label>
+        <>
+            {!isMenu &&
+                <label className={'cursor-pointer w-9 h-9 flex items-center justify-center bg-white hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md'}>
+                    <div className={'material-symbols-outlined text-[20px]'}>&#xf824;</div>
+                    <input className={'hidden'} type={'file'} accept={'.png,.jpg,.jpeg'} onChange={handleChange}/>
+                </label>
+            }
+            {isMenu &&
+                <label className={'cursor-pointer px-2.5 w-full h-[36px] flex items-center gap-2 rounded-md bg-white hover:bg-gray-100 text-left'}>
+                    <div className={'material-symbols-outlined text-[20px]'}>&#xf824;</div>
+                    <div className={'text-sm font-semibold'}>Replace</div>
+                    <input className={'hidden'} type={'file'} accept={'.png,.jpg,.jpeg'} onChange={handleChange}/>
+                </label>
+            }
+        </>
     );
 };
 

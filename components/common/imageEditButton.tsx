@@ -21,12 +21,12 @@ const ImageEditButton = () => {
     }
 
     return (
-        <div className={'absolute top-1 right-1'}>
-            <button ref={imageEditButtonRef} onClick={handleClick} className={'material-symbols-outlined text-[22px] w-[36px] h-[36px] hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md bg-white opacity-70'}>&#xe3f4;</button>
+        <div className={'relative'}>
+            <button ref={imageEditButtonRef} onClick={handleClick} className={'material-symbols-outlined text-[22px] w-[36px] h-[36px] hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md'}>&#xe3f4;</button>
             {isToggle &&
-                <div className={'absolute top-[38px] right-0 px-1.5 py-1 w-[156.33px] bg-white border-[1px] rounded-md drop-shadow-md'}>
-                    <RemoveImageButton />
-                    <ReplaceImageButton />
+                <div className={'absolute top-[38px] left-0 px-1.5 py-1 w-[120px] bg-white border-[1px] rounded-md drop-shadow-md'}>
+                    <RemoveImageButton isMenu={true}/>
+                    <ReplaceImageButton isMenu={true} />
                 </div>
             }
         </div>

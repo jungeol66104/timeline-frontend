@@ -10,6 +10,7 @@ import RemoveImageButton from "@/components/common/removeImageButton";
 import DisconnectButton from "@/components/modals/eventModal/eventEdit/disconnectButton";
 import KeynoteButton from "@/components/modals/eventModal/eventEdit/keynoteButton";
 import {selectCurrentEventDraft, selectCurrentEvents} from "@/store/slices/contentsSlice";
+import ImageEditButton from "@/components/common/imageEditButton";
 
 const EventModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
     const eventContentType = useSelector(selectEventContentType)
@@ -23,8 +24,9 @@ const EventModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
         <div className={'w-full flex justify-between pb-3'}>
             <div className={'flex gap-3'}>
                 {isBaseImage && <AddImageButton/>}
-                {!isBaseImage && <RemoveImageButton/>}
-                {!isBaseImage && <ReplaceImageButton/>}
+                {!isBaseImage && <ImageEditButton/>}
+                {/*{!isBaseImage && <RemoveImageButton/>}*/}
+                {/*{!isBaseImage && <ReplaceImageButton/>}*/}
                 {eventContentType === 'edit' && <ResetEditButton/>}
                 {(eventContentType === 'edit' || (eventContentType === 'new' && isCreated)) && <DisconnectButton/>}
             </div>
