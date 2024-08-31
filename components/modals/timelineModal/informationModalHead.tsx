@@ -12,7 +12,7 @@ const InformationModalHead = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     return (
-        <div className={'z-10 w-full'}>
+        <div className={'z-20 w-full'}>
             <div className={'relative w-full'}>
                 {informationContentType === 'new' || (timelineType === 'private' && informationContentType === 'edit') || (timelineType === 'demo' && informationContentType === 'edit')
                     ?   <InformationTitleEdit />

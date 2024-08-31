@@ -11,7 +11,7 @@ const EventModalHead = () => {
     const eventContentType = useSelector(selectEventContentType)
 
     return (
-        <div className={'z-10'}>
+        <div className={'z-20'}>
             <div className={'relative'}>
                 {eventContentType === 'edit' || eventContentType === 'new'
                     ?   <EventDateEdit />
