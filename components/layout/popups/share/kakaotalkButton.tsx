@@ -1,5 +1,5 @@
 import React from 'react';
-import ShareButtonTemplate from "@/components/modals/shareModal/shareElementButtonTemplate";
+import ShareButtonTemplate from "@/components/layout/popups/share/shareElementButtonTemplate";
 import Script from "next/script";
 
 const KakaotalkButton = () => {

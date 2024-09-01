@@ -1,5 +1,5 @@
 import React from 'react';
-import ShareButtonTemplate from "@/components/modals/shareModal/shareElementButtonTemplate";
+import ShareButtonTemplate from "@/components/layout/popups/share/shareElementButtonTemplate";
 import {useDispatch} from "react-redux";
 import {updateIsShare} from "@/store/slices/appearanceSlice";
 

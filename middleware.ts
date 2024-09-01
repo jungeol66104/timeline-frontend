@@ -1,12 +1,11 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 
-const maintenanceMode = true;
+const maintenanceMode = false;
 
 export const middleware = (req: NextRequest) => {
     const url = req.nextUrl.clone();
 
-    if (req.nextUrl.pathname.startsWith('/_next/') || req.nextUrl.pathname.startsWith('/api/') || /\.(ico|png|jpg|jpeg|svg|css|js|map|tls)$/.test(req.nextUrl.pathname)) {
+    if (req.nextUrl.pathname.startsWith('/_next/') || req.nextUrl.pathname.startsWith('/api/') || /\.(ico|png|jpg|jpeg|svg|css|js|map|tls|txt)$/.test(req.nextUrl.pathname)) {
         return NextResponse.next();
     }
 

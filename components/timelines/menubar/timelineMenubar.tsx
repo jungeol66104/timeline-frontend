@@ -17,15 +17,17 @@ const TimelineMenubar = () => {
     return (
         <div className={'z-10 w-full flex justify-between'}>
             <div className={'flex items-center justify-center gap-3'}>
-                {(timelineType === 'private' || timelineType === 'new' || (timelineType === 'demo' && demoKeyConcept === 'private'))
-                    ?   <UsernameButton name={'Nickname'} />
-                    :   <ContributorsButton/>
-                }
+                {timelineType === 'public' && <ContributorsButton />}
+                {timelineType === 'private' && <UsernameButton name={'Temporary'} />}
+                {timelineType === 'new' && <UsernameButton name={session.nickName || 'None'} />}
+                {timelineType === 'demo' && demoKeyConcept !== 'private' && <ContributorsButton />}
+                {timelineType === 'demo' && demoKeyConcept === 'private' && <UsernameButton name={'You'} />}
                 <div className={'text-gray-400 text-sm'}>{timelineType === 'new' ? 'Created' : 'Last Updated'}: {formatDate(getTodayDate())}</div>
             </div>
             {timelineType === 'public' && <TimelineMoreButton />}
-            {(timelineType === 'private' || (timelineType === 'demo' && demoKeyConcept === 'private')) && <PublishButton />}
+            {timelineType === 'private' && <PublishButton />}
             {timelineType === 'new' && <CreateTimelineButton />}
+            {timelineType === 'demo' && demoKeyConcept === 'private' && <PublishButton />}
         </div>
     )
 }

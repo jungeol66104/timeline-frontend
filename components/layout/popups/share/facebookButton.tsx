@@ -1,5 +1,5 @@
 import React from 'react';
-import ShareButtonTemplate from "@/components/modals/shareModal/shareElementButtonTemplate";
+import ShareButtonTemplate from "@/components/layout/popups/share/shareElementButtonTemplate";
 
 const FacebookButton = () => {
     const handleClick = () => {
