@@ -1,16 +1,16 @@
 import React, {ReactNode, useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import Navbar from "@/components/layout/navbar/navbar";
+import {useRouter} from "next/router";
 import {selectIsMaintenance} from "@/store/slices/appearanceSlice";
 import useStateToStorage from "@/hooks/useStateToStorage";
 import useStateFromStorage from "@/hooks/useStateFromStorage";
-import {useDisableScroll, usePopupDisableScroll, useScroll} from "@/hooks/useScroll";
-import {useRouter} from "next/router";
-import IndexSkeleton from "@/components/index/indexSkeleton";
-import Footer from "@/components/layout/footer";
 import {useSession} from "@/hooks/useSession";
+import {useDisableScroll, usePopupDisableScroll, useScroll} from "@/hooks/useScroll";
+import Navbar from "@/components/layout/navbar/navbar";
+import Footer from "@/components/layout/footer";
 import Modals from "@/components/layout/modals";
-import Popups from "@/components/layout/popups/Popups";
+import Popups from "@/components/layout/popups/popups";
+import IndexSkeleton from "@/components/index/indexSkeleton";
 
 const Layout = ({ children } : {children: ReactNode}) => {
     const router = useRouter()
