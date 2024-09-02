@@ -1,6 +1,6 @@
 import React from 'react';
-import ShareButtonTemplate from "@/components/layout/popups/share/shareElementButtonTemplate";
 import {useDispatch} from "react-redux";
+import ShareButtonTemplate from "@/components/layout/popups/share/shareElementButtonTemplate";
 import {updatePopupType} from "@/store/slices/appearanceSlice";
 
 const LinkCopyButton = () => {

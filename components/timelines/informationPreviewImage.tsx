@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {memo} from 'react';
 import Image from "next/image";
 import {getIsBaseImage} from "@/utils/global";
 import {Timeline} from "@/store/slices/contentsSlice";
 import AddImageButton from "@/components/common/addImageButton";
 
-const InformationPreviewImage = ({information}: {information: Timeline}) => {
+const InformationPreviewImage = memo(({information}: {information: Timeline}) => {
     const src = information.image
     const alt = information.name
     const imageSize = information.imageSize || {width: 100, height: 100};
@@ -26,6 +26,8 @@ const InformationPreviewImage = ({information}: {information: Timeline}) => {
             </div>
         </>
     );
-};
+});
 
 export default InformationPreviewImage;
+
+InformationPreviewImage.displayName = 'InformationPreviewImage';
