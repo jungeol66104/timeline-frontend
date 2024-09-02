@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from "next/link";
 import {useSelector} from "react-redux";
-import {selectCurrentTagNum} from "@/store/slices/appearanceSlice";
+import {selectTagNum} from "@/store/slices/appearanceSlice";
 import {getCurrentTag} from "@/utils/global";
 
 const TagButton = ({tagNum}: {tagNum: number}) => {
-    const currentTagNum = useSelector(selectCurrentTagNum)
+    const currentTagNum = useSelector(selectTagNum)
     const currentTag = getCurrentTag(tagNum)
     const tagAppearance = currentTag === 'Hot' ? <span>&#x1F525;  Hot</span> : currentTag === 'Staff Picks' ? <span>&#x2728;  Staff Picks</span> : <span>{currentTag}</span>;
 

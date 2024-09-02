@@ -1,7 +1,7 @@
 import {useLayoutEffect} from "react";
 import {useDispatch} from "react-redux";
-import axios from "axios";
 import {updateSession} from "@/store/slices/privateSlice";
+import axios from "axios";
 
 export const useSession = () => {
     const dispatch = useDispatch()
@@ -9,6 +9,7 @@ export const useSession = () => {
     useLayoutEffect(() => {
         const setSession = async () => {
             try {
+                // will this url work?
                 const response = await axios.get('http://localhost:3000/api/auth/session')
                 dispatch(updateSession(response.data))
                 return

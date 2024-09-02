@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import api from "@/pages/api/api";
 import {storeWrapper} from "@/store/store";
 import {updateCurrentTimelines} from "@/store/slices/contentsSlice";

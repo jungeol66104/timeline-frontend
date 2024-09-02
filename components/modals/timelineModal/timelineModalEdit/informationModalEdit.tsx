@@ -27,7 +27,7 @@ const InformationModalEdit = () => {
             <InformationModalEditMenubar editor={editor} src={currentTimelineDraft.image}/>
             <hr/>
             <div className={'flex flex-col items-center gap-3'}>
-                <InformationModalImage src={currentTimelineDraft.image} alt={currentTimelineDraft.name} imageSize={currentTimelineDraft.imageSize}/>
+                <InformationModalImage src={currentTimelineDraft.image} alt={'image'} imageSize={currentTimelineDraft.imageSize}/>
                 <div className={'w-full'}><EditorContent editor={editor}/></div>
             </div>
         </div>

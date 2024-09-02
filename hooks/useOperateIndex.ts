@@ -3,13 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 import api from "@/pages/api/api";
 import {debounce, getScrollWrapper} from "@/utils/global";
 import {selectCurrentTimelines, updateCurrentTimelines} from "@/store/slices/contentsSlice";
-import {selectCurrentPage, selectCurrentTagNum, selectTotalPage, updateCurrentPage, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
+import {selectCurrentPage, selectTagNum, selectTotalPage, updateCurrentPage, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
 
 const useOperateIndex = () => {
     const dispatch = useDispatch()
     const currentTimelines = useSelector(selectCurrentTimelines)
     const currentPage = useSelector(selectCurrentPage)
-    const tagNum = useSelector(selectCurrentTagNum)
+    const tagNum = useSelector(selectTagNum)
     const totalPage = useSelector(selectTotalPage)
 
     useEffect(() => {

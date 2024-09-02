@@ -1,9 +1,8 @@
 import React from 'react';
 import Popup from "@/components/layout/popups/popup";
 import {useDispatch} from "react-redux";
-import {updateIsPopup} from "@/store/slices/appearanceSlice";
 
-const PublishTimelinePopup = () => {
+const PublishPopup = () => {
     const dispatch = useDispatch()
 
     return (
@@ -21,11 +20,11 @@ const PublishTimelinePopup = () => {
                         <input type={'checkbox'} />
                         <span className={'text-sm'}>Also Create this timeline private.</span>
                     </label>
-                    <button onClick={() => dispatch(updateIsPopup(false))} className={`w-full h-[36px] text-center text-sm font-medium text-white border-[0.1px] border-gray-300 bg-black drop-shadow-sm rounded-md`}>Publish</button>
+                    {/*<button onClick={() => dispatch(updateIsPopup(false))} className={`w-full h-[36px] text-center text-sm font-medium text-white border-[0.1px] border-gray-300 bg-black drop-shadow-sm rounded-md`}>Publish</button>*/}
                 </div>
             </div>
         </Popup>
     );
 };
 
-export default PublishTimelinePopup;
+export default PublishPopup;
