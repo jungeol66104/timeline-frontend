@@ -1,11 +1,11 @@
 import React from 'react';
 import {useSelector} from "react-redux";
+import {selectIsBottomEnd} from "@/store/slices/appearanceSlice";
+import {selectCurrentEvents} from "@/store/slices/contentsSlice";
+import EmptyEvents from "@/components/timelines/events/emptyEvents";
 import EventsMenubar from "@/components/timelines/events/eventsMenubar";
 import EventsPreview from "@/components/timelines/events/eventsPreview";
 import EventsBottom from "@/components/timelines/events/eventsBottom";
-import EmptyEvents from "@/components/timelines/events/emptyEvents";
-import {selectIsBottomEnd} from "@/store/slices/appearanceSlice";
-import {selectCurrentEvents} from "@/store/slices/contentsSlice";
 
 const Events = () => {
     const isBottomEnd = useSelector(selectIsBottomEnd)

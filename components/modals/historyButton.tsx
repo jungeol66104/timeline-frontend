@@ -1,16 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {
-    selectEventContentType,
-    selectModalType,
-    selectInformationContentType,
-    updateEventContentType,
-    updateEventHistoryType,
-    updateModalType,
-    updateInformationContentType, updateInformationHistoryType
-} from "@/store/slices/appearanceSlice";
+import {selectEventContentType, selectModalType, selectInformationContentType, updateEventContentType, updateEventHistoryType, updateInformationContentType, updateInformationHistoryType} from "@/store/slices/appearanceSlice";
 
-const TemporaryHistoryButton = () => {
+const HistoryButton = () => {
     const dispatch = useDispatch()
     const modalType = useSelector(selectModalType)
     const timelineContentType = useSelector(selectInformationContentType)
@@ -34,4 +26,4 @@ const TemporaryHistoryButton = () => {
     );
 };
 
-export default TemporaryHistoryButton;
+export default HistoryButton;

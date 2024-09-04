@@ -5,8 +5,9 @@ import {getCurrentTag} from "@/utils/global";
 
 const IndexBottom = () => {
     const tagNum = useSelector(selectTagNum)
-    const currentTopic = getCurrentTag(tagNum) || ''
     const isBottomEnd = useSelector(selectIsBottomEnd)
+
+    const currentTopic = getCurrentTag(tagNum) || ''
 
     return (
         <div className={'seriesBottom w-full mt-2.5 h-[60px] shrink-0 flex justify-center items-center'}>

@@ -5,8 +5,8 @@ import {Timeline} from "@/store/slices/contentsSlice";
 import AddImageButton from "@/components/common/addImageButton";
 
 const InformationPreviewImage = memo(({information}: {information: Timeline}) => {
-    const src = information.image
-    const alt = information.name
+    const src = "https://" + information.cdnUrl + information.imagePath
+    const alt = information.title
     const imageSize = information.imageSize || {width: 100, height: 100};
 
     const isBaseImage = getIsBaseImage(src)

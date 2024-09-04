@@ -5,7 +5,6 @@ import TimelineExampleCard from "@/components/about/timelineExampleCard";
 import KeyConceptBar from "@/components/about/keyConceptBar";
 import KeyConceptDescription from "@/components/about/keyConceptDescription";
 import TimelineDemo from "@/components/about/timelineDemo";
-// reviewed: 0817
 
 const AboutSectionPrimary = () => {
     return (

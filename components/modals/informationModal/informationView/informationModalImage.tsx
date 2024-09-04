@@ -1,8 +1,13 @@
 import React, {memo} from 'react';
 import Image from "next/image";
 import {getIsBaseImage} from "@/utils/global";
+import {Timeline} from "@/store/slices/contentsSlice";
 
-const InformationModalImage = memo(({src, alt, imageSize} : {src: string, alt: string, imageSize: any}) => {
+const InformationModalImage = memo(({information} : {information : Timeline}) => {
+    const src = "https://" + information.cdnUrl + information.imagePath
+    const alt = information.title
+    const imageSize = information.imageSize || {width: 100, height: 100};
+
     const isBaseImage = getIsBaseImage(src)
 
     return (

@@ -1,23 +1,21 @@
+import {getIsBaseImage} from "@/utils/global";
 import React from 'react';
-import AddImageButton from "@/components/common/addImageButton";
-import ResetEditButton from "@/components/modals/resetEditButton";
 import {useSelector} from "react-redux";
 import {selectTimelineType} from "@/store/slices/appearanceSlice";
-import {getIsBaseImage} from "@/utils/global";
-import SaveInformationButton from "@/components/modals/timelineModal/timelineModalEdit/saveInformationButton";
+import AddImageButton from "@/components/common/addImageButton";
 import ImageEditButton from "@/components/common/imageEditButton";
+import ResetEditButton from "@/components/modals/resetEditButton";
+import SaveInformationButton from "@/components/modals/informationModal/informationEdit/saveInformationButton";
 
-const InformationModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
+const InformationModalEditMenubar = ({editor, imagePath}:{editor: any, imagePath: string}) => {
     const timelineType = useSelector(selectTimelineType)
-    const isBaseImage = getIsBaseImage(src)
+    const isBaseImage = getIsBaseImage(imagePath)
 
     return (
         <div className={'w-full flex justify-between pb-3'}>
             <div className={'flex gap-3'}>
                 {isBaseImage && <AddImageButton/>}
                 {!isBaseImage && <ImageEditButton/>}
-                {/*{!isBaseImage && <RemoveImageButton />}*/}
-                {/*{!isBaseImage && <ReplaceImageButton />}*/}
                 {timelineType !== 'new' && <ResetEditButton />}
             </div>
             <div className={'flex gap-3'}>

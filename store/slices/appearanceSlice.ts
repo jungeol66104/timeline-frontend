@@ -1,14 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
 
 const initialState = {
-    showTimelineTitleBar: false,
-    isKeynote: true,
-    isBottomEnd: true,
+    scrollTop: 0,
     currentPage: 1,
     totalPage: 1,
+    isBottomEnd: true,
     tagNum: 0,
-    scrollTop: 0,
+    isKeynote: true,
+    showTimelineTitleBar: false,
     isMaintenance: false,
     timelineType: 'public',
     modalType: 'none',
@@ -19,7 +19,7 @@ const initialState = {
     demoKeyConcept: 'timeline',
     popupType: 'none',
     popupHistory: ['none'],
-    createType: 'private'
+    errorType: 'none'
 } as initialAppearanceState
 
 const appearanceSlice = createSlice({
@@ -77,8 +77,8 @@ const appearanceSlice = createSlice({
             newHistory.unshift(action.payload);
             state.popupHistory = newHistory.slice(0, 10);
         },
-        updateCreateType: (state, action) => {
-            state.createType = action.payload
+        updateErrorType: (state, action) => {
+            state.errorType = action.payload
         },
 
     },
@@ -101,7 +101,7 @@ export const {
     updateEventHistoryType,
     updateDemoKeyConcept,
     updatePopupType,
-    updateCreateType,
+    updateErrorType,
 } = appearanceSlice.actions;
 
 // selectors
@@ -122,14 +122,14 @@ export const selectEventHistoryType = (state: RootState) => state.appearance.eve
 export const selectDemoKeyConcept = (state: RootState) => state.appearance.demoKeyConcept
 export const selectPopupType = (state: RootState) => state.appearance.popupType
 export const selectPopupHistory = (state: RootState) => state.appearance.popupHistory
-export const selectCreateType = (state: RootState) => state.appearance.createType
+export const selectErrorType = (state: RootState) => state.appearance.errorType
 
 // types
 export interface initialAppearanceState {
+    scrollTop: number
     currentPage: number
     totalPage: number
     isBottomEnd: boolean
-    scrollTop: number
     tagNum: number
     isKeynote: boolean
     showTimelineTitleBar: boolean
@@ -145,7 +145,7 @@ export interface initialAppearanceState {
     demoKeyConcept: 'timeline' | 'information' | 'event' | 'edit' | 'contributors'  | 'keynote' | 'private'
     popupType: popupType
     popupHistory: popupType[]
-    createType: 'private' | 'public' | 'both'
+    errorType: 'none' |'date'
 }
 
-type popupType = 'none' | 'share' | 'settings' | 'date' | 'publish' | 'create' | 'signIn'
+type popupType = 'none' | 'share' | 'settings' | 'dateGuide' | 'publish' | 'create' | 'signIn' | 'dateError'

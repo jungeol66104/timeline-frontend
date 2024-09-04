@@ -10,13 +10,13 @@ import {selectSession} from "@/store/slices/privateSlice";
 const TimelinePreview = ({timeline}: {timeline: Timeline}) => {
     const session = useSelector(selectSession);
     const timelineType = useSelector(selectTimelineType)
-    const href = timelineType === 'private' ? `/${session.nickName}/timelines/${timeline.id}` : `/timelines/${timeline.id}`
-    const isBaseImage = getIsBaseImage(timeline.image)
+    const href = timelineType === 'private' ? `/${session.username}/timelines/${timeline.id}` : `/timelines/${timeline.id}`
+    const isBaseImage = getIsBaseImage(timeline.imagePath)
 
     return (
         <Link key={timeline.id} href={href}>
             <div className={'py-3'}>
-                <div className={'font-bold line-clamp-1'}>{timeline.name}</div>
+                <div className={'font-bold line-clamp-1'}>{timeline.title}</div>
                 <div className={'flex gap-1'}>
                     <div>
                         <div className={'text-sm text-gray-500 line-clamp-1'}>{timeline.description}</div>
@@ -26,10 +26,10 @@ const TimelinePreview = ({timeline}: {timeline: Timeline}) => {
                         {isBaseImage
                             ? <>
                                 <div className={'absolute bottom-[1px] right-0 w-[80px] h-[80px] rounded-md text-white flex items-center justify-center'}>
-                                    <Image src={`/images/base-image/base-image${mapStrToNum(timeline.name)}.jpg`} alt={'base-image'} fill priority className={'rounded-md bg-gray-100'}/>
+                                    <Image src={`/images/base-image/base-image${mapStrToNum(timeline.title)}.jpg`} alt={'base-image'} fill priority className={'rounded-md bg-gray-100'}/>
                                 </div>
                             </>
-                            : <Image src={timeline.image} alt={timeline.name} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}} className={'rounded-md bg-gray-100'}/>
+                            : <Image src={"https://" + timeline.cdnUrl + timeline.imagePath} alt={timeline.title} fill={true} priority={true} style={{objectFit: "cover", objectPosition: "top"}} className={'rounded-md bg-gray-100'}/>
                         }
                     </div>
                 </div>

@@ -2,9 +2,8 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import CloseModalButton from "@/components/modals/closeModalButton";
-import InformationModalHead from "@/components/modals/timelineModal/informationModalHead";
-import InformationModalBody from "@/components/modals/timelineModal/informationModalBody";
-// reviewed: 0817
+import InformationModalHead from "@/components/modals/informationModal/informationModalHead";
+import InformationModalBody from "@/components/modals/informationModal/informationModalBody";
 
 const InformationDemoModal = () => {
     const timelineType = useSelector(selectTimelineType)

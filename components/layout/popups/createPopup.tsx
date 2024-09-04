@@ -16,23 +16,20 @@ const CreatePopup = () => {
         const body = {
             // EXTREMELY IMPORTANT
             "privateStatus": createType === 'private' ? 0 : createType === 'public' ? 1 : 2,
-            "title": currentTimelineDraft.name,
+            "title": currentTimelineDraft.title,
             "description": currentTimelineDraft.description,
             "content": currentTimelineDraft.content,
-            "imageUrl": currentTimelineDraft.image,
+            "imagePath": currentTimelineDraft.imagePath,
             "events": currentEvents
         }
         try {
-            const response = await axios.post('/api/wiki/create-timeline', body);
+            const response = {status: 200}
+            // const response = await axios.post('/api/wiki/timeline/create-timeline', body);
             if (response.status === 200) {
                 // dispatch(updateCurrentEvent({}))
                 router.push('/')
             }
-        } catch (error) {
-            console.error('Error creating timeline: ', error)
-            return
-        }
-
+        } catch (error) {console.error('Error creating timeline: ', error)}
     }
 
     return (

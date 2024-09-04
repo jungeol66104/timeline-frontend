@@ -1,12 +1,12 @@
 import React from 'react';
+import api from "@/pages/api/api";
 import {storeWrapper} from "@/store/store";
+import {updateIsBottomEnd, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {updateCurrentTimelines} from "@/store/slices/contentsSlice";
+import {updateSession} from "@/store/slices/privateSlice";
 import DynamicHead from "@/components/dynamicHead";
 import ProfileSectionPrimary from "@/components/private/profileSectionPrimary";
 import ProfileSectionSecondary from "@/components/private/profileSectionSecondary";
-import api from "@/pages/api/api";
-import {updateCurrentTimelines} from "@/store/slices/contentsSlice";
-import {updateCurrentPage, updateIsBottomEnd, updateTagNum, updateTimelineType, updateTotalPage} from "@/store/slices/appearanceSlice";
-import {updateSession} from "@/store/slices/privateSlice";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params, req}) => {
     try {
@@ -15,18 +15,17 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 
         const jwt = req.cookies.timeline_jwt
         if (jwt) {
-            const response = await api.get('/user/info', {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
-            store.dispatch(updateSession(response.data.data))
+            const response = await api.get('/user/about?type=0&pageNum=1&pageSize=20', {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+            if (response.data.code === 69999) return { notFound: true }
+            const data = response.data.data
+            const session = {username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}
+
+            store.dispatch(updateSession(session))
+            store.dispatch(updateCurrentTimelines(data.aboutPageInfoList))
+            store.dispatch(updateTotalPage(data.totalPage))
+            store.dispatch(updateIsBottomEnd(data.totalPage === 1))
         }
 
-        const response = await api.get(`/timeline/tags/1?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
-        const data = response.data.data
-        store.dispatch(updateCurrentTimelines(data.timelineList))
-        store.dispatch(updateTagNum(1))
-        store.dispatch(updateCurrentPage(1))
-        store.dispatch(updateTotalPage(data.totalPage))
-        store.dispatch(updateIsBottomEnd(data.totalPage === 1))
-        store.dispatch(updateTimelineType('private'))
         return {props: {}}
     } catch (error) {
         console.error('Error fetching initial data during SSR: ', error);

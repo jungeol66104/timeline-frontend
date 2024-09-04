@@ -1,8 +1,8 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimelines} from "@/store/slices/contentsSlice";
-import IndexBottom from "@/components/index/indexBottom";
 import TimelinePreview from "@/components/index/timelinePreview";
+import IndexBottom from "@/components/index/indexBottom";
 
 const IndexSectionPrimary = () => {
     const currentTimelines = useSelector(selectCurrentTimelines)

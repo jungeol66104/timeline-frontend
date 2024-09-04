@@ -1,6 +1,6 @@
 import React from "react";
 import CompareButton from "@/components/modals/compareButton";
-import InformationContributions from "@/components/modals/timelineModal/timelineModalHistory/informationContributions";
+import InformationContributions from "@/components/modals/informationModal/informationHistory/informationContributions";
 
 const InformationModalHistory = () => {
     return (

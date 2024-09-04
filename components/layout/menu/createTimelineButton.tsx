@@ -12,7 +12,7 @@ const CreateTimelineButton = () => {
     const handleClick = () => {
         if (isSession) router.push('/timelines/new')
         else {
-            window.open(`/api/auth/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
+            window.open(`/api/user/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
 
             window.addEventListener('message', (event) => {
                 if (event.origin !== window.location.origin) return;

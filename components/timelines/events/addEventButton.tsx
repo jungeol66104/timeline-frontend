@@ -1,14 +1,13 @@
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEvents, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import {selectDemoKeyConcept, selectTimelineType, updateEventContentType, updateModalType} from "@/store/slices/appearanceSlice";
+import {selectCurrentEvents, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import {getTodayDate} from "@/utils/global";
 
 const AddEventButton = () => {
     const dispatch = useDispatch()
     const timelineType = useSelector(selectTimelineType)
-    const currentEvents = useSelector(selectCurrentEvents)
-
     const demoKeyConcept = useSelector(selectDemoKeyConcept)
+    const currentEvents = useSelector(selectCurrentEvents)
 
     const handleClick = () => {
         const getNewId = () => {
@@ -17,7 +16,7 @@ const AddEventButton = () => {
             return mostNegativeId === Infinity ? -1 : mostNegativeId - 1
         }
 
-        const newEvent = {id: getNewId(), name: '', description: '', date: '', ephemerisTime: 0, keynote: 1, timelineInfo: [], updatedDt: getTodayDate()}
+        const newEvent = {id: getNewId(), title: '', content: '', date: '', ephemerisTime: 0, isKeynote: 1, timelineInfo: [], createdDt: getTodayDate()}
         dispatch(updateCurrentEvent(newEvent))
         dispatch(updateCurrentEventDraft(newEvent))
         dispatch(updateModalType('event'))

@@ -1,40 +1,30 @@
-import React from 'react';
-import {storeWrapper} from "@/store/store";
-import api from "@/pages/api/api";
 import probe from "probe-image-size";
-import {updateCurrentEvent, updateCurrentEvents, updateCurrentTimeline, updateCurrentTimelineDraft, updateCurrentTimelines} from "@/store/slices/contentsSlice";
-import {updateCurrentPage, updateEventContentType, updateInformationContentType, updateIsBottomEnd, updateIsMaintenance, updateTimelineType, updateTotalPage} from "@/store/slices/appearanceSlice";
-import TimelineDemo from "@/components/about/timelineDemo";
+import React from 'react';
 import Link from "next/link";
+import {storeWrapper} from "@/store/store";
+import {updateIsMaintenance, updateTimelineType} from "@/store/slices/appearanceSlice";
+import {updateCurrentEvents, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
+import TimelineDemo from "@/components/about/timelineDemo";
 
-export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
+export const getStaticProps = storeWrapper.getStaticProps((store) => async () => {
     try {
-        const timelinesResponse = await api.get(`/timeline/tags/1?pageNum=1&pageSize=10`, {headers: {lang: 'en'}})
-        if (timelinesResponse.data.code === 69999) return { notFound: true }
-        const staffPicks = timelinesResponse.data.data.timelineList
         const data: any = {
             events: [
-                {id: 0, date: '2024-09-07', ephemerisTime: 778939269.1825322, name: 'Timeline becomes timeline wiki', description: `In September 07, 2024, our major update ends. After the update, we will be serving timeline wiki.`, keynote: 1},
-                {id: 1, date: '2024-09-01', ephemerisTime: 778420869.1826185, name: 'Event excluded from the keynote', description: `This event is not as important as the event below. Thus, it is excluded from the keynote. You can include it into the keynote in event edit mode.`, keynote: 0}
+                {id: 0, date: '2024-09-07', ephemerisTime: 778939269.1825322, title: 'Timeline becomes timeline wiki', content: `In September 07, 2024, our major update ends. After the update, we will be serving timeline wiki.`, isKeynote: 1},
+                {id: 1, date: '2024-09-01', ephemerisTime: 778420869.1826185, title: 'Event excluded from the keynote', content: `This event is not as important as the event below. Thus, it is excluded from the keynote. You can include it into the keynote in event edit mode.`, isKeynote: 0}
             ],
-            timelineInfo: {id: 0, name: "Timeline", description: 'Wiki service that supports creating and sharing timeline', content: "Timeline is the best service when dealing with timelines. It serves effortless timeline making tool and easy wiki system.", image: 'https://cdn.timeline.vg/base-image.png'}
+            timelineInfo: {id: 0, name: "Timeline", description: 'Wiki service that supports creating and sharing timeline', content: "Timeline is the best service when dealing with timelines. It serves effortless timeline making tool and easy wiki system.", imagePath: '/base-image.png', cdnUrl: 'cdn.timeline.vg', contributors: {counts: 1, userId: 0, username: 'you', imagePath: "/base-image.png", cdnUrl: "cdn.timeline.vg"}}
         }
-        data.timelineInfo.imageSize = await probe(data.timelineInfo.image)
-        store.dispatch(updateCurrentTimelines(staffPicks))
+        data.timelineInfo.imageSize = await probe("https://" + data.timelineInfo.cdnUrl + data.timelineInfo.imagePath);
+
         store.dispatch(updateCurrentTimeline(data.timelineInfo))
-        store.dispatch(updateCurrentTimelineDraft(data.timelineInfo))
         store.dispatch(updateCurrentEvents(data.events))
-        store.dispatch(updateCurrentEvent(data.events[0]))
-        store.dispatch(updateCurrentPage(1))
-        store.dispatch(updateTotalPage(1))
-        store.dispatch(updateIsBottomEnd(true))
+        store.dispatch(updateCurrentTimelineDraft(data.timelineInfo))
         store.dispatch(updateTimelineType('demo'))
-        store.dispatch(updateInformationContentType('view'))
-        store.dispatch(updateEventContentType('view'))
         store.dispatch(updateIsMaintenance(true))
         return {props: {}, revalidate:10}
     } catch (error) {
-        console.error('Error fetching initial data during SSR:', error);
+        console.error('Error fetching initial data during SSG:', error);
         return {props: {}, revalidate: 10}
     }
 })

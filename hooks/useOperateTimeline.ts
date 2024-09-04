@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentPage, selectIsBottomEnd, selectIsKeynote, updateCurrentPage, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
-import {selectCurrentEvents, selectCurrentTimeline, TimelineEvent, updateCurrentEvents} from "@/store/slices/contentsSlice";
+import {selectCurrentEvents, selectCurrentTimeline, Event, updateCurrentEvents} from "@/store/slices/contentsSlice";
 import {debounce, getScrollWrapper} from "@/utils/global";
 import {fetchEvents} from "@/pages/api/global";
 
@@ -19,7 +19,7 @@ const useOperateTimeline = () => {
 
             fetchEvents(currentTimeline.id, currentPage + 1, currentIsKeynote).then((data) => {
                 const events = data.events
-                events.forEach((event: TimelineEvent) => event.keynote = 1)
+                events.forEach((event: Event) => event.keynote = 1)
                 dispatch(updateCurrentEvents([...currentEvents, ...events]))
                 dispatch(updateCurrentPage(currentPage + 1))
                 dispatch(updateIsBottomEnd(data.totalPages === currentPage + 1))

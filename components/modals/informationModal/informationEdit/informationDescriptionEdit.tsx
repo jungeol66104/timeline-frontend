@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import {EditorContent, useEditor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from '@tiptap/extension-placeholder'
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 
 const InformationDescriptionEdit = () => {
     const dispatch = useDispatch()
@@ -12,7 +12,7 @@ const InformationDescriptionEdit = () => {
     const editor = useEditor({
         extensions: [StarterKit, Placeholder.configure({placeholder: 'New timeline description'})],
         editorProps: {attributes: {class: 'outline-none'}},
-        onUpdate: ({ editor }) => {dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, description: editor.getText()}))},
+        onUpdate: ({ editor }) => dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, description: editor.getText()})),
         content: `<p>${currentTimelineDraft.description}</p>`,
     })
 

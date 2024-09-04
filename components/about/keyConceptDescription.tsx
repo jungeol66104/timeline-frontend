@@ -1,7 +1,6 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectDemoKeyConcept} from "@/store/slices/appearanceSlice";
-// reviewed: 0817
 
 const KeyConceptDescription = () => {
     const demoKeyConcept = useSelector(selectDemoKeyConcept)

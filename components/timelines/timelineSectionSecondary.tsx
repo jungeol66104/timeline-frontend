@@ -2,9 +2,9 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectIsBottomEnd, selectTimelineType} from "@/store/slices/appearanceSlice";
 import {selectPopularTimelines, selectRecentTimelines} from "@/store/slices/contentsSlice";
+import TimelinesPreview from "@/components/timelines/timelinesPreview";
 import AdsTimelineBetweenSecondary from "@/components/ads/adsTimelineBetweenSecondary";
 import AdsTimelineSide from "@/components/ads/adsTimelineSide";
-import TimelinesPreview from "@/components/timelines/timelinesPreview";
 
 const TimelineSectionSecondary = () => {
     const popularTimelines = useSelector(selectPopularTimelines)

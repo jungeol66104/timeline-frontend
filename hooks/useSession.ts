@@ -10,7 +10,7 @@ export const useSession = () => {
         const setSession = async () => {
             try {
                 // will this url work?
-                const response = await axios.get('http://localhost:3000/api/auth/session')
+                const response = await axios.get('http://localhost:3000/api/user/session')
                 dispatch(updateSession(response.data))
                 return
             } catch (error) {

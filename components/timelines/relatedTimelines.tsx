@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {useSelector} from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
+import {useSelector} from "react-redux";
+import {selectTimelineType} from "@/store/slices/appearanceSlice";
 import {selectRelatedTimelines} from "@/store/slices/contentsSlice";
 import {getIsTouchable} from "@/utils/global";
-import {selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const RelatedTimelines = () => {
     const swiperContainerRef = useRef<HTMLDivElement>(null)

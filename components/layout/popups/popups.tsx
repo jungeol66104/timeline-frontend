@@ -5,6 +5,8 @@ import SharePopup from "@/components/layout/popups/sharePopup";
 import SignInPopup from "@/components/layout/popups/signInPopup";
 import CreatePopup from "@/components/layout/popups/createPopup";
 import PublishPopup from "@/components/layout/popups/publishPopup";
+import DateGuidePopup from "@/components/layout/popups/dateGuidePopup";
+import DateErrorPopup from "@/components/layout/popups/dateErrorPopup";
 
 const Popups = () => {
     const popupType = useSelector(selectPopupType)
@@ -15,6 +17,8 @@ const Popups = () => {
             {popupType === 'signIn' && <SignInPopup />}
             {popupType === 'create' && <CreatePopup />}
             {popupType === 'publish' && <PublishPopup />}
+            {popupType === 'dateGuide' && <DateGuidePopup />}
+            {popupType === 'dateError' && <DateErrorPopup />}
         </>
     );
 };
