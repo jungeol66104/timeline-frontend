@@ -9,9 +9,6 @@ import Link from "next/link";
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
     try {
-        const timelinesResponse = await api.get(`/timeline/tags/1?pageNum=1&pageSize=10`, {headers: {lang: 'en'}})
-        if (timelinesResponse.data.code === 69999) return { notFound: true }
-        const staffPicks = timelinesResponse.data.data.timelineList
         const data: any = {
             events: [
                 {id: 0, date: '2024-09-07', ephemerisTime: 778939269.1825322, name: 'Timeline becomes timeline wiki', description: `In September 07, 2024, our major update ends. After the update, we will be serving timeline wiki.`, keynote: 1},
@@ -20,7 +17,6 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
             timelineInfo: {id: 0, name: "Timeline", description: 'Wiki service that supports creating and sharing timeline', content: "Timeline is the best service when dealing with timelines. It serves effortless timeline making tool and easy wiki system.", image: 'https://cdn.timeline.vg/base-image.png'}
         }
         data.timelineInfo.imageSize = await probe(data.timelineInfo.image)
-        store.dispatch(updateCurrentTimelines(staffPicks))
         store.dispatch(updateCurrentTimeline(data.timelineInfo))
         store.dispatch(updateCurrentTimelineDraft(data.timelineInfo))
         store.dispatch(updateCurrentEvents(data.events))
