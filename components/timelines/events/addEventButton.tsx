@@ -16,7 +16,7 @@ const AddEventButton = () => {
             return mostNegativeId === Infinity ? -1 : mostNegativeId - 1
         }
 
-        const newEvent = {id: getNewId(), title: '', content: '', date: '', ephemerisTime: 0, isKeynote: 1, timelineInfo: [], createdDt: getTodayDate()}
+        let newEvent = {id: getNewId(), title: '', content: '', date: '', ephemerisTime: 0, isKeynote: 1, timelineInfo: [], createdDt: getTodayDate(), imagePath: "base-image.png", cdnUrl: "https://cdn.timeline.vg/", contributors: {counts: 1, userId: 0, username: 'you', imagePath: "base-image.png", cdnUrl: "https://cdn.timeline.vg/"}}
         dispatch(updateCurrentEvent(newEvent))
         dispatch(updateCurrentEventDraft(newEvent))
         dispatch(updateModalType('event'))

@@ -12,7 +12,7 @@ const EventHistoryView = () => {
                 <DiffButton />
             </div>
             <hr/>
-            <div className={'pt-3'}>{currentEvent.description}</div>
+            <div className={'pt-3'}>{currentEvent.content}</div>
         </>
     );
 };

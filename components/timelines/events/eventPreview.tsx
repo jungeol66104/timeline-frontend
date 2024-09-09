@@ -20,7 +20,7 @@ const EventPreview = ({event} : {event: Event}) => {
             dispatch(updateCurrentEvent(newEvent))
             dispatch(updateCurrentEventDraft(newEvent))
             dispatch(updateModalType('event'))
-        } catch (error) {console.error('Error fetching data in useEffect: ', error)}
+        } catch (error) {console.error('Error fetching event: ', error)}
     }
 
     return (

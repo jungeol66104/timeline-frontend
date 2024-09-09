@@ -3,12 +3,15 @@ import {RootState} from "@/store/rootReducer";
 
 const initialState = {
     currentTimelines: [],
-    currentTimeline: {id: 0, title: '', description: '', content: '', contributors: {counts: 0, userId: 0, username: '', imagePath: "", cdnUrl: ""}},
     currentEvents: [],
-    currentEvent: {id: 0, title: '', content: '', date: '', contributors: {counts: 0, userId: 0, username: '', imagePath: "", cdnUrl: ""}},
+    currentTimeline: {id: 0, title: '', description: '', content: '', contributors: {counts: 0, userId: 0, username: '', imagePath: "", cdnUrl: ""}},
     currentTimelineDraft: {id: 0, title: '', description: '', content: '', contributors: {counts: 0, userId: 0, username: '', imagePath: "", cdnUrl: ""}},
+    currentTimelineView: {id: 0, title: '', description: '', content: '', contributors: {counts: 0, userId: 0, username: '', imagePath: "", cdnUrl: ""}},
+    currentEvent: {id: 0, title: '', content: '', date: '', contributors: {counts: 0, userId: 0, username: '', imagePath: "", cdnUrl: ""}},
     currentEventDraft: {id: 0, title: '', content: '', date: '', contributors: {counts: 0, userId: 0, username: '', imagePath: "", cdnUrl: ""}},
+    currentEventView: {id: 0, title: '', content: '', date: '', contributors: {counts: 0, userId: 0, username: '', imagePath: "", cdnUrl: ""}},
     currentContributors: [],
+    currentContributions: [],
     relatedTimelines: [],
     recentTimelines: [],
     popularTimelines: [],
@@ -21,9 +24,6 @@ const contentsSlice = createSlice({
         updateCurrentTimelines: (state, action) => {
             state.currentTimelines = action.payload
         },
-        updateCurrentTimeline: (state, action) => {
-            state.currentTimeline = action.payload
-        },
         updateCurrentEvents: (state, action) => {
             state.currentEvents = action.payload
         },
@@ -31,17 +31,29 @@ const contentsSlice = createSlice({
             const eventIndex = state.currentEvents.findIndex(event => event.id === action.payload.id)
             if (eventIndex !== -1) state.currentEvents = [...state.currentEvents.slice(0, eventIndex), action.payload, ...state.currentEvents.slice(eventIndex + 1)];
         },
-        updateCurrentEvent: (state, action) => {
-            state.currentEvent = action.payload
+        updateCurrentTimeline: (state, action) => {
+            state.currentTimeline = action.payload
         },
         updateCurrentTimelineDraft: (state, action) => {
             state.currentTimelineDraft = action.payload
         },
+        updateCurrentTimelineView: (state, action) => {
+            state.currentTimelineView = action.payload
+        },
+        updateCurrentEvent: (state, action) => {
+            state.currentEvent = action.payload
+        },
         updateCurrentEventDraft: (state, action) => {
             state.currentEventDraft = action.payload
         },
+        updateCurrentEventView: (state, action) => {
+            state.currentEventView = action.payload
+        },
         updateCurrentContributors: (state, action) => {
             state.currentContributors = action.payload
+        },
+        updateCurrentContributions: (state, action) => {
+            state.currentContributions = action.payload
         },
         updateRelatedTimelines: (state, action) => {
             state.relatedTimelines = action.payload
@@ -58,13 +70,16 @@ export default contentsSlice.reducer;
 
 export const {
     updateCurrentTimelines,
-    updateCurrentTimeline,
     updateCurrentEvents,
     updateEventInCurrentEvents,
-    updateCurrentEvent,
+    updateCurrentTimeline,
     updateCurrentTimelineDraft,
+    updateCurrentTimelineView,
+    updateCurrentEvent,
     updateCurrentEventDraft,
+    updateCurrentEventView,
     updateCurrentContributors,
+    updateCurrentContributions,
     updatePopularTimelines ,
     updateRecentTimelines,
     updateRelatedTimelines ,
@@ -72,12 +87,15 @@ export const {
 
 // selectors
 export const selectCurrentTimelines = (state: RootState) => state.contents.currentTimelines
-export const selectCurrentTimeline = (state: RootState) => state.contents.currentTimeline
 export const selectCurrentEvents = (state: RootState) => state.contents.currentEvents
-export const selectCurrentEvent = (state: RootState) => state.contents.currentEvent
+export const selectCurrentTimeline = (state: RootState) => state.contents.currentTimeline
 export const selectCurrentTimelineDraft = (state: RootState) => state.contents.currentTimelineDraft
+export const selectCurrentTimelineView = (state: RootState) => state.contents.currentTimelineView
+export const selectCurrentEvent = (state: RootState) => state.contents.currentEvent
 export const selectCurrentEventDraft = (state: RootState) => state.contents.currentEventDraft
+export const selectCurrentEventView = (state: RootState) => state.contents.currentEventView
 export const selectCurrentContributors = (state: RootState) => state.contents.currentContributors
+export const selectCurrentContributions = (state: RootState) => state.contents.currentContributions
 export const selectRelatedTimelines = (state: RootState) => state.contents.relatedTimelines
 export const selectRecentTimelines = (state: RootState) => state.contents.recentTimelines
 export const selectPopularTimelines = (state: RootState) => state.contents.popularTimelines
@@ -85,15 +103,18 @@ export const selectPopularTimelines = (state: RootState) => state.contents.popul
 // types
 export interface initialContentsState {
     currentTimelines: any[]
-    currentTimeline: Timeline
     currentEvents: Event[],
-    currentEvent: Event,
+    currentTimeline: Timeline
     currentTimelineDraft: Timeline
+    currentTimelineView: Timeline
+    currentEvent: Event,
     currentEventDraft: Event,
+    currentEventView: Event,
     currentContributors: any[]
-    relatedTimelines: any[],
-    recentTimelines: any[],
-    popularTimelines: any[],
+    currentContributions: any[]
+    relatedTimelines: any[]
+    recentTimelines: any[]
+    popularTimelines: any[]
 }
 
 export interface Timeline {

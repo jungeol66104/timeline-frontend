@@ -3,7 +3,7 @@ import {RootState} from "@/store/rootReducer";
 
 const initialState = {
     session: {},
-    profileType: 'timelines'
+    profileType: 'contributions'
 } as initialPrivateState
 
 const privateSlice = createSlice({
@@ -19,7 +19,10 @@ const privateSlice = createSlice({
     },
 });
 export default privateSlice.reducer;
-export const {updateProfileType, updateSession} = privateSlice.actions;
+export const {
+    updateProfileType,
+    updateSession
+} = privateSlice.actions;
 
 // selectors
 export const selectSession = (state: RootState) => state.private.session

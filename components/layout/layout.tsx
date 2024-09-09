@@ -60,6 +60,5 @@ export default Layout;
 declare global {
     interface Window {
         Kakao: any;
-
     }
 }

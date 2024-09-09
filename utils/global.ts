@@ -26,7 +26,7 @@ export const getScrollWrapper = () => {
 
 export const getIsBaseImage = (url: string | null | undefined) => {
     if (typeof url !== "string") return true
-    return url.includes("/base-image.png")
+    return url.includes("base-image.png")
 }
 
 let timeoutId: any

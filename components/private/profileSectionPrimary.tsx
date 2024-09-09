@@ -1,6 +1,6 @@
 import React from 'react';
-import ProfileBody from "@/components/private/profileBody";
 import ProfileHead from "@/components/private/profileHead";
+import ProfileBody from "@/components/private/profileBody";
 
 const ProfileSectionPrimary = () => {
     return (

@@ -12,7 +12,7 @@ const InformationTitleEdit = () => {
     const editor = useEditor({
         extensions: [StarterKit, Placeholder.configure({placeholder: 'New Timeline Title'})],
         editorProps: {attributes: {class: 'outline-none text-2xl font-bold'}},
-        onUpdate: ({ editor }) => dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, name: editor.getText()})),
+        onUpdate: ({ editor }) => dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, title: editor.getText()})),
         content: `<p>${currentTimelineDraft.title}</p>`,
     })
 

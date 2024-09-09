@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
 import api from "@/pages/api/api";
-import {selectSearchValue, updateSearchedEvents, updateSearchedTimelines} from "@/store/slices/searchSlice";
+import { useEffect } from 'react';
 import {useDispatch, useSelector} from "react-redux";
+import {selectSearchValue, updateSearchedEvents, updateSearchedTimelines} from "@/store/slices/searchSlice";
 import useDebounce from "@/hooks/useDebounce";
 
 const useSearch = () => {

@@ -1,17 +1,17 @@
 import React from 'react';
-import KeynoteContribution from "@/components/common/contribution/keynoteContribution";
-import ConnectionContribution from "@/components/common/contribution/connectionContribution";
-import EventContribution from "@/components/common/contribution/eventContribution";
+import KeynoteContribution from "@/components/common/contributions/contribution/keynoteContribution";
+import AttachmentContribution from "@/components/common/contributions/contribution/attachmentContribution";
+import EventContribution from "@/components/common/contributions/contribution/eventContribution";
 
 const EventContributions = () => {
     return (
         <div>
             <EventContribution type={'event'}/>
             <KeynoteContribution type={'event'}/>
-            <ConnectionContribution type={'event'}/>
+            <AttachmentContribution type={'event'}/>
             <EventContribution type={'event'}/>
             <KeynoteContribution type={'event'}/>
-            <ConnectionContribution type={'event'}/>
+            <AttachmentContribution type={'event'}/>
         </div>
     );
 };

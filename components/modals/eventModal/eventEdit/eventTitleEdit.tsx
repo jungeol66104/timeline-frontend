@@ -19,8 +19,8 @@ const EventTitleEdit = () => {
         extensions: [StarterKit, Placeholder.configure({placeholder: 'New Event Title'})],
         editorProps: {attributes: {class: 'outline-none text-2xl font-bold'}},
         onUpdate: ({ editor }) => {
-            dispatch(updateCurrentEventDraft({...currentEventDraft, name: editor.getText()}))
-            if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({...currentEventDraft, name: editor.getText()}))
+            dispatch(updateCurrentEventDraft({...currentEventDraft, title: editor.getText()}))
+            if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({...currentEventDraft, title: editor.getText()}))
         },
         content: `<p>${currentEventDraft.title}</p>`,
     }, [modalType])

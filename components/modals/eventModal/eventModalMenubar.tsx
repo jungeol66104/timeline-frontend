@@ -24,8 +24,10 @@ const EventModalMenubar = () => {
         <div className={'pt-3 w-full flex justify-between'}>
             <div className={'w-full flex gap-3'}>
                 {timelineType === 'new' || timelineType === 'private' || (timelineType === 'demo' && demoKeyConcept === 'private')
-                    ? <UsernameButton name={session.username}/>
-                    : <ContributorsButton contributors={currentEvent.contributors}/>
+                    ?   <UsernameButton name={session.username}/>
+                    :   timelineType === 'demo' && eventContentType === 'new'
+                            ?   <UsernameButton name={'you'}/>
+                            :   <ContributorsButton contributors={currentEvent.contributors}/>
                 }
             </div>
             <div className={'flex gap-3'}>

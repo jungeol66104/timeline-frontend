@@ -21,8 +21,8 @@ const EventModalEdit = () => {
         extensions: [StarterKit, Placeholder.configure({placeholder: 'New event content'})],
         editorProps: {attributes: {class: 'w-full outline-none'}},
         onUpdate: ({ editor }) => {
-            dispatch(updateCurrentEventDraft({...currentEventDraft, description: editor.getText()}))
-            if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({...currentEventDraft, description: editor.getText()}))
+            dispatch(updateCurrentEventDraft({...currentEventDraft, content: editor.getText()}))
+            if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({...currentEventDraft, content: editor.getText()}))
         },
         content: `<p>${currentEventDraft.content}</p>`,
     }, [modalType])

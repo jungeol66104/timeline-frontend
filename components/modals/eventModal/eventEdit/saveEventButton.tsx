@@ -18,7 +18,7 @@ const SaveEventButton = () => {
 
         if (timelineType === 'private' || timelineType === 'public') {
             const body = {
-                "isPrivate": timelineType === 'private' ? 1 : 0,
+                "isPrivate": timelineType === 'public' ? 0 : 1,
                 "eventId": currentEventDraft.id,
                 "revisionNo": 1, // should fix store
                 "date": currentEventDraft.date,

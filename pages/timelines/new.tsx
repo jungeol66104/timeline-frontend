@@ -13,8 +13,8 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         const recentResponse = await api.get(`/timeline/features/1?pageNum=1&pageSize=5`, {headers: {lang: 'en'}})
         const popularResponse = await api.get(`/timeline/features/2?pageNum=1&pageSize=5`, {headers: {lang: 'en'}})
         if (recentResponse.data.code === 69999 || popularResponse.data.code === 69999) return { notFound: true }
-        const data: any = {events: [], recentTimelines: recentResponse.data.data.timelineList, popularTimelines: popularResponse.data.data.timelineList, timelineInfo: {id: 0, title: "", description: "", content: "", imagePath: '/base-image.png', cdnUrl: "cdn.timeline.vg"}}
-        data.timelineInfo.imageSize = await probe("https://" + data.timelineInfo.cdnUrl + data.timelineInfo.imagePath)
+        const data: any = {events: [], recentTimelines: recentResponse.data.data.timelineList, popularTimelines: popularResponse.data.data.timelineList, timelineInfo: {id: 0, title: "", description: "", content: "", imagePath: 'base-image.png', cdnUrl: "https://cdn.timeline.vg/"}}
+        data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + data.timelineInfo.imagePath)
 
         store.dispatch(updateCurrentTimeline(data.timelineInfo))
         store.dispatch(updateCurrentEvents(data.events))
@@ -26,7 +26,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateEventContentType('new'))
         return {props: {}, revalidate:10}
     } catch (error) {
-        console.error('Error fetching initial data during SSR:', error);
+        console.error('Error fetching initial data during SSG:', error);
         return {props: {}, revalidate: 10}
     }
 })
@@ -34,7 +34,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
 const NewTimelinePage = () => {
     return (
         <>
-            <DynamicHead type={'index'}/>
+            <DynamicHead type={'timeline'}/>
             <div className={`page`}>
                 <AdsTimelineTop />
                 <hr/>

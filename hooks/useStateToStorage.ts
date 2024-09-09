@@ -1,7 +1,7 @@
-import {useEffect} from "react";
-import {useStore} from "react-redux";
-import {useRouter} from "next/router";
 import {getScrollWrapper} from "@/utils/global";
+import {useEffect} from "react";
+import {useRouter} from "next/router";
+import {useStore} from "react-redux";
 import {initialState} from "@/store/rootReducer";
 
 const useStateToStorage = () => {

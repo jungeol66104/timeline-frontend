@@ -3,9 +3,13 @@ import Image from "next/image";
 import {getIsBaseImage} from "@/utils/global";
 import {Timeline} from "@/store/slices/contentsSlice";
 import AddImageButton from "@/components/common/addImageButton";
+import {useSelector} from "react-redux";
+import {selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const InformationPreviewImage = memo(({information}: {information: Timeline}) => {
-    const src = "https://" + information.cdnUrl + information.imagePath
+    const timelineType = useSelector(selectTimelineType)
+
+    const src = timelineType !== 'demo' ? information.cdnUrl! + information.imagePath! : information.imagePath!
     const alt = information.title
     const imageSize = information.imageSize || {width: 100, height: 100};
 

@@ -5,8 +5,9 @@ import {selectSession} from "@/store/slices/privateSlice";
 const UsernameSetting = () => {
     const usernameSettingRef = useRef<HTMLDivElement>(null)
     const inputRef = useRef<HTMLInputElement>(null);
+
     const session = useSelector(selectSession)
-    const [usernameDraft, setUsernameDraft] = useState(session?.nickName)
+    const [usernameDraft, setUsernameDraft] = useState(session.username!)
     const [isToggle, setIsToggle] = useState(false)
 
     const handleClick = (e: React.MouseEvent) => {

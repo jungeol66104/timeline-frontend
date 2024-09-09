@@ -7,13 +7,24 @@ import useOperateIndex from "@/hooks/useOperateIndex";
 import DynamicHead from "@/components/dynamicHead";
 import IndexSectionPrimary from "@/components/index/indexSectionPrimary";
 import IndexSectionSecondary from "@/components/index/indexSectionSecondary";
+import {updateSession} from "@/store/slices/privateSlice";
 
-export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({query}) => {
+export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({query, req}) => {
     try {
+        const jwt = req.cookies.timeline_jwt
+        if (jwt) {
+            const response = await api.get(`/user/info`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+            if (response.data.code === 69999) return { notFound: true }
+            const data = response.data.data
+
+            store.dispatch(updateSession(data))
+        }
+
         const tagNum = Number(query.tagNum || 4)
         const type = tagNum < 4 ? 'features' : 'tags'
         const id = tagNum < 4 ? tagNum : tagNum - 3
         const response = await api.get(`/timeline/${type}/${id}?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
+        if (response.data.code === 69999) return { notFound: true }
         const data = response.data.data
 
         store.dispatch(updateCurrentTimelines(data.timelineList))
@@ -33,8 +44,8 @@ export default function Home() {
     return (
         <>
             <DynamicHead type={'index'}/>
-            <div className={'page indexPage h-full'}>
-                <div className={'indexPageWrapper pageWrapper relative w-full flex'}>
+            <div className={'page h-full'}>
+                <div className={'pageWrapper relative w-full flex'}>
                     <IndexSectionPrimary />
                     <IndexSectionSecondary />
                 </div>

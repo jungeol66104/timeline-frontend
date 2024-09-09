@@ -148,4 +148,4 @@ export interface initialAppearanceState {
     errorType: 'none' |'date'
 }
 
-type popupType = 'none' | 'share' | 'settings' | 'dateGuide' | 'publish' | 'create' | 'signIn' | 'dateError'
+type popupType = 'none' | 'share' | 'settings' | 'dateGuide' | 'publish' | 'create' | 'signIn' | 'dateError' | 'deleteAccount'

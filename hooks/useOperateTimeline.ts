@@ -5,6 +5,7 @@ import {selectCurrentEvents, selectCurrentTimeline, Event, updateCurrentEvents} 
 import {debounce, getScrollWrapper} from "@/utils/global";
 import {fetchEvents} from "@/pages/api/global";
 
+// deprecated now since fetching occurs at once
 const useOperateTimeline = () => {
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
@@ -19,7 +20,7 @@ const useOperateTimeline = () => {
 
             fetchEvents(currentTimeline.id, currentPage + 1, currentIsKeynote).then((data) => {
                 const events = data.events
-                events.forEach((event: Event) => event.keynote = 1)
+                events.forEach((event: Event) => event.isKeynote = 1)
                 dispatch(updateCurrentEvents([...currentEvents, ...events]))
                 dispatch(updateCurrentPage(currentPage + 1))
                 dispatch(updateIsBottomEnd(data.totalPages === currentPage + 1))

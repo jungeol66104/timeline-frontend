@@ -8,6 +8,7 @@ import ProfileButton from "@/components/layout/menu/profileButton";
 import AboutButton from "@/components/layout/menu/aboutButton";
 import {useSelector} from "react-redux";
 import {selectIsSession, selectSession} from "@/store/slices/privateSlice";
+import HistoriesButton from "@/components/layout/menu/historiesButton";
 
 const ProfileMenuButton = () => {
     const profileMenuButtonRef = useRef<HTMLButtonElement>(null)
@@ -34,8 +35,8 @@ const ProfileMenuButton = () => {
         <div className={'relative mr-4'}>
             <button ref={profileMenuButtonRef} onClick={handleClick} className={`pl-2.5 pr-1.5 h-[40px] flex justify-center items-center gap-2 rounded-full border-[1px] border-gray-300 hover:shadow-md`}>
                 <div className={'material-symbols-outlined shrink-0 text-[20px]'}>&#xe5d2;</div>
-                {session.nickName
-                    ? <div className={'w-[28px] h-[28px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[0.1px] border-gray-300 shrink-0'}>{session.nickName.slice(0, 2).toUpperCase()}</div>
+                {session.username
+                    ? <div className={'w-[28px] h-[28px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[0.1px] border-gray-300 shrink-0'}>{session.username.slice(0, 2).toUpperCase()}</div>
                     : <div className={'relative h-[28px] w-[28px]'}><Image className={'border-[0.1px] border-gray-300 rounded-full'} src={'/images/profileTest.jpg'} alt={'profile'} fill priority/></div>
                 }
             </button>
@@ -47,6 +48,7 @@ const ProfileMenuButton = () => {
                     <SignInOutButton />
                     <hr className={'my-1'}/>
                     <AboutButton />
+                    <HistoriesButton />
                     <hr className={'my-1'}/>
                     <ShareButton />
                     <FeedbackButton />

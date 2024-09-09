@@ -33,7 +33,7 @@ const ContributorsButton = ({contributors} : {contributors: Contributors}) => {
             <button ref={contributorsButtonRef} onClick={handleClick} className={`flex items-center gap-2 px-3 max-[852px]:px-2 h-[36px] ${timelineType === 'demo' && demoKeyConcept === 'contributors' && 'outline outline-2 outline-blue-700'} border-[0.1px] border-gray-300 bg-white hover:bg-gray-100 drop-shadow-sm rounded-md`}>
                 <div className={'text-sm font-semibold max-[852px]:hidden'}>Contributors</div>
                 <div className={'flex justify-center items-center gap-1.5'}>
-                    <div className={'w-[25px] h-[25px] flex items-center justify-center bg-gray-600 text-white text-[12.5px] rounded-full shrink-0'}><div>{contributors.username.toUpperCase()}</div></div>
+                    <div className={'w-[25px] h-[25px] flex items-center justify-center bg-gray-600 text-white text-[12.5px] rounded-full shrink-0'}><div>{contributors?.username[0]?.toUpperCase()}</div></div>
                     <div className={`${contributors.counts === 1 && 'hidden'} text-sm font-semibold`}>+{contributors.counts}</div>
                 </div>
             </button>

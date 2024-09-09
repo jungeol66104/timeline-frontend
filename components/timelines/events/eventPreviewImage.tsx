@@ -1,10 +1,14 @@
 import React, {memo} from 'react';
 import Image from "next/image";
 import {Event} from "@/store/slices/contentsSlice";
+import {useSelector} from "react-redux";
+import {selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const EventPreviewImage = memo(({event}: {event: Event}) => {
-    const src = event.image as string
-    const alt = event.name
+    const timelineType = useSelector(selectTimelineType)
+
+    const src = timelineType !== 'demo' ? event.cdnUrl! + event.imagePath! : event.imagePath!
+    const alt = event.title
 
     return (
         <div className={`float-right relative ml-2 w-[80px] h-[80px]`}>

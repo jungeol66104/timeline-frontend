@@ -7,21 +7,21 @@ import {updateCurrentEvents, updateCurrentTimeline, updateCurrentTimelineDraft, 
 import DynamicHead from "@/components/dynamicHead";
 import AboutSectionPrimary from "@/components/about/aboutSectionPrimary";
 import AboutSectionSecondary from "@/components/about/aboutSectionSecondary";
+import {formatDate, getTodayDate} from "@/utils/global";
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async () => {
     try {
         const response = await api.get(`/timeline/tags/1?pageNum=1&pageSize=10`, {headers: {lang: 'en'}})
         if (response.data.code === 69999) return { notFound: true }
         const staffPicks = response.data.data.timelineList
-        // const data: any = {events: [{id: 0, date: getTodayDate(), name: 'Visit to Timeline', description: `In ${formatDate(getTodayDate())}, you've visited Timeline and played around with this demo timeline.`, keynote: 1}], timelineInfo: {id: 0, name: "Timeline", description: 'Wiki service that supports creating and sharing timeline', content: "Timeline is the best service when dealing with timelines. It serves effortless timeline making tool and easy wiki system.", image: 'https://cdn.timeline.vg/base-image.png'},}
         const data: any = {
             events: [
-                {id: 0, date: '2024-09-07', ephemerisTime: 778939269.1825322, title: 'Timeline becomes timeline wiki', content: `In September 07, 2024, our major update ends. After the update, we will be serving timeline wiki.`, isKeynote: 1},
-                {id: 1, date: '2024-09-01', ephemerisTime: 778420869.1826185, title: 'Event excluded from the keynote', content: `This event is not as important as the event below. Thus, it is excluded from the keynote. You can include it into the keynote in event edit mode.`, isKeynote: 0}
+                {id: 0, date: '2024-09-07', ephemerisTime: 778939269.1825322, title: 'Timeline becomes timeline wiki', content: `In September 07, 2024, our major update ends. After the update, we will be serving timeline wiki.`, isKeynote: 1, updatedDT: formatDate(getTodayDate()), contributors: {counts: 1, userId: 0, username: 'you', imagePath: "base-image.png", cdnUrl: "https://cdn.timeline.vg/"}},
+                {id: 1, date: '2024-09-01', ephemerisTime: 778420869.1826185, title: 'Event excluded from the keynote', content: `This event is not as important as the event below. Thus, it is excluded from the keynote. You can include it into the keynote in event edit mode.`, isKeynote: 0, updatedDT: formatDate(getTodayDate()), contributors: {counts: 1, userId: 0, username: 'you', imagePath: "base-image.png", cdnUrl: "https://cdn.timeline.vg/"}}
             ],
-            timelineInfo: {id: 0, title: "Timeline", description: 'Wiki service that supports creating and sharing timeline', content: "Timeline is the best service when dealing with timelines. It serves effortless timeline making tool and easy wiki system.", imagePath: '/base-image.png', cdnUrl: 'cdn.timeline.vg'}
+            timelineInfo: {id: 0, title: "Timeline", description: 'Wiki service that supports creating and sharing timeline', content: "Timeline is the best service when dealing with timelines. It serves effortless timeline making tool and easy wiki system.", imagePath: 'base-image.png', cdnUrl: 'https://cdn.timeline.vg/', updatedDT: formatDate(getTodayDate()), contributors: {counts: 1, userId: 0, username: 'you', imagePath: "base-image.png", cdnUrl: "https://cdn.timeline.vg/"}}
         }
-        data.timelineInfo.imageSize = await probe("https://" + data.timelineInfo.cdnUrl + data.timelineInfo.imagePath)
+        data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + data.timelineInfo.imagePath)
 
         store.dispatch(updateCurrentTimelines(staffPicks))
         store.dispatch(updateCurrentTimeline(data.timelineInfo))

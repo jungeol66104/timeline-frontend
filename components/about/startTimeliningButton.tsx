@@ -27,7 +27,7 @@ const StartTimeliningButton = () => {
     }
 
     return (
-        <div onClick={handleClick} className={`px-5 h-[40px] flex justify-center items-center gap-2 font-medium text-white rounded-full border-[1px] border-black bg-black`}>Start Timelining</div>
+        <div onClick={handleClick} className={`cursor-pointer px-5 h-[40px] flex justify-center items-center gap-2 font-medium text-white rounded-full border-[1px] border-black bg-black`}>Start Timelining</div>
     );
 };
 

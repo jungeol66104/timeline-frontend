@@ -15,16 +15,12 @@ const RemoveImageButton = ({isMenu = false}: {isMenu?: boolean}) => {
     const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
 
     const handleClick = () => {
-        const baseImagePath = '/base-image.png'
-        if (modalType === 'none') {
-            dispatch(updateCurrentTimeline({...currentTimeline, image: baseImagePath, imageSize: {width: 100, height: 100}}))
-            dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: baseImagePath, imageSize: {width: 100, height: 100}}))
-        } else if (modalType === 'information') {
-            dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: baseImagePath, imageSize: {width: 100, height: 100}}))
-            if (timelineType === 'new') dispatch(updateCurrentTimeline({...currentTimeline, image: baseImagePath, imageSize: {width: 100, height: 100}}))
+        const baseImagePath = 'base-image.png'
+        if (modalType === 'information') {
+            dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath: baseImagePath, imageSize: {width: 100, height: 100}}))
         } else if (modalType === 'event') {
-            dispatch(updateCurrentEventDraft({...currentEventDraft, image: baseImagePath, imageSize: {width: 100, height: 100}}))
-            if (timelineType === 'new' && isCreated) dispatch(updateEventInCurrentEvents({...currentEventDraft, image: baseImagePath, imageSize: {width: 100, height: 100}}))
+            dispatch(updateCurrentEventDraft({...currentEventDraft, imagePath: baseImagePath, imageSize: {width: 100, height: 100}}))
+            if (timelineType === 'new' && isCreated) dispatch(updateEventInCurrentEvents({...currentEventDraft, imagePath: baseImagePath, imageSize: {width: 100, height: 100}}))
         }
     }
 

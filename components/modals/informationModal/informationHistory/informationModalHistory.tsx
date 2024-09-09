@@ -1,15 +1,21 @@
 import React from "react";
-import CompareButton from "@/components/modals/compareButton";
-import InformationContributions from "@/components/modals/informationModal/informationHistory/informationContributions";
+import {useSelector} from "react-redux";
+import {selectInformationHistoryType} from "@/store/slices/appearanceSlice";
+import InformationHistoryList from "@/components/modals/informationModal/informationHistory/informationHistoryList";
+import InformationHistoryView from "@/components/modals/informationModal/informationHistory/informationHistoryView";
+import InformationHistoryDiff from "@/components/modals/informationModal/informationHistory/informationHistoryDiff";
 
 const InformationModalHistory = () => {
+    const informationHistoryType = useSelector(selectInformationHistoryType)
+
     return (
-        <div>
-            <div className={'pb-3 flex items-center justify-end bg-white'}>
-                <CompareButton/>
-            </div>
-            <hr />
-            <InformationContributions/>
+        <div className={'flex flex-col'}>
+            {informationHistoryType === 'list'
+                ? <InformationHistoryList/>
+                : informationHistoryType === 'view'
+                    ? <InformationHistoryView/>
+                    : <InformationHistoryDiff/>
+            }
         </div>
     );
 };
