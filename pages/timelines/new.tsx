@@ -41,10 +41,10 @@ const NewTimelinePage = () => {
             <div className={`page`}>
                 <AdsTimelineTop />
                 <hr/>
-                <div className={'pageWrapper w-full flex'}>
+{/*                 <div className={'pageWrapper w-full flex'}>
                     <TimelineSectionPrimary />
                     <TimelineSectionSecondary />
-                </div>
+                </div> */}
             </div>
         </>
     )
