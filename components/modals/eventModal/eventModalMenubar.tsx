@@ -23,11 +23,18 @@ const EventModalMenubar = () => {
     return (
         <div className={'pt-3 w-full flex justify-between'}>
             <div className={'w-full flex gap-3'}>
-                {timelineType === 'new' || timelineType === 'private' || (timelineType === 'demo' && demoKeyConcept === 'private')
-                    ?   <UsernameButton name={session.username}/>
-                    :   timelineType === 'demo' && eventContentType === 'new'
-                            ?   <UsernameButton name={'you'}/>
-                            :   <ContributorsButton contributors={currentEvent.contributors}/>
+                {eventContentType === 'new'
+                    ?   <>
+                            {timelineType === 'demo' && <UsernameButton user={{username: 'you', cdnUrl: 'https://cdn.timeline.vg/', imagePath: 'base-image.png'}} />}
+                            {timelineType !== 'demo' && <UsernameButton user={session}/>}
+                        </>
+                    :   <>
+                            {timelineType === 'public' && <ContributorsButton contributors={currentEvent.contributors!}/>}
+                            {timelineType === 'private' && <UsernameButton user={session} />}
+                            {timelineType === 'new' && <UsernameButton user={session} />}
+                            {timelineType === 'demo' && demoKeyConcept !== 'private' && <ContributorsButton contributors={currentEvent.contributors!}/>}
+                            {timelineType === 'demo' && demoKeyConcept === 'private' && <UsernameButton user={{username: 'you', cdnUrl: 'https://cdn.timeline.vg/', imagePath: 'base-image.png'}} />}
+                        </>
                 }
             </div>
             <div className={'flex gap-3'}>

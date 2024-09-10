@@ -4,14 +4,16 @@ import Image from "next/image";
 import {Timeline} from "@/store/slices/contentsSlice";
 import {getIsBaseImage, mapStrToNum} from "@/utils/global";
 import {useSelector} from "react-redux";
-import {selectTimelineType} from "@/store/slices/appearanceSlice";
 import {selectSession} from "@/store/slices/privateSlice";
+import { useRouter } from 'next/router';
 
 const TimelinePreview = ({timeline}: {timeline: Timeline}) => {
-    const session = useSelector(selectSession);
-    const timelineType = useSelector(selectTimelineType)
+    const router = useRouter();
+    const user = router.query.user as string
 
-    const href = timelineType === 'private' ? `/@${session.username}/timelines/${timeline.id}` : `/timelines/${timeline.id}`
+    const session = useSelector(selectSession);
+
+    const href = user && user.startsWith('@') ? `/@${session.username}/timelines/${timeline.id}` : `/timelines/${timeline.id}`
     const isBaseImage = getIsBaseImage(timeline.imagePath)
 
     return (

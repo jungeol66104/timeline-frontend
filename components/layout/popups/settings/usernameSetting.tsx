@@ -1,13 +1,14 @@
 import React, {useRef, useState} from 'react';
-import {useSelector} from "react-redux";
-import {selectSession} from "@/store/slices/privateSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {selectProfileDraft, updateProfileDraft} from "@/store/slices/privateSlice";
+import SaveUsernameButton from "@/components/layout/popups/settings/saveUsernameButton";
 
 const UsernameSetting = () => {
     const usernameSettingRef = useRef<HTMLDivElement>(null)
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const session = useSelector(selectSession)
-    const [usernameDraft, setUsernameDraft] = useState(session.username!)
+    const dispatch = useDispatch()
+    const profileDraft = useSelector(selectProfileDraft)
     const [isToggle, setIsToggle] = useState(false)
 
     const handleClick = (e: React.MouseEvent) => {
@@ -31,7 +32,8 @@ const UsernameSetting = () => {
     return (
         <div ref={usernameSettingRef} onClick={handleClick} className={`p-3 w-full border-[1px] ${isToggle ? 'border-black' : 'cursor-pointer hover:bg-gray-100 border-gray-300'} rounded-md`}>
             <h3 className={'font-semibold'}>Username</h3>
-            <input ref={inputRef} className={`w-full bg-transparent ${!isToggle && 'text-gray-400 cursor-pointer'} focus:outline-none`} type={'text'} value={usernameDraft} readOnly={!isToggle} onChange={(e) => setUsernameDraft(e.target.value)}/>
+            <input ref={inputRef} className={`w-full bg-transparent ${!isToggle && 'text-gray-400 cursor-pointer'} focus:outline-none`} type={'text'} value={profileDraft.username} readOnly={!isToggle} onChange={(e) => dispatch(updateProfileDraft({...profileDraft, username:e.target.value}))}/>
+            <div className={`${!isToggle && 'hidden'} mt-3`}><SaveUsernameButton /></div>
         </div>
     );
 };

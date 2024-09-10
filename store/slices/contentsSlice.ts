@@ -11,7 +11,8 @@ const initialState = {
     currentEventDraft: {id: 0, title: '', content: '', date: '', contributors: {counts: 0, userId: 0, username: '', imagePath: "", cdnUrl: ""}},
     currentEventView: {id: 0, title: '', content: '', date: '', contributors: {counts: 0, userId: 0, username: '', imagePath: "", cdnUrl: ""}},
     currentContributors: [],
-    currentContributions: [],
+    currentPageContributions: [],
+    currentModalContributions: [],
     relatedTimelines: [],
     recentTimelines: [],
     popularTimelines: [],
@@ -52,8 +53,11 @@ const contentsSlice = createSlice({
         updateCurrentContributors: (state, action) => {
             state.currentContributors = action.payload
         },
-        updateCurrentContributions: (state, action) => {
-            state.currentContributions = action.payload
+        updateCurrentModalContributions: (state, action) => {
+            state.currentModalContributions = action.payload
+        },
+        updateCurrentPageContributions: (state, action) => {
+            state.currentPageContributions = action.payload
         },
         updateRelatedTimelines: (state, action) => {
             state.relatedTimelines = action.payload
@@ -79,7 +83,8 @@ export const {
     updateCurrentEventDraft,
     updateCurrentEventView,
     updateCurrentContributors,
-    updateCurrentContributions,
+    updateCurrentPageContributions,
+    updateCurrentModalContributions,
     updatePopularTimelines ,
     updateRecentTimelines,
     updateRelatedTimelines ,
@@ -95,7 +100,8 @@ export const selectCurrentEvent = (state: RootState) => state.contents.currentEv
 export const selectCurrentEventDraft = (state: RootState) => state.contents.currentEventDraft
 export const selectCurrentEventView = (state: RootState) => state.contents.currentEventView
 export const selectCurrentContributors = (state: RootState) => state.contents.currentContributors
-export const selectCurrentContributions = (state: RootState) => state.contents.currentContributions
+export const selectCurrentPageContributions = (state: RootState) => state.contents.currentPageContributions
+export const selectCurrentModalContributions = (state: RootState) => state.contents.currentModalContributions
 export const selectRelatedTimelines = (state: RootState) => state.contents.relatedTimelines
 export const selectRecentTimelines = (state: RootState) => state.contents.recentTimelines
 export const selectPopularTimelines = (state: RootState) => state.contents.popularTimelines
@@ -111,7 +117,8 @@ export interface initialContentsState {
     currentEventDraft: Event,
     currentEventView: Event,
     currentContributors: any[]
-    currentContributions: any[]
+    currentPageContributions: any[]
+    currentModalContributions: any[]
     relatedTimelines: any[]
     recentTimelines: any[]
     popularTimelines: any[]
@@ -126,6 +133,7 @@ export interface Timeline {
     cdnUrl?: string
     imageSize?: {width: number, height: number}
     contributors?: Contributors
+    revisionNo?: number
     createdDT?: string
     updatedDT?: string
 }
@@ -141,6 +149,7 @@ export interface Event {
     ephemerisTime?: number
     isKeynote?: number
     contributors?: any
+    revisionNo?: number
     createdDT?: string
     updatedDT?: string
 }

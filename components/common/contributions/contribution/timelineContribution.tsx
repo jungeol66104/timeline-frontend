@@ -6,6 +6,7 @@ import OpenModalButton from "@/components/common/contributions/openModalButton";
 import InformationTitleButton from "@/components/common/contributions/informationTitleButton";
 
 const TimelineContribution = ({type, contribution}: {type: string, contribution: any}) => {
+
     return (
         <div className={'py-3 border-b-[1px] border-[#E5E7EB]'}>
             <div className={'flex items-center justify-between'}>
@@ -21,7 +22,7 @@ const TimelineContribution = ({type, contribution}: {type: string, contribution:
                 {contribution.editHistoryType === 7 && 'Edited the information.'}
             </div>
             <div className={'mt-3 flex items-center justify-between'}>
-                <UsernameButton name={contribution.userInfo.username} />
+                <UsernameButton user={contribution.userInfo} />
                 <div className={'flex items-center gap-2.5'}>
                     {type === 'timeline' && <RevertButton/>}
                     <OpenModalButton contribution={contribution}/>

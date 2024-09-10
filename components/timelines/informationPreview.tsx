@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import {selectDemoKeyConcept, selectTimelineType, updateModalType} from "@/store/slices/appearanceSlice";
 import InformationPreviewImage from "@/components/timelines/informationPreviewImage";
+import {getIsBaseImage} from "@/utils/global";
 
 const InformationPreview = () => {
     const dispatch = useDispatch();
@@ -17,12 +18,27 @@ const InformationPreview = () => {
 
     const handleClick = async () => {
         try {
-            const response = await api.get(`/timeline/${currentTimeline.id}/content`, {headers: {lang: 'en'}})
-            const newTimeline = timelineType === 'new' || timelineType === 'demo' || response.data.code === 69999 ? timeline : response.data.data
+            let newTimeline: any;
+            if (timelineType === 'new' || timelineType === 'demo') {
+                newTimeline = {...timeline}
+            } else if (timelineType === 'public') {
+                const response = await api.get(`/timeline/${currentTimeline.id}/content`, {headers: {lang: 'en'}})
+                if (response.data.code === 69999) return
+                newTimeline = response.data.data
+            } else if (timelineType === 'private') {
 
-            dispatch(updateCurrentTimeline(newTimeline))
-            dispatch(updateCurrentTimelineDraft(newTimeline))
-            dispatch(updateModalType('information'))
+            }
+
+            const image = new Image();
+            image.src = timelineType === 'demo' && !getIsBaseImage(newTimeline.imagePath) ? newTimeline.imagePath : newTimeline.cdnUrl + newTimeline.imagePath;
+
+            image.onload = () => {
+                newTimeline.imageSize = {width: image.width, height: image.height}
+                dispatch(updateCurrentTimeline(newTimeline))
+                dispatch(updateCurrentTimelineDraft(newTimeline))
+                dispatch(updateModalType('information'))
+            };
+
         } catch (error) {console.error('Error fetching data in useEffect: ', error)}
     }
 

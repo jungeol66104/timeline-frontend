@@ -2,8 +2,8 @@ import api from "@/pages/api/api";
 import React from 'react';
 import {storeWrapper} from "@/store/store";
 import {updateIsBottomEnd, updateTotalPage} from "@/store/slices/appearanceSlice";
-import {updateCurrentContributions, updateCurrentTimelines} from "@/store/slices/contentsSlice";
-import {updateSession} from "@/store/slices/privateSlice";
+import {updateCurrentModalContributions, updateCurrentPageContributions} from "@/store/slices/contentsSlice";
+import {updateProfile, updateProfileDraft, updateSession} from "@/store/slices/privateSlice";
 import DynamicHead from "@/components/dynamicHead";
 import ProfileSectionPrimary from "@/components/private/profileSectionPrimary";
 import ProfileSectionSecondary from "@/components/private/profileSectionSecondary";
@@ -21,13 +21,24 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 
             store.dispatch(updateSession(data))
         }
+
         const response = await api.get(`/user/${user.slice(1)}/contribution?pageNum=1&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
         if (response.data.code === 69999) return { notFound: true }
         const data = response.data.data
 
-        store.dispatch(updateCurrentContributions(data.aboutPageInfoList))
+        let contributions = [...data.aboutPageInfoList]
+        contributions.forEach((contribution: any) => {
+            const { cdnUrl, imagePath } = {...contribution}.userInfo
+
+            contribution.userInfo.cdnUrl = imagePath
+            contribution.userInfo.imagePath = cdnUrl
+        })
+
+        store.dispatch(updateProfile({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
+        store.dispatch(updateProfileDraft({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
+        store.dispatch(updateCurrentPageContributions(contributions))
         store.dispatch(updateTotalPage(data.totalPage))
-        store.dispatch(updateIsBottomEnd(data.totalPage === 1))
+        store.dispatch(updateIsBottomEnd(data.totalPage <= 1))
 
         return {props: {}}
     } catch (error) {

@@ -75,8 +75,8 @@ const RelatedTimelines = () => {
             <div className={'px-3 flex items-center justify-between'}>
                 <h3 className={'text-[20px] font-bold'}>Related</h3>
                 <div className={`flex gap-2.5 ${!showButtons && 'hidden'}`}>
-                    <button onClick={() => handleClick('prev')} className={`flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white ${scrollPosition === 'start' ? 'opacity-30' : 'hover:bg-gray-100'}`}><Image src={'/svg/before.svg'} alt={'before'} height={20} width={20} className={'opacity-80'}/></button>
-                    <button onClick={() => handleClick('next')} className={`flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white ${scrollPosition === 'end' ? 'opacity-30' : 'hover:bg-gray-100'}`}><Image src={'/svg/after.svg'} alt={'after'} height={20} width={20} className={'opacity-80'}/></button>
+                    <button onClick={() => handleClick('prev')} className={`material-symbols-outlined text-[20px] flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white ${scrollPosition === 'start' ? 'opacity-30' : 'hover:bg-gray-100'}`}>&#xe5cb;</button>
+                    <button onClick={() => handleClick('next')} className={`material-symbols-outlined text-[20px] flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white ${scrollPosition === 'end' ? 'opacity-30' : 'hover:bg-gray-100'}`}>&#xe5cc;</button>
                 </div>
             </div>
             <div ref={swiperContainerRef} className={`relatedSwiper px-3 flex gap-2 w-full overflow-x-scroll`}>

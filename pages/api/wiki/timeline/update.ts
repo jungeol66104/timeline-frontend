@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import api from "@/pages/api/api";
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method !== 'PUT') {
@@ -14,8 +14,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     try {
+        console.log(req.body)
         const response = await api.put('/wiki/timeline/content', req.body, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
         const data = response.data.data;
+        console.log(response.data)
 
         res.status(200).json(data);
     } catch (error) {

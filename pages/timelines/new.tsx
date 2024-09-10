@@ -16,8 +16,8 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         const data: any = {events: [], recentTimelines: recentResponse.data.data.timelineList, popularTimelines: popularResponse.data.data.timelineList, timelineInfo: {id: 0, title: "", description: "", content: "", imagePath: 'base-image.png', cdnUrl: "https://cdn.timeline.vg/"}}
         data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + data.timelineInfo.imagePath)
 
-        store.dispatch(updateCurrentTimeline(data.timelineInfo))
         store.dispatch(updateCurrentEvents(data.events))
+        store.dispatch(updateCurrentTimeline(data.timelineInfo))
         store.dispatch(updateCurrentTimelineDraft(data.timelineInfo))
         store.dispatch(updateRecentTimelines(data.recentTimelines))
         store.dispatch(updatePopularTimelines(data.popularTimelines))

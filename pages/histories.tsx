@@ -3,7 +3,7 @@ import React from "react";
 import {useSelector} from "react-redux";
 import {storeWrapper} from "@/store/store";
 import {selectIsBottomEnd, updateIsBottomEnd, updateTotalPage} from "@/store/slices/appearanceSlice";
-import {selectCurrentContributions, updateCurrentContributions} from "@/store/slices/contentsSlice";
+import {selectCurrentPageContributions, updateCurrentPageContributions} from "@/store/slices/contentsSlice";
 import DynamicHead from "@/components/dynamicHead";
 import EventContribution from "@/components/common/contributions/contribution/eventContribution";
 import AdsTimelineTop from "@/components/ads/adsTimelineTop";
@@ -17,7 +17,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
         const data = response.data.data
         if (response.data.code === 69999) return { notFound: true }
 
-        store.dispatch(updateCurrentContributions(data.histories))
+        store.dispatch(updateCurrentPageContributions(data.histories))
         store.dispatch(updateTotalPage(data.totalPage))
         store.dispatch(updateIsBottomEnd(data.totalPage === 1))
         return {props: {}}
@@ -29,7 +29,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 
 const HistoriesPage = () => {
     const isBottomEnd = useSelector(selectIsBottomEnd)
-    const currentContributions = useSelector(selectCurrentContributions);
+    const currentPageContributions = useSelector(selectCurrentPageContributions);
 
     return (
         <>
@@ -44,7 +44,7 @@ const HistoriesPage = () => {
                             <div>
                                 <hr/>
                                 <div className={'w-full'}>
-                                    {currentContributions.map(contribution => {
+                                    {currentPageContributions.map(contribution => {
                                         switch (contribution.editHistoryType) {
                                             case 1:
                                             case 2:

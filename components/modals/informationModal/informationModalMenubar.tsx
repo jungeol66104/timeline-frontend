@@ -17,10 +17,11 @@ const InformationModalMenubar = () => {
 
     return (
         <div className={'pt-3 w-full flex justify-between'}>
-            {timelineType === 'new' || timelineType === 'private' || (timelineType === 'demo' && demoKeyConcept === 'private')
-                ? <UsernameButton name={session.username}/>
-                : <ContributorsButton contributors={currentTimeline.contributors!}/>
-            }
+            {timelineType === 'public' && <ContributorsButton contributors={currentTimeline.contributors!}/>}
+            {timelineType === 'private' && <UsernameButton user={session} />}
+            {timelineType === 'new' && <UsernameButton user={session} />}
+            {timelineType === 'demo' && demoKeyConcept !== 'private' && <ContributorsButton contributors={currentTimeline.contributors!}/>}
+            {timelineType === 'demo' && demoKeyConcept === 'private' && <UsernameButton user={{username: 'you', cdnUrl: 'https://cdn.timeline.vg/', imagePath: 'base-image.png'}} />}
             {informationContentType !== 'new' &&
                 <div className={'flex gap-3'}>
                     {timelineType !== 'new' && <InformationViewEditButton/>}

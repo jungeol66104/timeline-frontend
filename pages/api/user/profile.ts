@@ -19,12 +19,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         let data;
         if (type === 0) {
             const response = await api.get(`/user/${user}/contribution?pageNum=1&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
-            if (response.data.code === 69999) return { notFound: true }
             data = response.data.data
-
         } else {
             const response = await api.get(`/user/timeline?pageNum=1&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
-            if (response.data.code === 69999) return { notFound: true }
+            if (response.data.code === 69999) return
             data = response.data.data;
         }
 

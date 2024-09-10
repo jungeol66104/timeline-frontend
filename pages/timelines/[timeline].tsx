@@ -6,7 +6,6 @@ import DynamicHead from "@/components/dynamicHead";
 import AdsTimelineTop from "@/components/ads/adsTimelineTop";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
-import {updateTimelineType} from "@/store/slices/appearanceSlice";
 
 export const getStaticPaths = async () => {return {paths: [], fallback: 'blocking'}}
 
@@ -17,8 +16,8 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         const data = response.data.data
         data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + data.timelineInfo.imagePath)
 
-        store.dispatch(updateCurrentTimeline(data.timelineInfo))
         store.dispatch(updateCurrentEvents(data.events))
+        store.dispatch(updateCurrentTimeline(data.timelineInfo))
         store.dispatch(updateCurrentTimelineDraft(data.timelineInfo))
         store.dispatch(updateRelatedTimelines(data.relatedTimelines))
         store.dispatch(updateRecentTimelines(data.recentTimelines))

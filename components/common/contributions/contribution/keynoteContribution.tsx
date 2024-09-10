@@ -17,7 +17,7 @@ const KeynoteContribution = ({type, contribution}: {type: string, contribution: 
                 <InformationTitleButton contribution={contribution} />
             </div>
             <div className={'mt-3 flex items-center justify-between'}>
-                <UsernameButton name={contribution.userInfo.username}/>
+                <UsernameButton user={contribution.userInfo}/>
                 <div className={'flex items-center gap-2.5'}>
                     {type === 'timeline' || type === 'event' && <UndoButton/>}
                 </div>

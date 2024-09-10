@@ -6,7 +6,6 @@ import CompareRadioButtons from "@/components/common/contributions/compareRadioB
 import EventTitleButton from "@/components/common/contributions/eventTitleButton";
 
 const EventContribution = ({type, contribution}: {type: string, contribution: any}) => {
-
     return (
         <div className={'py-3 border-b-[1px] border-[#E5E7EB]'}>
             <div className={'flex items-center justify-between'}>
@@ -24,7 +23,7 @@ const EventContribution = ({type, contribution}: {type: string, contribution: an
                 {contribution.editHistoryType === 8 && 'Edited the event.'}
             </div>
             <div className={'mt-3 flex items-center justify-between'}>
-                <UsernameButton name={contribution.userInfo.username} />
+                <UsernameButton user={contribution.userInfo} />
                 <div className={'flex items-center gap-2.5'}>
                     {type === 'event' && <RevertButton/>}
                     <OpenModalButton contribution={contribution}/>

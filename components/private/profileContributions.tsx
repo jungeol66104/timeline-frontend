@@ -1,20 +1,19 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import {selectCurrentContributions} from "@/store/slices/contentsSlice";
+import {selectCurrentPageContributions} from "@/store/slices/contentsSlice";
 import TimelineContribution from "@/components/common/contributions/contribution/timelineContribution";
 import EventContribution from "@/components/common/contributions/contribution/eventContribution";
 import AttachmentContribution from "@/components/common/contributions/contribution/attachmentContribution";
 import KeynoteContribution from "@/components/common/contributions/contribution/keynoteContribution";
-import StartTimeliningButton from "@/components/about/startTimeliningButton";
 import ExploreButton from "@/components/about/exploreButton";
 
 const ProfileContributions = () => {
-    const currentContributions = useSelector(selectCurrentContributions);
-    const isEmptyContributions = currentContributions.length === 0
+    const currentPageContributions = useSelector(selectCurrentPageContributions);
+    const isEmptyContributions = currentPageContributions.length === 0
 
     return (
         <div className={'w-full'}>
-            {currentContributions.map(contribution => {
+            {currentPageContributions.map(contribution => {
                 switch (contribution.editHistoryType) {
                     case 1:
                     case 2:

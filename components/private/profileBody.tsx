@@ -2,10 +2,11 @@ import axios from "axios";
 import React from 'react';
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
-import {updateCurrentContributions, updateCurrentTimelines} from "@/store/slices/contentsSlice";
+import {updateCurrentModalContributions, updateCurrentPageContributions, updateCurrentTimelines} from "@/store/slices/contentsSlice";
 import {selectIsSession, selectProfileType, selectSession, updateProfileType} from "@/store/slices/privateSlice";
 import ProfileMyTimelines from "@/components/private/profileMyTimelines";
 import ProfileContributions from "@/components/private/profileContributions";
+import CollectionBottom from "@/components/private/collectionBottom";
 
 const ProfileBody = () => {
     const router = useRouter()
@@ -22,7 +23,17 @@ const ProfileBody = () => {
             const response = await axios.get(`/api/user/profile?type=${type}&user=${query}`)
             const data = response.data
 
-            if (type === 0) dispatch(updateCurrentContributions(data.aboutPageInfoList))
+            if (type === 0) {
+                let contributions = [...data.aboutPageInfoList]
+                contributions.forEach((contribution: any) => {
+                    const { cdnUrl, imagePath } = {...contribution}.userInfo
+
+                    contribution.userInfo.cdnUrl = imagePath
+                    contribution.userInfo.imagePath = cdnUrl
+                })
+
+                dispatch(updateCurrentPageContributions(contributions))
+            }
             else dispatch(updateCurrentTimelines(data.aboutPageInfoList))
             dispatch(updateProfileType(typeString))
         } catch (error) {console.error('', error)}
@@ -37,6 +48,7 @@ const ProfileBody = () => {
             <hr/>
             {profileType === 'contributions' && <ProfileContributions/>}
             {profileType === 'timelines' && <ProfileMyTimelines />}
+            <CollectionBottom />
         </div>
     );
 };

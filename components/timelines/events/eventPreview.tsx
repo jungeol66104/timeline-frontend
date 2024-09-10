@@ -3,23 +3,39 @@ import {useDispatch, useSelector} from "react-redux";
 import api from "@/pages/api/api";
 import {getIsBaseImage} from "@/utils/global";
 import {selectDemoKeyConcept, selectTimelineType, updateModalType} from "@/store/slices/appearanceSlice";
-import {Event, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
+import {Event, selectCurrentTimeline, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import EventPreviewImage from "@/components/timelines/events/eventPreviewImage";
+import axios from "axios";
 
 const EventPreview = ({event} : {event: Event}) => {
-    const dispatch = useDispatch();
-    const timelineType = useSelector(selectTimelineType);
+    const dispatch = useDispatch()
+    const timelineType = useSelector(selectTimelineType)
     const demoKeyConcept = useSelector(selectDemoKeyConcept)
+    const currentTimeline = useSelector(selectCurrentTimeline)
 
     const isBaseImage = getIsBaseImage(event.imagePath)
 
     const handleClick = async () => {
         try {
-            const response = await api.get(`/event/${Number(event.id)}`, {headers: {lang: 'en'}})
-            let newEvent = timelineType === 'new' || timelineType === 'demo' || response.data.code === 69999 ? event : response.data.data
-            dispatch(updateCurrentEvent(newEvent))
-            dispatch(updateCurrentEventDraft(newEvent))
-            dispatch(updateModalType('event'))
+            let newEvent: any;
+            if (timelineType === 'new' || timelineType === 'demo') newEvent = {...event}
+            else if (timelineType === 'private') {
+                const response = await axios.get(`/api/user/event/fetch?timelineId=${currentTimeline.id}&eventId=${event.id}`)
+                newEvent = response.data
+            } else if (timelineType === 'public') {
+                const response = await api.get(`/event/${Number(event.id)}`, {headers: {lang: 'en'}})
+                newEvent = response.data.data
+            }
+
+            const image = new Image();
+            image.src = newEvent.cdnUrl + newEvent.imagePath;
+
+            image.onload = () => {
+                newEvent.imageSize = {width: image.width, height: image.height}
+                dispatch(updateCurrentEvent(newEvent))
+                dispatch(updateCurrentEventDraft(newEvent))
+                dispatch(updateModalType('event'))
+            };
         } catch (error) {console.error('Error fetching event: ', error)}
     }
 

@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEvents, selectCurrentTimelineDraft, updateCurrentEvent} from "@/store/slices/contentsSlice";
 import axios from "axios";
 import { useRouter } from 'next/router';
+import {updatePopupType} from "@/store/slices/appearanceSlice";
 
 const CreatePopup = () => {
     const router = useRouter()
@@ -15,18 +16,17 @@ const CreatePopup = () => {
     const handleClick = async () => {
         const body = {
             // EXTREMELY IMPORTANT
-            "privateStatus": createType === 'private' ? 0 : createType === 'public' ? 1 : 2,
+            "privateStatus": createType === 'public' ? 0 : createType === 'private' ? 1 : 2,
             "title": currentTimelineDraft.title,
             "description": currentTimelineDraft.description,
             "content": currentTimelineDraft.content,
             "imagePath": currentTimelineDraft.imagePath,
-            "events": currentEvents
+            "events": [...currentEvents].map(({date, ephemerisTime, title, content, imagePath, isKeynote}) => ({date, ephemerisTime, title, content, imagePath, isKeynote}))
         }
         try {
-            const response = {status: 200}
-            // const response = await axios.post('/api/wiki/timeline/create-timeline', body);
+            const response = await axios.post('/api/wiki/timeline/create', body);
             if (response.status === 200) {
-                // dispatch(updateCurrentEvent({}))
+                dispatch(updatePopupType('none'))
                 router.push('/')
             }
         } catch (error) {console.error('Error creating timeline: ', error)}

@@ -34,7 +34,7 @@ const ContributorsButton = ({contributors} : {contributors: Contributors}) => {
                 <div className={'text-sm font-semibold max-[852px]:hidden'}>Contributors</div>
                 <div className={'flex justify-center items-center gap-1.5'}>
                     <div className={'w-[25px] h-[25px] flex items-center justify-center bg-gray-600 text-white text-[12.5px] rounded-full shrink-0'}><div>{contributors?.username[0]?.toUpperCase()}</div></div>
-                    <div className={`${contributors.counts === 1 && 'hidden'} text-sm font-semibold`}>+{contributors.counts}</div>
+                    <div className={`${contributors.counts <= 1 && 'hidden'} text-sm font-semibold`}>+{contributors.counts}</div>
                 </div>
             </button>
             {isToggle &&
