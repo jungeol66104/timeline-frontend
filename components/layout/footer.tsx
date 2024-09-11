@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from "next/link";
 import {useSelector} from "react-redux";
-import {selectIsBottomEnd, selectIsMaintenance, updateIsMaintenance} from "@/store/slices/appearanceSlice";
+import {selectIsBottomEnd, selectIsMaintenance} from "@/store/slices/appearanceSlice";
 
 const Footer = () => {
     const isBottomEnd = useSelector(selectIsBottomEnd);

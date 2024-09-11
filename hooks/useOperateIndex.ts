@@ -1,6 +1,6 @@
+import api from "@/pages/api/api";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import api from "@/pages/api/api";
 import {debounce, getScrollWrapper} from "@/utils/global";
 import {selectCurrentTimelines, updateCurrentTimelines} from "@/store/slices/contentsSlice";
 import {selectCurrentPage, selectTagNum, selectTotalPage, updateCurrentPage, updateIsBottomEnd} from "@/store/slices/appearanceSlice";
@@ -46,9 +46,11 @@ const useOperateIndex = () => {
         }
 
         if (scrollWrapper.scrollHeight === scrollWrapper.clientHeight) handleScroll()
-        window.addEventListener('scroll', () => debounce(handleScroll, 100))
+
+        const debouncedHandleScroll = () => debounce(handleScroll, 100);
+        window.addEventListener('scroll', debouncedHandleScroll)
         return () => {
-            window.removeEventListener('scroll', () => debounce(handleScroll, 100))
+            window.removeEventListener('scroll', debouncedHandleScroll)
         };
     });
 }

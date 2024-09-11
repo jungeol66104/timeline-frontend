@@ -5,7 +5,6 @@ import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import InformationTitleEdit from "@/components/modals/informationModal/informationEdit/informationTitleEdit";
 import InformationDescriptionEdit from "@/components/modals/informationModal/informationEdit/informationDescriptionEdit";
 import InformationModalMenubar from "@/components/modals/informationModal/informationModalMenubar";
-import {formatDate, getTodayDate} from "@/utils/global";
 
 const InformationModalHead = () => {
     const timelineType = useSelector(selectTimelineType);

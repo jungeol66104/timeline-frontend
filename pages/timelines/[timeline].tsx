@@ -30,6 +30,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
 })
 
 const TimelinePage = () => {
+
     return (
         <>
             <DynamicHead type={'timeline'}/>

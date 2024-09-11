@@ -1,4 +1,3 @@
-import {formatDate, getTodayDate} from "@/utils/global";
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectEventContentType} from "@/store/slices/appearanceSlice";

@@ -1,11 +1,11 @@
+import {getIsBaseImage} from "@/utils/global";
+import api from "@/pages/api/api";
+import axios from "axios";
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import api from "@/pages/api/api";
-import {getIsBaseImage} from "@/utils/global";
-import {selectDemoKeyConcept, selectTimelineType, updateModalType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectTimelineType, updateIsBottomEnd, updateModalType} from "@/store/slices/appearanceSlice";
 import {Event, selectCurrentTimeline, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import EventPreviewImage from "@/components/timelines/events/eventPreviewImage";
-import axios from "axios";
 
 const EventPreview = ({event} : {event: Event}) => {
     const dispatch = useDispatch()

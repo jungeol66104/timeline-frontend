@@ -1,15 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {
-    selectEventContentType,
-    selectModalType,
-    selectInformationContentType,
-    updateEventContentType,
-    updateEventHistoryType,
-    updateInformationContentType,
-    updateInformationHistoryType,
-    updateTotalPage, updateIsBottomEnd
-} from "@/store/slices/appearanceSlice";
+import {selectEventContentType, selectModalType, selectInformationContentType, updateEventContentType, updateEventHistoryType, updateInformationContentType, updateInformationHistoryType,} from "@/store/slices/appearanceSlice";
 import api from "@/pages/api/api";
 import {selectCurrentEvent, selectCurrentTimeline, updateCurrentModalContributions} from "@/store/slices/contentsSlice";
 
@@ -31,8 +22,6 @@ const HistoryButton = () => {
             dispatch(updateCurrentModalContributions(data.histories))
             dispatch(updateInformationContentType('history'))
             dispatch(updateInformationHistoryType('list'))
-            // dispatch(updateTotalPage(data.totalPage))
-            // dispatch(updateIsBottomEnd(data.totalPage <= 1))
         } else {
             const response = await api.get(`/event/${currentEvent.id}/history?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
             if (response.data.code === 69999) return
@@ -41,8 +30,6 @@ const HistoryButton = () => {
             dispatch(updateCurrentModalContributions(data.histories))
             dispatch(updateEventContentType('history'))
             dispatch(updateEventHistoryType('list'))
-            // dispatch(updateTotalPage(data.totalPage))
-            // dispatch(updateIsBottomEnd(data.totalPage <= 1))
         }
     }
 

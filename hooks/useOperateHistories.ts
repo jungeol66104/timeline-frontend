@@ -43,9 +43,11 @@ const useOperateHistories = () => {
         }
 
         if (scrollWrapper.scrollHeight === scrollWrapper.clientHeight) handleScroll()
-        window.addEventListener('scroll', () => debounce(handleScroll, 100))
+
+        const debouncedHandleScroll = () => debounce(handleScroll, 100);
+        window.addEventListener('scroll', debouncedHandleScroll)
         return () => {
-            window.removeEventListener('scroll', () => debounce(handleScroll, 100))
+            window.removeEventListener('scroll', debouncedHandleScroll)
         };
     });
 }

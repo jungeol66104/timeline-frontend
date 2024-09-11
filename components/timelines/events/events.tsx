@@ -10,7 +10,6 @@ import EventsBottom from "@/components/timelines/events/eventsBottom";
 const Events = () => {
     const isBottomEnd = useSelector(selectIsBottomEnd)
     const currentEvents = useSelector(selectCurrentEvents)
-    console.log(isBottomEnd)
 
     const isEmptyEvents = currentEvents.length === 0
 

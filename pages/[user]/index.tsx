@@ -2,7 +2,7 @@ import api from "@/pages/api/api";
 import React from 'react';
 import {storeWrapper} from "@/store/store";
 import {updateIsBottomEnd, updateTotalPage} from "@/store/slices/appearanceSlice";
-import {updateCurrentModalContributions, updateCurrentPageContributions} from "@/store/slices/contentsSlice";
+import {updateCurrentPageContributions} from "@/store/slices/contentsSlice";
 import {updateProfile, updateProfileDraft, updateSession} from "@/store/slices/privateSlice";
 import DynamicHead from "@/components/dynamicHead";
 import ProfileSectionPrimary from "@/components/private/profileSectionPrimary";
