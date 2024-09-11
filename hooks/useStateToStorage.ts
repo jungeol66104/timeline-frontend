@@ -16,7 +16,7 @@ const useStateToStorage = () => {
 
             let state = store.getState() as initialState
             // IMPORTANT: remove personal information
-            state = {...state, private: {session: {}, profileType: state.private.profileType}}
+            state = {...state, private: {session: {}, profileType: state.private.profileType, profile: state.private.profile, profileDraft: state.private.profileDraft}}
 
             const current = JSON.parse(sessionStorage.getItem('current') || JSON.stringify({"url": "initialUrl", "scrollTop": 0, "state": {}}))
             const history = JSON.parse(sessionStorage.getItem('history') || JSON.stringify({"0": {"url": "initialUrl", "scrollTop": 0, "state": {}}, "1": {"url": "initialUrl", "scrollTop": 0, "state": {}}, "2": {"url": "initialUrl", "scrollTop": 0, "state": {}}}))

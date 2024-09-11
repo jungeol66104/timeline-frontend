@@ -2,7 +2,7 @@
 // import {TimelineEvent, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 // import {selectDemoKeyConcept, selectTimelineContentType, selectTimelineType, updateModalType} from "@/store/slices/appearanceSlice";
 // import KeynoteCheckbox from "@/components/timelines/timeline/keynoteCheckbox";
-// import DisconnectButton from "@/components/timelines/timeline/disconnectButton";
+// import DetachButton from "@/components/timelines/timeline/disconnectButton";
 // import EventContentImage from "@/components/timelines/timeline/eventContentImage";
 // import {getIsBaseImage} from "@/utils/global";
 // import api from "@/pages/api/api";
@@ -35,7 +35,7 @@
 //             <div className={`${!isTimelineEditable && 'hidden'}`}>
 //                 <div className={`p-2.5 flex items-center justify-between`}>
 //                     <KeynoteCheckbox event={event} />
-//                     <DisconnectButton event={event} />
+//                     <DetachButton event={event} />
 //                 </div>
 //                 <hr />
 //             </div>

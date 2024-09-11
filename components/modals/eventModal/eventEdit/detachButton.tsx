@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEvents} from "@/store/slices/contentsSlice";
 import {updateModalType} from "@/store/slices/appearanceSlice";
 
-const DisconnectButton = () => {
+const DetachButton = () => {
     const dispatch = useDispatch()
     const currentEvents = useSelector(selectCurrentEvents)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
@@ -19,4 +19,4 @@ const DisconnectButton = () => {
     );
 };
 
-export default DisconnectButton;
+export default DetachButton;

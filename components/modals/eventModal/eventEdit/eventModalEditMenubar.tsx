@@ -6,7 +6,7 @@ import {selectCurrentEventDraft, selectCurrentEvents} from "@/store/slices/conte
 import AddImageButton from "@/components/common/addImageButton";
 import ImageEditButton from "@/components/common/imageEditButton";
 import ResetEditButton from "@/components/modals/resetEditButton";
-import DisconnectButton from "@/components/modals/eventModal/eventEdit/disconnectButton";
+import DetachButton from "@/components/modals/eventModal/eventEdit/detachButton";
 import KeynoteButton from "@/components/modals/eventModal/eventEdit/keynoteButton";
 import SaveEventButton from "@/components/modals/eventModal/eventEdit/saveEventButton";
 
@@ -24,7 +24,7 @@ const EventModalEditMenubar = ({editor, imagePath}:{editor: any, imagePath: stri
                 {isBaseImage && <AddImageButton/>}
                 {!isBaseImage && <ImageEditButton/>}
                 {eventContentType === 'edit' && <ResetEditButton/>}
-                {(eventContentType === 'edit' || (eventContentType === 'new' && isCreated)) && <DisconnectButton/>}
+                {(eventContentType === 'edit' || (eventContentType === 'new' && isCreated)) && <DetachButton/>}
             </div>
             <div className={'flex gap-3'}>
                 <KeynoteButton />
