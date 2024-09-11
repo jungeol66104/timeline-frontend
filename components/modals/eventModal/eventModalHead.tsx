@@ -23,7 +23,6 @@ const EventModalHead = () => {
                     :   <h1 className={`w-fit text-2xl font-bold`}>{currentEvent.title}</h1>
                 }
             </div>
-            <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>{eventContentType === 'new' ? `Created: ${formatDate(getTodayDate())}` : `Last Updated: ${currentEvent.updatedDT}`}</div>
             <EventModalMenubar/>
         </div>
     );

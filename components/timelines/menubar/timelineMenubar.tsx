@@ -3,7 +3,6 @@ import {useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectTimelineType} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {selectSession} from "@/store/slices/privateSlice";
-import {formatDate, getTodayDate} from "@/utils/global";
 import ContributorsButton from "@/components/common/contributorsButton";
 import UsernameButton from "@/components/common/usernameButton";
 import TimelineMoreButton from "@/components/timelines/menubar/timelineMoreButton";
@@ -24,9 +23,14 @@ const TimelineMenubar = () => {
                 {timelineType === 'new' && <UsernameButton user={session} />}
                 {timelineType === 'demo' && demoKeyConcept !== 'private' && <ContributorsButton contributors={currentTimeline.contributors!}/>}
                 {timelineType === 'demo' && demoKeyConcept === 'private' && <UsernameButton user={{username: 'you', cdnUrl: 'https://cdn.timeline.vg/', imagePath: 'base-image.png'}} />}
-                <div className={'text-gray-400 text-sm'}>{timelineType === 'new' ? `Created: ${formatDate(getTodayDate())}` : `Last Updated: ${<div>${currentTimeline.updatedDT}</div>}`}</div>
+                {(timelineType === 'public' || timelineType === 'private') &&
+                    <div className={'flex flex-col text-gray-400 text-xs'}>
+                        <div>Last Updated:</div>
+                        <div>{currentTimeline.updatedDT}</div>
+                    </div>
+                }
             </div>
-            <div className={'ml-3'}>
+            <div>
                 {timelineType === 'public' && <TimelineMoreButton />}
                 {timelineType === 'private' && <PublishButton />}
                 {timelineType === 'new' && <CreateTimelineButton />}

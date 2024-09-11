@@ -24,7 +24,6 @@ const InformationModalHead = () => {
                     :   <div className={`w-fit text-md`}>{currentTimeline.description}</div>
                 }
             </div>
-            <div className={'my-1 flex gap-1 text-gray-400 text-sm'}>{informationContentType === 'new' ? `Created: ${formatDate(getTodayDate())}` : `Last Updated: ${currentTimeline.updatedDT}`}</div>
             <InformationModalMenubar />
         </div>
     );
