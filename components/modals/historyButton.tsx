@@ -31,8 +31,8 @@ const HistoryButton = () => {
             dispatch(updateCurrentModalContributions(data.histories))
             dispatch(updateInformationContentType('history'))
             dispatch(updateInformationHistoryType('list'))
-            dispatch(updateTotalPage(data.totalPage))
-            dispatch(updateIsBottomEnd(data.totalPage <= 1))
+            // dispatch(updateTotalPage(data.totalPage))
+            // dispatch(updateIsBottomEnd(data.totalPage <= 1))
         } else {
             const response = await api.get(`/event/${currentEvent.id}/history?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
             if (response.data.code === 69999) return
@@ -41,8 +41,8 @@ const HistoryButton = () => {
             dispatch(updateCurrentModalContributions(data.histories))
             dispatch(updateEventContentType('history'))
             dispatch(updateEventHistoryType('list'))
-            dispatch(updateTotalPage(data.totalPage))
-            dispatch(updateIsBottomEnd(data.totalPage <= 1))
+            // dispatch(updateTotalPage(data.totalPage))
+            // dispatch(updateIsBottomEnd(data.totalPage <= 1))
         }
     }
 

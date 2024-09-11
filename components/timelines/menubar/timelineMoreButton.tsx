@@ -25,7 +25,7 @@ const TimelineMoreButton = () => {
         <div className={'relative'}>
             <button ref={timelineMoreButtonRef} onClick={handleClick} className={'material-symbols-outlined text-[22px] w-[36px] h-[36px] hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md'}>&#xe5d3;</button>
             {isToggle &&
-                <div className={'absolute top-[38px] right-0 p-1.5 w-[156.33px] bg-white border-[1px] rounded-md drop-shadow-md'}>
+                <div className={'absolute top-[38px] right-0 px-1.5 py-1 w-[156.33px] bg-white border-[1px] rounded-md drop-shadow-md'}>
                     <ShareButton />
                 </div>
             }
