@@ -71,7 +71,7 @@ const RelatedTimelines = () => {
         }
     }
     return (
-        <div className={`${timelineType !== 'public' && 'hidden'} py-3 flex flex-col gap-3 border-[1px] border-gray-300 rounded-2xl`}>
+        <div className={`${timelineType !== 'public' && 'hidden'} py-3 flex flex-col gap-3 border-[0.1px] border-gray-300 rounded-2xl`}>
             <div className={'px-3 flex items-center justify-between'}>
                 <h3 className={'text-[20px] font-bold'}>Related</h3>
                 <div className={`flex gap-2.5 ${!showButtons && 'hidden'}`}>

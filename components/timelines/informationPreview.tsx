@@ -50,7 +50,7 @@ const InformationPreview = () => {
     }
 
     return (
-        <div onClick={handleClick} onTouchStart={() => setImageHover(false)} className={`${!imageHover && 'cursor-pointer hover:bg-gray-100'} p-3 border-[1px] border-gray-300 rounded-2xl ${timelineType === 'demo' && demoKeyConcept === 'information' && 'outline outline-2 outline-blue-700'}`}>
+        <div onClick={handleClick} onTouchStart={() => setImageHover(false)} className={`${!imageHover && 'cursor-pointer hover:bg-gray-100'} p-3 border-[0.1px] border-gray-300 rounded-2xl ${timelineType === 'demo' && demoKeyConcept === 'information' && 'outline outline-2 outline-blue-700'}`}>
             <div>
                 <div className={'flex items-center gap-2'}>
                     <h2 className={'timelineTitle text-2xl font-bold break-words'}>{timeline.title === '' ? 'New Timeline' : timeline.title}</h2>
