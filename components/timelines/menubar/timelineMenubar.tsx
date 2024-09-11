@@ -24,12 +24,14 @@ const TimelineMenubar = () => {
                 {timelineType === 'new' && <UsernameButton user={session} />}
                 {timelineType === 'demo' && demoKeyConcept !== 'private' && <ContributorsButton contributors={currentTimeline.contributors!}/>}
                 {timelineType === 'demo' && demoKeyConcept === 'private' && <UsernameButton user={{username: 'you', cdnUrl: 'https://cdn.timeline.vg/', imagePath: 'base-image.png'}} />}
-                <div className={'text-gray-400 text-sm'}>{timelineType === 'new' ? `Created: ${formatDate(getTodayDate())}` : `Last Updated: ${currentTimeline.updatedDT}`}</div>
+                <div className={'text-gray-400 text-sm'}>{timelineType === 'new' ? `Created: ${formatDate(getTodayDate())}` : `Last Updated: ${<div>${currentTimeline.updatedDT}</div>}`}</div>
             </div>
-            {timelineType === 'public' && <TimelineMoreButton />}
-            {timelineType === 'private' && <PublishButton />}
-            {timelineType === 'new' && <CreateTimelineButton />}
-            {timelineType === 'demo' && demoKeyConcept === 'private' && <PublishButton />}
+            <div className={'ml-3'}>
+                {timelineType === 'public' && <TimelineMoreButton />}
+                {timelineType === 'private' && <PublishButton />}
+                {timelineType === 'new' && <CreateTimelineButton />}
+                {timelineType === 'demo' && demoKeyConcept === 'private' && <PublishButton />}
+            </div>
         </div>
     )
 }

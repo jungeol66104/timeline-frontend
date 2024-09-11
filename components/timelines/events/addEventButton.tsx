@@ -1,7 +1,7 @@
+import {getSession, getTodayDate} from "@/utils/global";
 import {useDispatch, useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectTimelineType, updateEventContentType, updateModalType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvents, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
-import {getSession, getTodayDate} from "@/utils/global";
 import {selectSession, updateSession} from "@/store/slices/privateSlice";
 
 const AddEventButton = () => {
@@ -21,7 +21,7 @@ const AddEventButton = () => {
         }
         let newEvent = {id: getNewId(), title: '', content: '', date: '', ephemerisTime: 0, isKeynote: 1, timelineInfo: [], createdDt: getTodayDate(), imagePath: "base-image.png", cdnUrl: "https://cdn.timeline.vg/", contributors: {counts: 1, userId: 0, username: 'you', imagePath: "base-image.png", cdnUrl: "https://cdn.timeline.vg/"}}
 
-        if (isSession) {
+        if (isSession || timelineType === 'demo') {
             dispatch(updateCurrentEvent(newEvent))
             dispatch(updateCurrentEventDraft(newEvent))
             dispatch(updateModalType('event'))
