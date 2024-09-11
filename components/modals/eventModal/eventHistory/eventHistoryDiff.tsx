@@ -18,7 +18,7 @@ const EventHistoryDiff = () => {
             </div>
             <hr/>
             <div className={'pt-3 flex flex-col gap-[20px]'}>
-                <p>{currentEvent.description}</p>
+                <p>{currentEvent.content}</p>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                     ullamco laboris nisi ut aliquip <del className={'diff'}>ex ea commodo consequat. Duis aute irure dolor</del> <ins className={'diff'}>in reprehenderit in voluptate velit esse cillum</ins> dolore eu fugiat nulla pariatur. Excepteur sint
