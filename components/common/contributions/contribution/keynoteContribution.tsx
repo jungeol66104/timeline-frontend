@@ -13,7 +13,7 @@ const KeynoteContribution = ({type, contribution}: {type: string, contribution: 
             </div>
             <div>
                 <EventTitleButton contribution={contribution} />
-                <span className={'text-sm'}>{contribution.editHistoryType === 1 ? 'excluded from' : 'included into'} the keynote of </span>
+                <span className={'text-sm'}>{contribution.editHistoryType === 1 ? ' excluded from' : ' included into'} the keynote of </span>
                 <InformationTitleButton contribution={contribution} />
             </div>
             <div className={'mt-3 flex items-center justify-between'}>

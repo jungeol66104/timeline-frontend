@@ -16,9 +16,9 @@ const ContributorsButton = ({contributors} : {contributors: Contributors}) => {
     const timelineType = useSelector(selectTimelineType)
     const modalType = useSelector(selectModalType)
     const demoKeyConcept = useSelector(selectDemoKeyConcept)
-    let currentContributors = useSelector(selectCurrentContributors)
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvent = useSelector(selectCurrentEvent)
+    const currentContributors = useSelector(selectCurrentContributors)
 
     const isBaseImage = getIsBaseImage(imagePath)
 
@@ -28,29 +28,30 @@ const ContributorsButton = ({contributors} : {contributors: Contributors}) => {
         e.stopPropagation()
 
         if (timelineType === 'demo') {
-            currentContributors = [{username: 'you', cdnUrl: 'https://cdn.timeline.vg/', imagePath: 'base-image.png'}]
-            return
+            const newContributors = [{username: 'you', cdnUrl: 'https://cdn.timeline.vg/', imagePath: 'base-image.png'}]
+            dispatch(updateCurrentContributors(newContributors))
+        } else {
+            if (modalType === 'none') {
+                const response = await api.get(`/timeline/${currentTimeline.id}/contributors?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
+                if (response.data.code === 69999) return
+                const data = response.data.data
+
+                dispatch(updateCurrentContributors(data.contributors))
+            } else if (modalType === 'information') {
+                const response = await api.get(`/timeline/${currentTimeline.id}/contributors?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
+                if (response.data.code === 69999) return
+                const data = response.data.data
+
+                dispatch(updateCurrentContributors(data.contributors))
+            } else if (modalType === 'event') {
+                const response = await api.get(`/event/${currentEvent.id}/contributors?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
+                if (response.data.code === 69999) return
+                const data = response.data.data
+
+                dispatch(updateCurrentContributors(data.contributors))
+            }
         }
 
-        if (modalType === 'none') {
-            const response = await api.get(`/timeline/${currentTimeline.id}/contributors?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
-            if (response.data.code === 69999) return
-            const data = response.data.data
-
-            dispatch(updateCurrentContributors(data.contributors))
-        } else if (modalType === 'information') {
-            const response = await api.get(`/timeline/${currentTimeline.id}/contributors?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
-            if (response.data.code === 69999) return
-            const data = response.data.data
-
-            dispatch(updateCurrentContributors(data.contributors))
-        } else if (modalType === 'event') {
-            const response = await api.get(`/event/${currentEvent.id}/contributors?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
-            if (response.data.code === 69999) return
-            const data = response.data.data
-
-            dispatch(updateCurrentContributors(data.contributors))
-        }
         setIsToggle(true)
 
         document.addEventListener('click', function hideMenu (e: MouseEvent) {
@@ -80,7 +81,7 @@ const ContributorsButton = ({contributors} : {contributors: Contributors}) => {
                         return (
                             <Link key={i} href={`/@${username}`} className={`${timelineType === 'demo' && 'pointer-events-none'} p-1.5 w-full flex items-center gap-2 rounded-md hover:bg-gray-100`}>
                                 {isBaseImage && <div className={'w-[25px] h-[25px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[1px] border-white shrink-0'}>{username && username[0].toUpperCase()}</div>}
-                                {!isBaseImage && <div className={'overflow-hidden relative w-[25px] h-[25px] rounded-full border-[1px] border-white shrink-0'}><Image src={cdnUrl + imagePath} alt={username} fill priority style={{objectFit: "cover", objectPosition: "top"}}/></div>}
+                                {!isBaseImage && <div className={'overflow-hidden relative w-[25px] h-[25px] rounded-full border-[1px] border-white shrink-0'}><Image className={'rounded-full'} src={cdnUrl + imagePath} alt={username} fill priority style={{objectFit: "cover", objectPosition: "top"}}/></div>}
                                 <div className={'text-sm font-medium'}>{username}</div>
                             </Link>
                         )

@@ -14,7 +14,7 @@ const AttachmentContribution = ({type, contribution}: {type: string, contributio
             </div>
             <div>
                 <EventTitleButton contribution={contribution} />
-                <span className={'text-sm'}>{contribution.editHistoryType === 3 ? 'detached from' : 'attached to'} </span>
+                <span className={'text-sm'}>{contribution.editHistoryType === 3 ? ' detached from' : ' attached to'} </span>
                 <InformationTitleButton contribution={contribution} />
             </div>
             <div className={'mt-3 flex items-center justify-between'}>

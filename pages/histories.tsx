@@ -10,6 +10,7 @@ import AdsTimelineTop from "@/components/ads/adsTimelineTop";
 import KeynoteContribution from "@/components/common/contributions/contribution/keynoteContribution";
 import AttachmentContribution from "@/components/common/contributions/contribution/attachmentContribution";
 import TimelineContribution from "@/components/common/contributions/contribution/timelineContribution";
+import useOperateHistories from "@/hooks/useOperateHistories";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async () => {
     try {
@@ -19,7 +20,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 
         store.dispatch(updateCurrentPageContributions(data.histories))
         store.dispatch(updateTotalPage(data.totalPage))
-        store.dispatch(updateIsBottomEnd(data.totalPage === 1))
+        store.dispatch(updateIsBottomEnd(data.totalPage <= 1))
         return {props: {}}
     } catch (error) {
         console.error('Error fetching initial data during SSR: ', error);
@@ -31,6 +32,8 @@ const HistoriesPage = () => {
     const isBottomEnd = useSelector(selectIsBottomEnd)
     const currentPageContributions = useSelector(selectCurrentPageContributions);
 
+    useOperateHistories()
+
     return (
         <>
             <DynamicHead type={'histories'}/>
@@ -39,8 +42,8 @@ const HistoriesPage = () => {
                 <hr/>
                 <div className={'pageWrapper relative w-full flex'}>
                     {/* Section Primary */}
-                    <div className={'relative h-fit w-full max-w-[630px] px-4 py-10 flex flex-col gap-10 text-lg font-medium'}>
-                        <h1 className={'text-6xl  max-[450px]:text-5xl font-bold'}>Histories</h1>
+                    <div className={'relative h-fit w-full max-w-[630px] px-4 pt-10 flex flex-col gap-10 text-lg font-medium'}>
+                        <h1 className={'text-6xl max-[450px]:text-5xl font-bold'}>Histories</h1>
                             <div>
                                 <hr/>
                                 <div className={'w-full'}>
@@ -61,8 +64,8 @@ const HistoriesPage = () => {
                                         }
                                     })}
                                 </div>
-                                <div className={'w-full mt-2.5 h-[60px] shrink-0 flex justify-center items-center'}>
-                                    <div className={`${isBottomEnd && 'hidden'} text-sm text-center italic pb-[10px]`}>End of the Page<br/><b>{'Histories'.charAt(0).toUpperCase() + 'Histories'.slice(1)}</b></div>
+                                <div className={`${!isBottomEnd && 'invisible'} w-full mt-2.5 h-[70px] shrink-0 flex justify-center items-center`}>
+                                    <div className={`text-sm text-center italic pb-[10px]`}>End of the Page<br/><b>{'Histories'.charAt(0).toUpperCase() + 'Histories'.slice(1)}</b></div>
                                 </div>
                         </div>
                     </div>

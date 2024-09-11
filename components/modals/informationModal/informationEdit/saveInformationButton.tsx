@@ -2,12 +2,10 @@ import axios from "axios";
 import React from 'react';
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
-import {selectTimelineType, updateInformationContentType, updatePopupType} from "@/store/slices/appearanceSlice";
+import {selectTimelineType, updateEventContentType, updateInformationContentType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimelineDraft, updateCurrentTimeline} from "@/store/slices/contentsSlice";
 
 const SaveInformationButton = () => {
-    const router = useRouter()
-
     const dispatch = useDispatch()
     const timelineType = useSelector(selectTimelineType)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft);
@@ -35,6 +33,7 @@ const SaveInformationButton = () => {
             } catch (error) {console.error('Error creating event: ', error)}
         } else {
             dispatch(updateCurrentTimeline(currentTimelineDraft))
+            if (timelineType !== 'new') dispatch(updateInformationContentType('view'))
         }
     }
 

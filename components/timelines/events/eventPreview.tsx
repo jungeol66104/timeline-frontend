@@ -28,7 +28,7 @@ const EventPreview = ({event} : {event: Event}) => {
             }
 
             const image = new Image();
-            image.src = newEvent.cdnUrl + newEvent.imagePath;
+            image.src = timelineType === 'demo' && !isBaseImage ? newEvent.imagePath : newEvent.cdnUrl + newEvent.imagePath
 
             image.onload = () => {
                 newEvent.imageSize = {width: image.width, height: image.height}
