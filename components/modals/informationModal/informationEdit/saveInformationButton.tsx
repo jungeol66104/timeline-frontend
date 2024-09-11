@@ -1,10 +1,13 @@
 import axios from "axios";
 import React from 'react';
+import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
-import {selectTimelineType, updateInformationContentType} from "@/store/slices/appearanceSlice";
+import {selectTimelineType, updateInformationContentType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimelineDraft, updateCurrentTimeline} from "@/store/slices/contentsSlice";
 
 const SaveInformationButton = () => {
+    const router = useRouter()
+
     const dispatch = useDispatch()
     const timelineType = useSelector(selectTimelineType)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft);
@@ -12,7 +15,7 @@ const SaveInformationButton = () => {
     const handleSave = async () => {
         if (timelineType === 'private' || timelineType === 'public') {
             const body = {
-                "isPrivate": timelineType === 'private' ? 1 : 0,
+                "isPrivate": timelineType === 'public' ? 0 : 1,
                 "timelineId": currentTimelineDraft.id,
                 "revisionNo": currentTimelineDraft.revisionNo,
                 "title": currentTimelineDraft.title,
@@ -23,18 +26,13 @@ const SaveInformationButton = () => {
             }
 
             try {
-                console.log(body)
                 const response = await axios.put('/api/wiki/timeline/update', body);
-                console.log(response.data)
-                if (response.data.code === 69999) return
-                if (response.data.code === 70001) return
-
-                dispatch(updateCurrentTimeline(currentTimelineDraft))
-                dispatch(updateInformationContentType('view'))
-            } catch (error) {
-                console.error('Error creating event: ', error)
-                return
-            }
+                if (response.status === 200) {
+                    if (response.data.code === 69999) return
+                    dispatch(updateCurrentTimeline(currentTimelineDraft))
+                    dispatch(updateInformationContentType('view'))
+                }
+            } catch (error) {console.error('Error creating event: ', error)}
         } else {
             dispatch(updateCurrentTimeline(currentTimelineDraft))
         }

@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import api from "@/pages/api/api";
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method !== 'POST') {
@@ -15,7 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         const response = await api.post('/wiki/timeline', req.body, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
-        const data = response.data.data;
+        const data = response.data;
 
         res.status(200).json(data);
     } catch (error) {

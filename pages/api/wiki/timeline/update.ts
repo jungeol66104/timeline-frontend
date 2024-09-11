@@ -14,10 +14,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     try {
-        console.log(req.body)
         const response = await api.put('/wiki/timeline/content', req.body, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
-        const data = response.data.data;
-        console.log(response.data)
+        const data = response.data;
 
         res.status(200).json(data);
     } catch (error) {

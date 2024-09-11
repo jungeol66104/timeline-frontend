@@ -1,9 +1,13 @@
+import axios from "axios";
 import React from 'react';
+import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import {selectErrorType, selectTimelineType, updateEventContentType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, updateCurrentEvent, updateCurrentEvents} from "@/store/slices/contentsSlice";
 
 const CreateEventButton = () => {
+    const router = useRouter()
+
     const dispatch = useDispatch();
     const timelineType = useSelector(selectTimelineType)
     const errorType = useSelector(selectErrorType)
@@ -19,7 +23,8 @@ const CreateEventButton = () => {
 
         if (timelineType === 'private' || timelineType === 'public') {
             const body = {
-                "isPrivate": timelineType === 'private' ? 1 : 0,
+                // EXTREMELY IMPORTANT
+                "isPrivate": timelineType === 'public' ? 0 : 1,
                 "timelineId": currentTimeline.id,
                 "date": currentEventDraft.date,
                 "ephemerisTime": currentEventDraft.ephemerisTime,
@@ -31,18 +36,21 @@ const CreateEventButton = () => {
             }
 
             try {
-                // const response = await axios.post('/api/wiki/event/create-event', body);
-            } catch (error) {
-                console.error('Error creating event: ', error)
-                return
-            }
+                const response = await axios.post('/api/wiki/event/create', body);
+                if (response.status === 200) {
+                    console.log(response.data)
+                    if (response.data.code === 69999) return
+                    router.push(`/timelines/${currentTimeline.id}`)
+                }
+            } catch (error) {console.error('Error creating event: ', error)}
+        } else {
+            const events = [...currentEvents, currentEventDraft]
+            events.sort((a, b) => Number(a.ephemerisTime) - Number(b.ephemerisTime))
+            dispatch(updateCurrentEvent(currentEventDraft));
+            dispatch(updateCurrentEvents(events))
+            if (timelineType !== 'new') dispatch(updateEventContentType('view'))
         }
 
-        const events = [...currentEvents, currentEventDraft]
-        events.sort((a, b) => Number(a.ephemerisTime) - Number(b.ephemerisTime))
-        dispatch(updateCurrentEvent(currentEventDraft));
-        dispatch(updateCurrentEvents(events))
-        if (timelineType !== 'new') dispatch(updateEventContentType('view'))
     }
 
     return (
