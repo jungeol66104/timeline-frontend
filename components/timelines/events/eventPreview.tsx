@@ -3,7 +3,7 @@ import api from "@/pages/api/api";
 import axios from "axios";
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectDemoKeyConcept, selectTimelineType, updateIsBottomEnd, updateModalType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectTimelineType, updateModalType} from "@/store/slices/appearanceSlice";
 import {Event, selectCurrentTimeline, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import EventPreviewImage from "@/components/timelines/events/eventPreviewImage";
 
@@ -19,14 +19,13 @@ const EventPreview = ({event} : {event: Event}) => {
         try {
             let newEvent: any;
             if (timelineType === 'new' || timelineType === 'demo') newEvent = {...event}
-            else if (timelineType === 'private') {
-                const response = await axios.get(`/api/user/event/fetch?timelineId=${currentTimeline.id}&eventId=${event.id}`)
-                newEvent = response.data
-            } else if (timelineType === 'public') {
+            else if (timelineType === 'public') {
                 const response = await api.get(`/event/${Number(event.id)}`, {headers: {lang: 'en'}})
                 newEvent = response.data.data
+            } else if (timelineType === 'private') {
+                const response = await axios.get(`/api/user/event/fetch?timelineId=${currentTimeline.id}&eventId=${event.id}`)
+                newEvent = response.data.data
             }
-
             const image = new Image();
             image.src = timelineType === 'demo' && !isBaseImage ? newEvent.imagePath : newEvent.cdnUrl + newEvent.imagePath
 

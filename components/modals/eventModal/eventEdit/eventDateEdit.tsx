@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectErrorType, selectEventContentType, selectModalType, updateErrorType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 import DateGuideButton from "@/components/modals/eventModal/dateGuideButton";
+import axios from "axios";
 
 const EventDateEdit = () => {
     const dispatch = useDispatch()
@@ -67,12 +68,11 @@ const EventDateEdit = () => {
         const initializeSpice = async () => {
             try {
                 const spiceInstance = await new Spice().init();
-                const kernelBuffer = await fetch("../kernels/naif0012.tls").then((res) => res.arrayBuffer())
+                const response = await axios("/kernels/naif0012.tls", {responseType: 'arraybuffer'})
+                const kernelBuffer = response.data
                 spiceInstance.loadKernel(kernelBuffer);
                 setSpiceInstance(spiceInstance);
-            } catch (error) {
-                console.error('Error initializing Spice:', error);
-            }
+            } catch (error) {console.error('Error initializing Spice:', error);}
         };
         initializeSpice()
     },[]);

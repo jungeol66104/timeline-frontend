@@ -39,9 +39,25 @@ const AddImageButton = () => {
                         if (timelineType === 'new') {
                             dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath, imageSize}))
                         } else {
-                            // save timeline to the db
-                            dispatch(updateCurrentTimeline({...currentTimeline, imagePath, imageSize}))
-                            dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath, imageSize}))
+                            const body = {
+                                "isPrivate": timelineType === 'public' ? 0 : 1,
+                                "timelineId": currentTimelineDraft.id,
+                                "revisionNo": currentTimelineDraft.revisionNo,
+                                "title": currentTimelineDraft.title,
+                                "description": currentTimelineDraft.description,
+                                "content": currentTimelineDraft.content,
+                                "imagePath": imagePath,
+                                "note": ""
+                            }
+
+                            try {
+                                const response = await axios.put('/api/wiki/timeline/update', body);
+                                if (response.status === 200) {
+                                    if (response.data.code === 69999) return
+                                    dispatch(updateCurrentTimeline({...currentTimeline, imagePath, imageSize}))
+                                    dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath, imageSize}))
+                                }
+                            } catch (error) {console.error('Error creating event: ', error)}
                         }
                     } else if (modalType === 'information') {
                         dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath, imageSize}))

@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import api from "@/pages/api/api";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method !== 'POST') {
+    if (req.method !== 'PUT') {
         res.status(405).json({ message: 'Method Not Allowed' });
         return;
     }
@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     try {
-        const response = await api.post('/wiki/timeline/attach', req.body, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+        const response = await api.put('/wiki/timeline/attach', req.body, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
         const data = response.data;
 
         res.status(200).json(data);

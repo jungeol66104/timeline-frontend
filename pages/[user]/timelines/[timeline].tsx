@@ -17,7 +17,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
             const response = await api.get(`/user/timeline/${Number(timeline)}`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}})
             if (response.data.code === 69999) return { notFound: true }
             const data = response.data.data
-            let newTimeline = {id:timeline, title: data.title, description:data.description, content: data.content, updateDT: data.updatedDT, imagePath: data.imagePath, cdnUrl: data.cdnUrl, imageSize: {}}
+            let newTimeline = {id:Number(timeline), title: data.title, description:data.description, content: data.content, updatedDT: data.updatedDT, imagePath: data.imagePath, cdnUrl: data.cdnUrl, imageSize: {}}
             newTimeline.imageSize = await probe(newTimeline.cdnUrl + newTimeline.imagePath)
 
             store.dispatch(updateCurrentEvents(data.privateEventList))

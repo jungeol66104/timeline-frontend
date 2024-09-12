@@ -1,10 +1,11 @@
 import api from "@/pages/api/api";
+import axios from "axios";
+import {getIsBaseImage} from "@/utils/global";
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import {selectDemoKeyConcept, selectTimelineType, updateModalType} from "@/store/slices/appearanceSlice";
 import InformationPreviewImage from "@/components/timelines/informationPreviewImage";
-import {getIsBaseImage} from "@/utils/global";
 
 const InformationPreview = () => {
     const dispatch = useDispatch();
@@ -26,7 +27,8 @@ const InformationPreview = () => {
                 if (response.data.code === 69999) return
                 newTimeline = response.data.data
             } else if (timelineType === 'private') {
-
+                const response = await axios.get(`/api/user/information/fetch?timelineId=${currentTimeline.id}`)
+                newTimeline = response.data.data
             }
 
             const image = new Image();
@@ -38,7 +40,6 @@ const InformationPreview = () => {
                 dispatch(updateCurrentTimelineDraft(newTimeline))
                 dispatch(updateModalType('information'))
             };
-
         } catch (error) {console.error('Error fetching data in useEffect: ', error)}
     }
 

@@ -8,7 +8,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(200).json({});
             return
         }
-        const response = await api.get(`/user/event/${req.query.eventId}?timelineId=${req.query.timelineId}`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+        const response = await api.get(`/user/timeline/${req.query.timelineId}/content`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
         const data = response.data
 
         res.status(200).json(data);

@@ -1,16 +1,18 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentEventDraft, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
+import {selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const KeynoteButton = () => {
     const dispatch = useDispatch();
+    const timelineType = useSelector(selectTimelineType)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
     const handleClick = () => {
         const targetKeynote = currentEventDraft.isKeynote === 0 ? 1 : 0;
 
         dispatch(updateCurrentEventDraft({...currentEventDraft, isKeynote: targetKeynote}));
-        dispatch(updateEventInCurrentEvents({...currentEventDraft, isKeynote: targetKeynote}))
+        if (timelineType === 'new') dispatch(updateEventInCurrentEvents({...currentEventDraft, isKeynote: targetKeynote}))
     }
 
     return (

@@ -1,13 +1,10 @@
 import axios from "axios";
 import React from 'react';
-import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import {selectErrorType, selectTimelineType, updateEventContentType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, updateCurrentEvent, updateCurrentEvents} from "@/store/slices/contentsSlice";
 
 const SaveEventButton = () => {
-    const router = useRouter()
-
     const dispatch = useDispatch()
     const timelineType = useSelector(selectTimelineType)
     const errorType = useSelector(selectErrorType)
@@ -22,7 +19,7 @@ const SaveEventButton = () => {
         }
 
         if (timelineType === 'private' || timelineType === 'public') {
-            const body = {
+            const updateBody = {
                 "isPrivate": timelineType === 'public' ? 0 : 1,
                 "timelineId": currentTimeline.id,
                 "eventId": currentEventDraft.id,
@@ -34,11 +31,21 @@ const SaveEventButton = () => {
                 "imagePath": currentEventDraft.imagePath,
                 "note": "",
             }
+            const keynoteBody = {
+                "isPrivate": timelineType === 'public' ? 0 : 1,
+                "eventId": currentEventDraft.id,
+                "timelineId": currentTimeline.id,
+                "isKeynote": currentEventDraft.isKeynote,
+                "note": ""
+            }
 
             try {
-                const response = await axios.put('/api/wiki/event/update', body);
-                if (response.status === 200) {
-                    if (response.data.code === 69999) return
+                const updateResponse = await axios.put('/api/wiki/event/update', updateBody);
+                const keynoteResponse = await axios.put('/api/wiki/keynote', keynoteBody)
+                if (updateResponse.status === 200 || keynoteResponse.status === 200) {
+                    console.log(keynoteBody)
+                    console.log(keynoteResponse.data)
+                    if (updateResponse.data.code === 69999 || keynoteResponse.data.code === 69999) return
                     let events = currentEvents.filter((event) => event.id !== currentEventDraft.id)
                     events = [...events, currentEventDraft]
                     events.sort((a, b) => Number(a.ephemerisTime) - Number(b.ephemerisTime))

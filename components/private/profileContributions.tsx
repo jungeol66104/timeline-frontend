@@ -17,16 +17,16 @@ const ProfileContributions = () => {
                 switch (contribution.editHistoryType) {
                     case 1:
                     case 2:
-                        return <KeynoteContribution type={'histories'} contribution={contribution}/>
+                        return <KeynoteContribution key={contribution.id} type={'histories'} contribution={contribution}/>
                     case 3:
                     case 4:
-                        return <AttachmentContribution type={'histories'} contribution={contribution}/>
+                        return <AttachmentContribution key={contribution.id} type={'histories'} contribution={contribution}/>
                     case 5:
                     case 7:
-                        return <TimelineContribution type={'histories'} contribution={contribution}/>
+                        return <TimelineContribution key={contribution.id} type={'histories'} contribution={contribution}/>
                     case 6:
                     case 8:
-                        return <EventContribution type={'histories'} contribution={contribution}/>
+                        return <EventContribution key={contribution.id} type={'histories'} contribution={contribution}/>
                 }
             })}
             {isEmptyContributions &&

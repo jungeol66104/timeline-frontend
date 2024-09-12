@@ -22,10 +22,9 @@ const DetachButton = () => {
                 "attachValue": 0,
                 "note": ""
             }
-            console.log(body)
 
             try {
-                const response = await axios.post('/api/wiki/attachment', body);
+                const response = await axios.put('/api/wiki/attachment', body);
                 if (response.status === 200) {
                     if (response.data.code === 69999) return
                     const newCurrentEvents = currentEvents.filter((event) => event.id !== currentEventDraft.id)

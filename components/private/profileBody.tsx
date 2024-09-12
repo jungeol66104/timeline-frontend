@@ -2,11 +2,12 @@ import axios from "axios";
 import React from 'react';
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
-import {updateCurrentModalContributions, updateCurrentPageContributions, updateCurrentTimelines} from "@/store/slices/contentsSlice";
+import {updateCurrentPageContributions, updateCurrentTimelines} from "@/store/slices/contentsSlice";
 import {selectIsSession, selectProfileType, selectSession, updateProfileType} from "@/store/slices/privateSlice";
 import ProfileMyTimelines from "@/components/private/profileMyTimelines";
 import ProfileContributions from "@/components/private/profileContributions";
 import CollectionBottom from "@/components/private/collectionBottom";
+import {updateCurrentPage, updateIsBottomEnd, updateTotalPage} from "@/store/slices/appearanceSlice";
 
 const ProfileBody = () => {
     const router = useRouter()
@@ -23,18 +24,11 @@ const ProfileBody = () => {
             const response = await axios.get(`/api/user/profile?type=${type}&user=${query}`)
             const data = response.data
 
-            if (type === 0) {
-                let contributions = [...data.aboutPageInfoList]
-                contributions.forEach((contribution: any) => {
-                    const { cdnUrl, imagePath } = {...contribution}.userInfo
-
-                    contribution.userInfo.cdnUrl = imagePath
-                    contribution.userInfo.imagePath = cdnUrl
-                })
-
-                dispatch(updateCurrentPageContributions(contributions))
-            }
+            if (type === 0) dispatch(updateCurrentPageContributions(data.aboutPageInfoList))
             else dispatch(updateCurrentTimelines(data.aboutPageInfoList))
+            dispatch(updateCurrentPage(1))
+            dispatch(updateTotalPage(data.totalPage))
+            dispatch(updateIsBottomEnd(data.totalPage <= 1))
             dispatch(updateProfileType(typeString))
         } catch (error) {console.error('', error)}
     }

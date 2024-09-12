@@ -16,9 +16,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const type = Number(req.query.type)
         const user = req.query.user
+        const pageNum = Number(req.query.pageNum) || 1
+
         let data;
         if (type === 0) {
-            const response = await api.get(`/user/${user}/contribution?pageNum=1&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+            const response = await api.get(`/user/${user}/contribution?pageNum=${pageNum}&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
             data = response.data.data
         } else {
             const response = await api.get(`/user/timeline?pageNum=1&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});

@@ -1,13 +1,10 @@
 import axios from "axios";
 import React from 'react';
-import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import {selectErrorType, selectTimelineType, updateEventContentType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, updateCurrentEvent, updateCurrentEvents} from "@/store/slices/contentsSlice";
 
 const CreateEventButton = () => {
-    const router = useRouter()
-
     const dispatch = useDispatch();
     const timelineType = useSelector(selectTimelineType)
     const errorType = useSelector(selectErrorType)
@@ -22,7 +19,7 @@ const CreateEventButton = () => {
         }
 
         if (timelineType === 'private' || timelineType === 'public') {
-            const body = {
+            const createBody = {
                 // EXTREMELY IMPORTANT
                 "isPrivate": timelineType === 'public' ? 0 : 1,
                 "timelineId": currentTimeline.id,
@@ -36,11 +33,14 @@ const CreateEventButton = () => {
             }
 
             try {
-                const response = await axios.post('/api/wiki/event/create', body);
+                const response = await axios.post('/api/wiki/event/create', createBody);
                 if (response.status === 200) {
-                    console.log(response.data)
                     if (response.data.code === 69999) return
-                    router.push(`/timelines/${currentTimeline.id}`)
+                    const events = [...currentEvents, {...currentEventDraft, id: response.data.data.id}]
+                    events.sort((a, b) => Number(a.ephemerisTime) - Number(b.ephemerisTime))
+                    dispatch(updateCurrentEvent(currentEventDraft));
+                    dispatch(updateCurrentEvents(events))
+                    dispatch(updateEventContentType('view'))
                 }
             } catch (error) {console.error('Error creating event: ', error)}
         } else {
@@ -50,7 +50,6 @@ const CreateEventButton = () => {
             dispatch(updateCurrentEvents(events))
             if (timelineType !== 'new') dispatch(updateEventContentType('view'))
         }
-
     }
 
     return (

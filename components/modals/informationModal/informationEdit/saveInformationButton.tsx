@@ -1,8 +1,7 @@
 import axios from "axios";
 import React from 'react';
-import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
-import {selectTimelineType, updateEventContentType, updateInformationContentType, updatePopupType} from "@/store/slices/appearanceSlice";
+import {selectTimelineType, updateInformationContentType} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimelineDraft, updateCurrentTimeline} from "@/store/slices/contentsSlice";
 
 const SaveInformationButton = () => {

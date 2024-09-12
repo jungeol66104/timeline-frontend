@@ -65,7 +65,7 @@ const HistoriesPage = () => {
                                     })}
                                 </div>
                                 <div className={`${!isBottomEnd && 'invisible'} w-full mt-2.5 h-[70px] shrink-0 flex justify-center items-center`}>
-                                    <div className={`text-sm text-center italic pb-[10px]`}>End of the Page<br/><b>{'Histories'.charAt(0).toUpperCase() + 'Histories'.slice(1)}</b></div>
+                                    <div className={`text-sm font-normal text-center italic pb-[10px]`}>End of the Page<br/><b>{'Histories'.charAt(0).toUpperCase() + 'Histories'.slice(1)}</b></div>
                                 </div>
                         </div>
                     </div>

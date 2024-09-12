@@ -7,6 +7,7 @@ import {updateProfile, updateProfileDraft, updateSession} from "@/store/slices/p
 import DynamicHead from "@/components/dynamicHead";
 import ProfileSectionPrimary from "@/components/private/profileSectionPrimary";
 import ProfileSectionSecondary from "@/components/private/profileSectionSecondary";
+import useOperateProfile from "@/hooks/useOperateProfile";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params, req}) => {
     try {
@@ -26,17 +27,9 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
         if (response.data.code === 69999) return { notFound: true }
         const data = response.data.data
 
-        let contributions = [...data.aboutPageInfoList]
-        contributions.forEach((contribution: any) => {
-            const { cdnUrl, imagePath } = {...contribution}.userInfo
-
-            contribution.userInfo.cdnUrl = imagePath
-            contribution.userInfo.imagePath = cdnUrl
-        })
-
         store.dispatch(updateProfile({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
         store.dispatch(updateProfileDraft({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
-        store.dispatch(updateCurrentPageContributions(contributions))
+        store.dispatch(updateCurrentPageContributions(data.aboutPageInfoList))
         store.dispatch(updateTotalPage(data.totalPage))
         store.dispatch(updateIsBottomEnd(data.totalPage <= 1))
 
@@ -48,6 +41,8 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 })
 
 const ProfilePage = () => {
+    useOperateProfile()
+
     return (
         <>
             <DynamicHead type={'index'}/>
