@@ -9,6 +9,8 @@ import DateGuidePopup from "@/components/layout/popups/dateGuidePopup";
 import DateErrorPopup from "@/components/layout/popups/dateErrorPopup";
 import ProfileSettingsPopup from "@/components/layout/popups/settings/profileSettingsPopup";
 import DeleteAccountPopup from "@/components/layout/popups/deleteAccountPopup";
+import DetachEventPopup from "@/components/layout/popups/detachEventPopup";
+import TitleErrorPopup from "@/components/layout/popups/titleErrorPopup";
 
 const Popups = () => {
     const popupType = useSelector(selectPopupType)
@@ -21,8 +23,10 @@ const Popups = () => {
             {popupType === 'publish' && <PublishPopup />}
             {popupType === 'dateGuide' && <DateGuidePopup />}
             {popupType === 'dateError' && <DateErrorPopup />}
+            {popupType === 'titleError' && <TitleErrorPopup />}
             {popupType === 'settings' && <ProfileSettingsPopup />}
             {popupType === 'deleteAccount' && <DeleteAccountPopup />}
+            {popupType === 'detachEvent' && <DetachEventPopup />}
         </>
     );
 };

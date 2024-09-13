@@ -15,7 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         const response = await api.delete('/user', {headers: {lang: 'en', Authorization: `Bearer ${jwt}`,}, data: req.body});
-        const data = response.data.data;
+        const data = response.data;
 
         res.status(200).json(data);
     } catch (error) {

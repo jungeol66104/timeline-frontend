@@ -1,12 +1,13 @@
-import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import Placeholder from "@tiptap/extension-placeholder";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectEventContentType, selectModalType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 import EventModalEditMenubar from "@/components/modals/eventModal/eventEdit/eventModalEditMenubar";
 import EventModalImage from "@/components/modals/eventModal/eventView/eventModalImage";
+
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import Placeholder from "@tiptap/extension-placeholder";
 
 const EventModalEdit = () => {
     const dispatch = useDispatch()
@@ -21,10 +22,10 @@ const EventModalEdit = () => {
         extensions: [StarterKit, Placeholder.configure({placeholder: 'New event content'})],
         editorProps: {attributes: {class: 'w-full outline-none'}},
         onUpdate: ({ editor }) => {
-            dispatch(updateCurrentEventDraft({...currentEventDraft, content: editor.getText()}))
-            if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({...currentEventDraft, content: editor.getText()}))
+            dispatch(updateCurrentEventDraft({...currentEventDraft, content: editor.getHTML()}))
+            if (eventContentType === 'new' && isCreated) dispatch(updateEventInCurrentEvents({...currentEventDraft, content: editor.getHTML()}))
         },
-        content: `<p>${currentEventDraft.content}</p>`,
+        content: `${currentEventDraft.content}`,
     }, [modalType])
 
     return (

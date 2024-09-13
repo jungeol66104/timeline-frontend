@@ -115,10 +115,19 @@ export const getIsTimelinePath = (path: string) => {
 
 export const getSession = async () => {
     try {
-        const response = await axios.get('http://localhost:3000/api/user/session')
+        const response = await axios.get('/api/user/session')
         return response.data
     } catch (error) {
         console.error('Error fetching data in useEffect: ', error)
         return
     }
+}
+
+export const wrapPTag = (string: string) => {
+    const isWrapped = /^<p>.*<\/p>$/.test(string);
+    return isWrapped ? string : `<p>${string}</p>`
+}
+
+export const unwrapPTag = (string: string) => {
+    return string.replace(/^<p>(.*)<\/p>$/, '$1');
 }

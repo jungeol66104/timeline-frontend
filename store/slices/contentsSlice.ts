@@ -136,6 +136,7 @@ export interface Timeline {
     revisionNo?: number
     createdDT?: string
     updatedDT?: string
+    informationUpdatedDT?: string
 }
 
 export interface Event {

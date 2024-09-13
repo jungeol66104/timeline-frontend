@@ -1,4 +1,3 @@
-import {getIsBaseImage} from "@/utils/global";
 import React from 'react';
 import Image from "next/image";
 import {useSelector} from "react-redux";
@@ -8,6 +7,7 @@ import UsernameSetting from "@/components/layout/popups/settings/usernameSetting
 import DeleteAccountButton from "@/components/layout/popups/settings/deleteAccountButton";
 import AddProfileImageButton from "@/components/layout/popups/settings/addProfileImageButton";
 import ProfileImageEditButton from "@/components/layout/popups/settings/profileImageEditButton";
+import {getIsBaseImage} from "@/utils/global";
 
 const ProfileSettingsPopup = () => {
     const profileDraft = useSelector(selectProfileDraft)

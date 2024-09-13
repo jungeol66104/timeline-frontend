@@ -13,8 +13,11 @@ const CreateEventButton = () => {
     const currentEventDraft = useSelector(selectCurrentEventDraft);
 
     const handleClick = async () => {
-        if (errorType === 'date') {
+        if (errorType === 'date' || currentEventDraft.date === '') {
             dispatch(updatePopupType('dateError'))
+            return
+        } else if (currentEventDraft.title === '') {
+            dispatch(updatePopupType('titleError'))
             return
         }
 

@@ -1,11 +1,12 @@
-import {getIsBaseImage} from "@/utils/global";
-import api from "@/pages/api/api";
-import axios from "axios";
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectTimelineType, updateModalType} from "@/store/slices/appearanceSlice";
 import {Event, selectCurrentTimeline, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import EventPreviewImage from "@/components/timelines/events/eventPreviewImage";
+
+import axios from "axios";
+import api from "@/pages/api/api";
+import {getIsBaseImage, unwrapPTag, wrapPTag} from "@/utils/global";
 
 const EventPreview = ({event} : {event: Event}) => {
     const dispatch = useDispatch()
@@ -18,12 +19,15 @@ const EventPreview = ({event} : {event: Event}) => {
     const handleClick = async () => {
         try {
             let newEvent: any;
-            if (timelineType === 'new' || timelineType === 'demo') newEvent = {...event}
-            else if (timelineType === 'public') {
+            if (timelineType === 'new' || timelineType === 'demo') {
+                newEvent = {...event}
+            } else if (timelineType === 'public') {
                 const response = await api.get(`/event/${Number(event.id)}`, {headers: {lang: 'en'}})
+                if (response.data.code === 69999) return
                 newEvent = response.data.data
             } else if (timelineType === 'private') {
                 const response = await axios.get(`/api/user/event/fetch?timelineId=${currentTimeline.id}&eventId=${event.id}`)
+                if (response.data.code === 69999) return
                 newEvent = response.data.data
             }
             const image = new Image();
@@ -31,6 +35,7 @@ const EventPreview = ({event} : {event: Event}) => {
 
             image.onload = () => {
                 newEvent.imageSize = {width: image.width, height: image.height}
+                newEvent.content = wrapPTag(newEvent.content)
                 dispatch(updateCurrentEvent(newEvent))
                 dispatch(updateCurrentEventDraft(newEvent))
                 dispatch(updateModalType('event'))
@@ -46,7 +51,7 @@ const EventPreview = ({event} : {event: Event}) => {
                 <div className={'text-md font-bold break-words'}>{event.title}</div>
                 <div>
                     {!isBaseImage && <EventPreviewImage event={event}/>}
-                    <div className={`text-sm whitespace-pre-wrap break-words ${isBaseImage ? 'line-clamp-3' : 'line-clamp-4'}`}>{event.content}</div>
+                    <div className={`text-sm whitespace-pre-wrap break-words ${isBaseImage ? 'line-clamp-3' : 'line-clamp-4'}`}>{unwrapPTag(event.content)}</div>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectTimelineType} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {selectSession} from "@/store/slices/privateSlice";
 import UsernameButton from "@/components/common/usernameButton";
@@ -25,7 +25,7 @@ const InformationModalMenubar = () => {
                 {(timelineType === 'public' || timelineType === 'private') &&
                     <div className={'flex flex-col text-gray-400 text-xs'}>
                         <div>Last Updated:</div>
-                        <div>{currentTimeline.updatedDT}</div>
+                        <div>{currentTimeline.informationUpdatedDT}</div>
                     </div>
                 }
             </div>

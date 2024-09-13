@@ -6,6 +6,7 @@ import DynamicHead from "@/components/dynamicHead";
 import AdsTimelineTop from "@/components/ads/adsTimelineTop";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
+import {wrapPTag} from "@/utils/global";
 
 export const getStaticPaths = async () => {return {paths: [], fallback: 'blocking'}}
 
@@ -15,6 +16,9 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         if (response.data.code === 69999) return { notFound: true }
         const data = response.data.data
         data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + data.timelineInfo.imagePath)
+        // test
+        data.timelineInfo.content = wrapPTag(data.timelineInfo.content)
+        data.events = data.events.map((event: any) => ({...event, content: wrapPTag(event.content)}))
 
         store.dispatch(updateCurrentEvents(data.events))
         store.dispatch(updateCurrentTimeline(data.timelineInfo))

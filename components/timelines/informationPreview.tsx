@@ -1,11 +1,12 @@
-import api from "@/pages/api/api";
-import axios from "axios";
-import {getIsBaseImage} from "@/utils/global";
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import {selectDemoKeyConcept, selectTimelineType, updateModalType} from "@/store/slices/appearanceSlice";
+import {selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import InformationPreviewImage from "@/components/timelines/informationPreviewImage";
+
+import axios from "axios";
+import api from "@/pages/api/api";
+import {getIsBaseImage, unwrapPTag, wrapPTag} from "@/utils/global";
 
 const InformationPreview = () => {
     const dispatch = useDispatch();
@@ -13,45 +14,48 @@ const InformationPreview = () => {
     const demoKeyConcept = useSelector(selectDemoKeyConcept);
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
-    const [imageHover, setImageHover] = useState(false);
 
+    const [imageHover, setImageHover] = useState(false);
     const timeline = timelineType === 'new' ? currentTimelineDraft : currentTimeline;
 
-    const handleClick = async () => {
+    const handlePreviewClick = async () => {
         try {
-            let newTimeline: any;
+            let newInformation: any
             if (timelineType === 'new' || timelineType === 'demo') {
-                newTimeline = {...timeline}
+                newInformation = {...timeline}
             } else if (timelineType === 'public') {
                 const response = await api.get(`/timeline/${currentTimeline.id}/content`, {headers: {lang: 'en'}})
                 if (response.data.code === 69999) return
-                newTimeline = response.data.data
+                newInformation = response.data.data
             } else if (timelineType === 'private') {
                 const response = await axios.get(`/api/user/information/fetch?timelineId=${currentTimeline.id}`)
-                newTimeline = response.data.data
+                if (response.data.code === 69999) return
+                newInformation = response.data.data
             }
 
             const image = new Image();
-            image.src = timelineType === 'demo' && !getIsBaseImage(newTimeline.imagePath) ? newTimeline.imagePath : newTimeline.cdnUrl + newTimeline.imagePath;
+            image.src = timelineType === 'demo' && !getIsBaseImage(newInformation.imagePath) ? newInformation.imagePath : newInformation.cdnUrl + newInformation.imagePath;
 
             image.onload = () => {
-                newTimeline.imageSize = {width: image.width, height: image.height}
-                dispatch(updateCurrentTimeline(newTimeline))
-                dispatch(updateCurrentTimelineDraft(newTimeline))
+                newInformation.imageSize = {width: image.width, height: image.height}
+                newInformation.content = wrapPTag(newInformation.content)
+                newInformation.informationUpdatedDT = newInformation.updatedDT
+                newInformation.updatedDT = currentTimeline.updatedDT
+                dispatch(updateCurrentTimeline(newInformation))
+                dispatch(updateCurrentTimelineDraft(newInformation))
                 dispatch(updateModalType('information'))
             };
         } catch (error) {console.error('Error fetching data in useEffect: ', error)}
     }
 
     const handleImageClick = (e: React.MouseEvent) => e.stopPropagation()
-
     const handleImageTouch = (e: React.TouchEvent) => {
         e.stopPropagation()
         setImageHover(true)
     }
 
     return (
-        <div onClick={handleClick} onTouchStart={() => setImageHover(false)} className={`${!imageHover && 'cursor-pointer hover:bg-gray-100'} p-3 border-[0.1px] border-gray-300 rounded-2xl ${timelineType === 'demo' && demoKeyConcept === 'information' && 'outline outline-2 outline-blue-700'}`}>
+        <div onClick={handlePreviewClick} onTouchStart={() => setImageHover(false)} className={`${!imageHover && 'cursor-pointer hover:bg-gray-100'} p-3 border-[0.1px] border-gray-300 rounded-2xl ${timelineType === 'demo' && demoKeyConcept === 'information' && 'outline outline-2 outline-blue-700'}`}>
             <div>
                 <div className={'flex items-center gap-2'}>
                     <h2 className={'timelineTitle text-2xl font-bold break-words'}>{timeline.title === '' ? 'New Timeline' : timeline.title}</h2>
@@ -63,7 +67,7 @@ const InformationPreview = () => {
                 <div onClick={handleImageClick} onMouseEnter={() => setImageHover(true)} onMouseLeave={() => setImageHover(false)} onTouchStart={(e) => handleImageTouch(e)}><InformationPreviewImage information={timeline} /></div>
                 <div className={'flex flex-col gap-1 max-[630px]:mt-1'}>
                     <div className={`max-[630px]:hidden line-clamp-1 break-words`}>{timeline.description === '' ? 'New timeline description' : timeline.description}</div>
-                    <div className={'text-sm text-gray-600 line-clamp-4'}>{timeline.content === '' ? 'Click this timeline box to edit the title, description, content and image of the timeline!' : timeline.content}</div>
+                    <div className={'text-sm text-gray-600 line-clamp-4'}>{timeline.content === '' || timeline.content === '<p></p>' ? 'Click this timeline box to edit the title, description, content and image of the timeline!' : unwrapPTag(timeline.content)}</div>
                 </div>
             </div>
         </div>

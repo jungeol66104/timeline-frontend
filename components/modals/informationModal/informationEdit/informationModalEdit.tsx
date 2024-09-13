@@ -1,11 +1,12 @@
-import {useEditor, EditorContent} from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import Placeholder from "@tiptap/extension-placeholder";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import InformationModalImage from "@/components/modals/informationModal/informationView/informationModalImage";
 import InformationModalEditMenubar from "@/components/modals/informationModal/informationEdit/informationModalEditMenubar";
+
+import {useEditor, EditorContent} from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import Placeholder from "@tiptap/extension-placeholder";
 
 const InformationModalEdit = () => {
     const dispatch = useDispatch()
@@ -14,8 +15,8 @@ const InformationModalEdit = () => {
     const editor = useEditor({
         extensions: [StarterKit, Placeholder.configure({placeholder: "New timeline content"})],
         editorProps: {attributes: {class: 'outline-none'}},
-        onUpdate: ({ editor }) => dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, content: editor.getText()})),
-        content: `<p>${currentTimelineDraft.content}</p>`,
+        onUpdate: ({ editor }) => dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, content: editor.getHTML()})),
+        content: `${currentTimelineDraft.content}`,
     })
 
     return (

@@ -1,5 +1,3 @@
-import {getIsBaseImage} from "@/utils/global";
-import api from "@/pages/api/api";
 import React, {useRef, useState} from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,11 +5,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import {Contributors, selectCurrentContributors, selectCurrentEvent, selectCurrentTimeline, updateCurrentContributors} from "@/store/slices/contentsSlice";
 
+import api from "@/pages/api/api";
+import {getIsBaseImage} from "@/utils/global";
+
 const ContributorsButton = ({contributors} : {contributors: Contributors}) => {
     const {username, cdnUrl, imagePath, counts} = contributors
 
     const contributorsButtonRef = useRef<HTMLButtonElement>(null)
-    const [isToggle, setIsToggle] = useState(false)
+
     const dispatch = useDispatch()
     const timelineType = useSelector(selectTimelineType)
     const modalType = useSelector(selectModalType)
@@ -20,6 +21,7 @@ const ContributorsButton = ({contributors} : {contributors: Contributors}) => {
     const currentEvent = useSelector(selectCurrentEvent)
     const currentContributors = useSelector(selectCurrentContributors)
 
+    const [isToggle, setIsToggle] = useState(false)
     const isBaseImage = getIsBaseImage(imagePath)
 
     const handleClick = async (e: React.MouseEvent) => {
@@ -32,13 +34,13 @@ const ContributorsButton = ({contributors} : {contributors: Contributors}) => {
             dispatch(updateCurrentContributors(newContributors))
         } else {
             if (modalType === 'none') {
-                const response = await api.get(`/timeline/${currentTimeline.id}/contributors?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
+                const response = await api.get(`/timeline/${currentTimeline.id}/contributors?pageNum=1&pageSize=20&isContent=0`, {headers: {lang: 'en'}})
                 if (response.data.code === 69999) return
                 const data = response.data.data
 
                 dispatch(updateCurrentContributors(data.contributors))
             } else if (modalType === 'information') {
-                const response = await api.get(`/timeline/${currentTimeline.id}/contributors?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
+                const response = await api.get(`/timeline/${currentTimeline.id}/contributors?pageNum=1&pageSize=20&isContent=1`, {headers: {lang: 'en'}})
                 if (response.data.code === 69999) return
                 const data = response.data.data
 

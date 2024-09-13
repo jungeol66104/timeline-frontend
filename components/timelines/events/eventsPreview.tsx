@@ -11,7 +11,6 @@ const EventsPreview = () => {
     let events = isKeynote ? [...currentEvents.filter((event) => event.isKeynote === 1)] : [...currentEvents]
     events.sort((a, b) => Number(a.ephemerisTime) - Number(b.ephemerisTime))
     const isEmptyKeynote = events.length === 0
-    console.log(events)
 
     return (
         <div className={'relative'}>
