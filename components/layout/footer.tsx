@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from "next/link";
 import {useSelector} from "react-redux";
-import {selectIsBottomEnd, selectIsMaintenance, updateIsMaintenance} from "@/store/slices/appearanceSlice";
+import {selectIsBottomEnd, selectIsMaintenance} from "@/store/slices/appearanceSlice";
 
 const Footer = () => {
     const isBottomEnd = useSelector(selectIsBottomEnd);
@@ -19,10 +19,6 @@ const Footer = () => {
                     <Link href={'/policies/privacy'} className={'text-blue-700 hover:underline'}>Privacy</Link>
                     <span>|</span>
                     Contact: <Link href={'mailto:project.yaha@gmail.com'} className={'text-blue-700 hover:underline'}>project.yaha@gmail.com</Link>
-                    {/*<span>|</span>*/}
-                    {/*Web Hosting: Vercel*/}
-                    {/*<span>|</span>*/}
-                    {/*Server Hosting: AWS*/}
                 </div>
             </div>
         </footer>

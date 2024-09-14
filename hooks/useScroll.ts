@@ -1,6 +1,6 @@
 import {useLayoutEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectModalType, selectPopupType, selectScrollTop, selectTimelineType, updateScrollTop} from "@/store/slices/appearanceSlice";
+import {selectModalType, selectPopupHistory, selectPopupType, selectScrollTop, selectTimelineType, updateScrollTop} from "@/store/slices/appearanceSlice";
 import {getScrollWrapper} from "@/utils/global";
 
 export const useScroll = () => {
@@ -73,6 +73,7 @@ export const usePopupDisableScroll = () => {
     const scrollTop = useSelector(selectScrollTop)
     const modalType = useSelector(selectModalType)
     const popupType = useSelector(selectPopupType)
+    const popupHistory = useSelector(selectPopupHistory)
 
     useLayoutEffect(() => {
         const scrollWrapper = getScrollWrapper()
@@ -84,7 +85,7 @@ export const usePopupDisableScroll = () => {
             layout.style.position = ''
             layout.style.top = ''
             scrollWrapper.scrollTop = scrollTop
-        } else {
+        } else if (popupHistory[1] === 'none') {
             const initialScrollTop = scrollWrapper.scrollTop
             layout.style.position = 'fixed'
             layout.style.top = `${-initialScrollTop}px`

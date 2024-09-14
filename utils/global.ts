@@ -1,6 +1,5 @@
 import crypto from 'crypto'
 import axios from "axios";
-import {updateSession} from "@/store/slices/privateSlice";
 
 export const capitalize = (string: string) => {
     if (!string) return string;
@@ -27,7 +26,7 @@ export const getScrollWrapper = () => {
 
 export const getIsBaseImage = (url: string | null | undefined) => {
     if (typeof url !== "string") return true
-    return url.includes("https://cdn.timeline.vg/base-image.png")
+    return url.includes("base-image.png")
 }
 
 let timeoutId: any
@@ -53,11 +52,6 @@ export const mapStrToNum = (inputString : string) => {
     const combinedHash = hash1 + hash2;
     let hashedNumber = BigInt('0x' + combinedHash); // Use BigInt to handle large numbers
     return Number((hashedNumber % BigInt(4)) + BigInt(1));
-}
-
-export const ratioToImageSizeType = (imageSize: {width: number, height: number}) => {
-    const ratio = imageSize.width / imageSize.height
-    return ratio === 1 ? 'square' : ratio > 1 ? 'horizontal' : 'vertical'
 }
 
 export const formatArticleDate = (articleDate: string) => {
@@ -121,10 +115,19 @@ export const getIsTimelinePath = (path: string) => {
 
 export const getSession = async () => {
     try {
-        const response = await axios.get('http://localhost:3000/api/auth/session')
+        const response = await axios.get('/api/user/session')
         return response.data
     } catch (error) {
         console.error('Error fetching data in useEffect: ', error)
         return
     }
+}
+
+export const wrapPTag = (string: string) => {
+    const isWrapped = /^<p>.*<\/p>$/.test(string);
+    return isWrapped ? string : `<p>${string}</p>`
+}
+
+export const unwrapPTag = (string: string) => {
+    return string.replace(/^<p>(.*)<\/p>$/, '$1');
 }

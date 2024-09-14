@@ -7,7 +7,7 @@ import Toolbar from "@/components/timelines/toolbar";
 const TimelineSectionPrimary = () => {
 
     return (
-        <div className={'p-3 w-full max-w-[630px] min-[852px]:min-w-[500px] flex flex-col gap-3'}>
+        <div className={'p-3 pb-0 w-full max-w-[630px] min-[852px]:min-w-[500px] flex flex-col gap-3'}>
             <TimelineMenubar />
             <InformationPreview/>
             <RelatedTimelines />

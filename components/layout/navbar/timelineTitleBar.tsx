@@ -10,7 +10,7 @@ const TimelineTitleBar = () => {
     const timelineType = useSelector(selectInformationContentType)
     const showTimelineNameBar = useSelector(selectShowTimelineTitleBar)
 
-    const timelineName = timelineType === 'new' ? currentTimelineDraft.name : currentTimeline.name
+    const timelineName = timelineType === 'new' ? currentTimelineDraft.title : currentTimeline.title
 
     useTimelineNameBar()
 

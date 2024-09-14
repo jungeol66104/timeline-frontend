@@ -9,14 +9,14 @@ const DynamicHead = ({type}: {type: string} ) => {
     const currentEvents = useSelector(selectCurrentEvents)
 
     const title = type === "timeline"
-        ? `History of ${currentTimeline.name} | Timeline, Key Events, Facts, Dates`
+        ? `History of ${currentTimeline.title} | Timeline, Key Events, Facts, Dates`
         : type === "event"
-            ? `${currentEvent.name} | Detailed Event, Fact, Specific Date, History, Timeline`
+            ? `${currentEvent.title} | Detailed Event, Fact, Specific Date, History, Timeline`
             : "Timeline | History, Events, Celebrities, and More"
     const description = type === "timeline"
-        ? `${currentTimeline.name} Timeline. Check out the key events with specific dates in the history of ${currentTimeline.name}. ${currentEvents.slice(0,7).map(cEvent => cEvent.date + ' ' + cEvent.name).join(', ')}.`
+        ? `${currentTimeline.title} Timeline. Check out the key events with specific dates in the history of ${currentTimeline.title}. ${currentEvents.slice(0,7).map(cEvent => cEvent.date + ' ' + cEvent.title).join(', ')}.`
         : type === "event"
-            ? `${currentEvent.description}`
+            ? `${currentEvent.content}`
             : "A timeline that encompasses various topics. From the past to the present, the timeline redefines knowledge with rich content. Explore various aspects of the world, covering topics such as finance, history, personalities, and more."
     const url = type === "timeline"
         ? `https://timeline.vg/timelines/${currentTimeline.id}`

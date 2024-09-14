@@ -4,7 +4,6 @@ import {selectModalType, selectTimelineType} from "@/store/slices/appearanceSlic
 import CloseModalButton from "@/components/modals/closeModalButton";
 import EventModalHead from "@/components/modals/eventModal/eventModalHead";
 import EventModalBody from "@/components/modals/eventModal/eventModalBody";
-// reviewed: 0817
 
 const EventDemoModal = () => {
     const timelineType = useSelector(selectTimelineType)
@@ -17,7 +16,7 @@ const EventDemoModal = () => {
                 <h2 className={'text-md font-semibold'}>Event</h2>
                 <CloseModalButton />
             </div>
-            <div className={'p-4 w-full h-full flex flex-col gap-3 overflow-y-scroll z-10'}>
+            <div className={'overflow-y-scroll z-10 p-4 w-full h-full flex flex-col gap-3'}>
                 <EventModalHead />
                 <EventModalBody />
             </div>

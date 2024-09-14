@@ -40,9 +40,9 @@ export default function Document() {
             />
         </Head>
         <body>
-        <Main/>
-        <NextScript/>
-        <div id={'portal'}></div>
+            <Main/>
+            <NextScript/>
+            <div id={'portal'}></div>
         </body>
     </Html>
   )

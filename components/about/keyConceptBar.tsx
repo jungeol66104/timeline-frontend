@@ -1,7 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectDemoKeyConcept, updateDemoKeyConcept} from "@/store/slices/appearanceSlice";
-// reviewed: 0817
 
 const KeyConceptBar = () => {
     const dispatch = useDispatch()

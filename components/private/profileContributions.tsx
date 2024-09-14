@@ -1,20 +1,43 @@
 import React from 'react';
-import TimelineContribution from "@/components/common/contribution/timelineContribution";
-import EventContribution from "@/components/common/contribution/eventContribution";
-import ConnectionContribution from "@/components/common/contribution/connectionContribution";
-import KeynoteContribution from "@/components/common/contribution/keynoteContribution";
+import {useSelector} from "react-redux";
+import {selectCurrentPageContributions} from "@/store/slices/contentsSlice";
+import TimelineContribution from "@/components/common/contributions/contribution/timelineContribution";
+import EventContribution from "@/components/common/contributions/contribution/eventContribution";
+import AttachmentContribution from "@/components/common/contributions/contribution/attachmentContribution";
+import KeynoteContribution from "@/components/common/contributions/contribution/keynoteContribution";
+import ExploreButton from "@/components/about/exploreButton";
 
 const ProfileContributions = () => {
+    const currentPageContributions = useSelector(selectCurrentPageContributions);
+    const isEmptyContributions = currentPageContributions.length === 0
+
     return (
         <div className={'w-full'}>
-            <TimelineContribution type={'profile'}/>
-            <EventContribution type={'profile'}/>
-            <ConnectionContribution type={'profile'}/>
-            <KeynoteContribution type={'profile'}/>
-            <TimelineContribution type={'profile'}/>
-            <EventContribution type={'profile'}/>
-            <ConnectionContribution type={'profile'}/>
-            <KeynoteContribution type={'profile'}/>
+            {currentPageContributions.map(contribution => {
+                switch (contribution.editHistoryType) {
+                    case 1:
+                    case 2:
+                        return <KeynoteContribution key={contribution.id} type={'histories'} contribution={contribution}/>
+                    case 3:
+                    case 4:
+                        return <AttachmentContribution key={contribution.id} type={'histories'} contribution={contribution}/>
+                    case 5:
+                    case 7:
+                        return <TimelineContribution key={contribution.id} type={'histories'} contribution={contribution}/>
+                    case 6:
+                    case 8:
+                        return <EventContribution key={contribution.id} type={'histories'} contribution={contribution}/>
+                }
+            })}
+            {isEmptyContributions &&
+                <div className='timeline relative py-10 px-4 w-full flex flex-col items-center justify-center gap-5'>
+                    <div className={'text-center'}>
+                        <h2 className={'text-xl font-semibold'}>No Contributions</h2>
+                        <div>See what other contributors have done.</div>
+                    </div>
+                    <ExploreButton />
+                </div>
+            }
         </div>
     );
 };

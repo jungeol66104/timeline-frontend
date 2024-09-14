@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectEventContentType, selectTimelineType, updateEventContentType, updateEventHistoryType, updateInformationContentType} from "@/store/slices/appearanceSlice";
 import {getSession} from "@/utils/global";
 import {selectIsSession, updateSession} from "@/store/slices/privateSlice";
+import {selectCurrentEvent, updateCurrentEvent, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 
 const EventViewEditButton = () => {
     const dispatch = useDispatch()
@@ -10,24 +11,50 @@ const EventViewEditButton = () => {
     const timelineType = useSelector(selectTimelineType)
     const eventContentType = useSelector(selectEventContentType)
     const demoKeyConcept = useSelector(selectDemoKeyConcept)
+    const currentEvent = useSelector(selectCurrentEvent)
 
     const handleClick = (contentType: string) => {
         if (contentType === 'edit') {
-            if (isSession || timelineType === 'new' || timelineType === 'demo') dispatch(updateEventContentType(contentType))
+            if (isSession || timelineType === 'new' || timelineType === 'demo') {
+                const image = new Image();
+                image.src = currentEvent.cdnUrl! + currentEvent.imagePath!;
+                image.onload = () => {
+                    const imageSize = {width: image.width, height: image.height}
+                    dispatch(updateCurrentEvent({...currentEvent, imageSize}))
+                    dispatch(updateCurrentEventDraft({...currentEvent, imageSize}))
+                    dispatch(updateEventContentType(contentType))
+                }
+            }
             else {
-                window.open(`/api/auth/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
+                window.open(`/api/user/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
 
                 window.addEventListener('message', (event) => {
                     if (event.origin !== window.location.origin) return;
                     if (event.data.type === 'SIGNIN_SUCCESS') {
                         getSession().then((session) => {
-                            dispatch(updateSession(session));
-                            dispatch(updateEventContentType(contentType))
+                            const image = new Image();
+                            image.src = currentEvent.cdnUrl! + currentEvent.imagePath!;
+                            image.onload = () => {
+                                const imageSize = {width: image.width, height: image.height}
+                                dispatch(updateCurrentEvent({...currentEvent, imageSize}))
+                                dispatch(updateCurrentEventDraft({...currentEvent, imageSize}))
+                                dispatch(updateEventContentType(contentType))
+                                dispatch(updateSession(session));
+                            }
                         })
                     }
                 });
             }
-        } else dispatch(updateEventContentType(contentType))
+        } else {
+            const image = new Image();
+            image.src = currentEvent.cdnUrl! + currentEvent.imagePath!;
+            image.onload = () => {
+                const imageSize = {width: image.width, height: image.height}
+                dispatch(updateCurrentEvent({...currentEvent, imageSize}))
+                dispatch(updateCurrentEventDraft({...currentEvent, imageSize}))
+                dispatch(updateEventContentType(contentType))
+            }
+        }
     }
 
     return (

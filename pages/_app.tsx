@@ -1,9 +1,9 @@
 import '@/styles/global.css'
-import * as gtag from "../utils/gtags"
 import React from "react";
-import type { AppProps } from 'next/app'
 import {Provider} from "react-redux";
+import {AppProps} from 'next/app'
 import {storeWrapper} from '@/store/store'
+import * as gtag from "../utils/gtags"
 import Layout from '@/components/layout/layout'
 
 function App({ Component, ...rest }: AppProps) {

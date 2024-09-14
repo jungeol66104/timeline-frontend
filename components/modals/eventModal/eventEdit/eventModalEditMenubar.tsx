@@ -1,23 +1,21 @@
+import {getIsBaseImage} from "@/utils/global";
 import React from 'react';
-import SaveEventButton from "@/components/modals/eventModal/eventEdit/saveEventButton";
-import AddImageButton from "@/components/common/addImageButton";
 import {useSelector} from "react-redux";
 import {selectEventContentType} from "@/store/slices/appearanceSlice";
-import ResetEditButton from "@/components/modals/resetEditButton";
-import {getIsBaseImage} from "@/utils/global";
-import ReplaceImageButton from "@/components/common/replaceImageButton";
-import RemoveImageButton from "@/components/common/removeImageButton";
-import DisconnectButton from "@/components/modals/eventModal/eventEdit/disconnectButton";
-import KeynoteButton from "@/components/modals/eventModal/eventEdit/keynoteButton";
 import {selectCurrentEventDraft, selectCurrentEvents} from "@/store/slices/contentsSlice";
+import AddImageButton from "@/components/common/addImageButton";
 import ImageEditButton from "@/components/common/imageEditButton";
+import ResetEditButton from "@/components/modals/resetEditButton";
+import DetachButton from "@/components/modals/eventModal/eventEdit/detachButton";
+import KeynoteButton from "@/components/modals/eventModal/eventEdit/keynoteButton";
+import SaveEventButton from "@/components/modals/eventModal/eventEdit/saveEventButton";
 
-const EventModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
+const EventModalEditMenubar = ({editor, imagePath}:{editor: any, imagePath: string}) => {
     const eventContentType = useSelector(selectEventContentType)
     const currentEvents = useSelector(selectCurrentEvents)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
-    const isBaseImage = getIsBaseImage(src)
+    const isBaseImage = getIsBaseImage(imagePath)
     const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
 
     return (
@@ -25,10 +23,8 @@ const EventModalEditMenubar = ({editor, src}:{editor: any, src: string}) => {
             <div className={'flex gap-3'}>
                 {isBaseImage && <AddImageButton/>}
                 {!isBaseImage && <ImageEditButton/>}
-                {/*{!isBaseImage && <RemoveImageButton/>}*/}
-                {/*{!isBaseImage && <ReplaceImageButton/>}*/}
                 {eventContentType === 'edit' && <ResetEditButton/>}
-                {(eventContentType === 'edit' || (eventContentType === 'new' && isCreated)) && <DisconnectButton/>}
+                {(eventContentType === 'edit' || (eventContentType === 'new' && isCreated)) && <DetachButton/>}
             </div>
             <div className={'flex gap-3'}>
                 <KeynoteButton />

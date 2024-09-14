@@ -1,5 +1,5 @@
-import {selectTimelineType, updateEventContentType, updateEventHistoryType, updateModalType} from "@/store/slices/appearanceSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {selectTimelineType, updateEventContentType, updateEventHistoryType, updateModalType} from "@/store/slices/appearanceSlice";
 
 const CloseModalButton = () => {
     const dispatch = useDispatch()

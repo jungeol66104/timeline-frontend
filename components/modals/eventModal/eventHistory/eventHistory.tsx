@@ -1,6 +1,6 @@
 import React from 'react';
 import CompareButton from "@/components/modals/compareButton";
-import RevertButton from "@/components/common/contribution/revertButton";
+import RevertButton from "@/components/common/contributions/revertButton";
 import {useSelector} from "react-redux";
 import {selectEventHistoryType} from "@/store/slices/appearanceSlice";
 import EventHistoryList from "@/components/modals/eventModal/eventHistory/eventHistoryList";
@@ -8,13 +8,13 @@ import EventHistoryView from "@/components/modals/eventModal/eventHistory/eventH
 import EventHistoryDiff from "@/components/modals/eventModal/eventHistory/eventHistoryDiff";
 
 const EventHistory = () => {
-    const historyType = useSelector(selectEventHistoryType)
+    const eventHistoryType = useSelector(selectEventHistoryType)
 
     return (
         <div className={'flex flex-col'}>
-            {historyType === 'list'
+            {eventHistoryType === 'list'
                 ?   <EventHistoryList />
-                : historyType === 'view'
+                : eventHistoryType === 'view'
                     ?   <EventHistoryView />
                     :   <EventHistoryDiff />
             }

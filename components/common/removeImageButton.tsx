@@ -1,7 +1,7 @@
 import React from 'react';
-import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {selectModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
+import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 
 const RemoveImageButton = ({isMenu = false}: {isMenu?: boolean}) => {
     const dispatch = useDispatch()
@@ -15,16 +15,12 @@ const RemoveImageButton = ({isMenu = false}: {isMenu?: boolean}) => {
     const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
 
     const handleClick = () => {
-        const baseImage = 'https://cdn.timeline.vg/base-image.png'
-        if (modalType === 'none') {
-            dispatch(updateCurrentTimeline({...currentTimeline, image: baseImage, imageSize: {width: 100, height: 100}}))
-            dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: baseImage, imageSize: {width: 100, height: 100}}))
-        } else if (modalType === 'information') {
-            dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: baseImage, imageSize: {width: 100, height: 100}}))
-            if (timelineType === 'new') dispatch(updateCurrentTimeline({...currentTimeline, image: baseImage, imageSize: {width: 100, height: 100}}))
+        const baseImagePath = 'base-image.png'
+        if (modalType === 'information') {
+            dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath: baseImagePath, imageSize: {width: 100, height: 100}}))
         } else if (modalType === 'event') {
-            dispatch(updateCurrentEventDraft({...currentEventDraft, image: baseImage, imageSize: {width: 100, height: 100}}))
-            if (timelineType === 'new' && isCreated) dispatch(updateEventInCurrentEvents({...currentEventDraft, image: baseImage, imageSize: {width: 100, height: 100}}))
+            dispatch(updateCurrentEventDraft({...currentEventDraft, imagePath: baseImagePath, imageSize: {width: 100, height: 100}}))
+            if (timelineType === 'new' && isCreated) dispatch(updateEventInCurrentEvents({...currentEventDraft, imagePath: baseImagePath, imageSize: {width: 100, height: 100}}))
         }
     }
 

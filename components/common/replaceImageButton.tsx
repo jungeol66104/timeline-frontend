@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, {ChangeEvent} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
@@ -8,41 +9,69 @@ const ReplaceImageButton = ({isMenu = false}: {isMenu?: boolean}) => {
     const timelineType = useSelector(selectTimelineType)
     const modalType = useSelector(selectModalType)
     const currentTimeline = useSelector(selectCurrentTimeline)
+    const currentEvents = useSelector(selectCurrentEvents)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
-    const currentEvents = useSelector(selectCurrentEvents)
 
     const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files
+    const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return;
 
-        if (files) {
-            const file = files[0]
+        if (timelineType !== 'demo') {
+            const image = new Image();
+            const objectURL = URL.createObjectURL(file);
+
+            image.onload = async () => {
+                const imageSize = {width: image.width, height: image.height}
+
+                URL.revokeObjectURL(objectURL);
+
+                try {
+                    const formData = new FormData();
+                    formData.append('image', file);
+
+                    const response = await axios.post('/api/wiki/upload-image', formData, {headers: {'Content-Type': 'multipart/form-data'}})
+                    const imagePath = response.data.imagePath;
+
+                    if (modalType === 'none') {
+                        dispatch(updateCurrentTimeline({...currentTimeline, imagePath, imageSize}))
+                        dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath, imageSize}))
+                    } else if (modalType === 'information') {
+                        dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath, imageSize}))
+                        if (timelineType === 'new') dispatch(updateCurrentTimeline({...currentTimeline, imagePath, imageSize}))
+                    } else if (modalType === 'event') {
+                        dispatch(updateCurrentEventDraft({...currentEventDraft, imagePath, imageSize}))
+                        if (timelineType === 'new' && isCreated) dispatch(updateEventInCurrentEvents({...currentEventDraft, imagePath, imageSize}))
+                    }
+                } catch (error) {console.error('Error uploading image:', error)}
+            }
+            image.src = objectURL
+        } else {
             const reader = new FileReader()
             reader.onloadend = () => {
-                const newSrc = reader.result
-                if (!newSrc) return
+                const imagePath = reader.result
+                if (!imagePath) return
                 const image = new Image()
                 image.onload = () => {
                     const imageSize = {width: image.width, height: image.height}
 
                     if (modalType === 'none') {
-                        dispatch(updateCurrentTimeline({...currentTimeline, image: newSrc, imageSize: imageSize}))
-                        dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: newSrc, imageSize: imageSize}))
+                        dispatch(updateCurrentTimeline({...currentTimeline, imagePath, imageSize}))
+                        dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath, imageSize}))
                     } else if (modalType === 'information') {
-                        dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, image: newSrc, imageSize: imageSize}))
-                        if (timelineType === 'new') dispatch(updateCurrentTimeline({...currentTimeline, image: newSrc, imageSize: imageSize}))
+                        dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath, imageSize}))
                     } else if (modalType === 'event') {
-                        dispatch(updateCurrentEventDraft({...currentEventDraft, image: newSrc, imageSize: imageSize}))
-                        if (timelineType === 'new' && isCreated) dispatch(updateEventInCurrentEvents({...currentEventDraft, image: newSrc, imageSize: imageSize}))
+                        dispatch(updateCurrentEventDraft({...currentEventDraft, imagePath, imageSize}))
                     }
                 }
-                image.src = newSrc as string
+                image.src = imagePath as string
             }
             reader.readAsDataURL(file)
         }
     }
+
     return (
         <>
             {!isMenu &&

@@ -1,25 +1,26 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
+// @ts-ignore
+import { Spice } from "timecraftjs";
 import {EditorContent, useEditor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-// @ts-ignore
-import { Spice } from "timecraftjs";
 import {transformDate} from "@/utils/global";
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {selectErrorType, selectEventContentType, selectModalType, updateErrorType} from "@/store/slices/appearanceSlice";
+import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 import DateGuideButton from "@/components/modals/eventModal/dateGuideButton";
-import {selectEventContentType, selectModalType} from "@/store/slices/appearanceSlice";
+import axios from "axios";
 
 const EventDateEdit = () => {
     const dispatch = useDispatch()
     const modalType = useSelector(selectModalType)
     const eventContentType = useSelector(selectEventContentType)
+    const errorType = useSelector(selectErrorType)
     const currentEvents = useSelector(selectCurrentEvents)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
+    const [spiceInstance, setSpiceInstance] = useState<any>(null);
 
     const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
-    const [spiceInstance, setSpiceInstance] = useState<any>(null);
-    const [spiceError, setSpiceError] = useState(false);
 
     const editor = useEditor({
         content: `<p>${currentEventDraft.date}</p>`,
@@ -45,15 +46,14 @@ const EventDateEdit = () => {
 
             if (allowedCharacters.test(content)) {
                 try {
-                    console.log(transformDate(content));
                     const ephemerisTime = spiceInstance.str2et(transformDate(content));
                     dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content, ephemerisTime: ephemerisTime}));
                     if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({ ...currentEventDraft, date: content, ephemerisTime: ephemerisTime}))
-                    setSpiceError(false);
-                } catch {
+                    dispatch(updateErrorType('none'))
+                } catch (error) {
                     dispatch(updateCurrentEventDraft({ ...currentEventDraft, date: content }));
                     if (isCreated && eventContentType === 'new') dispatch(updateEventInCurrentEvents({ ...currentEventDraft, date: content}))
-                    setSpiceError(true);
+                    dispatch(updateErrorType('date'))
                 }
             } else {
                 editor.commands.deleteRange({
@@ -68,12 +68,11 @@ const EventDateEdit = () => {
         const initializeSpice = async () => {
             try {
                 const spiceInstance = await new Spice().init();
-                const kernelBuffer = await fetch("../kernels/naif0012.tls").then((res) => res.arrayBuffer())
+                const response = await axios("/kernels/naif0012.tls", {responseType: 'arraybuffer'})
+                const kernelBuffer = response.data
                 spiceInstance.loadKernel(kernelBuffer);
                 setSpiceInstance(spiceInstance);
-            } catch (error) {
-                console.error('Error initializing Spice:', error);
-            }
+            } catch (error) {console.error('Error initializing Spice:', error);}
         };
         initializeSpice()
     },[]);
@@ -84,7 +83,7 @@ const EventDateEdit = () => {
             <div className={`invisible min-h-[24px] text-md font-medium break-words`}>{currentEventDraft.date}</div>
             <div className={'flex gap-2'}>
                 <DateGuideButton />
-                {spiceError && <div className={'flex items-center gap-1 text-red-700'}><span className={'material-symbols-outlined text-[12px]'}>&#xe000;</span><span className={'mt-[1px] text-[10px]'}>Keep YYYY-MM-DD BCE(optional) format.</span></div>}
+                {errorType === 'date' && <div className={'flex items-center gap-1 text-red-700'}><span className={'material-symbols-outlined text-[12px]'}>&#xe000;</span><span className={'mt-[1px] text-[10px]'}>Keep YYYY-MM-DD BCE(optional) format.</span></div>}
             </div>
         </>
     );

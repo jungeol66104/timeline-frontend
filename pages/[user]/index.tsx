@@ -1,32 +1,38 @@
+import api from "@/pages/api/api";
 import React from 'react';
 import {storeWrapper} from "@/store/store";
+import {updateIsBottomEnd, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {updateCurrentPageContributions} from "@/store/slices/contentsSlice";
+import {updateProfile, updateProfileDraft, updateSession} from "@/store/slices/privateSlice";
 import DynamicHead from "@/components/dynamicHead";
 import ProfileSectionPrimary from "@/components/private/profileSectionPrimary";
 import ProfileSectionSecondary from "@/components/private/profileSectionSecondary";
-import api from "@/pages/api/api";
-import {updateCurrentTimelines} from "@/store/slices/contentsSlice";
-import {updateCurrentPage, updateIsBottomEnd, updateTagNum, updateTimelineType, updateTotalPage} from "@/store/slices/appearanceSlice";
-import {updateSession} from "@/store/slices/privateSlice";
+import useOperateProfile from "@/hooks/useOperateProfile";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params, req}) => {
     try {
         const user = params?.user
-        if (user && typeof user === 'string' && !user.startsWith('@')) return { notFound: true }
+        if (!user || (user && typeof user === 'string' && !user.startsWith('@'))) return { notFound: true }
 
         const jwt = req.cookies.timeline_jwt
         if (jwt) {
-            const response = await api.get('/user/info', {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
-            store.dispatch(updateSession(response.data.data))
+            const response = await api.get(`/user/info`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+            if (response.data.code === 69999) return { notFound: true }
+            const data = response.data.data
+
+            store.dispatch(updateSession(data))
         }
 
-        const response = await api.get(`/timeline/tags/1?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
+        const response = await api.get(`/user/${user.slice(1)}/contribution?pageNum=1&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+        if (response.data.code === 69999) return { notFound: true }
         const data = response.data.data
-        store.dispatch(updateCurrentTimelines(data.timelineList))
-        store.dispatch(updateTagNum(1))
-        store.dispatch(updateCurrentPage(1))
+
+        store.dispatch(updateProfile({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
+        store.dispatch(updateProfileDraft({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
+        store.dispatch(updateCurrentPageContributions(data.aboutPageInfoList))
         store.dispatch(updateTotalPage(data.totalPage))
-        store.dispatch(updateIsBottomEnd(data.totalPage === 1))
-        store.dispatch(updateTimelineType('private'))
+        store.dispatch(updateIsBottomEnd(data.totalPage <= 1))
+
         return {props: {}}
     } catch (error) {
         console.error('Error fetching initial data during SSR: ', error);
@@ -35,6 +41,8 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 })
 
 const ProfilePage = () => {
+    useOperateProfile()
+
     return (
         <>
             <DynamicHead type={'index'}/>
