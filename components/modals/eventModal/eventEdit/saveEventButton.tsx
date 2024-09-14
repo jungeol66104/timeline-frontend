@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectErrorType, selectTimelineType, updateEventContentType, updatePopupType} from "@/store/slices/appearanceSlice";
-import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, updateCurrentEvent, updateCurrentEvents} from "@/store/slices/contentsSlice";
+import {selectCurrentEvent, selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, updateCurrentEvent, updateCurrentEvents} from "@/store/slices/contentsSlice";
 
 import axios from "axios";
 
@@ -11,6 +11,7 @@ const SaveEventButton = () => {
     const errorType = useSelector(selectErrorType)
     const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
+    const currentEvent = useSelector(selectCurrentEvent)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
     const handleClick = async () => {
@@ -45,7 +46,9 @@ const SaveEventButton = () => {
 
             try {
                 const updateResponse = await axios.put('/api/wiki/event/update', updateBody);
-                const keynoteResponse = await axios.put('/api/wiki/keynote', keynoteBody)
+                let keynoteResponse;
+                if (currentEventDraft.isKeynote === currentEvent.isKeynote) keynoteResponse = {status: 200, data: {code: 200}}
+                else keynoteResponse = await axios.put('/api/wiki/keynote', keynoteBody)
                 if (updateResponse.status === 200 || keynoteResponse.status === 200) {
                     console.log(keynoteBody)
                     console.log(keynoteResponse.data)
