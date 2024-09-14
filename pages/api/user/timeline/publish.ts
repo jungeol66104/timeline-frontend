@@ -15,7 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         const response = await api.post('/user/timeline/publish', req.body, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
-        const data = response.data.data;
+        const data = response.data;
 
         res.status(200).json(data);
     } catch (error) {
