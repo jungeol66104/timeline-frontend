@@ -8,7 +8,7 @@ import AdsTimelineTop from "@/components/ads/adsTimelineTop";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
 
-export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
+export const getServerSideProps = storeWrapper.getServerSideProps((store) => async () => {
     try {
         const recentResponse = await api.get(`/timeline/features/1?pageNum=1&pageSize=5`, {headers: {lang: 'en'}})
         const popularResponse = await api.get(`/timeline/features/2?pageNum=1&pageSize=5`, {headers: {lang: 'en'}})
