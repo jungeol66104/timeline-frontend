@@ -15,9 +15,9 @@ const TimelineSectionSecondary = () => {
     return (
         <div className={`${timelineType === 'private' && 'invisible max-[852px]:hidden'} ${!isBottomEnd && 'max-[852px]:hidden'} relative ml-[20px] max-[872px]:ml-0 p-3 max-[630px]:pt-0 w-full min-w-[332px] max-w-[352px] max-[852px]:max-w-[630px] flex flex-col gap-4`}>
             <TimelinesPreview title={'Popular'} timelines={popularTimelines} />
-            <AdsTimelineBetweenSecondary />
+            {timelineType !== 'private' && <AdsTimelineBetweenSecondary/>}
             <TimelinesPreview title={'Recently Added'} timelines={recentTimelines} />
-            <AdsTimelineSide />
+            {timelineType !== 'private' && <AdsTimelineSide/>}
         </div>
     );
 };
