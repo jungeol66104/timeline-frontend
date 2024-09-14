@@ -8,7 +8,7 @@ import AdsTimelineTop from "@/components/ads/adsTimelineTop";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
 
-export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
+export const getStaticProps = storeWrapper.getStaticProps((store) => async () => {
     try {
         const recentResponse = await api.get(`/timeline/features/1?pageNum=1&pageSize=5`, {headers: {lang: 'en'}})
         const popularResponse = await api.get(`/timeline/features/2?pageNum=1&pageSize=5`, {headers: {lang: 'en'}})
@@ -24,7 +24,7 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateTimelineType('new'))
         store.dispatch(updateInformationContentType('new'))
         store.dispatch(updateEventContentType('new'))
-        return {props: {}, revalidate:10}
+        return {props: {}, revalidate: 10}
     } catch (error) {
         console.error('Error fetching initial data during SSG:', error);
         return {props: {}, revalidate: 10}
@@ -38,10 +38,10 @@ const NewTimelinePage = () => {
             <div className={`page`}>
                 <AdsTimelineTop />
                 <hr/>
-{/*                 <div className={'pageWrapper w-full flex'}>
+                <div className={'pageWrapper w-full flex'}>
                     <TimelineSectionPrimary />
                     <TimelineSectionSecondary />
-                </div> */}
+                </div>
             </div>
         </>
     )
