@@ -9,6 +9,8 @@ import axios from "axios";
 
 const PublishPopup = () => {
     const router = useRouter()
+    const username = router.query.user?.slice(1) as string
+
     const dispatch = useDispatch()
     const currentTimeline = useSelector(selectCurrentTimeline)
 
@@ -20,6 +22,8 @@ const PublishPopup = () => {
                 if (response.data.code === 69999) return
                 dispatch(updatePopupType('none'))
                 router.push('/')
+                // router.push(`/@${username}/timelines/${}`)
+
             }
         } catch (error) {
             console.error('Error creating timeline: ', error)
