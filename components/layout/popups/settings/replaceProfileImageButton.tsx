@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectSession, updateSession} from "@/store/slices/privateSlice";
+import {selectSession, updateProfile, updateProfileDraft, updateSession} from "@/store/slices/privateSlice";
 import axios from "axios";
 
 const ReplaceProfileImageButton = () => {
@@ -26,7 +26,11 @@ const ReplaceProfileImageButton = () => {
                 if (updateResponse.data.code !== 69999) return
 
                 const sessionResponse = await axios.get('/api/user/session')
-                dispatch(updateSession(sessionResponse.data))
+                const data = sessionResponse.data
+                dispatch(updateSession(data))
+                dispatch(updateProfile({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
+                dispatch(updateProfileDraft({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
+
             } catch (error) {console.error('Error uploading image:', error)}
         }
         image.src = objectURL
