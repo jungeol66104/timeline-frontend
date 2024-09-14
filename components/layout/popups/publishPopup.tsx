@@ -3,6 +3,9 @@ import Popup from "@/components/layout/popups/popup";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import {useRouter} from "next/router";
+import {updatePopupType} from "@/store/slices/appearanceSlice";
+
+import axios from "axios";
 
 const PublishPopup = () => {
     const router = useRouter()
@@ -12,9 +15,10 @@ const PublishPopup = () => {
     const handleClick = async () => {
         const body = { "timelineId" : currentTimeline.id }
         try {
-            const response = {status: 200}
-            // const response = await axios.post('/api/user/timeline/publish-timeline', body);
+            const response = await axios.post('/api/user/timeline/publish', body);
             if (response.status === 200) {
+                if (response.data.code === 69999) return
+                dispatch(updatePopupType('none'))
                 router.push('/')
             }
         } catch (error) {
