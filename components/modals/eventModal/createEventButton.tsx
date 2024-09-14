@@ -1,8 +1,9 @@
-import axios from "axios";
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectErrorType, selectTimelineType, updateEventContentType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, updateCurrentEvent, updateCurrentEvents} from "@/store/slices/contentsSlice";
+
+import axios from "axios";
 
 const CreateEventButton = () => {
     const dispatch = useDispatch();

@@ -1,8 +1,9 @@
-import axios from "axios";
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectErrorType, selectTimelineType, updateEventContentType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, updateCurrentEvent, updateCurrentEvents} from "@/store/slices/contentsSlice";
+
+import axios from "axios";
 
 const SaveEventButton = () => {
     const dispatch = useDispatch()
@@ -13,8 +14,11 @@ const SaveEventButton = () => {
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
     const handleClick = async () => {
-        if (errorType === 'date') {
+        if (errorType === 'date' || currentEventDraft.date === '') {
             dispatch(updatePopupType('dateError'))
+            return
+        } else if (currentEventDraft.title === '') {
+            dispatch(updatePopupType('titleError'))
             return
         }
 
