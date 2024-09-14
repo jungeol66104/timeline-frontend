@@ -36,7 +36,7 @@ const useOperateProfile = () => {
 
 
         const operateScroll = async () => {
-            if (totalPage === currentPage) return
+            if (totalPage <= currentPage) return
             await fetchCollection().then((data) => {
                 const type = profileType === 'contributions' ? 0 : 1
                 if (type === 0) dispatch(updateCurrentPageContributions([...currentPageContributions, ...data.aboutPageInfoList]))
