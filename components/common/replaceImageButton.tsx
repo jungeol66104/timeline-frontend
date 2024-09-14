@@ -8,8 +8,8 @@ const ReplaceImageButton = ({isMenu = false}: {isMenu?: boolean}) => {
     const dispatch = useDispatch()
     const timelineType = useSelector(selectTimelineType)
     const modalType = useSelector(selectModalType)
-    const currentTimeline = useSelector(selectCurrentTimeline)
     const currentEvents = useSelector(selectCurrentEvents)
+    const currentTimeline = useSelector(selectCurrentTimeline)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
@@ -34,13 +34,34 @@ const ReplaceImageButton = ({isMenu = false}: {isMenu?: boolean}) => {
 
                     const response = await axios.post('/api/wiki/upload-image', formData, {headers: {'Content-Type': 'multipart/form-data'}})
                     const imagePath = response.data.imagePath;
+                    console.log('hi')
 
                     if (modalType === 'none') {
-                        dispatch(updateCurrentTimeline({...currentTimeline, imagePath, imageSize}))
-                        dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath, imageSize}))
+                        if (timelineType === 'new') {
+                            dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath, imageSize}))
+                        } else {
+                            const body = {
+                                "isPrivate": timelineType === 'public' ? 0 : 1,
+                                "timelineId": currentTimelineDraft.id,
+                                "revisionNo": currentTimelineDraft.revisionNo,
+                                "title": currentTimelineDraft.title,
+                                "description": currentTimelineDraft.description,
+                                "content": currentTimelineDraft.content,
+                                "imagePath": imagePath,
+                                "note": ""
+                            }
+
+                            try {
+                                const response = await axios.put('/api/wiki/timeline/update', body);
+                                if (response.status === 200) {
+                                    if (response.data.code === 69999) return
+                                    dispatch(updateCurrentTimeline({...currentTimeline, imagePath, imageSize}))
+                                    dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath, imageSize}))
+                                }
+                            } catch (error) {console.error('Error creating event: ', error)}
+                        }
                     } else if (modalType === 'information') {
                         dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, imagePath, imageSize}))
-                        if (timelineType === 'new') dispatch(updateCurrentTimeline({...currentTimeline, imagePath, imageSize}))
                     } else if (modalType === 'event') {
                         dispatch(updateCurrentEventDraft({...currentEventDraft, imagePath, imageSize}))
                         if (timelineType === 'new' && isCreated) dispatch(updateEventInCurrentEvents({...currentEventDraft, imagePath, imageSize}))

@@ -50,8 +50,6 @@ const SaveEventButton = () => {
                 if (currentEventDraft.isKeynote === currentEvent.isKeynote) keynoteResponse = {status: 200, data: {code: 200}}
                 else keynoteResponse = await axios.put('/api/wiki/keynote', keynoteBody)
                 if (updateResponse.status === 200 || keynoteResponse.status === 200) {
-                    console.log(keynoteBody)
-                    console.log(keynoteResponse.data)
                     if (updateResponse.data.code === 69999 || keynoteResponse.data.code === 69999) return
                     let events = currentEvents.filter((event) => event.id !== currentEventDraft.id)
                     events = [...events, currentEventDraft]

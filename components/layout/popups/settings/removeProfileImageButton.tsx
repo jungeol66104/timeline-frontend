@@ -3,11 +3,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 
-const RemoveProfileImageButton = ({isMenu = false}: {isMenu?: boolean}) => {
+const RemoveProfileImageButton = () => {
     const dispatch = useDispatch()
     const timelineType = useSelector(selectTimelineType)
     const modalType = useSelector(selectModalType)
-    const currentTimeline = useSelector(selectCurrentTimeline)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
     const currentEvents = useSelector(selectCurrentEvents)
