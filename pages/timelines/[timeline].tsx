@@ -7,16 +7,24 @@ import AdsTimelineTop from "@/components/ads/adsTimelineTop";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
 import {wrapPTag} from "@/utils/global";
+import {updateSession} from "@/store/slices/privateSlice";
 
-export const getStaticPaths = async () => {return {paths: [], fallback: 'blocking'}}
-
-export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
+export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({ req, query }) => {
     try {
-        const response = await api.get(`/timeline/${Number(params?.timeline)}`, {headers: {lang: 'en'}})
+        const jwt = req.cookies.timeline_jwt
+        if (jwt) {
+            const response = await api.get(`/user/info`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+            if (response.data.code === 69999) return { notFound: true }
+            const data = response.data.data
+
+            store.dispatch(updateSession(data))
+        }
+
+        const response = await api.get(`/timeline/${Number(query?.timeline)}`, {headers: {lang: 'en'}})
         if (response.data.code === 69999) return { notFound: true }
         const data = response.data.data
+        // non-english languages error
         data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + data.timelineInfo.imagePath)
-        // test
         data.timelineInfo.content = wrapPTag(data.timelineInfo.content)
         data.events = data.events.map((event: any) => ({...event, content: wrapPTag(event.content)}))
 
@@ -26,11 +34,8 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ pa
         store.dispatch(updateRelatedTimelines(data.relatedTimelines))
         store.dispatch(updateRecentTimelines(data.recentTimelines))
         store.dispatch(updatePopularTimelines(data.popularTimelines))
-        return {props: {}, revalidate:10}
-    } catch (error) {
-        console.error('Error fetching initial data during SSG:', error);
-        return {props: {}, revalidate: 10}
-    }
+    } catch (error) {console.error('Error fetching initial data during SSR:', error);}
+    return {props: {}}
 })
 
 const TimelinePage = () => {

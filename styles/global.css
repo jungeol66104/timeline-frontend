@@ -24,6 +24,12 @@ p.is-editor-empty:first-child::before {
     pointer-events: none;
 }
 
+/* nprogress */
+#nprogress .bar {
+    background: black;
+    z-index: 6000;
+}
+
 /* layout */
 html, body, #__next, .layout, .page {
     width: 100%;

@@ -3,10 +3,10 @@ import React from "react";
 import {storeWrapper} from "@/store/store";
 import {updateIsBottomEnd, updateTagNum, updateTotalPage} from "@/store/slices/appearanceSlice";
 import {updateCurrentTimelines} from "@/store/slices/contentsSlice";
+import {updateSession} from "@/store/slices/privateSlice";
 import DynamicHead from "@/components/dynamicHead";
 import IndexSectionPrimary from "@/components/index/indexSectionPrimary";
 import IndexSectionSecondary from "@/components/index/indexSectionSecondary";
-import {updateSession} from "@/store/slices/privateSlice";
 import useOperateIndex from "@/hooks/useOperateIndex";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({query, req}) => {
@@ -31,11 +31,8 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
         store.dispatch(updateTotalPage(data.totalPage))
         store.dispatch(updateIsBottomEnd(data.totalPage <= 1))
         store.dispatch(updateTagNum(tagNum))
-        return {props: {}}
-    } catch (error) {
-        console.error('Error fetching initial data during SSR: ', error);
-        return {props: {}}
-    }
+    } catch (error) {console.error('Error fetching initial data during SSR: ', error);}
+    return {props: {}}
 })
 
 export default function Home() {

@@ -1,7 +1,7 @@
 import api from "@/pages/api/api";
 import React from 'react';
 import {storeWrapper} from "@/store/store";
-import {updateIsBottomEnd, updateTotalPage} from "@/store/slices/appearanceSlice";
+import {updateCurrentPage, updateIsBottomEnd, updateTotalPage} from "@/store/slices/appearanceSlice";
 import {updateCurrentPageContributions} from "@/store/slices/contentsSlice";
 import {updateProfile, updateProfileDraft, updateSession} from "@/store/slices/privateSlice";
 import DynamicHead from "@/components/dynamicHead";
@@ -31,13 +31,10 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
         store.dispatch(updateProfileDraft({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
         store.dispatch(updateCurrentPageContributions(data.aboutPageInfoList))
         store.dispatch(updateTotalPage(data.totalPage))
+        store.dispatch(updateCurrentPage(1))
         store.dispatch(updateIsBottomEnd(data.totalPage <= 1))
-
-        return {props: {}}
-    } catch (error) {
-        console.error('Error fetching initial data during SSR: ', error);
-        return {props: {}}
-    }
+    } catch (error) {console.error('Error fetching initial data during SSR: ', error);}
+    return {props: {}}
 })
 
 const ProfilePage = () => {

@@ -1,12 +1,12 @@
-import {useLayoutEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectModalType, selectPopupHistory, selectPopupType, selectScrollTop, selectTimelineType, updateScrollTop} from "@/store/slices/appearanceSlice";
-import {getScrollWrapper} from "@/utils/global";
+import {getScrollWrapper, useIsomorphicLayoutEffect} from "@/utils/global";
 
 export const useScroll = () => {
     const scrollTop = useSelector(selectScrollTop)
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const scrollWrapper = getScrollWrapper()
         if (!scrollWrapper) return
         scrollWrapper.scrollTop = scrollTop
@@ -19,7 +19,7 @@ export const useDisableScroll = () => {
     const timelineType = useSelector(selectTimelineType)
     const modalType = useSelector(selectModalType)
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const scrollWrapper = getScrollWrapper()
         const layout: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.layout') : null
         if (!scrollWrapper || !layout || timelineType === 'demo') return
@@ -47,7 +47,7 @@ export const useDisableDemoScroll = () => {
         return typeof window !== 'undefined' ? document.querySelector('.demoScrollWrapper') : null
     }
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const scrollWrapper = getScrollWrapper()
         const demoScrollWrapper = getDemoScrollWrapper()
         const demoLayout: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.demoLayout') : null
@@ -75,7 +75,7 @@ export const usePopupDisableScroll = () => {
     const popupType = useSelector(selectPopupType)
     const popupHistory = useSelector(selectPopupHistory)
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const scrollWrapper = getScrollWrapper()
         const layout: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.layout') : null
         if (!scrollWrapper || !layout) return

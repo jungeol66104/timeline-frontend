@@ -1,6 +1,7 @@
-import {useEffect} from "react";
 import {useRouter} from "next/router";
 import {useDispatch} from "react-redux";
+import {useIsomorphicLayoutEffect} from "@/utils/global";
+import {useEffect} from "react";
 
 const useStateFromStorage = () => {
     const dispatch = useDispatch()

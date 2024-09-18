@@ -9,8 +9,9 @@ const rootReducer: Reducer = (state: initialState, action: AnyAction): CombinedS
     switch (action.type) {
         case HYDRATE:
             return action.payload
+            // return {...state, ...action.payload}
         case "REHYDRATE":
-            return {...state, contents: action.payload.contents, appearance: action.payload.appearance}
+            return {...state, contents: action.payload.contents, appearance: action.payload.appearance};
         default:
             return combineReducers({
                 appearance: appearanceSlice,

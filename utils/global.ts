@@ -1,5 +1,6 @@
 import crypto from 'crypto'
 import axios from "axios";
+import {useEffect, useLayoutEffect} from "react";
 
 export const capitalize = (string: string) => {
     if (!string) return string;
@@ -131,3 +132,5 @@ export const wrapPTag = (string: string) => {
 export const unwrapPTag = (string: string) => {
     return string.replace(/^<p>(.*)<\/p>$/, '$1');
 }
+
+export const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;

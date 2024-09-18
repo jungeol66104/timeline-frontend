@@ -34,11 +34,8 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
         store.dispatch(updateTimelineType('new'))
         store.dispatch(updateInformationContentType('new'))
         store.dispatch(updateEventContentType('new'))
-        return {props: {}}
-    } catch (error) {
-        console.error('Error fetching initial data during SSG:', error);
-        return {props: {}}
-    }
+    } catch (error) {console.error('Error fetching initial data during SSG:', error);}
+    return {props: {}}
 })
 
 const NewTimelinePage = () => {
