@@ -3,16 +3,14 @@ import { useRouter } from 'next/router';
 import NProgress from "@/utils/nprogress";
 import {getScrollWrapper} from "@/utils/global";
 import {initialState} from "@/store/rootReducer";
-import {useDispatch, useSelector, useStore} from "react-redux";
+import {useDispatch, useStore} from "react-redux";
 import {updateAdjustScrollTop} from "@/store/slices/appearanceSlice";
-import {selectSession} from "@/store/slices/privateSlice";
 
 const useLoadingState = () => {
     const [loadingState, setLoadingState] = useState('none');
     const router = useRouter();
     const store = useStore()
     const dispatch = useDispatch()
-    // const session = useSelector(selectSession);
 
     useEffect(() => {
         const start = (url: string) => {
@@ -60,7 +58,6 @@ const useLoadingState = () => {
                 let privateSlice = state["private"]
                 appearanceSlice["adjustScrollTop"] = true
                 appearanceSlice["scrollTop"] = current["scrollTop"]
-                // privateSlice["session"] = session
                 dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice, private: privateSlice}})
             }
             dispatch(updateAdjustScrollTop(true))
