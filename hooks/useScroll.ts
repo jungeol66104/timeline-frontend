@@ -1,22 +1,17 @@
-import {useEffect, useState} from 'react';
+import {useLayoutEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectModalType, selectPopupHistory, selectPopupType, selectScrollTop, selectTimelineType, updateScrollTop} from "@/store/slices/appearanceSlice";
+import {selectAdjustScrollTop, selectModalType, selectPopupHistory, selectPopupType, selectScrollTop, selectTimelineType, updateAdjustScrollTop, updateScrollTop} from "@/store/slices/appearanceSlice";
 import {getScrollWrapper, useIsomorphicLayoutEffect} from "@/utils/global";
-import {useRouter} from "next/router";
 
 export const useScroll = () => {
-    const router = useRouter()
+    const adjustScrollTop = useSelector(selectAdjustScrollTop)
     const scrollTop = useSelector(selectScrollTop)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const scrollWrapper = getScrollWrapper()
+        if (!scrollWrapper || !adjustScrollTop) return
         if (!scrollWrapper) return
         scrollWrapper.scrollTop = scrollTop
-        // const adjustScrollTop = () => scrollWrapper.scrollTop = scrollTop
-        // router.events.on('routeChangeComplete', adjustScrollTop);
-        // return () => {
-        //     router.events.off('routeChangeComplete',adjustScrollTop);
-        // };
     });
 }
 

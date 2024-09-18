@@ -2,6 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from "@/store/rootReducer";
 
 const initialState = {
+    adjustScrollTop: false,
     scrollTop: 0,
     currentPage: 1,
     totalPage: 1,
@@ -31,6 +32,9 @@ const appearanceSlice = createSlice({
         },
         updateTotalPage: (state, action) => {
             state.totalPage = action.payload
+        },
+        updateAdjustScrollTop: (state, action) => {
+            state.adjustScrollTop = action.payload
         },
         updateScrollTop: (state, action) => {
             state.scrollTop = action.payload
@@ -87,6 +91,7 @@ export default appearanceSlice.reducer;
 export const {
     updateCurrentPage,
     updateTotalPage ,
+    updateAdjustScrollTop,
     updateScrollTop,
     updateIsBottomEnd,
     updateTagNum,
@@ -108,6 +113,7 @@ export const {
 export const selectCurrentPage = (state: RootState) => state.appearance.currentPage
 export const selectTotalPage = (state: RootState) => state.appearance.totalPage
 export const selectIsBottomEnd = (state: RootState) => state.appearance.isBottomEnd
+export const selectAdjustScrollTop = (state: RootState) => state.appearance.adjustScrollTop
 export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectTagNum = (state: RootState) => state.appearance.tagNum
 export const selectIsKeynote = (state: RootState) => state.appearance.isKeynote
@@ -126,6 +132,7 @@ export const selectErrorType = (state: RootState) => state.appearance.errorType
 
 // types
 export interface initialAppearanceState {
+    adjustScrollTop: boolean
     scrollTop: number
     currentPage: number
     totalPage: number

@@ -24,9 +24,6 @@ const useStateToStorage = () => {
             if (current["url"] !== url) {
                 let newCurrent = {"url": url, "scrollTop": 0, "state": {}}
                 const newHistory = {"0": {...current, "scrollTop": scrollWrapper.scrollTop, "state": state}, "1": history["0"], "2": history["1"]}
-                console.log(current)
-                console.log(newCurrent)
-                console.log(newHistory)
                 if (historyUrls.includes(url)) {
                     const urlIndex = historyUrls.findIndex(historyUrl => historyUrl === url)
                     newCurrent = history[urlIndex.toString()]
