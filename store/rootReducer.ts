@@ -10,7 +10,7 @@ const rootReducer: Reducer = (state: initialState, action: AnyAction): CombinedS
         case HYDRATE:
             return action.payload
         case "REHYDRATE":
-            return {...state, contents: action.payload.contents, appearance: action.payload.appearance};
+            return {...state, contents: action.payload.contents, appearance: action.payload.appearance, private: action.payload.private};
         default:
             return combineReducers({
                 appearance: appearanceSlice,

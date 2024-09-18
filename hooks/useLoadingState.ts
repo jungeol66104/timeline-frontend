@@ -1,23 +1,21 @@
-import {useState, useEffect, useLayoutEffect} from 'react';
+import {useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
 import NProgress from "@/utils/nprogress";
 import {getScrollWrapper} from "@/utils/global";
 import {initialState} from "@/store/rootReducer";
-import {useDispatch, useStore} from "react-redux";
+import {useDispatch, useSelector, useStore} from "react-redux";
 import {updateAdjustScrollTop} from "@/store/slices/appearanceSlice";
+import {selectSession} from "@/store/slices/privateSlice";
 
 const useLoadingState = () => {
     const [loadingState, setLoadingState] = useState('none');
     const router = useRouter();
     const store = useStore()
     const dispatch = useDispatch()
+    const session = useSelector(selectSession);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const start = (url: string) => {
-            // loading
-            NProgress.start()
-            setLoadingState('preparing');
-
             // session state management
             const scrollWrapper = getScrollWrapper()
             if (!scrollWrapper) return
@@ -25,10 +23,11 @@ const useLoadingState = () => {
             let state = store.getState() as initialState
             // IMPORTANT: remove personal information
             state = {...state, private: {session: {}, profileType: state.private.profileType, profile: state.private.profile, profileDraft: state.private.profileDraft}}
+
             const current = JSON.parse(sessionStorage.getItem('current') || JSON.stringify({"url": "initialUrl", "scrollTop": 0, "state": {}}))
             const history = JSON.parse(sessionStorage.getItem('history') || JSON.stringify({"0": {"url": "initialUrl", "scrollTop": 0, "state": {}}, "1": {"url": "initialUrl", "scrollTop": 0, "state": {}}, "2": {"url": "initialUrl", "scrollTop": 0, "state": {}}}))
             const historyUrls = Object.values(history).map(packet => (packet as { url: string })["url"])
-            if (current["url"] !== url) {
+            if (current["url"] === "initialUrl" || current["url"] !== url) {
                 let newCurrent = {"url": url, "scrollTop": 0, "state": {}}
                 const newHistory = {"0": {...current, "scrollTop": scrollWrapper.scrollTop, "state": state}, "1": history["0"], "2": history["1"]}
                 if (historyUrls.includes(url)) {
@@ -38,7 +37,13 @@ const useLoadingState = () => {
                 sessionStorage.setItem('current', JSON.stringify(newCurrent));
                 sessionStorage.setItem('history', JSON.stringify(newHistory));
             }
+
             dispatch(updateAdjustScrollTop(false))
+
+            // loading
+            NProgress.start()
+            setLoadingState('preparing');
+
         }
         const middle = () => {
             setLoadingState('applying');
@@ -55,9 +60,10 @@ const useLoadingState = () => {
                 let state = current["state"]
                 let contentsSlice = state["contents"]
                 let appearanceSlice = state["appearance"]
+                let privateSlice = state["private"]
                 appearanceSlice["adjustScrollTop"] = true
                 appearanceSlice["scrollTop"] = current["scrollTop"]
-                dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice}})
+                dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice, private: {session: session, profileType: privateSlice.profileType, profile: privateSlice.profile, profileDraft: privateSlice.profileDraft}}})
             }
         }
 
