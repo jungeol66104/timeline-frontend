@@ -1,19 +1,18 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useLayoutEffect} from 'react';
 import { useRouter } from 'next/router';
 import NProgress from "@/utils/nprogress";
 import {getScrollWrapper} from "@/utils/global";
 import {initialState} from "@/store/rootReducer";
-import {useDispatch, useSelector, useStore} from "react-redux";
-import {selectScrollTop, updateAdjustScrollTop} from "@/store/slices/appearanceSlice";
+import {useDispatch, useStore} from "react-redux";
+import {updateAdjustScrollTop} from "@/store/slices/appearanceSlice";
 
 const useLoadingState = () => {
     const [loadingState, setLoadingState] = useState('none');
     const router = useRouter();
     const store = useStore()
     const dispatch = useDispatch()
-    const scrollTop = useSelector(selectScrollTop)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const start = (url: string) => {
             // loading
             NProgress.start()
