@@ -1,4 +1,4 @@
-import {useState, useEffect, useLayoutEffect} from 'react';
+import {useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
 import NProgress from "@/utils/nprogress";
 import {getScrollWrapper} from "@/utils/global";
@@ -12,7 +12,7 @@ const useLoadingState = () => {
     const store = useStore()
     const dispatch = useDispatch()
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const start = (url: string) => {
             // loading
             NProgress.start()
@@ -25,10 +25,11 @@ const useLoadingState = () => {
             let state = store.getState() as initialState
             // IMPORTANT: remove personal information
             state = {...state, private: {session: {}, profileType: state.private.profileType, profile: state.private.profile, profileDraft: state.private.profileDraft}}
+
             const current = JSON.parse(sessionStorage.getItem('current') || JSON.stringify({"url": "initialUrl", "scrollTop": 0, "state": {}}))
             const history = JSON.parse(sessionStorage.getItem('history') || JSON.stringify({"0": {"url": "initialUrl", "scrollTop": 0, "state": {}}, "1": {"url": "initialUrl", "scrollTop": 0, "state": {}}, "2": {"url": "initialUrl", "scrollTop": 0, "state": {}}}))
             const historyUrls = Object.values(history).map(packet => (packet as { url: string })["url"])
-            if (current["url"] !== url) {
+            if (current["url"] === "initialUrl" || current["url"] !== url) {
                 let newCurrent = {"url": url, "scrollTop": 0, "state": {}}
                 const newHistory = {"0": {...current, "scrollTop": scrollWrapper.scrollTop, "state": state}, "1": history["0"], "2": history["1"]}
                 if (historyUrls.includes(url)) {
@@ -42,7 +43,6 @@ const useLoadingState = () => {
         }
         const middle = () => {
             setLoadingState('applying');
-            dispatch(updateAdjustScrollTop(true))
         }
         const end = () => {
             // loading
@@ -55,10 +55,12 @@ const useLoadingState = () => {
                 let state = current["state"]
                 let contentsSlice = state["contents"]
                 let appearanceSlice = state["appearance"]
+                let privateSlice = state["private"]
                 appearanceSlice["adjustScrollTop"] = true
                 appearanceSlice["scrollTop"] = current["scrollTop"]
-                dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice}})
+                dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice, private: privateSlice}})
             }
+            dispatch(updateAdjustScrollTop(true))
         }
 
         router.events.on('routeChangeStart', start);
