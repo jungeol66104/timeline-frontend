@@ -10,18 +10,20 @@ import Navbar from "@/components/layout/navbar/navbar";
 import Footer from "@/components/layout/footer";
 import Modals from "@/components/layout/modals";
 import Popups from "@/components/layout/popups/popups";
+import usePopState from "@/hooks/usePopState";
 
 const Layout = ({ children } : {children: ReactNode}) => {
     const isMaintenance = useSelector(selectIsMaintenance)
     const loadingState = useLoadingState()
 
-    useStateFromStorage()
-    useStateToStorage()
+    // usePopState()
+    // useStateFromStorage()
+    // useStateToStorage()
     useSession()
     useDisableScroll()
     usePopupDisableScroll()
     // useScroll MUST COME LATER THAN ANY OTHER SCROLL ADJUSTING HOOKS
-    useScroll()
+    // useScroll()
 
     return (
         <div className={`layout relative ${isMaintenance ? '' : 'pt-[60px]'}`}>

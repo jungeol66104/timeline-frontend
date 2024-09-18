@@ -1,6 +1,5 @@
 import {useRouter} from "next/router";
 import {useDispatch} from "react-redux";
-import {useIsomorphicLayoutEffect} from "@/utils/global";
 import {useEffect} from "react";
 
 const useStateFromStorage = () => {
@@ -25,6 +24,6 @@ const useStateFromStorage = () => {
         return () => {
             router.events.off('routeChangeComplete', handleRouteChangeComplete);
         };
-    }, [])
+    }, [router.events])
 }
 export default useStateFromStorage

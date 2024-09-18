@@ -2,14 +2,21 @@ import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectModalType, selectPopupHistory, selectPopupType, selectScrollTop, selectTimelineType, updateScrollTop} from "@/store/slices/appearanceSlice";
 import {getScrollWrapper, useIsomorphicLayoutEffect} from "@/utils/global";
+import {useRouter} from "next/router";
 
 export const useScroll = () => {
+    const router = useRouter()
     const scrollTop = useSelector(selectScrollTop)
 
     useEffect(() => {
         const scrollWrapper = getScrollWrapper()
         if (!scrollWrapper) return
         scrollWrapper.scrollTop = scrollTop
+        // const adjustScrollTop = () => scrollWrapper.scrollTop = scrollTop
+        // router.events.on('routeChangeComplete', adjustScrollTop);
+        // return () => {
+        //     router.events.off('routeChangeComplete',adjustScrollTop);
+        // };
     });
 }
 
@@ -19,7 +26,7 @@ export const useDisableScroll = () => {
     const timelineType = useSelector(selectTimelineType)
     const modalType = useSelector(selectModalType)
 
-    useEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         const scrollWrapper = getScrollWrapper()
         const layout: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.layout') : null
         if (!scrollWrapper || !layout || timelineType === 'demo') return
@@ -47,7 +54,7 @@ export const useDisableDemoScroll = () => {
         return typeof window !== 'undefined' ? document.querySelector('.demoScrollWrapper') : null
     }
 
-    useEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         const scrollWrapper = getScrollWrapper()
         const demoScrollWrapper = getDemoScrollWrapper()
         const demoLayout: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.demoLayout') : null
@@ -75,7 +82,7 @@ export const usePopupDisableScroll = () => {
     const popupType = useSelector(selectPopupType)
     const popupHistory = useSelector(selectPopupHistory)
 
-    useEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         const scrollWrapper = getScrollWrapper()
         const layout: HTMLElement | null = typeof window !== 'undefined' ? document.querySelector('.layout') : null
         if (!scrollWrapper || !layout) return
