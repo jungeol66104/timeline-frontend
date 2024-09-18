@@ -1,13 +1,16 @@
 import React from "react";
-import TimelineTitleBar from "@/components/layout/navbar/timelineTitleBar";
 import Link from "next/link";
+import {useRouter} from "next/router";
+import TimelineTitleBar from "@/components/layout/navbar/timelineTitleBar";
 import ComputerSearchBar from "@/components/layout/search/ComputerSearchBar";
 import SearchButton from "@/components/layout/navbar/searchButton";
 import TagBar from "@/components/layout/navbar/tagBar";
 import ProfileMenuButton from "@/components/layout/navbar/profileMenuButton";
 import CreateTimelineButton from "@/components/layout/menu/createTimelineButton";
 
-const Navbar = ({isLoading} : {isLoading: boolean}) => {
+const Navbar = ({loadingState} : {loadingState: string}) => {
+    const router = useRouter()
+    const isIndexPage = router.pathname === '/'
 
     return (
         <>
@@ -27,8 +30,8 @@ const Navbar = ({isLoading} : {isLoading: boolean}) => {
                     </div>
                 </div>
             </nav>
-            <TagBar />
-            {!isLoading && <TimelineTitleBar/>}
+            {(loadingState !== 'applying' || isIndexPage) && <TagBar/>}
+            {loadingState !== 'applying' && <TimelineTitleBar/>}
         </>
     )
 }

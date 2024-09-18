@@ -1,6 +1,6 @@
-import {useEffect} from "react";
 import {useRouter} from "next/router";
 import {useDispatch} from "react-redux";
+import {useEffect} from "react";
 
 const useStateFromStorage = () => {
     const dispatch = useDispatch()
@@ -24,6 +24,6 @@ const useStateFromStorage = () => {
         return () => {
             router.events.off('routeChangeComplete', handleRouteChangeComplete);
         };
-    }, [])
+    }, [router.events])
 }
 export default useStateFromStorage

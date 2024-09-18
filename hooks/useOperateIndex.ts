@@ -29,8 +29,9 @@ const useOperateIndex = () => {
         }
 
         const operateScroll = async () => {
-            if (totalPage === currentPage) return
+            if (totalPage <= currentPage) return
             await fetchTimelines().then((data) => {
+                if (!data.timelineList) return
                 dispatch(updateCurrentTimelines([...currentTimelines, ...data.timelineList]))
                 dispatch(updateCurrentPage(currentPage + 1))
                 dispatch(updateIsBottomEnd(data.totalPage === currentPage + 1))

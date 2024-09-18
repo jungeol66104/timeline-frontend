@@ -11,9 +11,19 @@ import KeynoteContribution from "@/components/common/contributions/contribution/
 import AttachmentContribution from "@/components/common/contributions/contribution/attachmentContribution";
 import TimelineContribution from "@/components/common/contributions/contribution/timelineContribution";
 import useOperateHistories from "@/hooks/useOperateHistories";
+import {updateSession} from "@/store/slices/privateSlice";
 
-export const getServerSideProps = storeWrapper.getServerSideProps((store) => async () => {
+export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({req}) => {
     try {
+        const jwt = req.cookies.timeline_jwt
+        if (jwt) {
+            const response = await api.get(`/user/info`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+            if (response.data.code === 69999) return { notFound: true }
+            const data = response.data.data
+
+            store.dispatch(updateSession(data))
+        }
+
         const response = await api.get(`/history?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
         const data = response.data.data
         if (response.data.code === 69999) return { notFound: true }

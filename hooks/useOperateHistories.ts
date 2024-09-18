@@ -26,7 +26,7 @@ const useOperateHistories = () => {
         }
 
         const operateScroll = async () => {
-            if (totalPage === currentPage) return
+            if (totalPage <= currentPage) return
             await fetchHistories().then((data) => {
                 dispatch(updateCurrentPageContributions([...currentPageContributions, ...data.histories]))
                 dispatch(updateCurrentPage(currentPage + 1))

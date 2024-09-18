@@ -8,9 +8,19 @@ import DynamicHead from "@/components/dynamicHead";
 import AboutSectionPrimary from "@/components/about/aboutSectionPrimary";
 import AboutSectionSecondary from "@/components/about/aboutSectionSecondary";
 import {formatDate, getTodayDate} from "@/utils/global";
+import {updateSession} from "@/store/slices/privateSlice";
 
-export const getStaticProps = storeWrapper.getStaticProps((store) => async () => {
+export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({ req }) => {
     try {
+        const jwt = req.cookies.timeline_jwt
+        if (jwt) {
+            const response = await api.get(`/user/info`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+            if (response.data.code === 69999) return { notFound: true }
+            const data = response.data.data
+
+            store.dispatch(updateSession(data))
+        }
+
         const response = await api.get(`/timeline/tags/1?pageNum=1&pageSize=10`, {headers: {lang: 'en'}})
         if (response.data.code === 69999) return { notFound: true }
         const staffPicks = response.data.data.timelineList
@@ -28,11 +38,8 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async () =>
         store.dispatch(updateCurrentEvents(data.events))
         store.dispatch(updateCurrentTimelineDraft(data.timelineInfo))
         store.dispatch(updateTimelineType('demo'))
-        return {props: {}, revalidate:10}
-    } catch (error) {
-        console.error('Error fetching initial data during SSR:', error);
-        return {props: {}, revalidate: 10}
-    }
+    } catch (error) {console.error('Error fetching initial data during SSR:', error)}
+    return {props: {}}
 })
 
 const AboutPage = () => {

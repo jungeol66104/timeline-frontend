@@ -21,3 +21,9 @@ const KakaotalkButton = () => {
     );
 };
 export default KakaotalkButton;
+
+declare global {
+    interface Window {
+        Kakao: any;
+    }
+}

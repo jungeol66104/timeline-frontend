@@ -1,3 +1,4 @@
+import 'nprogress/nprogress.css';
 import '@/styles/global.css'
 import React from "react";
 import {Provider} from "react-redux";

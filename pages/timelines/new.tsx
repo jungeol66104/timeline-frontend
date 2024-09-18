@@ -7,9 +7,19 @@ import DynamicHead from "@/components/dynamicHead";
 import AdsTimelineTop from "@/components/ads/adsTimelineTop";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
+import {updateSession} from "@/store/slices/privateSlice";
 
-export const getStaticProps = storeWrapper.getStaticProps((store) => async () => {
+export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({req}) => {
     try {
+        const jwt = req.cookies.timeline_jwt
+        if (jwt) {
+            const response = await api.get(`/user/info`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+            if (response.data.code === 69999) return { notFound: true }
+            const data = response.data.data
+
+            store.dispatch(updateSession(data))
+        }
+
         const recentResponse = await api.get(`/timeline/features/1?pageNum=1&pageSize=5`, {headers: {lang: 'en'}})
         const popularResponse = await api.get(`/timeline/features/2?pageNum=1&pageSize=5`, {headers: {lang: 'en'}})
         if (recentResponse.data.code === 69999 || popularResponse.data.code === 69999) return { notFound: true }
@@ -24,11 +34,8 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async () =>
         store.dispatch(updateTimelineType('new'))
         store.dispatch(updateInformationContentType('new'))
         store.dispatch(updateEventContentType('new'))
-        return {props: {}, revalidate: 10}
-    } catch (error) {
-        console.error('Error fetching initial data during SSG:', error);
-        return {props: {}, revalidate: 10}
-    }
+    } catch (error) {console.error('Error fetching initial data during SSG:', error);}
+    return {props: {}}
 })
 
 const NewTimelinePage = () => {
