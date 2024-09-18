@@ -14,9 +14,12 @@ const useLoadingState = () => {
     const dispatch = useDispatch()
     const session = useSelector(selectSession);
 
-
     useEffect(() => {
         const start = (url: string) => {
+            // loading
+            NProgress.start()
+            setLoadingState('preparing');
+
             // session state management
             const scrollWrapper = getScrollWrapper()
             if (!scrollWrapper) return
@@ -40,15 +43,9 @@ const useLoadingState = () => {
             }
 
             dispatch(updateAdjustScrollTop(false))
-
-            // loading
-            NProgress.start()
-            setLoadingState('preparing');
-
         }
         const middle = () => {
             setLoadingState('applying');
-            dispatch(updateAdjustScrollTop(true))
         }
         const end = () => {
             // loading
@@ -66,6 +63,8 @@ const useLoadingState = () => {
                 appearanceSlice["scrollTop"] = current["scrollTop"]
                 dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice, private: {session: session, profileType: privateSlice.profileType, profile: privateSlice.profile, profileDraft: privateSlice.profileDraft}}})
             }
+
+            dispatch(updateAdjustScrollTop(true))
         }
 
         router.events.on('routeChangeStart', start);
