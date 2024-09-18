@@ -14,6 +14,7 @@ const useLoadingState = () => {
     const dispatch = useDispatch()
     const session = useSelector(selectSession);
 
+
     useEffect(() => {
         const start = (url: string) => {
             // session state management
