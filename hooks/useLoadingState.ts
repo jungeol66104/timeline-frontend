@@ -12,7 +12,7 @@ const useLoadingState = () => {
     const router = useRouter();
     const store = useStore()
     const dispatch = useDispatch()
-    const session = useSelector(selectSession);
+    // const session = useSelector(selectSession);
 
     useEffect(() => {
         const start = (url: string) => {
@@ -41,7 +41,6 @@ const useLoadingState = () => {
                 sessionStorage.setItem('current', JSON.stringify(newCurrent));
                 sessionStorage.setItem('history', JSON.stringify(newHistory));
             }
-
             dispatch(updateAdjustScrollTop(false))
         }
         const middle = () => {
@@ -61,9 +60,9 @@ const useLoadingState = () => {
                 let privateSlice = state["private"]
                 appearanceSlice["adjustScrollTop"] = true
                 appearanceSlice["scrollTop"] = current["scrollTop"]
-                dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice, private: {session: session, profileType: privateSlice.profileType, profile: privateSlice.profile, profileDraft: privateSlice.profileDraft}}})
+                // privateSlice["session"] = session
+                dispatch({type: 'REHYDRATE', payload: {appearance: appearanceSlice, contents: contentsSlice, private: privateSlice}})
             }
-
             dispatch(updateAdjustScrollTop(true))
         }
 
