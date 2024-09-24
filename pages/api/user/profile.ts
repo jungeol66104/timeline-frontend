@@ -8,10 +8,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const jwt = req.cookies.timeline_jwt;
-    if (!jwt) {
-        res.status(401).json({ message: 'Authentication required' });
-        return;
-    }
 
     try {
         const type = Number(req.query.type)
@@ -20,9 +16,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         let data;
         if (type === 0) {
-            const response = await api.get(`/user/${user}/contribution?pageNum=${pageNum}&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
-            data = response.data.data
+            let response;
+            if (jwt) response = await api.get(`/user/${user}/contribution?pageNum=${pageNum}&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+            else response = await api.get(`/user/${user}/contribution?pageNum=${pageNum}&pageSize=20`, {headers: {lang: 'en'}});
+            if (response.data.code === 69999) return
+            data = response.data.data;
         } else {
+            if (!jwt) {
+                res.status(401).json({ message: 'Authentication required' });
+                return;
+            }
+
             const response = await api.get(`/user/timeline?pageNum=1&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
             if (response.data.code === 69999) return
             data = response.data.data;

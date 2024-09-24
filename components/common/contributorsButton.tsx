@@ -26,7 +26,7 @@ const ContributorsButton = ({contributors} : {contributors: Contributors}) => {
 
     const handleClick = async (e: React.MouseEvent) => {
         const contributorsButton = contributorsButtonRef.current
-        if (!contributorsButton) return
+        if (!contributorsButton || imagePath === '') return
         e.stopPropagation()
 
         if (timelineType === 'demo') {
@@ -66,11 +66,12 @@ const ContributorsButton = ({contributors} : {contributors: Contributors}) => {
 
     return (
         <div className={'z-20 relative'}>
-            <button ref={contributorsButtonRef} onClick={handleClick} className={`flex items-center gap-2 px-3 max-[852px]:px-2 h-[36px] ${timelineType === 'demo' && demoKeyConcept === 'contributors' && 'outline outline-2 outline-blue-700'} border-[0.1px] border-gray-300 bg-white hover:bg-gray-100 drop-shadow-sm rounded-md`}>
+            <button ref={contributorsButtonRef} onClick={handleClick} className={`flex items-center gap-2 px-3 max-[852px]:px-2 h-[36px] ${timelineType === 'demo' && demoKeyConcept === 'contributors' && 'outline outline-2 outline-blue-700'} border-[0.1px] border-gray-300 bg-white ${imagePath !== '' && 'hover:bg-gray-100'} drop-shadow-sm rounded-md`}>
                 <div className={'text-sm font-semibold max-[852px]:hidden'}>Contributors</div>
                 <div className={'flex justify-center items-center gap-1.5'}>
                     {isBaseImage && <div className={'w-[25px] h-[25px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[1px] border-white shrink-0'}>{username && username[0].toUpperCase()}</div>}
-                    {!isBaseImage && <div className={'overflow-hidden relative w-[25px] h-[25px] rounded-full border-[1px] border-white shrink-0'}><Image className={'rounded-full'} src={cdnUrl + imagePath} alt={username} fill priority style={{objectFit: "cover", objectPosition: "top"}}/></div>}
+                    {!isBaseImage && imagePath !== '' && <div className={'overflow-hidden relative w-[25px] h-[25px] rounded-full border-[1px] border-white shrink-0'}><Image className={'rounded-full'} src={cdnUrl + imagePath} alt={username} fill priority style={{objectFit: "cover", objectPosition: "top"}}/></div>}
+                    {!isBaseImage && imagePath === '' && <div className={'w-[25px] h-[25px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[1px] border-white shrink-0'}>U</div>}
                     <div className={`${counts <= 1 && 'hidden'} text-sm font-semibold`}>+{counts}</div>
                 </div>
             </button>

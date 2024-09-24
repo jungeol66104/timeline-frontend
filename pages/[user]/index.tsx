@@ -11,8 +11,8 @@ import useOperateProfile from "@/hooks/useOperateProfile";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params, req}) => {
     try {
-        const user = params?.user
-        if (!user || (user && typeof user === 'string' && !user.startsWith('@'))) return { notFound: true }
+        const user = params?.user as string
+        if (!user.startsWith('@')) return { notFound: true }
 
         const jwt = req.cookies.timeline_jwt
         if (jwt) {
@@ -23,7 +23,9 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
             store.dispatch(updateSession(data))
         }
 
-        const response = await api.get(`/user/${user.slice(1)}/contribution?pageNum=1&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+        let response;
+        if (jwt) response = await api.get(`/user/${user.slice(1)}/contribution?pageNum=1&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+        else response = await api.get(`/user/${user.slice(1)}/contribution?pageNum=1&pageSize=20`, {headers: {lang: 'en'}});
         if (response.data.code === 69999) return { notFound: true }
         const data = response.data.data
 
@@ -52,4 +54,5 @@ const ProfilePage = () => {
         </>
     )
 }
+
 export default ProfilePage
