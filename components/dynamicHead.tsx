@@ -1,28 +1,63 @@
 import React from 'react';
-import {useSelector} from "react-redux";
 import Head from 'next/head'
-import {selectCurrentEvent, selectCurrentEvents, selectCurrentTimeline} from "@/store/slices/contentsSlice";
+import {useRouter} from "next/router";
+import {useSelector} from "react-redux";
+import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
+import {selectProfile} from "@/store/slices/privateSlice";
 
-const DynamicHead = ({type}: {type: string} ) => {
+const DynamicHead = ({type}: {type: string}) => {
+    const router = useRouter();
+
+    const profile = useSelector(selectProfile)
     const currentTimeline = useSelector(selectCurrentTimeline)
-    const currentEvent = useSelector(selectCurrentEvent)
-    const currentEvents = useSelector(selectCurrentEvents)
 
-    const title = type === "timeline"
-        ? `History of ${currentTimeline.title} | Timeline, Key Events, Facts, Dates`
-        : type === "event"
-            ? `${currentEvent.title} | Detailed Event, Fact, Specific Date, History, Timeline`
-            : "Timeline | History, Events, Celebrities, and More"
-    const description = type === "timeline"
-        ? `${currentTimeline.title} Timeline. Check out the key events with specific dates in the history of ${currentTimeline.title}. ${currentEvents.slice(0,7).map(cEvent => cEvent.date + ' ' + cEvent.title).join(', ')}.`
-        : type === "event"
-            ? `${currentEvent.content}`
-            : "A timeline that encompasses various topics. From the past to the present, the timeline redefines knowledge with rich content. Explore various aspects of the world, covering topics such as finance, history, personalities, and more."
-    const url = type === "timeline"
-        ? `https://timeline.vg/timelines/${currentTimeline.id}`
-        : type === "event"
-            ? `https://timeline.vg/events/${currentEvent.id}`
-            : "https://timeline.vg"
+    const baseUrl = 'https://timeline.vg'
+    const pathname = router.asPath;
+    const url = baseUrl + pathname
+
+    let title, description;
+
+    switch (type) {
+        case "publicTimeline":
+            title = `History of ${currentTimeline.title} - Key events, Facts, Dates | Timeline`;
+            description = `Explore the complete timeline of ${currentTimeline.title}, showcasing key events, facts, and milestones that shaped its journey. Dive into history and uncover everything in one simple, engaging view.`
+            break;
+        case "newTimeline":
+            title = 'New timeline | Timeline'
+            description = `Create your own timeline effortlessly. Organize events, facts, and key moments with our easy-to-use timeline maker. Start building a timeline that brings your story to life today!`
+            break
+        case "profile":
+            title = `Profile of ${profile.username} | Timeline`
+            description = `Profile of ${profile.username}. View their contributions, created timelines, favorite timelines, and discover their unique interests and insights.`
+            break
+        case "privateTimeline":
+            title = `History of ${currentTimeline.title} - By ${profile.username} | Timeline`;
+            description = `Explore the complete timeline of ${currentTimeline.title}, showcasing key events, facts, and milestones that shaped its journey. Dive into history and uncover everything in one simple, engaging view.`
+            break
+        case "about":
+            title = 'Capture and share your interest - Free online timeline maker & Timeline wiki | Timeline'
+            description = `Capture and share your passions like never before with our ultimate timeline maker! Easily create and customize timelines for any topic, from personal milestones to historical events. Join our community, explore timelines, and start sharing your unique stories today!`
+            break
+        case "histories":
+            title = `Histories of all timelines | Timeline`
+            description = `View the complete histories of all edited timelines. This page aggregates all changes and updates made to each timeline, providing a comprehensive record of contributions and revisions.`
+            break
+        case "privacy":
+            title = `Privacy policy | Timeline`
+            description = `Our Privacy policy outlines how we collect, use, and protect your personal information. Learn about your rights and how we handle your data to ensure your privacy while using our services.`
+            break
+        case "terms":
+            title = `Terms of use | Timeline`
+            description = `The Terms of use detail the rules and guidelines for using our website and services. By accessing our platform, you agree to comply with these terms, ensuring a safe and fair environment for all users.`
+            break
+        case "maintenance":
+            title = `Maintenance | Timeline`
+            description = `We're currently performing maintenance to enhance your experience. Please check back soon, and thank you for your patience as we work to improve our services.`
+            break
+        default:
+            title = "Timeline | Free online timeline maker & Timeline wiki";
+            description = `Create stunning timelines effortlessly with our free online timeline maker! Organize your events, milestones, and stories in a visually engaging format. Explore our Timeline Wiki for inspiration and join a community of creators sharing their unique timelines. Start crafting your timeline today and bring your history to life!`
+    }
 
     return (
         <Head>

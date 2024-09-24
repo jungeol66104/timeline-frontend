@@ -41,7 +41,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 const NewTimelinePage = () => {
     return (
         <>
-            <DynamicHead type={'timeline'}/>
+            <DynamicHead type={'newTimeline'}/>
             <div className={`page`}>
                 <AdsTimelineTop />
                 <hr/>

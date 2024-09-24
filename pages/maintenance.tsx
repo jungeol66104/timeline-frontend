@@ -5,6 +5,7 @@ import {storeWrapper} from "@/store/store";
 import {updateIsMaintenance, updateTimelineType} from "@/store/slices/appearanceSlice";
 import {updateCurrentEvents, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import TimelineDemo from "@/components/about/timelineDemo";
+import DynamicHead from "@/components/dynamicHead";
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async () => {
     try {
@@ -31,22 +32,25 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async () =>
 
 const MaintenancePage = () => {
     return (
-        <div className={'px-3 py-10 flex flex-col items-center justify-center gap-10'}>
-            <div className={'text-2xl font-black'}>Timeline</div>
-            <h1 className={'text-4xl font-bold text-center'}>Timeline Wiki Update</h1>
-            <div className={'max-w-[630px] flex flex-col items-center gap-10 text-lg font-medium'}>
-                <p>Thank you for visiting Timeline! We&apos;ll be right back.</p>
-                <p className={'text-center'}>We expect to be back online before<br/><span className={'text-blue-700 text-[16px] font-normal'}>September 14, 2024 00:00:00 (UTC)</span></p>
-                <p>
-                    Timeline is currently undergoing major update to bring you an even better experience.
-                    After this update, our service becomes a timeline wiki.
-                    Not only viewing timelines, you will be able to create and edit your own private timeline, publish it to the wiki or do both.
-                </p>
-                <p>You can try creating and editing your own timeline with the demo below!</p>
+        <>
+            <DynamicHead type={'maintenance'}/>
+            <div className={'px-3 py-10 flex flex-col items-center justify-center gap-10'}>
+                <div className={'text-2xl font-black'}>Timeline</div>
+                <h1 className={'text-4xl font-bold text-center'}>Timeline Wiki Update</h1>
+                <div className={'max-w-[630px] flex flex-col items-center gap-10 text-lg font-medium'}>
+                    <p>Thank you for visiting Timeline! We&apos;ll be right back.</p>
+                    <p className={'text-center'}>We expect to be back online before<br/><span className={'text-blue-700 text-[16px] font-normal'}>September 14, 2024 00:00:00 (UTC)</span></p>
+                    <p>
+                        Timeline is currently undergoing major update to bring you an even better experience.
+                        After this update, our service becomes a timeline wiki.
+                        Not only viewing timelines, you will be able to create and edit your own private timeline, publish it to the wiki or do both.
+                    </p>
+                    <p>You can try creating and editing your own timeline with the demo below!</p>
+                </div>
+                <div className={'w-full max-w-[630px]'}><TimelineDemo/></div>
+                <p>Reach out to us at <Link href="mailto:project.yaha@gmail.com" className={'text-blue-700 hover:underline'}>project.yaha@gmail.com</Link>.</p>
             </div>
-            <div className={'w-full max-w-[630px]'}><TimelineDemo/></div>
-            <p>Reach out to us at <Link href="mailto:project.yaha@gmail.com" className={'text-blue-700 hover:underline'}>project.yaha@gmail.com</Link>.</p>
-        </div>
+        </>
     );
 };
 

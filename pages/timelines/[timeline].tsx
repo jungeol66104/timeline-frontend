@@ -42,7 +42,7 @@ const TimelinePage = () => {
 
     return (
         <>
-            <DynamicHead type={'timeline'}/>
+            <DynamicHead type={'publicTimeline'}/>
             <div className={`page`}>
                 <AdsTimelineTop />
                 <hr/>

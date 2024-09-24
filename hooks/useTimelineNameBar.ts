@@ -11,20 +11,23 @@ const useTimelineNameBar = () => {
     const timelineContentType = useSelector(selectInformationContentType)
 
     useEffect(() => {
-        if (!getIsTimelinePath(router.pathname)) return
-
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                const targetExists = document.body.contains(entry.target);
-                if (entry.isIntersecting || !targetExists) dispatch(updateShowTimelineTitleBar(false))
-                else dispatch(updateShowTimelineTitleBar(true))
-            });
-        }, {rootMargin: '-60px 0px 0px 0px'});
-
         const timelineTitle : HTMLDivElement | null = typeof window !== 'undefined' ? document.querySelector('.timelineTitle') : null
 
-        if (timelineTitle) observer.observe(timelineTitle);
-        else dispatch(updateShowTimelineTitleBar(false))
+        if (!getIsTimelinePath(router.pathname)) {
+            dispatch(updateShowTimelineTitleBar(false))
+            return
+        } else {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    const targetExists = document.body.contains(entry.target);
+                    if (entry.isIntersecting || !targetExists) dispatch(updateShowTimelineTitleBar(false))
+                    else dispatch(updateShowTimelineTitleBar(true))
+                });
+            }, {rootMargin: '-60px 0px 0px 0px'});
+
+            if (timelineTitle) observer.observe(timelineTitle);
+            else dispatch(updateShowTimelineTitleBar(false))
+        }
     }, [router.pathname, timelineContentType]);
 };
 

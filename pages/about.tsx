@@ -45,7 +45,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 const AboutPage = () => {
     return (
         <>
-            <DynamicHead type={'timeline'}/>
+            <DynamicHead type={'about'}/>
             <div className={`page`}>
                 <div className={'timelinePageWrapper pageWrapper w-full flex'}>
                     <AboutSectionPrimary />

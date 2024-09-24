@@ -7,7 +7,7 @@ import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
 import {wrapPTag} from "@/utils/global";
-import {updateSession} from "@/store/slices/privateSlice";
+import {updateProfile, updateProfileDraft, updateSession} from "@/store/slices/privateSlice";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params, req}) => {
     try {
@@ -21,6 +21,8 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
             const data = response.data.data
 
             store.dispatch(updateSession(data))
+            store.dispatch(updateProfile({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
+            store.dispatch(updateProfileDraft({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
         }
 
         if (jwt) {
@@ -43,7 +45,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 const PrivateTimelinePage = () => {
     return (
         <>
-            <DynamicHead type={'timeline'}/>
+            <DynamicHead type={'privateTimeline'}/>
             <div className={`page`}>
                 <div className={'timelinePageWrapper pageWrapper w-full flex'}>
                     <TimelineSectionPrimary />
