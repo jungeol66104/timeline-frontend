@@ -72,7 +72,7 @@ const ContributorsButton = ({contributors} : {contributors: Contributors}) => {
                     {isBaseImage && <div className={'w-[25px] h-[25px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[1px] border-white shrink-0'}>{username && username[0].toUpperCase()}</div>}
                     {!isBaseImage && imagePath !== '' && <div className={'overflow-hidden relative w-[25px] h-[25px] rounded-full border-[1px] border-white shrink-0'}><Image className={'rounded-full'} src={cdnUrl + imagePath} alt={username} fill priority style={{objectFit: "cover", objectPosition: "top"}}/></div>}
                     {!isBaseImage && imagePath === '' && <div className={'w-[25px] h-[25px] rounded-full flex items-center justify-center bg-gray-600 text-white text-xs border-[1px] border-white shrink-0'}>U</div>}
-                    <div className={`${counts <= 1 && 'hidden'} text-sm font-semibold`}>+{counts}</div>
+                    <div className={`${counts <= 1 && 'hidden'} text-sm font-semibold`}>+{counts - 1}</div>
                 </div>
             </button>
             {isToggle &&
