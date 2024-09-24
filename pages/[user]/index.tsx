@@ -19,7 +19,6 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
             const response = await api.get(`/user/info`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
             if (response.data.code === 69999) return { notFound: true }
             const data = response.data.data
-
             store.dispatch(updateSession(data))
         }
 
@@ -44,7 +43,7 @@ const ProfilePage = () => {
 
     return (
         <>
-            <DynamicHead type={'index'}/>
+            <DynamicHead type={'profile'}/>
             <div className={'page h-full'}>
                 <div className={'pageWrapper relative w-full h-full flex max-[852px]:flex-col-reverse'}>
                     <ProfileSectionPrimary />

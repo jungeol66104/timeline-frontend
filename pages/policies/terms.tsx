@@ -1,9 +1,12 @@
 import React from 'react';
 import Link from "next/link";
+import DynamicHead from "@/components/dynamicHead";
 
 const TermsPage = () => {
     return (
-        <div className={'page'}>
+        <>
+            <DynamicHead type={'terms'}/>
+            <div className={'page'}>
             <div className={'pageWrapper w-full flex'}>
                 {/* Section Primary */}
                 <div className={'relative h-fit w-full max-w-[630px] px-4 py-10 flex flex-col gap-10 text-lg font-medium'}>
@@ -184,6 +187,7 @@ const TermsPage = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 
