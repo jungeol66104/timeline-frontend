@@ -1,8 +1,7 @@
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {selectIsSession, updateSession} from "@/store/slices/privateSlice";
-import {useIsomorphicLayoutEffect} from "@/utils/global";
-import {useEffect, useLayoutEffect} from "react";
+import {useEffect} from "react";
 
 export const useSession = () => {
     const dispatch = useDispatch()

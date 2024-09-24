@@ -11,16 +11,14 @@ const SignInOutButton = () => {
 
     const handleClick = async () => {
         const redirectPath = router.asPath;
-        if (isSession) router.push(`/api/user/signout?redirectPath=${encodeURIComponent(redirectPath)}`);
+        if (isSession) window.location.href = `/api/user/signout?redirectPath=${encodeURIComponent(redirectPath)}`
         else {
             window.open(`/api/user/signin?redirectPath=${encodeURIComponent(redirectPath)}`, 'google-signin-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
 
             window.addEventListener('message', (event) => {
                 if (event.origin !== window.location.origin) return;
                 if (event.data.type === 'SIGNIN_SUCCESS') {
-                    getSession().then((session) => {
-                        dispatch(updateSession(session));
-                    })
+                    getSession().then((session) => {dispatch(updateSession(session));})
                 }
             });
         }

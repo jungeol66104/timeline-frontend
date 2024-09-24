@@ -40,7 +40,7 @@ const ProfileBody = () => {
                 {isSession && session.username === username && <button onClick={() => handleClick('timelines')} className={`h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] ${profileType === 'timelines' ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}>My Timelines</button>}
             </div>
             <hr/>
-            {profileType === 'contributions' && <ProfileContributions/>}
+            {profileType === 'contributions' && <ProfileContributions />}
             {profileType === 'timelines' && <ProfileMyTimelines />}
             <CollectionBottom />
         </div>
