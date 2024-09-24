@@ -7,6 +7,7 @@ import {selectCurrentTimelines} from "@/store/slices/contentsSlice";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import {unwrapPTag} from "@/utils/global";
 
 const TimelineExampleCard = () => {
     const currentTimelines = useSelector(selectCurrentTimelines).filter((timeline) => {
@@ -38,10 +39,10 @@ const TimelineExampleCard = () => {
                                 <div className={`relative z-20 h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] border-gray-300 bg-white text-sm font-semibold`}><span>&#x2728;  Staff Picks</span></div>
                             </div>
                         </div>
-                        <div className={'px-4 py-3'}>
+                        <div className={'px-4 py-3 h-[152px]'}>
                             <h3 className={'text-2xl font-bold line-clamp-1'}>{timeline.title}</h3>
                             <div className={'text-gray-500 line-clamp-1'}>{timeline.description}</div>
-                            <div className={'mt-3 text-sm line-clamp-3'}>{timeline.content}</div>
+                            <div className={'mt-3 text-sm line-clamp-3'}>{unwrapPTag(timeline.content)}</div>
                         </div>
                     </Link>
                 ))}
