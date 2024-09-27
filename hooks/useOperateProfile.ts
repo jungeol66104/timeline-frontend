@@ -27,7 +27,6 @@ const useOperateProfile = () => {
             try {
                 const type = profileType === 'contributions' ? 0 : 1
                 const response = await axios.get(`/api/user/profile?type=${type}&user=${query}&pageNum=${currentPage + 1}`)
-                console.log(response.data)
                 return response.data
             } catch (error) {
                 console.error('Error fetching data in useEffect: ', error);

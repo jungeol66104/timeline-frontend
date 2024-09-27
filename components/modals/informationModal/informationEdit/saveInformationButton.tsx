@@ -21,9 +21,10 @@ const SaveInformationButton = () => {
                 "imagePath": currentTimelineDraft.imagePath,
                 "note": ""
             }
-
+            console.log(body)
             try {
                 const response = await axios.put('/api/wiki/timeline/update', body);
+                console.log(response)
                 if (response.status === 200) {
                     if (response.data.code === 69999) return
                     dispatch(updateCurrentTimeline(currentTimelineDraft))
