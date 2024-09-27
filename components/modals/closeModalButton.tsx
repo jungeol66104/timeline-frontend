@@ -7,7 +7,6 @@ const CloseModalButton = () => {
 
     const handleClick = () => {
         dispatch(updateModalType('none'))
-
         if (timelineType !== 'new') {
             dispatch(updateEventContentType('view'))
             dispatch(updateEventHistoryType('list'))

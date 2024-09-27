@@ -17,6 +17,13 @@ const EventPreview = ({event} : {event: Event}) => {
     const isBaseImage = getIsBaseImage(event.imagePath)
 
     const handleClick = async () => {
+        // adjust initial scrollTop
+        const eventModal = typeof window !== 'undefined' ? document.querySelector('.eventModal') : null
+        if (!eventModal) return
+        const modalScrollWrapper = typeof window !== 'undefined' ? eventModal.querySelector('.modalScrollWrapper') : null
+        if (!modalScrollWrapper) return
+        modalScrollWrapper.scrollTop = 0
+
         try {
             let newEvent: any;
             if (timelineType === 'new' || timelineType === 'demo') {

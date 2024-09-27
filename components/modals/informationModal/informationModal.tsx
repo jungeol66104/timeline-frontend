@@ -1,10 +1,10 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
+import MoveToTimelineButton from "@/components/modals/moveToTimelineButton";
 import CloseModalButton from "@/components/modals/closeModalButton";
 import InformationModalHead from "@/components/modals/informationModal/informationModalHead";
 import InformationModalBody from "@/components/modals/informationModal/informationModalBody";
-import MoveToTimelineButton from "@/components/modals/moveToTimelineButton";
 
 const InformationModal = () => {
     const timelineType = useSelector(selectTimelineType)
@@ -12,13 +12,13 @@ const InformationModal = () => {
 
     const bottom = modalType === 'information' && timelineType !== 'demo' ? 0 : '-100%'
     return (
-        <div className={'informationModal fixed w-full max-w-lg h-[44px] left-1/2 transform -translate-x-1/2 bg-white rounded-t-2xl flex flex-col items-center'} style={{zIndex: 5002, height: 'calc(100% - 61px)', bottom: bottom, transition: 'bottom 0.3s'}}>
-            <div className={'relative py-2.5 w-full border-b-[1px] text-center'}>
+        <div className={'informationModal fixed left-1/2 transform -translate-x-1/2 w-full max-w-lg flex flex-col items-center bg-white rounded-t-2xl'} style={{zIndex: 5002, height: 'calc(100% - 61px)', bottom: bottom, transition: 'bottom 0.3s'}}>
+            <div className={'relative py-2.5 w-full h-[44px] text-center border-b-[1px]'}>
                 <MoveToTimelineButton />
                 <h2 className={'text-md font-semibold'}>Information</h2>
                 <CloseModalButton />
             </div>
-            <div className={'p-4 w-full h-full flex flex-col gap-3 overflow-y-scroll'}>
+            <div className={'modalScrollWrapper overflow-y-scroll p-4 w-full h-full flex flex-col gap-3'}>
                 <InformationModalHead />
                 <InformationModalBody />
             </div>

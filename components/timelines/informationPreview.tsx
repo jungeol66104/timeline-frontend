@@ -6,7 +6,7 @@ import InformationPreviewImage from "@/components/timelines/informationPreviewIm
 
 import axios from "axios";
 import api from "@/pages/api/api";
-import {getIsBaseImage, unwrapPTag, wrapPTag} from "@/utils/global";
+import {getIsBaseImage, getModalScrollWrappers, unwrapPTag, wrapPTag} from "@/utils/global";
 
 const InformationPreview = () => {
     const dispatch = useDispatch();
@@ -19,6 +19,13 @@ const InformationPreview = () => {
     const timeline = timelineType === 'new' ? currentTimelineDraft : currentTimeline;
 
     const handlePreviewClick = async () => {
+        // adjust initial scrollTop
+        const informationModal = typeof window !== 'undefined' ? document.querySelector('.informationModal') : null
+        if (!informationModal) return
+        const modalScrollWrapper = typeof window !== 'undefined' ? informationModal.querySelector('.modalScrollWrapper') : null
+        if (!modalScrollWrapper) return
+        modalScrollWrapper.scrollTop = 0
+
         try {
             let newInformation: any
             if (timelineType === 'new' || timelineType === 'demo') {
