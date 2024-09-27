@@ -15,7 +15,7 @@ const CloseModalButton = () => {
     }
 
     return (
-        <button onClick={handleClick} className={'absolute right-4 top-3 shrink-0 material-symbols-outlined text-[20px]'}>&#xe5cd;</button>
+        <button onClick={handleClick} className={'absolute right-1 top-1 px-2 h-[36px] hover:bg-gray-100 rounded-2xl shrink-0 material-symbols-outlined text-[20px]'}>&#xe5cd;</button>
     );
 };
 
