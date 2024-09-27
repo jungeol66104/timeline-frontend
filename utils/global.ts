@@ -25,6 +25,10 @@ export const getScrollWrapper = () => {
     return scrollWrapper
 }
 
+export const getModalScrollWrappers = () => {
+    return typeof window !== 'undefined' ? document.querySelectorAll('.modalScrollWrapper') : null
+}
+
 export const getIsBaseImage = (url: string | null | undefined) => {
     if (typeof url !== "string") return true
     return url.includes("base-image.png")

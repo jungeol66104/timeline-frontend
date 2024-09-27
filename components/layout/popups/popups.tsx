@@ -11,6 +11,7 @@ import ProfileSettingsPopup from "@/components/layout/popups/settings/profileSet
 import DeleteAccountPopup from "@/components/layout/popups/deleteAccountPopup";
 import DetachEventPopup from "@/components/layout/popups/detachEventPopup";
 import TitleErrorPopup from "@/components/layout/popups/titleErrorPopup";
+import SameTitlePopup from "@/components/layout/popups/sameTitlePopup";
 
 const Popups = () => {
     const popupType = useSelector(selectPopupType)
@@ -27,6 +28,7 @@ const Popups = () => {
             {popupType === 'settings' && <ProfileSettingsPopup />}
             {popupType === 'deleteAccount' && <DeleteAccountPopup />}
             {popupType === 'detachEvent' && <DetachEventPopup />}
+            {popupType === 'sameTitle' && <SameTitlePopup />}
         </>
     );
 };
