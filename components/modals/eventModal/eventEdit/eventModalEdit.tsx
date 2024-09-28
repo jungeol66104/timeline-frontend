@@ -6,7 +6,9 @@ import EventModalEditMenubar from "@/components/modals/eventModal/eventEdit/even
 import EventModalImage from "@/components/modals/eventModal/eventView/eventModalImage";
 
 import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
+import Document from '@tiptap/extension-document'
+import Text from '@tiptap/extension-text'
+import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from "@tiptap/extension-placeholder";
 
 const EventModalEdit = () => {
@@ -19,7 +21,7 @@ const EventModalEdit = () => {
     const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
 
     const editor = useEditor({
-        extensions: [StarterKit, Placeholder.configure({placeholder: 'New event content'})],
+        extensions: [Document, Text, Paragraph, Placeholder.configure({placeholder: 'New event content'})],
         editorProps: {attributes: {class: 'w-full outline-none'}},
         onUpdate: ({ editor }) => {
             dispatch(updateCurrentEventDraft({...currentEventDraft, content: editor.getHTML()}))
