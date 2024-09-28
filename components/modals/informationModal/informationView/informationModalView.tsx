@@ -2,17 +2,28 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import InformationModalImage from "@/components/modals/informationModal/informationView/informationModalImage";
-import {unwrapPTag} from "@/utils/global";
+
+import {EditorContent, useEditor} from "@tiptap/react";
+import Document from '@tiptap/extension-document'
+import Text from '@tiptap/extension-text'
+import Paragraph from '@tiptap/extension-paragraph'
 
 const InformationModalView = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
 
+    const editor = useEditor({
+        extensions: [Document, Paragraph, Text],
+        editorProps: {attributes: {class: 'outline-none'}},
+        content: `${currentTimeline.content}`,
+        editable: false
+    })
+
     return (
         <div>
             <hr/>
-            <div className={'flex flex-col'}>
-                <div className={'w-full flex items-center justify-center'}><InformationModalImage information={currentTimeline} /></div>
-                <p className={'mt-3'}>{unwrapPTag(currentTimeline.content)}</p>
+            <div className={'flex flex-col items-center gap-3'}>
+                <div className={'w-full flex items-center justify-center'}><InformationModalImage information={currentTimeline}/></div>
+                <div className={'w-full'}><EditorContent editor={editor}/></div>
             </div>
         </div>
     );
