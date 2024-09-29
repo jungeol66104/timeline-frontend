@@ -7,8 +7,10 @@ import {EditorContent, useEditor} from "@tiptap/react";
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
+import {selectModalType} from "@/store/slices/appearanceSlice";
 
 const InformationModalView = () => {
+    const modalType = useSelector(selectModalType)
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     const editor = useEditor({
@@ -16,7 +18,7 @@ const InformationModalView = () => {
         editorProps: {attributes: {class: 'outline-none'}},
         content: `${currentTimeline.content}`,
         editable: false
-    })
+    }, [modalType])
 
     return (
         <div>
