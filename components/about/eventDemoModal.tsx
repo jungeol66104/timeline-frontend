@@ -16,7 +16,7 @@ const EventDemoModal = () => {
                 <h2 className={'text-md font-semibold'}>Event</h2>
                 <CloseModalButton />
             </div>
-            <div className={'overflow-y-scroll z-10 p-4 w-full h-full flex flex-col gap-3'}>
+            <div className={'modalScrollWrapper overflow-y-scroll z-10 p-4 w-full h-full flex flex-col gap-3'}>
                 <EventModalHead />
                 <EventModalBody />
             </div>
