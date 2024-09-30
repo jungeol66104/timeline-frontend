@@ -30,9 +30,14 @@ const UsernameSetting = () => {
     }
 
     return (
+        // <div ref={usernameSettingRef} onClick={handleClick} className={`p-3 w-full border-[1px] ${isToggle ? 'border-black' : 'cursor-pointer hover:bg-gray-100 border-gray-300'} rounded-md`}>
+        //     <h3 className={'font-semibold'}>Username</h3>
+        //     <input ref={inputRef} className={`w-full font-normal bg-transparent ${!isToggle && 'text-gray-400 cursor-pointer'} focus:outline-none`} type={'text'} value={profileDraft.username} readOnly={!isToggle} onChange={(e) => dispatch(updateProfileDraft({...profileDraft, username:e.target.value}))}/>
+        //     <div className={`${!isToggle && 'hidden'} mt-3`}><SaveUsernameButton /></div>
+        // </div>
         <div ref={usernameSettingRef} onClick={handleClick} className={`p-3 w-full border-[1px] ${isToggle ? 'border-black' : 'cursor-pointer hover:bg-gray-100 border-gray-300'} rounded-md`}>
             <h3 className={'font-semibold'}>Username</h3>
-            <input ref={inputRef} className={`w-full font-normal bg-transparent ${!isToggle && 'text-gray-400 cursor-pointer'} focus:outline-none`} type={'text'} value={profileDraft.username} readOnly={!isToggle} onChange={(e) => dispatch(updateProfileDraft({...profileDraft, username:e.target.value}))}/>
+            <input ref={inputRef} className={`w-full font-normal bg-transparent ${!isToggle && 'text-gray-400 cursor-pointer'} focus:outline-none`} type={'text'} value={profileDraft.username} onChange={(e) => dispatch(updateProfileDraft({...profileDraft, username:e.target.value}))}/>
             <div className={`${!isToggle && 'hidden'} mt-3`}><SaveUsernameButton /></div>
         </div>
     );
