@@ -3,9 +3,12 @@ import React, {ChangeEvent} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
+import {selectIsSession, updateSession} from "@/store/slices/privateSlice";
+import {getSession} from "@/utils/global";
 
 const AddImageButton = () => {
     const dispatch = useDispatch()
+    const isSession = useSelector(selectIsSession)
     const timelineType = useSelector(selectTimelineType)
     const modalType = useSelector(selectModalType)
     const currentEvents = useSelector(selectCurrentEvents)
@@ -92,10 +95,26 @@ const AddImageButton = () => {
         }
     }
 
+    const handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
+        if (!isSession) {
+            e.preventDefault()
+            window.open(`/api/user/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
+
+            window.addEventListener('message', (event) => {
+                if (event.origin !== window.location.origin) return;
+                if (event.data.type === 'SIGNIN_SUCCESS') {
+                    getSession().then((session) => {
+                        dispatch(updateSession(session));
+                    })
+                }
+            });
+        }
+    }
+
     return (
         <label className={`cursor-pointer flex items-center justify-center w-9 h-9 bg-white hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md ${modalType === 'none' && 'opacity-70'}`}>
             <div className={'material-symbols-outlined text-[22px]'}>&#xe43e;</div>
-            <input className={'hidden'} type={'file'} accept={'.png,.jpg,.jpeg'} onChange={handleChange} />
+            <input className={'hidden'} type={'file'} accept={'.png,.jpg,.jpeg'} onChange={handleChange} onClick={handleClick}/>
         </label>
     );
 };
