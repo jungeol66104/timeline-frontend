@@ -95,7 +95,7 @@ const AddImageButton = () => {
     }
 
     const handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
-        if (!isSession) {
+        if (!isSession && timelineType !== 'demo') {
             e.preventDefault()
             dispatch(updatePopupType('signIn'))
         }
