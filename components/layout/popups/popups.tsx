@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectPopupType} from "@/store/slices/appearanceSlice";
 import SharePopup from "@/components/layout/popups/share/sharePopup";
-import SignInPopup from "@/components/layout/popups/signInPopup";
+import LogInPopup from "@/components/layout/popups/login/logInPopup";
 import CreatePopup from "@/components/layout/popups/createPopup";
 import PublishPopup from "@/components/layout/popups/publishPopup";
 import DateGuidePopup from "@/components/layout/popups/dateGuidePopup";
@@ -19,7 +19,7 @@ const Popups = () => {
     return (
         <>
             {popupType === 'share' && <SharePopup />}
-            {popupType === 'signIn' && <SignInPopup />}
+            {popupType === 'signIn' && <LogInPopup />}
             {popupType === 'create' && <CreatePopup />}
             {popupType === 'publish' && <PublishPopup />}
             {popupType === 'dateGuide' && <DateGuidePopup />}

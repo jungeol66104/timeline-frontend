@@ -16,7 +16,7 @@ const Popup = ({title, children}: {title: string, children: React.ReactNode}) =>
             {/*transition-all duration-300 ease-in-out*/}
             <div className={'absolute overflow-y-hidden min-[432px]:w-[400px] max-[432px]:w-[calc(100%-32px)] max-h-[400px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl flex flex-col items-center'}>
                 <div className={'relative py-2.5 w-full border-b-[1px] text-center'}>
-                    <h2 className={'text-md font-semibold'}>{title}</h2>
+                    <h2 className={'h-[24px] text-md font-semibold'}>{title}</h2>
                     <ClosePopupButton/>
                 </div>
                 <div className={'p-4 w-full h-full overflow-y-auto'}>{children}</div>

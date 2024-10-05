@@ -1,6 +1,14 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectDemoKeyConcept, selectEventContentType, selectTimelineType, updateEventContentType, updateEventHistoryType, updateInformationContentType} from "@/store/slices/appearanceSlice";
+import {
+    selectDemoKeyConcept,
+    selectEventContentType,
+    selectTimelineType,
+    updateEventContentType,
+    updateEventHistoryType,
+    updateInformationContentType,
+    updatePopupType
+} from "@/store/slices/appearanceSlice";
 import {getSession} from "@/utils/global";
 import {selectIsSession, updateSession} from "@/store/slices/privateSlice";
 import {selectCurrentEvent, updateCurrentEvent, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
@@ -24,27 +32,7 @@ const EventViewEditButton = () => {
                     dispatch(updateCurrentEventDraft({...currentEvent, imageSize}))
                     dispatch(updateEventContentType(contentType))
                 }
-            }
-            else {
-                window.open(`/api/user/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
-
-                window.addEventListener('message', (event) => {
-                    if (event.origin !== window.location.origin) return;
-                    if (event.data.type === 'SIGNIN_SUCCESS') {
-                        getSession().then((session) => {
-                            const image = new Image();
-                            image.src = currentEvent.cdnUrl! + currentEvent.imagePath!;
-                            image.onload = () => {
-                                const imageSize = {width: image.width, height: image.height}
-                                dispatch(updateCurrentEvent({...currentEvent, imageSize}))
-                                dispatch(updateCurrentEventDraft({...currentEvent, imageSize}))
-                                dispatch(updateEventContentType(contentType))
-                                dispatch(updateSession(session));
-                            }
-                        })
-                    }
-                });
-            }
+            } else dispatch(updatePopupType('signIn'))
         } else {
             const image = new Image();
             image.src = currentEvent.cdnUrl! + currentEvent.imagePath!;

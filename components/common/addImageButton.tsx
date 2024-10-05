@@ -1,10 +1,9 @@
 import axios from "axios";
 import React, {ChangeEvent} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectModalType, selectTimelineType} from "@/store/slices/appearanceSlice";
+import {selectModalType, selectTimelineType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
-import {selectIsSession, updateSession} from "@/store/slices/privateSlice";
-import {getSession} from "@/utils/global";
+import {selectIsSession} from "@/store/slices/privateSlice";
 
 const AddImageButton = () => {
     const dispatch = useDispatch()
@@ -98,16 +97,7 @@ const AddImageButton = () => {
     const handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
         if (!isSession) {
             e.preventDefault()
-            window.open(`/api/user/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
-
-            window.addEventListener('message', (event) => {
-                if (event.origin !== window.location.origin) return;
-                if (event.data.type === 'SIGNIN_SUCCESS') {
-                    getSession().then((session) => {
-                        dispatch(updateSession(session));
-                    })
-                }
-            });
+            dispatch(updatePopupType('signIn'))
         }
     }
 

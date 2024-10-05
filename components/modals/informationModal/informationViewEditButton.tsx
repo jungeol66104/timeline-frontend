@@ -1,7 +1,6 @@
-import {getSession} from "@/utils/global";
 import {useDispatch, useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType, updateInformationContentType, updatePopupType} from "@/store/slices/appearanceSlice";
-import {selectSession, updateSession} from "@/store/slices/privateSlice";
+import {selectSession} from "@/store/slices/privateSlice";
 import {selectCurrentTimeline, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 
 const InformationViewEditButton = () => {
@@ -25,26 +24,7 @@ const InformationViewEditButton = () => {
                     dispatch(updateCurrentTimelineDraft({...currentTimeline, imageSize}))
                     dispatch(updateInformationContentType(contentType))
                 }
-            } else {
-                window.open(`/api/user/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
-
-                window.addEventListener('message', (event) => {
-                    if (event.origin !== window.location.origin) return;
-                    if (event.data.type === 'SIGNIN_SUCCESS') {
-                        getSession().then((session) => {
-                            const image = new Image();
-                            image.src = currentTimeline.cdnUrl! + currentTimeline.imagePath!;
-                            image.onload = () => {
-                                const imageSize = {width: image.width, height: image.height}
-                                dispatch(updateCurrentTimeline({...currentTimeline, imageSize}))
-                                dispatch(updateCurrentTimelineDraft({...currentTimeline, imageSize}))
-                                dispatch(updateInformationContentType(contentType))
-                                dispatch(updateSession(session));
-                            }
-                        })
-                    }
-                });
-            }
+            } else dispatch(updatePopupType('signIn'))
         } else {
             const image = new Image();
             image.src = currentTimeline.cdnUrl! + currentTimeline.imagePath!;
