@@ -48,7 +48,7 @@ const SignInWithGoogleButton = () => {
     };
 
     return (
-        <div className={'h-[40px]'}><div id="g_id_signin"></div></div>
+        <div className={'overflow-hidden h-[40px]'}><div id="g_id_signin"></div></div>
     );
 };
 
