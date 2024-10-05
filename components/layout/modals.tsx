@@ -3,7 +3,6 @@ import InformationModal from "@/components/modals/informationModal/informationMo
 import EventModal from "@/components/modals/eventModal/eventModal";
 
 const Modals = () => {
-
     return (
         <>
             <ModalOverlay />
