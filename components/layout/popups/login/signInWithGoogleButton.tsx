@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useLayoutEffect} from 'react';
 import {getSession} from "@/utils/global";
 import {updateSession} from "@/store/slices/privateSlice";
 import {useDispatch} from "react-redux";
@@ -8,7 +8,7 @@ import {updatePopupType} from "@/store/slices/appearanceSlice";
 const SignInWithGoogleButton = () => {
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const loadGsiScript = () => {
             const script = document.createElement('script');
             script.src = 'https://accounts.google.com/gsi/client?hl=en';
@@ -48,7 +48,7 @@ const SignInWithGoogleButton = () => {
     };
 
     return (
-        <div className={'h-[40px]'}><div id="g_id_signin"></div></div>
+        <div className={'overflow-hidden h-[40px]'}><div id="g_id_signin"></div></div>
     );
 };
 
