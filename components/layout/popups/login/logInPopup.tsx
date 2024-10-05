@@ -19,15 +19,15 @@ const LogInPopup = () => {
                         <div className={'text-sm text-gray-500'}>USD $0 for all features after sign up</div>
                     </div>
                     <div className={'w-full flex flex-col gap-2'}>
-                        <div className={'flex items-center gap-2'}>
+                        <div className={'flex gap-2'}>
                             <span className={'material-symbols-outlined text-[16px]'}>&#xe5ca;</span>
                             <span className={'text-sm font-medium'}>Create infinite number of private timelines</span>
                         </div>
-                        <div className={'flex items-center gap-2'}>
+                        <div className={'flex gap-2'}>
                             <span className={'material-symbols-outlined text-[16px]'}>&#xe5ca;</span>
                             <span className={'text-sm font-medium'}>Publish timelines to the wiki</span>
                         </div>
-                        <div className={'flex items-center gap-2'}>
+                        <div className={'flex gap-2'}>
                             <span className={'material-symbols-outlined text-[16px]'}>&#xe5ca;</span>
                             <span className={'text-sm font-medium'}>Edit public timelines in the wiki</span>
                         </div>
