@@ -12,7 +12,10 @@ const LogInPopup = () => {
                 <SignInWithGoogleButton/>
                 <div className={'p-3 w-full flex flex-col gap-3 items-center bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl'}>
                     <div className={'w-full'}>
-                        <span className={'text-lg font-semibold'}>&#x1F340; Free</span>
+                        <div className={'flex items-center gap-1'}>
+                            <span className={'text-md'}>&#x1F340;</span>
+                            <span className={'text-lg font-semibold'}>Free</span>
+                        </div>
                         <div className={'text-sm text-gray-500'}>USD $0 for all features after sign up</div>
                     </div>
                     <div className={'w-full flex flex-col gap-2'}>

@@ -25,7 +25,8 @@ const SignInWithGoogleButton = () => {
                     shape: 'pill',
                     logo_alignment: 'left',
                     text: 'continue_with',
-                    width: '220'
+                    width: '220',
+                    locale: 'en'
                 });
             };
             document.body.appendChild(script);
