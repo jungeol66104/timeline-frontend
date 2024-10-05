@@ -1,8 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectIsSession, updateSession} from "@/store/slices/privateSlice";
-import {getSession} from "@/utils/global";
+import {selectIsSession} from "@/store/slices/privateSlice";
 import {useRouter} from "next/router";
+import {updatePopupType} from "@/store/slices/appearanceSlice";
 
 const CreateTimelineButton = () => {
     const router = useRouter()
@@ -11,19 +11,7 @@ const CreateTimelineButton = () => {
 
     const handleClick = () => {
         if (isSession) router.push('/timelines/new')
-        else {
-            window.open(`/api/user/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
-
-            window.addEventListener('message', (event) => {
-                if (event.origin !== window.location.origin) return;
-                if (event.data.type === 'SIGNIN_SUCCESS') {
-                    getSession().then((session) => {
-                        dispatch(updateSession(session));
-                        window.open('/timelines/new', '_self')
-                    })
-                }
-            });
-        }
+        else dispatch(updatePopupType('signIn'))
     }
 
     return (

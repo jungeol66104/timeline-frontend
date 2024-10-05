@@ -1,6 +1,6 @@
 import {getSession, getTodayDate} from "@/utils/global";
 import {useDispatch, useSelector} from "react-redux";
-import {selectDemoKeyConcept, selectTimelineType, updateEventContentType, updateModalType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectTimelineType, updateEventContentType, updateModalType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvents, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import {selectSession, updateSession} from "@/store/slices/privateSlice";
 
@@ -26,22 +26,7 @@ const AddEventButton = () => {
             dispatch(updateCurrentEventDraft(newEvent))
             dispatch(updateModalType('event'))
             dispatch(updateEventContentType('new'))
-        } else {
-            window.open(`/api/user/signin`, 'google-login-popup', `width=488, height=${window.screen.height}, top=0, left=${window.screen.width/2 - 244}, scrollbars=yes`);
-
-            window.addEventListener('message', (event) => {
-                if (event.origin !== window.location.origin) return;
-                if (event.data.type === 'SIGNIN_SUCCESS') {
-                    getSession().then((session) => {
-                        dispatch(updateSession(session));
-                        dispatch(updateCurrentEvent(newEvent))
-                        dispatch(updateCurrentEventDraft(newEvent))
-                        dispatch(updateModalType('event'))
-                        dispatch(updateEventContentType('new'))
-                    })
-                }
-            });
-        }
+        } else dispatch(updatePopupType('signIn'))
     }
 
     return (

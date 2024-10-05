@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import {selectIsSession, selectSession} from "@/store/slices/privateSlice";
 import ShareButton from "@/components/layout/menu/shareButton";
 import FeedbackButton from "@/components/layout/menu/feedbackButton";
-import SignInOutButton from "@/components/layout/menu/signInOutButton";
+import LogInOutButton from "@/components/layout/menu/logInOutButton";
 import CreateTimelineButton from "@/components/layout/menu/createTimelineButton";
 import ProfileButton from "@/components/layout/menu/profileButton";
 import AboutButton from "@/components/layout/menu/aboutButton";
@@ -45,7 +45,7 @@ const ProfileMenuButton = () => {
                     <div className={'min-[850px]:hidden'}><CreateTimelineButton /></div>
                     <hr className={'min-[850px]:hidden my-1'}/>
                     {isSession && <ProfileButton/>}
-                    <SignInOutButton />
+                    <LogInOutButton />
                     <hr className={'my-1'}/>
                     <AboutButton />
                     <HistoriesButton />
