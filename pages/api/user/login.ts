@@ -3,6 +3,9 @@ import api from "@/pages/api/api";
 import cookie from "cookie";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
     const { idToken } = req.body;

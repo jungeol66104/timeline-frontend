@@ -2,7 +2,6 @@ import {useEffect} from 'react';
 import {getSession} from "@/utils/global";
 import {updateSession} from "@/store/slices/privateSlice";
 import {useDispatch} from "react-redux";
-import api from "@/pages/api/api";
 import axios from "axios";
 import {updatePopupType} from "@/store/slices/appearanceSlice";
 
