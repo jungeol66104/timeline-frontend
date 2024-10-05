@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectInformationContentType, selectTimelineType, updateInformationContentType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {selectSession} from "@/store/slices/privateSlice";
 import {selectCurrentTimeline, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
+import {getIsBaseImage} from "@/utils/global";
 
 const InformationViewEditButton = () => {
     const dispatch = useDispatch()
@@ -17,7 +18,7 @@ const InformationViewEditButton = () => {
         if (contentType === 'edit') {
             if (isSession || timelineType === 'new' || timelineType === 'demo') {
                 const image = new Image();
-                image.src = currentTimeline.cdnUrl! + currentTimeline.imagePath!;
+                image.src = timelineType === 'demo' && !getIsBaseImage(currentTimeline.imagePath) ? currentTimeline.imagePath! : currentTimeline.cdnUrl! + currentTimeline.imagePath!;
                 image.onload = () => {
                     const imageSize = {width: image.width, height: image.height}
                     dispatch(updateCurrentTimeline({...currentTimeline, imageSize}))
@@ -27,7 +28,7 @@ const InformationViewEditButton = () => {
             } else dispatch(updatePopupType('signIn'))
         } else {
             const image = new Image();
-            image.src = currentTimeline.cdnUrl! + currentTimeline.imagePath!;
+            image.src = timelineType === 'demo' && !getIsBaseImage(currentTimeline.imagePath) ? currentTimeline.imagePath! : currentTimeline.cdnUrl! + currentTimeline.imagePath!;
             image.onload = () => {
                 const imageSize = {width: image.width, height: image.height}
                 dispatch(updateCurrentTimeline({...currentTimeline, imageSize}))
