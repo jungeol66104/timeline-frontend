@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 
-const maintenanceMode = true;
+const maintenanceMode = false;
 
 export const middleware = (req: NextRequest) => {
     const url = req.nextUrl.clone();
