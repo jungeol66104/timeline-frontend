@@ -6,7 +6,8 @@ import InformationPreviewImage from "@/components/timelines/informationPreviewIm
 
 import axios from "axios";
 import api from "@/pages/api/api";
-import {getIsBaseImage, getModalScrollWrappers, unwrapPTag, wrapPTag} from "@/utils/global";
+import {getIsBaseImage, wrapPTag} from "@/utils/global";
+import DOMPurify from 'dompurify';
 
 const InformationPreview = () => {
     const dispatch = useDispatch();
@@ -17,14 +18,26 @@ const InformationPreview = () => {
 
     const [imageHover, setImageHover] = useState(false);
     const timeline = timelineType === 'new' ? currentTimelineDraft : currentTimeline;
+    let informationContent;
+    if (timeline.content === '' || timeline.content === '<p></p>') {
+        informationContent = 'Click this timeline box to edit the title, description, content and image of the timeline!'
+    } else {
+        if (typeof window === 'undefined') {
+            const { JSDOM } = require('jsdom');
+            const dom = new JSDOM('');
+            const ssrPurify = DOMPurify(dom.window);
+            informationContent = ssrPurify.sanitize(timeline.content);
+        } else {
+            informationContent = DOMPurify.sanitize(timeline.content);
+        }
+    }
 
     const handlePreviewClick = async () => {
-        // adjust initial scrollTop
-        const informationModal = typeof window !== 'undefined' ? document.querySelector('.informationModal') : null
-        if (!informationModal) return
-        const modalScrollWrapper = typeof window !== 'undefined' ? informationModal.querySelector('.modalScrollWrapper') : null
-        if (!modalScrollWrapper) return
-        modalScrollWrapper.scrollTop = 0
+        if (typeof window !== 'undefined') {
+            const informationModal = document.querySelector('.informationModal');
+            const modalScrollWrapper = informationModal?.querySelector('.modalScrollWrapper');
+            if (modalScrollWrapper) modalScrollWrapper.scrollTop = 0;
+        }
 
         try {
             let newInformation: any
@@ -74,7 +87,7 @@ const InformationPreview = () => {
                 <div onClick={handleImageClick} onMouseEnter={() => setImageHover(true)} onMouseLeave={() => setImageHover(false)} onTouchStart={(e) => handleImageTouch(e)}><InformationPreviewImage information={timeline} /></div>
                 <div className={'flex flex-col gap-1 max-[630px]:mt-1'}>
                     <div className={`max-[630px]:hidden line-clamp-1 break-words`}>{timeline.description === '' ? 'New timeline description' : timeline.description}</div>
-                    <div className={'text-sm text-gray-600 line-clamp-4'}>{timeline.content === '' || timeline.content === '<p></p>' ? 'Click this timeline box to edit the title, description, content and image of the timeline!' : timeline.content}</div>
+                    <div className={'text-sm text-gray-600 line-clamp-4'} dangerouslySetInnerHTML={{ __html: informationContent }} />
                 </div>
             </div>
         </div>
