@@ -6,7 +6,8 @@ import EventPreviewImage from "@/components/timelines/events/eventPreviewImage";
 
 import axios from "axios";
 import api from "@/pages/api/api";
-import {getIsBaseImage, unwrapPTag, wrapPTag} from "@/utils/global";
+import {getIsBaseImage, wrapPTag} from "@/utils/global";
+import DOMPurify from 'dompurify';
 
 const EventPreview = ({event} : {event: Event}) => {
     const dispatch = useDispatch()
@@ -15,14 +16,23 @@ const EventPreview = ({event} : {event: Event}) => {
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     const isBaseImage = getIsBaseImage(event.imagePath)
+    let eventContent
+    if (typeof window === 'undefined') {
+        const { JSDOM } = require('jsdom');
+        const dom = new JSDOM('');
+        const ssrPurify = DOMPurify(dom.window);
+        eventContent = ssrPurify.sanitize(event.content);
+    } else {
+        eventContent = DOMPurify.sanitize(event.content);
+    }
+
 
     const handleClick = async () => {
-        // adjust initial scrollTop
-        const eventModal = typeof window !== 'undefined' ? document.querySelector('.eventModal') : null
-        if (!eventModal) return
-        const modalScrollWrapper = typeof window !== 'undefined' ? eventModal.querySelector('.modalScrollWrapper') : null
-        if (!modalScrollWrapper) return
-        modalScrollWrapper.scrollTop = 0
+        if (typeof window !== 'undefined') {
+            const eventModal = document.querySelector('.eventModal')
+            const modalScrollWrapper = eventModal?.querySelector('.modalScrollWrapper')
+            if (modalScrollWrapper) modalScrollWrapper.scrollTop = 0
+        }
 
         try {
             let newEvent: any;
@@ -50,7 +60,6 @@ const EventPreview = ({event} : {event: Event}) => {
         } catch (error) {console.error('Error fetching event: ', error)}
     }
 
-    console.log(event.content)
     return (
         <div className={'relative flex gap-2'}>
             <div className='z-10 w-3 h-3 bg-white border-2 border-gray-600 rounded-full shrink-0'></div>
@@ -59,7 +68,7 @@ const EventPreview = ({event} : {event: Event}) => {
                 <div className={'text-md font-bold break-words'}>{event.title}</div>
                 <div>
                     {!isBaseImage && <EventPreviewImage event={event}/>}
-                    <div className={`text-sm whitespace-pre-wrap break-words ${isBaseImage ? 'line-clamp-3' : 'line-clamp-4'}`}>{event.content}</div>
+                    <div className={`text-sm whitespace-pre-wrap break-words ${isBaseImage ? 'line-clamp-3' : 'line-clamp-4'}`} dangerouslySetInnerHTML={{ __html: eventContent }} />
                 </div>
             </div>
         </div>

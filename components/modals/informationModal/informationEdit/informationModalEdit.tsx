@@ -1,5 +1,6 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {selectModalType} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import InformationModalImage from "@/components/modals/informationModal/informationView/informationModalImage";
 import InformationModalEditMenubar from "@/components/modals/informationModal/informationEdit/informationModalEditMenubar";
@@ -9,7 +10,6 @@ import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from "@tiptap/extension-placeholder";
-import {selectModalType} from "@/store/slices/appearanceSlice";
 
 const InformationModalEdit = () => {
     const dispatch = useDispatch()
