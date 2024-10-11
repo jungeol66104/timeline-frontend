@@ -6,8 +6,12 @@ import DynamicHead from "@/components/dynamicHead";
 import AdsTimelineTop from "@/components/ads/adsTimelineTop";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
-import {wrapPTag} from "@/utils/global";
 import {updateSession} from "@/store/slices/privateSlice";
+import DOMPurify from 'dompurify';
+import { JSDOM } from 'jsdom';
+import {wrapPTag} from "@/utils/global";
+
+
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({ req, query }) => {
     try {
@@ -25,8 +29,11 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
         const data = response.data.data
         // non-english languages error
         data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + data.timelineInfo.imagePath)
-        data.timelineInfo.content = wrapPTag(data.timelineInfo.content)
-        data.events = data.events.map((event: any) => ({...event, content: wrapPTag(event.content)}))
+
+        const window = new JSDOM('').window;
+        const purify = DOMPurify(window);
+        data.timelineInfo.content = purify.sanitize(data.timelineInfo.content, {ALLOWED_TAGS: []})
+        data.events = data.events.map((event: any) => ({...event, content: purify.sanitize(event.content, {ALLOWED_TAGS: []})}))
 
         store.dispatch(updateCurrentEvents(data.events))
         store.dispatch(updateCurrentTimeline(data.timelineInfo))

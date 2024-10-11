@@ -74,7 +74,7 @@ const InformationPreview = () => {
                 <div onClick={handleImageClick} onMouseEnter={() => setImageHover(true)} onMouseLeave={() => setImageHover(false)} onTouchStart={(e) => handleImageTouch(e)}><InformationPreviewImage information={timeline} /></div>
                 <div className={'flex flex-col gap-1 max-[630px]:mt-1'}>
                     <div className={`max-[630px]:hidden line-clamp-1 break-words`}>{timeline.description === '' ? 'New timeline description' : timeline.description}</div>
-                    <div className={'text-sm text-gray-600 line-clamp-4'}>{timeline.content === '' || timeline.content === '<p></p>' ? 'Click this timeline box to edit the title, description, content and image of the timeline!' : unwrapPTag(timeline.content)}</div>
+                    <div className={'text-sm text-gray-600 line-clamp-4'}>{timeline.content === '' || timeline.content === '<p></p>' ? 'Click this timeline box to edit the title, description, content and image of the timeline!' : timeline.content}</div>
                 </div>
             </div>
         </div>

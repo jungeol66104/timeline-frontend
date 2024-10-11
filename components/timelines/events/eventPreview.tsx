@@ -50,6 +50,7 @@ const EventPreview = ({event} : {event: Event}) => {
         } catch (error) {console.error('Error fetching event: ', error)}
     }
 
+    console.log(event.content)
     return (
         <div className={'relative flex gap-2'}>
             <div className='z-10 w-3 h-3 bg-white border-2 border-gray-600 rounded-full shrink-0'></div>
@@ -58,7 +59,7 @@ const EventPreview = ({event} : {event: Event}) => {
                 <div className={'text-md font-bold break-words'}>{event.title}</div>
                 <div>
                     {!isBaseImage && <EventPreviewImage event={event}/>}
-                    <div className={`text-sm whitespace-pre-wrap break-words ${isBaseImage ? 'line-clamp-3' : 'line-clamp-4'}`}>{unwrapPTag(event.content)}</div>
+                    <div className={`text-sm whitespace-pre-wrap break-words ${isBaseImage ? 'line-clamp-3' : 'line-clamp-4'}`}>{event.content}</div>
                 </div>
             </div>
         </div>
