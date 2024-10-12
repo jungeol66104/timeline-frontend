@@ -3,7 +3,7 @@ import InformationPreview from "@/components/timelines/informationPreview";
 import RelatedTimelines from "@/components/timelines/relatedTimelines";
 import Events from "@/components/timelines/events/events";
 import Toolbar from "@/components/timelines/toolbar";
-import DiscordBanner from "@/components/timelines/DiscordBanner";
+import DiscordBanner from "@/components/timelines/discordBanner";
 
 const TimelineSectionPrimary = () => {
 
