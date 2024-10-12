@@ -25,7 +25,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
         if (response.data.code === 69999) return { notFound: true }
         const data = response.data.data
         // non-english languages error
-        data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + data.timelineInfo.imagePath)
+        data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + encodeURIComponent(data.timelineInfo.imagePath))
         data.timelineInfo.content = wrapPTag(data.timelineInfo.content)
         data.events = data.events.map((event: any) => ({...event, content: wrapPTag(event.content)}))
 
