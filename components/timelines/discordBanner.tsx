@@ -1,6 +1,9 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
+import {selectTimelineType} from "@/store/slices/appearanceSlice";
+import {useSelector} from "react-redux";
 
 const DiscordBanner = () => {
+    const timelineType = useSelector(selectTimelineType);
     const [hide, setHide] = useState(false);
 
     useLayoutEffect(() => {
@@ -15,7 +18,7 @@ const DiscordBanner = () => {
     };
 
     return (
-        <div className={`${hide && 'hidden'} p-3 w-full flex max-[500px]:flex-col justify-between gap-3 items-center bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl`}>
+        <div className={`${(hide || timelineType === 'demo' || timelineType === 'new') && 'hidden'} p-3 w-full flex max-[500px]:flex-col justify-between gap-3 items-center bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl`}>
             <div className={'w-full max-[500px]:text-center'}>
                 <span className={'text-md font-semibold'}>Community for Timeline Editors</span>
                 <div className={'text-sm text-gray-500'}>Place where unique editors like you interact</div>

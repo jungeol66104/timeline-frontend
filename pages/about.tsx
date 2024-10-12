@@ -31,7 +31,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
             ],
             timelineInfo: {id: 0, title: "Timeline", description: 'Wiki service that supports creating and sharing timeline', content: "Timeline is the best service when dealing with timelines. It serves effortless timeline making tool and easy wiki system.", imagePath: 'base-image.png', cdnUrl: 'https://cdn.timeline.vg/', updatedDT: formatDate(getTodayDate()), contributors: {counts: 1, userId: 0, username: 'you', imagePath: "base-image.png", cdnUrl: "https://cdn.timeline.vg/"}}
         }
-        data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + data.timelineInfo.imagePath)
+        data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + encodeURIComponent(data.timelineInfo.imagePath))
 
         store.dispatch(updateCurrentTimelines(staffPicks))
         store.dispatch(updateCurrentTimeline(data.timelineInfo))
