@@ -1,12 +1,13 @@
 import React from 'react';
 import Link from "next/link";
+import Image from "next/image";
 
 const DiscordBanner = () => {
     return (
         <div className={'p-3 w-full flex flex-col gap-3 items-center bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl'}>
             <div className={'w-full'}>
-                <div className={'flex items-start gap-1'}>
-                    <span className={'text-md'}>&#128101;</span>
+                <div className={'flex items-center gap-2'}>
+                    <Image src={'/images/discord.png'} alt={'discord'} width={20} height={20} />
                     <span className={'text-lg font-semibold'}>Editors&apos; Community</span>
                 </div>
                 <div className={'text-sm text-gray-500'}>Place where timeline wiki editors interact</div>
