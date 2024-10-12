@@ -11,8 +11,8 @@ const TimelineSectionPrimary = () => {
         <div className={'p-3 pb-0 w-full max-w-[630px] min-[852px]:min-w-[500px] flex flex-col gap-3'}>
             <TimelineMenubar />
             <InformationPreview/>
-            <DiscordBanner />
             <RelatedTimelines />
+            <DiscordBanner />
             <Events />
             <Toolbar />
         </div>
