@@ -30,7 +30,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
             if (response.data.code === 69999) return { notFound: true }
             const data = response.data.data
             let newTimeline = {id:Number(timeline), title: data.title, description:data.description, content: wrapPTag(data.content), updatedDT: data.updatedDT, imagePath: data.imagePath, cdnUrl: data.cdnUrl, imageSize: {}}
-            newTimeline.imageSize = await probe(newTimeline.cdnUrl + newTimeline.imagePath)
+            newTimeline.imageSize = await probe(newTimeline.cdnUrl + encodeURIComponent(newTimeline.imagePath))
             data.privateEventList = data.privateEventList.map((event: any) => ({...event, content: wrapPTag(event.content)}))
 
             store.dispatch(updateCurrentEvents(data.privateEventList))

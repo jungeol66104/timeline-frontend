@@ -24,7 +24,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
         const popularResponse = await api.get(`/timeline/features/2?pageNum=1&pageSize=5`, {headers: {lang: 'en'}})
         if (recentResponse.data.code === 69999 || popularResponse.data.code === 69999) return { notFound: true }
         const data: any = {events: [], recentTimelines: recentResponse.data.data.timelineList, popularTimelines: popularResponse.data.data.timelineList, timelineInfo: {id: 0, title: "", description: "", content: "", imagePath: 'base-image.png', cdnUrl: "https://cdn.timeline.vg/"}}
-        data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + data.timelineInfo.imagePath)
+        data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + encodeURIComponent(data.timelineInfo.imagePath))
 
         store.dispatch(updateCurrentEvents(data.events))
         store.dispatch(updateCurrentTimeline(data.timelineInfo))
