@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Link from "next/link";
-import Image from "next/image";
 import {useSelector} from "react-redux";
 import {selectTimelineType} from "@/store/slices/appearanceSlice";
 import {selectRelatedTimelines} from "@/store/slices/contentsSlice";
