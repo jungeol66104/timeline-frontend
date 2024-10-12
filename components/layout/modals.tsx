@@ -9,7 +9,7 @@ const Modals = () => {
             <ModalOverlay />
             <InformationModal />
             <EventModal />
-            {/*<BannerModal />*/}
+            <BannerModal />
         </>
     )
 }
