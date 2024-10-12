@@ -27,8 +27,9 @@ const BannerModal = () => {
                 {/* Section Primary */}
                 <div className={'relative w-full max-w-[630px] min-[852px]:min-w-[500px]'}>
                     <div className={'absolute w-full flex flex-col items-center bg-white rounded-t-3xl border-[0.1px] border-gray-300'} style={{bottom: bottom, transition: 'bottom 0.3s'}}>
-                        <div className={'content p-4 w-full h-full flex flex-col gap-3 items-center'}>
-                            <div className={'text-2xl font-bold text-center'}>Become an Editor of Timeline Wiki</div>
+                        <div className={'content py-6 px-4 w-full h-full flex flex-col gap-3 items-center'}>
+                            <div className={'max-[500px]:hidden text-2xl font-bold text-center'}>Become an Editor of Timeline Wiki</div>
+                            <div className={'min-[500px]:hidden text-2xl font-bold text-center'}><div>Become an Editor of</div><div>Timeline Wiki</div></div>
                             <div className={'flex flex-col gap-1.5'}>
                                 <div className={'font-medium text-center'}>USD $0 for creating and editing infinite number of timelines after sign up.</div>
                                 <button onClick={() => dispatch(updatePopupType('signIn'))} className={'text-sm text-blue-700 hover:underline'}>Learn More</button>
