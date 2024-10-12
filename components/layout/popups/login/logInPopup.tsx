@@ -12,7 +12,7 @@ const LogInPopup = () => {
                 <SignInWithGoogleButton/>
                 <div className={'p-3 w-full flex flex-col gap-3 items-center bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl'}>
                     <div className={'w-full'}>
-                        <div className={'flex items-center gap-1'}>
+                        <div className={'flex items-center gap-1.5'}>
                             <span className={'text-md'}>&#x1F340;</span>
                             <span className={'text-lg font-semibold'}>Free</span>
                         </div>

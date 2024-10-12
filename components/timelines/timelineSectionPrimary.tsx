@@ -3,7 +3,7 @@ import InformationPreview from "@/components/timelines/informationPreview";
 import RelatedTimelines from "@/components/timelines/relatedTimelines";
 import Events from "@/components/timelines/events/events";
 import Toolbar from "@/components/timelines/toolbar";
-import TimelineBanner from "@/components/timelines/timelineBanner";
+import DiscordBanner from "@/components/timelines/discordBanner";
 
 const TimelineSectionPrimary = () => {
 
@@ -12,9 +12,9 @@ const TimelineSectionPrimary = () => {
             <TimelineMenubar />
             <InformationPreview/>
             <RelatedTimelines />
+            <DiscordBanner />
             <Events />
             <Toolbar />
-            {/*<TimelineBanner />*/}
         </div>
     )
 }

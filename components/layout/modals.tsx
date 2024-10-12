@@ -1,6 +1,7 @@
 import ModalOverlay from "@/components/layout/modalOverlay";
 import InformationModal from "@/components/modals/informationModal/informationModal";
 import EventModal from "@/components/modals/eventModal/eventModal";
+import BannerModal from "@/components/layout/bannerModal";
 
 const Modals = () => {
     return (
@@ -8,6 +9,7 @@ const Modals = () => {
             <ModalOverlay />
             <InformationModal />
             <EventModal />
+            {/*<BannerModal />*/}
         </>
     )
 }
