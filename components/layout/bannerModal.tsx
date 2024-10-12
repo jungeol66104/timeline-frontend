@@ -17,7 +17,7 @@ const BannerModal = () => {
 
     const bottom = isOpen ? 0 : '-100%'
     return (
-        <div className={'page fixed left-0 bottom-0'}>
+        <div className={'fixed left-0 bottom-0 w-full'}>
             <div className={'pageWrapper'}>
                 <div className={'timelineBanner absolute w-full max-w-[630px] min-[852px]:min-w-[500px] flex flex-col items-center bg-white rounded-t-2xl border-2 border-black'} style={{zIndex: 5002, bottom: bottom, transition: 'bottom 0.3s'}}>
                     <div className={'relative py-2.5 w-full h-[44px] text-center'}>
@@ -28,7 +28,6 @@ const BannerModal = () => {
 
                 {/* Section Secondary */}
                 <div className={'relative ml-[20px] max-[872px]:ml-0 p-4 max-[852px]:py-0 w-full min-w-[332px] max-w-[352px] max-[852px]:hidden'}></div>
-
             </div>
         </div>
     );
