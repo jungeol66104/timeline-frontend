@@ -7,7 +7,7 @@ const LogInPopup = () => {
     return (
         <Popup title={''}>
             <div className={'flex flex-col items-center gap-5'}>
-                <div className={'text-2xl font-black'}>Timeline</div>
+                <div className={'text-2xl font-[800]'}>timeline wiki</div>
                 <div className={'text-lg font-medium text-center'}>We believe editors like you <br/> make the internet better.</div>
                 <SignInWithGoogleButton/>
                 <div className={'p-3 w-full flex flex-col gap-3 items-center bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl'}>
