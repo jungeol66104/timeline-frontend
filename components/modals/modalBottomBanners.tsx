@@ -1,36 +1,51 @@
 import React from 'react';
-import {selectInformationContentType, selectTimelineType, updateInformationContentType, updatePopupType} from "@/store/slices/appearanceSlice";
+import {selectEventContentType, selectInformationContentType, selectModalType, selectTimelineType, updateEventContentType, updateInformationContentType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {selectSession} from "@/store/slices/privateSlice";
 import {getIsBaseImage} from "@/utils/global";
-import {selectCurrentTimeline, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
+import {selectCurrentEvent, selectCurrentTimeline, updateCurrentEvent, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 
 const ModalBottomBanners = () => {
     const dispatch = useDispatch();
     const session = useSelector(selectSession)
-    const contentType = useSelector(selectInformationContentType)
+    const modalType = useSelector(selectModalType)
     const timelineType = useSelector(selectTimelineType);
+
+    const informationContentType = useSelector(selectInformationContentType)
+    const eventContentType = useSelector(selectEventContentType)
     const currentTimeline = useSelector(selectCurrentTimeline)
+    const currentEvent = useSelector(selectCurrentEvent)
 
     const isSession = Object.keys(session).length !== 0
+    const contentType = modalType === 'information' ? informationContentType : eventContentType
+    const hide = (timelineType !== 'public') || (contentType !== 'view' && contentType !== 'edit')
 
-    const handleClick = () => {
-        if (contentType === 'edit') return
-
+    const handleClick = (contentType: string) => {
         if (isSession) {
-            const image = new Image();
-            image.src = timelineType === 'demo' && !getIsBaseImage(currentTimeline.imagePath) ? currentTimeline.imagePath! : currentTimeline.cdnUrl! + currentTimeline.imagePath!;
-            image.onload = () => {
-                const imageSize = {width: image.width, height: image.height}
-                dispatch(updateCurrentTimeline({...currentTimeline, imageSize}))
-                dispatch(updateCurrentTimelineDraft({...currentTimeline, imageSize}))
-                dispatch(updateInformationContentType(contentType))
+            if (modalType === 'information') {
+                const image = new Image();
+                image.src = timelineType === 'demo' && !getIsBaseImage(currentTimeline.imagePath) ? currentTimeline.imagePath! : currentTimeline.cdnUrl! + currentTimeline.imagePath!;
+                image.onload = () => {
+                    const imageSize = {width: image.width, height: image.height}
+                    dispatch(updateCurrentTimeline({...currentTimeline, imageSize}))
+                    dispatch(updateCurrentTimelineDraft({...currentTimeline, imageSize}))
+                    dispatch(updateInformationContentType(contentType))
+                }
+            } else {
+                const image = new Image();
+                image.src = currentEvent.cdnUrl! + currentEvent.imagePath!;
+                image.onload = () => {
+                    const imageSize = {width: image.width, height: image.height}
+                    dispatch(updateCurrentEvent({...currentEvent, imageSize}))
+                    dispatch(updateCurrentEventDraft({...currentEvent, imageSize}))
+                    dispatch(updateEventContentType(contentType))
+                }
             }
         } else dispatch(updatePopupType('signIn'))
     }
 
     return (
-        <div className={`${(timelineType !== 'public') && 'hidden'} flex flex-1 gap-3 max-[852px]:flex-col`}>
+        <div className={`${hide && 'hidden'} pt-3 flex flex-1 gap-3 max-[852px]:flex-col`}>
             <div className={'p-3 w-full h-fit flex flex-col gap-3 items-center bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl'}>
                 <div className={'w-full flex flex-col items-center'}>
                     <div className={'flex items-center gap-1.5'}>
@@ -40,7 +55,7 @@ const ModalBottomBanners = () => {
                     <div className={'text-sm text-gray-500'}>Your input benefits people around the world</div>
                 </div>
                 <div className={'text-center text-sm font-medium'}>See something to add or edit? Simply click the edit button below to make a difference! All you need is a quick sign in.</div>
-                <button onClick={handleClick} className={'p-4 flex items-center justify-center h-[36px] rounded-full bg-gray-600 hover:bg-[#333333] text-white text-sm font-medium border-[0.1px] border-gray-300'}>Edit Content</button>
+                <button onClick={() => handleClick('edit')} className={'p-4 flex items-center justify-center h-[36px] rounded-full bg-gray-600 hover:bg-[#333333] text-white text-sm font-medium border-[0.1px] border-gray-300'}>Edit Content</button>
             </div>
             <div className={'p-3 w-full h-fit flex flex-col gap-3 items-center bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl'}>
                 <div className={'w-full flex flex-col items-center'}>
