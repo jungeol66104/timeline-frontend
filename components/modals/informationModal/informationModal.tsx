@@ -5,6 +5,7 @@ import MoveToTimelineButton from "@/components/modals/moveToTimelineButton";
 import CloseModalButton from "@/components/modals/closeModalButton";
 import InformationModalHead from "@/components/modals/informationModal/informationModalHead";
 import InformationModalBody from "@/components/modals/informationModal/informationModalBody";
+import ModalBottomBanners from "@/components/modals/modalBottomBanners";
 
 const InformationModal = () => {
     const timelineType = useSelector(selectTimelineType)
@@ -21,6 +22,7 @@ const InformationModal = () => {
             <div className={'modalScrollWrapper overflow-y-scroll p-4 w-full h-full flex flex-col gap-3'}>
                 <InformationModalHead />
                 <InformationModalBody />
+                <ModalBottomBanners />
             </div>
         </div>
     );

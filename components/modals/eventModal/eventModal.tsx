@@ -5,6 +5,7 @@ import MoveToTimelineButton from "@/components/modals/moveToTimelineButton";
 import CloseModalButton from "@/components/modals/closeModalButton";
 import EventModalHead from "@/components/modals/eventModal/eventModalHead";
 import EventModalBody from "@/components/modals/eventModal/eventModalBody";
+import ModalBottomBanners from "@/components/modals/modalBottomBanners";
 
 const EventModal = () => {
     const timelineType = useSelector(selectTimelineType)
@@ -21,6 +22,7 @@ const EventModal = () => {
             <div className={'modalScrollWrapper overflow-y-scroll p-4 w-full h-full flex flex-col gap-3'}>
                 <EventModalHead />
                 <EventModalBody />
+                <ModalBottomBanners />
             </div>
         </div>
     )
