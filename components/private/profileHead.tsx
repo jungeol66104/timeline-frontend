@@ -14,7 +14,6 @@ const ProfileHead = () => {
     const session = useSelector(selectSession)
     const isSession = useSelector(selectIsSession)
     const profile = useSelector(selectProfile)
-    console.log(profile)
 
     const isBaseImage = getIsBaseImage(profile.imagePath)
 
