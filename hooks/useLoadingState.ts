@@ -29,18 +29,24 @@ const useLoadingState = () => {
             const current = JSON.parse(sessionStorage.getItem('current') || JSON.stringify({"url": "initialUrl", "scrollTop": 0, "state": {}}))
             const history = JSON.parse(sessionStorage.getItem('history') || JSON.stringify({"0": {"url": "initialUrl", "scrollTop": 0, "state": {}}, "1": {"url": "initialUrl", "scrollTop": 0, "state": {}}, "2": {"url": "initialUrl", "scrollTop": 0, "state": {}}}))
             const historyUrls = Object.values(history).map(packet => (packet as { url: string })["url"])
+
             if (current["url"] === "initialUrl" || current["url"] !== url) {
-                let newCurrent = {"url": url, "scrollTop": 0, "state": {}}
+                let newCurrent: any = {"url": url, "scrollTop": 0, "state": {}}
                 const newHistory = {"0": {...current, "scrollTop": scrollWrapper.scrollTop, "state": state}, "1": history["0"], "2": history["1"]}
-                if (historyUrls.includes(url)) {
+                if (historyUrls.includes(url) && url !== historyUrls[1]) {
                     const urlIndex = historyUrls.findIndex(historyUrl => historyUrl === url)
                     newCurrent = history[urlIndex.toString()]
+                    newCurrent.state["private"].session = state.private.session
                 }
                 sessionStorage.setItem('current', JSON.stringify(newCurrent));
                 sessionStorage.setItem('history', JSON.stringify(newHistory));
+            } else if (current["url"] === url) {
+                let newCurrent: any = {"url": url, "scrollTop": 0, "state": {}}
+                sessionStorage.setItem('current', JSON.stringify(newCurrent));
             }
             dispatch(updateAdjustScrollTop(false))
         }
+
         const middle = () => {
             setLoadingState('applying');
         }

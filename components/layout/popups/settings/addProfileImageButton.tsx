@@ -2,8 +2,10 @@ import React, {ChangeEvent} from 'react';
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {selectSession, updateProfile, updateProfileDraft, updateSession} from "@/store/slices/privateSlice";
+import {useRouter} from "next/router";
 
 const AddProfileImageButton = () => {
+    const router = useRouter()
     const dispatch = useDispatch()
     const session = useSelector(selectSession)
 
@@ -21,9 +23,10 @@ const AddProfileImageButton = () => {
                 const formData = new FormData();
                 formData.append('username', session.username)
                 formData.append('image', file);
+                formData.append('isBaseImage', '0')
 
                 const updateResponse = await axios.put('/api/user/update', formData, {headers: {'Content-Type': 'multipart/form-data'}})
-                if (updateResponse.data.code !== 69999) return
+                if (updateResponse.data.code === 69999) return
 
                 const sessionResponse = await axios.get('/api/user/session')
                 const data = sessionResponse.data
@@ -31,6 +34,8 @@ const AddProfileImageButton = () => {
                 dispatch(updateProfile({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
                 dispatch(updateProfileDraft({username: data.username, imagePath: data.imagePath, cdnUrl: data.cdnUrl}))
 
+                console.log('hi')
+                router.push(router.asPath)
             } catch (error) {console.error('Error uploading image:', error)}
         }
         image.src = objectURL

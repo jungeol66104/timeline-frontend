@@ -28,10 +28,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const username = fields.username?.[0]
         const image = files.image?.[0]
+        const isBaseImage = fields.isBaseImage?.[0]
 
         if (username) {
             const formData = new FormData();
             formData.append('username', username);
+            formData.append('isBaseImage', isBaseImage);
+            formData.append('marketing', 1);
+
             if (image) formData.append('image', fs.createReadStream(image.filepath), {filename: image.originalFilename as string});
 
             const response = await api.put('/user/info', formData, {headers: { ...formData.getHeaders(), lang: 'en', Authorization: `Bearer ${jwt}` }});
