@@ -6,8 +6,9 @@ import InformationModalImage from "@/components/modals/informationModal/informat
 import InformationModalEditMenubar from "@/components/modals/informationModal/informationEdit/informationModalEditMenubar";
 
 import {useEditor, EditorContent} from '@tiptap/react'
-import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
+import Link from '@tiptap/extension-link'
+import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from "@tiptap/extension-placeholder";
 
@@ -17,7 +18,11 @@ const InformationModalEdit = () => {
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft)
 
     const editor = useEditor({
-        extensions: [Document, Text, Paragraph, Placeholder.configure({placeholder: "New timeline content"})],
+        extensions: [
+            Document, Text, Paragraph,
+            Link.configure({autolink: true, HTMLAttributes: {class: 'cursor-pointer text-blue-700 hover:underline',},}),
+            Placeholder.configure({placeholder: "New timeline content"})
+        ],
         editorProps: {attributes: {class: 'outline-none'}},
         onUpdate: ({ editor }) => dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, content: editor.getHTML()})),
         content: `${currentTimelineDraft.content}`,

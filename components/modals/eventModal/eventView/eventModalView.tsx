@@ -8,13 +8,14 @@ import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
 import {selectModalType} from "@/store/slices/appearanceSlice";
+import Link from "@tiptap/extension-link";
 
 const EventModalView = () => {
     const modalType = useSelector(selectModalType)
     const currentEvent = useSelector(selectCurrentEvent)
 
     const editor = useEditor({
-        extensions: [Document, Text, Paragraph],
+        extensions: [Document, Paragraph, Text, Link],
         editorProps: {attributes: {class: 'outline-none'}},
         content: `${currentEvent.content}`,
         editable: false
@@ -26,7 +27,6 @@ const EventModalView = () => {
             <div className={'w-full flex flex-col items-center gap-3'}>
                 <EventModalImage event={currentEvent}/>
                 <div className={'w-full'}><EditorContent editor={editor}/></div>
-                {/*<p className={'mt-3 w-full'}>{unwrapPTag(currentEvent.content)}</p>*/}
             </div>
         </div>
     )

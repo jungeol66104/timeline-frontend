@@ -6,6 +6,7 @@ import InformationModalImage from "@/components/modals/informationModal/informat
 import {EditorContent, useEditor} from "@tiptap/react";
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
+import Link from '@tiptap/extension-link'
 import Paragraph from '@tiptap/extension-paragraph'
 import {selectModalType} from "@/store/slices/appearanceSlice";
 
@@ -14,7 +15,7 @@ const InformationModalView = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     const editor = useEditor({
-        extensions: [Document, Paragraph, Text],
+        extensions: [Document, Paragraph, Text, Link],
         editorProps: {attributes: {class: 'outline-none'}},
         content: `${currentTimeline.content}`,
         editable: false
