@@ -33,11 +33,9 @@ const InformationPreview = () => {
     }
 
     const handlePreviewClick = async () => {
-        if (typeof window !== 'undefined') {
-            const informationModal = document.querySelector('.informationModal');
-            const modalScrollWrapper = informationModal?.querySelector('.modalScrollWrapper');
-            if (modalScrollWrapper) modalScrollWrapper.scrollTop = 0;
-        }
+        const informationModal = document.querySelector('.informationModal');
+        const modalScrollWrapper = informationModal?.querySelector('.modalScrollWrapper');
+        if (modalScrollWrapper) modalScrollWrapper.scrollTop = 0;
 
         try {
             let newInformation: any
@@ -61,6 +59,7 @@ const InformationPreview = () => {
                 newInformation.content = wrapPTag(newInformation.content)
                 newInformation.informationUpdatedDT = newInformation.updatedDT
                 newInformation.updatedDT = currentTimeline.updatedDT
+
                 dispatch(updateCurrentTimeline(newInformation))
                 dispatch(updateCurrentTimelineDraft(newInformation))
                 dispatch(updateModalType('information'))
