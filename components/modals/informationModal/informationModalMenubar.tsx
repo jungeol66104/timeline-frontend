@@ -25,7 +25,8 @@ const InformationModalMenubar = () => {
                 {(timelineType === 'public' || timelineType === 'private') &&
                     <div className={'flex flex-col text-gray-400 text-xs'}>
                         <div>Last Updated:</div>
-                        <div>{currentTimeline.informationUpdatedDT}</div>
+                        <div className={'max-[449.9px]:hidden'}>{currentTimeline.informationUpdatedDT}</div>
+                        <div className={'min-[450px]:hidden'}>{currentTimeline.informationUpdatedDT?.split(' ')[0]}</div>
                     </div>
                 }
             </div>

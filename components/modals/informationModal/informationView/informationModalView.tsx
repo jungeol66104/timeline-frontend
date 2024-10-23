@@ -9,6 +9,7 @@ import Text from '@tiptap/extension-text'
 import Link from '@tiptap/extension-link'
 import Paragraph from '@tiptap/extension-paragraph'
 import {selectModalType} from "@/store/slices/appearanceSlice";
+import Links from "@/components/modals/links";
 
 const InformationModalView = () => {
     const modalType = useSelector(selectModalType)
@@ -27,6 +28,7 @@ const InformationModalView = () => {
             <div className={'flex flex-col items-center gap-3'}>
                 <div className={'w-full flex items-center justify-center'}><InformationModalImage information={currentTimeline}/></div>
                 <div className={'w-full'}><EditorContent editor={editor}/></div>
+                <Links />
             </div>
         </div>
     );

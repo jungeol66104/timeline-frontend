@@ -39,7 +39,8 @@ const EventModalMenubar = () => {
                 {(timelineType === 'public' || timelineType === 'private') && eventContentType !== 'new' &&
                     <div className={'flex flex-col text-gray-400 text-xs'}>
                         <div>Last Updated:</div>
-                        <div>{currentEvent.updatedDT}</div>
+                        <div className={'max-[449.9px]:hidden'}>{currentEvent.updatedDT}</div>
+                        <div className={'min-[450px]:hidden'}>{currentEvent.updatedDT?.split(' ')[0]}</div>
                     </div>
                 }
             </div>
