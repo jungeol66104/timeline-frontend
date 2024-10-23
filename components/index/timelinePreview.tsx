@@ -34,7 +34,7 @@ const TimelinePreview = ({timeline}: {timeline: Timeline}) => {
                 <div className={'w-full flex justify-between'}>
                     <div>
                         <div className={'text-sm text-gray-500 line-clamp-1'}>{timeline.description}</div>
-                        <p className={'mt-1 text-sm whitespace-pre-wrap break-words line-clamp-3'} dangerouslySetInnerHTML={{ __html: informationContent }} />
+                        <div className={'mt-1 text-sm whitespace-pre-wrap break-words line-clamp-3'} dangerouslySetInnerHTML={{ __html: informationContent }} />
                     </div>
                     <div className={'ml-1 relative w-[84px] h-[84px] shrink-0'}>
                         {isBaseImage && <Image src={`/images/base-image/base-image${mapStrToNum(timeline.title)}.jpg`} alt={'base-image'} fill priority className={'rounded-md bg-gray-100'}/>}
