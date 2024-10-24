@@ -26,7 +26,8 @@ const NewEventEditMenubar = () => {
 
     useEffect(() => {
         const swiperWrapper = swiperWrapperRef.current
-        if (!swiperWrapper || getIsTouchable()) return
+        // if (!swiperWrapper || getIsTouchable()) return
+        if (!swiperWrapper) return
 
         const handleResize = () => {
             const hasScroll = swiperWrapper.scrollWidth > swiperWrapper.clientWidth
@@ -67,7 +68,7 @@ const NewEventEditMenubar = () => {
     return (
         <div className={'sticky bottom-3 w-full flex justify-between gap-3'}>
             <div className={'overflow-hidden w-full max-w-[307.33px] h-9 flex items-center border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
-                <div ref={swiperWrapperRef} className={'swipeWrapper p-0.5 pt-[2.5px] overflow-x-scroll w-full flex items-center gap-0.5'}>
+                <div ref={swiperWrapperRef} className={'swipeWrapper p-0.5 overflow-x-scroll w-full flex items-center gap-0.5'}>
                     <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe43e;</button>
                     <button className={`shrink-0 pt-[1px] material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xf85a;</button>
 
