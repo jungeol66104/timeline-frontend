@@ -78,6 +78,13 @@ body {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+.swipeWrapper::-webkit-scrollbar {
+    display: none;
+}
+.swipeWrapper {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
 
 /* diff */
 ins.diff, del.diff {

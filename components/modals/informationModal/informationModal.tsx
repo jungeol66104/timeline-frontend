@@ -19,7 +19,7 @@ const InformationModal = () => {
                 <h2 className={'text-md font-semibold'}>Information</h2>
                 <CloseModalButton />
             </div>
-            <div className={'modalScrollWrapper overflow-y-scroll'}>
+            <div className={'modalScrollWrapper overflow-y-scroll w-full'}>
                 <div className={'p-3 w-full flex flex-col gap-3'}>
                     <InformationModalHead />
                     <InformationModalBody />

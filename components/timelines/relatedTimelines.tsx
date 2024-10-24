@@ -69,6 +69,7 @@ const RelatedTimelines = () => {
             containerChildren[order].scrollIntoView({inline: "start", behavior: 'smooth', block: 'nearest'})
         }
     }
+
     return (
         <div className={`${timelineType !== 'public' && 'hidden'} py-3 flex flex-col gap-3 border-[0.1px] border-gray-300 rounded-2xl`}>
             <div className={'px-3 flex items-center justify-between'}>

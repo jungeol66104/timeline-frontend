@@ -15,7 +15,7 @@ const InformationModalMenubar = () => {
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     return (
-        <div className={'pt-3 w-full flex justify-between'}>
+        <div className={'overflow-x-auto pt-3 w-full flex justify-between'}>
             <div className={'flex items-center justify-center gap-3'}>
                 {timelineType === 'public' && <ContributorsButton contributors={currentTimeline.contributors!}/>}
                 {timelineType === 'private' && <UsernameButton user={session}/>}
