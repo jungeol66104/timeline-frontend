@@ -45,7 +45,7 @@ const ModalBottomBanners = () => {
     }
 
     return (
-        <div className={`${hide && 'hidden'} pt-3 flex flex-1 gap-3 max-[852px]:flex-col`}>
+        <div className={`${hide && 'hidden'} flex flex-1 gap-3 max-[852px]:flex-col`}>
             <div className={'p-3 w-full h-fit flex flex-col gap-3 items-center bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl'}>
                 <div className={'w-full flex flex-col items-center'}>
                     <div className={'flex items-center gap-1.5'}>

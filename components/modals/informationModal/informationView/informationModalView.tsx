@@ -23,13 +23,10 @@ const InformationModalView = () => {
     }, [modalType])
 
     return (
-        <div>
-            <hr/>
-            <div className={'flex flex-col items-center gap-3'}>
-                <div className={'w-full flex items-center justify-center'}><InformationModalImage information={currentTimeline}/></div>
-                <div className={'w-full'}><EditorContent editor={editor}/></div>
-                <Links />
-            </div>
+        <div className={'relative w-full flex flex-col items-center gap-3'}>
+            <hr className={'w-full'}/>
+            <div className={'w-full flex items-center justify-center'}><InformationModalImage information={currentTimeline}/></div>
+            <div className={'w-full'}><EditorContent editor={editor}/></div>
         </div>
     );
 };

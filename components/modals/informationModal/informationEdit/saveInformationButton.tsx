@@ -38,7 +38,7 @@ const SaveInformationButton = () => {
     }
 
     return (
-        <button onClick={handleSave} className={`px-3 h-[36px] flex items-center justify-center border-[0.1px] border-gray-300 bg-black drop-shadow-sm rounded-md`}>
+        <button onClick={handleSave} className={`px-3 h-[36px] flex items-center justify-center bg-black drop-shadow-sm rounded-md`}>
             <div className={'text-sm font-medium text-white'}>Save</div>
         </button>
     )

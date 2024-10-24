@@ -11,6 +11,7 @@ import Link from '@tiptap/extension-link'
 import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from "@tiptap/extension-placeholder";
+import NewInformationEditMenubar from "@/components/modals/informationModal/informationEdit/newInformationEditMenubar";
 
 const InformationModalEdit = () => {
     const dispatch = useDispatch()
@@ -29,13 +30,12 @@ const InformationModalEdit = () => {
     }, [modalType])
 
     return (
-        <div>
-            <InformationModalEditMenubar editor={editor} imagePath={currentTimelineDraft.imagePath!}/>
-            <hr/>
-            <div className={'flex flex-col items-center gap-3'}>
-                <InformationModalImage information={currentTimelineDraft} />
-                <div className={'w-full'}><EditorContent editor={editor}/></div>
-            </div>
+        <div className={'relative w-full flex flex-col items-center gap-3'}>
+            {/*<InformationModalEditMenubar editor={editor} imagePath={currentTimelineDraft.imagePath!}/>*/}
+            <hr className={'w-full'}/>
+            <InformationModalImage information={currentTimelineDraft}/>
+            <div className={'w-full'}><EditorContent editor={editor}/></div>
+            <NewInformationEditMenubar/>
         </div>
     )
 }
