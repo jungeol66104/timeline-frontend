@@ -9,7 +9,6 @@ import Text from '@tiptap/extension-text'
 import Link from '@tiptap/extension-link'
 import Paragraph from '@tiptap/extension-paragraph'
 import {selectModalType} from "@/store/slices/appearanceSlice";
-import Links from "@/components/modals/links";
 import NewInformationEditMenubar from "@/components/modals/informationModal/informationEdit/newInformationEditMenubar";
 
 const InformationModalView = () => {
