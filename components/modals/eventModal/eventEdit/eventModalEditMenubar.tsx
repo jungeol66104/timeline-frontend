@@ -5,7 +5,7 @@ import {selectEventContentType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents} from "@/store/slices/contentsSlice";
 import AddImageButton from "@/components/common/addImageButton";
 import ImageEditButton from "@/components/common/imageEditButton";
-import ResetEditButton from "@/components/modals/resetEditButton";
+import ResetEditButton from "@/components/modals/editMenu/resetEditButton";
 import DetachButton from "@/components/modals/eventModal/eventEdit/detachButton";
 import KeynoteButton from "@/components/modals/eventModal/eventEdit/keynoteButton";
 import SaveEventButton from "@/components/modals/eventModal/eventEdit/saveEventButton";

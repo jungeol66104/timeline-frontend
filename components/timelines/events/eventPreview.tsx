@@ -28,11 +28,9 @@ const EventPreview = ({event} : {event: Event}) => {
 
 
     const handleClick = async () => {
-        if (typeof window !== 'undefined') {
-            const eventModal = document.querySelector('.eventModal')
-            const modalScrollWrapper = eventModal?.querySelector('.modalScrollWrapper')
-            if (modalScrollWrapper) modalScrollWrapper.scrollTop = 0
-        }
+        const eventModal = document.querySelector('.eventModal')
+        const modalScrollWrapper = eventModal?.querySelector('.modalScrollWrapper')
+        if (modalScrollWrapper) modalScrollWrapper.scrollTop = 0
 
         try {
             let newEvent: any;
