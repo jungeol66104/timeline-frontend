@@ -9,7 +9,7 @@ const KeynoteToggle = () => {
     const isKeynote = useSelector(selectIsKeynote)
 
     return (
-        <button onClick={() => dispatch(updateIsKeynote(!isKeynote))} className={`px-3 flex items-center justify-center gap-1.5 h-[36px] rounded-md ${isKeynote && 'text-blue-700'} ${timelineType === 'demo' && demoKeyConcept === 'keynote' && 'outline outline-2 outline-blue-700'}`}>
+        <button onClick={() => dispatch(updateIsKeynote(!isKeynote))} className={`pl-2.5 pr-1.5 flex items-center justify-center gap-1.5 h-[36px] rounded-md ${isKeynote && 'text-blue-700'} ${timelineType === 'demo' && demoKeyConcept === 'keynote' && 'outline outline-2 outline-blue-700'}`}>
             <div className={`text-sm font-semibold`}>Keynote</div>
             {<div className={`${isKeynote ? 'material-symbols-filled' : 'material-symbols-outlined'} text-[20px]`}>&#xe86c;</div>}
         </button>

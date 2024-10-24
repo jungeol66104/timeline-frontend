@@ -19,10 +19,12 @@ const EventModal = () => {
                 <h2 className={'text-md font-semibold'}>Event</h2>
                 <CloseModalButton />
             </div>
-            <div className={'modalScrollWrapper overflow-y-scroll p-4 w-full h-full flex flex-col gap-3'}>
-                <EventModalHead />
-                <EventModalBody />
-                <ModalBottomBanners />
+            <div className={'modalScrollWrapper overflow-y-scroll'}>
+                <div className={'p-3 w-full flex flex-col gap-3'}>
+                    <EventModalHead />
+                    <EventModalBody />
+                    <ModalBottomBanners />
+                </div>
             </div>
         </div>
     )

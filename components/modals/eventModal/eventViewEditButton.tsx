@@ -1,17 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {
-    selectDemoKeyConcept,
-    selectEventContentType,
-    selectTimelineType,
-    updateEventContentType,
-    updateEventHistoryType,
-    updateInformationContentType,
-    updatePopupType
-} from "@/store/slices/appearanceSlice";
-import {getSession} from "@/utils/global";
-import {selectIsSession, updateSession} from "@/store/slices/privateSlice";
-import {selectCurrentEvent, updateCurrentEvent, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
+import {selectDemoKeyConcept, selectEventContentType, selectTimelineType, updateEventContentType, updatePopupType} from "@/store/slices/appearanceSlice";
+import {selectIsSession} from "@/store/slices/privateSlice";
+import {selectCurrentEvent, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 
 const EventViewEditButton = () => {
     const dispatch = useDispatch()

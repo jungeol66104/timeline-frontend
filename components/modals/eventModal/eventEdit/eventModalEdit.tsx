@@ -11,6 +11,7 @@ import Text from '@tiptap/extension-text'
 import Link from '@tiptap/extension-link'
 import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from "@tiptap/extension-placeholder";
+import NewEventEditMenubar from "@/components/modals/eventModal/eventEdit/newEventEditMenubar";
 
 const EventModalEdit = () => {
     const dispatch = useDispatch()
@@ -35,13 +36,12 @@ const EventModalEdit = () => {
     }, [modalType])
 
     return (
-        <div>
-            <EventModalEditMenubar editor={editor} imagePath={currentEventDraft.imagePath!}/>
-            <hr/>
-            <div className={'w-full flex flex-col items-center gap-3'}>
-                <EventModalImage event={currentEventDraft}/>
-                <div className={'w-full'}><EditorContent editor={editor}/></div>
-            </div>
+        <div className={'relative w-full flex flex-col items-center gap-3'}>
+            {/*<EventModalEditMenubar editor={editor} imagePath={currentEventDraft.imagePath!}/>*/}
+            <hr className={'w-full'}/>
+            <EventModalImage event={currentEventDraft}/>
+            <div className={'w-full'}><EditorContent editor={editor}/></div>
+            <NewEventEditMenubar />
         </div>
     )
 }

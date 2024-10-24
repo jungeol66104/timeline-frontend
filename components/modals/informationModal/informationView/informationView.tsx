@@ -11,7 +11,7 @@ import Paragraph from '@tiptap/extension-paragraph'
 import {selectModalType} from "@/store/slices/appearanceSlice";
 import NewInformationEditMenubar from "@/components/modals/informationModal/informationEdit/newInformationEditMenubar";
 
-const InformationModalView = () => {
+const InformationView = () => {
     const modalType = useSelector(selectModalType)
     const currentTimeline = useSelector(selectCurrentTimeline)
 
@@ -32,4 +32,4 @@ const InformationModalView = () => {
     );
 };
 
-export default InformationModalView;
+export default InformationView;
