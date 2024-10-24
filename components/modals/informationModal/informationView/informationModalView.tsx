@@ -10,6 +10,7 @@ import Link from '@tiptap/extension-link'
 import Paragraph from '@tiptap/extension-paragraph'
 import {selectModalType} from "@/store/slices/appearanceSlice";
 import Links from "@/components/modals/links";
+import NewInformationEditMenubar from "@/components/modals/informationModal/informationEdit/newInformationEditMenubar";
 
 const InformationModalView = () => {
     const modalType = useSelector(selectModalType)
@@ -27,6 +28,7 @@ const InformationModalView = () => {
             <hr className={'w-full'}/>
             <div className={'w-full flex items-center justify-center'}><InformationModalImage information={currentTimeline}/></div>
             <div className={'w-full'}><EditorContent editor={editor}/></div>
+            <NewInformationEditMenubar/>
         </div>
     );
 };
