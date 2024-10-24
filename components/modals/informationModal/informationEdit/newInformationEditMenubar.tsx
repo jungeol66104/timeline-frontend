@@ -8,11 +8,12 @@ const NewInformationEditMenubar = () => {
                 <button className={`material-symbols-outlined text-[20px] w-8 h-8 rounded-md hover:bg-gray-100`}>&#xe43e;</button>
                 <button className={`material-symbols-outlined text-[20px] w-8 h-8 rounded-md hover:bg-gray-100`}>&#xf85a;</button>
 
-                <button className={`material-symbols-outlined text-[26px] w-8 h-8 rounded-md hover:bg-gray-100`}>&#xf018;</button>
+                <button className={`material-symbols-outlined text-[25px] w-8 h-8 rounded-md hover:bg-gray-100`}>&#xf018;</button>
                 <button className={`material-symbols-outlined text-[20px] w-8 h-8 rounded-md hover:bg-gray-100`}>&#xf191;</button>
                 <button className={`material-symbols-outlined text-[20px] w-8 h-8 rounded-md hover:bg-gray-100`}>&#xe241;</button>
 
-                <button className={`material-symbols-outlined text-[20px] w-8 h-8 rounded-md hover:bg-gray-100`}>&#xe238;</button>
+                <button className={`material-symbols-outlined text-[22px] w-8 h-8 rounded-md hover:bg-gray-100`}>&#xe178;</button>
+                <button className={`material-symbols-outlined text-[22px] w-8 h-8 rounded-md hover:bg-gray-100`}>&#xe238;</button>
                 <button className={`material-symbols-outlined text-[20px] w-8 h-8 rounded-md hover:bg-gray-100`}>&#xe257;</button>
             </div>
             <SaveInformationButton/>
