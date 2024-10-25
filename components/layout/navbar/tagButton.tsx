@@ -7,7 +7,7 @@ import {getCurrentTag} from "@/utils/global";
 const TagButton = ({tagNum}: {tagNum: number}) => {
     const currentTagNum = useSelector(selectTagNum)
     const currentTag = getCurrentTag(tagNum)
-    const tagAppearance = currentTag === 'Hot' ? <span>&#x1F525;  Hot</span> : currentTag === 'Staff Picks' ? <span>&#x2728;  Staff Picks</span> : currentTag === 'Popular' ? <span><span className={'text-[12px]'}>🏆</span>  Popular</span> : <span>{currentTag}</span>;
+    const tagAppearance = currentTag === 'Hot' ? <span>&#x1F525;  Hot</span> : currentTag === 'Staff Picks' ? <span>&#x2728;  Staff Picks</span> : <span>{currentTag}</span>;
 
     // const hiddenTagNums = [5, 7, 11, 12, 13]
     const hiddenTagNums = [13]
