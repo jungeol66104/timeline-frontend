@@ -70,7 +70,7 @@ const NewEventEditMenubar = () => {
             <div className={'relative overflow-hidden w-full max-w-[307.33px] h-9 flex items-center border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
                 <div onClick={() => handleClick('prev')} className={`${(scrollPosition === 'start' || !showButtons) && 'hidden'} cursor-pointer absolute top-0 left-0 w-6 h-full flex items-center justify-center bg-white opacity-100 hover:bg-gray-100 border-r-[0.1px] border-gray-300 rounded-l-md`}><span className={`material-symbols-outlined text-[20px]`}>&#xe5cb;</span></div>
                 <div onClick={() => handleClick('next')} className={`${(scrollPosition === 'end' || !showButtons) && 'hidden'} cursor-pointer absolute top-0 right-0 w-6 h-full flex items-center justify-center bg-white opacity-100 hover:bg-gray-100 border-l-[0.1px] border-gray-300 rounded-r-md`}><span className={`material-symbols-outlined text-[20px]`}>&#xe5cc;</span></div>
-                <div ref={swiperWrapperRef} className={'swipeWrapper p-0.5 overflow-x-scroll w-full flex items-center gap-0.5'}>
+                <div ref={swiperWrapperRef} className={'swipeWrapper -z-10 p-0.5 overflow-x-scroll w-full flex items-center gap-0.5'}>
                     <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe43e;</button>
                     <button className={`shrink-0 pt-[1px] material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xf85a;</button>
 
