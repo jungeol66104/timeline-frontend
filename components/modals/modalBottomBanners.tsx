@@ -18,7 +18,7 @@ const ModalBottomBanners = () => {
 
     const isSession = Object.keys(session).length !== 0
     const contentType = modalType === 'information' ? informationContentType : eventContentType
-    const hide = (timelineType !== 'public') || (contentType !== 'view' && contentType !== 'edit')
+    const hide = (timelineType !== 'public') || (contentType !== 'view')
 
     const handleClick = (contentType: string) => {
         if (isSession) {
@@ -41,11 +41,16 @@ const ModalBottomBanners = () => {
                     dispatch(updateEventContentType(contentType))
                 }
             }
+
+            const informationModal = document.querySelector('.informationModal');
+            const eventModal = document.querySelector('.eventModal')
+            const modalScrollWrapper = modalType === 'information' ? informationModal?.querySelector('.modalScrollWrapper') : eventModal?.querySelector('.modalScrollWrapper')
+            if (modalScrollWrapper) modalScrollWrapper.scrollTop = 0
         } else dispatch(updatePopupType('signIn'))
     }
 
     return (
-        <div className={`${hide && 'hidden'} pt-3 flex flex-1 gap-3 max-[852px]:flex-col`}>
+        <div className={`${hide && 'hidden'} flex flex-1 gap-3 max-[852px]:flex-col`}>
             <div className={'p-3 w-full h-fit flex flex-col gap-3 items-center bg-[#F2F2F259] border-[1px] border-gray-300 rounded-2xl'}>
                 <div className={'w-full flex flex-col items-center'}>
                     <div className={'flex items-center gap-1.5'}>

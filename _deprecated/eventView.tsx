@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
-import EventModalImage from "@/components/modals/eventModal/eventView/eventModalImage";
+import EventModalImage from "@/components/modals/eventModal/eventViewEdit/eventModalImage";
 
 import {EditorContent, useEditor} from "@tiptap/react";
 import Document from '@tiptap/extension-document'
@@ -9,8 +9,9 @@ import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
 import {selectModalType} from "@/store/slices/appearanceSlice";
 import Link from "@tiptap/extension-link";
+import NewEventEditMenubar from "@/components/modals/eventModal/eventViewEdit/newEventEditMenubar";
 
-const EventModalView = () => {
+const EventView = () => {
     const modalType = useSelector(selectModalType)
     const currentEvent = useSelector(selectCurrentEvent)
 
@@ -22,13 +23,12 @@ const EventModalView = () => {
     }, [modalType])
 
     return (
-        <div>
-            <hr/>
-            <div className={'w-full flex flex-col items-center gap-3'}>
-                <EventModalImage event={currentEvent}/>
-                <div className={'w-full'}><EditorContent editor={editor}/></div>
-            </div>
+        <div className={'relative w-full flex flex-col items-center gap-3'}>
+            <hr className={'w-full'}/>
+            <EventModalImage event={currentEvent}/>
+            <div className={'w-full'}><EditorContent editor={editor}/></div>
+            {/*<NewEventEditMenubar />*/}
         </div>
     )
 }
-export default EventModalView
+export default EventView

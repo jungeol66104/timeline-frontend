@@ -1,6 +1,7 @@
-import crypto from 'crypto'
-import axios from "axios";
 import {useEffect, useLayoutEffect} from "react";
+import axios from "axios";
+import crypto from 'crypto'
+import DOMPurify from 'dompurify';
 
 export const capitalize = (string: string) => {
     if (!string) return string;
@@ -138,3 +139,28 @@ export const unwrapPTag = (string: string) => {
 }
 
 export const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
+export const getPlainText = (htmlContent: string) => {
+    let plainText;
+    if (typeof window === 'undefined') {
+        const { JSDOM } = require('jsdom');
+        const createDOMPurify = require('dompurify');
+
+        const dom = new JSDOM('');
+        const DOMPurify = createDOMPurify(dom.window);
+        const sanitizedContent = DOMPurify.sanitize(htmlContent);
+
+        const tempDiv = dom.window.document.createElement("div");
+        tempDiv.innerHTML = sanitizedContent;
+        const paragraphs = Array.from(tempDiv.getElementsByTagName("p"));
+        plainText = paragraphs.map((p: any) => p.textContent.trim()).filter(p => p.length > 0).join(' '); // Use a single space
+    } else {
+        const sanitizedContent = DOMPurify.sanitize(htmlContent);
+
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = sanitizedContent;
+        const paragraphs = Array.from(tempDiv.getElementsByTagName("p"));
+        plainText = paragraphs.map((p: any) => p.textContent.trim()).filter(p => p.length > 0).join(' '); // Use a single space
+    }
+    return plainText;
+}

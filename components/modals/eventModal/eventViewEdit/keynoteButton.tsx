@@ -16,7 +16,7 @@ const KeynoteButton = () => {
     }
 
     return (
-        <button onClick={handleClick} className={`flex items-center justify-center gap-1.5 h-[36px] rounded-md ${currentEventDraft.isKeynote && 'text-blue-700'}`}>
+        <button onClick={handleClick} className={`pl-2.5 pr-1.5 flex items-center justify-center gap-1.5 h-[36px] rounded-md ${currentEventDraft.isKeynote && 'text-blue-700'}`}>
             <div className={`text-sm font-semibold`}>Keynote</div>
             {<div className={`${currentEventDraft.isKeynote ? 'material-symbols-filled' : 'material-symbols-outlined'} text-[20px]`}>&#xe86c;</div>}
         </button>

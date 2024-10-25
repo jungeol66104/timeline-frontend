@@ -6,8 +6,7 @@ import EventPreviewImage from "@/components/timelines/events/eventPreviewImage";
 
 import axios from "axios";
 import api from "@/pages/api/api";
-import {getIsBaseImage, wrapPTag} from "@/utils/global";
-import DOMPurify from 'dompurify';
+import {getIsBaseImage, getPlainText, wrapPTag} from "@/utils/global";
 
 const EventPreview = ({event} : {event: Event}) => {
     const dispatch = useDispatch()
@@ -16,23 +15,12 @@ const EventPreview = ({event} : {event: Event}) => {
     const currentTimeline = useSelector(selectCurrentTimeline)
 
     const isBaseImage = getIsBaseImage(event.imagePath)
-    let eventContent
-    if (typeof window === 'undefined') {
-        const { JSDOM } = require('jsdom');
-        const dom = new JSDOM('');
-        const ssrPurify = DOMPurify(dom.window);
-        eventContent = ssrPurify.sanitize(event.content);
-    } else {
-        eventContent = DOMPurify.sanitize(event.content);
-    }
-
+    const eventContent = `<p>${getPlainText(event.content)}</p>`
 
     const handleClick = async () => {
-        if (typeof window !== 'undefined') {
-            const eventModal = document.querySelector('.eventModal')
-            const modalScrollWrapper = eventModal?.querySelector('.modalScrollWrapper')
-            if (modalScrollWrapper) modalScrollWrapper.scrollTop = 0
-        }
+        const eventModal = document.querySelector('.eventModal')
+        const modalScrollWrapper = eventModal?.querySelector('.modalScrollWrapper')
+        if (modalScrollWrapper) modalScrollWrapper.scrollTop = 0
 
         try {
             let newEvent: any;

@@ -2,9 +2,9 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectEventContentType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
-import EventDateEdit from "@/components/modals/eventModal/eventEdit/eventDateEdit";
-import EventTitleEdit from "@/components/modals/eventModal/eventEdit/eventTitleEdit";
-import EventModalMenubar from "@/components/modals/eventModal/eventModalMenubar";
+import EventDateEdit from "@/components/modals/eventModal/eventViewEdit/eventDateEdit";
+import EventTitleEdit from "@/components/modals/eventModal/eventViewEdit/eventTitleEdit";
+import EventMenubar from "@/components/modals/eventModal/eventMenubar";
 
 const EventModalHead = () => {
     const currentEvent = useSelector(selectCurrentEvent)
@@ -19,10 +19,10 @@ const EventModalHead = () => {
                 }
                 {eventContentType === 'edit' || eventContentType === 'new'
                     ?   <EventTitleEdit />
-                    :   <h1 className={`w-fit text-2xl font-bold`}>{currentEvent.title}</h1>
+                    :   <h2 className={`w-fit text-2xl font-bold`}>{currentEvent.title}</h2>
                 }
             </div>
-            <EventModalMenubar/>
+            <EventMenubar/>
         </div>
     );
 };

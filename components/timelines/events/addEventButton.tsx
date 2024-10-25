@@ -1,4 +1,4 @@
-import {getSession, getTodayDate} from "@/utils/global";
+import {getTodayDate} from "@/utils/global";
 import {useDispatch, useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectTimelineType, updateEventContentType, updateModalType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvents, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";

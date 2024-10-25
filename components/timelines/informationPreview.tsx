@@ -6,8 +6,7 @@ import InformationPreviewImage from "@/components/timelines/informationPreviewIm
 
 import axios from "axios";
 import api from "@/pages/api/api";
-import {getIsBaseImage, wrapPTag} from "@/utils/global";
-import DOMPurify from 'dompurify';
+import {getIsBaseImage, getPlainText, wrapPTag} from "@/utils/global";
 
 const InformationPreview = () => {
     const dispatch = useDispatch();
@@ -18,19 +17,10 @@ const InformationPreview = () => {
 
     const [imageHover, setImageHover] = useState(false);
     const timeline = timelineType === 'new' ? currentTimelineDraft : currentTimeline;
+
     let informationContent;
-    if (timeline.content === '' || timeline.content === '<p></p>') {
-        informationContent = 'Click this timeline box to edit the title, description, content and image of the timeline!'
-    } else {
-        if (typeof window === 'undefined') {
-            const { JSDOM } = require('jsdom');
-            const dom = new JSDOM('');
-            const ssrPurify = DOMPurify(dom.window);
-            informationContent = ssrPurify.sanitize(timeline.content);
-        } else {
-            informationContent = DOMPurify.sanitize(timeline.content);
-        }
-    }
+    if (timeline.content === '' || timeline.content === '<p></p>') informationContent = 'Click this timeline box to edit the title, description, content and image of the timeline!'
+    else informationContent = `<p>${getPlainText(timeline.content)}</p>`
 
     const handlePreviewClick = async () => {
         const informationModal = document.querySelector('.informationModal');
@@ -77,7 +67,7 @@ const InformationPreview = () => {
         <div onClick={handlePreviewClick} onTouchStart={() => setImageHover(false)} className={`${!imageHover && 'cursor-pointer hover:bg-gray-100'} p-3 border-[0.1px] border-gray-300 rounded-2xl ${timelineType === 'demo' && demoKeyConcept === 'information' && 'outline outline-2 outline-blue-700'}`}>
             <div>
                 <div className={'flex items-center gap-2'}>
-                    <h2 className={'timelineTitle text-2xl font-bold break-words'}>{timeline.title === '' ? 'New Timeline' : timeline.title}</h2>
+                    <h1 className={'timelineTitle text-2xl font-bold break-words'}>{timeline.title === '' ? 'New Timeline' : timeline.title}</h1>
                     {(timelineType === 'private' || (timelineType === 'demo' && demoKeyConcept === 'private')) && <span className={`px-1.5 py-1 text-[10px] text-gray-400 font-semibold border-[1px] border-gray-400 rounded-full ${timelineType === 'demo' && demoKeyConcept === 'private' && 'outline outline-2 outline-blue-700'}`}>PRIVATE</span>}
                 </div>
                 <div className={`min-[630px]:hidden line-clamp-1 break-words`}>{timeline.description === '' ? 'New timeline description' : timeline.description}</div>

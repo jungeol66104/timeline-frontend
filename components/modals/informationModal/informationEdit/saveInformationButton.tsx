@@ -21,10 +21,8 @@ const SaveInformationButton = () => {
                 "imagePath": currentTimelineDraft.imagePath,
                 "note": ""
             }
-            console.log(body)
             try {
                 const response = await axios.put('/api/wiki/timeline/update', body);
-                console.log(response)
                 if (response.status === 200) {
                     if (response.data.code === 69999) return
                     dispatch(updateCurrentTimeline(currentTimelineDraft))
@@ -38,7 +36,7 @@ const SaveInformationButton = () => {
     }
 
     return (
-        <button onClick={handleSave} className={`px-3 h-[36px] flex items-center justify-center border-[0.1px] border-gray-300 bg-black drop-shadow-sm rounded-md`}>
+        <button onClick={handleSave} className={`px-3 w-[58px] h-[36px] flex items-center justify-center bg-black border-[0.1px] border-gray-700 drop-shadow-sm rounded-md`}>
             <div className={'text-sm font-medium text-white'}>Save</div>
         </button>
     )
