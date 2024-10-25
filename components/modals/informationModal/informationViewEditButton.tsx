@@ -4,7 +4,7 @@ import {selectSession} from "@/store/slices/privateSlice";
 import {selectCurrentTimeline, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import {getIsBaseImage} from "@/utils/global";
 
-const dev = true
+const dev = false
 
 const InformationViewEditButton = () => {
     const dispatch = useDispatch()

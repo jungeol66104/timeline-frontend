@@ -4,7 +4,7 @@ import {selectDemoKeyConcept, selectEventContentType, selectTimelineType, update
 import {selectIsSession} from "@/store/slices/privateSlice";
 import {selectCurrentEvent, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 
-const dev = true
+const dev = false
 
 const EventViewEditButton = () => {
     const dispatch = useDispatch()
