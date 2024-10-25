@@ -4,6 +4,8 @@ import {selectSession} from "@/store/slices/privateSlice";
 import {selectCurrentTimeline, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import {getIsBaseImage} from "@/utils/global";
 
+const dev = true
+
 const InformationViewEditButton = () => {
     const dispatch = useDispatch()
     const session = useSelector(selectSession)
@@ -16,7 +18,7 @@ const InformationViewEditButton = () => {
 
     const handleClick = async (contentType: string) => {
         if (contentType === 'edit') {
-            if (isSession || timelineType === 'new' || timelineType === 'demo') {
+            if (isSession || timelineType === 'new' || timelineType === 'demo' || dev) {
                 const image = new Image();
                 image.src = timelineType === 'demo' && !getIsBaseImage(currentTimeline.imagePath) ? currentTimeline.imagePath! : currentTimeline.cdnUrl! + currentTimeline.imagePath!;
                 image.onload = () => {
