@@ -13,7 +13,7 @@ const NewInformationEditMenubar = ({editor}: {editor: Editor | null}) => {
         if (!swiperWrapper) return
 
         const handleScroll = () => {
-            if (swiperWrapper.scrollLeft === 0) setScrollPosition('start')
+            if (swiperWrapper.scrollLeft <= 0) setScrollPosition('start')
             else if (Math.ceil(swiperWrapper.scrollLeft) >= (swiperWrapper.scrollWidth - swiperWrapper.clientWidth)) setScrollPosition('end');
             else setScrollPosition('middle')
         }
