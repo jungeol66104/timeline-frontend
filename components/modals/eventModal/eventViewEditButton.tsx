@@ -4,8 +4,6 @@ import {selectDemoKeyConcept, selectEventContentType, selectTimelineType, update
 import {selectIsSession} from "@/store/slices/privateSlice";
 import {selectCurrentEvent, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 
-const dev = false
-
 const EventViewEditButton = () => {
     const dispatch = useDispatch()
     const isSession = useSelector(selectIsSession)
@@ -16,7 +14,7 @@ const EventViewEditButton = () => {
 
     const handleClick = (contentType: string) => {
         if (contentType === 'edit') {
-            if (isSession || timelineType === 'new' || timelineType === 'demo' || dev) {
+            if (isSession || timelineType === 'new' || timelineType === 'demo') {
                 const image = new Image();
                 image.src = currentEvent.cdnUrl! + currentEvent.imagePath!;
                 image.onload = () => {
