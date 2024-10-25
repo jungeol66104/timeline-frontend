@@ -23,7 +23,7 @@ const InformationModalHead = () => {
                     :   <div className={`w-fit text-md`}>{currentTimeline.description}</div>
                 }
             </div>
-            {/*<InformationModalMenubar />*/}
+            <InformationModalMenubar />
         </div>
     );
 };

@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectModalType} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import InformationModalImage from "@/components/modals/informationModal/informationView/informationModalImage";
-import InformationModalEditMenubar from "@/components/modals/informationModal/informationEdit/informationModalEditMenubar";
 import NewInformationEditMenubar from "@/components/modals/informationModal/informationEdit/newInformationEditMenubar";
 
 import {useEditor, EditorContent} from '@tiptap/react'
@@ -33,7 +32,6 @@ const InformationEdit = () => {
 
     return (
         <div className={'relative w-full flex flex-col items-center gap-3'}>
-            {/*<InformationModalEditMenubar editor={editor} imagePath={currentTimelineDraft.imagePath!}/>*/}
             <hr className={'w-full'}/>
             <InformationModalImage information={currentTimelineDraft}/>
             <div className={'w-full'}><EditorContent editor={editor}/></div>

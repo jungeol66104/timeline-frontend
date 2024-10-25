@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectEventContentType} from "@/store/slices/appearanceSlice";
 import EventView from "@/components/modals/eventModal/eventView/eventView";
-import EventModalEdit from "@/components/modals/eventModal/eventEdit/eventModalEdit";
+import EventEdit from "@/components/modals/eventModal/eventEdit/eventEdit";
 import EventHistory from "@/components/modals/eventModal/eventHistory/eventHistory";
 
 const EventModalBody = () => {
@@ -11,9 +11,9 @@ const EventModalBody = () => {
     return (
         <div>
             {eventContentType === 'view' && <EventView />}
-            {eventContentType === 'edit' && <EventModalEdit />}
+            {eventContentType === 'edit' && <EventEdit />}
             {eventContentType === 'history' && <EventHistory />}
-            {eventContentType === 'new' && <EventModalEdit />}
+            {eventContentType === 'new' && <EventEdit />}
         </div>
     );
 };

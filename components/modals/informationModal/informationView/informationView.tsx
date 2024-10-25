@@ -29,7 +29,7 @@ const InformationView = () => {
             <hr className={'w-full'}/>
             <div className={'w-full flex items-center justify-center'}><InformationModalImage information={currentTimeline}/></div>
             <div className={'w-full'}><EditorContent editor={editor}/></div>
-            <NewInformationEditMenubar editor={editor}/>
+            {/*<NewInformationEditMenubar editor={editor}/>*/}
         </div>
     );
 };

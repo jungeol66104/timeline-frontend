@@ -15,8 +15,8 @@ const EventModalImage = memo(({ event } : {event: Event}) => {
     const isBaseImage = getIsBaseImage(event.imagePath)
 
     return (
-        <div className={`relative`}>
-            {!isBaseImage && imageSize !== undefined && <Image className={'max-h-[400px] w-auto'} src={src} alt={alt} priority height={imageSize.height} width={imageSize.width} />}
+        <div className={`relative ${(isBaseImage || imageSize === undefined) && 'hidden'}`}>
+            <Image className={'max-h-[400px] w-auto'} src={src} alt={alt} priority height={imageSize.height} width={imageSize.width}/>
         </div>
     );
 });

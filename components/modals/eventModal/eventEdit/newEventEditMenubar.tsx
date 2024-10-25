@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import SaveEventButton from "@/components/modals/eventModal/eventEdit/saveEventButton";
 import KeynoteButton from "@/components/modals/eventModal/eventEdit/keynoteButton";
-import {getIsTouchable} from "@/utils/global";
 
 const NewEventEditMenubar = () => {
     const swiperWrapperRef = useRef<HTMLDivElement>(null)
@@ -26,7 +25,6 @@ const NewEventEditMenubar = () => {
 
     useEffect(() => {
         const swiperWrapper = swiperWrapperRef.current
-        // if (!swiperWrapper || getIsTouchable()) return
         if (!swiperWrapper) return
 
         const handleResize = () => {

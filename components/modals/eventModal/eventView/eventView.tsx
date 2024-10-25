@@ -27,7 +27,7 @@ const EventView = () => {
             <hr className={'w-full'}/>
             <EventModalImage event={currentEvent}/>
             <div className={'w-full'}><EditorContent editor={editor}/></div>
-            <NewEventEditMenubar />
+            {/*<NewEventEditMenubar />*/}
         </div>
     )
 }
