@@ -14,9 +14,9 @@ const EventModalEditMenubar = ({editor, imagePath}:{editor: any, imagePath: stri
     const eventContentType = useSelector(selectEventContentType)
     const currentEvents = useSelector(selectCurrentEvents)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
+    const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
 
     const isBaseImage = getIsBaseImage(imagePath)
-    const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
 
     return (
         <div className={'w-full flex justify-between pb-3'}>

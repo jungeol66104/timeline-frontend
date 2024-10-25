@@ -31,7 +31,7 @@ const InformationEdit = () => {
         editorProps: {attributes: {class: 'outline-none'}},
         onUpdate: ({ editor }) => dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, content: editor.getHTML()})),
         content: `${currentTimelineDraft.content}`,
-        editable: contentType === 'edit'
+        editable: contentType === 'edit' || contentType === 'new'
     }, [modalType, contentType])
 
     return (
@@ -39,7 +39,7 @@ const InformationEdit = () => {
             <hr className={'w-full'}/>
             <InformationModalImage information={currentTimelineDraft}/>
             <div className={'w-full'}><EditorContent editor={editor}/></div>
-            {contentType === 'edit' && <NewInformationEditMenubar editor={editor}/>}
+            {(contentType === 'edit' || contentType === 'new') && <NewInformationEditMenubar editor={editor}/>}
         </div>
     )
 }

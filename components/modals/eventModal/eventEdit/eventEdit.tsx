@@ -18,7 +18,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 const EventEdit = () => {
     const dispatch = useDispatch()
     const modalType = useSelector(selectModalType)
-    const eventContentType = useSelector(selectEventContentType)
+    const contentType = useSelector(selectEventContentType)
     const currentEvents = useSelector(selectCurrentEvents)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
@@ -33,17 +33,18 @@ const EventEdit = () => {
         editorProps: {attributes: {class: 'w-full outline-none'}},
         onUpdate: ({ editor }) => {
             dispatch(updateCurrentEventDraft({...currentEventDraft, content: editor.getHTML()}))
-            if (eventContentType === 'new' && isCreated) dispatch(updateEventInCurrentEvents({...currentEventDraft, content: editor.getHTML()}))
+            if (contentType === 'new' && isCreated) dispatch(updateEventInCurrentEvents({...currentEventDraft, content: editor.getHTML()}))
         },
         content: `${currentEventDraft.content}`,
-    }, [modalType])
+        editable: contentType === 'edit' || contentType === 'new'
+    }, [modalType, contentType])
 
     return (
         <div className={'relative w-full flex flex-col items-center gap-3'}>
             <hr className={'w-full'}/>
             <EventModalImage event={currentEventDraft}/>
             <div className={'w-full'}><EditorContent editor={editor}/></div>
-            <NewEventEditMenubar editor={editor}/>
+            {(contentType === 'edit' || contentType === 'new') && <NewEventEditMenubar editor={editor}/>}
         </div>
     )
 }

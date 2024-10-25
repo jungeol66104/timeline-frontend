@@ -2,11 +2,16 @@ import React, {useEffect, useRef, useState} from 'react';
 import SaveInformationButton from "@/components/modals/informationModal/informationEdit/saveInformationButton";
 
 import {Editor} from "@tiptap/core";
+import AddImageButton from "@/components/common/addImageButton";
+import {useSelector} from "react-redux";
+import {selectTimelineType} from "@/store/slices/appearanceSlice";
 
 const NewInformationEditMenubar = ({editor}: {editor: Editor | null}) => {
     const swiperWrapperRef = useRef<HTMLDivElement>(null)
     const [scrollPosition, setScrollPosition] = useState('start');
     const [showButtons, setShowButtons] = useState(false)
+
+    const timelineType = useSelector(selectTimelineType)
 
     useEffect(() => {
         const swiperWrapper = swiperWrapperRef.current
@@ -69,8 +74,7 @@ const NewInformationEditMenubar = ({editor}: {editor: Editor | null}) => {
                 <div onClick={() => handleClick('prev')} className={`${(scrollPosition === 'start' || !showButtons) && 'hidden'} cursor-pointer absolute top-0 left-0 w-6 h-full flex items-center justify-center bg-white opacity-100 hover:bg-gray-100 border-r-[0.1px] border-gray-300 rounded-l-md`}><span className={`material-symbols-outlined text-[20px]`}>&#xe5cb;</span></div>
                 <div onClick={() => handleClick('next')} className={`${(scrollPosition === 'end' || !showButtons) && 'hidden'} cursor-pointer absolute top-0 right-0 w-6 h-full flex items-center justify-center bg-white opacity-100 hover:bg-gray-100 border-l-[0.1px] border-gray-300 rounded-r-md`}><span className={`material-symbols-outlined text-[20px]`}>&#xe5cc;</span></div>
                 <div ref={swiperWrapperRef} className={'swipeWrapper -z-10 p-0.5 overflow-x-scroll w-full flex items-center gap-0.5'}>
-                    {/* image */}
-                    <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe43e;</button>
+                    <AddImageButton/>
                     {/* youtube */}
                     {/*<button className={`shrink-0 pt-[1px] material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100 `}>&#xf85a;</button>*/}
 
@@ -89,7 +93,7 @@ const NewInformationEditMenubar = ({editor}: {editor: Editor | null}) => {
                     <button onClick={() => editor?.chain().focus().toggleStrike().run()} className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md ${editor?.isActive('strike') ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xe257;</button>
                 </div>
             </div>
-            <SaveInformationButton/>
+            {timelineType !== 'new' && <SaveInformationButton/>}
         </div>
     );
 };

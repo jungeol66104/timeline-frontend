@@ -10,8 +10,8 @@ const EventModalBody = () => {
 
     return (
         <div>
-            {eventContentType === 'view' && <EventView />}
-            {eventContentType === 'edit' && <EventEdit />}
+            {/*{eventContentType === 'view' && <EventView />}*/}
+            {(eventContentType === 'edit' || eventContentType === 'view') && <EventEdit />}
             {eventContentType === 'history' && <EventHistory />}
             {eventContentType === 'new' && <EventEdit />}
         </div>

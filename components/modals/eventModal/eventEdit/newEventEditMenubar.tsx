@@ -5,11 +5,19 @@ import SaveEventButton from "@/components/modals/eventModal/eventEdit/saveEventB
 import {Editor} from "@tiptap/core";
 import DetachButton from "@/components/modals/eventModal/eventEdit/detachButton";
 import AddImageButton from "@/components/common/addImageButton";
+import {useSelector} from "react-redux";
+import {selectEventContentType} from "@/store/slices/appearanceSlice";
+import {selectCurrentEventDraft, selectCurrentEvents} from "@/store/slices/contentsSlice";
 
 const NewEventEditMenubar = ({editor}: {editor: Editor | null}) => {
     const swiperWrapperRef = useRef<HTMLDivElement>(null)
     const [scrollPosition, setScrollPosition] = useState('start');
     const [showButtons, setShowButtons] = useState(false)
+
+    const contentType = useSelector(selectEventContentType)
+    const currentEvents = useSelector(selectCurrentEvents)
+    const currentEventDraft = useSelector(selectCurrentEventDraft)
+    const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
 
     useEffect(() => {
         const swiperWrapper = swiperWrapperRef.current
@@ -95,10 +103,10 @@ const NewEventEditMenubar = ({editor}: {editor: Editor | null}) => {
                 <div className={'max-[469.9px]:hidden p-0.5 flex items-center gap-0.5 h-[36px] border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
                     <KeynoteButton/>
                     {/*<button className={`px-2.5 h-8 text-sm rounded-md hover:bg-gray-100 font-semibold`}>Connect</button>*/}
-                    <DetachButton/>
+                    {(contentType === 'edit' || (contentType === 'new' && isCreated)) && <DetachButton/>}
                 </div>
                 <button className={'min-[470px]:hidden material-symbols-outlined text-[22px] w-[36px] h-[36px] bg-white hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md'}>&#xe5d3;</button>
-                <SaveEventButton/>
+                {contentType === 'edit' && <SaveEventButton/>}
             </div>
         </div>
     );
