@@ -6,7 +6,7 @@ const DetachButton = () => {
     const dispatch = useDispatch()
 
     return (
-        <button onClick={() => dispatch(updatePopupType('detachEvent'))} className={'material-symbols-outlined text-[22px] w-[36px] h-[36px] hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md'}>&#xe15b;</button>
+        <button onClick={() => dispatch(updatePopupType('detachEvent'))} className={`px-2.5 h-8 text-sm text-red-700 rounded-md hover:bg-gray-100 font-semibold`}>Detach</button>
     );
 };
 

@@ -5,11 +5,14 @@ import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, u
 import EventModalImage from "@/components/modals/eventModal/eventView/eventModalImage";
 import NewEventEditMenubar from "@/components/modals/eventModal/eventEdit/newEventEditMenubar";
 
-import { useEditor, EditorContent } from '@tiptap/react'
+import {useEditor, EditorContent} from '@tiptap/react'
 import Document from '@tiptap/extension-document'
-import Text from '@tiptap/extension-text'
-import Link from '@tiptap/extension-link'
 import Paragraph from '@tiptap/extension-paragraph'
+import Text from '@tiptap/extension-text'
+import Heading from '@tiptap/extension-heading'
+import Bold from '@tiptap/extension-bold'
+import Link from '@tiptap/extension-link'
+import Strike from "@tiptap/extension-strike";
 import Placeholder from "@tiptap/extension-placeholder";
 
 const EventEdit = () => {
@@ -23,7 +26,8 @@ const EventEdit = () => {
 
     const editor = useEditor({
         extensions: [
-            Document, Text, Paragraph,
+            Document, Paragraph, Text, Bold, Strike,
+            Heading.configure({levels: [3], HTMLAttributes: {class: 'text-[22px] font-bold'}}),
             Link.configure({autolink: true, HTMLAttributes: {class: 'cursor-pointer text-blue-700 hover:underline',},}),
             Placeholder.configure({placeholder: 'New event content'})],
         editorProps: {attributes: {class: 'w-full outline-none'}},
@@ -39,7 +43,7 @@ const EventEdit = () => {
             <hr className={'w-full'}/>
             <EventModalImage event={currentEventDraft}/>
             <div className={'w-full'}><EditorContent editor={editor}/></div>
-            <NewEventEditMenubar />
+            <NewEventEditMenubar editor={editor}/>
         </div>
     )
 }

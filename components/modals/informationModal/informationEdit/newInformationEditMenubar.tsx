@@ -23,7 +23,6 @@ const NewInformationEditMenubar = ({editor}: {editor: Editor | null}) => {
             swiperWrapper.removeEventListener('scroll', handleScroll)
         }
     });
-
     useEffect(() => {
         const swiperWrapper = swiperWrapperRef.current
         if (!swiperWrapper) return
@@ -40,8 +39,8 @@ const NewInformationEditMenubar = ({editor}: {editor: Editor | null}) => {
             observer.disconnect()
         }
     });
-
     const handleClick = (direction: string) => {
+        editor?.chain().focus()
         if ((scrollPosition === 'start' && direction === 'prev') || (scrollPosition === 'end' && direction === 'next')) return;
 
         const swiperWrapper = swiperWrapperRef.current
@@ -66,30 +65,28 @@ const NewInformationEditMenubar = ({editor}: {editor: Editor | null}) => {
 
     return (
         <div className={'sticky bottom-3 w-full flex justify-between gap-3'}>
-            <div className={'relative overflow-hidden w-full max-w-[307.33px] h-9 flex items-center border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
+            <div className={'relative overflow-hidden max-w-[307.33px] h-9 flex items-center border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
                 <div onClick={() => handleClick('prev')} className={`${(scrollPosition === 'start' || !showButtons) && 'hidden'} cursor-pointer absolute top-0 left-0 w-6 h-full flex items-center justify-center bg-white opacity-100 hover:bg-gray-100 border-r-[0.1px] border-gray-300 rounded-l-md`}><span className={`material-symbols-outlined text-[20px]`}>&#xe5cb;</span></div>
                 <div onClick={() => handleClick('next')} className={`${(scrollPosition === 'end' || !showButtons) && 'hidden'} cursor-pointer absolute top-0 right-0 w-6 h-full flex items-center justify-center bg-white opacity-100 hover:bg-gray-100 border-l-[0.1px] border-gray-300 rounded-r-md`}><span className={`material-symbols-outlined text-[20px]`}>&#xe5cc;</span></div>
                 <div ref={swiperWrapperRef} className={'swipeWrapper -z-10 p-0.5 overflow-x-scroll w-full flex items-center gap-0.5'}>
                     {/* image */}
                     <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe43e;</button>
                     {/* youtube */}
-                    <button className={`shrink-0 pt-[1px] material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100 `}>&#xf85a;</button>
+                    {/*<button className={`shrink-0 pt-[1px] material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100 `}>&#xf85a;</button>*/}
 
                     {/* heading */}
-                    <button className={`shrink-0 material-symbols-outlined text-[25px] w-9 h-8 rounded-md hover:bg-gray-100 `}>&#xf018;</button>
+                    <button onClick={() => editor?.chain().focus().toggleHeading({level:3}).run()} className={`shrink-0 pt-[0.5px] material-symbols-outlined text-[25px] w-9 h-8 rounded-md ${editor?.isActive('heading', {level:3}) ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xf018;</button>
                     {/* table */}
-                    <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100 `}>&#xf191;</button>
+                    {/*<button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xf191;</button>*/}
                     {/* list */}
-                    <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100 `}>&#xe241;</button>
+                    {/*<button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe241;</button>*/}
 
                     {/* link */}
-                    <button className={`shrink-0 material-symbols-outlined text-[22px] w-9 h-8 rounded-md hover:bg-gray-100 `}>&#xe178;</button>
+                    {/*<button className={`shrink-0 material-symbols-outlined text-[22px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe178;</button>*/}
                     {/* bold */}
-                    <button onClick={() => editor?.chain().focus().toggleBold().run()}
-                            className={`shrink-0 material-symbols-outlined text-[22px] w-9 h-8 rounded-md ${editor?.isActive('bold') ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xe238;</button>
+                    <button onClick={() => editor?.chain().focus().toggleBold().run()} className={`shrink-0 material-symbols-outlined text-[22px] w-9 h-8 rounded-md ${editor?.isActive('bold') ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xe238;</button>
                     {/* strike */}
-                    <button onClick={() => editor?.chain().focus().toggleStrike().run()}
-                            className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md ${editor?.isActive('strike') ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xe257;</button>
+                    <button onClick={() => editor?.chain().focus().toggleStrike().run()} className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md ${editor?.isActive('strike') ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xe257;</button>
                 </div>
             </div>
             <SaveInformationButton/>

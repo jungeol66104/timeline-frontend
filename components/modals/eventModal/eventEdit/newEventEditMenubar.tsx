@@ -1,8 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import SaveEventButton from "@/components/modals/eventModal/eventEdit/saveEventButton";
 import KeynoteButton from "@/components/modals/eventModal/eventEdit/keynoteButton";
+import SaveEventButton from "@/components/modals/eventModal/eventEdit/saveEventButton";
 
-const NewEventEditMenubar = () => {
+import {Editor} from "@tiptap/core";
+import DetachButton from "@/components/modals/eventModal/eventEdit/detachButton";
+import AddImageButton from "@/components/common/addImageButton";
+
+const NewEventEditMenubar = ({editor}: {editor: Editor | null}) => {
     const swiperWrapperRef = useRef<HTMLDivElement>(null)
     const [scrollPosition, setScrollPosition] = useState('start');
     const [showButtons, setShowButtons] = useState(false)
@@ -22,7 +26,6 @@ const NewEventEditMenubar = () => {
             swiperWrapper.removeEventListener('scroll', handleScroll)
         }
     });
-
     useEffect(() => {
         const swiperWrapper = swiperWrapperRef.current
         if (!swiperWrapper) return
@@ -39,8 +42,8 @@ const NewEventEditMenubar = () => {
             observer.disconnect()
         }
     });
-
     const handleClick = (direction: string) => {
+        editor?.chain().focus()
         if ((scrollPosition === 'start' && direction === 'prev') || (scrollPosition === 'end' && direction === 'next')) return;
 
         const swiperWrapper = swiperWrapperRef.current
@@ -65,29 +68,36 @@ const NewEventEditMenubar = () => {
 
     return (
         <div className={'sticky bottom-3 w-full flex justify-between gap-3 z-10'}>
-            <div className={'relative overflow-hidden w-full max-w-[307.33px] h-9 flex items-center border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
+            <div className={'relative overflow-hidden max-w-[307.33px] h-9 flex items-center border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
                 <div onClick={() => handleClick('prev')} className={`${(scrollPosition === 'start' || !showButtons) && 'hidden'} cursor-pointer absolute top-0 left-0 w-6 h-full flex items-center justify-center bg-white opacity-100 hover:bg-gray-100 border-r-[0.1px] border-gray-300 rounded-l-md`}><span className={`material-symbols-outlined text-[20px]`}>&#xe5cb;</span></div>
                 <div onClick={() => handleClick('next')} className={`${(scrollPosition === 'end' || !showButtons) && 'hidden'} cursor-pointer absolute top-0 right-0 w-6 h-full flex items-center justify-center bg-white opacity-100 hover:bg-gray-100 border-l-[0.1px] border-gray-300 rounded-r-md`}><span className={`material-symbols-outlined text-[20px]`}>&#xe5cc;</span></div>
                 <div ref={swiperWrapperRef} className={'swipeWrapper -z-10 p-0.5 overflow-x-scroll w-full flex items-center gap-0.5'}>
-                    <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe43e;</button>
-                    <button className={`shrink-0 pt-[1px] material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xf85a;</button>
+                    <AddImageButton/>
+                    {/* youtube */}
+                    {/*<button className={`shrink-0 pt-[1px] material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xf85a;</button>*/}
 
-                    <button className={`shrink-0 material-symbols-outlined text-[25px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xf018;</button>
-                    <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xf191;</button>
-                    <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe241;</button>
+                    {/* heading */}
+                    <button onClick={() => editor?.chain().focus().toggleHeading({level: 3}).run()} className={`shrink-0 pt-[0.5px] material-symbols-outlined text-[25px] w-9 h-8 rounded-md ${editor?.isActive('heading', {level: 3}) ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xf018;</button>
+                    {/* table */}
+                    {/*<button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xf191;</button>*/}
+                    {/* list */}
+                    {/*<button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe241;</button>*/}
 
-                    <button className={`shrink-0 material-symbols-outlined text-[22px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe178;</button>
-                    <button className={`shrink-0 material-symbols-outlined text-[22px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe238;</button>
-                    <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe257;</button>
+                    {/* link */}
+                    {/*<button className={`shrink-0 material-symbols-outlined text-[22px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe178;</button>*/}
+                    {/* bold */}
+                    <button onClick={() => editor?.chain().focus().toggleBold().run()} className={`shrink-0 material-symbols-outlined text-[22px] w-9 h-8 rounded-md ${editor?.isActive('bold') ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xe238;</button>
+                    {/* strike */}
+                    <button onClick={() => editor?.chain().focus().toggleStrike().run()} className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md ${editor?.isActive('strike') ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xe257;</button>
                 </div>
             </div>
             <div className={'flex gap-3'}>
-                <div className={'max-[851.9px]:hidden p-0.5 flex items-center gap-0.5 h-[36px] border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
+                <div className={'max-[469.9px]:hidden p-0.5 flex items-center gap-0.5 h-[36px] border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
                     <KeynoteButton/>
-                    <button className={`px-2.5 h-8 text-sm rounded-md hover:bg-gray-100 font-semibold`}>Connect</button>
-                    <button className={`px-2.5 h-8 text-sm text-red-700 rounded-md hover:bg-gray-100 font-semibold`}>Detach</button>
+                    {/*<button className={`px-2.5 h-8 text-sm rounded-md hover:bg-gray-100 font-semibold`}>Connect</button>*/}
+                    <DetachButton/>
                 </div>
-                <button className={'min-[852px]:hidden material-symbols-outlined text-[22px] w-[36px] h-[36px] bg-white hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md'}>&#xe5d3;</button>
+                <button className={'min-[470px]:hidden material-symbols-outlined text-[22px] w-[36px] h-[36px] bg-white hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md'}>&#xe5d3;</button>
                 <SaveEventButton/>
             </div>
         </div>

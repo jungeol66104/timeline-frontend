@@ -16,7 +16,7 @@ const Navbar = ({loadingState} : {loadingState: string}) => {
         <>
             <nav className={`navbar fixed top-0 left-0 w-full h-[60px] bg-white shadow-md flex items-center justify-between`} style={{zIndex: 5000}}>
                 <div className={'flex items-center gap-5'}>
-                    <Link href={'/'} className={`shrink-0 w-fit font-[700] text-2xl transform transition-opacity ease-in-out duration-300 ml-4`} style={{fontFamily: 'ubuntu'}}>timeline</Link>
+                    <Link href={'/'} className={`shrink-0 w-fit font-[700] text-2xl transform transition-opacity ease-in-out duration-300 ml-4`} style={{fontFamily: 'ubuntu'}}>timeline wiki</Link>
                     <ComputerSearchBar />
                 </div>
                 <div className={'flex items-center ml-2'}>

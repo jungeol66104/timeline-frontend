@@ -10,8 +10,8 @@ const InformationModalBody = () => {
 
     return (
         <div>
-            {informationContentType === 'view' && <InformationView />}
-            {informationContentType === 'edit' && <InformationEdit />}
+            {/*{informationContentType === 'view' && <InformationView />}*/}
+            {(informationContentType === 'edit' || informationContentType === 'view') && <InformationEdit />}
             {informationContentType === 'history' && <InformationModalHistory />}
             {informationContentType === 'new' && <InformationEdit />}
         </div>

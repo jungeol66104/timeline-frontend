@@ -16,7 +16,7 @@ const InformationModalHead = () => {
             <div className={'relative w-full'}>
                 {informationContentType === 'new' || (timelineType === 'private' && informationContentType === 'edit') || (timelineType === 'demo' && informationContentType === 'edit')
                     ?   <InformationTitleEdit />
-                    :   <h1 className={`w-full text-2xl font-bold`}>{currentTimeline.title}</h1>
+                    :   <h2 className={`w-full text-2xl font-bold`}>{currentTimeline.title}</h2>
                 }
                 {informationContentType === 'edit' || informationContentType === 'new'
                     ?   <InformationDescriptionEdit />

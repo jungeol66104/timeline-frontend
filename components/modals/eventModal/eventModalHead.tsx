@@ -19,7 +19,7 @@ const EventModalHead = () => {
                 }
                 {eventContentType === 'edit' || eventContentType === 'new'
                     ?   <EventTitleEdit />
-                    :   <h1 className={`w-fit text-2xl font-bold`}>{currentEvent.title}</h1>
+                    :   <h2 className={`w-fit text-2xl font-bold`}>{currentEvent.title}</h2>
                 }
             </div>
             <EventModalMenubar/>
