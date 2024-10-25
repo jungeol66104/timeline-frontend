@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentEvent} from "@/store/slices/contentsSlice";
-import EventModalImage from "@/components/modals/eventModal/eventView/eventModalImage";
+import EventModalImage from "@/components/modals/eventModal/eventViewEdit/eventModalImage";
 
 import {EditorContent, useEditor} from "@tiptap/react";
 import Document from '@tiptap/extension-document'
@@ -9,7 +9,7 @@ import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
 import {selectModalType} from "@/store/slices/appearanceSlice";
 import Link from "@tiptap/extension-link";
-import NewEventEditMenubar from "@/components/modals/eventModal/eventEdit/newEventEditMenubar";
+import NewEventEditMenubar from "@/components/modals/eventModal/eventViewEdit/newEventEditMenubar";
 
 const EventView = () => {
     const modalType = useSelector(selectModalType)

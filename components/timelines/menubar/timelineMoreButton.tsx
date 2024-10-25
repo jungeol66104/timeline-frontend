@@ -1,6 +1,4 @@
 import React, {useRef, useState} from 'react';
-import DiscussionButton from "@/components/common/more/discussionButton";
-import HistoryButton from "@/components/common/more/historyButton";
 import ShareButton from "@/components/layout/menu/shareButton";
 
 const TimelineMoreButton = () => {

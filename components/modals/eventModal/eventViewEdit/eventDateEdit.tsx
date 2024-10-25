@@ -8,7 +8,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectErrorType, selectEventContentType, selectModalType, updateErrorType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
-import DateGuideButton from "@/components/modals/eventModal/eventEdit/dateGuideButton";
+import DateGuideButton from "@/components/modals/eventModal/eventViewEdit/dateGuideButton";
 import axios from "axios";
 
 const EventDateEdit = () => {

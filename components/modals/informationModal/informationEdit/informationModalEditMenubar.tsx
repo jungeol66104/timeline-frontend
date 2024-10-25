@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import {selectTimelineType} from "@/store/slices/appearanceSlice";
 import AddImageButton from "@/components/common/addImageButton";
 import ImageEditButton from "@/components/common/imageEditButton";
-import ResetEditButton from "@/components/modals/editMenu/resetEditButton";
+import ResetEditButton from "@/components/modals/resetEditButton";
 import SaveInformationButton from "@/components/modals/informationModal/informationEdit/saveInformationButton";
 
 const InformationModalEditMenubar = ({editor, imagePath}:{editor: any, imagePath: string}) => {

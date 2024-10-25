@@ -3,7 +3,7 @@ import Link from "next/link";
 import {useSelector} from "react-redux";
 import {selectCurrentEventView} from "@/store/slices/contentsSlice";
 import DiffButton from "@/components/modals/diffButton";
-import EventModalImage from "@/components/modals/eventModal/eventView/eventModalImage";
+import EventModalImage from "@/components/modals/eventModal/eventViewEdit/eventModalImage";
 import {unwrapPTag} from "@/utils/global";
 
 const EventHistoryView = () => {

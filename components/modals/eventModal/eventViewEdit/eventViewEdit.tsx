@@ -2,8 +2,8 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectEventContentType, selectModalType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
-import EventModalImage from "@/components/modals/eventModal/eventView/eventModalImage";
-import NewEventEditMenubar from "@/components/modals/eventModal/eventEdit/newEventEditMenubar";
+import EventModalImage from "@/components/modals/eventModal/eventViewEdit/eventModalImage";
+import NewEventEditMenubar from "@/components/modals/eventModal/eventViewEdit/newEventEditMenubar";
 
 import {useEditor, EditorContent} from '@tiptap/react'
 import Document from '@tiptap/extension-document'
@@ -15,7 +15,7 @@ import Link from '@tiptap/extension-link'
 import Strike from "@tiptap/extension-strike";
 import Placeholder from "@tiptap/extension-placeholder";
 
-const EventEdit = () => {
+const EventViewEdit = () => {
     const dispatch = useDispatch()
     const modalType = useSelector(selectModalType)
     const contentType = useSelector(selectEventContentType)
@@ -49,4 +49,4 @@ const EventEdit = () => {
     )
 }
 
-export default EventEdit;
+export default EventViewEdit;

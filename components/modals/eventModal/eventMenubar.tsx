@@ -9,7 +9,7 @@ import EventViewEditButton from "@/components/modals/eventModal/eventViewEditBut
 import HistoryButton from "@/components/modals/historyButton";
 import CreateEventButton from "@/components/modals/eventModal/createEventButton";
 
-const EventModalMenubar = () => {
+const EventMenubar = () => {
     const session = useSelector(selectSession)
     const timelineType = useSelector(selectTimelineType);
     const eventContentType = useSelector(selectEventContentType)
@@ -53,4 +53,4 @@ const EventModalMenubar = () => {
     );
 };
 
-export default EventModalMenubar;
+export default EventMenubar;
