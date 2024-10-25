@@ -68,10 +68,13 @@ const NewEventEditMenubar = () => {
     return (
         <div className={'sticky bottom-3 w-full flex justify-between gap-3 z-10'}>
             <div className={'overflow-hidden w-full max-w-[307.33px] h-9 flex items-center border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
-                <div className={`${!showButtons && 'hidden'} z-10`}>
-                    <button onClick={() => handleClick('prev')} className={`${scrollPosition === 'start' && 'hidden'} material-symbols-outlined text-[20px] absolute top-0 left-0 h-[36px] w-6 bg-white hover:bg-gray-100 border-r-[0.1px] border-gray-300 rounded-l-md`}>&#xe5cb;</button>
-                    <button onClick={() => handleClick('next')} className={`${scrollPosition === 'end' && 'hidden'} material-symbols-outlined text-[20px] absolute top-0 right-0 h-[36px] w-6 bg-white hover:bg-gray-100 border-l-[0.1px] border-gray-300 rounded-r-md`}>&#xe5cc;</button>
-                </div>
+                {/*<div className={'absolute top-0 left-0 bg-white w-6 h-full'}><button onClick={() => handleClick('prev')} className={`${scrollPosition === 'start' && 'hidden'} material-symbols-outlined text-[20px] bg-white hover:bg-gray-100 border-r-[0.1px] border-gray-300 rounded-l-md`}>&#xe5cb;</button></div>*/}
+                {/*<button onClick={() => handleClick('next')} className={`${scrollPosition === 'end' && 'hidden'} material-symbols-outlined text-[20px] absolute top-0 right-0 h-[36px] w-6 bg-white hover:bg-gray-100 border-l-[0.1px] border-gray-300 rounded-r-md`}>&#xe5cc;</button>*/}
+                <div className={'cursor-pointer absolute top-0 left-0 w-6 h-full flex items-center justify-center bg-white hover:bg-gray-100 border-r-[0.1px] border-gray-300 rounded-l-md'}><span className={`material-symbols-outlined text-[20px]`}>&#xe5cb;</span></div>
+                <div className={'cursor-pointer absolute top-0 right-0 w-6 h-full flex items-center justify-center bg-white hover:bg-gray-100 border-l-[0.1px] border-gray-300 rounded-r-md'}><span className={`material-symbols-outlined text-[20px]`}>&#xe5cc;</span></div>
+                {/*<button onClick={() => handleClick('next')} className={`${scrollPosition === 'end' && 'hidden'} material-symbols-outlined text-[20px] absolute top-0 right-0 h-[36px] w-6 bg-white hover:bg-gray-100 border-l-[0.1px] border-gray-300 rounded-r-md`}>&#xe5cc;</button>*/}
+                {/*<div className={`${!showButtons && 'hidden'} z-10`}>*/}
+                {/*</div>*/}
                 <div ref={swiperWrapperRef} className={'swipeWrapper p-0.5 overflow-x-scroll w-full flex items-center gap-0.5'}>
                     <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe43e;</button>
                     <button className={`shrink-0 pt-[1px] material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xf85a;</button>
