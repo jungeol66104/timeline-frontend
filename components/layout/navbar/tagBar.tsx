@@ -17,7 +17,7 @@ const TagBar = () => {
         if (!tagWrapper || hasQueryParams) return
 
         const isTouchable = getIsTouchable()
-        const left = isTouchable ? 314.42 : 260
+        const left = isTouchable ? 144.42 : 90
 
         tagWrapper.scroll({
             left: left,
@@ -31,7 +31,8 @@ const TagBar = () => {
         if (!tagWrapper || hasQueryParams) return
 
         const isTouchable = getIsTouchable()
-        const left = isTouchable ? 314.42 : 260
+        const left = isTouchable ? 144.42 : 90
+        // const left = isTouchable ? 314.42 : 260
 
         tagWrapper.scroll({
             left: left,
@@ -101,7 +102,7 @@ const TagBar = () => {
         <div className={`tagBar sticky top-[60px] h-fit w-full border-b-[1px] bg-white z-[4999] ${!isIndex && 'hidden'}`}>
             <div className={`fixed top-[60px] left-0 pt-[1px] pl-4 pr-6 h-[45.67px] ${scrollPosition === 'start' ? 'pointer-events-none opacity-0' : 'opacity-100'} transition-opacity flex items-center ${!showButtons && 'hidden'}`} style={{backgroundImage: "linear-gradient(to right, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 0))"}}><button onClick={() => handleClick('prev')} className={`material-symbols-outlined text-[20px] flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white hover:bg-gray-100`}>&#xe5cb;</button></div>
             <div className={`fixed top-[60px] right-0 pt-[1px] pl-6 pr-4 h-[45.67px] ${scrollPosition === 'end' ? 'pointer-events-none opacity-0' : 'opacity-100'} transition-opacity flex items-center ${!showButtons && 'hidden'}`} style={{backgroundImage: "linear-gradient(to left, rgba(255, 255, 255, 1) 75%, rgba(255, 255, 255, 0))"}}><button onClick={() => handleClick('next')} className={`material-symbols-outlined text-[20px] flex items-center justify-center w-[30px] h-[30px] rounded-full border-[1px] border-gray-200 bg-white hover:bg-gray-100`}>&#xe5cc;</button></div>
-            <div ref={swiperContainerRef} className={'tagWrapper overflow-x-scroll pt-2 pb-1.5 px-4 flex gap-2 shrink-0'}>
+            <div ref={swiperContainerRef} className={'tagWrapper overflow-x-scroll pt-2 pb-1.5 px-3 flex gap-2 shrink-0'}>
                 {getTags().map((tag, i) => {
                     return (
                         <TagButton key={i} tagNum={i + 1}/>

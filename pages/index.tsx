@@ -20,7 +20,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
             store.dispatch(updateSession(data))
         }
 
-        const tagNum = Number(query.tagNum || 4)
+        const tagNum = Number(query.tagNum || 2)
         const type = tagNum < 4 ? 'features' : 'tags'
         const id = tagNum < 4 ? tagNum : tagNum - 3
         const response = await api.get(`/timeline/${type}/${id}?pageNum=1&pageSize=20`, {headers: {lang: 'en'}})
