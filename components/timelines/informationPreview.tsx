@@ -6,8 +6,7 @@ import InformationPreviewImage from "@/components/timelines/informationPreviewIm
 
 import axios from "axios";
 import api from "@/pages/api/api";
-import {getIsBaseImage, wrapPTag} from "@/utils/global";
-import DOMPurify from 'dompurify';
+import {getIsBaseImage, getPlainText, wrapPTag} from "@/utils/global";
 
 const InformationPreview = () => {
     const dispatch = useDispatch();
@@ -18,19 +17,10 @@ const InformationPreview = () => {
 
     const [imageHover, setImageHover] = useState(false);
     const timeline = timelineType === 'new' ? currentTimelineDraft : currentTimeline;
+
     let informationContent;
-    if (timeline.content === '' || timeline.content === '<p></p>') {
-        informationContent = 'Click this timeline box to edit the title, description, content and image of the timeline!'
-    } else {
-        if (typeof window === 'undefined') {
-            const { JSDOM } = require('jsdom');
-            const dom = new JSDOM('');
-            const ssrPurify = DOMPurify(dom.window);
-            informationContent = ssrPurify.sanitize(timeline.content);
-        } else {
-            informationContent = DOMPurify.sanitize(timeline.content);
-        }
-    }
+    if (timeline.content === '' || timeline.content === '<p></p>') informationContent = 'Click this timeline box to edit the title, description, content and image of the timeline!'
+    else informationContent = `<p>${getPlainText(timeline.content)}</p>`
 
     const handlePreviewClick = async () => {
         const informationModal = document.querySelector('.informationModal');

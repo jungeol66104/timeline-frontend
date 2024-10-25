@@ -5,8 +5,7 @@ import { useRouter } from 'next/router';
 import {useSelector} from "react-redux";
 import {Timeline} from "@/store/slices/contentsSlice";
 import {selectSession} from "@/store/slices/privateSlice";
-import {getIsBaseImage, mapStrToNum} from "@/utils/global";
-import DOMPurify from "dompurify";
+import {getIsBaseImage, getPlainText, mapStrToNum} from "@/utils/global";
 
 const TimelinePreview = ({timeline}: {timeline: Timeline}) => {
     const router = useRouter();
@@ -16,16 +15,7 @@ const TimelinePreview = ({timeline}: {timeline: Timeline}) => {
 
     const href = user && user.startsWith('@') ? `/@${session.username}/timelines/${timeline.id}` : `/timelines/${timeline.id}`
     const isBaseImage = getIsBaseImage(timeline.imagePath)
-
-    let informationContent;
-    if (typeof window === 'undefined') {
-        const { JSDOM } = require('jsdom');
-        const dom = new JSDOM('');
-        const ssrPurify = DOMPurify(dom.window);
-        informationContent = ssrPurify.sanitize(timeline.content);
-    } else {
-        informationContent = DOMPurify.sanitize(timeline.content);
-    }
+    const informationContent = `<p>${getPlainText(timeline.content)}</p>`
 
     return (
         <Link key={timeline.id} href={href} className={'w-full'}>

@@ -8,7 +8,7 @@ import {selectTimelineType} from "@/store/slices/appearanceSlice";
 const EventModalImage = memo(({ event } : {event: Event}) => {
     const timelineType = useSelector(selectTimelineType)
 
-    const src = timelineType !== 'demo' ? event.cdnUrl! + event.imagePath! : event.imagePath!
+    const src = timelineType === 'demo' && !getIsBaseImage(event.imagePath!) ? event.imagePath! : event.cdnUrl! + event.imagePath!
     const alt = event.title
     const imageSize = event.imageSize || {width: 100, height: 100};
 

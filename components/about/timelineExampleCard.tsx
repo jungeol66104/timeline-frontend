@@ -3,11 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 import {useSelector} from "react-redux";
 import {selectCurrentTimelines} from "@/store/slices/contentsSlice";
+
 // @ts-ignore
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {unwrapPTag} from "@/utils/global";
+import {getPlainText, unwrapPTag} from "@/utils/global";
 
 const TimelineExampleCard = () => {
     const currentTimelines = useSelector(selectCurrentTimelines).filter((timeline) => {
@@ -42,7 +43,8 @@ const TimelineExampleCard = () => {
                         <div className={'px-4 py-3 h-[152px]'}>
                             <h3 className={'text-2xl font-bold line-clamp-1'}>{timeline.title}</h3>
                             <div className={'text-gray-500 line-clamp-1'}>{timeline.description}</div>
-                            <div className={'mt-3 text-sm line-clamp-3'}>{unwrapPTag(timeline.content)}</div>
+                            {/*<div className={'mt-3 text-sm line-clamp-3'}>{unwrapPTag(timeline.content)}</div>*/}
+                            <div className={'mt-3 text-sm line-clamp-3'} dangerouslySetInnerHTML={{ __html: getPlainText(timeline.content)}}/>
                         </div>
                     </Link>
                 ))}
