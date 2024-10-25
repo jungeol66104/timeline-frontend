@@ -66,7 +66,7 @@ const NewEventEditMenubar = () => {
     }
 
     return (
-        <div className={'sticky bottom-3 w-full flex justify-between gap-3'}>
+        <div className={'sticky bottom-3 w-full flex justify-between gap-3 z-10'}>
             <div className={'overflow-hidden w-full max-w-[307.33px] h-9 flex items-center border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
                 <div ref={swiperWrapperRef} className={'swipeWrapper p-0.5 overflow-x-scroll w-full flex items-center gap-0.5'}>
                     <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe43e;</button>
@@ -80,8 +80,8 @@ const NewEventEditMenubar = () => {
                     <button className={`shrink-0 material-symbols-outlined text-[22px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe238;</button>
                     <button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe257;</button>
                 </div>
-                <button onClick={() => handleClick('prev')} className={`${(scrollPosition === 'start' || !showButtons) && 'hidden'} material-symbols-outlined text-[20px] absolute top-0 left-0 h-[36px] w-6 bg-white hover:bg-gray-100 border-r-[0.1px] border-gray-300 rounded-l-md`}>&#xe5cb;</button>
-                <button onClick={() => handleClick('next')} className={`${(scrollPosition === 'end' || !showButtons) && 'hidden'} material-symbols-outlined text-[20px] absolute top-0 right-0 h-[36px] w-6 bg-white hover:bg-gray-100 border-l-[0.1px] border-gray-300 rounded-r-md`}>&#xe5cc;</button>
+                <button onClick={() => handleClick('prev')} className={`${(scrollPosition === 'start' || !showButtons) && 'hidden'} material-symbols-outlined text-[20px] absolute top-0 left-0 h-[36px] w-6 bg-white hover:bg-gray-100 border-r-[0.1px] border-gray-300 rounded-l-md z-10`}>&#xe5cb;</button>
+                <button onClick={() => handleClick('next')} className={`${(scrollPosition === 'end' || !showButtons) && 'hidden'} material-symbols-outlined text-[20px] absolute top-0 right-0 h-[36px] w-6 bg-white hover:bg-gray-100 border-l-[0.1px] border-gray-300 rounded-r-md z-10`}>&#xe5cc;</button>
             </div>
             <div className={'flex gap-3'}>
                 <div className={'max-[851.9px]:hidden p-0.5 flex items-center gap-0.5 h-[36px] border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>

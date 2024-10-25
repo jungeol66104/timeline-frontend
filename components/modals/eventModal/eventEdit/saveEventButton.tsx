@@ -15,7 +15,6 @@ const SaveEventButton = () => {
     const currentEventDraft = useSelector(selectCurrentEventDraft)
 
     const handleClick = async () => {
-        console.log('hi')
         if (errorType === 'date' || currentEventDraft.date === '') {
             dispatch(updatePopupType('dateError'))
             return
@@ -37,7 +36,6 @@ const SaveEventButton = () => {
                 "imagePath": currentEventDraft.imagePath,
                 "note": "",
             }
-            console.log(updateBody)
             const keynoteBody = {
                 "isPrivate": timelineType === 'public' ? 0 : 1,
                 "eventId": currentEventDraft.id,
@@ -52,7 +50,6 @@ const SaveEventButton = () => {
                 if (currentEventDraft.isKeynote === currentEvent.isKeynote) keynoteResponse = {status: 200, data: {code: 200}}
                 else keynoteResponse = await axios.put('/api/wiki/keynote', keynoteBody)
                 if (updateResponse.status === 200 || keynoteResponse.status === 200) {
-                    // console.log(updateResponse, keynoteResponse)
                     if (updateResponse.data.code === 69999 || keynoteResponse.data.code === 69999) return
                     let events = currentEvents.filter((event) => event.id !== currentEventDraft.id)
                     events = [...events, currentEventDraft]
@@ -73,7 +70,7 @@ const SaveEventButton = () => {
     }
 
     return (
-        <button onClick={handleClick} className={`h-[36px] px-3 flex items-center justify-center border-[0.1px] border-gray-300 bg-black drop-shadow-sm rounded-md`}>
+        <button onClick={handleClick} className={`h-[36px] px-3 flex items-center justify-center border-[0.1px] border-gray-700 bg-black drop-shadow-sm rounded-md`}>
             <div className={'text-sm font-medium text-white'}>Save</div>
         </button>
     )
