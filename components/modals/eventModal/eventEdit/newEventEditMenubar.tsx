@@ -85,7 +85,7 @@ const NewEventEditMenubar = ({editor}: {editor: Editor | null}) => {
                     {/*<button className={`shrink-0 pt-[1px] material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xf85a;</button>*/}
 
                     {/* heading */}
-                    <button onClick={() => editor?.chain().focus().toggleHeading({level: 3}).run()} className={`shrink-0 pt-[0.5px] material-symbols-outlined text-[25px] w-9 h-8 rounded-md ${editor?.isActive('heading', {level: 3}) ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xf018;</button>
+                    <button onClick={() => editor?.chain().focus().toggleHeading({level: 3}).run()} className={`shrink-0 material-symbols-outlined text-[29px] w-9 h-8 rounded-md ${editor?.isActive('heading', {level: 3}) ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xf018;</button>
                     {/* table */}
                     {/*<button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xf191;</button>*/}
                     {/* list */}
