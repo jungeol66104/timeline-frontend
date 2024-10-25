@@ -32,7 +32,8 @@ const RelatedTimelines = () => {
 
     useEffect(() => {
         const swiperContainer = swiperContainerRef.current
-        if (!swiperContainer || getIsTouchable()) return
+        // if (!swiperContainer || getIsTouchable()) return
+        if (!swiperContainer) return
 
         const handleResize = () => {
             const hasScroll = swiperContainer.scrollWidth > swiperContainer.clientWidth
