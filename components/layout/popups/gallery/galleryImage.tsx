@@ -12,6 +12,7 @@ const galleryImage = memo(({information} : {information : Timeline}) => {
 
     const src = timelineType === 'demo' && !getIsBaseImage(information.imagePath!) ? information.imagePath! : information.cdnUrl! + information.imagePath!
     const alt = information.title
+    const imageSize = information.imageSize || {width: 100, height: 100};
 
     const isBaseImage = getIsBaseImage(src)
 

@@ -14,8 +14,9 @@ const Gallery = () => {
     if (!portal) return
 
     return ReactDOM.createPortal(
-        <div onClick={() => dispatch(updateShowGallery(false))} className={'gallery fixed top-0 left-0 w-full h-full flex items-center justify-center'} style={{zIndex: 5003}}>
-            <GalleryImage information={currentTimeline} />
+        <div className={'gallery fixed top-0 left-0 w-full h-full flex items-center justify-center'} style={{zIndex: 5003}}>
+            <GalleryImage information={currentTimeline}/>
+            <button onClick={() => dispatch(updateShowGallery(false))} className={'material-symbols-outlined text-[20px] text-white z-10 absolute bottom-3 left-1/2 transform -translate-x-1/2 px-2 h-[36px] bg-black hover:bg-gray-700 opacity-70 rounded-2xl shrink-0 '}>&#xe5cd;</button>
         </div>,
         portal
     );
