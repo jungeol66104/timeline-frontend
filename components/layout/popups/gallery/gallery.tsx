@@ -21,11 +21,11 @@ const Gallery = () => {
             </div>
             <GalleryImage information={currentTimeline}/>
             <div className={'px-3 w-full h-[60px] flex items-center justify-center opacity-70'}>
-                <div className={`flex items-center gap-2.5`}>
-                    <button className={`material-symbols-outlined text-[20px] text-white flex items-center justify-center w-[30px] h-[30px] rounded-full border-[0.1px] border-gray-700 bg-black hover:bg-gray-700`}>&#xe5cb;</button>
-                    <span className={'text-white'}>1 / 33</span>
-                    <button className={`material-symbols-outlined text-[20px] text-white flex items-center justify-center w-[30px] h-[30px] rounded-full border-[0.1px] border-gray-700 bg-black hover:bg-gray-700`}>&#xe5cc;</button>
-                </div>
+                {/*<div className={`flex items-center gap-2.5`}>*/}
+                {/*    <button className={`material-symbols-outlined text-[20px] text-white text-center w-[30px] h-[30px] rounded-full border-[0.1px] border-gray-700 bg-black hover:bg-gray-700`}>&#xe5cb;</button>*/}
+                {/*    <span className={'text-white'}>1 / 33</span>*/}
+                {/*    <button className={`material-symbols-outlined text-[20px] text-white text-center w-[30px] h-[30px] rounded-full border-[0.1px] border-gray-700 bg-black hover:bg-gray-700`}>&#xe5cc;</button>*/}
+                {/*</div>*/}
             </div>
         </div>,
         portal
