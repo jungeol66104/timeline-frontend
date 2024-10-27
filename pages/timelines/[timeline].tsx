@@ -10,19 +10,20 @@ import api from "@/pages/api/api"
 import {wrapPTag} from "@/utils/global";
 import probe from "probe-image-size"
 
-export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({ req, query }) => {
+export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({req, query}) => {
     try {
         const jwt = req.cookies.timeline_jwt
         if (jwt) {
             const response = await api.get(`/user/info`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
-            if (response.data.code === 69999) return { notFound: true }
+            if (response.data.code === 69999) return {notFound: true}
             const data = response.data.data
 
             store.dispatch(updateSession(data))
         }
 
-        const response = await api.get(`/timeline/${Number(query?.timeline)}`, {headers: {lang: 'en'}})
-        if (response.data.code === 69999) return { notFound: true }
+        const response = await api.get(`/timeline/${query?.timeline}`, {headers: {lang: 'en'}})
+        if (response.status === 301) return {redirect: {destination: response.headers.location, permanent: true}}
+        if (response.data.code === 69999) return {notFound: true}
         const data = response.data.data
         // non-english languages error
         data.timelineInfo.imageSize = await probe(data.timelineInfo.cdnUrl + encodeURIComponent(data.timelineInfo.imagePath))

@@ -3,7 +3,7 @@ import {selectDemoKeyConcept, selectTimelineType, updateEventContentType, update
 import {selectCurrentEvents, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import {selectSession} from "@/store/slices/privateSlice";
 import {getTodayDate} from "@/utils/global";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 
 const AddEventButton = ({type}: {type: string}) => {
     const [showToolbarButton, setShowToolbarButton] = useState<boolean>(false)

@@ -1,3 +1,4 @@
 User-agent: *
+Allow: /favicon.ico
 
 Sitemap: https://timeline.vg/sitemap.xml
