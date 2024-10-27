@@ -12,13 +12,12 @@ const galleryImage = memo(({information} : {information : Timeline}) => {
 
     const src = timelineType === 'demo' && !getIsBaseImage(information.imagePath!) ? information.imagePath! : information.cdnUrl! + information.imagePath!
     const alt = information.title
-    const imageSize = information.imageSize || {width: 100, height: 100};
 
     const isBaseImage = getIsBaseImage(src)
 
     return (
-        <div className={`relative ${isBaseImage && 'hidden'}`}>
-            <Image className={'max-h-full max-w-full'} src={src} alt={alt} height={imageSize.height} width={imageSize.width} priority/>
+        <div className={`relative w-full h-full ${isBaseImage && 'hidden'}`}>
+            <Image src={src} alt={alt} fill style={{objectFit: "contain"}} priority/>
         </div>
     );
 });
