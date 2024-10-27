@@ -8,7 +8,7 @@ const EmptyEvents = () => {
                 <h2 className={'text-xl font-semibold'}>Start Timelining</h2>
                 <div>Create your first event for the timeline.</div>
             </div>
-            <AddEventButton />
+            <AddEventButton type={'events'}/>
         </div>
     );
 };
