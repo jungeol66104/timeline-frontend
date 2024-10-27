@@ -20,7 +20,7 @@ const InformationHistoryView = () => {
             <div className={'pt-4'}>
                 <h1 className={`w-full text-2xl font-bold`}>{currentTimelineView.title}</h1>
                 <div className={`w-fit text-md`}>{currentTimelineView.description}</div>
-                <div className={'w-full flex items-center justify-center'}><InformationModalImage information={currentTimelineView}/></div>
+                <div className={'w-full flex items-center justify-center'}><InformationModalImage resource={currentTimelineView}/></div>
                 <p className={'pt-3'}>{unwrapPTag(currentTimelineView.content)}</p>
             </div>
         </>
