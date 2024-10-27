@@ -6,7 +6,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
         const response = await api.get('/timeline/all?searchType=0&pageNum=1&pageSize=all', {headers: {lang: 'en'}})
         const timelines: any[] = response.data.data
         const timelineIds = timelines.map(timeline => timeline.id)
-        const urls = [...timelineIds.map(timelineId => `https://timeline.vg/timelines/${timelineId}`)]
+        const urls = ['https://timeline.vg/favicon.ico', ...timelineIds.map(timelineId => `https://timeline.vg/timelines/${timelineId}`)]
 
         res.setHeader('Content-Type', 'text/xml')
         res.write(`<?xml version="1.0" encoding="UTF-8"?>

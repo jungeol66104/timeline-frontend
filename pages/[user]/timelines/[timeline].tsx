@@ -1,23 +1,24 @@
-import probe from "probe-image-size"
-import api from "@/pages/api/api"
 import {storeWrapper} from "@/store/store";
-import {updateCurrentEvents, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice"
 import {updateTimelineType} from "@/store/slices/appearanceSlice";
+import {updateCurrentEvents, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice"
+import {updateProfile, updateProfileDraft, updateSession} from "@/store/slices/privateSlice";
 import DynamicHead from "@/components/dynamicHead";
 import TimelineSectionPrimary from "@/components/timelines/timelineSectionPrimary";
 import TimelineSectionSecondary from "@/components/timelines/timelineSectionSecondary";
+
+import api from "@/pages/api/api"
 import {wrapPTag} from "@/utils/global";
-import {updateProfile, updateProfileDraft, updateSession} from "@/store/slices/privateSlice";
+import probe from "probe-image-size"
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params, req}) => {
     try {
         const { user, timeline } = params as any
-        if (user && typeof user === 'string' && !user.startsWith('@')) return { notFound: true }
+        if (user && typeof user === 'string' && !user.startsWith('@')) return {notFound: true}
 
         const jwt = req.cookies.timeline_jwt
         if (jwt) {
             const response = await api.get(`/user/info`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
-            if (response.data.code === 69999) return { notFound: true }
+            if (response.data.code === 69999) return {notFound: true}
             const data = response.data.data
 
             store.dispatch(updateSession(data))
@@ -26,8 +27,9 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
         }
 
         if (jwt) {
-            const response = await api.get(`/user/timeline/${Number(timeline)}`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}})
-            if (response.data.code === 69999) return { notFound: true }
+            const response = await api.get(`/user/timeline/${timeline}`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}})
+            if (response.status === 301) return {redirect: {destination: response.headers.location, permanent: true}}
+            if (response.data.code === 69999) return {notFound: true}
             const data = response.data.data
             let newTimeline = {id:Number(timeline), title: data.title, description:data.description, content: wrapPTag(data.content), updatedDT: data.updatedDT, imagePath: data.imagePath, cdnUrl: data.cdnUrl, imageSize: {}}
             newTimeline.imageSize = await probe(newTimeline.cdnUrl + encodeURIComponent(newTimeline.imagePath))
