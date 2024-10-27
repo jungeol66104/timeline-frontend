@@ -18,9 +18,7 @@ const galleryImage = memo(({information} : {information : Timeline}) => {
     const isBaseImage = getIsBaseImage(src)
 
     return (
-        <div className={`${isBaseImage && 'hidden'} relative h-[calc(100%-105px)] flex items-center justify-center`}>
-            {/*<Image src={src} alt={alt} fill style={{objectFit: "contain"}} priority/>*/}
-            {/*<Image className={`${imageRatio > 1 ? 'max-w-full' : 'max-h-full'}`} src={src} alt={alt} width={imageSize.width} height={imageSize.height} priority/>*/}
+        <div className={`${isBaseImage && 'hidden'} relative h-[calc(100%-120px)] flex items-center justify-center`}>
             <Image className={`max-h-full`} src={src} alt={alt} width={imageSize.width} height={imageSize.height} style={{objectFit: "contain"}} priority/>
         </div>
     );
