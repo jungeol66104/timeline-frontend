@@ -6,7 +6,7 @@ import {Timeline} from "@/store/slices/contentsSlice";
 
 import {getIsBaseImage} from "@/utils/global";
 
-const InformationModalImage = memo(({information} : {information : Timeline}) => {
+const galleryImage = memo(({information} : {information : Timeline}) => {
     const dispatch = useDispatch()
     const timelineType = useSelector(selectTimelineType)
 
@@ -18,12 +18,11 @@ const InformationModalImage = memo(({information} : {information : Timeline}) =>
 
     return (
         <div className={`relative ${isBaseImage && 'hidden'}`}>
-            <Image className={'max-h-[400px] w-auto'} src={src} alt={alt} height={imageSize.height} width={imageSize.width} priority/>
-            <button onClick={() => {dispatch(updateShowGallery(true))}} className={'material-symbols-outlined text-[20px] text-white absolute bottom-3 right-3 w-9 h-9 bg-black hover:bg-gray-700 opacity-70 border-[0.1px] border-gray-700 rounded-md drop-shadow-sm'}>&#xe060;</button>
+            <Image className={'max-h-full max-w-full'} src={src} alt={alt} height={imageSize.height} width={imageSize.width} priority/>
         </div>
     );
 });
 
-export default InformationModalImage;
+export default galleryImage;
 
-InformationModalImage.displayName = 'InformationModalImage';
+galleryImage.displayName = 'GalleryImage';

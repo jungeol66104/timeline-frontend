@@ -12,7 +12,7 @@ import DeleteAccountPopup from "@/components/layout/popups/deleteAccountPopup";
 import DetachEventPopup from "@/components/layout/popups/detachEventPopup";
 import TitleErrorPopup from "@/components/layout/popups/titleErrorPopup";
 import SameTitlePopup from "@/components/layout/popups/sameTitlePopup";
-import Gallery from "@/components/layout/popups/gallery";
+import Gallery from "@/components/layout/popups/gallery/gallery";
 
 const Popups = () => {
     const popupType = useSelector(selectPopupType)
