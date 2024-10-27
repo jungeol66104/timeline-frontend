@@ -5,7 +5,7 @@ import KeynoteToggle from "@/components/timelines/events/keynoteToggle";
 const EventsMenubar = () => {
     return (
         <div className={'w-full flex justify-between'}>
-            <AddEventButton />
+            <AddEventButton type={'events'}/>
             <KeynoteToggle />
         </div>
     );
