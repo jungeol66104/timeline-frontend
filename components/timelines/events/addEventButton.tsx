@@ -1,10 +1,10 @@
-import {getTodayDate} from "@/utils/global";
 import {useDispatch, useSelector} from "react-redux";
 import {selectDemoKeyConcept, selectTimelineType, updateEventContentType, updateModalType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvents, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
-import {selectSession, updateSession} from "@/store/slices/privateSlice";
+import {selectSession} from "@/store/slices/privateSlice";
+import {getTodayDate} from "@/utils/global";
 
-const AddEventButton = () => {
+const AddEventButton = ({type}: {type: string}) => {
     const dispatch = useDispatch()
     const session = useSelector(selectSession)
     const timelineType = useSelector(selectTimelineType)
@@ -30,10 +30,19 @@ const AddEventButton = () => {
     }
 
     return (
-        <button onClick={handleClick} className={`pl-1.5 pr-2.5 flex items-center justify-center gap-1.5 h-[36px] border-[0.1px] border-gray-300 bg-white hover:bg-gray-100 drop-shadow-sm rounded-md ${timelineType === 'demo' && demoKeyConcept === 'edit' && 'outline outline-2 outline-blue-700'}`}>
-            <div className={'material-symbols-outlined text-[20px]'}>&#xe145;</div>
-            <div className={'text-sm font-semibold'}>Add Event</div>
-        </button>
+        <>
+            {type === 'events' &&
+                <button onClick={handleClick} className={`pl-1.5 pr-2.5 flex items-center justify-center gap-1.5 h-[36px] border-[0.1px] border-gray-300 bg-white hover:bg-gray-100 drop-shadow-sm rounded-md ${timelineType === 'demo' && demoKeyConcept === 'edit' && 'outline outline-2 outline-blue-700'}`}>
+                    <div className={'material-symbols-outlined text-[20px]'}>&#xe145;</div>
+                    <div className={'text-sm font-semibold'}>Add Event</div>
+                </button>
+            }
+            {type === 'toolbar' &&
+                <button onClick={handleClick} className={'w-[40px] h-[40px] flex items-center justify-center border-[0.1px] border-gray-300 rounded-lg bg-white hover:bg-gray-100 drop-shadow-md'}>
+                    <div className={'material-symbols-outlined text-[23px]'}>&#xe145;</div>
+                </button>
+            }
+        </>
     )
 }
 
