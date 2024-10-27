@@ -17,7 +17,7 @@ const Gallery = () => {
         <div className={'gallery fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center'} style={{zIndex: 5003}}>
             <div className={'px-3 w-full h-[60px] flex items-center justify-end'}><button onClick={() => dispatch(updateShowGallery(false))} className={'material-symbols-outlined text-[20px] text-white w-9 h-9 bg-black hover:bg-gray-700 opacity-70 rounded-full'}>&#xe5cd;</button></div>
             <GalleryImage information={currentTimeline}/>
-            <div className={'w-full h-[30px] flex flex-col items-center opacity-70'}>
+            <div className={'w-full h-[45px] flex flex-col items-center opacity-70'}>
                 {/*<div className={'text-md text-white line-clamp-1'}>{currentTimeline.title}</div>*/}
             </div>
         </div>,
