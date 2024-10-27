@@ -1,7 +1,7 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectEventContentType, selectModalType} from "@/store/slices/appearanceSlice";
-import {selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
+import {selectCurrentEvent, selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 import EventModalImage from "@/components/modals/eventModal/eventViewEdit/eventModalImage";
 import NewEventEditMenubar from "@/components/modals/eventModal/eventViewEdit/newEventEditMenubar";
 
@@ -20,7 +20,9 @@ const EventViewEdit = () => {
     const modalType = useSelector(selectModalType)
     const contentType = useSelector(selectEventContentType)
     const currentEvents = useSelector(selectCurrentEvents)
+    const currentEvent = useSelector(selectCurrentEvent)
     const currentEventDraft = useSelector(selectCurrentEventDraft)
+    const event = contentType === 'view' ? currentEvent : currentEventDraft
 
     const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
 
@@ -35,14 +37,14 @@ const EventViewEdit = () => {
             dispatch(updateCurrentEventDraft({...currentEventDraft, content: editor.getHTML()}))
             if (contentType === 'new' && isCreated) dispatch(updateEventInCurrentEvents({...currentEventDraft, content: editor.getHTML()}))
         },
-        content: `${currentEventDraft.content}`,
+        content: `${event.content}`,
         editable: contentType === 'edit' || contentType === 'new'
     }, [modalType, contentType])
 
     return (
         <div className={'relative w-full flex flex-col items-center gap-3'}>
             <hr className={'w-full'}/>
-            <EventModalImage event={currentEventDraft}/>
+            <EventModalImage event={event}/>
             <div className={'w-full'}><EditorContent editor={editor}/></div>
             {(contentType === 'edit' || contentType === 'new') && <NewEventEditMenubar editor={editor}/>}
         </div>

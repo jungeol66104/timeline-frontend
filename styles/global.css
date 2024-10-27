@@ -42,6 +42,15 @@ body {
     display: flex;
     flex-direction: column;
 }
+.gallery {
+    background-color: rgba(0, 0, 0, 0.92);
+}
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+    .gallery {
+        backdrop-filter: blur(20px) saturate(180%);
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+}
 
 /* layout responsive */
 @media (min-width: 0px) and (max-width: 852px) {
@@ -62,6 +71,10 @@ body {
         max-width: 1002px;
     }
 }
+
+/* gallery */
+
+
 
 /* scrollbar */
 .tagWrapper::-webkit-scrollbar {
