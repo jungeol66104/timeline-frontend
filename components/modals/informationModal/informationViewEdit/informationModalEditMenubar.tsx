@@ -5,7 +5,7 @@ import {selectTimelineType} from "@/store/slices/appearanceSlice";
 import AddImageButton from "@/components/common/addImageButton";
 import ImageEditButton from "@/components/common/imageEditButton";
 import ResetEditButton from "@/components/modals/resetEditButton";
-import SaveInformationButton from "@/components/modals/informationModal/informationEdit/saveInformationButton";
+import SaveInformationButton from "@/components/modals/informationModal/informationViewEdit/saveInformationButton";
 
 const InformationModalEditMenubar = ({editor, imagePath}:{editor: any, imagePath: string}) => {
     const timelineType = useSelector(selectTimelineType)

@@ -1,15 +1,15 @@
-import axios from "axios";
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectTimelineType, updateInformationContentType} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimelineDraft, updateCurrentTimeline} from "@/store/slices/contentsSlice";
+import axios from "axios";
 
 const SaveInformationButton = () => {
     const dispatch = useDispatch()
     const timelineType = useSelector(selectTimelineType)
     const currentTimelineDraft = useSelector(selectCurrentTimelineDraft);
 
-    const handleSave = async () => {
+    const handleClick = async () => {
         if (timelineType === 'private' || timelineType === 'public') {
             const body = {
                 "isPrivate": timelineType === 'public' ? 0 : 1,
@@ -31,12 +31,12 @@ const SaveInformationButton = () => {
             } catch (error) {console.error('Error creating event: ', error)}
         } else {
             dispatch(updateCurrentTimeline(currentTimelineDraft))
-            if (timelineType !== 'new') dispatch(updateInformationContentType('view'))
+            if (timelineType === 'demo') dispatch(updateInformationContentType('view'))
         }
     }
 
     return (
-        <button onClick={handleSave} className={`px-3 w-[58px] h-[36px] flex items-center justify-center bg-black border-[0.1px] border-gray-700 drop-shadow-sm rounded-md`}>
+        <button onClick={handleClick} className={`px-3 w-[58px] h-[36px] flex items-center justify-center bg-black border-[0.1px] border-gray-700 drop-shadow-sm rounded-md`}>
             <div className={'text-sm font-medium text-white'}>Save</div>
         </button>
     )

@@ -3,7 +3,7 @@ import Link from "next/link";
 import {useSelector} from "react-redux";
 import {selectCurrentTimelineView} from "@/store/slices/contentsSlice";
 import DiffButton from "@/components/modals/diffButton";
-import InformationModalImage from "@/components/modals/informationModal/informationView/informationModalImage";
+import InformationModalImage from "@/components/modals/informationModal/informationViewEdit/informationModalImage";
 import {unwrapPTag} from "@/utils/global";
 
 const InformationHistoryView = () => {

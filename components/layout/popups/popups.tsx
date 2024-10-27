@@ -1,6 +1,6 @@
-import React from 'react';
-import {useSelector} from "react-redux";
-import {selectPopupType} from "@/store/slices/appearanceSlice";
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {selectPopupType, selectShowGallery, updateShowGallery} from "@/store/slices/appearanceSlice";
 import SharePopup from "@/components/layout/popups/share/sharePopup";
 import LogInPopup from "@/components/layout/popups/login/logInPopup";
 import CreatePopup from "@/components/layout/popups/createPopup";
@@ -12,12 +12,15 @@ import DeleteAccountPopup from "@/components/layout/popups/deleteAccountPopup";
 import DetachEventPopup from "@/components/layout/popups/detachEventPopup";
 import TitleErrorPopup from "@/components/layout/popups/titleErrorPopup";
 import SameTitlePopup from "@/components/layout/popups/sameTitlePopup";
+import Gallery from "@/components/layout/popups/gallery/gallery";
 
 const Popups = () => {
     const popupType = useSelector(selectPopupType)
+    const showGallery = useSelector(selectShowGallery)
 
     return (
         <>
+            {showGallery && <Gallery/>}
             {popupType === 'share' && <SharePopup />}
             {popupType === 'signIn' && <LogInPopup />}
             {popupType === 'create' && <CreatePopup />}

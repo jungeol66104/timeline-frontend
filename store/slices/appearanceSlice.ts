@@ -7,20 +7,24 @@ const initialState = {
     currentPage: 1,
     totalPage: 1,
     isBottomEnd: true,
+
     tagNum: 0,
-    isKeynote: true,
-    showTimelineTitleBar: false,
     isMaintenance: false,
+    showTimelineTitleBar: false,
+    showGallery: false,
+    isKeynote: true,
+
     timelineType: 'public',
     modalType: 'none',
     informationContentType: 'view',
     informationHistoryType: 'list',
     eventContentType: 'view',
     eventHistoryType: 'list',
+
     demoKeyConcept: 'timeline',
     popupType: 'none',
     popupHistory: ['none'],
-    errorType: 'none'
+    errorType: 'none',
 } as initialAppearanceState
 
 const appearanceSlice = createSlice({
@@ -50,6 +54,9 @@ const appearanceSlice = createSlice({
         },
         updateShowTimelineTitleBar: (state, action) => {
             state.showTimelineTitleBar = action.payload
+        },
+        updateShowGallery: (state, action) => {
+            state.showGallery = action.payload
         },
         updateIsMaintenance: (state, action) => {
             state.isMaintenance = action.payload
@@ -97,6 +104,7 @@ export const {
     updateTagNum,
     updateIsKeynote,
     updateShowTimelineTitleBar,
+    updateShowGallery,
     updateIsMaintenance,
     updateTimelineType,
     updateModalType,
@@ -118,6 +126,7 @@ export const selectScrollTop = (state: RootState) => state.appearance.scrollTop
 export const selectTagNum = (state: RootState) => state.appearance.tagNum
 export const selectIsKeynote = (state: RootState) => state.appearance.isKeynote
 export const selectShowTimelineTitleBar = (state: RootState) => state.appearance.showTimelineTitleBar
+export const selectShowGallery = (state: RootState) => state.appearance.showGallery
 export const selectIsMaintenance = (state: RootState) => state.appearance.isMaintenance
 export const selectTimelineType = (state: RootState) => state.appearance.timelineType
 export const selectModalType = (state: RootState) => state.appearance.modalType
@@ -140,6 +149,7 @@ export interface initialAppearanceState {
     tagNum: number
     isKeynote: boolean
     showTimelineTitleBar: boolean
+    showGallery: boolean
     isMaintenance: boolean
 
     timelineType: 'public' | 'private' | 'new' | 'demo'

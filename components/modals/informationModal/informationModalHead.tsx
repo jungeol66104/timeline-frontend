@@ -2,8 +2,8 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectInformationContentType, selectTimelineType} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
-import InformationTitleEdit from "@/components/modals/informationModal/informationEdit/informationTitleEdit";
-import InformationDescriptionEdit from "@/components/modals/informationModal/informationEdit/informationDescriptionEdit";
+import InformationTitleEdit from "@/components/modals/informationModal/informationViewEdit/informationTitleEdit";
+import InformationDescriptionEdit from "@/components/modals/informationModal/informationViewEdit/informationDescriptionEdit";
 import InformationModalMenubar from "@/components/modals/informationModal/informationModalMenubar";
 
 const InformationModalHead = () => {

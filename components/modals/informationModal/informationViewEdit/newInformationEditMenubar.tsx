@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import SaveInformationButton from "@/components/modals/informationModal/informationEdit/saveInformationButton";
+import SaveInformationButton from "@/components/modals/informationModal/informationViewEdit/saveInformationButton";
 
 import {Editor} from "@tiptap/core";
 import AddImageButton from "@/components/common/addImageButton";
