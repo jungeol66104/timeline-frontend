@@ -1,10 +1,13 @@
 import {useDispatch, useSelector} from "react-redux";
-import {selectDemoKeyConcept, selectTimelineType, updateEventContentType, updateModalType, updatePopupType} from "@/store/slices/appearanceSlice";
+import {selectDemoKeyConcept, selectTimelineType, updateEventContentType, updateModalType, updatePopupType, updateShowTimelineTitleBar} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvents, updateCurrentEvent, updateCurrentEventDraft} from "@/store/slices/contentsSlice";
 import {selectSession} from "@/store/slices/privateSlice";
 import {getTodayDate} from "@/utils/global";
+import {useEffect, useRef, useState} from "react";
 
 const AddEventButton = ({type}: {type: string}) => {
+    const [showToolbarButton, setShowToolbarButton] = useState<boolean>(false)
+
     const dispatch = useDispatch()
     const session = useSelector(selectSession)
     const timelineType = useSelector(selectTimelineType)
@@ -12,6 +15,21 @@ const AddEventButton = ({type}: {type: string}) => {
     const currentEvents = useSelector(selectCurrentEvents)
 
     const isSession = Object.keys(session).length !== 0
+
+    useEffect(() => {
+        const eventsAddEventButton : HTMLButtonElement | null = typeof window !== 'undefined' ? document.querySelector('.eventsAddEventButton') : null
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    const isViewportAboveElement = entry.boundingClientRect.top > window.innerHeight;
+                    if (entry.isIntersecting || isViewportAboveElement) setShowToolbarButton(false)
+                    else setShowToolbarButton(true)
+                });
+            }, {rootMargin: '-60px 0px 0px 0px'});
+
+            if (eventsAddEventButton) observer.observe(eventsAddEventButton);
+    }, []);
+
 
     const handleClick = () => {
         const getNewId = () => {
@@ -32,12 +50,12 @@ const AddEventButton = ({type}: {type: string}) => {
     return (
         <>
             {type === 'events' &&
-                <button onClick={handleClick} className={`pl-1.5 pr-2.5 flex items-center justify-center gap-1.5 h-[36px] border-[0.1px] border-gray-300 bg-white hover:bg-gray-100 drop-shadow-sm rounded-md ${timelineType === 'demo' && demoKeyConcept === 'edit' && 'outline outline-2 outline-blue-700'}`}>
+                <button onClick={handleClick} className={`eventsAddEventButton pl-1.5 pr-2.5 flex items-center justify-center gap-1.5 h-[36px] border-[0.1px] border-gray-300 bg-white hover:bg-gray-100 drop-shadow-sm rounded-md ${timelineType === 'demo' && demoKeyConcept === 'edit' && 'outline outline-2 outline-blue-700'}`}>
                     <div className={'material-symbols-outlined text-[20px]'}>&#xe145;</div>
                     <div className={'text-sm font-semibold'}>Add Event</div>
                 </button>
             }
-            {type === 'toolbar' &&
+            {type === 'toolbar' && showToolbarButton &&
                 <button onClick={handleClick} className={'w-[40px] h-[40px] flex items-center justify-center border-[0.1px] border-gray-300 rounded-lg bg-white hover:bg-gray-100 drop-shadow-md'}>
                     <div className={'material-symbols-outlined text-[23px]'}>&#xe145;</div>
                 </button>
