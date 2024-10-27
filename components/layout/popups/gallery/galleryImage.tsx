@@ -17,7 +17,7 @@ const galleryImage = memo(({information} : {information : Timeline}) => {
     const isBaseImage = getIsBaseImage(src)
 
     return (
-        <div className={`relative w-full h-full ${isBaseImage && 'hidden'}`}>
+        <div className={`relative w-full h-[calc(100%-90px)] ${isBaseImage && 'hidden'}`}>
             <Image src={src} alt={alt} fill style={{objectFit: "contain"}} priority/>
         </div>
     );
