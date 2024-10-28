@@ -28,7 +28,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
 
         if (jwt) {
             const response = await api.get(`/user/timeline/${timeline}`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}})
-            if (response.status === 301) return {redirect: {destination: response.headers.location, permanent: true}}
+            if (response.data.data.isRedirect === 1) return {redirect: {destination: `/timelines/${response.data.data.timelinePath}`, permanent: true}}
             if (response.data.code === 69999) return {notFound: true}
             const data = response.data.data
             let newTimeline = {id:Number(timeline), title: data.title, description:data.description, content: wrapPTag(data.content), updatedDT: data.updatedDT, imagePath: data.imagePath, cdnUrl: data.cdnUrl, imageSize: {}}
