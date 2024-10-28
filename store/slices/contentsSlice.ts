@@ -129,8 +129,9 @@ export interface Timeline {
     title: string
     description: string
     content: string
-    imagePath?: string
+    timelinePath?: string
     cdnUrl?: string
+    imagePath?: string
     imageSize?: {width: number, height: number}
     contributors?: Contributors
     revisionNo?: number

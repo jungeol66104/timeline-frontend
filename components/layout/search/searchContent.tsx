@@ -1,10 +1,8 @@
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import React from "react";
-import {useSelector} from "react-redux";
-import {selectTab} from "@/store/slices/searchSlice";
 import {getIsBaseImage, mapStrToNum} from "@/utils/global";
-// refactoring: clear
+// should apply timelinePath rather than id
 
 const SearchContent = ({searchResult}: {searchResult: any}) => {
     const isBaseImage = getIsBaseImage(searchResult.imagePath)

@@ -13,7 +13,7 @@ const MoveToTimelineButton = () => {
 
     const handleClick = () => {
         dispatch(updateModalType('none'))
-        router.push(`/timelines/${currentTimeline.id}`)
+        router.push(`/timelines/${currentTimeline.timelinePath}`)
     }
 
     return (

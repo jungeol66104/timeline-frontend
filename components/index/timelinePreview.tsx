@@ -13,7 +13,7 @@ const TimelinePreview = ({timeline}: {timeline: Timeline}) => {
 
     const session = useSelector(selectSession);
 
-    const href = user && user.startsWith('@') ? `/@${session.username}/timelines/${timeline.id}` : `/timelines/${timeline.id}`
+    const href = user && user.startsWith('@') ? `/@${session.username}/timelines/${timeline.id}` : `/timelines/${timeline.timelinePath}`
     const isBaseImage = getIsBaseImage(timeline.imagePath)
     const informationContent = `<p>${getPlainText(timeline.content)}</p>`
 

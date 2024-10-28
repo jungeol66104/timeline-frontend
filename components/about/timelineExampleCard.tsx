@@ -8,7 +8,8 @@ import {selectCurrentTimelines} from "@/store/slices/contentsSlice";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {getPlainText, unwrapPTag} from "@/utils/global";
+import {getPlainText} from "@/utils/global";
+import {log} from "node:util";
 
 const TimelineExampleCard = () => {
     const currentTimelines = useSelector(selectCurrentTimelines).filter((timeline) => {
@@ -32,7 +33,7 @@ const TimelineExampleCard = () => {
         <div className={'overflow-hidden h-[403.33px] rounded-2xl hover:shadow-md'}>
             <Slider {...settings}>
                 {currentTimelines.map((timeline) => (
-                    <Link key={timeline.id} href={`/timelines/${timeline.id}`} className={'relative flex flex-col bg-[#F2F2F259] border-[1px] border-[#E5E7EB] rounded-2xl'}>
+                    <Link key={timeline.id} href={`/timelines/${timeline.timelinePath}`} className={'relative flex flex-col bg-[#F2F2F259] border-[1px] border-[#E5E7EB] rounded-2xl'}>
                         <div className={'relative h-[250px] flex items-end rounded-2xl'}>
                             <Image className={'rounded-t-2xl'} src={timeline.cdnUrl! + timeline.imagePath!} alt={'dummy'} fill style={{objectFit: "cover", objectPosition: "top"}}/>
                             <div className={'absolute z-10 w-full h-full bg-gradient-to-b from-[rgba(255,255,255,0)_43.75%] to-[rgb(250,249,244)_94.27%] rounded-t-3xl'}></div>
@@ -43,7 +44,6 @@ const TimelineExampleCard = () => {
                         <div className={'px-4 py-3 h-[152px]'}>
                             <h3 className={'text-2xl font-bold line-clamp-1'}>{timeline.title}</h3>
                             <div className={'text-gray-500 line-clamp-1'}>{timeline.description}</div>
-                            {/*<div className={'mt-3 text-sm line-clamp-3'}>{unwrapPTag(timeline.content)}</div>*/}
                             <div className={'mt-3 text-sm line-clamp-3'} dangerouslySetInnerHTML={{ __html: getPlainText(timeline.content)}}/>
                         </div>
                     </Link>
