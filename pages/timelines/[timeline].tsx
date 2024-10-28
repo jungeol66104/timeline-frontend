@@ -22,7 +22,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
         }
 
         const response = await api.get(`/timeline/${query?.timeline}`, {headers: {lang: 'en'}})
-        if (response.status === 301) return {redirect: {destination: response.headers.location, permanent: true}}
+        if (response.data.data.isRedirect === 1) return {redirect: {destination: `/timelines/${response.data.data.timelinePath}`, permanent: true}}
         if (response.data.code === 69999) return {notFound: true}
         const data = response.data.data
         // non-english languages error
