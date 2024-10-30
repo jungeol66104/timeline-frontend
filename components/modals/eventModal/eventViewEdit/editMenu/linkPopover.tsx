@@ -25,24 +25,23 @@ const LinkPopover = () => {
    useSearch()
 
     return (
-        <div className={`${editPopoverType !== 'link' && 'hidden'} absolute bottom-0 w-[220px] flex flex-col border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md`} style={{left: 0}}>
+        <div className={`${editPopoverType !== 'link' && 'hidden'} absolute bottom-0 w-[250px] flex flex-col border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md`} style={{left: 0}}>
             <div className={'py-0.5 w-full border-b-[1px] border-gray-300'}>
-                <div className={'px-0.5 w-full max-h-[150px] overflow-y-auto'}>
+                <div className={'overflow-y-auto px-0.5 w-full max-h-[150px] flex flex-col-reverse'}>
                     {searchedTimelines.length < 1 && searchValue === '' && <div className={'py-1 w-full'}></div>}
-                    {searchedTimelines.reverse().map((timeline, i) => {
-                        return <LinkPopoverSearchContent searchResult={timeline} key={i}/>
-                    })}
                     {searchValue !== '' &&
                         <button className={'p-1.5 w-full flex items-center gap-2.5 hover:text-blue-700 hover:bg-gray-100 rounded-sm'}>
                             <div className={'shrink-0 material-symbols-outlined pt-[0.5px] w-6 text-[22px] '}>&#xe178;</div>
                             <div className={'w-full text-start text-sm font-medium flex-1 line-clamp-1'}>Link to the URL</div>
                         </button>
                     }
+                    {searchedTimelines.map((timeline, i) => {
+                        return <LinkPopoverSearchContent searchResult={timeline} key={i}/>
+                    })}
                 </div>
             </div>
             <div className={'px-2 w-full h-9 flex items-center gap-3'}>
-                <input ref={inputRef} className={'w-full text-sm'} onChange={(e) => dispatch(updateSearchValue(e.target.value))} value={searchValue} placeholder={'Paste link or search timelines'}
-                       style={{outline: 'none'}}/>
+                <input ref={inputRef} className={'w-full'} onChange={(e) => dispatch(updateSearchValue(e.target.value))} value={searchValue} placeholder={'Paste link or search timelines'} style={{outline: 'none', transform: 'scale(0.875)', transformOrigin: 'top left'}}/>
                 {/*<button className={'shrink-0 material-symbols-outlined text-[22px] w-9 h-8 rounded-md hover:bg-gray-100'}>&#xe178;</button>*/}
             </div>
         </div>
