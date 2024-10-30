@@ -4,7 +4,7 @@ import {selectInformationContentType, selectTimelineType} from "@/store/slices/a
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import InformationTitleEdit from "@/components/modals/informationModal/informationViewEdit/informationTitleEdit";
 import InformationDescriptionEdit from "@/components/modals/informationModal/informationViewEdit/informationDescriptionEdit";
-import InformationModalMenubar from "@/components/modals/informationModal/informationModalMenubar";
+import InformationMenubar from "@/components/modals/informationModal/informationMenubar";
 
 const InformationModalHead = () => {
     const timelineType = useSelector(selectTimelineType);
@@ -23,7 +23,7 @@ const InformationModalHead = () => {
                     :   <div className={`w-fit text-md`}>{currentTimeline.description}</div>
                 }
             </div>
-            <InformationModalMenubar />
+            <InformationMenubar />
         </div>
     );
 };

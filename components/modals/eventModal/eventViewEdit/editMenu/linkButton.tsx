@@ -9,6 +9,8 @@ const LinkButton = ({editor}: {editor: Editor | null}) => {
     const dispatch = useDispatch()
 
     const handleClick = (e: React.MouseEvent) => {
+        editor?.chain().focus()
+
         const button = buttonRef.current
         const popover = typeof window !== 'undefined' ? document.querySelector('#linkPopover') : null
         if (!button || !popover) return

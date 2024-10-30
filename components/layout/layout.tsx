@@ -19,11 +19,11 @@ const Layout = ({ children } : {children: ReactNode}) => {
     // useScroll MUST COME LATER THAN ANY OTHER SCROLL ADJUSTING HOOKS
     useScroll()
 
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(updateModalType('event'))
-        dispatch(updateEventContentType('new'))
-    });
+    // const dispatch = useDispatch()
+    // useEffect(() => {
+    //     dispatch(updateModalType('event'))
+    //     dispatch(updateEventContentType('new'))
+    // });
 
     return (
         <div className={`layout relative ${isMaintenance ? '' : 'pt-[60px]'}`}>

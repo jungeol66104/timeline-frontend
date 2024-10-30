@@ -14,7 +14,7 @@ const EventEditRelationshipMenubar = () => {
     return (
         <div className={'p-0.5 flex items-center gap-0.5 h-[36px] border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
             <KeynoteButton/>
-            <button className={`px-2.5 h-8 text-sm rounded-md hover:bg-gray-100 font-semibold`}>Links</button>
+            {/*<button className={`px-2.5 h-8 text-sm rounded-md hover:bg-gray-100 font-semibold`}>Links</button>*/}
             {(contentType === 'edit' || (contentType === 'new' && isCreated)) && <DetachButton/>}
         </div>
     );

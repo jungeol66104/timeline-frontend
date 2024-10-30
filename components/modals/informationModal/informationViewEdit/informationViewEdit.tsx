@@ -14,6 +14,8 @@ import Bold from '@tiptap/extension-bold'
 import Link from '@tiptap/extension-link'
 import Strike from "@tiptap/extension-strike";
 import Placeholder from "@tiptap/extension-placeholder";
+import CustomLink from "@/utils/tiptap";
+import EventEditMenubar from "@/components/modals/eventModal/eventViewEdit/eventEditMenubar";
 
 const InformationViewEdit = () => {
     const dispatch = useDispatch()
@@ -27,8 +29,8 @@ const InformationViewEdit = () => {
         extensions: [
             Document, Paragraph, Text, Bold, Strike,
             Heading.configure({levels: [3], HTMLAttributes: {class: 'text-[22px] font-bold'}}),
-            Link.configure({HTMLAttributes: {class: 'cursor-pointer text-blue-700 hover:underline'}}),
-            Placeholder.configure({placeholder: "New timeline content"})
+            Placeholder.configure({placeholder: "New timeline content"}),
+            CustomLink
         ],
         editorProps: {attributes: {class: 'outline-none'}},
         onUpdate: ({ editor }) => dispatch(updateCurrentTimelineDraft({...currentTimelineDraft, content: editor.getHTML()})),
@@ -41,7 +43,12 @@ const InformationViewEdit = () => {
             <hr className={'w-full'}/>
             <InformationModalImage information={timeline}/>
             <div className={'w-full'}><EditorContent editor={editor}/></div>
-            {(contentType === 'edit' || contentType === 'new') && <InformationEditMenubar editor={editor}/>}
+            {(contentType === 'edit' || contentType === 'new') &&
+                <>
+                    <div className={'h-[28px]'}></div>
+                    <InformationEditMenubar editor={editor}/>
+                </>
+            }
         </div>
     )
 }

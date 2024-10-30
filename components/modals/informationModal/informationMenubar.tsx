@@ -8,7 +8,7 @@ import ContributorsButton from "@/components/common/contributorsButton";
 import InformationViewEditButton from "@/components/modals/informationModal/informationViewEditButton";
 import HistoryButton from "@/components/modals/historyButton";
 
-const InformationModalMenubar = () => {
+const InformationMenubar = () => {
     const session = useSelector(selectSession)
     const timelineType = useSelector(selectTimelineType);
     const demoKeyConcept = useSelector(selectDemoKeyConcept)
@@ -37,4 +37,4 @@ const InformationModalMenubar = () => {
         </div>
     )
 }
-export default InformationModalMenubar
+export default InformationMenubar
