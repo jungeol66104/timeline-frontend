@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectInformationContentType, selectModalType} from "@/store/slices/appearanceSlice";
 import {selectCurrentTimeline, selectCurrentTimelineDraft, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import InformationModalImage from "@/components/modals/informationModal/informationViewEdit/informationModalImage";
-import NewInformationEditMenubar from "@/components/modals/informationModal/informationViewEdit/newInformationEditMenubar";
+import InformationEditMenubar from "@/components/modals/informationModal/informationViewEdit/informationEditMenubar";
 
 import {useEditor, EditorContent} from '@tiptap/react'
 import Document from '@tiptap/extension-document'
@@ -41,7 +41,7 @@ const InformationViewEdit = () => {
             <hr className={'w-full'}/>
             <InformationModalImage information={timeline}/>
             <div className={'w-full'}><EditorContent editor={editor}/></div>
-            {(contentType === 'edit' || contentType === 'new') && <NewInformationEditMenubar editor={editor}/>}
+            {(contentType === 'edit' || contentType === 'new') && <InformationEditMenubar editor={editor}/>}
         </div>
     )
 }

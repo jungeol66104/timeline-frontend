@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectEventContentType, selectModalType} from "@/store/slices/appearanceSlice";
 import {selectCurrentEvent, selectCurrentEventDraft, selectCurrentEvents, updateCurrentEventDraft, updateEventInCurrentEvents} from "@/store/slices/contentsSlice";
 import EventModalImage from "@/components/modals/eventModal/eventViewEdit/eventModalImage";
-import NewEventEditMenubar from "@/components/modals/eventModal/eventViewEdit/newEventEditMenubar";
+import EventEditMenubar from "@/components/modals/eventModal/eventViewEdit/eventEditMenubar";
 
 import {useEditor, EditorContent} from '@tiptap/react'
 import Document from '@tiptap/extension-document'
@@ -46,7 +46,7 @@ const EventViewEdit = () => {
             <hr className={'w-full'}/>
             <EventModalImage event={event}/>
             <div className={'w-full'}><EditorContent editor={editor}/></div>
-            {(contentType === 'edit' || contentType === 'new') && <NewEventEditMenubar editor={editor}/>}
+            {(contentType === 'edit' || contentType === 'new') && <EventEditMenubar editor={editor}/>}
         </div>
     )
 }

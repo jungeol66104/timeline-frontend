@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {selectCurrentTimeline} from "@/store/slices/contentsSlice";
 import InformationModalImage from "@/components/modals/informationModal/informationViewEdit/informationModalImage";
-import NewInformationEditMenubar from "@/components/modals/informationModal/informationViewEdit/newInformationEditMenubar";
+import InformationEditMenubar from "@/components/modals/informationModal/informationViewEdit/informationEditMenubar";
 
 import {EditorContent, useEditor} from "@tiptap/react";
 import Document from '@tiptap/extension-document'

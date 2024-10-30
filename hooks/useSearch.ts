@@ -1,7 +1,7 @@
 import api from "@/pages/api/api";
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectSearchValue, updateSearchedEvents, updateSearchedTimelines} from "@/store/slices/searchSlice";
+import {selectSearchValue, updateSearchedTimelines} from "@/store/slices/searchSlice";
 import useDebounce from "@/hooks/useDebounce";
 
 const useSearch = () => {
@@ -14,25 +14,16 @@ const useSearch = () => {
 
         const fetchSearchResults = async (query: any) => {
             try {
-                const eventResponse = await api.get(`/search/event?searchText=${query}`, {headers: {lang: 'en'}})
-                const timelineResponse = await api.get(`/search/timeline?searchText=${query}`, {headers: {lang: 'en'}})
-                const timelines = timelineResponse.data.data
-                const events = eventResponse.data.data
-                return { timelines, events }
-            } catch (error) {
-                console.error('Error fetching searched timelines and events: ', error);
-                return { timelines: [], events: [] }
-            }
+                const response = await api.get(`/search/timeline?searchText=${query}`, {headers: {lang: 'en'}})
+                return response.data.data
+            } catch (error) {console.error('Error fetching searched timelines and events: ', error);}
         }
 
         const operateSearch = async () => {
             try {
-                let { timelines, events } = await fetchSearchResults(query)
+                const timelines = await fetchSearchResults(query)
                 dispatch(updateSearchedTimelines(timelines))
-                dispatch(updateSearchedEvents(events))
-            } catch (error) {
-                console.error('Error updating timelines, events and query: ', error);
-            }
+            } catch (error) {console.error('Error updating timelines, events and query: ', error);}
         }
 
         operateSearch()

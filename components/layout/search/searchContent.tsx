@@ -2,13 +2,12 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {getIsBaseImage, mapStrToNum} from "@/utils/global";
-// should apply timelinePath rather than id
 
 const SearchContent = ({searchResult}: {searchResult: any}) => {
     const isBaseImage = getIsBaseImage(searchResult.imagePath)
 
     return (
-        <Link href={`/timelines/${searchResult.id}`} className={'flex items-center py-1.5 gap-2.5'}>
+        <Link href={`/timelines/${searchResult.timelinePath}`} className={'flex items-center py-1.5 gap-2.5'}>
             <div className={'relative shrink-0 w-[28px] h-[28px]'}>
                 {isBaseImage
                     ?   <>
