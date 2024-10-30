@@ -23,12 +23,12 @@ const LinkPopover = ({editor}: {editor: Editor | null}) => {
    useSearch()
 
     const handleClick = (type: string, url: string, title?: string) => {
-       if (editor.state.selection.empty) {
+       if (editor?.state.selection.empty) {
            const text = type === 'timeline' ? title : url
            editor.chain().focus().insertContent(`<a href="${url}" target="_blank" rel="noopener noreferrer nofollow">${text}</a>`).run();
        }
 
-        editor.commands.setLink({href: url})
+        editor?.commands.setLink({href: url})
         dispatch(updateSearchValue(''))
         dispatch(updateEditPopoverType('none'))
     }
