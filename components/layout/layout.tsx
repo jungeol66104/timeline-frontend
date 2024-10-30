@@ -1,6 +1,6 @@
-import React, {ReactNode} from "react";
-import {useSelector} from "react-redux";
-import {selectIsMaintenance} from "@/store/slices/appearanceSlice";
+import React, {ReactNode, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {selectIsMaintenance, updateEventContentType, updateModalType} from "@/store/slices/appearanceSlice";
 import useLoadingState from "@/hooks/useLoadingState";
 import {useSession} from "@/hooks/useSession";
 import {useDisableScroll, usePopupDisableScroll, useScroll} from "@/hooks/useScroll";
@@ -18,6 +18,12 @@ const Layout = ({ children } : {children: ReactNode}) => {
     usePopupDisableScroll()
     // useScroll MUST COME LATER THAN ANY OTHER SCROLL ADJUSTING HOOKS
     useScroll()
+
+    // const dispatch = useDispatch()
+    // useEffect(() => {
+    //     dispatch(updateModalType('event'))
+    //     dispatch(updateEventContentType('new'))
+    // });
 
     return (
         <div className={`layout relative ${isMaintenance ? '' : 'pt-[60px]'}`}>

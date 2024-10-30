@@ -24,6 +24,7 @@ const initialState = {
     demoKeyConcept: 'timeline',
     popupType: 'none',
     popupHistory: ['none'],
+    editPopoverType: 'none',
     errorType: 'none',
 } as initialAppearanceState
 
@@ -88,6 +89,9 @@ const appearanceSlice = createSlice({
             newHistory.unshift(action.payload);
             state.popupHistory = newHistory.slice(0, 10);
         },
+        updateEditPopoverType: (state, action) => {
+          state.editPopoverType = action.payload
+        },
         updateErrorType: (state, action) => {
             state.errorType = action.payload
         },
@@ -114,6 +118,7 @@ export const {
     updateEventHistoryType,
     updateDemoKeyConcept,
     updatePopupType,
+    updateEditPopoverType,
     updateErrorType,
 } = appearanceSlice.actions;
 
@@ -137,6 +142,7 @@ export const selectEventHistoryType = (state: RootState) => state.appearance.eve
 export const selectDemoKeyConcept = (state: RootState) => state.appearance.demoKeyConcept
 export const selectPopupType = (state: RootState) => state.appearance.popupType
 export const selectPopupHistory = (state: RootState) => state.appearance.popupHistory
+export const selectEditPopoverType = (state: RootState) => state.appearance.editPopoverType
 export const selectErrorType = (state: RootState) => state.appearance.errorType
 
 // types
@@ -162,6 +168,7 @@ export interface initialAppearanceState {
     demoKeyConcept: 'timeline' | 'information' | 'event' | 'edit' | 'contributors'  | 'keynote' | 'private'
     popupType: popupType
     popupHistory: popupType[]
+    editPopoverType: 'none' | 'more' | 'link'
     errorType: 'none' |'date'
 }
 

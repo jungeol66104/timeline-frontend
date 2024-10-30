@@ -9,7 +9,7 @@ import Text from '@tiptap/extension-text'
 import Paragraph from '@tiptap/extension-paragraph'
 import {selectModalType} from "@/store/slices/appearanceSlice";
 import Link from "@tiptap/extension-link";
-import NewEventEditMenubar from "@/components/modals/eventModal/eventViewEdit/newEventEditMenubar";
+import EventEditMenubar from "@/components/modals/eventModal/eventViewEdit/eventEditMenubar";
 
 const EventView = () => {
     const modalType = useSelector(selectModalType)
@@ -27,7 +27,7 @@ const EventView = () => {
             <hr className={'w-full'}/>
             <EventModalImage event={currentEvent}/>
             <div className={'w-full'}><EditorContent editor={editor}/></div>
-            {/*<NewEventEditMenubar />*/}
+            {/*<EventEditMenubar />*/}
         </div>
     )
 }

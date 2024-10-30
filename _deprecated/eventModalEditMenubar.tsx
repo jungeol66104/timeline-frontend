@@ -6,9 +6,9 @@ import {selectCurrentEventDraft, selectCurrentEvents} from "@/store/slices/conte
 import AddImageButton from "@/components/common/addImageButton";
 import ImageEditButton from "@/components/common/imageEditButton";
 import ResetEditButton from "@/components/modals/resetEditButton";
-import DetachButton from "@/components/modals/eventModal/eventViewEdit/detachButton";
-import KeynoteButton from "@/components/modals/eventModal/eventViewEdit/keynoteButton";
-import SaveEventButton from "@/components/modals/eventModal/eventViewEdit/saveEventButton";
+import DetachButton from "@/components/modals/eventModal/eventViewEdit/editMenu/detachButton";
+import KeynoteButton from "@/components/modals/eventModal/eventViewEdit/editMenu/keynoteButton";
+import SaveEventButton from "@/components/modals/eventModal/eventViewEdit/editMenu/saveEventButton";
 
 const EventModalEditMenubar = ({editor, imagePath}:{editor: any, imagePath: string}) => {
     const eventContentType = useSelector(selectEventContentType)
