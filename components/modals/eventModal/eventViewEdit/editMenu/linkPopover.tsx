@@ -6,7 +6,7 @@ import LinkPopoverSearchContent from "@/components/modals/eventModal/eventViewEd
 import useSearch from "@/hooks/useSearch";
 import {Editor} from "@tiptap/core";
 
-const LinkPopover = ({editor}: {editor: Editor}) => {
+const LinkPopover = ({editor}: {editor: Editor | null}) => {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const dispatch = useDispatch()
