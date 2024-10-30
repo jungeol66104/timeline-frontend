@@ -1,13 +1,12 @@
 import React from "react";
-import Link from "next/link";
 import Image from "next/image";
 import {getIsBaseImage, mapStrToNum} from "@/utils/global";
 
-const SearchContent = ({searchResult}: {searchResult: any}) => {
+const LinkPopoverSearchContent = ({searchResult, handleClick}: {searchResult: any, handleClick: any}) => {
     const isBaseImage = getIsBaseImage(searchResult.imagePath)
-    // href={`/timelines/${searchResult.timelinePath}`}
+
     return (
-        <button className={'p-1.5 w-full flex items-center gap-2.5 hover:bg-gray-100 rounded-sm'}>
+        <button onClick={() => handleClick('timeline', `/timelines/${searchResult.timelinePath}`, searchResult.title)} className={'p-1.5 w-full flex items-center gap-2.5 hover:bg-gray-100 rounded-sm'}>
             <div className={'relative shrink-0 w-[24px] h-[24px]'}>
                 {isBaseImage
                     ?   <>
@@ -22,4 +21,4 @@ const SearchContent = ({searchResult}: {searchResult: any}) => {
         </button>
     )
 }
-export default SearchContent
+export default LinkPopoverSearchContent

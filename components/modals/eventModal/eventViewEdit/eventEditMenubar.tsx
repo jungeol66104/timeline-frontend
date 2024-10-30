@@ -93,7 +93,7 @@ const EventEditMenubar = ({editor}: {editor: Editor | null}) => {
                     {/* list */}
                     {/*<button className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md hover:bg-gray-100`}>&#xe241;</button>*/}
 
-                    <LinkButton/>
+                    <LinkButton editor={editor}/>
                     {/* bold */}
                     <button onClick={() => editor?.chain().focus().toggleBold().run()} className={`shrink-0 material-symbols-outlined text-[22px] w-9 h-8 rounded-md ${editor?.isActive('bold') ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xe238;</button>
                     {/* strike */}

@@ -1,13 +1,12 @@
 import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectEditPopoverType} from "@/store/slices/appearanceSlice";
+import {selectEditPopoverType, updateEditPopoverType} from "@/store/slices/appearanceSlice";
 import {selectSearchedTimelines, selectSearchValue, updateSearchValue} from "@/store/slices/searchSlice";
 import LinkPopoverSearchContent from "@/components/modals/eventModal/eventViewEdit/editMenu/linkPopoverSearchContent";
 import useSearch from "@/hooks/useSearch";
-import Image from "next/image";
-import {mapStrToNum} from "@/utils/global";
+import {Editor} from "@tiptap/core";
 
-const LinkPopover = () => {
+const LinkPopover = ({editor}: {editor: Editor}) => {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const dispatch = useDispatch()
@@ -21,29 +20,36 @@ const LinkPopover = () => {
 
         if (editPopoverType === 'link') searchInput.focus()
     }, [editPopoverType]);
-
    useSearch()
 
+    const handleClick = (type: string, url: string, title?: string) => {
+       if (editor.state.selection.empty) {
+           const text = type === 'timeline' ? title : url
+           editor.chain().focus().insertContent(`<a href="${url}" target="_blank" rel="noopener noreferrer nofollow">${text}</a>`).run();
+       }
+
+        editor.commands.setLink({href: url})
+        dispatch(updateSearchValue(''))
+        dispatch(updateEditPopoverType('none'))
+    }
+
     return (
-        <div className={`${editPopoverType !== 'link' && 'hidden'} absolute bottom-0 w-[250px] flex flex-col border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md`} style={{left: 0}}>
-            <div className={'py-0.5 w-full border-b-[1px] border-gray-300'}>
+        <div id={'linkPopover'} className={`${editPopoverType !== 'link' && 'hidden'} absolute bottom-0 w-[250px] flex flex-col border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md`} style={{left: 0}}>
+            <div className={'py-0.5 w-full border-b-[0.1px] border-gray-300'}>
                 <div className={'overflow-y-auto px-0.5 w-full max-h-[150px] flex flex-col-reverse'}>
                     {searchedTimelines.length < 1 && searchValue === '' && <div className={'py-1 w-full'}></div>}
                     {searchValue !== '' &&
-                        <button className={'p-1.5 w-full flex items-center gap-2.5 hover:text-blue-700 hover:bg-gray-100 rounded-sm'}>
+                        <button onClick={() => handleClick('url', searchValue)} className={'p-1.5 w-full flex items-center gap-2.5 hover:text-blue-700 hover:bg-gray-100 rounded-sm'}>
                             <div className={'shrink-0 material-symbols-outlined pt-[0.5px] w-6 text-[22px] '}>&#xe178;</div>
                             <div className={'w-full text-start text-sm font-medium flex-1 line-clamp-1'}>Link to the URL</div>
                         </button>
                     }
                     {searchedTimelines.map((timeline, i) => {
-                        return <LinkPopoverSearchContent searchResult={timeline} key={i}/>
+                        return <LinkPopoverSearchContent handleClick={handleClick} key={i} searchResult={timeline}/>
                     })}
                 </div>
             </div>
-            <div className={'px-2 w-full h-9 flex items-center gap-3'}>
-                <input ref={inputRef} className={'w-full'} onChange={(e) => dispatch(updateSearchValue(e.target.value))} value={searchValue} placeholder={'Paste link or search timelines'} style={{outline: 'none', transform: 'scale(0.875)', transformOrigin: 'top left'}}/>
-                {/*<button className={'shrink-0 material-symbols-outlined text-[22px] w-9 h-8 rounded-md hover:bg-gray-100'}>&#xe178;</button>*/}
-            </div>
+            <div className={'px-2 w-full h-9 flex items-center'}><input ref={inputRef} className={'w-full'} onChange={(e) => dispatch(updateSearchValue(e.target.value))} value={searchValue} placeholder={'Paste link or search timelines'} style={{outline: 'none', transform: 'scale(0.875)', transformOrigin: 'top left'}}/></div>
         </div>
     );
 };
