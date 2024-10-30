@@ -49,7 +49,12 @@ const EventViewEdit = () => {
             <hr className={'w-full'}/>
             <EventModalImage event={event}/>
             <div className={'w-full'}><EditorContent editor={editor}/></div>
-            {(contentType === 'edit' || contentType === 'new') && <EventEditMenubar editor={editor}/>}
+            {(contentType === 'edit' || contentType === 'new') &&
+                <>
+                    <div className={'h-[28px]'}></div>
+                    <EventEditMenubar editor={editor}/>
+                </>
+            }
         </div>
     )
 }
