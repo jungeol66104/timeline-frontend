@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next'
 import api from "@/pages/api/api";
+import { escapeXML } from "@/utils/global"
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     if (res) {
@@ -13,7 +14,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
         res.setHeader('Content-Type', 'text/xml')
         res.write(`<?xml version="1.0" encoding="UTF-8"?>
             <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-                ${urls.map(url => `<url><loc>${url}</loc></url>`).join('')}
+                ${urls.map(url => `<url><loc>${escapeXML(url)}</loc></url>`).join('')}
             </urlset>`)
         res.end()
     }

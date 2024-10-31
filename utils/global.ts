@@ -164,3 +164,11 @@ export const getPlainText = (htmlContent: string) => {
     }
     return plainText;
 }
+
+export const escapeXML = (value: string) => {
+    return value.replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;");
+}
