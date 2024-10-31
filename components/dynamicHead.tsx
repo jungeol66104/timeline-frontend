@@ -19,8 +19,8 @@ const DynamicHead = ({type}: {type: string}) => {
 
     switch (type) {
         case "publicTimeline":
-            title = `History of ${currentTimeline.title} - Key events, Facts, Dates | Timeline`;
-            description = `Explore the complete timeline of ${currentTimeline.title}, showcasing key events, facts, and milestones that shaped its journey. Dive into history and uncover everything in one simple, engaging view.`
+            title = `History of ${currentTimeline.title} - Wiki, Key events, Facts, Dates | Timeline`;
+            description = `Explore the complete timeline of ${currentTimeline.title} in timeline wiki, showcasing key events, facts, and milestones that shaped its journey. Dive into history and uncover everything in one simple, engaging view.`
             break;
         case "newTimeline":
             title = 'New timeline | Timeline'
@@ -32,7 +32,7 @@ const DynamicHead = ({type}: {type: string}) => {
             break
         case "privateTimeline":
             title = `History of ${currentTimeline.title} - By ${profile.username} | Timeline`;
-            description = `Explore the complete timeline of ${currentTimeline.title}, showcasing key events, facts, and milestones that shaped its journey. Dive into history and uncover everything in one simple, engaging view.`
+            description = `Explore the complete timeline of ${currentTimeline.title} in timeline wiki, showcasing key events, facts, and milestones that shaped its journey. Dive into history and uncover everything in one simple, engaging view.`
             break
         case "about":
             title = 'Capture and share your interest - Free online timeline maker & Timeline wiki | Timeline'
