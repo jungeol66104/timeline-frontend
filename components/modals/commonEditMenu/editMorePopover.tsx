@@ -22,7 +22,7 @@ const EditMorePopover = () => {
              style={{right: 0}}>
             <div className={'flex items-center justify-between gap-2'}>
                 <div className={'pl-1.5 text-sm font-medium line-clamp-2'}>Select a thumbnail link</div>
-                <button className={`shrink-0 px-2.5 w-[100px] h-9 text-sm font-semibold hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md`}>Links</button>
+                <button className={`shrink-0 px-2.5 w-[100px] h-8 text-sm font-semibold hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md`}>Links</button>
             </div>
             <hr/>
             <div className={'flex items-center justify-between gap-2'}>
