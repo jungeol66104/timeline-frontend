@@ -26,7 +26,7 @@ const EditMorePopover = () => {
             </div>
             <hr/>
             <div className={'flex items-center justify-between gap-2'}>
-                <div className={'pl-1.5 text-sm font-medium line-clamp-2'}>Show in entry view</div>
+                <div className={'pl-1.5 text-sm font-medium line-clamp-2'}>Display as key event</div>
                 <KeynoteButton/>
             </div>
             <hr/>
