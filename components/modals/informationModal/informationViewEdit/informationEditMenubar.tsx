@@ -71,7 +71,7 @@ const InformationEditMenubar = ({editor}: {editor: Editor | null}) => {
     }
 
     return (
-        <div className={'sticky bottom-3 w-full flex justify-between gap-3'}>
+        <div className={'sticky bottom-3 w-full flex justify-between gap-3 z-30'}>
             <EditPopovers editor={editor}/>
             <div className={'relative overflow-x-hidden max-w-[307.33px] h-9 flex items-center border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md'}>
                 <div onClick={() => handleClick('prev')} className={`${(scrollPosition === 'start' || !showButtons) && 'hidden'} cursor-pointer absolute top-0 left-0 w-6 h-full flex items-center justify-center bg-white opacity-100 hover:bg-gray-100 border-r-[0.1px] border-gray-300 rounded-l-md`}><span className={`material-symbols-outlined text-[20px]`}>&#xe5cb;</span></div>
