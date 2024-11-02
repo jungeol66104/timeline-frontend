@@ -1,18 +1,19 @@
 import React, {useRef} from 'react';
-import {useDispatch} from "react-redux";
-import {updateEditPopoverType} from "@/store/slices/appearanceSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {selectModalType, updateEditPopoverType} from "@/store/slices/appearanceSlice";
 import { Editor } from '@tiptap/react';
 
 const LinkButton = ({editor}: {editor: Editor | null}) => {
     const buttonRef = useRef<HTMLButtonElement>(null)
 
     const dispatch = useDispatch()
+    const modalType = useSelector(selectModalType)
 
     const handleClick = (e: React.MouseEvent) => {
         editor?.chain().focus()
 
         const button = buttonRef.current
-        const popover = typeof window !== 'undefined' ? document.querySelector('#linkPopover') : null
+        const popover = typeof window !== 'undefined' ? document.querySelector(modalType === 'information' ? '.informationModal' : '.eventModal')?.querySelector('#linkPopover') : null
         if (!button || !popover) return
 
         if (editor?.getAttributes('link').href) editor?.commands.unsetLink()

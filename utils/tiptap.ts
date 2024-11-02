@@ -11,7 +11,7 @@ const CustomLink = Link.extend({
 
         const attributes = isInternalLink
             ?   {...HTMLAttributes, rel: 'noopener', class: 'cursor-pointer text-blue-700 hover:underline'}
-            :   {...HTMLAttributes, rel: 'noopener noreferrer nofollow', target: '_blank', class: 'cursor-pointer hover:underline', style: 'color: #EC9F19',};
+            :   {...HTMLAttributes, rel: 'noopener noreferrer nofollow', target: '_blank', class: 'cursor-pointer hover:underline', style: 'color: #009900',};
 
         return ['a', attributes, 0];
     },
