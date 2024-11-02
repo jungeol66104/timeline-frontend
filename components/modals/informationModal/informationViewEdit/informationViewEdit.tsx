@@ -11,11 +11,9 @@ import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import Heading from '@tiptap/extension-heading'
 import Bold from '@tiptap/extension-bold'
-import Link from '@tiptap/extension-link'
 import Strike from "@tiptap/extension-strike";
 import Placeholder from "@tiptap/extension-placeholder";
 import CustomLink from "@/utils/tiptap";
-import EventEditMenubar from "@/components/modals/eventModal/eventViewEdit/eventEditMenubar";
 
 const InformationViewEdit = () => {
     const dispatch = useDispatch()
