@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {selectEditPopoverType, updateEditPopoverType} from "@/store/slices/appearanceSlice";
 import {selectSearchedTimelines, selectSearchValue, updateSearchValue} from "@/store/slices/searchSlice";
-import LinkPopoverSearchContent from "@/components/modals/eventModal/eventViewEdit/editMenu/linkPopoverSearchContent";
+import LinkPopoverSearchContent from "@/components/modals/commonEditMenu/linkPopoverSearchContent";
 import useSearch from "@/hooks/useSearch";
 import {Editor} from "@tiptap/core";
 
@@ -34,9 +34,9 @@ const LinkPopover = ({editor}: {editor: Editor | null}) => {
     }
 
     return (
-        <div id={'linkPopover'} className={`${editPopoverType !== 'link' && 'hidden'} absolute bottom-0 w-[250px] flex flex-col border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md`} style={{left: 0}}>
+        <div id={'linkPopover'} className={`${editPopoverType !== 'link' && 'hidden'} absolute bottom-0 w-full max-w-[300px] flex flex-col border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md`} style={{left: 0}}>
             <div className={'py-0.5 w-full border-b-[0.1px] border-gray-300'}>
-                <div className={'overflow-y-auto px-0.5 w-full max-h-[150px] flex flex-col-reverse'}>
+                <div className={'overflow-y-auto px-0.5 w-full max-h-[170px] flex flex-col-reverse'}>
                     {searchedTimelines.length < 1 && searchValue === '' && <div className={'py-1 w-full'}></div>}
                     {searchValue !== '' &&
                         <button onClick={() => handleClick('url', searchValue)} className={'p-1.5 w-full flex items-center gap-2.5 hover:text-blue-700 hover:bg-gray-100 rounded-sm'}>
@@ -55,26 +55,3 @@ const LinkPopover = ({editor}: {editor: Editor | null}) => {
 };
 
 export default LinkPopover;
-
-// useLayoutEffect(() => {
-//     if (editPopoverType === 'link') {
-//         const button = buttonRef.current
-//         const menu = menuRef.current
-//         const editMenubar = button?.closest('.editMenubar')
-//         if (!button || !menu || !editMenubar) return
-//
-//         const buttonRect = button.getBoundingClientRect()
-//         const menuRect = menu.getBoundingClientRect()
-//         const editMenubarRect = editMenubar.getBoundingClientRect()
-//
-//         if (menuRect.left - editMenubarRect.left < 0) {
-//             menu.style.left = '0';
-//             menu.style.right = 'auto';
-//             menu.style.transform = `translateX(${-buttonRect.left}px)`;
-//         } else if (menuRect.right - editMenubarRect.right > 0) {
-//             menu.style.left = 'auto';
-//             menu.style.right = '0';
-//             menu.style.transform = `translateX(${editMenubarRect.right - buttonRect.right}px)`;
-//         }
-//     }
-// }, [isShow]);

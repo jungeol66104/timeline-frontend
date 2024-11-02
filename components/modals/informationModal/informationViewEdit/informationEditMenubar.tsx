@@ -5,8 +5,8 @@ import {Editor} from "@tiptap/core";
 import AddImageButton from "@/components/common/addImageButton";
 import {useSelector} from "react-redux";
 import {selectTimelineType} from "@/store/slices/appearanceSlice";
-import LinkButton from "@/components/modals/eventModal/eventViewEdit/editMenu/linkButton";
-import EditPopovers from "@/components/modals/eventModal/eventViewEdit/editMenu/editPopovers";
+import LinkButton from "@/components/modals/commonEditMenu/linkButton";
+import EditPopovers from "@/components/modals/commonEditMenu/editPopovers";
 
 const InformationEditMenubar = ({editor}: {editor: Editor | null}) => {
     const swiperWrapperRef = useRef<HTMLDivElement>(null)
