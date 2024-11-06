@@ -19,7 +19,7 @@ const Layout = ({ children } : {children: ReactNode}) => {
     // useScroll MUST COME LATER THAN ANY OTHER SCROLL ADJUSTING HOOKS
     useScroll()
 
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
     // useEffect(() => {
     //     dispatch(updateModalType('event'))
     //     dispatch(updateEventContentType('new'))

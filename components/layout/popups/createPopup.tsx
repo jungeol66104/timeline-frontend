@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Popup from "@/components/layout/popups/popup";
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentEvents, selectCurrentTimelineDraft, updateCurrentEvent} from "@/store/slices/contentsSlice";
+import {selectCurrentEvents, selectCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 import axios from "axios";
 import { useRouter } from 'next/router';
 import {updatePopupType} from "@/store/slices/appearanceSlice";
@@ -21,7 +21,8 @@ const CreatePopup = () => {
             "description": currentTimelineDraft.description,
             "content": currentTimelineDraft.content,
             "imagePath": currentTimelineDraft.imagePath,
-            "events": [...currentEvents].map(({date, ephemerisTime, title, content, imagePath, isKeynote}) => ({date, ephemerisTime, title, content, imagePath, isKeynote}))
+            "thumbnailLink": currentTimelineDraft.thumbnailLink,
+            "events": [...currentEvents].map(({date, ephemerisTime, title, content, imagePath,thumbnailLink , isKeynote}) => ({date, ephemerisTime, title, content, imagePath, thumbnailLink, isKeynote}))
         }
         try {
             const response = await axios.post('/api/wiki/timeline/create', body);

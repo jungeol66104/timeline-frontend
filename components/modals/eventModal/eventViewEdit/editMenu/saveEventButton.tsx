@@ -34,6 +34,7 @@ const SaveEventButton = () => {
                 "title": currentEventDraft.title,
                 "content": currentEventDraft.content,
                 "imagePath": currentEventDraft.imagePath,
+                "thumbnailLink": currentEventDraft.thumbnailLink,
                 "note": "",
             }
             const keynoteBody = {

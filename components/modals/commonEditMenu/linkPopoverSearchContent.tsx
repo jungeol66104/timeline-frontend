@@ -6,7 +6,7 @@ const LinkPopoverSearchContent = ({searchResult, handleClick}: {searchResult: an
     const isBaseImage = getIsBaseImage(searchResult.imagePath)
 
     return (
-        <button onClick={() => handleClick('timeline', `/timelines/${searchResult.timelinePath}`, searchResult.title)} className={'p-1.5 w-full flex items-center gap-2.5 hover:bg-gray-100 rounded-sm'}>
+        <button onClick={() => handleClick('timeline', `https://timeline.vg/timelines/${searchResult.timelinePath}`, searchResult.title)} className={'p-1.5 w-full flex items-center gap-2.5 hover:bg-gray-100 rounded-sm'}>
             <div className={'relative shrink-0 w-[24px] h-[24px]'}>
                 {isBaseImage
                     ?   <>

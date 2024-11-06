@@ -10,8 +10,9 @@ import {selectEventContentType, updateEventContentType, updateModalType} from "@
 import {selectCurrentEventDraft, selectCurrentEvents} from "@/store/slices/contentsSlice";
 import EventEditMoreButton from "@/components/modals/eventModal/eventViewEdit/editMenu/eventEditMoreButton";
 import EventEditRelationshipMenubar from "@/components/modals/eventModal/eventViewEdit/editMenu/eventEditRelationshipMenubar";
-import LinkButton from "@/components/modals/eventModal/eventViewEdit/editMenu/linkButton";
-import EditPopovers from "@/components/modals/eventModal/eventViewEdit/editMenu/editPopovers";
+import LinkButton from "@/components/modals/commonEditMenu/linkButton";
+import EditPopovers from "@/components/modals/commonEditMenu/editPopovers";
+import EditMoreButton from "@/components/modals/commonEditMenu/editMoreButton";
 
 const EventEditMenubar = ({editor}: {editor: Editor | null}) => {
     const swiperWrapperRef = useRef<HTMLDivElement>(null)
@@ -101,8 +102,9 @@ const EventEditMenubar = ({editor}: {editor: Editor | null}) => {
                 </div>
             </div>
             <div className={'flex gap-3'}>
-                <div className={'max-[469.9px]:hidden'}><EventEditRelationshipMenubar /></div>
-                <div className={'min-[470px]:hidden'}><EventEditMoreButton/></div>
+                {/*<div className={'max-[469.9px]:hidden'}><EventEditRelationshipMenubar /></div>*/}
+                {/*<div className={'min-[470px]:hidden'}><EventEditMoreButton/></div>*/}
+                <EditMoreButton/>
                 {contentType === 'edit' && <SaveEventButton/>}
             </div>
         </div>
