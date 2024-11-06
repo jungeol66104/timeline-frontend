@@ -19,6 +19,7 @@ const SaveInformationButton = () => {
                 "description": currentTimelineDraft.description,
                 "content": currentTimelineDraft.content,
                 "imagePath": currentTimelineDraft.imagePath,
+                "thumbnailLink": currentTimelineDraft.thumbnailLink,
                 "note": ""
             }
             try {

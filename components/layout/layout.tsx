@@ -20,10 +20,10 @@ const Layout = ({ children } : {children: ReactNode}) => {
     useScroll()
 
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(updateModalType('event'))
-        dispatch(updateEventContentType('new'))
-    });
+    // useEffect(() => {
+    //     dispatch(updateModalType('event'))
+    //     dispatch(updateEventContentType('new'))
+    // });
 
     return (
         <div className={`layout relative ${isMaintenance ? '' : 'pt-[60px]'}`}>

@@ -62,7 +62,6 @@ const DynamicHead = ({type}: {type: string}) => {
     return (
         <Head>
             <meta charSet="UTF-8"/>
-            {/*{(type !== "index" && type !== "timeline") && <meta name="robots" content="noindex" />}*/}
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
             <meta name="description" content={description}/>
             <meta name="author" content="timeline"/>
@@ -76,13 +75,24 @@ const DynamicHead = ({type}: {type: string}) => {
             <meta name="twitter:description" content={description}/>
             <meta name="twitter:image" content="/images/twitterImage.png"/>
             <meta name="format-detection" content="telephone=no"/>
+
+            <title>{title}</title>
+
             <link rel="canonical" href={url}/>
+
             <link rel="shortcut icon" href="/favicon.ico"/>
             <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-            <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
-            <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
-            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
-            <title>{title}</title>
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+            <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png"/>
+            <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png"/>
+            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+            <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png"/>
+            <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png"/>
+            <link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png"/>
+            <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png"/>
+            <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png"/>
+            <link rel="manifest" href="/site.webmanifest"/>
         </Head>
     );
 };

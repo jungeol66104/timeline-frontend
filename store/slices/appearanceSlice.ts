@@ -168,7 +168,7 @@ export interface initialAppearanceState {
     demoKeyConcept: 'timeline' | 'information' | 'event' | 'edit' | 'contributors'  | 'keynote' | 'private'
     popupType: popupType
     popupHistory: popupType[]
-    editPopoverType: 'none' | 'editMore' | 'link'
+    editPopoverType: 'none' | 'editMore' | 'link' | 'links'
     errorType: 'none' |'date'
 }
 

@@ -1,12 +1,13 @@
 import React, {useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {selectModalType, updateEditPopoverType} from "@/store/slices/appearanceSlice";
+import {selectEditPopoverType, selectModalType, updateEditPopoverType} from "@/store/slices/appearanceSlice";
 
 const EditMoreButton = () => {
     const buttonRef = useRef<HTMLButtonElement>(null)
 
     const dispatch = useDispatch()
     const modalType = useSelector(selectModalType)
+    const editPopoverType = useSelector(selectEditPopoverType)
 
     const handleClick = (e: React.MouseEvent) => {
         const button = buttonRef.current
@@ -19,6 +20,7 @@ const EditMoreButton = () => {
 
             document.addEventListener('click', function hideMenu(e: MouseEvent) {
                 if (!button.contains(e.target as Node) && !popover.contains(e.target as Node)) {
+                    if (editPopoverType !== 'editMore') return
                     dispatch(updateEditPopoverType('none'))
                     document.removeEventListener('click', hideMenu)
                 }

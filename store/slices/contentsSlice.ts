@@ -138,6 +138,7 @@ export interface Timeline {
     createdDT?: string
     updatedDT?: string
     informationUpdatedDT?: string
+    thumbnailLink?: string
 }
 
 export interface Event {
@@ -145,8 +146,8 @@ export interface Event {
     date: string
     title: string
     content: string
-    imagePath?: string
     cdnUrl?: string
+    imagePath?: string
     imageSize?: {width: number, height: number}
     ephemerisTime?: number
     isKeynote?: number
@@ -154,6 +155,7 @@ export interface Event {
     revisionNo?: number
     createdDT?: string
     updatedDT?: string
+    thumbnailLink?: string
 }
 
 export interface Contributors {

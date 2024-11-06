@@ -1,12 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
-import SaveInformationButton from "@/components/modals/informationModal/informationViewEdit/saveInformationButton";
-
-import {Editor} from "@tiptap/core";
-import AddImageButton from "@/components/common/addImageButton";
 import {useSelector} from "react-redux";
 import {selectTimelineType} from "@/store/slices/appearanceSlice";
+import SaveInformationButton from "@/components/modals/informationModal/informationViewEdit/saveInformationButton";
+import AddImageButton from "@/components/common/addImageButton";
 import LinkButton from "@/components/modals/commonEditMenu/linkButton";
 import EditPopovers from "@/components/modals/commonEditMenu/editPopovers";
+
+import {Editor} from "@tiptap/core";
+import EditMoreButton from "@/components/modals/commonEditMenu/editMoreButton";
 
 const InformationEditMenubar = ({editor}: {editor: Editor | null}) => {
     const swiperWrapperRef = useRef<HTMLDivElement>(null)
@@ -95,7 +96,10 @@ const InformationEditMenubar = ({editor}: {editor: Editor | null}) => {
                     <button onClick={() => editor?.chain().focus().toggleStrike().run()} className={`shrink-0 material-symbols-outlined text-[20px] w-9 h-8 rounded-md ${editor?.isActive('strike') ? 'bg-gray-200' : 'hover:bg-gray-100'}`}>&#xe257;</button>
                 </div>
             </div>
-            {timelineType !== 'new' && <SaveInformationButton/>}
+            <div className={'flex gap-3'}>
+                <EditMoreButton/>
+                {timelineType !== 'new' && <SaveInformationButton/>}
+            </div>
         </div>
     );
 };

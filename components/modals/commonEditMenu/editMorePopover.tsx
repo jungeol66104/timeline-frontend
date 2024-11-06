@@ -1,9 +1,10 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {selectEditPopoverType, selectEventContentType, selectInformationContentType, selectModalType} from "@/store/slices/appearanceSlice";
-import KeynoteButton from "@/components/modals/eventModal/eventViewEdit/editMenu/keynoteButton";
 import {selectCurrentEventDraft, selectCurrentEvents} from "@/store/slices/contentsSlice";
+import KeynoteButton from "@/components/modals/eventModal/eventViewEdit/editMenu/keynoteButton";
 import DetachButton from "@/components/modals/eventModal/eventViewEdit/editMenu/detachButton";
+import LinksButton from "@/components/modals/commonEditMenu/linksButton";
 
 const EditMorePopover = () => {
     const editPopoverType = useSelector(selectEditPopoverType)
@@ -17,29 +18,28 @@ const EditMorePopover = () => {
     const isCreated = currentEvents.findIndex((event) => event.id === currentEventDraft.id) !== -1
 
     return (
-        <div id={'editMorePopover'}
-             className={`${editPopoverType !== 'editMore' && 'hidden'} absolute bottom-0 p-1.5 pt-2 w-full max-w-[300px] max-h-[170px] flex flex-col gap-1.5 border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md`}
-             style={{right: 0}}>
+        <div id={'editMorePopover'} className={`${editPopoverType !== 'editMore' && 'hidden'} absolute bottom-0 p-1.5 w-full max-w-[300px] max-h-[170px] flex flex-col gap-1.5 border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md`} style={{right: 0}}>
             <div className={'flex items-center justify-between gap-2'}>
                 <div className={'pl-1.5 text-sm font-medium line-clamp-2'}>Select a thumbnail link</div>
-                <button className={`shrink-0 px-2.5 w-[100px] h-8 text-sm font-semibold hover:bg-gray-100 border-[0.1px] border-gray-300 drop-shadow-sm rounded-md`}>Links</button>
+                <LinksButton/>
             </div>
-            <hr/>
-            <div className={'flex items-center justify-between gap-2'}>
-                <div className={'pl-1.5 text-sm font-medium line-clamp-2'}>Display as key event</div>
-                <KeynoteButton/>
-            </div>
-            <hr/>
-            <div className={'flex items-center justify-between gap-2'}>
-                <div className={'pl-1.5 text-sm font-medium line-clamp-2'}>Remove from the timeline</div>
-                <DetachButton/>
-            </div>
-            {(modalType === 'event' && (contentType === 'edit' || (contentType === 'new' && isCreated))) &&
-                <div className={'flex items-center gap-2'}>
-                    <div className={'pl-1.5 text-xs line-clamp-2'}>Remove from the timeline</div>
-                    <DetachButton/>
-                </div>
+            {modalType === 'event' &&
+                <>
+                    <hr/>
+                    <div className={'flex items-center justify-between gap-2'}>
+                        <div className={'pl-1.5 text-sm font-medium line-clamp-2'}>Display as key event</div>
+                        <KeynoteButton/>
+                    </div>
+                </>
             }
+            {(modalType === 'event' && (contentType === 'edit' || (contentType === 'new' && isCreated))) &&
+                <>
+                    <hr/>
+                    <div className={'flex items-center justify-between gap-2'}>
+                        <div className={'pl-1.5 text-sm font-medium line-clamp-2'}>Remove from the timeline</div>
+                        <DetachButton/>
+                    </div>
+                </>}
         </div>
     );
 };

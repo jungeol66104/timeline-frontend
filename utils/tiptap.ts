@@ -6,8 +6,9 @@ const CustomLink = Link.extend({
         const href = mark.attrs.href;
 
         const linkDomain = new URL(href, window.location.origin).hostname;
-        const currentDomain = window.location.hostname; // Get the domain of the current site
-        const isInternalLink = linkDomain === currentDomain;
+        // const currentDomain = window.location.hostname;
+        // const isInternalLink = linkDomain === currentDomain;
+        const isInternalLink = linkDomain === 'timeline.vg';
 
         const attributes = isInternalLink
             ?   {...HTMLAttributes, rel: 'noopener', class: 'cursor-pointer text-blue-700 hover:underline'}

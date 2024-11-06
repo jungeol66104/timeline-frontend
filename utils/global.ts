@@ -3,6 +3,8 @@ import axios from "axios";
 import crypto from 'crypto'
 import DOMPurify from 'dompurify';
 
+export const timelineDomain = "timeline.vg"
+
 export const capitalize = (string: string) => {
     if (!string) return string;
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -123,10 +125,7 @@ export const getSession = async () => {
     try {
         const response = await axios.get('/api/user/session')
         return response.data
-    } catch (error) {
-        console.error('Error fetching data in useEffect: ', error)
-        return
-    }
+    } catch (error) {console.error('Error fetching data in useEffect: ', error)}
 }
 
 export const wrapPTag = (string: string) => {
@@ -172,3 +171,10 @@ export const escapeXML = (value: string) => {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&apos;");
 }
+
+export const isInternalLink = (url: string) => {
+    try {
+        const parsedUrl = new URL(url);
+        return parsedUrl.hostname === 'timeline.vg' && parsedUrl.pathname.startsWith('/timelines');
+    } catch (e) {return false}
+};

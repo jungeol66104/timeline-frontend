@@ -20,6 +20,7 @@ const LinkPopover = ({editor}: {editor: Editor | null}) => {
 
         if (editPopoverType === 'link') searchInput.focus()
     }, [editPopoverType]);
+
    useSearch()
 
     const handleClick = (type: string, url: string, title?: string) => {
@@ -35,19 +36,17 @@ const LinkPopover = ({editor}: {editor: Editor | null}) => {
 
     return (
         <div id={'linkPopover'} className={`${editPopoverType !== 'link' && 'hidden'} absolute bottom-0 w-full max-w-[300px] flex flex-col border-[0.1px] border-gray-300 bg-white drop-shadow-sm rounded-md`} style={{left: 0}}>
-            <div className={'py-0.5 w-full border-b-[0.1px] border-gray-300'}>
-                <div className={'overflow-y-auto px-0.5 w-full max-h-[170px] flex flex-col-reverse'}>
-                    {searchedTimelines.length < 1 && searchValue === '' && <div className={'py-1 w-full'}></div>}
-                    {searchValue !== '' &&
-                        <button onClick={() => handleClick('url', searchValue)} className={'p-1.5 w-full flex items-center gap-2.5 hover:text-blue-700 hover:bg-gray-100 rounded-sm'}>
-                            <div className={'shrink-0 material-symbols-outlined pt-[0.5px] w-6 text-[22px] '}>&#xe178;</div>
-                            <div className={'w-full text-start text-sm font-medium flex-1 line-clamp-1'}>Link to the URL</div>
-                        </button>
-                    }
-                    {searchedTimelines.map((timeline, i) => {
-                        return <LinkPopoverSearchContent handleClick={handleClick} key={i} searchResult={timeline}/>
-                    })}
-                </div>
+            <div className={'overflow-y-auto p-0.5 w-full max-h-[170px] flex flex-col-reverse border-b-[0.1px] border-gray-300'}>
+                {searchedTimelines.length < 1 && searchValue === '' && <div className={'py-1 w-full'}></div>}
+                {searchValue !== '' &&
+                    <button onClick={() => handleClick('url', searchValue)} className={'p-1.5 w-full flex items-center gap-2.5 hover:text-blue-700 hover:bg-gray-100 rounded-sm'}>
+                        <div className={'shrink-0 material-symbols-outlined pt-[0.5px] w-6 text-[22px] '}>&#xe178;</div>
+                        <div className={'w-full text-start text-sm font-medium flex-1 line-clamp-1'}>Link to the URL</div>
+                    </button>
+                }
+                {searchedTimelines.map((timeline, i) => {
+                    return <LinkPopoverSearchContent handleClick={handleClick} key={i} searchResult={timeline}/>
+                })}
             </div>
             <div className={'px-2 w-full h-9 flex items-center'}><input ref={inputRef} className={'w-full'} onChange={(e) => dispatch(updateSearchValue(e.target.value))} value={searchValue} placeholder={'Paste link or search timelines'} style={{outline: 'none', transform: 'scale(0.875)', transformOrigin: 'top left'}}/></div>
         </div>

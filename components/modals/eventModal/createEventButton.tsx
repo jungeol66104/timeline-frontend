@@ -33,6 +33,7 @@ const CreateEventButton = () => {
                 "content": currentEventDraft.content,
                 "imagePath": currentEventDraft.imagePath,
                 "isKeynote": currentEventDraft.isKeynote,
+                "thumbnailLink": currentEventDraft.thumbnailLink,
                 "note": "",
             }
 
