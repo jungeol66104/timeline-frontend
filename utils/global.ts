@@ -4,6 +4,7 @@ import crypto from 'crypto'
 import DOMPurify from 'dompurify';
 
 export const timelineDomain = "timeline.vg"
+export const discordLink = "https://discord.gg/mEPRVRnTjR"
 
 export const capitalize = (string: string) => {
     if (!string) return string;

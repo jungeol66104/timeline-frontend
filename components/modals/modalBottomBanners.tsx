@@ -2,7 +2,7 @@ import React from 'react';
 import {selectEventContentType, selectInformationContentType, selectModalType, selectTimelineType, updateEventContentType, updateInformationContentType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {selectSession} from "@/store/slices/privateSlice";
-import {getIsBaseImage} from "@/utils/global";
+import {discordLink, getIsBaseImage} from "@/utils/global";
 import {selectCurrentEvent, selectCurrentTimeline, updateCurrentEvent, updateCurrentEventDraft, updateCurrentTimeline, updateCurrentTimelineDraft} from "@/store/slices/contentsSlice";
 
 const ModalBottomBanners = () => {
@@ -71,7 +71,7 @@ const ModalBottomBanners = () => {
                     <div className={'text-sm text-gray-500'}>Connect and collaborate</div>
                 </div>
                 <div className={'text-center text-sm font-medium'}>Become part of our vibrant community! Share your thoughts, ask questions, and connect with other passionate editors.</div>
-                <a href={'https://discord.gg/273PZzCV'} target="_blank" rel="noopener noreferrer" className={'p-4 flex items-center justify-center h-[36px] rounded-full bg-[#6567E9] hover:bg-[#4E50D1] text-white text-sm font-medium border-[0.1px] border-gray-300'}>Join Discord</a>
+                <a href={discordLink} target="_blank" rel="noopener noreferrer" className={'p-4 flex items-center justify-center h-[36px] rounded-full bg-[#6567E9] hover:bg-[#4E50D1] text-white text-sm font-medium border-[0.1px] border-gray-300'}>Join Discord</a>
             </div>
         </div>
     );
