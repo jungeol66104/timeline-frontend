@@ -11,7 +11,7 @@ import useOperateProfile from "@/hooks/useOperateProfile";
 import axios from "axios";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params, req}) => {
-    const protocol = req.headers['x-forwarded-proto'] || 'http';
+    const protocol = process.env.VERCEL_ENV ? 'https' : (req.headers['x-forwarded-proto'] || 'http');
     const host = req.headers.host;
     const baseUrl = `${protocol}://${host}`;
 
