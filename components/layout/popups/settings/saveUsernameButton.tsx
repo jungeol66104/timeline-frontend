@@ -3,15 +3,24 @@ import React from 'react';
 import {useRouter} from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import {selectProfileDraft} from "@/store/slices/privateSlice";
-import {updatePopupType} from "@/store/slices/appearanceSlice";
+import {selectErrorType, updateErrorType, updatePopupType} from "@/store/slices/appearanceSlice";
 import {getIsBaseImage} from "@/utils/global";
+import api from "@/pages/api/api";
 
 const SaveUsernameButton = () => {
     const router = useRouter()
     const dispatch = useDispatch()
     const profileDraft = useSelector(selectProfileDraft)
+    const errorType = useSelector(selectErrorType);
 
     const handleClick = async () => {
+        if (errorType === 'username') return
+
+        const checkResponse = await api.get(`/user/${profileDraft.username}/contribution?pageNum=1&pageSize=1`, {headers: {lang: 'en'}})
+        if (checkResponse.data.code !== 69999) {
+            dispatch(updateErrorType('duplicateUsername'))
+            return
+        }
 
         const formData = new FormData();
         formData.append('username', profileDraft.username)
@@ -21,7 +30,7 @@ const SaveUsernameButton = () => {
         if (updateResponse.data.code === 69999) return
 
         dispatch(updatePopupType('none'))
-        router.push(`/@${profileDraft.username}`)
+        window.location.href = `/@${profileDraft.username}`
     }
 
     return (

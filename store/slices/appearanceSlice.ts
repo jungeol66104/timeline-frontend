@@ -169,7 +169,7 @@ export interface initialAppearanceState {
     popupType: popupType
     popupHistory: popupType[]
     editPopoverType: 'none' | 'editMore' | 'link' | 'links'
-    errorType: 'none' |'date'
+    errorType: 'none' | 'date' | 'username' | 'duplicateUsername'
 }
 
 type popupType = 'none' | 'share' | 'settings' | 'dateGuide' | 'publish' | 'create' | 'signIn' | 'dateError' | 'deleteAccount' | 'detachEvent' | 'titleError' | 'sameTitle'
