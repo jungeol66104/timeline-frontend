@@ -34,10 +34,10 @@ const ProfileBody = () => {
     }
 
     return (
-        <div>
-            <div className={'flex gap-2 pt-2 pb-1.5'}>
+        <div className={'w-full'}>
+            <div className={'w-full flex items-center gap-2 pt-2 pb-1.5'}>
+                {isSession && session.username === username && <button onClick={() => handleClick('timelines')} className={`h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] ${profileType === 'timelines' ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}>Timelines</button>}
                 <button onClick={() => handleClick('contributions')} className={`h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] ${profileType === 'contributions' ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}>Contributions</button>
-                {isSession && session.username === username && <button onClick={() => handleClick('timelines')} className={`h-[32px] w-fit shrink-0 px-3 flex items-center justify-center rounded-3xl border-[1px] ${profileType === 'timelines' ? 'border-black' : 'border-gray-200 hover:bg-gray-100'} bg-white text-sm font-semibold shrink-0`}>My Timelines</button>}
             </div>
             <hr/>
             {profileType === 'contributions' && <ProfileContributions />}
