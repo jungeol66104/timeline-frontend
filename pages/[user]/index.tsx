@@ -11,8 +11,9 @@ import useOperateProfile from "@/hooks/useOperateProfile";
 import axios from "axios";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params, req}) => {
-    const protocol = req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+    // const protocol = req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
     const host = req.headers.host?.split('/')[0];
+    const protocol = host?.includes('localhost') ? 'http' : 'https'
     const baseUrl = `${protocol}://${host}`;
 
     const user = params?.user as string
@@ -32,7 +33,7 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
             else type = 0
         } else type = 0
 
-        const response = await axios.get(`${baseUrl}/api/user/profile?type=${type}&user=${username}`, {headers: {Authorization: `Bearer ${jwt}`,},})
+        const response = await axios.get(`${baseUrl}/api/user/profile?type=${type}&user=${username}`, {headers: {Authorization: `Bearer ${jwt}`}})
         if (response.data.code === 69999) return { notFound: true }
         const data = response.data
 
