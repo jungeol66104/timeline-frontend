@@ -11,10 +11,10 @@ import useOperateProfile from "@/hooks/useOperateProfile";
 import axios from "axios";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params, req}) => {
-    // const protocol = req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
-    const host = req.headers.host?.split('/')[0];
-    const protocol = host?.includes('localhost') ? 'http' : 'https'
+    const protocol = req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
+    const host = req.headers.host;
     const baseUrl = `${protocol}://${host}`;
+    console.log(baseUrl, protocol, host)
 
     const user = params?.user as string
     if (!user.startsWith('@')) return { notFound: true }
