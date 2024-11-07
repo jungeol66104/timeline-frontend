@@ -33,7 +33,9 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
             else type = 0
         } else type = 0
 
-        const response = await axios.get(`${baseUrl}/api/user/profile?type=${type}&user=${username}`, {headers: {Authorization: `Bearer ${jwt}`}})
+        const response = jwt
+            ? await axios.get(`${baseUrl}/api/user/profile?type=${type}&user=${username}`, {headers: {Authorization: `Bearer ${jwt}`}})
+            : await axios.get(`${baseUrl}/api/user/profile?type=${type}&user=${username}`)
         if (response.data.code === 69999) return { notFound: true }
         const data = response.data
 
