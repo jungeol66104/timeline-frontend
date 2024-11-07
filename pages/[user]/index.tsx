@@ -8,14 +8,8 @@ import DynamicHead from "@/components/dynamicHead";
 import ProfileSectionPrimary from "@/components/private/profileSectionPrimary";
 import ProfileSectionSecondary from "@/components/private/profileSectionSecondary";
 import useOperateProfile from "@/hooks/useOperateProfile";
-import axios from "axios";
 
 export const getServerSideProps = storeWrapper.getServerSideProps((store) => async ({params, req}) => {
-    const protocol = req.headers['x-forwarded-proto'] === 'https' ? 'https' : 'http';
-    const host = req.headers.host;
-    const baseUrl = `${protocol}://${host}`;
-    console.log(baseUrl, protocol, host)
-
     const user = params?.user as string
     if (!user.startsWith('@')) return { notFound: true }
     const username = user.slice(1)
@@ -33,11 +27,15 @@ export const getServerSideProps = storeWrapper.getServerSideProps((store) => asy
             else type = 0
         } else type = 0
 
-        const response = jwt
-            ? await axios.get(`${baseUrl}/api/user/profile?type=${type}&user=${username}`, {headers: {Authorization: `Bearer ${jwt}`}})
-            : await axios.get(`${baseUrl}/api/user/profile?type=${type}&user=${username}`)
+        let response;
+        if (type === 0) {
+            response = await api.get(`/user/${username}/contribution?pageNum=1&pageSize=20`, {headers: {lang: 'en'}});
+        } else {
+            if (!jwt) return { notFound: true }
+            response = await api.get(`/user/timeline?pageNum=1&pageSize=20`, {headers: {lang: 'en', Authorization: `Bearer ${jwt}`}});
+        }
         if (response.data.code === 69999) return { notFound: true }
-        const data = response.data
+        const data = response.data.data
 
         if (type === 0) store.dispatch(updateCurrentPageContributions(data.aboutPageInfoList))
         else store.dispatch(updateCurrentTimelines(data.aboutPageInfoList))
