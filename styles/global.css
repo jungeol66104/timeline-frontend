@@ -29,6 +29,9 @@ p.is-editor-empty:first-child::before {
     background: black;
     z-index: 6000;
 }
+html, body {
+    background-color: white;
+}
 
 /* layout */
 html, body, #__next, .layout, .page {
