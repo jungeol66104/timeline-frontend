@@ -3,6 +3,9 @@
 @import url('./icons.css');
 
 /* global */
+:root {
+    background-color: white;
+}
 * {
     font-family: 'Inter', sans-serif;
 }
