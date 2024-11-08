@@ -50,7 +50,9 @@ const EventPreview = ({event} : {event: Event}) => {
 
     return (
         <div className={'relative flex gap-2'}>
-            <div className='z-10 w-3 h-3 bg-white border-2 border-gray-600 rounded-full shrink-0'></div>
+            <div className='z-10 w-3 h-3 flex items-center justify-center bg-white border-2 border-gray-600 rounded-full shrink-0'>
+                <div className={`${!Boolean(event.isKeynote) && 'hidden'} material-symbols-outlined text-blue-700 text-[10px] font-black`}>&#xf88b;</div>
+            </div>
             <div onClick={handleClick} className={`cursor-pointer p-2.5 w-[calc(100%-20px)] flex flex-col hover:bg-gray-100 border-[0.1px] border-gray-300 shadow-sm rounded-xl ${timelineType === 'demo' && demoKeyConcept === 'event' && 'outline outline-2 outline-blue-700'}`}>
                 <div className={'text-xs font-semibold text-gray-600 line-clamp-1'}>{event.date}</div>
                 <div className={'text-md font-bold break-words'}>{event.title}</div>
