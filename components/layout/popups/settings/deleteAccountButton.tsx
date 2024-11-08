@@ -5,7 +5,7 @@ const DeleteAccountButton = () => {
     const dispatch = useDispatch()
 
     return (
-        <button onClick={() => dispatch(updatePopupType('deleteAccount'))} className={'text-sm text-blue-700 hover:underline'}>Delete Account</button>
+        <button onClick={() => dispatch(updatePopupType('deleteAccount'))} className={'text-sm text-blue-700 font-medium hover:underline'}>Delete Account</button>
     );
 };
 
