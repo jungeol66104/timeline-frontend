@@ -7,7 +7,7 @@ const EventsMenubar = () => {
     return (
         <div className={'w-full flex justify-between'}>
             <AddEventButton type={'events'}/>
-            <div className={'flex items-baseline gap-1.5'}>
+            <div className={'flex items-baseline gap-1'}>
                 <EventCount/>
                 <KeynoteToggle />
             </div>
