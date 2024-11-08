@@ -63,7 +63,6 @@ const DynamicHead = ({type}: {type: string}) => {
         <Head>
             <meta charSet="UTF-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <meta name="theme-color" content="#ffffff"/>
             <meta name="description" content={description}/>
             <meta name="author" content="timeline"/>
             <meta property="og:title" content={title}/>
