@@ -3,9 +3,6 @@
 @import url('./icons.css');
 
 /* global */
-:root {
-    background-color: white;
-}
 * {
     font-family: 'Inter', sans-serif;
 }
@@ -31,9 +28,6 @@ p.is-editor-empty:first-child::before {
 #nprogress .bar {
     background: black;
     z-index: 6000;
-}
-html, body {
-    background-color: white;
 }
 
 /* layout */

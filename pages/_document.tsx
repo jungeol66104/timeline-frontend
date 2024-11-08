@@ -6,6 +6,7 @@ export default function Document() {
   return (
     <Html lang="en">
         <Head>
+            <meta name="theme-color" content="#ffffff"/>
             {/* google adsense */}
             <script
                 async
@@ -40,8 +41,8 @@ export default function Document() {
             />
         </Head>
         <body>
-            <Main/>
-            <NextScript/>
+        <Main/>
+        <NextScript/>
             <div id={'portal'}></div>
         </body>
     </Html>
